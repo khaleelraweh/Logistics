@@ -1,0 +1,83 @@
+<?php
+return [
+
+    // العناوين العامة
+    'manage_return_requests'        => 'إدارة المرتجعات',
+    'view_return_requests'          => 'عرض المرتجعات',
+    'add_new_return_request'        => 'إضافة مرتجع جديد',
+    'add_return_request'            => 'إضافة مرتجع',
+    'edit_return_request'           => 'تعديل المرتجعات',
+    'return_request_data'           => 'بيانات المرتجعات',
+    'return_request_description'    => 'يمكنك هنا إدارة ومتابعة المرتجعات.',
+    'return_request_info'           => 'معلومات المرتجعات',
+    'view_return_request'           => 'عرض تفاصيل المرتجع',
+    'additional_info'                => 'معلومات إضافية',
+
+    // أسماء الأعمدة
+    'id'                      => 'المعرف',
+    'package'                 => 'الطرد',
+    'merchant'                => 'التاجر',
+    'driver'                  => 'السائق',
+    'status'                  => 'الحالة',
+    'requested_at'            => 'تاريخ الطلب',
+    'received_at'             => 'تاريخ الاستلام',
+    'created_at'              => 'تاريخ الإنشاء',
+    'updated_at'              => 'تاريخ التحديث',
+    'note'                    => 'ملاحظة',
+    'reason'                  => 'سبب الإرجاع',
+    'target_address'          => 'العنوان الهدف',
+    'return_type'             => 'نوع الإرجاع',
+
+    // أنواع الإرجاع
+    'type_to_warehouse'       => 'إلى مستودع',
+    'type_to_merchant'        => 'إلى تاجر',
+    'type_to_both'            => 'إلى مستودع / تاجر',
+
+    // عناصر المرتجع
+    'return_items'            => 'عناصر المرتجع',
+    'return_item'             => 'عنصر المرتجع',
+    'product'                 => 'المنتج',
+    'shipped_qty'             => 'الكمية المشحونة',
+    'return_qty'              => 'كمية المرتجع',
+    'quantity'                => 'الكمية',
+    'type'                    => 'النوع',
+    'item_id'                 => 'معرف العنصر',
+
+    // الحالات
+    'status_requested'        => 'تم تقديم الطلب',
+    'status_in_transit'       => 'قيد النقل',
+    'status_received'        => 'تم الاستلام',
+    'status_rejected'        => 'مرفوض',
+    'status_partially_received' => 'تم الاستلام جزئيًا',
+    'status_cancelled'       => 'تم الإلغاء',
+    'unknown'                => 'غير معروف',
+
+    // العمليات
+    'show'                    => 'عرض',
+    'edit'                    => 'تعديل',
+    'delete'                  => 'حذف',
+    'save_return_request'     => 'حفظ بيانات طلب الإرجاع',
+    'update_return_request'   => 'تحديث بيانات طلب الإرجاع',
+    'back'                    => 'رجوع',
+
+    // رسائل
+    'no_return_requests_found'  => 'لا توجد طلبات مرتجع مسجلة حالياً.',
+    'return_request_created'    => 'تم إنشاء طلب الإرجاع بنجاح.',
+    'return_request_updated'    => 'تم تحديث بيانات طلب الإرجاع بنجاح.',
+    'return_request_deleted'    => 'تم حذف طلب الإرجاع بنجاح.',
+    'return_request_not_found'  => 'طلب الإرجاع غير موجود.',
+    'something_went_wrong'     => 'حدث خطأ ما، يرجى المحاولة مرة أخرى.',
+    'confirm_delete'           => 'هل أنت متأكد أنك تريد حذف هذا الطلب؟',
+    'yes_delete'               => 'نعم، احذف',
+    'cancel'                   => 'إلغاء',
+
+    // اختيارات
+    'select_driver'            => 'اختر السائق',
+    'select_package'           => 'اختر الطرد',
+
+    // إسناد
+    'assign_to_driver'        => 'إسناد لسائق',
+    'assigned_at'             => 'تاريخ التعيين',
+    'assign'                  => 'إسناد',
+
+];

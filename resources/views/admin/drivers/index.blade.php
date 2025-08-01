@@ -1,0 +1,150 @@
+@extends('layouts.admin')
+
+@section('content')
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">{{ __('driver.manage_drivers') }}</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('driver.view_drivers') }}</a></li>
+                    <li class="breadcrumb-item active">{{ __('driver.manage_drivers') }}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- drivers list -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="card-head d-flex justify-content-between">
+                    <div class="head">
+                        <h4 class="card-title"><i class="fas fa-eye"></i> {{ __('driver.driver_data') }}</h4>
+                        <p class="card-title-desc">{{ __('driver.driver_description') }}</p>
+                    </div>
+                    <div class="button-items">
+                        <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.drivers.create') }}">
+                            {{ __('driver.add_new_driver') }} <i class="ri-user-add-line align-middle ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>{{ __('driver.name') }}</th>
+                            <th>{{ __('driver.phone') }}</th>
+                            <th>{{ __('driver.location') }}</th>
+                            <th>{{ __('driver.availability_status') }}</th>
+                            <th>{{ __('driver.manager') }}</th>
+                            <th>{{ __('general.status') }}</th>
+                            <th>{{ __('general.created_at') }}</th>
+                            <th>{{ __('general.the_actions') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($drivers as $driver)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+
+                                <td>{{ Str::limit($driver->name ?? '', 20) }}</td>
+
+                                <td>{{ $driver->phone ?? '-' }}</td>
+
+                                <td>
+                                    @if($driver->current_latitude && $driver->current_longitude)
+                                        <a href="https://maps.google.com/?q={{ $driver->current_latitude }},{{ $driver->current_longitude }}" target="_blank">
+                                            📍 {{ number_format($driver->current_latitude, 4) }}, {{ number_format($driver->current_longitude, 4) }}
+                                        </a>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+
+                                <td>
+                                    @php
+                                        $avail = $driver->availability_status;
+                                        $availColors = [
+                                            'available' => 'success',
+                                            'busy' => 'warning',
+                                            'offline' => 'secondary',
+                                        ];
+                                    @endphp
+
+                                    <span class="badge bg-{{ $availColors[$avail] ?? 'secondary' }}">
+                                        {{ __('driver.'.$avail) }}
+                                    </span>
+                                </td>
+
+                                <td>{{ $driver->supervisor_id ?? '-' }}</td>
+
+                                <td>
+                                    @php
+                                        $status = $driver->status;
+                                        $statusColors = [
+                                            'active' => 'success',
+                                            'inactive' => 'secondary',
+                                            'suspended' => 'warning',
+                                            'terminated' => 'danger',
+                                        ];
+                                    @endphp
+
+                                    <span class="badge bg-{{ $statusColors[$status] ?? 'secondary' }}">
+                                        {{ __('driver.status_'.$status) }}
+                                    </span>
+                                </td>
+
+                                <td>{{ $driver->created_at ? $driver->created_at->diffForHumans() : '-' }}</td>
+
+                                <td>
+                                    <div class="btn-group me-2 mb-2 mb-sm-0">
+                                        <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{ __('general.operations') }} <i class="mdi mdi-dots-vertical ms-2"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            @ability('admin', 'show_drivers')
+                                                <a class="dropdown-item" href="{{ route('admin.drivers.show', $driver->id) }}">{{ __('general.show') }}</a>
+                                            @endability
+
+                                            @ability('admin', 'update_drivers')
+                                                <a class="dropdown-item" href="{{ route('admin.drivers.edit', $driver->id) }}">{{ __('general.edit') }}</a>
+                                            @endability
+
+                                            @ability('admin', 'delete_drivers')
+                                                <a class="dropdown-item" href="javascript:void(0)"
+                                                    onclick="confirmDelete('delete-driver-{{ $driver->id }}',
+                                                        '{{ __('panel.confirm_delete_message') }}',
+                                                        '{{ __('panel.yes_delete') }}',
+                                                        '{{ __('panel.cancel') }}')">
+                                                    {{ __('general.delete') }}
+                                                </a>
+                                                <form action="{{ route('admin.drivers.destroy', $driver->id) }}" method="post" class="d-none" id="delete-driver-{{ $driver->id }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            @endability
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="9" class="text-center">{{ __('panel.no_found_item') }}</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection

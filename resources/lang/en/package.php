@@ -1,0 +1,184 @@
+<?php
+
+return [
+
+    'manage_packages'        => 'Manage Packages',
+    'add_new_package'        => 'Add New Package',
+    'packages'               => 'Packages',
+    'package_data'           => 'Package Data',
+    'package_details'        => 'Package Details',
+    'package_information'    => 'Package Information',
+    'package_info'           => 'Package Information',
+
+    'package_description'    => 'You can manage packages here',
+
+    'trip_information'       => 'Trip Information',
+
+    'sender_Information'     => 'Sender Information',
+    'sender_first_name'      => 'First Name',
+    'sender_middle_name'     => 'Middle Name',
+    'sender_last_name'       => 'Last Name',
+    'sender_email'           => 'Sender Email',
+    'sender_phone'           => 'Sender Phone',
+    'sender_address'         => 'Address',
+    'sender_country'         => 'Sender Country',
+    'sender_region'          => 'Sender Region',
+    'sender_city'            => 'Sender City',
+    'sender_district'        => 'Sender District',
+    'sender_postal_code'     => 'Postal Code',
+    'sender_location'        => 'Geographic Location',
+    'sender_others'          => 'Others',
+
+    'receiver_Information'   => 'Receiver Information',
+    'receiver_first_name'    => 'First Name',
+    'receiver_middle_name'   => 'Middle Name',
+    'receiver_last_name'     => 'Last Name',
+    'receiver_email'         => 'Receiver Email',
+    'receiver_phone'         => 'Receiver Phone',
+    'receiver_address'       => 'Address',
+    'receiver_country'       => 'Receiver Country',
+    'receiver_region'        => 'Receiver Region',
+    'receiver_city'          => 'Receiver City',
+    'receiver_district'      => 'Receiver District',
+    'receiver_postal_code'   => 'Postal Code',
+    'receiver_location'      => 'Geographic Location',
+    'receiver_others'        => 'Others',
+
+    'receiver_name'          => 'Receiver Name',
+    'tracking_number'        => 'Tracking Number',
+    'merchant'               => 'Merchant',
+
+    'timeline_title'         => 'Package Timeline',
+    'timeline_empty'         => 'No events recorded for this package.',
+
+    'status'                 => 'Status',
+
+    'log_created'                => 'Package Created',
+    'log_updated_with_status'    => 'Package status updated to: :status',
+
+    // Package statuses
+    'status_pending'             => 'Pending',
+    'status_assigned_to_driver'  => 'Assigned to Driver',
+    'status_driver_picked_up'    => 'Picked Up by Driver',
+    'status_in_transit'          => 'In Transit',
+    'status_arrived_at_hub'      => 'Arrived at Hub',
+    'status_out_for_delivery'    => 'Out for Delivery',
+    'status_delivered'           => 'Delivered',
+    'status_delivery_failed'     => 'Delivery Failed',
+    'status_returned'            => 'Returned',
+    'status_cancelled'           => 'Cancelled',
+    'status_in_warehouse'        => 'In Warehouse',
+
+    'total_fee'              => 'Total Fee',
+    'paid_amount'            => 'Paid Amount',
+    'due_amount'             => 'Due Amount',
+    'remaining_amount'       => 'Remaining Amount',
+    'delivery_date'          => 'Delivery Date',
+    'expected_delivery_date' => 'Expected Delivery Date',
+    'delivery_method'        => 'Delivery Method',
+    'delivery_speed'         => 'Delivery Speed',
+    'package_type'           => 'Package Type',
+    'package_size'           => 'Package Size',
+    'created_at'             => 'Created At',
+
+    'show_package'           => 'Show Package',
+    'edit_package'           => 'Edit Package',
+    'delete_package'         => 'Delete Package',
+
+    'collection'             => 'Collection',
+
+    'dimensionss'           =>  'Dimensions',
+    'dimensions' => [
+        'length'            => 'Length',
+        'width'             => 'Width',
+        'height'            => 'Height',
+    ],
+
+    'weight'                => 'Weight',
+
+    'additional_information' => 'Additional Information',
+
+    'delivery_fee'          => 'Delivery Fee',
+    'insurance_fee'         => 'Insurance Fee',
+    'service_fee'           => 'Service Fee',
+    'cod_amount'            => 'Cash on Delivery',
+
+    // Delivery methods
+    'method_standard'       => 'Standard Delivery',
+    'method_express'        => 'Express Delivery',
+    'method_pickup'         => 'Store Pickup',
+    'method_courier'        => 'Courier Service',
+
+    // Package types
+    'type_box'              => 'Box',
+    'type_envelope'         => 'Envelope',
+    'type_pallet'           => 'Pallet',
+    'type_tube'             => 'Tube',
+    'type_bag'              => 'Bag',
+
+    // Package origins
+    'origin_type'           => 'Package Origin',
+    'origin_warehouse'      => 'Warehouse',
+    'origin_store'          => 'Store',
+    'origin_home'           => 'Home',
+    'origin_other'          => 'Other Origin',
+
+    // Package sizes
+    'size_small'            => 'Small',
+    'size_medium'           => 'Medium',
+    'size_large'            => 'Large',
+    'size_oversized'        => 'Oversized',
+
+    // Delivery speeds
+    'speed_standard'        => 'Standard',
+    'speed_express'         => 'Express',
+    'speed_same_day'        => 'Same Day',
+    'speed_next_day'        => 'Next Day',
+
+    'payment_responsibility'    => 'Payment Responsibility',
+    'responsibility_merchant'   => 'Merchant',
+    'responsibility_recipient'  => 'Recipient',
+
+    'delivery_status_note'      => 'Delivery Status Note',
+
+    'package_attributes'        => 'Additional Package Attributes',
+
+    // Package attributes
+    'is_fragile'                => 'Fragile',
+    'is_returnable'             => 'Returnable',
+    'is_confidential'           => 'Confidential Information',
+    'is_express'                => 'Express Delivery',
+    'is_cod'                   => 'Cash on Delivery',
+    'is_gift'                   => 'Gift',
+    'is_oversized'              => 'Oversized',
+    'is_hazardous_material'     => 'Hazardous Material',
+    'is_temperature_controlled' => 'Temperature Controlled',
+    'is_perishable'             => 'Perishable',
+    'is_signature_required'     => 'Signature Required',
+    'is_inspection_required'    => 'Inspection Required',
+    'is_special_handling_required' => 'Special Handling Required',
+
+    'save_package_data'         => 'Save Package Data',
+    'update_package_data'       => 'Update Package Data',
+
+    // Products in package
+    'products_in_package'       => 'Products in Package',
+    'type'                     => 'Type',
+    'stock_item'               => 'Stock Item',
+    'custom_name'              => 'Custom Name',
+    'quantity'                 => 'Quantity',
+    'price_per_unit'           => 'Price Per Unit',
+    'total_price'              => 'Total Price',
+
+    'no_products'              => 'No products added to this package.',
+
+    // Contact info labels
+    'email'                   => 'Email',
+    'phone'                   => 'Phone',
+    'address'                 => 'Address',
+    'country'                 => 'Country',
+
+    'custom'                    => 'Custom',
+    'stock'                     =>  'Stock',
+
+];

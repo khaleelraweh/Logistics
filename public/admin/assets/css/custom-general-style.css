@@ -1,0 +1,27 @@
+.navbar-header .navbar-brand-box .logo img.animate-bounce{
+    animation:bounce 1s infinite;
+}
+
+.navbar-header .navbar-brand-box .logo img.animate-bounce:hover {
+    -webkit-animation: rotate-diagonal-1 0.4s linear both;
+    animation: rotate-diagonal-1 0.4s linear both;
+}
+
+.hover\:animate-bounce {
+    &:hover {
+        @media (hover: hover) {
+        animation: bounce 1s infinite;
+        }
+    }
+}
+
+
+
+body.transition {
+        transition: background-color 0.3s ease, color 0.3s ease, all 0.3s ease;
+}
+
+body.transition * {
+    transition: background-color 0.3s ease, color 0.3s ease, all 0.3s ease;
+}
+

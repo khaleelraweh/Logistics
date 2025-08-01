@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'manage_external_shipments'          => 'Manage External Shipments',
+    'view_external_shipments'            => 'View External Shipments',
+    'external_shipment_data'             => 'External Shipments Data',
+    'external_shipment_description'      => 'List of external shipments registered in the system.',
+    'add_new_external_shipment'          => 'Add New External Shipment',
+    'external_shipment_info'             => 'External Shipment Information',
+    'shipping_partner'                   => 'Shipping Partner',
+    'select_shipping_partner'            => 'Select Shipping Partner',
+    'package'                           => 'Package',
+    'select_package'                    => 'Select Package',
+    'external_tracking_number'           => 'External Tracking Number',
+    'delivery_date'                     => 'Delivery Date',
+    'status'                           => 'Status',
+    'status_pending'                   => 'Pending',
+    'status_in_transit'                => 'In Transit',
+    'status_delivered'                 => 'Delivered',
+    'status_cancelled'                 => 'Cancelled',
+    'add_external_shipment'            => 'Add External Shipment',
+    'edit_external_shipment'           => 'Edit External Shipment',
+    'save_external_shipment'           => 'Save External Shipment',
+    'update_external_shipment'         => 'Update External Shipment',
+];

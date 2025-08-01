@@ -1,0 +1,27 @@
+@media (max-width: 767px) {
+  .container {
+    padding-left: initial;
+    padding-right: initial;
+  }
+  .landing .text .content h2 {
+    font-size: 27px;
+    text-align: center;
+  }
+  .landing .text .content p {
+    text-align: center;
+  }
+  .main-heading h2 {
+    font-size: 25px;
+  }
+  .portfolio .shuffle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .portfolio .shuffle li {
+    padding: 5px 0px;
+    width: 100%;
+    text-align: center;
+  }
+}

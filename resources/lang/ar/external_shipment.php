@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'manage_external_shipments'          => 'إدارة الشحنات الخارجية',
+    'view_external_shipments'            => 'عرض الشحنات الخارجية',
+    'external_shipment_data'             => 'بيانات الشحنات الخارجية',
+    'external_shipment_description'      => 'قائمة الشحنات الخارجية المسجلة في النظام.',
+    'add_new_external_shipment'          => 'إضافة شحنة خارجية جديدة',
+    'external_shipment_info'             => 'معلومات الشحنة الخارجية',
+    'shipping_partner'                   => 'شريك الشحن',
+    'select_shipping_partner'            => 'اختر شريك الشحن',
+    'package'                           => 'الطرد',
+    'select_package'                    => 'اختر الطرد',
+    'external_tracking_number'           => 'رقم التتبع الخارجي',
+    'delivery_date'                     => 'تاريخ التسليم',
+    'status'                           => 'الحالة',
+    'status_pending'                   => 'معلق',
+    'status_in_transit'                => 'قيد الشحن',
+    'status_delivered'                 => 'تم التسليم',
+    'status_cancelled'                 => 'ملغاة',
+    'add_external_shipment'            => 'إضافة شحنة خارجية',
+    'edit_external_shipment'           => 'تعديل الشحنة الخارجية',
+    'save_external_shipment'           => 'حفظ الشحنة الخارجية',
+    'update_external_shipment'         => 'تحديث الشحنة الخارجية',
+];
