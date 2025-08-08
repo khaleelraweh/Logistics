@@ -34,4 +34,10 @@ class RentalShelf extends Model
     {
         return $this->hasMany(StockItem::class);
     }
+
+
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'payable');
+    }
 }

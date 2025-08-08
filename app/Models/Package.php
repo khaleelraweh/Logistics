@@ -116,10 +116,10 @@ class Package extends Model
 
 
     // العلاقة مع المدفوعات
-    public function payments()
-    {
-        return $this->hasMany(Payment::class);
-    }
+    // public function payments()
+    // {
+    //     return $this->hasMany(Payment::class);
+    // }
 
     // العلاقة مع الطلبات المرتجعة
     public function returnRequest()
@@ -424,5 +424,10 @@ class Package extends Model
                 $package->tracking_number = 'PKG-' . strtoupper(Str::random(8));
             }
         });
+    }
+
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'payable');
     }
 }
