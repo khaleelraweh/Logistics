@@ -26,7 +26,7 @@ return new class extends Migration
             $table->enum('for', ['delivery', 'service_fee', 'storage', 'combined'])->default('delivery');
             $table->string('reference_note')->nullable();
             $table->string('payment_reference')->nullable(); // مرجع خارجي أو رقم العملية
-            $table->foreignId('invoice_id')->nullable()->constrained()->onDelete('set null');
+            // $table->foreignId('invoice_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('driver_id')->nullable()->constrained('drivers')->onDelete('set null'); // اذا كان الدفع عند الاستلام
 
 

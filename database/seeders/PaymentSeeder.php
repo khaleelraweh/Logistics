@@ -2,51 +2,73 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Seeder;
 use App\Models\Payment;
 use App\Models\Merchant;
+use App\Models\Package;
+use App\Models\Driver;
 use Carbon\Carbon;
-use Illuminate\Database\Seeder;
 
 class PaymentSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        // تأكد وجود تاجر
+        // الحصول على تاجر موجود
         $merchant = Merchant::first();
-
         if (!$merchant) {
             $this->command->info('No merchant found, skipping Payment seeding.');
             return;
         }
 
-        // مثال: دفع مرتبط بطرد (Package) مثلا
-        $package = \App\Models\Package::first();
-
+        // الحصول على طرد كمثال للدفع المرتبط (payable)
+        $package = Package::first();
         if (!$package) {
             $this->command->info('No package found, skipping Payment seeding.');
             return;
         }
 
+        // الحصول على سائق (مثال للدفع عند الاستلام)
+        $driver = Driver::first();
+
+        // مثال 1: دفع نقدي (cash) مرتبط بطرد
         Payment::create([
-            'payable_type' => 'App\Models\Package', // اسم الـ model المرتبط (namespace كامل)
-            'payable_id'   => $package->id,
-            'merchant_id'  => $merchant->id,
-            'method'       => 'cash', // enum
-            'amount'       => 3000.00,
-            'currency'     => 'USD', // نص 3 حروف
-            'status'       => 'paid',
-            'paid_on'      => Carbon::now()->toDateString(),
-            'for'          => 'combined', // delivery, service_fee, storage, combined
-            'reference_note' => 'دفعة تجريبية',
-            'payment_reference' => 'REF123456',
-            'status_visible' => true,
-            'published_on'   => Carbon::now(),
-            // يمكنك إضافة created_by أو غيرها إذا تحب
+            'payable_type'      => 'App\Models\Package',
+            'payable_id'        => $package->id,
+            'merchant_id'       => $merchant->id,
+            'method'            => 'cash',
+            'amount'            => 150.00,
+            'currency'          => 'USD',
+            'status'            => 'paid',
+            'paid_on'           => Carbon::now(),
+            'for'               => 'delivery',
+            'reference_note'    => 'دفعة نقدية كاملة',
+            'payment_reference' => 'REF-001',
+            'status_visible'    => true,
+            'published_on'      => Carbon::now(),
+            'created_by'        => 'system',
         ]);
+
+        // مثال 2: دفع عند الاستلام (COD) مرتبط بطرد، مع ربط السائق
+        if ($driver) {
+            Payment::create([
+                'payable_type'      => 'App\Models\Package',
+                'payable_id'        => $package->id,
+                'merchant_id'       => $merchant->id,
+                'method'            => 'cod',
+                'amount'            => 200.00,
+                'currency'          => 'USD',
+                'status'            => 'pending',
+                'paid_on'           => null,
+                'for'               => 'delivery',
+                'reference_note'    => 'الدفع عند الاستلام للسائق',
+                'payment_reference' => null,
+                'driver_id'         => $driver->id,
+                'status_visible'    => true,
+                'published_on'      => Carbon::now(),
+                'created_by'        => 'system',
+            ]);
+        } else {
+            $this->command->info('No driver found, skipping COD payment example.');
+        }
     }
 }

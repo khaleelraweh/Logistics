@@ -10,6 +10,7 @@ use App\Http\Controllers\ExternalShipmentController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PickupRequestController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReturnRequestController;
@@ -142,6 +143,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     // ==============   External Shipment   ==============  //
     Route::resource('external_shipments', ExternalShipmentController::class);
+
+    // ==============   External Shipment   ==============  //
+    Route::resource('payments', PaymentController::class);
 
 
 
