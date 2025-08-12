@@ -295,7 +295,8 @@
                     </div>
                     <div class="info-item">
                         <span class="info-label">العنوان:</span>
-                        <span>{{ $package->receiver_address ?? 'غير محدد' }}</span>
+                        <span>{{ $package->receiver_address ?? 'غير محدد' }}</span> <br>
+                        <span>{{ $package->receiver_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}  </span>
                     </div>
                 </div>
 
