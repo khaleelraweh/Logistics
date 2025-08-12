@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Payment;
 use App\Models\Merchant;
-use App\Models\Package;
+use App\Models\Invoice;
 use App\Models\Driver;
 use Carbon\Carbon;
 
@@ -13,27 +13,23 @@ class PaymentSeeder extends Seeder
 {
     public function run()
     {
-        // الحصول على تاجر موجود
         $merchant = Merchant::first();
         if (!$merchant) {
             $this->command->info('No merchant found, skipping Payment seeding.');
             return;
         }
 
-        // الحصول على طرد كمثال للدفع المرتبط (payable)
-        $package = Package::first();
-        if (!$package) {
-            $this->command->info('No package found, skipping Payment seeding.');
+        $invoice = Invoice::first();
+        if (!$invoice) {
+            $this->command->info('No invoice found, skipping Payment seeding.');
             return;
         }
 
-        // الحصول على سائق (مثال للدفع عند الاستلام)
         $driver = Driver::first();
 
-        // مثال 1: دفع نقدي (cash) مرتبط بطرد
+        // مثال 1: دفع نقدي مرتبط بفاتورة
         Payment::create([
-            'payable_type'      => 'App\Models\Package',
-            'payable_id'        => $package->id,
+            'invoice_id'        => $invoice->id,
             'merchant_id'       => $merchant->id,
             'method'            => 'cash',
             'amount'            => 150.00,
@@ -48,11 +44,10 @@ class PaymentSeeder extends Seeder
             'created_by'        => 'system',
         ]);
 
-        // مثال 2: دفع عند الاستلام (COD) مرتبط بطرد، مع ربط السائق
+        // مثال 2: دفع عند الاستلام (COD) مع ربط السائق
         if ($driver) {
             Payment::create([
-                'payable_type'      => 'App\Models\Package',
-                'payable_id'        => $package->id,
+                'invoice_id'        => $invoice->id,
                 'merchant_id'       => $merchant->id,
                 'method'            => 'cod',
                 'amount'            => 200.00,

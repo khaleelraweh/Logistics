@@ -17,13 +17,6 @@ class Payment extends Model
         return $this->belongsTo(Invoice::class);
     }
 
-
-      // علاقة Morph إلى الكيان القابل للدفع (طرد، إيجار، خدمة، ... )
-    public function payable()
-    {
-        return $this->morphTo();
-    }
-
     public function merchant()
     {
         return $this->belongsTo(Merchant::class);

@@ -31,6 +31,7 @@ class Invoice extends Model
         return $this->hasMany(Payment::class);
     }
 
+
     // العلاقة polymorphic مع الطرد أو الإيجار
     public function payable()
     {
