@@ -9,6 +9,8 @@ class Invoice extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     // توليد الفاتورة برقم فريد عند إنشائها بشكل تلقائي
     protected static function boot()
     {
@@ -29,6 +31,12 @@ class Invoice extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class);
+    }
+
+
+    public function items()
+    {
+        return $this->hasMany(InvoiceItem::class);
     }
 
 
