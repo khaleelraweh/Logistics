@@ -16,6 +16,9 @@
         </div>
     </div>
 
+    <a href="{{ route('admin.packages.print', $package->id) }}" target="_blank">طباعة سجل الطرد</a>
+
+
     <div class="row mt-4">
         <!-- معلومات الطرد -->
         <div class="col-lg-4">

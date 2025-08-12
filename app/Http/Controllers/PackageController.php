@@ -11,6 +11,8 @@ use App\Models\StockItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str; // في أعلى الكود
+use PDF; // إذا تستخدم barryvdh/laravel-dompdf أو أي مكتبة PDF
+
 
 class PackageController extends Controller
 {
@@ -206,6 +208,9 @@ class PackageController extends Controller
             if ($package) {
                 $package->addLog(__('package.log_created'));
             }
+
+            // ثم تعيد توجيه المستخدم إلى صفحة الطباعة
+            return redirect()->route('admin.packages.print', $package->id);
 
 
             // إنشاء فاتورة مرتبطة بالطرد
@@ -510,5 +515,22 @@ class PackageController extends Controller
             'alert-type' => 'danger'
         ]);
     }
+
+
+
+    public function printPackage($id)
+    {
+        $package = Package::findOrFail($id);
+
+        // عرض صفحة الطباعة (HTML)
+        return view('admin.packages.print', compact('package'));
+
+        // أو لتحويله إلى PDF و تحميله:
+        /*
+        $pdf = PDF::loadView('admin.packages.print', compact('package'));
+        return $pdf->download('package_'.$package->id.'.pdf');
+        */
+    }
+
 
 }
