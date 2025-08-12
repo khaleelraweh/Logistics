@@ -10,6 +10,7 @@ use App\Models\PackageProduct;
 use App\Models\StockItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str; // في أعلى الكود
 
 class PackageController extends Controller
 {
@@ -73,11 +74,11 @@ class PackageController extends Controller
 
     public function store(Request $request)
     {
-        if (!auth()->user()->ability('admin', 'create_packages')) {
-            return redirect('admin/index');
-        }
+            if (!auth()->user()->ability('admin', 'create_packages')) {
+                return redirect('admin/index');
+            }
 
-        // dd($request);
+            // dd($request);
 
 
             // Sender Information
@@ -202,33 +203,36 @@ class PackageController extends Controller
             }
 
 
-            // if ($package) {
-            //     $package->addLog('تم إنشاء الطرد');
-            // }
-
-
-            // if ($package) {
-            //     $package->addLog(__('package.log_created_with_status', [
-            //         'status' => __('package.status_' . $package->status)
-            //     ]));
-            // }
-
-
             if ($package) {
                 $package->addLog(__('package.log_created'));
             }
 
-        if($package){
-            return redirect()->route('admin.packages.index')->with([
-                'message' => __('messages.package_created'),
-                'alert-type' => 'success'
-            ]);
-        }
 
-        return redirect()->route('admin.packages.index')->with([
-            'message' => __('messages.something_went_wrong'),
-            'alert-type' => 'danger'
-        ]);
+            // إنشاء فاتورة مرتبطة بالطرد
+            $invoice = \App\Models\Invoice::create([
+                'invoice_number' => 'INV-' . strtoupper(Str::random(8)), // رقم فاتورة عشوائي
+                'merchant_id' => $package->merchant_id,
+                'payable_type' => Package::class,   // اسم الموديل للطرد
+                'payable_id' => $package->id,
+                'total_amount' => $input['total_fee'],  // إجمالي المبلغ من بيانات الطرد
+                'currency' => 'USD', // أو استخرج العملة من طلب المستخدم
+                'status' => 'unpaid', // أو حسب الحالة الافتراضية
+                'due_date' => now()->addDays(15), // مثال: تاريخ الاستحقاق بعد 15 يوم
+                'issued_at' => now(),
+                'notes' => 'فاتورة طرد رقم ' . $package->id,
+            ]);
+
+            if($package){
+                return redirect()->route('admin.packages.index')->with([
+                    'message' => __('messages.package_created'),
+                    'alert-type' => 'success'
+                ]);
+            }
+
+            return redirect()->route('admin.packages.index')->with([
+                'message' => __('messages.something_went_wrong'),
+                'alert-type' => 'danger'
+            ]);
 
 
     }
