@@ -118,7 +118,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // ==============   Packages Tab   ==============  //
     Route::post('packages/update-packages-status', [PackageController::class, 'updatePackageStatus'])->name('packages.update_packages_status');
     Route::post('package/remove-image', [PackageController::class, 'remove_image'])->name('packages.remove_image');
-    Route::get('admin/packages/{id}/print', [PackageController::class, 'printPackage'])->name('admin.packages.print');
+    Route::get('admin/packages/{id}/print', [PackageController::class, 'printPackage'])->name('packages.print');
     Route::resource('packages', PackageController::class);
 
     // ==============   Drivers Tab   ==============  //
