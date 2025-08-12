@@ -210,7 +210,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ $package->amount ?? '0' }} SAR</td>
+                        <td>{{ $package->total_fee ?? '0' }} SAR</td>
                         <td>{{ $package->payment_method ?? '-' }}</td>
                     </tr>
                 </tbody>
@@ -229,10 +229,8 @@
 
     {{-- صفحات المنتجات (ملصقات) --}}
     @if($package->packageProducts && $package->packageProducts->count() > 0)
-        @foreach($package->packageProducts as $index => $packageProduct)
-            @php
-                $product = $packageProduct->product; // العلاقة مع المنتج
-            @endphp
+        @foreach($package->packageProducts as $index => $product)
+
             <div class="document page-break">
                 <div class="header">
                     <h1>LogesTechsKSA</h1>
@@ -289,7 +287,7 @@
                     <h3>معلومات المستلم</h3>
                     <div class="info-item">
                         <span class="info-label">الاسم:</span>
-                        <span>{{ $package->receiver_name ?? 'غير محدد' }}</span>
+                        <span>{{ $package->receiver_full_name ?? 'غير محدد' }}</span>
                     </div>
                     <div class="info-item">
                         <span class="info-label">الهاتف:</span>
