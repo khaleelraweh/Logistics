@@ -129,7 +129,8 @@
                 </div>
                 <div class="info-item">
                     <span class="info-label">نوع الخدمة:</span>
-                    <span>{{ $package->package_type ?? 'غير محدد' }}</span>
+                    <span>{{ $package->package_type ? __('package.type_' . $package->package_type) : 'غير محدد' }}</span>
+                    {{-- <span>{{ $package->package_type ?? 'غير محدد' }}</span> --}}
                 </div>
                 <div class="info-item">
                     <span class="info-label">الكمية:</span>
