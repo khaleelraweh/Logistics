@@ -78,6 +78,9 @@ return new class extends Migration
             $table->json('dimensions')->nullable();
             // أبعاد الطرد (طول، عرض، ارتفاع) بصيغة JSON
 
+            $table->integer('quantity')->default(1);
+            // عدد العناصر في الطرد، افتراضيًا 1
+
             // ============= التحصيل ============================
             // مسؤولية الدفع: التاجر أو المستلم
             $table->enum('payment_responsibility', ['merchant', 'recipient'])->default('merchant');
