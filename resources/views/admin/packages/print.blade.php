@@ -148,7 +148,7 @@
                 <h3>معلومات المرسل</h3>
                 <div class="info-item">
                     <span class="info-label">الاسم:</span>
-                    <span>{{ $package->sender_name ?? 'غير محدد' }}</span>
+                    <span>{{ $package->sender_full_name ?? 'غير محدد' }}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">الهاتف:</span>
@@ -164,7 +164,7 @@
                 <h3>معلومات المستلم</h3>
                 <div class="info-item">
                     <span class="info-label">الاسم:</span>
-                    <span>{{ $package->receiver_name ?? 'غير محدد' }}</span>
+                    <span>{{ $package->receiver_full_name ?? 'غير محدد' }}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">الهاتف:</span>
