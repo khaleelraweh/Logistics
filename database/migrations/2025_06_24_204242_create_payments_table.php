@@ -16,8 +16,8 @@ return new class extends Migration
          // جدول المدفوعات
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->morphs('payable'); // هذا سينشئ payable_id و payable_type : دفع طرد ، ايجار ، خدمة
             $table->foreignId('merchant_id')->constrained()->onDelete('cascade');
+            $table->foreignId('invoice_id')->constrained()->onDelete('cascade');
             $table->enum('method', ['cash', 'credit_card', 'bank_transfer', 'wallet', 'cod']);
             $table->decimal('amount', 10, 2);
             $table->string('currency', 3)->default('USD');
@@ -26,7 +26,6 @@ return new class extends Migration
             $table->enum('for', ['delivery', 'service_fee', 'storage', 'combined'])->default('delivery');
             $table->string('reference_note')->nullable();
             $table->string('payment_reference')->nullable(); // مرجع خارجي أو رقم العملية
-            // $table->foreignId('invoice_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('driver_id')->nullable()->constrained('drivers')->onDelete('set null'); // اذا كان الدفع عند الاستلام
 
 
