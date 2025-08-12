@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ReturnItemSeeder::class);
         $this->call(ShippingPartnerSeeder::class);
         $this->call(ExternalShipmentSeeder::class);
+        $this->call(InvoiceSeeder::class);
         $this->call(PaymentSeeder::class);
         $this->call(PricingRuleSeeder::class);
 
