@@ -128,7 +128,7 @@
                     <span>{{ optional($package->created_at)->format('d/m/Y H:i') ?? 'غير محدد' }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">نوع الخدمة:</span>
+                    <span class="info-label">نوع الطرد:</span>
                     <span>{{ $package->package_type ? __('package.type_' . $package->package_type) : 'غير محدد' }}</span>
                     {{-- <span>{{ $package->package_type ?? 'غير محدد' }}</span> --}}
                 </div>
@@ -137,8 +137,8 @@
                     <span>{{ $package->quantity ?? 'غير محدد' }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">طريقة الدفع:</span>
-                    <span>{{ $package->payment_method ?? 'غير محدد' }}</span>
+                    <span class="info-label">طريقة التوصيل:</span>
+                    <span >{{$package->delivery_method  ? __('package.speed_' . $package->delivery_speed) : 'غير محدد' }}</span>
                 </div>
             </div>
         </div>
