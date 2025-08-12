@@ -164,10 +164,16 @@ class PackageController extends Controller
             // Create package
             $package = Package::create($input);
 
+            // متغير لتجميع الكمية الكلية
+            $totalQuantity = 0;
 
             //  حفظ المنتجات
             if ($package && $request->has('products') && is_array($request->products)) {
                 foreach ($request->products as $productData) {
+
+
+                    $quantity = $productData['quantity'] ?? 0;
+                    $totalQuantity += (int)$quantity;
 
                     // إنشاء المنتج في PackageProduct
                     $packageProduct = PackageProduct::create([
@@ -203,6 +209,10 @@ class PackageController extends Controller
 
                 }
             }
+
+             // تحديث حقل quantity في جدول الطرود
+            $package->quantity = $totalQuantity;
+            $package->save();
 
 
             if ($package) {
