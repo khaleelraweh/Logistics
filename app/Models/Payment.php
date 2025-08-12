@@ -12,6 +12,12 @@ class Payment extends Model
     protected $guarded = [];
 
 
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class);
+    }
+
+
       // علاقة Morph إلى الكيان القابل للدفع (طرد، إيجار، خدمة، ... )
     public function payable()
     {
@@ -28,11 +34,6 @@ class Payment extends Model
         return $this->belongsTo(Driver::class);
     }
 
-        // علاقة إلى الفاتورة (invoice)
-    // public function invoice()
-    // {
-    //     return $this->belongsTo(Invoice::class);
-    // }
 
       // (اختياري) علاقة إلى المستخدم الذي أنشأ أو عدل الدفع، إذا كنت تستخدم جدول users
     public function creator()
