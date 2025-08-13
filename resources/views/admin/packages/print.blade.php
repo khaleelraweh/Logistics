@@ -246,9 +246,9 @@
                     <img src="{{ $product->image }}" class="product-image" alt="صورة المنتج">
                 @endif
 
-                <div class="barcode">
+                {{-- <div class="barcode">
                     *{{ $package->tracking_number ?? 'غير محدد' }}:{{ str_pad($index + 1, 3, '0', STR_PAD_LEFT) }}*
-                </div>
+                </div> --}}
 
                 <div class="section">
                     <h3>معلومات المنتج</h3>
