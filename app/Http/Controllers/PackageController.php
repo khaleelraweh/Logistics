@@ -368,6 +368,9 @@ class PackageController extends Controller
 
             // Payment Information
             $input['payment_responsibility'] = $request->payment_responsibility;
+            $input['payment_method'] = $request->payment_method;
+            $input['collection_method'] = $request->collection_method;
+
             $input['delivery_fee'] = $request->delivery_fee;
             $input['insurance_fee'] = $request->insurance_fee;
             $input['service_fee'] = $request->service_fee;
