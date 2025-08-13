@@ -64,6 +64,12 @@ return new class extends Migration
             $table->string('receiver_others')->nullable();
 
 
+            //================== بيانات الطرد ==========================
+            // محتويات الطرد
+            $table->string('package_content')->nullable();
+            // ملاحظات الطرد
+            $table->string('package_note')->nullable();
+
             // ========== بيانات منتجات الطرد =================
             // علاقات أخرى مهمة
             $table->foreignId('rental_shelf_id')->nullable()->constrained('rental_shelves')->nullOnDelete();
@@ -107,6 +113,24 @@ return new class extends Migration
             $table->decimal('cod_amount', 10, 2)->default(0);
             // // مبلغ الدفع عند الاستلام (COD)
 
+            // طريقة الدفع
+            $table->enum('payment_method', [
+                'prepaid',            // مدفوع مسبقاً
+                'cash_on_delivery',   // الدفع عند الاستلام
+                'exchange',           // تبديل
+                'bring'               // إحضار
+            ])->default('prepaid');
+
+            // طريقة التحصيل
+            $table->enum('collection_method', [
+                'cash',               // كاش
+                'cheque',             // شيك
+                'bank_transfer',      // حوالة بنكية
+                'e_wallet',           // محفظة إلكترونية
+                'credit_card',        // بطاقة ائتمان
+                'mada'                // مدى
+            ])->default('cash');
+
             //========== بيانات اضافية ===============
 
             // سرعة التوصيل المطلوبة
@@ -121,21 +145,22 @@ return new class extends Migration
             $table->date('delivery_date')->nullable();
             // تاريخ التوصيل الفعلي (إن تم)
 
+
             // حالة الطرد
-         $table->enum('status', [
-            'pending',
-            'assigned_to_driver',
-            'driver_picked_up',
-            'in_transit',
-            'arrived_at_hub',
-            'out_for_delivery',
-            'delivered',
-            'delivery_failed',
-            'returned',
-            'cancelled',
-            'in_warehouse'
-        ])->default('pending');
-            // حالة الطرد الحالية، الافتراضية: قيد الانتظار
+            $table->enum('status', [
+                'pending',
+                'assigned_to_driver',
+                'driver_picked_up',
+                'in_transit',
+                'arrived_at_hub',
+                'out_for_delivery',
+                'delivered',
+                'delivery_failed',
+                'returned',
+                'cancelled',
+                'in_warehouse'
+            ])->default('pending');
+                // حالة الطرد الحالية، الافتراضية: قيد الانتظار
 
             // طريقة التوصيل
             $table->enum('delivery_method', [
