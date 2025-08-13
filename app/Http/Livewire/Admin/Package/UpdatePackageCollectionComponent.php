@@ -7,43 +7,31 @@ use Livewire\Component;
 
 class UpdatePackageCollectionComponent extends Component
 {
-
     public $package_id;
     public $payment_responsibility = 'merchant';
+    public $payment_method = 'prepaid';
+    public $collection_method = 'cash';
+
     public $delivery_fee = 0;
     public $insurance_fee = 0;
     public $service_fee = 0;
 
-    public $paid_amount = 0 ;
+    public $paid_amount = 0;
     public $cod_amount = 0;
-
 
     public function mount($package_id)
     {
         $this->package_id = $package_id;
-        $package = Package::where('id', $this->package_id)->first();
+        $package = Package::findOrFail($this->package_id);
 
-        // Initialize videoLinks
-        if ($package->payment_responsibility != null) {
-            $this->payment_responsibility = $package->payment_responsibility;
-        }
-        if ($package->delivery_fee != null) {
-            $this->delivery_fee = $package->delivery_fee;
-        }
-        if ($package->insurance_fee != null) {
-            $this->insurance_fee = $package->insurance_fee;
-        }
-        if ($package->service_fee != null) {
-            $this->service_fee = $package->service_fee;
-        }
-        if ($package->paid_amount != null) {
-            $this->paid_amount = $package->paid_amount;
-        }
-        if ($package->cod_amount != null) {
-            $this->cod_amount = $package->cod_amount;
-        }
-
-
+        $this->payment_responsibility = $package->payment_responsibility ?? 'merchant';
+        $this->payment_method = $package->payment_method ?? 'prepaid';
+        $this->collection_method = $package->collection_method ?? 'cash';
+        $this->delivery_fee = $package->delivery_fee ?? 0;
+        $this->insurance_fee = $package->insurance_fee ?? 0;
+        $this->service_fee = $package->service_fee ?? 0;
+        $this->paid_amount = $package->paid_amount ?? 0;
+        $this->cod_amount = $package->cod_amount ?? 0;
     }
 
     public function render()
