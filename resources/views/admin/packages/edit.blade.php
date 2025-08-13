@@ -415,6 +415,23 @@
 
                                     </div>
 
+                                    <div class="row mb-3">
+                                        <div class="col-sm-6">
+                                            <label class="col-form-label" for="package_content">{{ __('package.package_content') }}</label>
+                                            <textarea name="package_content" class="form-control" id="package_content">{{ old('package_content', $package->package_content) }}</textarea>
+                                            @error('package_content')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="col-form-label" for="package_note">{{ __('package.package_note') }}</label>
+                                            <textarea name="package_note" class="form-control" id="package_note">{{ old('package_note' , $package->package_note) }}</textarea>
+                                            @error('package_note')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
 
                                 </div>
                             </div>

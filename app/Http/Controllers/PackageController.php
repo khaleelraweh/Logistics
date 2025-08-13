@@ -122,6 +122,10 @@ class PackageController extends Controller
                 'width' => $request->dimensions['width'],
                 'height' => $request->dimensions['height']
             ];
+            $input['package_content'] = $request->package_content;
+            $input['package_note'] = $request->package_note;
+
+
 
             // Delivery Information
             $input['delivery_speed'] = $request->delivery_speed;
@@ -356,6 +360,9 @@ class PackageController extends Controller
                 'width' => $request->dimensions['width'],
                 'height' => $request->dimensions['height']
             ];
+
+            $input['package_content'] = $request->package_content;
+            $input['package_note'] = $request->package_note;
 
             // Delivery Information
             $input['delivery_speed'] = $request->delivery_speed;
