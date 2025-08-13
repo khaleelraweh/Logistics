@@ -7,7 +7,7 @@
 
             {{-- 🧭 مسؤولية الدفع + طريقة الدفع + طريقة التحصيل --}}
             <div class="row mb-3">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <label class="col-form-label">{{ __('package.payment_responsibility') }}</label>
                     <select wire:model="payment_responsibility" name="payment_responsibility" class="form-select">
                         <option value="merchant">{{ __('package.responsibility_merchant') }}</option>
@@ -15,7 +15,7 @@
                     </select>
                 </div>
 
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <label class="col-form-label">{{ __('package.payment_method') }}</label>
                     <select wire:model="payment_method" name="payment_method" class="form-select">
                         <option value="prepaid">{{ __('package.payment_prepaid') }}</option>
@@ -25,7 +25,7 @@
                     </select>
                 </div>
 
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <label class="col-form-label">{{ __('package.collection_method') }}</label>
                     <select wire:model="collection_method" name="collection_method" class="form-select">
                         <option value="cash">{{ __('package.collection_cash') }}</option>
@@ -40,17 +40,17 @@
 
             {{-- 💰 التكاليف --}}
             <div class="row mb-3">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <label class="col-form-label">{{ __('package.delivery_fee') }}</label>
                     <input wire:model="delivery_fee" name="delivery_fee" type="number" step="0.01" class="form-control">
                 </div>
 
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <label class="col-form-label">{{ __('package.insurance_fee') }}</label>
                     <input wire:model="insurance_fee" name="insurance_fee" type="number" step="0.01" class="form-control">
                 </div>
 
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <label class="col-form-label">{{ __('package.service_fee') }}</label>
                     <input wire:model="service_fee" name="service_fee" type="number" step="0.01" class="form-control">
                 </div>
