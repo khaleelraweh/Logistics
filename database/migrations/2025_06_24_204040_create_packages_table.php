@@ -91,6 +91,24 @@ return new class extends Migration
             // مسؤولية الدفع: التاجر أو المستلم
             $table->enum('payment_responsibility', ['merchant', 'recipient'])->default('merchant');
 
+            // طريقة الدفع
+            $table->enum('payment_method', [
+                'prepaid',            // مدفوع مسبقاً
+                'cash_on_delivery',   // الدفع عند الاستلام
+                'exchange',           // تبديل
+                'bring'               // إحضار
+            ])->default('prepaid');
+
+            // طريقة التحصيل
+            $table->enum('collection_method', [
+                'cash',               // كاش
+                'cheque',             // شيك
+                'bank_transfer',      // حوالة بنكية
+                'e_wallet',           // محفظة إلكترونية
+                'credit_card',        // بطاقة ائتمان
+                'mada'                // مدى
+            ])->default('cash');
+
             // الرسوم والتكاليف
             $table->decimal('delivery_fee', 10, 2)->default(0);
             // رسوم التوصيل
@@ -113,23 +131,7 @@ return new class extends Migration
             $table->decimal('cod_amount', 10, 2)->default(0);
             // // مبلغ الدفع عند الاستلام (COD)
 
-            // طريقة الدفع
-            $table->enum('payment_method', [
-                'prepaid',            // مدفوع مسبقاً
-                'cash_on_delivery',   // الدفع عند الاستلام
-                'exchange',           // تبديل
-                'bring'               // إحضار
-            ])->default('prepaid');
 
-            // طريقة التحصيل
-            $table->enum('collection_method', [
-                'cash',               // كاش
-                'cheque',             // شيك
-                'bank_transfer',      // حوالة بنكية
-                'e_wallet',           // محفظة إلكترونية
-                'credit_card',        // بطاقة ائتمان
-                'mada'                // مدى
-            ])->default('cash');
 
             //========== بيانات اضافية ===============
 
