@@ -139,6 +139,22 @@ return [
     'responsibility_merchant'   => 'Merchant',
     'responsibility_recipient'  => 'Recipient',
 
+    'payment_method' => 'Payment Method',
+    'payment_prepaid' => 'Prepaid',
+    'payment_cod' => 'Cash on Delivery',
+    'payment_exchange' => 'Exchange',
+    'payment_bring' => 'Bring',
+
+    'collection_method' => 'Collection Method',
+    'collection_cash' => 'Cash',
+    'collection_cheque' => 'Cheque',
+    'collection_bank_transfer' => 'Bank Transfer',
+    'collection_e_wallet' => 'E-Wallet',
+    'collection_credit_card' => 'Credit Card',
+    'collection_mada' => 'Mada',
+
+
+
     'delivery_status_note'      => 'Delivery Status Note',
 
     'package_attributes'        => 'Additional Package Attributes',

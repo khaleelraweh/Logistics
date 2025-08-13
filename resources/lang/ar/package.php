@@ -139,6 +139,21 @@ return [
     'responsibility_merchant'   => 'التاجر',
     'responsibility_recipient'  => 'المستلم',
 
+    'payment_method' => 'طريقة الدفع',
+    'payment_prepaid' => 'مدفوع مسبقاً',
+    'payment_cod' => 'الدفع عند الاستلام',
+    'payment_exchange' => 'تبديل',
+    'payment_bring' => 'إحضار',
+
+    'collection_method' => 'طريقة التحصيل',
+    'collection_cash' => 'كاش',
+    'collection_cheque' => 'شيك',
+    'collection_bank_transfer' => 'حوالة بنكية',
+    'collection_e_wallet' => 'محفظة إلكترونية',
+    'collection_credit_card' => 'بطاقة ائتمان',
+    'collection_mada' => 'مدى',
+
+
     'delivery_status_note'      => 'ملاحظات حالة التسليم',
 
     'package_attributes'        => 'خصائص إضافية للطرد',
