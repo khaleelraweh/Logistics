@@ -415,6 +415,19 @@ class Package extends Model
     }
 
 
+    public function getPaymentMethodTranslatedAttribute()
+    {
+        $methods = [
+            'prepaid' => __('package.payment_prepaid'),
+            'cash_on_delivery' => __('package.payment_cod'),
+            'exchange' => __('package.payment_exchange'),
+            'bring' => __('package.payment_bring'),
+        ];
+
+        return $methods[$this->payment_method] ?? '-';
+    }
+
+
 
      // Boot (اختياري لتوليد رقم تتبع تلقائي)
     protected static function booted()

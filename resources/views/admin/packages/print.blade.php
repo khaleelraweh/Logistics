@@ -211,7 +211,8 @@
                 <tbody>
                     <tr>
                         <td>{{ $package->total_fee ?? '0' }} SAR</td>
-                        <td>{{ $package->payment_method ?? '-' }}</td>
+                        {{-- <td>{{ $package->payment_method ?? '-' }}</td> --}}
+                        <td>{{ $package->payment_method_translated  ?? '-'}}</td>
                     </tr>
                 </tbody>
             </table>
