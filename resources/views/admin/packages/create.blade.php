@@ -179,8 +179,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="col-sm-6">
                             <div class="card">
                                 <div class="card-header">
@@ -337,8 +335,8 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card">
@@ -352,6 +350,7 @@
 
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-sm-12"></div>
                             <div class="card">
@@ -416,6 +415,23 @@
 
                                     </div>
 
+                                    <div class="row mb-3">
+                                        <div class="col-sm-6">
+                                            <label class="col-form-label" for="package_content">{{ __('package.package_content') }}</label>
+                                            <textarea name="package_content" class="form-control" id="package_content">{{ old('package_content') }}</textarea>
+                                            @error('package_content')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="col-form-label" for="package_note">{{ __('package.package_note') }}</label>
+                                            <textarea name="package_note" class="form-control" id="package_note">{{ old('package_note') }}</textarea>
+                                            @error('package_note')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
 
                                 </div>
                             </div>
@@ -427,9 +443,6 @@
                             @livewire('admin.package.create-package-collection-component')
                         </div>
                     </div>
-
-
-
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card">
@@ -507,8 +520,6 @@
                             </div>
                         </div>
                     </div>
-
-
                     @php
                         // القيم الافتراضية
                         $defaultAttributes = [
@@ -564,9 +575,6 @@
                             @endforeach
                         </div>
                     </div>
-
-
-
                     @ability('admin', 'create_packages')
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">{{ __('package.save_package_data') }}</button>

@@ -94,6 +94,9 @@ return [
         'height'            => 'Height',
     ],
 
+    'package_content'       => 'Package Content',
+    'package_note'          =>  'Package Note',
+
     'weight'                => 'Weight',
 
     'additional_information' => 'Additional Information',

@@ -94,6 +94,9 @@ return [
         'height'            => 'الارتفاع',
     ],
 
+    'package_content'       => 'محتويات الطرد',
+    'package_note'          =>  'ملاحظات الطرد',
+
     'weight'                => 'الوزن',
 
     'additional_information' => 'معلومات إضافية',
