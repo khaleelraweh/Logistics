@@ -9,6 +9,12 @@ class Invoice extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'issued_at' => 'datetime',
+        'due_date'  => 'datetime',
+    ];
+
+
     protected $guarded = [];
 
     // توليد الفاتورة برقم فريد عند إنشائها بشكل تلقائي

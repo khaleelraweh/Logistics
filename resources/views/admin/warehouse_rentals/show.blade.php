@@ -12,6 +12,7 @@
             </div>
 
             <div class="card-body">
+                {{-- تفاصيل العقد --}}
                 <div class="mb-4">
                     <h6 class="text-muted">{{ __('merchant.name') }}</h6>
                     <p class="fw-semibold">{{ $warehouseRental->merchant->name ?? __('general.not_specified') }}</p>
@@ -20,13 +21,13 @@
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <div class="p-3 bg-light rounded">
-                            <h6 class="text-muted mb-1">{{ __('rental.rental_start') }}</h6>
+                            <h6 class="text-muted">{{ __('rental.rental_start') }}</h6>
                             <p class="fw-semibold">{{ $warehouseRental->rental_start?->format('Y-m-d') }}</p>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="p-3 bg-light rounded">
-                            <h6 class="text-muted mb-1">{{ __('rental.rental_end') }}</h6>
+                            <h6 class="text-muted">{{ __('rental.rental_end') }}</h6>
                             <p class="fw-semibold">{{ $warehouseRental->rental_end?->format('Y-m-d') }}</p>
                         </div>
                     </div>
@@ -37,6 +38,7 @@
                     <p class="fw-semibold">{{ $warehouseRental->price }} {{ __('general.currency') }}</p>
                 </div>
 
+                {{-- الرفوف المستأجرة --}}
                 @if($warehouseRental->shelves->isNotEmpty())
                     <hr>
                     <h5 class="mb-3"><i class="fas fa-warehouse me-2"></i> {{ __('rental.rented_shelves') }}</h5>
@@ -67,6 +69,53 @@
                         </table>
                     </div>
                 @endif
+
+                {{-- الفاتورة المرتبطة --}}
+                @if($warehouseRental->invoice)
+                    <hr>
+                    <h5 class="mb-3"><i class="fas fa-file-invoice-dollar me-2"></i> {{ __('invoice.details') }}</h5>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p><strong>{{ __('invoice.number') }}:</strong> {{ $warehouseRental->invoice->invoice_number }}</p>
+                            <p><strong>{{ __('invoice.status') }}:</strong> {{ ucfirst($warehouseRental->invoice->status) }}</p>
+                            <p><strong>{{ __('general.total_amount') }}:</strong> {{ $warehouseRental->invoice->total_amount }} {{ __('general.currency') }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>{{ __('invoice.issued_at') }}:</strong> {{ $warehouseRental->invoice->issued_at?->format('Y-m-d') }}</p>
+                            <p><strong>{{ __('invoice.due_date') }}:</strong> {{ $warehouseRental->invoice->due_date?->format('Y-m-d') }}</p>
+                            <p><strong>{{ __('invoice.notes') }}:</strong> {{ $warehouseRental->invoice->notes }}</p>
+                        </div>
+                    </div>
+
+                    {{-- المدفوعات المرتبطة --}}
+                    @if($warehouseRental->invoice->payments->isNotEmpty())
+                        <hr>
+                        <h6 class="mb-2">{{ __('invoice.payments') }}</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>{{ __('payment.date') }}</th>
+                                        <th>{{ __('payment.amount') }}</th>
+                                        <th>{{ __('payment.method') }}</th>
+                                        <th>{{ __('payment.status') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($warehouseRental->invoice->payments as $payment)
+                                        <tr>
+                                            <td>{{ $payment->paid_at?->format('Y-m-d') }}</td>
+                                            <td>{{ $payment->amount }} {{ __('general.currency') }}</td>
+                                            <td>{{ $payment->method }}</td>
+                                            <td>{{ ucfirst($payment->status) }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+                @endif
+
             </div>
 
             <div class="card-footer bg-light d-flex justify-content-between">
