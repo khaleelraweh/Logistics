@@ -71,4 +71,8 @@ class WarehouseRental extends Model
     }
 
 
+     public function invoice()  {
+        return $this->morphOne(Invoice::class, 'payable');
+    }
+
 }
