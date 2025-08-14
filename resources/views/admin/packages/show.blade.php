@@ -206,6 +206,76 @@
         </div>
     </div>
 
+
+    <!-- تفاصيل الفاتورة والدفع المالي -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="card-title mb-0"><i class="mdi mdi-cash-multiple me-2"></i> {{ __('package.invoice_payment') }}</h5>
+                </div>
+                <div class="card-body">
+                    @php
+                        $invoice = $package->invoice;
+                    @endphp
+
+                    @if($invoice)
+                        <div class="row mb-3">
+                            <div class="col-md-4"><strong>{{ __('package.invoice_number') }}:</strong> {{ $invoice->invoice_number }}</div>
+                            <div class="col-md-4"><strong>{{ __('package.total_amount') }}:</strong> {{ $invoice->total_amount }}</div>
+                            <div class="col-md-4"><strong>{{ __('package.status') }}:</strong>
+                                <span class="badge bg-{{ $invoice->status == 'paid' ? 'success' : 'warning' }}">{{ ucfirst($invoice->status) }}</span>
+                            </div>
+                        </div>
+
+                        <!-- جدول الدفعات -->
+                        @if($invoice->payments->count())
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>{{ __('package.payment_date') }}</th>
+                                            <th>{{ __('package.payment_method') }}</th>
+                                            <th>{{ __('package.collection_method') }}</th>
+                                            <th>{{ __('package.amount') }}</th>
+                                            <th>{{ __('package.status') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($invoice->payments as $payment)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $payment->payment_date?->format('Y-m-d') ?? '-' }}</td>
+                                                <td>{{ $payment->payment_method ?? '-' }}</td>
+                                                <td>{{ $payment->collection_method ?? '-' }}</td>
+                                                <td>{{ $payment->amount ?? 0 }}</td>
+                                                <td>
+                                                    <span class="badge bg-{{ $payment->status == 'paid' ? 'success' : 'warning' }}">
+                                                        {{ ucfirst($payment->status) }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <div class="alert alert-info mb-0">
+                                <i class="mdi mdi-information-outline me-2"></i> {{ __('package.no_payments') }}
+                            </div>
+                        @endif
+                    @else
+                        <div class="alert alert-info mb-0">
+                            <i class="mdi mdi-information-outline me-2"></i> {{ __('package.no_invoice') }}
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- الخط الزمني -->
     <div class="row mt-2">
         <div class="col-sm-12">
