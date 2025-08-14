@@ -184,6 +184,12 @@ class WarehouseRentalController extends Controller
     public function destroy($id)
     {
         $rental = WarehouseRental::findOrFail($id);
+
+        // حذف الفاتورة المرتبطة إذا كانت موجودة
+        if ($rental->invoice) {
+            $rental->invoice->delete();
+        }
+        // حذف جميع الرفوف المرتبطة بالإيجار
         $rental->shelves()->detach();
         $rental->delete();
 
