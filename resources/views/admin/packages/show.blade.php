@@ -9,7 +9,7 @@
                 <h3 class="mb-sm-0">{{ __('package.package_details') }} #{{ $package->id }}</h3>
                 <div class="page-title-right">
                     <a href="{{ url()->previous() }}" class="btn btn-secondary">
-                        <i class="mdi mdi-arrow-left me-1"></i> {{ __('common.back') }}
+                        <i class="mdi mdi-arrow-left me-1"></i> {{ __('general.back') }}
                     </a>
                 </div>
             </div>
