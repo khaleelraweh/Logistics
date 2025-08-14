@@ -200,4 +200,22 @@ return [
     'custom'                    => 'Custom',
     'stock'                     =>  'Stock',
 
+
+    // Invoice and payments
+    'invoice_payment'        => 'Invoice & Payments',
+    'invoice_number'         => 'Invoice Number',
+    'total_amount'           => 'Total Amount',
+    'payment_date'           => 'Payment Date',
+    'payment_method'         => 'Payment Method',
+    'collection_method'      => 'Collection Method',
+    'amount'                 => 'Amount',
+    'no_payments'            => 'No Payments',
+    'no_invoice'             => 'No Invoice',
+
+    // Status
+    'paid'                   => 'Paid',
+    'pending'                => 'Pending',
+    'unpaid'                 => 'Unpaid',
+
+
 ];

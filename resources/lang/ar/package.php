@@ -199,4 +199,22 @@ return [
     'custom'                    => 'مخصص',
     'stock'                     =>  'من مخزن',
 
+
+    // قسم الفاتورة والدفع
+    'invoice_payment'        => 'الفاتورة والدفعات',
+    'invoice_number'         => 'رقم الفاتورة',
+    'total_amount'           => 'المبلغ الإجمالي',
+    'payment_date'           => 'تاريخ الدفع',
+    'payment_method'         => 'طريقة الدفع',
+    'collection_method'      => 'طريقة التحصيل',
+    'amount'                 => 'المبلغ',
+    'no_payments'            => 'لا توجد دفعات',
+    'no_invoice'             => 'لا توجد فاتورة',
+
+    // الحالات
+    'paid'                   => 'مدفوع',
+    'pending'                => 'معلق',
+    'unpaid'                 => 'غير مدفوع',
+
+
 ];
