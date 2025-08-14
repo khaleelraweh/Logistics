@@ -9,6 +9,10 @@ class Payment extends Model
 {
     use HasFactory ;
 
+    protected $casts = [
+        'paid_on' => 'datetime',
+    ];
+
     protected $guarded = [];
 
 

@@ -109,7 +109,7 @@
                                 <tbody>
                                     @foreach($warehouseRental->invoice->payments as $payment)
                                         <tr>
-                                            <td>{{ $payment->paid_at?->format('Y-m-d') }}</td>
+                                            <td>{{ $payment->paid_on?->format('Y-m-d') }}</td>
                                             <td>{{ $payment->amount }} {{ __('general.sar') }}</td>
                                             <td>{{ $payment->method }}</td>
                                             <td>{{ ucfirst($payment->status) }}</td>
