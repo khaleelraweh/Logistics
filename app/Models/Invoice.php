@@ -33,10 +33,19 @@ class Invoice extends Model
         return $this->hasMany(Payment::class);
     }
 
-
-    public function items()
+    public function updateStatus()
     {
-        return $this->hasMany(InvoiceItem::class);
+        $paidAmount = $this->payments()->where('status', 'paid')->sum('amount');
+
+        if ($paidAmount >= $this->total_amount) {
+            $this->status = 'paid';
+        } elseif ($paidAmount > 0) {
+            $this->status = 'partial';
+        } else {
+            $this->status = 'unpaid';
+        }
+
+        $this->save();
     }
 
 
@@ -44,6 +53,11 @@ class Invoice extends Model
     public function payable()
     {
         return $this->morphTo();
+    }
+
+    public function items()
+    {
+        return $this->hasMany(InvoiceItem::class);
     }
 
 }

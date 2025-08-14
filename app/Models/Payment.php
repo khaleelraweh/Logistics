@@ -17,6 +17,23 @@ class Payment extends Model
         return $this->belongsTo(Invoice::class);
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($payment) {
+            if ($payment->invoice) {
+                $payment->invoice->updateStatus();
+            }
+        });
+
+        static::updated(function ($payment) {
+            if ($payment->invoice) {
+                $payment->invoice->updateStatus();
+            }
+        });
+    }
+
     public function merchant()
     {
         return $this->belongsTo(Merchant::class);
