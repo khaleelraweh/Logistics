@@ -18,6 +18,7 @@ return [
     'custom_start'          =>  'تاريخ البدء',
     'custom_end'            =>  'تاريخ الانتهاء',
     'shelf_info'            => 'معلومات الرفوف',
+    'add_payment'          => 'إضافة دفعة إيجار',
 
 
     'shelf_code'           => 'رمز الرف',

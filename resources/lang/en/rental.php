@@ -17,6 +17,7 @@ return [
     'custom_start'          =>  'Custom Start',
     'custom_end'            =>  'Custom End',
     'shelf_info'            => 'Shelf Information',
+    'add_payment'          => 'Add Rental Payment',
 
 
     'shelf_code'           => 'Shelf Code',

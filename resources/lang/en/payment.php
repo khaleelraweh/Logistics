@@ -19,4 +19,11 @@ return [
     'failed' => 'Failed',
 
 
+     // Form labels
+    'add_payment' => 'Add Rental Payment',
+    'reference_note' => 'Reference Note',
+    'payment_reference' => 'Payment Reference',
+    'pay' => 'Pay',
+
+
 ];

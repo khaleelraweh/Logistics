@@ -123,7 +123,7 @@
                     @endif
                 @endif
 
-                @if($warehouseRental->invoice && $warehouseRental->invoice->status != 'paid')
+                {{-- @if($warehouseRental->invoice && $warehouseRental->invoice->status != 'paid')
                     <hr>
                     <h6>إضافة دفعة إيجار</h6>
                     <form action="{{ route('admin.warehouse_rentals.pay_invoice', $warehouseRental->id) }}" method="POST">
@@ -153,7 +153,40 @@
                         </div>
                         <button class="btn btn-success">دفع</button>
                     </form>
+                @endif --}}
+
+                @if($warehouseRental->invoice && $warehouseRental->invoice->status != 'paid')
+                    <hr>
+                    <h6>{{ __('rental.add_payment') }}</h6>
+                    <form action="{{ route('admin.warehouse_rentals.pay_invoice', $warehouseRental->id) }}" method="POST">
+                        @csrf
+                        <div class="mb-2">
+                            <label>{{ __('payment.amount') }}</label>
+                            <input type="number" name="amount" class="form-control"
+                                max="{{ $warehouseRental->invoice->total_amount - $warehouseRental->invoice->payments->sum('amount') }}" required>
+                        </div>
+                        <div class="mb-2">
+                            <label>{{ __('payment.method') }}</label>
+                            <select name="method" class="form-select" required>
+                                <option value="cash">{{ __('payment.cash') }}</option>
+                                <option value="credit_card">{{ __('payment.credit_card') }}</option>
+                                <option value="bank_transfer">{{ __('payment.bank_transfer') }}</option>
+                                <option value="wallet">{{ __('payment.wallet') }}</option>
+                                <option value="cod">{{ __('payment.cod') }}</option>
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label>{{ __('payment.reference_note') }}</label>
+                            <input type="text" name="reference_note" class="form-control">
+                        </div>
+                        <div class="mb-2">
+                            <label>{{ __('payment.payment_reference') }}</label>
+                            <input type="text" name="payment_reference" class="form-control">
+                        </div>
+                        <button class="btn btn-success">{{ __('payment.pay') }}</button>
+                    </form>
                 @endif
+
 
 
             </div>
