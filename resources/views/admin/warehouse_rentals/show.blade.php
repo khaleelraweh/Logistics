@@ -111,8 +111,10 @@
                                         <tr>
                                             <td>{{ $payment->paid_on?->format('Y-m-d') }}</td>
                                             <td>{{ $payment->amount }} {{ __('general.sar') }}</td>
-                                            <td>{{ $payment->method }}</td>
-                                            <td>{{ ucfirst($payment->status) }}</td>
+                                            {{-- <td>{{ $payment->method }}</td>
+                                            <td>{{ ucfirst($payment->status) }}</td> --}}
+                                            <td>{{ __('payment.' . $payment->method) }}</td>
+                                            <td>{{ __('payment.' . $payment->status) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
