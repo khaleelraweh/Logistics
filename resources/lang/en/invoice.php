@@ -1,0 +1,14 @@
+<?php
+
+return [
+
+    // Invoice
+    'details'      => 'Invoice Details',
+    'number'       => 'Invoice Number',
+    'status'       => 'Invoice Status',
+    'issued_at'    => 'Issued At',
+    'due_date'     => 'Due Date',
+    'notes'        => 'Notes',
+    'payments'     => 'Payments',
+
+];

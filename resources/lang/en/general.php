@@ -50,6 +50,7 @@ return [
     'not_specified'         =>  'Not Specified',
     'published_on'         =>  'Published On',
     'contact'                =>  'Contact',
+    'total_amount'    =>  'Total Amount',
 
 
 
