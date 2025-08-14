@@ -448,5 +448,14 @@ class Package extends Model
         return $this->morphOne(Invoice::class, 'payable');
     }
 
+    // public function invoice()
+    // {
+    //     return $this->hasOne(Invoice::class, 'payable_id')->where('payable_type', Package::class);
+    // }
+    // public function getInvoice()
+    // {
+    //     return $this->invoice()->first();
+    // }
+
 
 }
