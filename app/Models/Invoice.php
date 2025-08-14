@@ -21,6 +21,7 @@ class Invoice extends Model
         });
     }
 
+
       // العلاقة مع التاجر
     public function merchant()
     {

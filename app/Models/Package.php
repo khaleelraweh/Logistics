@@ -443,4 +443,10 @@ class Package extends Model
     {
         return $this->morphMany(Payment::class, 'payable');
     }
+
+    public function invoice()  {
+        return $this->morphOne(Invoice::class, 'payable');
+    }
+
+
 }
