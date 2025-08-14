@@ -11,4 +11,8 @@ return [
     'notes'        => 'ملاحظات',
     'payments'     => 'المدفوعات',
 
+    'amount_paid' => 'المبلغ المدفوع',
+    'remaining_amount' => 'المبلغ المتبقي',
+    'total_amount' => 'المبلغ الإجمالي',
+
 ];

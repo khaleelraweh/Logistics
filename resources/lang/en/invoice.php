@@ -11,4 +11,8 @@ return [
     'notes'        => 'Notes',
     'payments'     => 'Payments',
 
+    'amount_paid' => 'Amount Paid',
+    'remaining_amount' => 'Remaining Amount',
+    'total_amount' => 'Total Amount',
+
 ];
