@@ -196,4 +196,48 @@ class WarehouseRentalController extends Controller
         return redirect()->route('admin.warehouse_rentals.index')
             ->with('success', __('rental.deleted_successfully'));
     }
+
+    /**
+     * Handle payment for the invoice of a rental.
+     *
+     * @param Request $request
+     * @param int $rentalId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    // تأكيد الدفع للفواتير
+    // يجب أن يكون هناك علاقة بين الإيجار والفاتورة
+    public function payInvoice(Request $request, $rentalId)
+    {
+        $rental = WarehouseRental::with('invoice')->findOrFail($rentalId);
+        $invoice = $rental->invoice;
+
+        $request->validate([
+            'amount' => 'required|numeric|min:1|max:' . ($invoice->total_amount - $invoice->payments()->sum('amount')),
+            'method' => 'required|in:cash,credit_card,bank_transfer,wallet,cod',
+            'reference_note' => 'nullable|string',
+            'payment_reference' => 'nullable|string',
+        ]);
+
+        $payment = $invoice->payments()->create([
+            'merchant_id' => $rental->merchant_id,
+            'amount' => $request->amount,
+            'currency' => $invoice->currency,
+            'method' => $request->method,
+            'status' => 'paid',
+            'paid_on' => now(),
+            'for' => 'storage', // لأننا ندفع إيجار التخزين
+            'reference_note' => $request->reference_note,
+            'payment_reference' => $request->payment_reference,
+            'created_by' => auth()->user()->name ?? 'system',
+        ]);
+
+        // تحديث حالة الفاتورة إذا تم دفع كامل المبلغ
+        $totalPaid = $invoice->payments()->sum('amount');
+        if ($totalPaid >= $invoice->total_amount) {
+            $invoice->update(['status' => 'paid']);
+        }
+
+        return redirect()->back()->with('success', 'Payment recorded successfully.');
+    }
+
 }
