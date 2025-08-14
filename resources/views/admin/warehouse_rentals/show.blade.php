@@ -79,13 +79,18 @@
                             <p><strong>{{ __('invoice.number') }}:</strong> {{ $warehouseRental->invoice->invoice_number }}</p>
                             <p><strong>{{ __('invoice.status') }}:</strong> {{ ucfirst($warehouseRental->invoice->status) }}</p>
                             <p><strong>{{ __('general.total_amount') }}:</strong> {{ $warehouseRental->invoice->total_amount }} {{ __('general.currency') }}</p>
+                            <p><strong>{{ __('general.total_amount') }}:</strong> {{ $warehouseRental->invoice->payments->sum('amount')  }} {{ __('general.currency') }}</p>
                         </div>
                         <div class="col-md-6">
                             <p><strong>{{ __('invoice.issued_at') }}:</strong> {{ $warehouseRental->invoice->issued_at?->format('Y-m-d') }}</p>
                             <p><strong>{{ __('invoice.due_date') }}:</strong> {{ $warehouseRental->invoice->due_date?->format('Y-m-d') }}</p>
                             <p><strong>{{ __('invoice.notes') }}:</strong> {{ $warehouseRental->invoice->notes }}</p>
+                            <p><strong>{{ __('invoice.notes') }}:</strong> {{ $warehouseRental->invoice->total_amount - $warehouseRental->invoice->payments->sum('amount') }} {{ __('general.currency') }}</p>
                         </div>
                     </div>
+
+
+
 
                     {{-- المدفوعات المرتبطة --}}
                     @if($warehouseRental->invoice->payments->isNotEmpty())
