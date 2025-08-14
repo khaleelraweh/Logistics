@@ -51,7 +51,7 @@ return [
     'published_on'         =>  'Published On',
     'contact'                =>  'Contact',
     'total_amount'    =>  'Total Amount',
-    'currency'     => 'SAR',
+    'sar'               => 'SAR',
 
 
 
