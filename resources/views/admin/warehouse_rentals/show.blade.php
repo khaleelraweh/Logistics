@@ -123,38 +123,6 @@
                     @endif
                 @endif
 
-                {{-- @if($warehouseRental->invoice && $warehouseRental->invoice->status != 'paid')
-                    <hr>
-                    <h6>إضافة دفعة إيجار</h6>
-                    <form action="{{ route('admin.warehouse_rentals.pay_invoice', $warehouseRental->id) }}" method="POST">
-                        @csrf
-                        <div class="mb-2">
-                            <label>المبلغ</label>
-                            <input type="number" name="amount" class="form-control"
-                                max="{{ $warehouseRental->invoice->total_amount - $warehouseRental->invoice->payments->sum('amount') }}" required>
-                        </div>
-                        <div class="mb-2">
-                            <label>طريقة الدفع</label>
-                            <select name="method" class="form-select" required>
-                                <option value="cash">نقدا / Cash</option>
-                                <option value="credit_card">بطاقة ائتمانية / Credit Card</option>
-                                <option value="bank_transfer">تحويل بنكي / Bank Transfer</option>
-                                <option value="wallet">محفظة / Wallet</option>
-                                <option value="cod">الدفع عند الاستلام / COD</option>
-                            </select>
-                        </div>
-                        <div class="mb-2">
-                            <label>ملاحظة / Reference Note</label>
-                            <input type="text" name="reference_note" class="form-control">
-                        </div>
-                        <div class="mb-2">
-                            <label>رقم العملية / Payment Reference</label>
-                            <input type="text" name="payment_reference" class="form-control">
-                        </div>
-                        <button class="btn btn-success">دفع</button>
-                    </form>
-                @endif --}}
-
                 @if($warehouseRental->invoice && $warehouseRental->invoice->status != 'paid')
                     <hr>
                     <h6>{{ __('rental.add_payment') }}</h6>
