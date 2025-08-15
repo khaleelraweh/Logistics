@@ -28,10 +28,10 @@
                         <p class="card-title-desc">{{ __('invoice.invoice_description') }}</p>
                     </div>
                     <div class="button-items">
-                        <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.invoices.create') }}">
+                        {{-- <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.invoices.create') }}">
                             {{ __('invoice.add_new_invoice') }}
                             <i class="mdi mdi-clipboard-text-outline"></i>
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
 
