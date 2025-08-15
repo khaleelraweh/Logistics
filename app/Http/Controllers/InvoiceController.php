@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
@@ -17,19 +16,13 @@ class InvoiceController extends Controller
         }
 
         $invoices = Invoice::with(['merchant', 'payable'])
-            ->when(request()->keyword != null, function ($query) {
+            ->when(request()->keyword, function ($query) {
                 $query->where('invoice_number', 'like', '%' . request()->keyword . '%')
-                      ->orWhereHas('merchant', function ($q) {
-                          $q->where('name', 'like', '%' . request()->keyword . '%');
-                      });
+                      ->orWhereHas('merchant', fn($q) => $q->where('name', 'like', '%' . request()->keyword . '%'));
             })
-            ->when(request()->status != null, function ($query) {
-                $query->where('status', request()->status);
-            })
-            ->orderByRaw(request()->sort_by == 'issued_at'
-                ? 'issued_at IS NULL, issued_at ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-            ->paginate(request()->limit_by ?? 100);
+            ->when(request()->status, fn($query) => $query->where('status', request()->status))
+            ->orderBy(request()->sort_by ?? 'created_at', request()->order_by ?? 'desc')
+            ->paginate(request()->limit_by ?? 50);
 
         return view('admin.invoices.index', compact('invoices'));
     }
@@ -47,18 +40,18 @@ class InvoiceController extends Controller
             'total_amount' => 'required|numeric|min:1',
             'currency' => 'required|string|max:3',
             'notes' => 'nullable|string',
-            'payable_type' => 'required|string', // نوع المرتبط: WarehouseRental, Package, ...
-            'payable_id' => 'required|integer',  // المعرف المرتبط
+            'payable_type' => 'required|string',
+            'payable_id' => 'required|integer',
         ]);
 
-        $invoice = Invoice::create([
+        Invoice::create([
             'invoice_number' => 'INV-' . now()->format('Ymd') . '-' . strtoupper(Str::random(6)),
             'merchant_id' => $request->merchant_id,
             'total_amount' => $request->total_amount,
             'currency' => $request->currency,
             'status' => 'unpaid',
-            'due_date' => $request->due_date ?? Carbon::now()->addDays(15),
-            'issued_at' => $request->issued_at ?? Carbon::now(),
+            'due_date' => $request->due_date ?? now()->addDays(15),
+            'issued_at' => $request->issued_at ?? now(),
             'notes' => $request->notes,
             'payable_type' => $request->payable_type,
             'payable_id' => $request->payable_id,
@@ -110,9 +103,6 @@ class InvoiceController extends Controller
             ->with('success', 'Invoice deleted successfully.');
     }
 
-    /**
-     * تسجيل الدفع على الفاتورة.
-     */
     public function payInvoice(Request $request, $invoiceId)
     {
         $invoice = Invoice::with('payments')->findOrFail($invoiceId);
@@ -124,26 +114,20 @@ class InvoiceController extends Controller
             'payment_reference' => 'nullable|string',
         ]);
 
-        $payment = $invoice->payments()->create([
+        $invoice->payments()->create([
             'merchant_id' => $invoice->merchant_id,
             'amount' => $request->amount,
             'currency' => $invoice->currency,
             'method' => $request->method,
             'status' => 'paid',
             'paid_on' => now(),
-            'for' => 'combined', // حسب الحاجة: delivery, storage, service_fee
+            'for' => 'combined',
             'reference_note' => $request->reference_note,
             'payment_reference' => $request->payment_reference,
             'created_by' => auth()->user()->name ?? 'system',
         ]);
 
-        // تحديث حالة الفاتورة
-        $totalPaid = $invoice->payments()->sum('amount');
-        if ($totalPaid >= $invoice->total_amount) {
-            $invoice->update(['status' => 'paid']);
-        } elseif ($totalPaid > 0) {
-            $invoice->update(['status' => 'partial']);
-        }
+        $invoice->updateStatus();
 
         return redirect()->back()->with('success', 'Payment recorded successfully.');
     }
