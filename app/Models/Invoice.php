@@ -69,6 +69,17 @@ class Invoice extends Model
         return $this->morphTo();
     }
 
+    // داخل نموذج Invoice
+    public function getPaidAmountAttribute()
+    {
+        return $this->payments()->where('status', 'paid')->sum('amount');
+    }
+
+    public function getRemainingAmountAttribute()
+    {
+        return max($this->total_amount - $this->paid_amount, 0);
+    }
+
     // عناصر الفاتورة
     public function items()
     {

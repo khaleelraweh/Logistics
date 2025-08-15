@@ -31,6 +31,18 @@
                 <p><strong>تاريخ الاستحقاق:</strong> {{ $invoice->due_date->format('Y-m-d H:i') }}</p>
                 <p><strong>الملاحظات:</strong> {{ $invoice->notes }}</p>
             </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <strong>المبلغ الإجمالي:</strong> {{ number_format($invoice->total_amount, 2) }} {{ $invoice->currency }}
+                </div>
+                <div class="col-md-4">
+                    <strong>المبلغ المدفوع:</strong> {{ number_format($invoice->paid_amount, 2) }} {{ $invoice->currency }}
+                </div>
+                <div class="col-md-4">
+                    <strong>المبلغ المتبقي:</strong> {{ number_format($invoice->remaining_amount, 2) }} {{ $invoice->currency }}
+                </div>
+            </div>
         </div>
 
         {{-- قائمة المدفوعات --}}
