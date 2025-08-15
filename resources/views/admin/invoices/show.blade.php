@@ -17,7 +17,7 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-8 col-md-10">
+    <div class="col-lg-12 col-md-12">
         <div class="card mb-3">
             <div class="card-header">
                 بيانات الفاتورة

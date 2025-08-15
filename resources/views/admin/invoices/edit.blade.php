@@ -17,7 +17,7 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-8 col-md-10">
+    <div class="col-lg-12 col-md-12">
         <div class="card">
             <div class="card-body">
                 <form action="{{ route('admin.invoices.update', $invoice->id) }}" method="POST">
