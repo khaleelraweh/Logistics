@@ -148,10 +148,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('external_shipments', ExternalShipmentController::class);
 
     // ==============   invoices   ==============  //
+    Route::post('invoices/{invoice}/pay', [InvoiceController::class, 'payInvoice'])->name('invoices.pay');
     Route::resource('invoices', InvoiceController::class);
 
     // ==============   Payments   ==============  //
-    // Route::resource('payments', PaymentController::class);
+    Route::resource('payments', PaymentController::class);
 
 
 

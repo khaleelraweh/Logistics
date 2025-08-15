@@ -13,6 +13,7 @@ class Payment extends Model
         'paid_on' => 'datetime',
     ];
 
+
     protected $guarded = [];
 
     public function invoice()

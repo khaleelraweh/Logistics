@@ -15,6 +15,7 @@ class Invoice extends Model
         'due_date'  => 'datetime',
     ];
 
+
     protected $guarded = [];
 
     // توليد رقم الفاتورة برقم فريد عند الإنشاء
