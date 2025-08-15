@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use App\Models\Merchant;
+use App\Models\Package;
+use App\Models\WarehouseRental;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -27,11 +29,17 @@ class InvoiceController extends Controller
         return view('admin.invoices.index', compact('invoices'));
     }
 
-    public function create()
-    {
-        $merchants = Merchant::all();
-        return view('admin.invoices.create', compact('merchants'));
-    }
+  public function create()
+{
+    $merchants = Merchant::all();
+
+    // العناصر المرتبطة بالفواتير (غير المرتبطة بعد)
+    $warehouseRentals = WarehouseRental::doesntHave('invoice')->get();
+    $packages = Package::doesntHave('invoice')->get();
+
+    return view('admin.invoices.create', compact('merchants', 'warehouseRentals', 'packages'));
+}
+
 
     public function store(Request $request)
     {

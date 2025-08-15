@@ -2,142 +2,104 @@
 
 @section('content')
 
-<!-- Page Title -->
-<div class="row mb-3">
+<div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">{{ __('rental.add_rental') }}</h4>
+            <h4 class="mb-sm-0">إضافة فاتورة جديدة</h4>
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="#">{{ __('rental.add_rental') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('rental.manage_rentals') }}</li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.invoices.index') }}">الفواتير</a></li>
+                    <li class="breadcrumb-item active">إنشاء فاتورة</li>
                 </ol>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Rental Form -->
 <div class="row">
-    <div class="col-12">
-        <div class="card shadow-sm">
+    <div class="col-lg-8 col-md-10">
+        <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4"><i class="mdi mdi-clipboard-text-outline me-1"></i> {{ __('rental.rental_info') }}</h4>
-
-                <form action="{{ route('admin.warehouse_rentals.store') }}" method="POST">
+                <form action="{{ route('admin.invoices.store') }}" method="POST">
                     @csrf
 
-                    <!-- Merchant Selection -->
-                    <div class="row mb-4">
-                        <label for="merchant_id" class="col-sm-2 col-form-label">{{ __('merchant.name') }}</label>
-                        <div class="col-sm-10">
-                            <select name="merchant_id" id="merchant_id" class="form-select select2">
-                                <option disabled selected>{{ __('rental.select_merchant') }}</option>
-                                @foreach ($merchants as $merchant)
-                                    <option value="{{ $merchant->id }}" {{ old('merchant_id') == $merchant->id ? 'selected' : '' }}>
-                                        {{ $merchant->name['en'] ?? $merchant->name }} - {{ $merchant->email }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('merchant_id')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
+                    {{-- التاجر --}}
+                    <div class="mb-3">
+                        <label for="merchant_id" class="form-label">التاجر</label>
+                        <select name="merchant_id" id="merchant_id" class="form-select">
+                            <option value="">اختر التاجر</option>
+                            @foreach($merchants as $merchant)
+                                <option value="{{ $merchant->id }}" {{ old('merchant_id') == $merchant->id ? 'selected' : '' }}>
+                                    {{ $merchant->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('merchant_id')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
-                    <!-- Rental Start Date -->
-                    <div class="row mb-4">
-                        <label for="rental_start" class="col-sm-2 col-form-label">{{ __('rental.rental_start') }}</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="rental_start" id="rental_start" class="form-control"
-                                   value="{{ old('rental_start', now()->format('Y-m-d')) }}">
-                            @error('rental_start')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    <!-- Rental End Date -->
-                    <div class="row mb-4">
-                        <label for="rental_end" class="col-sm-2 col-form-label">{{ __('rental.rental_end') }}</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="rental_end" id="rental_end" class="form-control"
-                                   value="{{ old('rental_end', now()->addMonth()->format('Y-m-d')) }}">
-                            @error('rental_end')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
+                    {{-- نوع الفاتورة --}}
+                    <div class="mb-3">
+                        <label for="payable_type" class="form-label">نوع الفاتورة</label>
+                        <select name="payable_type" id="payable_type" class="form-select">
+                            <option value="">اختر النوع</option>
+                            <option value="WarehouseRental" {{ old('payable_type') == 'WarehouseRental' ? 'selected' : '' }}>عقد إيجار</option>
+                            <option value="Package" {{ old('payable_type') == 'Package' ? 'selected' : '' }}>طرد</option>
+                        </select>
+                        @error('payable_type')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
-                    <!-- Accordion -->
-                    <h5 class="text-muted mb-3">{{ __('rental.select_shelves') }}</h5>
-
-                    <div id="accordion" class="custom-accordion">
-                        @forelse($warehouses as $index => $warehouse)
-                            <div class="card mb-2 shadow-none border">
-                                <a href="#collapseWarehouse{{ $warehouse->id }}" class="text-dark" data-bs-toggle="collapse"
-                                    aria-expanded="{{ $index === 0 ? 'true' : 'false' }}"
-                                    aria-controls="collapseWarehouse{{ $warehouse->id }}">
-                                    <div class="card-header" id="headingWarehouse{{ $warehouse->id }}">
-                                        <h6 class="m-0">
-                                            {{ $warehouse->name['en'] ?? $warehouse->name }} ({{ $warehouse->code }})
-                                            <i class="mdi mdi-minus float-end accor-plus-icon"></i>
-                                        </h6>
-                                    </div>
-                                </a>
-
-                                <!-- open single accordion item  -->
-                                {{-- <div id="collapseWarehouse{{ $warehouse->id }}"
-                                     class="collapse {{ $index === 0 ? 'show' : '' }}"
-                                     aria-labelledby="headingWarehouse{{ $warehouse->id }}"
-                                     data-bs-parent="#accordion"> --}}
-
-                                <!-- Open multiple accordion item -->
-                                <div id="collapseWarehouse{{ $warehouse->id }}"
-                                     class="collapse {{ $index === 0 ? 'show' : '' }}"
-                                     aria-labelledby="headingWarehouse{{ $warehouse->id }}"
-                                     data-bs-parent="#accordion">
-                                    <div class="card-body">
-                                        @forelse($warehouse->shelves as $shelf)
-                                            <div class="row align-items-end mb-3">
-                                                <div class="col-md-1 text-center">
-                                                    <input type="checkbox" class="form-check-input" name="shelves[{{ $shelf->id }}][selected]" value="1">
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label class="form-label fw-bold">{{ $shelf->code }}</label>
-                                                    <div class="text-muted small">
-                                                        {{ __('shelf.size') }}: {{ $shelf->size }} | {{ __('shelf.price') }}: {{ $shelf->price }}
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <label class="form-label">{{ __('rental.price') }}</label>
-                                                    <input type="number" step="0.01" name="shelves[{{ $shelf->id }}][custom_price]" class="form-control" placeholder="0.00">
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label class="form-label">{{ __('rental.rental_start') }}</label>
-                                                    <input type="date" name="shelves[{{ $shelf->id }}][custom_start]" class="form-control">
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label class="form-label">{{ __('rental.rental_end') }}</label>
-                                                    <input type="date" name="shelves[{{ $shelf->id }}][custom_end]" class="form-control">
-                                                </div>
-                                            </div>
-                                        @empty
-                                            <div class="text-muted">{{ __('shelf.no_shelves_available') }}</div>
-                                        @endforelse
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="text-muted">{{ __('warehouse.no_warehouses_found') }}</div>
-                        @endforelse
+                    {{-- العنصر المرتبط --}}
+                    <div class="mb-3">
+                        <label for="payable_id" class="form-label">العنصر المرتبط</label>
+                        <select name="payable_id" id="payable_id" class="form-select">
+                            <option value="">اختر العنصر</option>
+                        </select>
+                        @error('payable_id')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
-                    <!-- Submit -->
-                    <div class="text-end mt-4">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="mdi mdi-content-save-outline me-1"></i> {{ __('rental.save_rental_data') }}
-                        </button>
+                    {{-- المبلغ --}}
+                    <div class="mb-3">
+                        <label for="total_amount" class="form-label">المبلغ الإجمالي</label>
+                        <input type="number" name="total_amount" id="total_amount" class="form-control" step="0.01" min="0" value="{{ old('total_amount') }}">
+                        @error('total_amount')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
+
+                    {{-- العملة --}}
+                    <div class="mb-3">
+                        <label for="currency" class="form-label">العملة</label>
+                        <input type="text" name="currency" id="currency" class="form-control" value="{{ old('currency', 'SAR') }}">
+                        @error('currency')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    {{-- تواريخ الفاتورة --}}
+                    <div class="mb-3">
+                        <label for="issued_at" class="form-label">تاريخ الإصدار</label>
+                        <input type="datetime-local" name="issued_at" id="issued_at" class="form-control" value="{{ old('issued_at', now()->format('Y-m-d\TH:i')) }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="due_date" class="form-label">تاريخ الاستحقاق</label>
+                        <input type="datetime-local" name="due_date" id="due_date" class="form-control" value="{{ old('due_date', now()->addDays(15)->format('Y-m-d\TH:i')) }}">
+                    </div>
+
+                    {{-- الملاحظات --}}
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">ملاحظات</label>
+                        <textarea name="notes" id="notes" class="form-control" rows="3">{{ old('notes') }}</textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">إنشاء الفاتورة</button>
+                    <a href="{{ route('admin.invoices.index') }}" class="btn btn-secondary">إلغاء</a>
 
                 </form>
             </div>
@@ -145,4 +107,39 @@
     </div>
 </div>
 
+@endsection
+
+@section('scripts')
+<script>
+    const payableData = {
+        WarehouseRental: @json($warehouseRentals ?? []),
+        Package: @json($packages ?? [])
+    };
+
+    const payableTypeSelect = document.getElementById('payable_type');
+    const payableIdSelect = document.getElementById('payable_id');
+
+    // عند تغيير النوع، يتم تعبئة العناصر المرتبطة
+    payableTypeSelect.addEventListener('change', function() {
+        const type = this.value;
+        payableIdSelect.innerHTML = '<option value="">اختر العنصر</option>';
+
+        if(payableData[type]){
+            payableData[type].forEach(item => {
+                let displayName = item.name ?? item.title ?? 'Item ' + item.id;
+                let notes = item.notes ?? '';
+                let selected = oldPayableId == item.id ? 'selected' : '';
+                payableIdSelect.innerHTML += `<option value="${item.id}" ${selected}>${displayName}${notes ? ' - ' + notes : ''}</option>`;
+            });
+        }
+    });
+
+    // إعادة اختيار العنصر عند الفشل في التحقق من الصحة
+    const oldPayableType = "{{ old('payable_type') }}";
+    const oldPayableId = "{{ old('payable_id') }}";
+    if(oldPayableType){
+        payableTypeSelect.value = oldPayableType;
+        payableTypeSelect.dispatchEvent(new Event('change'));
+    }
+</script>
 @endsection
