@@ -57,8 +57,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="status" class="form-label">الحالة</label>
-                        <select name="status" id="status" class="form-select">
+                        <label for="status1" class="form-label">الحالة</label>
+                        <select name="status" id="status1" class="form-select">
                             <option value="unpaid" {{ $invoice->status == 'unpaid' ? 'selected' : '' }}>غير مدفوعة</option>
                             <option value="partial" {{ $invoice->status == 'partial' ? 'selected' : '' }}>جزئياً</option>
                             <option value="paid" {{ $invoice->status == 'paid' ? 'selected' : '' }}>مدفوعة</option>
