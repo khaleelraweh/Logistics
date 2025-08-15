@@ -55,9 +55,12 @@ class PaymentController extends Controller
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+   public function edit(Payment $payment)
     {
-        //
+        // تحميل بيانات الفاتورة المرتبطة
+        $invoice = $payment->invoice;
+
+        return view('admin.payments.edit', compact('payment', 'invoice'));
     }
 
     /**
@@ -68,9 +71,32 @@ class PaymentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Payment $payment)
-    {
-        //
-    }
+{
+    $invoice = $payment->invoice;
+
+    $request->validate([
+        'amount' => 'required|numeric|min:1|max:' . ($invoice->total_amount - ($invoice->payments()->where('id', '!=', $payment->id)->sum('amount'))),
+        'method' => 'required|in:cash,credit_card,bank_transfer,wallet,cod',
+        'reference_note' => 'nullable|string',
+        'payment_reference' => 'nullable|string',
+        'paid_on' => 'required|date',
+    ]);
+
+    $payment->update([
+        'amount' => $request->amount,
+        'method' => $request->method,
+        'reference_note' => $request->reference_note,
+        'payment_reference' => $request->payment_reference,
+        'paid_on' => $request->paid_on,
+    ]);
+
+    // تحديث حالة الفاتورة بعد تعديل الدفع
+    $invoice->updateStatus();
+
+    return redirect()->route('admin.invoices.show', $invoice->id)
+                     ->with('success', 'تم تحديث الدفع بنجاح.');
+}
+
 
     /**
      * Remove the specified resource from storage.
@@ -79,7 +105,18 @@ class PaymentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Payment $payment)
-    {
-        //
-    }
+{
+    // الحصول على الفاتورة المرتبطة قبل حذف الدفع
+    $invoice = $payment->invoice;
+
+    // حذف الدفع
+    $payment->delete();
+
+    // تحديث حالة الفاتورة بعد حذف الدفع
+    $invoice->updateStatus();
+
+    return redirect()->route('admin.invoices.show', $invoice->id)
+                     ->with('success', 'تم حذف الدفع بنجاح.');
+}
+
 }
