@@ -7,14 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    use HasFactory ;
+    use HasFactory;
 
     protected $casts = [
         'paid_on' => 'datetime',
     ];
 
     protected $guarded = [];
-
 
     public function invoice()
     {
@@ -25,17 +24,14 @@ class Payment extends Model
     {
         parent::boot();
 
-        static::created(function ($payment) {
-            if ($payment->invoice) {
-                $payment->invoice->updateStatus();
-            }
-        });
-
-        static::updated(function ($payment) {
-            if ($payment->invoice) {
-                $payment->invoice->updateStatus();
-            }
-        });
+        // أي تعديل أو حذف أو إضافة دفع يقوم بتحديث حالة الفاتورة
+        foreach (['created', 'updated', 'deleted'] as $event) {
+            static::$event(function ($payment) {
+                if ($payment->invoice) {
+                    $payment->invoice->updateStatus();
+                }
+            });
+        }
     }
 
     public function merchant()
@@ -48,8 +44,7 @@ class Payment extends Model
         return $this->belongsTo(Driver::class);
     }
 
-
-      // (اختياري) علاقة إلى المستخدم الذي أنشأ أو عدل الدفع، إذا كنت تستخدم جدول users
+    // (اختياري) علاقة إلى المستخدم الذي أنشأ أو عدل الدفع
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
@@ -64,8 +59,4 @@ class Payment extends Model
     {
         return $this->belongsTo(User::class, 'deleted_by');
     }
-
-
-
-
 }

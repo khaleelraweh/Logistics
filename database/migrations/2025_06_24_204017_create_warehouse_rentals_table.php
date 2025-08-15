@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('rental_end');
             $table->decimal('price', 10, 2);
 
+
             $table->tinyInteger('status')->default(1); // 1: active, 0: inactive, 2: expired            $table->dateTime('published_on')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

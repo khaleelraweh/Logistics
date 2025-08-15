@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('warehouse_rental_id')->constrained()->onDelete('cascade');
             $table->foreignId('shelf_id')->constrained()->onDelete('cascade');
             $table->decimal('custom_price', 10, 2)->nullable();
+            $table->decimal('total_price', 10, 2)->default(0);
             $table->date('custom_start')->nullable();
             $table->date('custom_end')->nullable();
             $table->timestamps();

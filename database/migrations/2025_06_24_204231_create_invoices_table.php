@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('merchant_id')->constrained()->onDelete('cascade'); // التاجر
             $table->morphs('payable'); // Polymorphic (ربط بطرد أو إيجار)
             $table->decimal('total_amount', 10, 2); // المبلغ الإجمالي
+            $table->decimal('paid_amount', 10, 2)->default(0);
             $table->string('currency', 10)->default('USD'); // العملة
             $table->enum('status', ['unpaid', 'paid', 'partial'])->default('unpaid'); // حالة الفاتورة
             $table->date('due_date')->nullable(); // تاريخ الاستحقاق
