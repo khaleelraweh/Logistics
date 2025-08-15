@@ -93,9 +93,8 @@ class PaymentController extends Controller
         // تحديث حالة الفاتورة بعد تعديل الدفع
         $invoice->updateStatus();
 
-        // return redirect()->route('admin.invoices.show', $invoice->id)
-        //                 ->with('success', 'تم تحديث الدفع بنجاح.');
-        return redirect()->back()->with('success', 'تم تحديث الدفع بنجاح.');
+        return redirect()->route('admin.invoices.show', $invoice->id)
+                        ->with('success', 'تم تحديث الدفع بنجاح.');
     }
 
 
@@ -116,9 +115,8 @@ class PaymentController extends Controller
         // تحديث حالة الفاتورة بعد حذف الدفع
         $invoice->updateStatus();
 
-        // return redirect()->route('admin.invoices.show', $invoice->id)
-        //                 ->with('success', 'تم حذف الدفع بنجاح.');
-         return redirect()->back()->with('success', 'تم حذف الدفع بنجاح.');
+        return redirect()->route('admin.invoices.show', $invoice->id)
+                        ->with('success', 'تم حذف الدفع بنجاح.');
     }
 
 }
