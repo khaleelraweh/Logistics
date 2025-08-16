@@ -362,17 +362,6 @@
                                                             </a>
 
                                                             @if($invoice)
-                                                                <a href="{{ route('admin.invoices.pay.create', $invoice->id) }}" class="btn btn-sm btn-outline-success">
-                                                                    {{ __('invoice.add_payment') }}
-                                                                </a>
-
-                                                                <a href="{{ route('admin.invoices.show', $rental->invoice->id) }}#payments"
-                                                                class="btn btn-sm btn-primary">
-                                                                    💵 {{ __('payment.add_payment') }}
-                                                                </a>
-                                                            @endif
-
-                                                            @if($invoice)
                                                                 <button type="button" class="btn btn-sm btn-outline-success"
                                                                         data-bs-toggle="modal" data-bs-target="#paymentModal{{ $invoice->id }}">
                                                                     💵 {{ __('payment.add_payment') }}

@@ -18,6 +18,8 @@ return [
     'custom_end'            =>  'Custom End',
     'shelf_info'            => 'Shelf Information',
     'add_payment'          => 'Add Rental Payment',
+    'edit_contract'         => 'Edit Rental Contract',
+    'open_invoice'       => 'Open Invoice',
 
 
     'shelf_code'           => 'Shelf Code',
