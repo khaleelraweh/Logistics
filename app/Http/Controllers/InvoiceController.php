@@ -29,16 +29,16 @@ class InvoiceController extends Controller
         return view('admin.invoices.index', compact('invoices'));
     }
 
-  public function create()
-{
-    $merchants = Merchant::all();
+    public function create()
+    {
+        $merchants = Merchant::all();
 
-    // العناصر المرتبطة بالفواتير (غير المرتبطة بعد)
-    $warehouseRentals = WarehouseRental::doesntHave('invoice')->get();
-    $packages = Package::doesntHave('invoice')->get();
+        // العناصر المرتبطة بالفواتير (غير المرتبطة بعد)
+        $warehouseRentals = WarehouseRental::doesntHave('invoice')->get();
+        $packages = Package::doesntHave('invoice')->get();
 
-    return view('admin.invoices.create', compact('merchants', 'warehouseRentals', 'packages'));
-}
+        return view('admin.invoices.create', compact('merchants', 'warehouseRentals', 'packages'));
+    }
 
 
     public function store(Request $request)
@@ -109,6 +109,13 @@ class InvoiceController extends Controller
         $invoice->delete();
         return redirect()->route('admin.invoices.index')
             ->with('success', 'Invoice deleted successfully.');
+    }
+
+    public function pay($invoiceId)
+    {
+        $invoice = Invoice::with('payments')->findOrFail($invoiceId);
+
+        return view('admin.invoices.pay' ,compact('invoice'));
     }
 
     public function payInvoice(Request $request, $invoiceId)

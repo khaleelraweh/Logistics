@@ -382,7 +382,7 @@
                         </div>
                     </div> --}}
 
-                    <div class="tab-pane" id="profile1" role="tabpanel">
+                    {{-- <div class="tab-pane" id="profile1" role="tabpanel">
                         <div class="card mt-3">
                             <div class="card-body">
                                 <h4 class="card-title">
@@ -492,10 +492,10 @@
                                 @endif
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
 
-                    {{-- <div class="tab-pane" id="profile1" role="tabpanel">
+                    <div class="tab-pane" id="profile1" role="tabpanel">
                         <div class="card mt-3">
                             <div class="card-body">
                                 <h4 class="card-title">
@@ -554,14 +554,14 @@
                                                             </a>
 
                                                             @if($invoice)
-                                                                <a href="{{ route('admin.invoices.pay', $invoice->id) }}" class="btn btn-sm btn-outline-success">
+                                                                <a href="{{ route('admin.invoices.pay.create', $invoice->id) }}" class="btn btn-sm btn-outline-success">
                                                                     {{ __('invoice.add_payment') }}
                                                                 </a>
 
-                                                                   {{-- <a href="{{ route('admin.invoices.show', $rental->invoice->id) }}#payments"
-                                                                    class="btn btn-sm btn-primary">
-                                                                        💵 {{ __('payment.add_payment') }}
-                                                                    </a> --}}
+                                                                <a href="{{ route('admin.invoices.show', $rental->invoice->id) }}#payments"
+                                                                class="btn btn-sm btn-primary">
+                                                                    💵 {{ __('payment.add_payment') }}
+                                                                </a>
                                                             @endif
                                                         </div>
 
@@ -610,7 +610,7 @@
                                 @endif
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
 
 
 
