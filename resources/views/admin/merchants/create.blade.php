@@ -1,199 +1,398 @@
 @extends('layouts.admin')
 
 @section('content')
-
-    <!-- start page title -->
-    <div class="row">
-            <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">{{ __('merchant.manage_merchants') }}</h4>
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('merchant.add_merchant') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('merchant.manage_merchants') }}</li>
-                        </ol>
+<div class="container-fluid">
+    <!-- Page Title -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-shop-window fs-3 me-2 text-primary"></i>
+                    <div>
+                        <h4 class="mb-0">{{ __('merchant.manage_merchants') }}</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.index') }}</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.merchants.index') }}">{{ __('merchant.merchants') }}</a></li>
+                                <li class="breadcrumb-item active">{{ __('merchant.add_merchant') }}</li>
+                            </ol>
+                        </nav>
                     </div>
+                </div>
+                <a href="{{ route('admin.merchants.index') }}" class="btn btn-outline-secondary rounded-pill px-3">
+                    <i class="bi bi-arrow-left me-1"></i> {{ __('general.back') }}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Merchant Form -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <form action="{{ route('admin.merchants.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        @csrf
+
+                        <!-- Merchant Info Section -->
+                        <div class="mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                    <i class="bi bi-info-circle text-primary"></i>
+                                </div>
+                                <h5 class="mb-0">{{ __('merchant.merchant_info') }}</h5>
+                            </div>
+
+                            @foreach (config('locales.languages') as $key => $val)
+                                <div class="row mb-3">
+                                    <label class="col-md-2 col-form-label" for="name[{{ $key }}]">
+                                        {{ __('merchant.name') }}
+                                        <span class="badge bg-light text-dark ms-2">
+                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} me-1"></i>
+                                            {{ __('language.' . $key) }}
+                                        </span>
+                                    </label>
+                                    <div class="col-md-10">
+                                        <input name="name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text"
+                                               value="{{ old('name.' . $key) }}" required>
+                                        @error('name.' . $key)
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endforeach
+
+                            @foreach (config('locales.languages') as $key => $val)
+                                <div class="row mb-3">
+                                    <label class="col-md-2 col-form-label" for="address[{{ $key }}]">
+                                        {{ __('general.address') }}
+                                        <span class="badge bg-light text-dark ms-2">
+                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} me-1"></i>
+                                            {{ __('language.' . $key) }}
+                                        </span>
+                                    </label>
+                                    <div class="col-md-10">
+                                        <input name="address[{{ $key }}]" class="form-control" id="address[{{ $key }}]" type="text"
+                                               value="{{ old('address.' . $key) }}">
+                                        @error('address.' . $key)
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Contact Data Section -->
+                        <div class="mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                    <i class="bi bi-person-lines-fill text-primary"></i>
+                                </div>
+                                <h5 class="mb-0">{{ __('merchant.contact_data') }}</h5>
+                            </div>
+
+                            @foreach (config('locales.languages') as $key => $val)
+                                <div class="row mb-3">
+                                    <label class="col-md-2 col-form-label" for="contact_person[{{ $key }}]">
+                                        {{ __('merchant.contact_person') }}
+                                        <span class="badge bg-light text-dark ms-2">
+                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} me-1"></i>
+                                            {{ __('language.' . $key) }}
+                                        </span>
+                                    </label>
+                                    <div class="col-md-10">
+                                        <input name="contact_person[{{ $key }}]" class="form-control" id="contact_person[{{ $key }}]" type="text"
+                                               value="{{ old('contact_person.' . $key) }}">
+                                        @error('contact_person.' . $key)
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endforeach
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="phone">{{ __('general.phone') }}</label>
+                                <div class="col-md-10">
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                        <input name="phone" class="form-control" id="phone" type="text"
+                                               value="{{ old('phone') }}" required>
+                                    </div>
+                                    @error('phone')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="email">{{ __('general.email') }}</label>
+                                <div class="col-md-10">
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                        <input id="email" class="form-control" name="email"
+                                               type="email" value="{{ old('email') }}" required>
+                                    </div>
+                                    @error('email')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="api_key">{{ __('merchant.api_key') }}</label>
+                                <div class="col-md-10">
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                        <input name="api_key" class="form-control" id="api_key" type="text"
+                                               value="{{ old('api_key', Str::random(32)) }}" required>
+                                        <button class="btn btn-outline-secondary" type="button" id="generateApiKey">
+                                            <i class="bi bi-arrow-repeat"></i> {{ __('general.generate') }}
+                                        </button>
+                                    </div>
+                                    @error('api_key')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Logo Section -->
+                        <div class="mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                    <i class="bi bi-image text-primary"></i>
+                                </div>
+                                <h5 class="mb-0">{{ __('merchant.logo') }}</h5>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="merchant_logo">{{ __('merchant.logo') }}</label>
+                                <div class="col-md-10">
+                                    <div class="file-upload-container">
+                                        <input type="file" name="logo" id="merchant_logo" class="file-input-overview">
+                                        <div class="file-upload-preview mt-2 d-none">
+                                            <img id="logoPreview" src="#" alt="Logo Preview" class="img-thumbnail" style="max-width: 200px; max-height: 200px;">
+                                        </div>
+                                    </div>
+                                    @error('logo')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Links Section -->
+                        <div class="mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                    <i class="bi bi-share text-primary"></i>
+                                </div>
+                                <h5 class="mb-0">{{ __('general.social_links') }}</h5>
+                            </div>
+
+                            @foreach (['facebook', 'twitter', 'instagram', 'linkedin', 'youtube', 'website'] as $social)
+                                <div class="row mb-3">
+                                    <label class="col-md-2 col-form-label" for="{{ $social }}">
+                                        <i class="bi bi-{{ $social == 'website' ? 'globe' : $social }} me-2"></i>
+                                        {{ ucfirst(__('social.'.$social)) }}
+                                    </label>
+                                    <div class="col-md-10">
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-{{ $social == 'website' ? 'globe' : $social }}"></i>
+                                            </span>
+                                            <input name="{{ $social }}" class="form-control" id="{{ $social }}"
+                                                   type="url" value="{{ old($social) }}" placeholder="https://">
+                                        </div>
+                                        @error($social)
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Status Section -->
+                        <div class="mb-4">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label" for="status">{{ __('general.status') }}</label>
+                                <div class="col-md-10">
+                                    <div class="form-check form-switch form-switch-lg">
+                                        <input type="checkbox" class="form-check-input" name="status" id="status"
+                                               {{ old('status', '1') == '1' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="status">
+                                            {{ __('merchant.choose_merchant_status') }}
+                                        </label>
+                                    </div>
+                                    @error('status')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        @ability('admin', 'create_merchants')
+                            <div class="text-end pt-3">
+                                <button type="submit" class="btn btn-primary rounded-pill px-4">
+                                    <i class="bi bi-save me-1"></i> {{ __('merchant.save_merchant_data') }}
+                                </button>
+                            </div>
+                        @endability
+                    </form>
                 </div>
             </div>
         </div>
-
-
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <h4 class="card-title">{{ __('merchant.merchant_info') }}</h4>
-
-                            <form action="{{ route('admin.merchants.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-
-                                @foreach (config('locales.languages') as $key => $val)
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="name[{{ $key }}]">
-                                            {{ __('merchant.name') }}
-                                            <span class="language-type">
-                                                <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
-                                                    title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
-                                                {{ __('language.' . $key) }}
-                                            </span>
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <input name="name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('name.' . $key) }}">
-                                            @error('name.' . $key)
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                                @foreach (config('locales.languages') as $key => $val)
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="address[{{ $key }}]">
-                                            {{ __('general.address') }}
-                                            <span class="language-type">
-                                                <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
-                                                    title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
-                                                {{ __('language.' . $key) }}
-                                            </span>
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <input name="address[{{ $key }}]" class="form-control" id="address[{{ $key }}]" type="text" value="{{ old('address.' . $key) }}">
-                                            @error('address.' . $key)
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                                <hr>
-                                <h4 class="card-title">{{ __('merchant.contact_data') }}</h4>
-
-                                @foreach (config('locales.languages') as $key => $val)
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="contact_person[{{ $key }}]">
-                                            {{ __('merchant.contact_person') }}
-                                            <span class="language-type">
-                                                <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
-                                                    title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
-                                                {{ __('language.' . $key) }}
-                                            </span>
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <input name="contact_person[{{ $key }}]" class="form-control" id="contact_person[{{ $key }}]" type="text" value="{{ old('contact_person.' . $key) }}">
-                                            @error('contact_person.' . $key)
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="phone">{{ __('general.phone') }}</label>
-                                    <div class="col-sm-10">
-                                        <input name="phone" class="form-control" id="phone" type="text" value="{{ old('phone') }}">
-                                        @error('phone')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="input-email">{{ __('general.email') }}</label>
-                                    <div class="col-sm-10">
-                                        <input id="input-email" class="form-control input-mask" data-inputmask="'alias': 'email'" name="email" value="{{ old('email') }}">
-                                        <span class="text-muted">_@_._</span>
-                                        @error('email')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="api_key">{{ __('merchant.api_key') }}</label>
-                                    <div class="col-sm-10">
-                                        <input name="api_key" class="form-control" id="api_key" type="text" value="{{ old('api_key') }}">
-                                        @error('api_key')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-
-                                <hr>
-                                <h4 class="card-title">{{ __('merchant.logo') }}</h4>
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="merchant_logo">{{ __('merchant.logo') }}</label>
-                                    <div class="col-sm-10">
-                                        <input type="file" name="logo" id="merchant_logo" class="file-input-overview ">
-                                        @error('logo')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <hr>
-                                <h4 class="card-title">{{ __('general.social_links') }}</h4>
-
-                                @foreach (['facebook', 'twitter', 'instagram', 'linkedin', 'youtube', 'website'] as $social)
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="{{ $social }}">{{ ucfirst(__('social.'.$social)) }}</label>
-                                        <div class="col-sm-10">
-                                            <input name="{{ $social }}" class="form-control" id="{{ $social }}" type="url" value="{{ old($social) }}">
-                                            @error('{{ $socail }}')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                                <hr>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="status">{{ __('general.status') }}</label>
-                                    <div class="col-sm-10">
-                                        <div class="form-check form-switch" >
-                                            <input type="checkbox" class="form-check-input" name="status"  id="customSwitch1"  {{ old('status', '1') == '1' ? 'checked' : '' }} >
-                                            <label class="form-check-label" for="customSwitch1">{{ __('merchant.choose_merchant_status') }}</label>
-                                        </div>
-                                        @error('status')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-
-                                @ability('admin', 'create_merchants')
-                                    <div class="text-end">
-                                        <button type="submit" class="btn btn-primary">{{ __('merchant.save_merchant_data') }}</button>
-                                    </div>
-                                @endability
-
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+    </div>
+</div>
 @endsection
 
+@section('styles')
+<style>
+    /* Custom Form Styles */
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+        border: none;
+    }
+
+    .form-control, .form-select, .input-group-text {
+        border-radius: 8px;
+    }
+
+    .form-switch .form-check-input {
+        width: 3rem;
+        height: 1.5rem;
+    }
+
+    .form-switch.form-switch-lg .form-check-input {
+        width: 4rem;
+        height: 2rem;
+    }
+
+    .file-upload-container {
+        border: 2px dashed #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+    }
+
+    .file-upload-container:hover {
+        border-color: #0d6efd;
+        background-color: rgba(13, 110, 253, 0.05);
+    }
+
+    .file-input-overview {
+        width: 100%;
+    }
+
+    .file-upload-preview img {
+        border-radius: 8px;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    /* Language Badge */
+    .language-type .flag-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Section Headers */
+    .section-header {
+        position: relative;
+        padding-left: 40px;
+        margin-bottom: 20px;
+    }
+
+    .section-header i {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: rgba(13, 110, 253, 0.1);
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0d6efd;
+    }
+
+    /* Social Icons */
+    .input-group-text i {
+        min-width: 16px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .col-form-label {
+            text-align: left !important;
+            margin-bottom: 5px;
+        }
+    }
+</style>
+@endsection
 
 @section('script')
-    {{-- Call select2 plugin --}}
-
-    <script>
-        $(function() {
-            $("#merchant_logo").fileinput({
-                theme: "fa5",
-                maxFileCount: 5,
-                allowedFileTypes: ['image'],
-                showCancel: true,
-                showRemove: false,
-                showUpload: false,
-                overwriteInitial: false
-            });
+<script>
+    $(document).ready(function() {
+        // Initialize file input
+        $("#merchant_logo").fileinput({
+            theme: "fa5",
+            maxFileCount: 1,
+            allowedFileTypes: ['image'],
+            showCancel: true,
+            showRemove: false,
+            showUpload: false,
+            overwriteInitial: false,
+            browseClass: "btn btn-primary",
+            browseIcon: '<i class="bi bi-folder2-open"></i> ',
+            browseLabel: "{{ __('general.select_file') }}",
+            msgPlaceholder: "{{ __('general.choose_file') }}",
+            dropZoneEnabled: false
+        }).on('change', function() {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#logoPreview').attr('src', e.target.result);
+                    $('.file-upload-preview').removeClass('d-none');
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
         });
-    </script>
+
+        // Generate API Key
+        $('#generateApiKey').click(function() {
+            $('#api_key').val(generateApiKey(32));
+        });
+
+        function generateApiKey(length) {
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+
+        // Form validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    });
+</script>
 @endsection
