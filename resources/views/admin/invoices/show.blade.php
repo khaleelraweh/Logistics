@@ -24,7 +24,7 @@
                 <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">معلومات الفاتورة</h5>
                     <span class="badge bg-{{ $invoice->status == 'paid' ? 'success' : ($invoice->status == 'partial' ? 'warning' : 'danger') }}">
-                        {{ __('invoice.'. $invoice->status) }}
+                        {{ __('invoice.status.'. $invoice->status) }}
                     </span>
                 </div>
                 <div class="card-body">
