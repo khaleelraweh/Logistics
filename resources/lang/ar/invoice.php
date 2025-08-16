@@ -15,4 +15,8 @@ return [
     'remaining_amount' => 'المبلغ المتبقي',
     'total_amount' => 'المبلغ الإجمالي',
 
+    'open_invoice' => 'فاتورة مفتوحة',
+    'paid_invoice' => 'فاتورة مدفوعة',
+    'unpaid_invoice' => 'فاتورة غير مدفوعة',
+
 ];

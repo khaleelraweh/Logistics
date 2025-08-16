@@ -15,4 +15,8 @@ return [
     'remaining_amount' => 'Remaining Amount',
     'total_amount' => 'Total Amount',
 
+    'open_invoice' => 'Open Invoice',
+    'paid_invoice' => 'Paid Invoice',
+    'unpaid_invoice' => 'Unpaid Invoice',
+
 ];
