@@ -71,8 +71,18 @@ class WarehouseRental extends Model
     }
 
 
-     public function invoice()  {
+    public function invoice()  {
         return $this->morphOne(Invoice::class, 'payable');
+    }
+
+    public function getPaidAmountAttribute()
+    {
+        return $this->invoice?->payments()->sum('amount') ?? 0;
+    }
+
+    public function getRemainingAmountAttribute()
+    {
+        return max(($this->invoice?->total_amount ?? $this->price) - $this->paid_amount, 0);
     }
 
 }
