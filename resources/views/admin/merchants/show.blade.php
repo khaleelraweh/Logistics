@@ -557,6 +557,11 @@
                                                                 <a href="{{ route('admin.invoices.pay', $invoice->id) }}" class="btn btn-sm btn-outline-success">
                                                                     {{ __('invoice.add_payment') }}
                                                                 </a>
+
+                                                                   {{-- <a href="{{ route('admin.invoices.show', $rental->invoice->id) }}#payments"
+                                                                    class="btn btn-sm btn-primary">
+                                                                        💵 {{ __('payment.add_payment') }}
+                                                                    </a> --}}
                                                             @endif
                                                         </div>
 
