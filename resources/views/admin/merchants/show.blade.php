@@ -303,198 +303,6 @@
                         </div>
                     </div>
 
-                    {{-- <div class="tab-pane" id="profile1" role="tabpanel">
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <h4 class="card-title">{{ __('rental.warehouse_rentals') }} ({{ $merchant->warehouseRentals->count() }})</h4>
-
-                                @if($merchant->warehouseRentals->isNotEmpty())
-                                    <div class="accordion" id="warehouseRentalsAccordion">
-
-                                        @foreach($merchant->warehouseRentals as $rental)
-
-                                            <div class="accordion-item mb-2">
-                                                <h2 class="accordion-header" id="headingRental{{ $rental->id }}">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRental{{ $rental->id }}" aria-expanded="false" aria-controls="collapseRental{{ $rental->id }}">
-                                                        {{ __('general.id') }}: {{ $rental->id }}
-                                                        &nbsp;&nbsp; | &nbsp;&nbsp;
-                                                        {{ __('rental.rental_start') }}: {{ $rental->rental_start }}
-                                                        &nbsp;&nbsp; | &nbsp;&nbsp;
-                                                        {{ __('rental.rental_end') }}: {{ $rental->rental_end }}
-                                                        &nbsp;&nbsp; | &nbsp;&nbsp;
-                                                        {{ __('rental.price') }}: {{ number_format($rental->price, 2) }}
-                                                        &nbsp;&nbsp; | &nbsp;&nbsp;
-                                                        {!! $rental->status_label !!}
-                                                    </button>
-                                                </h2>
-                                                <div id="collapseRental{{ $rental->id }}" class="accordion-collapse collapse" aria-labelledby="headingRental{{ $rental->id }}" data-bs-parent="#warehouseRentalsAccordion">
-                                                    <div class="accordion-body">
-
-                                                        @php
-                                                            // جلب المستودعات مباشرة من الرفوف المرتبطة بالعقد
-                                                            $warehouses = $rental->shelves->pluck('warehouse')->unique('id');
-                                                        @endphp
-
-                                                        @if($warehouses->isNotEmpty())
-                                                            <ul class="list-group">
-                                                                @foreach($warehouses as $warehouse)
-                                                                    <li class="list-group-item">
-                                                                        <strong>{{ $warehouse?->getTranslation('name', app()->getLocale()) ?? __('warehouse.unknown_warehouse') }}</strong>
-
-                                                                        @php
-                                                                            // الرفوف الخاصة بهذا العقد وهذا المستودع
-                                                                            $rentedShelves = $rental->shelves->filter(function($shelf) use ($warehouse) {
-                                                                                return $shelf->warehouse_id == $warehouse->id;
-                                                                            });
-                                                                        @endphp
-
-                                                                        @if($rentedShelves->isNotEmpty())
-                                                                            <ul class="list-group mt-2">
-                                                                                @foreach($rentedShelves as $shelf)
-                                                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                                        {{ $shelf->code ?? __('warehouse.unknown_shelf') }}
-                                                                                        <span class="badge bg-primary rounded-pill">
-                                                                                            {{ __('rental.custom_price') }}: {{ number_format($shelf->pivot->custom_price, 2) }}
-                                                                                        </span>
-                                                                                    </li>
-                                                                                @endforeach
-                                                                            </ul>
-                                                                        @else
-                                                                            <p class="text-muted mt-2">{{ __('merchant.no_rental_shelves_found_in_warehouse') }}</p>
-                                                                        @endif
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        @else
-                                                            <p class="text-muted">{{ __('merchant.no_warehouses_found_for_rental') }}</p>
-                                                        @endif
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-
-                                    </div>
-                                @else
-                                    <p class="text-muted">{{ __('merchant.no_warehouse_rentals_found') }}</p>
-                                @endif
-                            </div>
-                        </div>
-                    </div> --}}
-
-                    {{-- <div class="tab-pane" id="profile1" role="tabpanel">
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    {{ __('rental.warehouse_rentals') }} ({{ $merchant->warehouseRentals->count() }})
-                                </h4>
-
-                                @if($merchant->warehouseRentals->isNotEmpty())
-                                    <div class="accordion" id="warehouseRentalsAccordion">
-
-                                        @foreach($merchant->warehouseRentals as $rental)
-                                            <div class="accordion-item mb-2">
-                                                <h2 class="accordion-header" id="headingRental{{ $rental->id }}">
-                                                    <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#collapseRental{{ $rental->id }}"
-                                                        aria-expanded="false"
-                                                        aria-controls="collapseRental{{ $rental->id }}">
-
-                                                        {{ __('general.id') }}: {{ $rental->id }}
-                                                        &nbsp;&nbsp; | &nbsp;&nbsp;
-                                                        {{ __('rental.rental_start') }}: {{ $rental->rental_start }}
-                                                        &nbsp;&nbsp; | &nbsp;&nbsp;
-                                                        {{ __('rental.rental_end') }}: {{ $rental->rental_end }}
-                                                        &nbsp;&nbsp; | &nbsp;&nbsp;
-                                                        {{ __('rental.price') }}: {{ number_format($rental->price, 2) }}
-                                                        &nbsp;&nbsp; | &nbsp;&nbsp;
-                                                        {!! $rental->status_label !!}
-                                                    </button>
-                                                </h2>
-
-                                                <div id="collapseRental{{ $rental->id }}" class="accordion-collapse collapse"
-                                                    aria-labelledby="headingRental{{ $rental->id }}"
-                                                    data-bs-parent="#warehouseRentalsAccordion">
-                                                    <div class="accordion-body">
-
-                                                        <!-- المبالغ -->
-                                                        <p><strong>💰 {{ __('invoice.total_amount') }}:</strong> {{ number_format($rental->invoice?->total_amount ?? $rental->price, 2) }}</p>
-                                                        <p><strong>✅ {{ __('invoice.paid_amount') }}:</strong> {{ number_format($rental->paid_amount, 2) }}</p>
-                                                        <p><strong>⚠️ {{ __('invoice.remaining_amount') }}:</strong> {{ number_format($rental->remaining_amount, 2) }}</p>
-
-                                                        <!-- الإجراءات -->
-                                                        <div class="mt-3">
-                                                            @if($rental->invoice)
-                                                                <a href="{{ route('admin.invoices.show', $rental->invoice->id) }}"
-                                                                class="btn btn-sm btn-info">
-                                                                    📄 {{ __('invoice.open_invoice') }}
-                                                                </a>
-                                                            @else
-                                                                <a href="{{ route('admin.invoices.create', ['payable_type' => 'WarehouseRental', 'payable_id' => $rental->id]) }}"
-                                                                class="btn btn-sm btn-success">
-                                                                    ➕ {{ __('invoice.create_invoice') }}
-                                                                </a>
-                                                            @endif
-
-                                                            <a href="{{ route('admin.warehouse_rentals.edit', $rental->id) }}"
-                                                            class="btn btn-sm btn-warning">
-                                                                ✏️ {{ __('rental.edit_contract') }}
-                                                            </a>
-
-                                                            @if($rental->invoice)
-                                                                <a href="{{ route('admin.invoices.show', $rental->invoice->id) }}#payments"
-                                                                class="btn btn-sm btn-primary">
-                                                                    💵 {{ __('payment.add_payment') }}
-                                                                </a>
-                                                            @endif
-                                                        </div>
-
-                                                        <!-- المستودعات المرتبطة -->
-                                                        @php
-                                                            $warehouses = $rental->shelves->pluck('warehouse')->unique('id');
-                                                        @endphp
-
-                                                        @if($warehouses->isNotEmpty())
-                                                            <ul class="list-group mt-3">
-                                                                @foreach($warehouses as $warehouse)
-                                                                    <li class="list-group-item">
-                                                                        <strong>{{ $warehouse?->getTranslation('name', app()->getLocale()) ?? __('warehouse.unknown_warehouse') }}</strong>
-                                                                        @php
-                                                                            $rentedShelves = $rental->shelves->where('warehouse_id', $warehouse->id);
-                                                                        @endphp
-
-                                                                        @if($rentedShelves->isNotEmpty())
-                                                                            <ul class="list-group mt-2">
-                                                                                @foreach($rentedShelves as $shelf)
-                                                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                                        {{ $shelf->code ?? __('warehouse.unknown_shelf') }}
-                                                                                        <span class="badge bg-primary rounded-pill">
-                                                                                            {{ __('rental.custom_price') }}: {{ number_format($shelf->pivot->custom_price, 2) }}
-                                                                                        </span>
-                                                                                    </li>
-                                                                                @endforeach
-                                                                            </ul>
-                                                                        @endif
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        @endif
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-
-                                    </div>
-                                @else
-                                    <p class="text-muted">{{ __('merchant.no_warehouse_rentals_found') }}</p>
-                                @endif
-                            </div>
-                        </div>
-                    </div> --}}
-
-
                     <div class="tab-pane" id="profile1" role="tabpanel">
                         <div class="card mt-3">
                             <div class="card-body">
@@ -563,6 +371,13 @@
                                                                     💵 {{ __('payment.add_payment') }}
                                                                 </a>
                                                             @endif
+
+                                                            @if($invoice)
+                                                                <button type="button" class="btn btn-sm btn-outline-success"
+                                                                        data-bs-toggle="modal" data-bs-target="#paymentModal{{ $invoice->id }}">
+                                                                    💵 {{ __('payment.add_payment') }}
+                                                                </button>
+                                                            @endif
                                                         </div>
 
                                                         <!-- المستودعات والرفوف -->
@@ -611,8 +426,6 @@
                             </div>
                         </div>
                     </div>
-
-
 
                     <!-- تبويب المنتجات والمخزونات -->
                     <div class="tab-pane fade" id="messages1" role="tabpanel">
@@ -921,6 +734,64 @@
         </div>
     </div>
 </div>
+
+
+@if($invoice)
+    <div class="modal fade" id="paymentModal{{ $invoice->id }}" tabindex="-1" aria-labelledby="paymentModalLabel{{ $invoice->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="paymentModalLabel{{ $invoice->id }}">
+                {{ __('payment.add_payment') }} - {{ __('invoice.invoice_number') }}: #{{ $invoice->invoice_number }}
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <form action="{{ route('admin.invoices.pay', $invoice->id) }}" method="POST">
+                @csrf
+
+                <div class="mb-3">
+                    <label for="amount{{ $invoice->id }}" class="form-label">المبلغ</label>
+                    <input type="number" name="amount" id="amount{{ $invoice->id }}" class="form-control"
+                        step="0.01" min="1"
+                        max="{{ $invoice->total_amount - $invoice->payments->sum('amount') }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="method{{ $invoice->id }}" class="form-label">طريقة الدفع</label>
+                    <select name="method" id="method{{ $invoice->id }}" class="form-select" required>
+                        <option value="">اختر طريقة الدفع</option>
+                        <option value="cash">نقداً</option>
+                        <option value="credit_card">بطاقة ائتمان</option>
+                        <option value="bank_transfer">تحويل بنكي</option>
+                        <option value="wallet">المحفظة</option>
+                        <option value="cod">الدفع عند الاستلام</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="reference_note{{ $invoice->id }}" class="form-label">ملاحظات</label>
+                    <textarea name="reference_note" id="reference_note{{ $invoice->id }}" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="payment_reference{{ $invoice->id }}" class="form-label">رقم المرجع</label>
+                    <input type="text" name="payment_reference" id="payment_reference{{ $invoice->id }}" class="form-control">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">💵 حفظ الدفع</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                </div>
+            </form>
+
+        </div>
+        </div>
+    </div>
+    </div>
+@endif
+
 
 @endsection
 
