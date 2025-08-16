@@ -219,10 +219,10 @@
                         <!-- Status Section -->
                         <div class="mb-4">
                             <div class="row">
-                                <label class="col-md-2 col-form-label" for="status">{{ __('general.status') }}</label>
+                                <label class="col-md-2 col-form-label" for="status1">{{ __('general.status') }}</label>
                                 <div class="col-md-10">
                                     <div class="form-check form-switch form-switch-lg">
-                                        <input type="checkbox" class="form-check-input" name="status" id="status"
+                                        <input type="checkbox" class="form-check-input" name="status" id="status1"
                                                {{ old('status', $merchant->status) == '1' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="status">
                                             {{ __('merchant.choose_merchant_status') }}
