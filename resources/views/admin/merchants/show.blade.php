@@ -353,7 +353,7 @@
                                                         <div class="d-flex gap-2 mb-3">
                                                             @if($invoice)
                                                                 <a href="{{ route('admin.invoices.show', $invoice->id) }}" class="btn btn-sm btn-outline-primary">
-                                                                    {{ __('invoice.open_invoice') }}
+                                                                    {{ __('invoice.show_invoice') }}
                                                                 </a>
                                                             @endif
 
