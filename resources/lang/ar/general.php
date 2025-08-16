@@ -4,6 +4,10 @@
 return [
 
     // ==== الحقول ====
+    'main'               => 'الرئيسية',
+    'choose_file'         => 'اختر ملف',
+    'select_file'         => 'حدد ملف',
+    'generate'          => 'إنشاء',
     'name'                  =>  'الاسم',
     'merchant'            =>  'التاجر',
     'period'                =>  'الفترة',

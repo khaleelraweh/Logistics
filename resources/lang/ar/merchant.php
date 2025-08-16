@@ -26,6 +26,7 @@ return [
     'total_return_requests'        =>  'إجمالي طلبات الإرجاع',
 
     //create page
+    'merchants'                     => 'التجار',
     'merchant_info'                 =>  'معلومات التاجر',
     'contact_data'                  =>  'بيانات التواصل',
     'add_merchant'                  =>  'إضافة تاجر',

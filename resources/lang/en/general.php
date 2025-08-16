@@ -3,6 +3,10 @@
 return [
 
     // ==== Fields ====
+    'main'               => 'Main',
+    'choose_file'         => 'Choose File',
+    'select_file'         => 'Select File',
+    'generate'          => 'Generate',
     'name'                  =>  'Name',
     'merchant'            =>  'Merchant',
     'period'                =>  'Period',

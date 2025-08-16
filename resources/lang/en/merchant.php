@@ -26,6 +26,7 @@ return [
     'total_return_requests'        =>  'Total Return Requests',
 
     // create page
+    'merchants'                     => 'Merchants',
     'merchant_info'                 =>  "Merchant Information",
     'contact_data'                  =>  'Contact Data',
     'add_merchant'                  =>  'Add Mmerchant',
