@@ -344,9 +344,17 @@
 
                                                         <!-- المبالغ -->
                                                         <div class="mb-3">
-                                                            <p><strong>{{ __('invoice.total') }}:</strong> {{ number_format($invoice->total_amount ?? $rental->price, 2) }}</p>
-                                                            <p class="text-success"><strong>{{ __('invoice.paid') }}:</strong> {{ number_format($paid, 2) }}</p>
-                                                            <p class="text-danger"><strong>{{ __('invoice.remaining') }}:</strong> {{ number_format($remaining, 2) }}</p>
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    <p><strong>{{ __('invoice.total') }}:</strong> {{ number_format($invoice->total_amount ?? $rental->price, 2) }}</p>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <p class="text-success"><strong>{{ __('invoice.paid') }}:</strong> {{ number_format($paid, 2) }}</p>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <p class="text-danger"><strong>{{ __('invoice.remaining') }}:</strong> {{ number_format($remaining, 2) }}</p>
+                                                                </div>
+                                                            </div>
                                                         </div>
 
                                                         <!-- روابط التحكم -->
