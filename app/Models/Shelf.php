@@ -16,10 +16,7 @@ class Shelf extends Model
         return $this->belongsTo(Warehouse::class);
     }
 
-    // public function stockItems()
-    // {
-    //     return $this->hasMany(StockItem::class);
-    // }
+
 
     public function stockItems()
     {
@@ -49,5 +46,11 @@ class Shelf extends Model
     {
         return $this->belongsToMany(WarehouseRental::class, 'rental_shelves')
                     ->withPivot(['custom_price', 'custom_start', 'custom_end']);
+    }
+
+    public function getIsRentedAttribute()
+    {
+        // إذا في عقود نشطة متصلة بالرف نعتبره مؤجر
+        return $this->rentals()->exists();
     }
 }
