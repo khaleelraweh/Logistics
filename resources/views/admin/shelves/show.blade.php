@@ -34,7 +34,7 @@
                         <div class="p-3 bg-light rounded text-center">
                             <i class="fas fa-money-bill-wave fa-2x text-success mb-2"></i>
                             <h6 class="text-muted mb-1">{{ __('general.price') }}</h6>
-                            <p class="fw-semibold">{{ $shelf->price }} {{ __('general.currency') }}</p>
+                            <p class="fw-semibold">{{ $shelf->price }} {{ __('general.sar') }}</p>
                         </div>
                     </div>
                 </div>
