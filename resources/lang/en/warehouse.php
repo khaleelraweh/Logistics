@@ -18,6 +18,8 @@ return [
     'fill_basic_info'               =>  'Fill Basic Information',
     'enter_name'                    =>  'Enter Warehouse Name',
     'enter_location'                =>  'Enter Warehouse Location',
+
+    'fill_management_info'         =>  'Fill Management Information',
     'enter_manager_name'         =>  'Enter Warehouse Manager Name',
     'enter_email'                   =>  'Enter Warehouse Email',
     'enter_phone'                   =>  'Enter Warehouse Phone',

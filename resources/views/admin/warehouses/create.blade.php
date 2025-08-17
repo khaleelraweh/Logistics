@@ -7,7 +7,7 @@
             <div class="col">
                 <h1 class="page-title">{{ __('warehouse.manage_warehouses') }}</h1>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.dashboard') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
                     <li class="breadcrumb-item active">{{ __('warehouse.warehouses') }}</li>
                 </ul>
             </div>
