@@ -47,6 +47,24 @@ return [
     'save_shelf_data'            =>  'حفظ بيانات الرف',
     'update_shelf_data'          =>  'تحديث بيانات الرف',
 
+    //show
+    'shelf_details' => 'تفاصيل الرف',
+    'shelf' => 'رف',
+    'id' => 'الرقم التعريفي',
+    'warehouse' => 'المستودع',
+    'rental_information' => 'معلومات الإيجار',
+    'contract_number' => 'رقم العقد',
+    'merchant' => 'المستأجر',
+    'unknown' => 'غير معروف',
+    'start_date' => 'تاريخ البداية',
+    'end_date' => 'تاريخ النهاية',
+    'not_rented' => 'الرف غير مؤجر',
+    'stock_items' => 'المخزون',
+    'item_name' => 'اسم الصنف',
+    'quantity' => 'الكمية',
+    'added_on' => 'تاريخ الإضافة',
+    'no_items' => 'لا يوجد أصناف مضافة',
+
 
 
 ];

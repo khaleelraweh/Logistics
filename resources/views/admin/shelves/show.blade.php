@@ -9,7 +9,7 @@
             <div>
                 <h4 class="text-dark mb-0">
                     <i class="fas fa-pallet text-primary me-2"></i>
-                    {{ __('general.shelf_details') }} #{{ $shelf->id }}
+                    {{ __('shelf.shelf_details') }} #{{ $shelf->id }}
                 </h4>
             </div>
             <div>
@@ -18,11 +18,11 @@
                         <li class="breadcrumb-item">
                             <a class="text-muted" href="{{ route('admin.shelves.index') }}">
                                 <i class="fas fa-chevron-left me-1 text-primary"></i>
-                                {{ __('general.shelves') }}
+                                {{ __('shelf.shelves') }}
                             </a>
                         </li>
                         <li class="breadcrumb-item active text-dark" aria-current="page">
-                            {{ __('general.shelf') }} #{{ $shelf->id }}
+                            {{ __('shelf.shelf') }} #{{ $shelf->id }}
                         </li>
                     </ol>
                 </nav>
@@ -39,7 +39,7 @@
                 <div class="card-header bg-primary text-white py-3">
                     <h5 class="card-title mb-0 d-flex align-items-center">
                         <i class="fas fa-pallet me-2"></i>
-                        {{ __('general.shelf_information') }}
+                        {{ __('shelf.shelf_information') }}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -47,13 +47,13 @@
                         <table class="table table-borderless mb-0">
                             <tbody>
                                 <tr>
-                                    <th class="w-25">{{ __('general.id') }}:</th>
+                                    <th class="w-25">{{ __('shelf.id') }}:</th>
                                     <td>
                                         <span class="badge bg-secondary">{{ $shelf->id }}</span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>{{ __('general.size') }}:</th>
+                                    <th>{{ __('shelf.size') }}:</th>
                                     <td>
                                         <span class="badge bg-{{ $shelf->size === 'small' ? 'info' : ($shelf->size === 'medium' ? 'warning' : 'danger') }}">
                                             {{ $shelf->size() }}
@@ -61,14 +61,14 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>{{ __('general.price') }}:</th>
+                                    <th>{{ __('shelf.price') }}:</th>
                                     <td>
                                         <span class="fw-bold text-success">{{ $shelf->price }}</span>
                                         <small class="text-muted">{{ __('shelf.initial_price_per_day') }}</small>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>{{ __('general.warehouse') }}:</th>
+                                    <th>{{ __('shelf.warehouse') }}:</th>
                                     <td>
                                         <a href="{{ route('admin.warehouses.show', $shelf->warehouse->id) }}" class="text-decoration-none">
                                             <i class="fas fa-warehouse me-1 text-primary"></i>
@@ -89,7 +89,7 @@
                 <div class="card-header bg-{{ $shelf->rentals->isNotEmpty() ? 'success' : 'secondary' }} text-white py-3">
                     <h5 class="card-title mb-0 d-flex align-items-center">
                         <i class="fas fa-file-contract me-2"></i>
-                        {{ __('general.rental_information') }}
+                        {{ __('shelf.rental_information') }}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -110,7 +110,7 @@
                             <table class="table table-borderless mb-3">
                                 <tbody>
                                     <tr>
-                                        <th class="w-25">{{ __('general.contract_number') }}:</th>
+                                        <th class="w-25">{{ __('shelf.contract_number') }}:</th>
                                         <td>
                                             <a href="{{ route('admin.warehouse_rentals.show', $rental->id) }}" class="text-decoration-none">
                                                 <i class="fas fa-file-alt me-1 text-primary"></i>
@@ -119,21 +119,21 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>{{ __('general.merchant') }}:</th>
+                                        <th>{{ __('shelf.merchant') }}:</th>
                                         <td>
                                             <i class="fas fa-user-tie me-1 text-primary"></i>
-                                            {{ $rental->merchant->name ?? __('general.unknown') }}
+                                            {{ $rental->merchant->name ?? __('shelf.unknown') }}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>{{ __('general.start_date') }}:</th>
+                                        <th>{{ __('shelf.start_date') }}:</th>
                                         <td>
                                             <i class="far fa-calendar-alt me-1 text-primary"></i>
                                             {{ $start->format('Y-m-d') }}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>{{ __('general.end_date') }}:</th>
+                                        <th>{{ __('shelf.end_date') }}:</th>
                                         <td>
                                             <i class="far fa-calendar-alt me-1 text-primary"></i>
                                             {{ $end->format('Y-m-d') }}
@@ -196,7 +196,7 @@
                     @else
                         <div class="text-center py-4">
                             <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
-                            <p class="text-muted">{{ __('general.not_rented') }}</p>
+                            <p class="text-muted">{{ __('shelf.not_rented') }}</p>
                         </div>
                     @endif
                 </div>
@@ -211,7 +211,7 @@
                 <div class="card-header bg-info text-white py-3">
                     <h5 class="card-title mb-0 d-flex align-items-center">
                         <i class="fas fa-boxes me-2"></i>
-                        {{ __('general.stock_items') }}
+                        {{ __('shelf.stock_items') }}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -220,9 +220,9 @@
                             <table class="table table-hover">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>{{ __('general.item_name') }}</th>
-                                        <th class="text-center">{{ __('general.quantity') }}</th>
-                                        <th class="text-end">{{ __('general.added_on') }}</th>
+                                        <th>{{ __('shelf.item_name') }}</th>
+                                        <th class="text-center">{{ __('shelf.quantity') }}</th>
+                                        <th class="text-end">{{ __('shelf.added_on') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -246,7 +246,7 @@
                     @else
                         <div class="text-center py-4">
                             <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
-                            <p class="text-muted">{{ __('general.no_items') }}</p>
+                            <p class="text-muted">{{ __('shelf.no_items') }}</p>
                         </div>
                     @endif
                 </div>

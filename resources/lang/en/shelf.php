@@ -45,6 +45,25 @@ return [
     'update_shelf_data'          =>  'Update Shelf Data',
 
 
+    //show
+    'shelf_details' => 'Shelf Details',
+    'shelf' => 'Shelf',
+    'id' => 'ID',
+    'warehouse' => 'Warehouse',
+    'rental_information' => 'Rental Information',
+    'contract_number' => 'Contract Number',
+    'merchant' => 'Merchant',
+    'unknown' => ' Unknown',
+    'start_date' => 'Start Date',
+    'end_date' => 'End Date',
+    'not_rented' => 'Not Rented',
+    'stock_items' => 'Stock Items',
+    'item_name' => 'Item Name',
+    'quantity' => 'Quantity',
+    'added_on' => 'Added On',
+    'no_items' => 'No Items Found',
+
+
 
 
 ];
