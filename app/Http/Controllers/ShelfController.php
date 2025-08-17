@@ -14,26 +14,126 @@ class ShelfController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        if (!auth()->user()->ability('admin', 'manage_shelves , show_shelves')) {
-            return redirect('admin/index');
-        }
+    // public function index()
+    // {
+    //     if (!auth()->user()->ability('admin', 'manage_shelves , show_shelves')) {
+    //         return redirect('admin/index');
+    //     }
 
-        $shelves = Shelf::query()
-            ->when(\request()->keyword != null, function ($query) {
-                $query->search(\request()->keyword);
-            })
-            ->when(\request()->status != null, function ($query) {
-                $query->where('status', \request()->status);
-            })
-            ->orderByRaw(request()->sort_by == 'published_on'
-                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-            ->paginate(\request()->limit_by ?? 100);
+    //     $shelves = Shelf::query()
+    //         ->when(\request()->keyword != null, function ($query) {
+    //             $query->search(\request()->keyword);
+    //         })
+    //         ->when(\request()->status != null, function ($query) {
+    //             $query->where('status', \request()->status);
+    //         })
+    //         ->orderByRaw(request()->sort_by == 'published_on'
+    //             ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+    //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
+    //         ->paginate(\request()->limit_by ?? 100);
 
-        return view('admin.shelves.index', compact('shelves'));
+    //     return view('admin.shelves.index', compact('shelves'));
+    // }
+
+
+    // public function index()
+    // {
+    //     if (!auth()->user()->ability('admin', 'manage_shelves , show_shelves')) {
+    //         return redirect('admin/index');
+    //     }
+
+    //     $shelves = Shelf::query()
+    //         // فلترة بالكلمة المفتاحية
+    //         ->when(request()->keyword != null, function ($query) {
+    //             $query->search(request()->keyword);
+    //         })
+    //         // فلترة الحالة (نشط / غير نشط)
+    //         ->when(request()->status != null, function ($query) {
+    //             $query->where('status', request()->status);
+    //         })
+    //         // فلترة المستودع
+    //         ->when(request()->warehouse_id != null, function ($query) {
+    //             $query->where('warehouse_id', request()->warehouse_id);
+    //         })
+    //         // فلترة التأجير (مؤجر / غير مؤجر)
+    //         ->when(request()->rented != null, function ($query) {
+    //             if(request()->rented == '1'){
+    //                 // مؤجر
+    //                 $query->whereHas('rentals', function($q){
+    //                     $q->where('end_date', '>=', now());
+    //                 });
+    //             } else {
+    //                 // غير مؤجر
+    //                 $query->whereDoesntHave('rentals', function($q){
+    //                     $q->where('end_date', '>=', now());
+    //                 });
+    //             }
+    //         })
+    //         // الترتيب
+    //         ->orderByRaw(request()->sort_by == 'published_on'
+    //             ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+    //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
+    //         ->paginate(request()->limit_by ?? 100);
+
+    //     // كل المستودعات للفلاتر في الـ view
+    //     $warehouses = Warehouse::all();
+
+    //     return view('admin.shelves.index', compact('shelves', 'warehouses'));
+    // }
+
+
+public function index()
+{
+    if (!auth()->user()->ability('admin', 'manage_shelves, show_shelves')) {
+        return redirect('admin/index');
     }
+
+    $warehouses = \App\Models\Warehouse::all(); // لجلب المستودعات للفلاتر
+
+    $shelves = \App\Models\Shelf::query()
+        // فلتر الكلمة المفتاحية
+        ->when(request()->keyword != null, function ($query) {
+            $query->where('code', 'like', '%' . request()->keyword . '%')
+                  ->orWhere('description', 'like', '%' . request()->keyword . '%');
+        })
+        // فلتر الحالة (نشط/غير نشط)
+        ->when(request()->status != null, function ($query) {
+            $query->where('status', request()->status);
+        })
+        // فلتر المستودع
+        ->when(request()->warehouse_id != null, function ($query) {
+            $query->where('warehouse_id', request()->warehouse_id);
+        })
+        // فلتر المؤجرة / غير المؤجرة
+        ->when(request()->rented != null, function ($query) {
+            if(request()->rented == '1'){ // مؤجرة
+                $query->whereHas('rentals', function($q){
+                    $q->where(function($q2){
+                        $q2->whereDate('custom_end', '>=', now())
+                           ->orWhereDate('rental_end', '>=', now());
+                    });
+                });
+            } else { // غير مؤجرة
+                $query->whereDoesntHave('rentals', function($q){
+                    $q->where(function($q2){
+                        $q2->whereDate('custom_end', '>=', now())
+                           ->orWhereDate('rental_end', '>=', now());
+                    });
+                });
+            }
+        })
+        // ترتيب
+        ->orderByRaw(request()->sort_by == 'published_on'
+            ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+            : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
+        ->paginate(request()->limit_by ?? 100);
+
+    return view('admin.shelves.index', compact('shelves', 'warehouses'));
+}
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
