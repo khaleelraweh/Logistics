@@ -153,20 +153,4 @@
 @endsection
 
 
-@section('script')
-    {{-- Call select2 plugin --}}
 
-    <script>
-        $(function() {
-            $("#warehouse_logo").fileinput({
-                theme: "fa5",
-                maxFileCount: 5,
-                allowedFileTypes: ['image'],
-                showCancel: true,
-                showRemove: false,
-                showUpload: false,
-                overwriteInitial: false
-            });
-        });
-    </script>
-@endsection
