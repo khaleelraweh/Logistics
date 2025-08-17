@@ -23,7 +23,8 @@ return [
 
     // placeholder
     'select_warehouse'               =>  'اختر المستودع',
-        'select_size'                   =>  'اختر الحجم',
+    'select_size'                   =>  'اختر الحجم',
+    'no_shelves_found'       =>  'لم يتم العثور على رفوف',
 
 
 

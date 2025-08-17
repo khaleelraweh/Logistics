@@ -53,6 +53,7 @@ return [
     // placeholder
     'select_merchant'               =>  'Select Merchant',
     'rentals'                        =>  'Rentals',
+    'no_rentals_found'       =>  'No Rentals Found',
 
     // buttons
     'save_warehouse_data'            =>  'Save Warehouse Data',

@@ -25,6 +25,8 @@ return [
     'select_shelf'               =>  'Select Shelf',
     'select_size'                   =>  'Select Size',
 
+    'no_shelves_found'       =>  'No Shelves Found',
+
     // buttons
     'save_shelf_data'            =>  'Save Shelf Data',
     'update_shelf_data'          =>  'Update Shelf Data',

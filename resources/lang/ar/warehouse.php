@@ -50,6 +50,7 @@ return [
     // placeholder
     'select_merchant'               =>  'اختر تاجر',
     'rentals'                        =>  'العقود',
+    'no_rentals_found'       =>  'لم يتم العثور على عقود',
 
 
     // buttons
