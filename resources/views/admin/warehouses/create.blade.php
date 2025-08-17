@@ -151,10 +151,10 @@
 
                         <!-- Status Toggle -->
                         <div class="mb-3 row">
-                            <label class="col-md-3 col-form-label">{{ __('general.status') }}</label>
+                            <label class="col-md-3 col-form-label" for="status1">{{ __('general.status') }}</label>
                             <div class="col-md-9">
                                 <div class="form-check form-switch">
-                                    <input type="checkbox" class="form-check-input" id="status"
+                                    <input type="checkbox" class="form-check-input" id="status1"
                                            name="status" {{ old('status', true) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="status">
                                         {{ __('warehouse.active_warehouse') }}
