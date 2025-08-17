@@ -24,6 +24,15 @@ return [
     // placeholder
     'select_warehouse'               =>  'اختر المستودع',
     'select_size'                   =>  'اختر الحجم',
+
+    'add_new'                       =>  'إضافة رف جديد',
+    'shelf_information'             => 'معلومات الرف',
+    'fill_shelf_details'            => 'املأ تفاصيل الرف',
+    'enter_description'            => 'أدخل تفاصيل الرف',
+    'active_shelf'              => 'الرف نشط',
+    'save_shelf'                => 'حفظ بيانات الرف',
+    'update_shelf'              =>  'تعديل بيانات الرف',
+
     'no_shelves_found'       =>  'لم يتم العثور على رفوف',
 
 

@@ -25,6 +25,14 @@ return [
     'select_shelf'               =>  'Select Shelf',
     'select_size'                   =>  'Select Size',
 
+    'add_new'                   =>  'Add New Shelf',
+    'shelf_information'         => 'Shelf Information',
+    'fill_shelf_details'            => 'Fill Shelf Details',
+    'enter_description'            => 'Enter Shelf Details',
+    'active_shelf'              => 'Active Shelf',
+    'save_shelf'                =>  'Save Shelf',
+    'update_shelf'              =>  'Update Shelf',
+
     'no_shelves_found'       =>  'No Shelves Found',
 
     // buttons

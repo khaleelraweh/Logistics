@@ -1,128 +1,222 @@
 @extends('layouts.admin')
 
 @section('content')
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h1 class="page-title">{{ __('shelf.add_new_shelf') }}</h1>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.shelves.index') }}">{{ __('shelf.shelves') }}</a></li>
+                    <li class="breadcrumb-item active">{{ __('shelf.add_new') }}</li>
+                </ul>
+            </div>
+            <div class="col-auto">
+                <a href="{{ route('admin.shelves.index') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>{{ __('general.back') }}
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
 
-    <!-- start page title -->
     <div class="row">
-            <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">{{ __('shelf.manage_shelves') }}</h4>
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('shelf.add_shelf') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('shelf.manage_shelves') }}</li>
-                        </ol>
-                    </div>
+        <div class="col-lg-12 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">{{ __('shelf.shelf_information') }}</h5>
+                    <p class="text-muted mb-0">{{ __('shelf.fill_shelf_details') }}</p>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.shelves.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+
+
+                        <!-- Shelf Code -->
+                        <div class="mb-3 row">
+                            <label for="code" class="col-md-3 col-form-label">{{ __('shelf.code') }}</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-barcode"></i></span>
+                                    <input type="text" class="form-control" id="code" name="code"
+                                           value="{{ old('code') }}" placeholder="SH-001">
+                                </div>
+                                @error('code')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Warehouse Selection -->
+                        <div class="mb-3 row">
+                            <label for="warehouse_id" class="col-md-3 col-form-label">{{ __('warehouse.name') }}</label>
+                            <div class="col-md-9">
+                                <select name="warehouse_id" class="form-select select2" data-placeholder="{{ __('shelf.select_warehouse') }}">
+                                    <option></option>
+                                    @foreach ($warehouses as $warehouse)
+                                        <option value="{{ $warehouse->id }}" {{ old('warehouse_id') == $warehouse->id ? 'selected' : '' }}>
+                                            {{ $warehouse->name }} ({{ $warehouse->code }})
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('warehouse_id')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Size Selection -->
+                        <div class="mb-3 row">
+                            <label for="size" class="col-md-3 col-form-label">{{ __('shelf.size') }}</label>
+                            <div class="col-md-9">
+                                <select name="size" class="form-select select2">
+                                    <option value="">{{ __('shelf.select_size') }}</option>
+                                    <option value="small" {{ old('size') == 'small' ? 'selected' : '' }}>
+                                        {{ __('general.small') }}
+                                    </option>
+                                    <option value="medium" {{ old('size') == 'medium' ? 'selected' : '' }}>
+                                        {{ __('general.medium') }}
+                                    </option>
+                                    <option value="large" {{ old('size') == 'large' ? 'selected' : '' }}>
+                                        {{ __('general.large') }}
+                                    </option>
+                                </select>
+                                @error('size')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="mb-3 row">
+                            <label for="price" class="col-md-3 col-form-label">{{ __('shelf.price') }}</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-text">{{ config('settings.currency_symbol') }}</span>
+                                    <input type="number" step="0.01" class="form-control" id="price"
+                                           name="price" value="{{ old('price') }}" placeholder="0.00">
+                                </div>
+                                @error('price')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3 row">
+                            <label for="description" class="col-md-3 col-form-label">{{ __('shelf.description') }}</label>
+                            <div class="col-md-9">
+                                <textarea name="description" id="tinymceExample" rows="5"
+                                          class="form-control" placeholder="{{ __('shelf.enter_description') }}">{!! old('description') !!}</textarea>
+                                @error('description')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Status Toggle -->
+                        <div class="mb-3 row">
+                            <label class="col-md-3 col-form-label">{{ __('general.status') }}</label>
+                            <div class="col-md-9">
+                                <div class="form-check form-switch form-switch-lg">
+                                    <input type="checkbox" class="form-check-input" id="status"
+                                           name="status" {{ old('status', true) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="status">
+                                        {{ __('shelf.active_shelf') }}
+                                    </label>
+                                </div>
+                                @error('status')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions border-top pt-4 mt-4">
+                            <div class="text-end">
+                                <button type="reset" class="btn btn-light me-2">
+                                    <i class="fas fa-undo me-2"></i>{{ __('general.reset') }}
+                                </button>
+                                @ability('admin', 'create_shelves')
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-2"></i>{{ __('shelf.save_shelf') }}
+                                    </button>
+                                @endability
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <h4 class="card-title">{{ __('shelf.shelf_info') }}</h4>
-
-                            <form action="{{ route('admin.shelves.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="code">{{ __('shelf.code') }}</label>
-                                    <div class="col-sm-10">
-                                        <input name="code" class="form-control" id="code" type="text" value="{{ old('code') }}">
-                                        @error('code')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="warehouse_id">{{ __('warehouse.name') }}</label>
-                                    <div class="col-sm-10">
-                                        <select name="warehouse_id" class="form-control select2">
-                                            <option>{{ __('shelf.select_warehouse') }}</option>
-                                            @foreach ($warehouses as $warehouse)
-                                                <option value="{{ $warehouse->id }}" {{ old('warehouse_id') ? 'selected' : null }}>{{ $warehouse->name }} - {{ $warehouse->code }}</option>
-                                            @endforeach
-                                        </select>
-
-                                        @error('warehouse_id')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="description">{{ __('shelf.description') }}</label>
-                                    <div class="col-sm-10">
-                                        <textarea name="description" id="tinymceExample" rows="10" class="form-control">{!! old('description') !!}</textarea>
-                                        @error('description')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="size">{{ __('shelf.size') }}</label>
-                                    <div class="col-sm-10">
-                                         <select name="size" class="form-control select2">
-                                            <option>{{ __('shelf.select_size') }}</option>
-                                            <option value="small" {{ old('size') == 'small' ? 'selected' : null }}>
-                                                {{ __('general.small') }}
-                                            </option>
-                                            <option value="medium" {{ old('size') == 'medium' ? 'selected' : null }}>
-                                                {{ __('general.medium') }}
-                                            </option>
-                                            <option value="large" {{ old('size') == 'large' ? 'selected' : null }}>
-                                                {{ __('general.large') }}
-                                            </option>
-                                        </select>
-                                        @error('size')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="price">{{ __('shelf.price') }}</label>
-                                    <div class="col-sm-10">
-                                        <input name="price" class="form-control" id="price" type="text" value="{{ old('price') }}">
-                                        @error('price')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <hr>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="status">{{ __('general.status') }}</label>
-                                    <div class="col-sm-10">
-                                        <div class="form-check form-switch" >
-                                            <input type="checkbox" class="form-check-input" name="status"  id="customSwitch1"  {{ old('status', '1') == '1' ? 'checked' : '' }} >
-                                            <label class="form-check-label" for="customSwitch1">{{ __('shelf.choose_shelf_status') }}</label>
-                                        </div>
-                                        @error('status')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-
-                                @ability('admin', 'create_shelves')
-                                    <div class="text-end">
-                                        <button type="submit" class="btn btn-primary">{{ __('shelf.save_shelf_data') }}</button>
-                                    </div>
-                                @endability
-
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+    </div>
 @endsection
 
+@section('scripts')
+    <!-- TinyMCE Editor -->
+    <script src="{{ asset('admin/assets/libs/tinymce/tinymce.min.js') }}"></script>
+
+    <script>
+        // Initialize TinyMCE
+        tinymce.init({
+            selector: '#tinymceExample',
+            height: 300,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+
+        // Initialize Select2
+        $('.select2').select2({
+            width: '100%',
+            dropdownParent: $('.card-body')
+        });
+
+        // Price input formatting
+        $('#price').on('input', function() {
+            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+        });
+    </script>
+@endsection
+
+@section('styles')
+    <style>
+        .section-block {
+            border-left: 4px solid #3b7ddd;
+            padding-left: 10px;
+            margin: 20px 0;
+        }
+        .section-title {
+            color: #3b7ddd;
+            font-weight: 600;
+        }
+        .section-description {
+            color: #6c757d;
+            font-size: 0.875rem;
+        }
+        .form-actions {
+            border-top: 1px solid #e9ecef;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .select2-container--default .select2-selection--single {
+            height: 38px;
+            padding: 5px 10px;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 36px;
+        }
+        .form-switch-lg .form-check-input {
+            width: 3rem;
+            height: 1.5rem;
+        }
+    </style>
+@endsection
