@@ -86,6 +86,9 @@
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                     <input type="text" class="form-control" id="code" name="code"
                                            value="{{ old('code') }}" placeholder="WH-001">
+                                    <span class="input-group-text bg-light">
+                                        <small class="text-muted">{{ __('warehouse.unique_identifier') }}</small>
+                                    </span>
                                 </div>
                                 @error('code')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
