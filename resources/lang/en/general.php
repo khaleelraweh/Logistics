@@ -59,6 +59,7 @@ return [
     'contact'                =>  'Contact',
     'total_amount'    =>  'Total Amount',
     'sar'               => 'SAR',
+    'reset_changes'     => 'Reset Changes',
 
 
 

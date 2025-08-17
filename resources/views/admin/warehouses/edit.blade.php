@@ -14,7 +14,7 @@
             </div>
             <div class="col-auto">
                 <a href="{{ route('admin.warehouses.index') }}" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left me-2"></i>{{ __('general.back_to_list') }}
+                    <i class="fas fa-arrow-left me-2"></i>{{ __('general.back') }}
                 </a>
             </div>
         </div>
@@ -165,10 +165,10 @@
                             <label class="col-md-3 col-form-label">{{ __('general.status') }}</label>
                             <div class="col-md-9">
                                 <div class="form-check form-switch">
-                                    <input type="checkbox" class="form-check-input" id="status"
+                                    <input type="checkbox" class="form-check-input" id="status1"
                                            name="status" {{ old('status', $warehouse->status) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="status">
-                                        {{ $warehouse->status ? __('general.active') : __('general.inactive') }}
+                                    <label class="form-check-label" for="status1">
+                                        {{ __('warehouse.active_warehouse') }}
                                     </label>
                                 </div>
                                 @error('status')
