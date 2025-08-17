@@ -26,6 +26,13 @@ return [
     'update_warehouse'               =>  'تحديث المستودع',
     'warehouse_status'               =>  'حالة المستودع',
 
+    'update_basic_info'            =>  'تحديث المعلومات الأساسية',
+    'editing_warehouse'                =>  'تعديل مستودع',
+    'edit'                          =>  'تعديل',
+    'update_management_info'         =>  'تحديث معلومات الإدارة',
+    'unique_identifier'            =>  'المعرف الفريد',
+    'reset_changes'                 =>  'إعادة تعيين التغييرات',
+
     'add_warehouse'                     =>  'إضافة مستودع',
     'edit_warehouse'                    =>  'تعديل مستودع',
     'choose_warehouse_status'           =>  'اختر حالة المستودع',

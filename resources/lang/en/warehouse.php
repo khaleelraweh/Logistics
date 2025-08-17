@@ -29,6 +29,13 @@ return [
     'update_warehouse'               =>  'Update Warehouse',
     'warehouse_status'               =>  'Warehouse Status',
 
+    'update_basic_info'            =>  'Update Basic Information',
+    'editing_warehouse'                =>  'Editing Warehouse',
+    'edit'                          =>  'Edit',
+    'update_management_info'         =>  'Update Management Information',
+    'unique_identifier'            =>  'Unique Identifier',
+    'reset_changes'                 =>  'Reset Changes',
+
     'add_warehouse'                  =>  'Add Warehouse',
     'edit_warehouse'                  =>  'Edit Warehouse',
     'choose_warehouse_status'        =>  'Choose Warehouse Status',

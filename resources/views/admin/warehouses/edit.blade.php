@@ -1,173 +1,260 @@
 @extends('layouts.admin')
 
 @section('content')
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h1 class="page-title">{{ __('warehouse.edit_warehouse') }}</h1>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.warehouses.index') }}">{{ __('warehouse.warehouses') }}</a></li>
+                    <li class="breadcrumb-item active">{{ __('warehouse.edit') }}</li>
+                </ul>
+            </div>
+            <div class="col-auto">
+                <a href="{{ route('admin.warehouses.index') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>{{ __('general.back_to_list') }}
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
 
-    <!-- start page title -->
     <div class="row">
-            <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">{{ __('warehouse.manage_warehouses') }}</h4>
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('warehouse.edit_warehouse') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('warehouse.manage_warehouses') }}</li>
-                        </ol>
-                    </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">{{ __('warehouse.editing_warehouse') }}: {{ $warehouse->code }}</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.warehouses.update', $warehouse->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PATCH')
+
+                        <!-- Warehouse Information Section -->
+                        <div class="section-block">
+                            <h6 class="section-title">{{ __('warehouse.warehouse_info') }}</h6>
+                            <p class="section-description">{{ __('warehouse.update_basic_info') }}</p>
+                        </div>
+
+                        <!-- Multilingual Name Fields -->
+                        @foreach (config('locales.languages') as $key => $val)
+                            <div class="mb-3 row">
+                                <label for="name[{{ $key }}]" class="col-md-3 col-form-label">
+                                    {{ __('warehouse.name') }}
+                                    <span class="language-badge bg-{{ $key == 'ar' ? 'primary' : 'info' }}">
+                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }}"></i>
+                                        {{ __('language.' . $key) }}
+                                    </span>
+                                </label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="name[{{ $key }}]"
+                                           name="name[{{ $key }}]"
+                                           value="{{ old('name.' . $key, $warehouse->getTranslation('name', $key)) }}"
+                                           placeholder="{{ __('warehouse.enter_name') }}">
+                                    @error('name.' . $key)
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <!-- Multilingual Location Fields -->
+                        @foreach (config('locales.languages') as $key => $val)
+                            <div class="mb-3 row">
+                                <label for="location[{{ $key }}]" class="col-md-3 col-form-label">
+                                    {{ __('warehouse.location') }}
+                                    <span class="language-badge bg-{{ $key == 'ar' ? 'primary' : 'info' }}">
+                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }}"></i>
+                                        {{ __('language.' . $key) }}
+                                    </span>
+                                </label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="location[{{ $key }}]"
+                                           name="location[{{ $key }}]"
+                                           value="{{ old('location.' . $key, $warehouse->getTranslation('location', $key)) }}"
+                                           placeholder="{{ __('warehouse.enter_location') }}">
+                                    @error('location.' . $key)
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <!-- Warehouse Code -->
+                        <div class="mb-3 row">
+                            <label for="code" class="col-md-3 col-form-label">{{ __('warehouse.code') }}</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-barcode"></i></span>
+                                    <input type="text" class="form-control" id="code" name="code"
+                                           value="{{ old('code', $warehouse->code) }}"
+                                           placeholder="WH-001" readonly>
+                                    <span class="input-group-text bg-light">
+                                        <small class="text-muted">{{ __('warehouse.unique_identifier') }}</small>
+                                    </span>
+                                </div>
+                                @error('code')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Warehouse Management Section -->
+                        <div class="section-block mt-4">
+                            <h6 class="section-title">{{ __('warehouse.warehouse_management') }}</h6>
+                            <p class="section-description">{{ __('warehouse.update_management_info') }}</p>
+                        </div>
+
+                        <!-- Multilingual Manager Fields -->
+                        @foreach (config('locales.languages') as $key => $val)
+                            <div class="mb-3 row">
+                                <label for="manager[{{ $key }}]" class="col-md-3 col-form-label">
+                                    {{ __('warehouse.manager') }}
+                                    <span class="language-badge bg-{{ $key == 'ar' ? 'primary' : 'info' }}">
+                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }}"></i>
+                                        {{ __('language.' . $key) }}
+                                    </span>
+                                </label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" id="manager[{{ $key }}]"
+                                           name="manager[{{ $key }}]"
+                                           value="{{ old('manager.' . $key, $warehouse->getTranslation('manager', $key)) }}"
+                                           placeholder="{{ __('warehouse.enter_manager_name') }}">
+                                    @error('manager.' . $key)
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <!-- Contact Information -->
+                        <div class="mb-3 row">
+                            <label for="phone" class="col-md-3 col-form-label">{{ __('warehouse.phone') }}</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                    <input type="text" class="form-control" id="phone" name="phone"
+                                           value="{{ old('phone', $warehouse->phone) }}"
+                                           placeholder="+966500000000">
+                                </div>
+                                @error('phone')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="email" class="col-md-3 col-form-label">{{ __('warehouse.email') }}</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                           value="{{ old('email', $warehouse->email) }}"
+                                           placeholder="manager@example.com">
+                                </div>
+                                @error('email')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Status Toggle -->
+                        <div class="mb-3 row">
+                            <label class="col-md-3 col-form-label">{{ __('general.status') }}</label>
+                            <div class="col-md-9">
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" id="status"
+                                           name="status" {{ old('status', $warehouse->status) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="status">
+                                        {{ $warehouse->status ? __('general.active') : __('general.inactive') }}
+                                    </label>
+                                </div>
+                                @error('status')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions text-end">
+                            <button type="reset" class="btn btn-light">{{ __('general.reset_changes') }}</button>
+                            @ability('admin', 'update_warehouses')
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-2"></i>{{ __('warehouse.update_warehouse') }}
+                                </button>
+                            @endability
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-
-
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <h4 class="card-title">{{ __('warehouse.warehouse_info') }}</h4>
-
-                            <form action="{{ route('admin.warehouses.update',$warehouse->id) }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PATCH')
-
-                                @foreach (config('locales.languages') as $key => $val)
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="name[{{ $key }}]">
-                                            {{ __('warehouse.name') }}
-                                            <span class="language-type">
-                                                <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
-                                                    title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
-                                                {{ __('language.' . $key) }}
-                                            </span>
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <input name="name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('name.' . $key, $warehouse->getTranslation('name',$key)) }}">
-                                            @error('name.' . $key)
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                                @foreach (config('locales.languages') as $key => $val)
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="location[{{ $key }}]">
-                                            {{ __('warehouse.location') }}
-                                            <span class="language-type">
-                                                <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
-                                                    title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
-                                                {{ __('language.' . $key) }}
-                                            </span>
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <input name="location[{{ $key }}]" class="form-control" id="location[{{ $key }}]" type="text" value="{{ old('location.' . $key , $warehouse->getTranslation('location',$key)) }}">
-                                            @error('location.' . $key)
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="code">{{ __('warehouse.code') }}</label>
-                                    <div class="col-sm-10">
-                                        <input name="code" class="form-control" id="code" type="text" value="{{ old('code' , $warehouse->code) }}">
-                                        @error('code')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <hr>
-                                <h4 class="card-title">{{ __('warehouse.warehouse_management') }}</h4>
-
-                                @foreach (config('locales.languages') as $key => $val)
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label" for="manager[{{ $key }}]">
-                                            {{ __('warehouse.manager') }}
-                                            <span class="language-type">
-                                                <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
-                                                    title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
-                                                {{ __('language.' . $key) }}
-                                            </span>
-                                        </label>
-                                        <div class="col-sm-10">
-                                            <input name="manager[{{ $key }}]" class="form-control" id="manager[{{ $key }}]" type="text" value="{{ old('manager.' . $key,$warehouse->getTranslation('manager',$key)) }}">
-                                            @error('manager.' . $key)
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                @endforeach
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="phone">{{ __('warehouse.phone') }}</label>
-                                    <div class="col-sm-10">
-                                        <input name="phone" class="form-control" id="phone" type="text" value="{{ old('phone' , $warehouse->phone) }}">
-                                        @error('phone')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="input-email">{{ __('warehouse.email') }}</label>
-                                    <div class="col-sm-10">
-                                        <input id="input-email" class="form-control input-mask" data-inputmask="'alias': 'email'" name="email" value="{{ old('email' , $warehouse->email) }}">
-                                        <span class="text-muted">_@_._</span>
-                                        @error('email')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-
-                                <hr>
-
-                                <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="status">{{ __('general.status') }}</label>
-                                    <div class="col-sm-10">
-                                        <div class="form-check form-switch" >
-                                            <input type="checkbox" class="form-check-input" name="status"  id="customSwitch1"  {{ old('status', $warehouse->status) == '1' ? 'checked' : '' }} >
-                                            <label class="form-check-label" for="customSwitch1">{{ __('warehouse.choose_warehouse_status') }}</label>
-                                        </div>
-                                        @error('status')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-
-                                @ability('admin', 'create_warehouses')
-                                    <div class="text-end">
-                                        <button type="submit" class="btn btn-primary">{{ __('warehouse.update_warehouse_data') }}</button>
-                                    </div>
-                                @endability
-
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+    </div>
 @endsection
 
-
-@section('script')
-    {{-- Call select2 plugin --}}
-
+@section('scripts')
+    <!-- File Input Script -->
     <script>
-        $(function() {
+        $(document).ready(function() {
             $("#warehouse_logo").fileinput({
-                theme: "fa5",
-                maxFileCount: 5,
-                allowedFileTypes: ['image'],
-                showCancel: true,
-                showRemove: false,
+                theme: "fas",
                 showUpload: false,
-                overwriteInitial: false
+                showCaption: false,
+                browseClass: "btn btn-primary",
+                removeClass: "btn btn-danger",
+                mainClass: "input-group-lg",
+                allowedFileExtensions: ['jpg', 'png', 'jpeg'],
+                maxFileSize: 2048,
+                overwriteInitial: true,
+                initialPreview: [
+                    @if($warehouse->logo)
+                        "{{ asset('storage/' . $warehouse->logo) }}"
+                    @endif
+                ],
+                initialPreviewAsData: true,
+                initialPreviewConfig: [
+                    @if($warehouse->logo)
+                        {caption: "{{ basename($warehouse->logo) }}", size: "{{ Storage::size('public/' . $warehouse->logo) }}", url: "{{ route('admin.warehouses.deleteLogo', $warehouse->id) }}", key: 1}
+                    @endif
+                ],
+                showClose: false
             });
         });
     </script>
+@endsection
+
+@section('styles')
+    <style>
+        .section-block {
+            border-left: 4px solid #3b7ddd;
+            padding-left: 10px;
+            margin: 20px 0;
+        }
+        .section-title {
+            color: #3b7ddd;
+            font-weight: 600;
+        }
+        .section-description {
+            color: #6c757d;
+            font-size: 0.875rem;
+        }
+        .language-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            color: white;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+        .form-actions {
+            border-top: 1px solid #e9ecef;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .input-group-text.bg-light {
+            background-color: #f8f9fa!important;
+        }
+    </style>
 @endsection
