@@ -66,7 +66,7 @@
                                     <td>{{ $product->sku }}</td>
                                     <td>
                                         {{ $product->merchant->name ?? '' }}
-                                        <button type="button" class="d-block btn btn-info btn-rounded waves-effect waves-light">{{ $product->merchant->email }}</button>
+                                        <button type="button" class="d-block btn btn-info btn-rounded waves-effect waves-light" style="font-size: 0.8em;padding:0.3em"><small> {{ $product->merchant->email }} </small></button>
                                     </td>
                                     <td>
                                         @if ($product->status == 1)
