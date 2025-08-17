@@ -29,6 +29,7 @@ return [
     'update_basic_info'            =>  'تحديث المعلومات الأساسية',
     'editing_warehouse'                =>  'تعديل مستودع',
     'edit'                          =>  'تعديل',
+    'create'                        =>  'إنشاء',
     'update_management_info'         =>  'تحديث معلومات الإدارة',
     'unique_identifier'            =>  'المعرف الفريد',
     'reset_changes'                 =>  'إعادة تعيين التغييرات',

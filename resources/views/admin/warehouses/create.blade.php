@@ -8,7 +8,8 @@
                 <h1 class="page-title">{{ __('warehouse.manage_warehouses') }}</h1>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('warehouse.warehouses') }}</li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.warehouses.index') }}">{{ __('warehouse.warehouses') }}</a></li>
+                    <li class="breadcrumb-item active">{{ __('warehouse.create') }}</li>
                 </ul>
             </div>
             <div class="col-auto">
