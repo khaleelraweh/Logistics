@@ -4,24 +4,32 @@
 <div class="container-fluid">
     <!-- Breadcrumb with Gradient Background -->
     <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex align-items-center justify-content-between p-3 bg-gradient-primary rounded-3">
-                <div>
-                    <h4 class="text-white mb-0">{{ __('general.shelf_details') }} #{{ $shelf->id }}</h4>
-                </div>
-                <div>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-light mb-0">
-                            <li class="breadcrumb-item">
-                                <a class="text-white" href="{{ route('admin.shelves.index') }}">{{ __('general.shelves') }}</a>
-                            </li>
-                            <li class="breadcrumb-item active text-white" aria-current="page">{{ __('general.shelf') }} #{{ $shelf->id }}</li>
-                        </ol>
-                    </nav>
-                </div>
+    <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between p-3 bg-white shadow-sm rounded-3 border-start border-primary border-4">
+            <div>
+                <h4 class="text-dark mb-0">
+                    <i class="fas fa-pallet text-primary me-2"></i>
+                    {{ __('general.shelf_details') }} #{{ $shelf->id }}
+                </h4>
+            </div>
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 bg-transparent p-0">
+                        <li class="breadcrumb-item">
+                            <a class="text-muted" href="{{ route('admin.shelves.index') }}">
+                                <i class="fas fa-chevron-left me-1 text-primary"></i>
+                                {{ __('general.shelves') }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active text-dark" aria-current="page">
+                            {{ __('general.shelf') }} #{{ $shelf->id }}
+                        </li>
+                    </ol>
+                </nav>
             </div>
         </div>
     </div>
+</div>
 
     <!-- Shelf & Rental Info Cards -->
     <div class="row g-4">
