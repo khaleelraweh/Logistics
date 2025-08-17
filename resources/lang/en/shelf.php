@@ -32,6 +32,8 @@ return [
     'active_shelf'              => 'Active Shelf',
     'save_shelf'                =>  'Save Shelf',
     'update_shelf'              =>  'Update Shelf',
+    'unique_identifier'         =>  'Unique_identifier',
+    'initial_price_per_day'     =>  'Initial price per day',
 
     'no_shelves_found'       =>  'No Shelves Found',
 

@@ -42,7 +42,7 @@
                                     <input type="text" class="form-control" id="code" name="code"
                                            value="{{ old('code') }}" placeholder="SH-001">
                                     <span class="input-group-text bg-light">
-                                        <small class="text-muted">{{ __('warehouse.unique_identifier') }}</small>
+                                        <small class="text-muted">{{ __('shelf.unique_identifier') }}</small>
                                     </span>
                                 </div>
                                 @error('code')
@@ -99,6 +99,9 @@
                                     <span class="input-group-text">{{ config('settings.currency_symbol') }}</span>
                                     <input type="number" step="0.01" class="form-control" id="price"
                                            name="price" value="{{ old('price') }}" placeholder="0.00">
+                                    <span class="input-group-text bg-light">
+                                        <small class="text-muted">{{ __('shelf.initial_price_per_day') }}</small>
+                                    </span>
                                 </div>
                                 @error('price')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -123,8 +126,8 @@
                             <label class="col-md-3 col-form-label">{{ __('general.status') }}</label>
                             <div class="col-md-9">
                                 <div class="form-check form-switch form-switch-lg">
-                                    <input type="checkbox" class="form-check-input" id="status"
-                                           name="status" {{ old('status', true) ? 'checked' : '' }}>
+                                    <input type="checkbox" class="form-check-input" id="status1"
+                                           name="status1" {{ old('status', true) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="status">
                                         {{ __('shelf.active_shelf') }}
                                     </label>

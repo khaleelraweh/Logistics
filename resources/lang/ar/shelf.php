@@ -32,6 +32,9 @@ return [
     'active_shelf'              => 'الرف نشط',
     'save_shelf'                => 'حفظ بيانات الرف',
     'update_shelf'              =>  'تعديل بيانات الرف',
+    'unique_identifier'         =>  'المعرف الفريد',
+    'initial_price_per_day'     =>  'السعر الاولي لليوم الواحد',
+
 
     'no_shelves_found'       =>  'لم يتم العثور على رفوف',
 
