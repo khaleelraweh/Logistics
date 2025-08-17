@@ -38,6 +38,7 @@ return [
     'payment_date'     => 'Payment Date',
     'payment_notes'    => 'Notes',
     'payment_reference'=> 'Reference Number',
+    'show_invoice' => 'Show Invoice',
 
     // Payment methods
     'methods' => [

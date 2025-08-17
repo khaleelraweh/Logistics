@@ -104,8 +104,13 @@ class ShelfController extends Controller
             return redirect('admin/index');
         }
 
-        // إذا أردت أيضًا تحميل العلاقة stockItems لتقليل عدد الاستعلامات:
-        $shelf->load('warehouse', 'stockItems');
+        // تحميل العلاقات الصحيحة لتقليل عدد الاستعلامات
+        $shelf->load([
+            'warehouse',
+            'stockItems',
+            'rentals.merchant',      // بيانات المستأجر لكل عقد
+            'rentals.invoice.payments' // المدفوعات عبر الفاتورة المرتبطة بالعقد
+        ]);
 
         return view('admin.shelves.show', compact('shelf'));
     }

@@ -39,6 +39,8 @@ return [
     'payment_notes'    => 'ملاحظات',
     'payment_reference'=> 'رقم المرجع',
 
+    'show_invoice' => 'عرض الفاتورة',
+
     // طرق الدفع
     'methods' => [
         'cash'         => 'نقداً',
