@@ -26,6 +26,9 @@ return [
     'select_size'                   =>  'اختر الحجم',
 
     'add_new'                       =>  'إضافة رف جديد',
+    'editing'                    =>  'التعديل لبيانات الرف',
+    'editing_shelf'              =>  'تعديل بيانات الرف',
+    'update_shelf_details' => 'تحديث بيانات الرف',
     'shelf_information'             => 'معلومات الرف',
     'fill_shelf_details'            => 'املأ تفاصيل الرف',
     'enter_description'            => 'أدخل تفاصيل الرف',

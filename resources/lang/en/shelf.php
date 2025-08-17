@@ -26,6 +26,9 @@ return [
     'select_size'                   =>  'Select Size',
 
     'add_new'                   =>  'Add New Shelf',
+    'editing'                      =>  'Editing',
+    'editing_shelf'              =>  'Editing Shelf Data',
+    'update_shelf_details'      => 'Update Shelf Details',
     'shelf_information'         => 'Shelf Information',
     'fill_shelf_details'            => 'Fill Shelf Details',
     'enter_description'            => 'Enter Shelf Details',

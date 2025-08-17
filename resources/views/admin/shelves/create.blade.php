@@ -97,7 +97,7 @@
                             <div class="col-md-9">
                                 <div class="input-group">
                                     <span class="input-group-text">{{ config('settings.currency_symbol') }}</span>
-                                    <input type="number" step="0.01" class="form-control" id="price"
+                                    <input type="number" step="1" class="form-control" id="price"
                                            name="price" value="{{ old('price') }}" placeholder="0.00">
                                     <span class="input-group-text bg-light">
                                         <small class="text-muted">{{ __('shelf.initial_price_per_day') }}</small>
