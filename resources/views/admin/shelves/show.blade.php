@@ -256,6 +256,65 @@
 </div>
 
 <!-- Payment Modal -->
+{{-- @if($invoice)
+    <div class="modal fade" id="paymentModal{{ $invoice->id }}" tabindex="-1" aria-labelledby="paymentModalLabel{{ $invoice->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="paymentModalLabel{{ $invoice->id }}">
+                        <i class="fas fa-money-bill-wave me-2"></i>
+                        {{ __('payment.add_payment') }} - {{ __('invoice.invoice_number') }}: #{{ $invoice->invoice_number }}
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.invoices.pay', $invoice->id) }}" method="POST">
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="amount{{ $invoice->id }}" class="form-label">المبلغ</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">{{ config('settings.currency_symbol') }}</span>
+                                    <input type="number" name="amount" id="amount{{ $invoice->id }}" class="form-control"
+                                        step="0.01" min="1"
+                                        max="{{ $invoice->total_amount - $invoice->payments->sum('amount') }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="method{{ $invoice->id }}" class="form-label">طريقة الدفع</label>
+                                <select name="method" id="method{{ $invoice->id }}" class="form-select" required>
+                                    <option value="">اختر طريقة الدفع</option>
+                                    <option value="cash">نقداً</option>
+                                    <option value="credit_card">بطاقة ائتمان</option>
+                                    <option value="bank_transfer">تحويل بنكي</option>
+                                    <option value="wallet">المحفظة</option>
+                                    <option value="cod">الدفع عند الاستلام</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="reference_note{{ $invoice->id }}" class="form-label">ملاحظات</label>
+                                <textarea name="reference_note" id="reference_note{{ $invoice->id }}" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="payment_reference{{ $invoice->id }}" class="form-label">رقم المرجع</label>
+                                <input type="text" name="payment_reference" id="payment_reference{{ $invoice->id }}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer border-top-0">
+                            <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">
+                                <i class="fas fa-times me-1"></i> إلغاء
+                            </button>
+                            <button type="submit" class="btn btn-success rounded-pill">
+                                <i class="fas fa-save me-1"></i> حفظ الدفع
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif --}}
+
 @if($invoice)
 <div class="modal fade" id="paymentModal{{ $invoice->id }}" tabindex="-1" aria-labelledby="paymentModalLabel{{ $invoice->id }}" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -265,14 +324,14 @@
                     <i class="fas fa-money-bill-wave me-2"></i>
                     {{ __('payment.add_payment') }} - {{ __('invoice.invoice_number') }}: #{{ $invoice->invoice_number }}
                 </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{{ __('payment.cancel') }}"></button>
             </div>
             <div class="modal-body">
                 <form action="{{ route('admin.invoices.pay', $invoice->id) }}" method="POST">
                     @csrf
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label for="amount{{ $invoice->id }}" class="form-label">المبلغ</label>
+                            <label for="amount{{ $invoice->id }}" class="form-label">{{ __('payment.amount') }}</label>
                             <div class="input-group">
                                 <span class="input-group-text">{{ config('settings.currency_symbol') }}</span>
                                 <input type="number" name="amount" id="amount{{ $invoice->id }}" class="form-control"
@@ -281,31 +340,31 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="method{{ $invoice->id }}" class="form-label">طريقة الدفع</label>
+                            <label for="method{{ $invoice->id }}" class="form-label">{{ __('payment.method') }}</label>
                             <select name="method" id="method{{ $invoice->id }}" class="form-select" required>
-                                <option value="">اختر طريقة الدفع</option>
-                                <option value="cash">نقداً</option>
-                                <option value="credit_card">بطاقة ائتمان</option>
-                                <option value="bank_transfer">تحويل بنكي</option>
-                                <option value="wallet">المحفظة</option>
-                                <option value="cod">الدفع عند الاستلام</option>
+                                <option value="">{{ __('payment.choose_method') }}</option>
+                                <option value="cash">{{ __('payment.cash') }}</option>
+                                <option value="credit_card">{{ __('payment.credit_card') }}</option>
+                                <option value="bank_transfer">{{ __('payment.bank_transfer') }}</option>
+                                <option value="wallet">{{ __('payment.wallet') }}</option>
+                                <option value="cod">{{ __('payment.cod') }}</option>
                             </select>
                         </div>
                         <div class="col-12">
-                            <label for="reference_note{{ $invoice->id }}" class="form-label">ملاحظات</label>
+                            <label for="reference_note{{ $invoice->id }}" class="form-label">{{ __('payment.reference_note') }}</label>
                             <textarea name="reference_note" id="reference_note{{ $invoice->id }}" class="form-control" rows="3"></textarea>
                         </div>
                         <div class="col-md-6">
-                            <label for="payment_reference{{ $invoice->id }}" class="form-label">رقم المرجع</label>
+                            <label for="payment_reference{{ $invoice->id }}" class="form-label">{{ __('payment.payment_reference') }}</label>
                             <input type="text" name="payment_reference" id="payment_reference{{ $invoice->id }}" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer border-top-0">
                         <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">
-                            <i class="fas fa-times me-1"></i> إلغاء
+                            <i class="fas fa-times me-1"></i> {{ __('payment.cancel') }}
                         </button>
                         <button type="submit" class="btn btn-success rounded-pill">
-                            <i class="fas fa-save me-1"></i> حفظ الدفع
+                            <i class="fas fa-save me-1"></i> {{ __('payment.save_payment') }}
                         </button>
                     </div>
                 </form>
@@ -314,4 +373,5 @@
     </div>
 </div>
 @endif
+
 @endsection

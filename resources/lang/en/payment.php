@@ -25,5 +25,9 @@ return [
     'payment_reference' => 'Payment Reference',
     'pay' => 'Pay',
 
+    'choose_method' => 'Choose Payment Method',
+    'save_payment' => 'Save Payment',
+    'cancel' => 'Cancel',
+
 
 ];

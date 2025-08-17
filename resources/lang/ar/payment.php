@@ -24,4 +24,8 @@ return [
     'payment_reference' => 'رقم العملية / مرجع الدفع',
     'pay' => 'دفع',
 
+    'choose_method' => 'اختر طريقة الدفع',
+    'save_payment' => 'حفظ الدفع',
+    'cancel' => 'إلغاء',
+
 ];
