@@ -43,45 +43,59 @@
 
 
                         <!-- Filters -->
-<form method="GET" action="{{ route('admin.shelves.index') }}" class="row g-3 mb-4">
-    <!-- حالة الرف -->
-    <div class="col-md-3">
-        <label for="status" class="form-label">{{ __('shelf.status') }}</label>
-        <select name="status" id="status" class="form-select">
-            <option value="">{{ __('shelf.all_status') }}</option>
-            <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>{{ __('shelf.active') }}</option>
-            <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>{{ __('shelf.inactive') }}</option>
-        </select>
-    </div>
+                        <!-- Filters Form -->
+<!-- Filters Card -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title mb-3"><i class="fas fa-filter me-2"></i>{{ __('general.filters') }}</h5>
+        <form method="GET" action="{{ route('admin.shelves.index') }}" class="row g-3">
 
-    <!-- المستودع -->
-    <div class="col-md-3">
-        <label for="warehouse_id" class="form-label">{{ __('warehouse.name') }}</label>
-        <select name="warehouse_id" id="warehouse_id" class="form-select">
-            <option value="">{{ __('shelf.all_warehouses') }}</option>
-            @foreach($warehouses as $warehouse)
-                <option value="{{ $warehouse->id }}" {{ request('warehouse_id') == $warehouse->id ? 'selected' : '' }}>
-                    {{ $warehouse->name }}
-                </option>
-            @endforeach
-        </select>
-    </div>
+            <!-- حالة الرف -->
+            <div class="col-sm-6 col-md-3">
+                <label for="status" class="form-label">{{ __('shelf.status') }}</label>
+                <select name="status" id="status" class="form-select">
+                    <option value="">{{ __('shelf.all_status') }}</option>
+                    <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>{{ __('shelf.active') }}</option>
+                    <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>{{ __('shelf.inactive') }}</option>
+                </select>
+            </div>
 
-    <!-- حالة التأجير -->
-    <div class="col-md-3">
-        <label for="rented" class="form-label">{{ __('shelf.rental_status') }}</label>
-        <select name="rented" id="rented" class="form-select">
-            <option value="">{{ __('shelf.all_rental_status') }}</option>
-            <option value="1" {{ request('rented') == '1' ? 'selected' : '' }}>{{ __('shelf.rented') }}</option>
-            <option value="0" {{ request('rented') == '0' ? 'selected' : '' }}>{{ __('shelf.not_rented') }}</option>
-        </select>
-    </div>
+            <!-- المستودع -->
+            <div class="col-sm-6 col-md-3">
+                <label for="warehouse_id" class="form-label">{{ __('warehouse.name') }}</label>
+                <select name="warehouse_id" id="warehouse_id" class="form-select">
+                    <option value="">{{ __('shelf.all_warehouses') }}</option>
+                    @foreach($warehouses as $warehouse)
+                        <option value="{{ $warehouse->id }}" {{ request('warehouse_id') == $warehouse->id ? 'selected' : '' }}>
+                            {{ $warehouse->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
-    <div class="col-md-3 d-flex align-items-end">
-        <button type="submit" class="btn btn-primary me-2">{{ __('general.filter') }}</button>
-        <a href="{{ route('admin.shelves.index') }}" class="btn btn-secondary">{{ __('general.reset') }}</a>
+            <!-- حالة التأجير -->
+            <div class="col-sm-6 col-md-3">
+                <label for="rented" class="form-label">{{ __('shelf.rental_status') }}</label>
+                <select name="rented" id="rented" class="form-select">
+                    <option value="">{{ __('shelf.all_rental_status') }}</option>
+                    <option value="1" {{ request('rented') == '1' ? 'selected' : '' }}>{{ __('shelf.rented') }}</option>
+                    <option value="0" {{ request('rented') == '0' ? 'selected' : '' }}>{{ __('shelf.not_rented') }}</option>
+                </select>
+            </div>
+
+            <!-- أزرار البحث وإعادة التعيين -->
+            <div class="col-sm-6 col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary me-2 w-100 w-md-auto">
+                    <i class="fas fa-filter me-1"></i>{{ __('general.filter') }}
+                </button>
+                <a href="{{ route('admin.shelves.index') }}" class="btn btn-secondary w-100 w-md-auto">
+                    <i class="fas fa-sync-alt me-1"></i>{{ __('general.reset') }}
+                </a>
+            </div>
+        </form>
     </div>
-</form>
+</div>
+
 
 
 
