@@ -126,9 +126,9 @@
                             <label class="col-md-3 col-form-label">{{ __('general.status') }}</label>
                             <div class="col-md-9">
                                 <div class="form-check form-switch form-switch-lg">
-                                    <input type="checkbox" class="form-check-input" id="status1"
-                                           name="status1" {{ old('status', true) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="status">
+                                    <input type="checkbox"  class="form-check-input" id="status1"
+                                           name="status" {{ old('status', true) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="status1">
                                         {{ __('shelf.active_shelf') }}
                                     </label>
                                 </div>
