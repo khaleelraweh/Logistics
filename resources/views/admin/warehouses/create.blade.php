@@ -179,26 +179,7 @@
     </div>
 @endsection
 
-@section('scripts')
-    <!-- File Input Script -->
-    <script>
-        $(document).ready(function() {
-            $("#warehouse_logo").fileinput({
-                theme: "fas",
-                showUpload: false,
-                showCaption: false,
-                browseClass: "btn btn-primary",
-                removeClass: "btn btn-danger",
-                mainClass: "input-group-lg",
-                allowedFileExtensions: ['jpg', 'png', 'jpeg'],
-                maxFileSize: 2048, // 2MB
-                overwriteInitial: false,
-                initialPreviewAsData: true,
-                showClose: false
-            });
-        });
-    </script>
-@endsection
+
 
 @section('styles')
     <style>
