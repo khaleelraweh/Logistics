@@ -120,9 +120,16 @@
                                     </tr>
                                     <tr>
                                         <th>{{ __('shelf.merchant') }}:</th>
+
                                         <td>
                                             <i class="fas fa-user-tie me-1 text-primary"></i>
-                                            {{ $rental->merchant->name ?? __('shelf.unknown') }}
+                                            @if($rental->merchant)
+                                                <a href="{{ route('admin.merchants.show', $rental->merchant->id) }}" class="text-decoration-none">
+                                                    {{ $rental->merchant->name }}
+                                                </a>
+                                            @else
+                                                {{ __('shelf.unknown') }}
+                                            @endif
                                         </td>
                                     </tr>
                                     <tr>
