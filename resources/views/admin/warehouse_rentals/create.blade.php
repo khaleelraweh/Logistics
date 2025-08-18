@@ -154,7 +154,7 @@
                                                                                 <td>
                                                                                     <label class="form-check-label fw-bold">{{ $shelf->code }}</label>
                                                                                 </td>
-                                                                                <td>{{ $shelf->size }}</td>
+                                                                                <td>{{ __('general.'. $shelf->size) }}</td>
                                                                                 <td>{{ number_format($shelf->price, 2) }}</td>
                                                                                 <td width="20%">
                                                                                     <input type="number" step="0.01"
