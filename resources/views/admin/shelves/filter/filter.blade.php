@@ -47,7 +47,6 @@
                     <select name="sort_by" class="form-select">
                         <option value="">{{ __('panel.sort_by') }}</option>
                         <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>{{ __('panel.id') }}</option>
-                        <option value="name" {{ request('sort_by') == 'name' ? 'selected' : '' }}>{{ __('panel.title') }}</option>
                         <option value="warehouse_name" {{ request('sort_by') == 'warehouse_name' ? 'selected' : '' }}>{{ __('shelf.warehouse_name') }}</option>
                         <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>{{ __('panel.created_at') }}</option>
                         <option value="published_on" {{ request('sort_by') == 'published_on' ? 'selected' : '' }}>{{ __('panel.published_on') }}</option>
