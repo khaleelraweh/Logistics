@@ -34,18 +34,51 @@ class WarehouseRentalController extends Controller
         return view('admin.warehouse_rentals.index', compact('warehouse_rentals'));
     }
 
+    // public function create()
+    // {
+    //     $merchants = Merchant::all();
+    //     $warehouses = Warehouse::with(['shelves' => function ($query) {
+    //         $query->whereDoesntHave('rentals', function ($q) {
+    //             $q->where('status', 1)
+    //               ->where('rental_end', '>', Carbon::now());
+    //         });
+    //     }])->get();
+
+
+
+    //     return view('admin.warehouse_rentals.create', compact('warehouses', 'merchants'));
+    // }
+
+
+
+
     public function create()
     {
         $merchants = Merchant::all();
-        $warehouses = Warehouse::with(['shelves' => function ($query) {
-            $query->whereDoesntHave('rentals', function ($q) {
-                $q->where('status', 1)
-                  ->where('rental_end', '>', Carbon::now());
+        $now = Carbon::now();
+
+        // نفس شرط "الرف المتاح" يُستخدم داخل with() و whereHas()
+        $availableShelvesScope = function ($q) use ($now) {
+            $q->whereDoesntHave('rentals', function ($rq) use ($now) {
+                $rq->where('status', 1) // عقد إيجار نشط
+                ->where(function ($rq2) use ($now) {
+                    // يعتبر الرف محجوزًا إذا كان تاريخ نهاية العقد أو نهاية المدة المخصصة >= الآن
+                    $rq2->whereDate('warehouse_rentals.rental_end', '>=', $now)
+                        ->orWhereDate('rental_shelves.custom_end', '>=', $now);
+                });
             });
-        }])->get();
+        };
+
+        $warehouses = Warehouse::query()
+            // ❗ لا تُرجع إلا المستودعات التي فيها على الأقل رف واحد "متاح"
+            ->whereHas('shelves', $availableShelvesScope)
+            // ❗ وعند جلب الرفوف، اجلب فقط المتاحة
+            ->with(['shelves' => $availableShelvesScope])
+            ->get();
 
         return view('admin.warehouse_rentals.create', compact('warehouses', 'merchants'));
     }
+
 
     public function store(Request $request)
     {
