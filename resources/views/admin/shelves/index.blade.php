@@ -72,15 +72,20 @@
                                 </td>
                                 <td>{{ $shelf->price }} {{ config('settings.currency_symbol') }}</td>
                                 <td>
-                                    <div class="form-check form-switch">
-                                        <input type="checkbox" class="form-check-input change-status"
-                                               data-id="{{ $shelf->id }}"
-                                               id="status-{{ $shelf->id }}"
-                                               {{ $shelf->status ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="status-{{ $shelf->id }}">
-                                            {{ $shelf->status ? __('general.active') : __('general.inactive') }}
-                                        </label>
-                                    </div>
+
+                                    @if ($shelf->status == 1)
+                                        <a href="javascript:void(0);" class="updateShelveStatus "
+                                            id="shelf-{{ $shelf->id }}" shelf_id="{{ $shelf->id }}">
+                                            <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true"
+                                                status="Active" style="font-size: 1.6em"></i>
+                                        </a>
+                                    @else
+                                        <a href="javascript:void(0);" class="updateShelveStatus" id="shelf-{{ $shelf->id }}"
+                                            shelf_id="{{ $shelf->id }}">
+                                            <i class="fas fa-toggle-off fa-lg text-warning" aria-hidden="true"
+                                                status="Inactive" style="font-size: 1.6em"></i>
+                                        </a>
+                                    @endif
                                 </td>
                                 <td>{{ $shelf->created_at->diffForHumans() }}</td>
                                 <td>
@@ -143,39 +148,7 @@
 </div>
 @endsection
 
-@section('scripts')
-<script>
-    $(document).ready(function() {
-        // Initialize Select2
-        $('.select2').select2({
-            width: '100%',
-            placeholder: "{{ __('shelf.select_warehouse') }}"
-        });
 
-        // Change status toggle
-        $('.change-status').change(function() {
-            const shelfId = $(this).data('id');
-            const status = $(this).is(':checked') ? 1 : 0;
-
-            $.ajax({
-                url: "{{ route('admin.shelves.update_shelves_status') }}",
-                method: 'POST',
-                data: {
-                    id: shelfId,
-                    status: status,
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function(response) {
-                    toastr.success(response.message);
-                },
-                error: function(xhr) {
-                    toastr.error(xhr.responseJSON.message);
-                }
-            });
-        });
-    });
-</script>
-@endsection
 
 @section('styles')
 <style>
