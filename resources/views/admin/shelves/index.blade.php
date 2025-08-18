@@ -96,11 +96,11 @@
                                         data-inactive-text="{{ __('panel.status_inactive') }}">
 
                                         @if ($shelf->status == 1)
-                                            <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true" status="Active" style="font-size:1.8em"></i>
+                                            <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true" status="Active" style="font-size:1.6em"></i>
                                             <span class="ms-1 text-success fw-bold">{{ __('panel.status_active') }}</span>
 
                                         @else
-                                            <i class="fas fa-toggle-off fa-lg text-warning" aria-hidden="true" status="Inactive" style="font-size:1.8em"></i>
+                                            <i class="fas fa-toggle-off fa-lg text-warning" aria-hidden="true" status="Inactive" style="font-size:1.6em"></i>
                                             <span class="ms-1 text-warning fw-bold">{{ __('panel.status_inactive') }}</span>
                                         @endif
                                     </a>
