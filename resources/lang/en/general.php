@@ -83,6 +83,7 @@ return [
     'sort_by_id'            => 'Sort by ID',
     'sort_by_warehouse_name' => 'Sort by Warehouse Name',
     'sort_by_shelf_code'    => 'Sort by Shelf Code',
+    'show_filters'         => 'Show Filters',
 
 
 
