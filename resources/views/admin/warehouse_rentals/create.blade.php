@@ -112,7 +112,8 @@
                                         @forelse($warehouses as $index => $warehouse)
                                             <div class="card mb-2 shadow-none border">
                                                 <div class="card-header p-0" id="headingWarehouse{{ $warehouse->id }}">
-                                                    <button class="btn btn-link w-100 text-start p-3" data-bs-toggle="collapse"
+                                                    <button type="button" class="btn btn-link w-100 text-start p-3 accordion-toggle"
+                                                            data-bs-toggle="collapse"
                                                             data-bs-target="#collapseWarehouse{{ $warehouse->id }}"
                                                             aria-expanded="{{ $index === 0 ? 'true' : 'false' }}"
                                                             aria-controls="collapseWarehouse{{ $warehouse->id }}">
@@ -129,8 +130,7 @@
 
                                                 <div id="collapseWarehouse{{ $warehouse->id }}"
                                                      class="collapse {{ $index === 0 ? 'show' : '' }}"
-                                                     aria-labelledby="headingWarehouse{{ $warehouse->id }}"
-                                                     data-bs-parent="#accordion">
+                                                     aria-labelledby="headingWarehouse{{ $warehouse->id }}">
                                                     <div class="card-body">
                                                         @if($warehouse->shelves->count() > 0)
                                                             <div class="table-responsive">
@@ -224,6 +224,7 @@
     .custom-accordion .card-header button {
         text-decoration: none;
         box-shadow: none;
+        cursor: pointer;
     }
     .custom-accordion .card-header .accordion-arrow {
         transition: transform 0.3s ease;
@@ -237,6 +238,9 @@
     }
     .flatpickr-input[readonly] {
         background-color: #fff;
+    }
+    .accordion-toggle {
+        outline: none !important;
     }
 </style>
 @endpush
@@ -274,6 +278,17 @@
             var startDate = $(param).val();
             if (!startDate || !value) return true;
             return new Date(value) >= new Date(startDate);
+        });
+
+        // Allow multiple accordions to be open
+        $('.accordion-toggle').on('click', function(e) {
+            e.preventDefault();
+            var target = $(this).data('bs-target');
+            $(target).collapse('toggle');
+
+            // Update arrow icon
+            var arrow = $(this).find('.accordion-arrow');
+            arrow.toggleClass('mdi-chevron-down mdi-chevron-up');
         });
     });
 </script>
