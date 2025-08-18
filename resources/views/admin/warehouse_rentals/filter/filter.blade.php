@@ -52,7 +52,7 @@
                     </div>
 
                     <!-- Sort By -->
-                    <div class="col-md-3 mb-2 d-md-block">
+                    <div class="col-md-2 mb-2 d-md-block">
                         <div class="form-group">
                             <select name="sort_by" class="form-select">
                                 <option value="">{{ __('panel.sort_by') }}</option>
@@ -66,7 +66,7 @@
                     </div>
 
                     <!-- Status -->
-                    <div class="col-md-3 mb-2  d-md-block">
+                    <div class="col-md-2 mb-2  d-md-block">
                         <div class="form-group">
                             <select name="status" class="form-select">
                                 <option value="">{{ __('panel.show_all') }}</option>
@@ -80,9 +80,23 @@
                         </div>
                     </div>
 
-                    <div class="col-md-1 mb-2 d-md-block" style="width: fit-content;display:flex !important;justify-content: center;align-items: center;">
-                        {{ __('general.from') }}
+                    <!-- Order By -->
+                    <div class="col-md-2 mb-2 d-md-block">
+                        <div class="form-group">
+                            <select name="order_by" class="form-select">
+                                <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>
+                                    {{ __('panel.asc') }}
+                                </option>
+                                <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}>
+                                    {{ __('panel.desc') }}
+                                </option>
+                            </select>
+                        </div>
                     </div>
+
+                    {{-- <div class="col-md-1 mb-2 d-md-block" style="width: fit-content;display:flex !important;justify-content: center;align-items: center;">
+                        {{ __('general.from') }}
+                    </div> --}}
 
 
                     <!-- Rental Start -->
@@ -113,29 +127,13 @@
 
 
                     <!-- Price Min -->
-<div class="col-md-2 mb-2 d-md-block">
-    <input type="number" name="price_min" class="form-control" value="{{ request('price_min') }}" placeholder="{{ __('rental.price_min') }}">
-</div>
-
-<!-- Price Max -->
-<div class="col-md-2 mb-2 d-md-block">
-    <input type="number" name="price_max" class="form-control" value="{{ request('price_max') }}" placeholder="{{ __('rental.price_max') }}">
-</div>
-
-
-
-                    <!-- Order By -->
                     <div class="col-md-2 mb-2 d-md-block">
-                        <div class="form-group">
-                            <select name="order_by" class="form-select">
-                                <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>
-                                    {{ __('panel.asc') }}
-                                </option>
-                                <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}>
-                                    {{ __('panel.desc') }}
-                                </option>
-                            </select>
-                        </div>
+                        <input type="number" name="price_min" class="form-control" value="{{ request('price_min') }}" placeholder="{{ __('rental.price_min') }}">
+                    </div>
+
+                    <!-- Price Max -->
+                    <div class="col-md-2 mb-2 d-md-block">
+                        <input type="number" name="price_max" class="form-control" value="{{ request('price_max') }}" placeholder="{{ __('rental.price_max') }}">
                     </div>
 
                     <!-- Action Buttons -->
