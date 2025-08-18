@@ -6,6 +6,7 @@ use App\Models\Merchant;
 use App\Models\Warehouse;
 use App\Models\WarehouseRental;
 use App\Models\Invoice;
+use App\Models\Shelf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -55,6 +56,12 @@ class WarehouseRentalController extends Controller
             'rental_end'   => 'required|date|after_or_equal:rental_start',
         ]);
 
+        // ✅ تحقق من أن هناك رف واحد على الأقل مختار
+        $selectedShelves = collect($request->shelves)->filter(fn($shelf) => isset($shelf['selected']));
+        if ($selectedShelves->isEmpty()) {
+            return back()->withErrors(['shelves' => __('يجب اختيار رف واحد على الأقل')])->withInput();
+        }
+
         $rental = WarehouseRental::create([
             'merchant_id'  => $request->merchant_id,
             'rental_start' => Carbon::parse($request->rental_start),
@@ -68,7 +75,12 @@ class WarehouseRentalController extends Controller
         foreach ($request->shelves as $shelfId => $data) {
             if (!isset($data['selected'])) continue;
 
-            $customPrice = $data['custom_price'] ?? 0;
+            // ✅ إذا لم يدخل سعر → نستخدم سعر الرف من الجدول
+            $shelf = Shelf::findOrFail($shelfId);
+            // $customPrice = $data['custom_price'] ?? 0;
+
+            $customPrice = !empty($data['custom_price']) ? $data['custom_price'] : $shelf->price;
+
             $customStart = Carbon::parse($data['custom_start'] ?? $request->rental_start);
             $customEnd   = Carbon::parse($data['custom_end'] ?? $request->rental_end);
 
@@ -138,6 +150,12 @@ class WarehouseRentalController extends Controller
             'rental_end'   => 'required|date|after_or_equal:rental_start',
         ]);
 
+        // ✅ تحقق من أن هناك رف واحد على الأقل مختار
+        $selectedShelves = collect($request->shelves)->filter(fn($shelf) => isset($shelf['selected']));
+        if ($selectedShelves->isEmpty()) {
+            return back()->withErrors(['shelves' => __('يجب اختيار رف واحد على الأقل')])->withInput();
+        }
+
         $rental->update([
             'merchant_id'  => $request->merchant_id,
             'rental_start' => Carbon::parse($request->rental_start),
@@ -151,7 +169,12 @@ class WarehouseRentalController extends Controller
         foreach ($request->shelves as $shelfId => $data) {
             if (!isset($data['selected'])) continue;
 
-            $customPrice = $data['custom_price'] ?? 0;
+             // ✅ لو السعر غير مدخل → ناخذ سعر الرف من الجدول
+            $shelf = \App\Models\Shelf::findOrFail($shelfId);
+            $customPrice = !empty($data['custom_price']) ? $data['custom_price'] : $shelf->price;
+
+
+            // $customPrice = $data['custom_price'] ?? 0;
             $customStart = Carbon::parse($data['custom_start'] ?? $request->rental_start);
             $customEnd   = Carbon::parse($data['custom_end'] ?? $request->rental_end);
 
