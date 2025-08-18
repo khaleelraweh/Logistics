@@ -108,6 +108,13 @@
                                         {{ __('shelf.shelf_note2') }}
                                     </p>
 
+                                    @if($errors->has('shelves'))
+                                        <div class="alert alert-danger mt-2">
+                                            <i class="mdi mdi-alert-circle-outline me-2"></i>
+                                            {{ $errors->first('shelves') }}
+                                        </div>
+                                    @endif
+
                                     <div id="accordion" class="custom-accordion">
                                         @forelse($warehouses as $index => $warehouse)
                                             <div class="card mb-2 shadow-none border">
@@ -280,16 +287,28 @@
             return new Date(value) >= new Date(startDate);
         });
 
-        // Allow multiple accordions to be open
-        $('.accordion-toggle').on('click', function(e) {
-            e.preventDefault();
-            var target = $(this).data('bs-target');
-            $(target).collapse('toggle');
 
-            // Update arrow icon
-            var arrow = $(this).find('.accordion-arrow');
-            arrow.toggleClass('mdi-chevron-down mdi-chevron-up');
+        // التحقق من اختيار رف واحد على الأقل قبل الإرسال
+        $('#rentalForm').submit(function(e) {
+            var atLeastOneChecked = false;
+            $('.shelf-checkbox').each(function() {
+                if ($(this).is(':checked')) {
+                    atLeastOneChecked = true;
+                    return false; // الخروج من الحلقة عند العثور على رف مختار
+                }
+            });
+
+            if (!atLeastOneChecked) {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: '{{ __("خطأ") }}',
+                    text: '{{ __("يجب اختيار رف واحد على الأقل") }}',
+                });
+                return false;
+            }
         });
+
     });
 </script>
 @endpush
