@@ -26,6 +26,8 @@ return [
     'select_size'                   =>  'Select Size',
     'merchant_name'                   =>  'Merchant Name',
     'all_merchants'                   =>  'All Merchants',
+    'price_min'                   =>  'Price Min',
+    'price_max'                   =>  'Price Max',
 
     'add_new'                   =>  'Add New Shelf',
     'editing'                      =>  'Editing',

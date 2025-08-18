@@ -26,6 +26,8 @@ return [
     'select_size'                   =>  'اختر الحجم',
     'merchant_name'                   =>  'اسم التاجر',
     'all_merchants'                   =>  'جميع التجار',
+    'price_min'                       =>  'السعر الأدنى',
+    'price_max'                       =>  'السعر الأعلى',
 
     'add_new'                       =>  'إضافة رف جديد',
     'editing'                    =>  'التعديل لبيانات الرف',

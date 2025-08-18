@@ -23,6 +23,8 @@ return [
     'rental_period'        => 'Rental Period',
     'rentals'               =>  'Rentals',
     'date_range'            => 'Date Range',
+    'price_min'                => 'Price Min',
+    'price_max'             => 'Price Max',
 
 
     'shelf_code'           => 'Shelf Code',

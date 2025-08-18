@@ -24,6 +24,8 @@ return [
     'rental_period'      => 'فترة الإيجار',
     'rentals'           =>  'إيجارات',
     'date_range'        =>   'مدة الإيجار',
+    'price_min'           => 'الحد الأدنى للسعر',
+    'price_max'           => 'الحد الأقصى للسعر',
 
 
     'shelf_code'           => 'رمز الرف',

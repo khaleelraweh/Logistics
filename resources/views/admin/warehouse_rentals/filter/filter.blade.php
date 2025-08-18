@@ -112,6 +112,15 @@
                     </div>
 
 
+                    <!-- Price Min -->
+<div class="col-md-2 mb-2 d-md-block">
+    <input type="number" name="price_min" class="form-control" value="{{ request('price_min') }}" placeholder="{{ __('rental.price_min') }}">
+</div>
+
+<!-- Price Max -->
+<div class="col-md-2 mb-2 d-md-block">
+    <input type="number" name="price_max" class="form-control" value="{{ request('price_max') }}" placeholder="{{ __('rental.price_max') }}">
+</div>
 
 
 
