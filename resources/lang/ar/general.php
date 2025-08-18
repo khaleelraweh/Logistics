@@ -85,6 +85,7 @@ return [
     'sort_by_warehouse_name' => 'ترتيب حسب اسم المستودع',
     'sort_by_shelf_code'    => 'ترتيب حسب رمز الرف',
     'show_filters'         => 'إظهار المرشحات',
+    'select'                  => 'إختر',
 
 
     // ===== الحجم ===============

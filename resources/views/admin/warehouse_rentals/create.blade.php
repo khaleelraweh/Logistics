@@ -2,16 +2,20 @@
 
 @section('content')
 
-<!-- Page Title -->
-<div class="row mb-3">
+<!-- Page Header -->
+<div class="row mb-4">
     <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">{{ __('rental.add_rental') }}</h4>
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">{{ __('rental.add_rental') }}</h4>
+
             <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="#">{{ __('rental.add_rental') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('rental.manage_rentals') }}</li>
-                </ol>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.warehouse_rentals.index') }}">{{ __('rental.manage_rentals') }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ __('rental.add_rental') }}</li>
+                    </ol>
+                </nav>
             </div>
         </div>
     </div>
@@ -19,133 +23,193 @@
 
 <!-- Rental Form -->
 <div class="row">
-    <div class="col-12">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h4 class="card-title mb-4"><i class="mdi mdi-clipboard-text-outline me-1"></i> {{ __('rental.rental_info') }}</h4>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-white border-bottom">
+                <h5 class="card-title mb-0">
+                    <i class="mdi mdi-clipboard-text-outline align-middle me-2"></i>
+                    {{ __('rental.rental_info') }}
+                </h5>
+            </div>
 
-                <form action="{{ route('admin.warehouse_rentals.store') }}" method="POST">
+            <div class="card-body">
+                <form action="{{ route('admin.warehouse_rentals.store') }}" method="POST" id="rentalForm">
                     @csrf
 
                     <!-- Merchant Selection -->
                     <div class="row mb-4">
-                        <label for="merchant_id" class="col-sm-2 col-form-label">{{ __('merchant.name') }}</label>
-                        <div class="col-sm-10">
-                            <select name="merchant_id" id="merchant_id" class="form-select select2">
-                                <option disabled selected>{{ __('rental.select_merchant') }}</option>
-                                @foreach ($merchants as $merchant)
-                                    <option value="{{ $merchant->id }}" {{ old('merchant_id') == $merchant->id ? 'selected' : '' }}>
-                                        {{ $merchant->name['en'] ?? $merchant->name }} - {{ $merchant->email }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('merchant_id')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
+                        <div class="col-md-12 ">
+                            <div class="form-group">
+                                <label for="merchant_id" class="form-label">{{ __('merchant.name') }} <span class="text-danger">*</span></label>
+                                <select name="merchant_id" id="merchant_id" class="form-select select2" required>
+                                    <option value="" disabled selected>{{ __('rental.select_merchant') }}</option>
+                                    @foreach ($merchants as $merchant)
+                                        <option value="{{ $merchant->id }}" {{ old('merchant_id') == $merchant->id ? 'selected' : '' }}>
+                                            {{ $merchant->name['en'] ?? $merchant->name }} - {{ $merchant->email }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('merchant_id')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Rental Start Date -->
+                    <!-- Rental Period -->
                     <div class="row mb-4">
-                        <label for="rental_start" class="col-sm-2 col-form-label">{{ __('rental.rental_start') }}</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="rental_start" id="rental_start" class="form-control"
-                                   value="{{ old('rental_start', now()->format('Y-m-d')) }}">
-                            @error('rental_start')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    <!-- Rental End Date -->
-                    <div class="row mb-4">
-                        <label for="rental_end" class="col-sm-2 col-form-label">{{ __('rental.rental_end') }}</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="rental_end" id="rental_end" class="form-control"
-                                   value="{{ old('rental_end', now()->addMonth()->format('Y-m-d')) }}">
-                            @error('rental_end')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <!-- Accordion -->
-                    <h5 class="text-muted mb-3">
-                        {{ __('rental.select_shelves') }}
-                    </h5>
-
-                    <p class="text-muted mb-3">
-                        {{ __('shelf.shelf_note1') }}<br>
-                        {{ __('shelf.shelf_note2') }}
-                    </p>
-
-                    <div id="accordion" class="custom-accordion">
-                        @forelse($warehouses as $index => $warehouse)
-                            <div class="card mb-2 shadow-none border">
-                                <a href="#collapseWarehouse{{ $warehouse->id }}" class="text-dark" data-bs-toggle="collapse"
-                                    aria-expanded="{{ $index === 0 ? 'true' : 'false' }}"
-                                    aria-controls="collapseWarehouse{{ $warehouse->id }}">
-                                    <div class="card-header" id="headingWarehouse{{ $warehouse->id }}">
-                                        <h6 class="m-0">
-                                            {{ $warehouse->name['en'] ?? $warehouse->name }} ({{ $warehouse->code }})
-                                            <i class="mdi mdi-minus float-end accor-plus-icon"></i>
-                                        </h6>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="rental_start" class="form-label">{{ __('rental.rental_start') }} <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                            <input type="date" name="rental_start" id="rental_start" class="form-control flatpickr-input"
+                                                   value="{{ old('rental_start', now()->format('Y-m-d')) }}" required>
+                                        </div>
+                                        @error('rental_start')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="rental_end" class="form-label">{{ __('rental.rental_end') }} <span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                            <input type="date" name="rental_end" id="rental_end" class="form-control flatpickr-input"
+                                                   value="{{ old('rental_end', now()->addMonth()->format('Y-m-d')) }}" required>
+                                        </div>
+                                        @error('rental_end')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                <!-- open single accordion item  -->
-                                {{-- <div id="collapseWarehouse{{ $warehouse->id }}"
-                                     class="collapse {{ $index === 0 ? 'show' : '' }}"
-                                     aria-labelledby="headingWarehouse{{ $warehouse->id }}"
-                                     data-bs-parent="#accordion"> --}}
+                    <!-- Shelves Selection -->
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <div class="card border">
+                                <div class="card-header bg-light">
+                                    <h5 class="mb-0">
+                                        <i class="mdi mdi-warehouse me-2"></i>
+                                        {{ __('rental.select_shelves') }}
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-muted mb-4">
+                                        <i class="mdi mdi-information-outline me-2"></i>
+                                        {{ __('shelf.shelf_note1') }}<br>
+                                        {{ __('shelf.shelf_note2') }}
+                                    </p>
 
-                                <!-- Open multiple accordion item -->
-                                <div id="collapseWarehouse{{ $warehouse->id }}"
-                                     class="collapse {{ $index === 0 ? 'show' : '' }}"
-                                     aria-labelledby="headingWarehouse{{ $warehouse->id }}"
-                                     data-bs-parent="#accordion">
-                                    <div class="card-body">
-                                        @forelse($warehouse->shelves as $shelf)
-                                            <div class="row align-items-end mb-3">
-                                                <div class="col-md-1 text-center">
-                                                    <input type="checkbox" class="form-check-input" name="shelves[{{ $shelf->id }}][selected]" value="1">
+                                    <div id="accordion" class="custom-accordion">
+                                        @forelse($warehouses as $index => $warehouse)
+                                            <div class="card mb-2 shadow-none border">
+                                                <div class="card-header p-0" id="headingWarehouse{{ $warehouse->id }}">
+                                                    <button class="btn btn-link w-100 text-start p-3" data-bs-toggle="collapse"
+                                                            data-bs-target="#collapseWarehouse{{ $warehouse->id }}"
+                                                            aria-expanded="{{ $index === 0 ? 'true' : 'false' }}"
+                                                            aria-controls="collapseWarehouse{{ $warehouse->id }}">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <h6 class="mb-0">
+                                                                <i class="mdi mdi-warehouse me-2 text-primary"></i>
+                                                                {{ $warehouse->name['en'] ?? $warehouse->name }}
+                                                                <span class="badge bg-primary ms-2">{{ $warehouse->code }}</span>
+                                                            </h6>
+                                                            <i class="mdi mdi-chevron-down accordion-arrow"></i>
+                                                        </div>
+                                                    </button>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <label class="form-label fw-bold">{{ $shelf->code }}</label>
-                                                    <div class="text-muted small">
-                                                        {{ __('shelf.size') }}: {{ $shelf->size }} | {{ __('shelf.price') }}: {{ $shelf->price }}
+
+                                                <div id="collapseWarehouse{{ $warehouse->id }}"
+                                                     class="collapse {{ $index === 0 ? 'show' : '' }}"
+                                                     aria-labelledby="headingWarehouse{{ $warehouse->id }}"
+                                                     data-bs-parent="#accordion">
+                                                    <div class="card-body">
+                                                        @if($warehouse->shelves->count() > 0)
+                                                            <div class="table-responsive">
+                                                                <table class="table table-hover table-centered mb-0">
+                                                                    <thead class="table-light">
+                                                                        <tr>
+                                                                            <th width="5%">{{ __('general.select') }}</th>
+                                                                            <th>{{ __('shelf.code') }}</th>
+                                                                            <th>{{ __('shelf.size') }}</th>
+                                                                            <th>{{ __('shelf.price') }}</th>
+                                                                            <th>{{ __('rental.custom_price') }}</th>
+                                                                            <th>{{ __('rental.custom_dates') }}</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @foreach($warehouse->shelves as $shelf)
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input type="checkbox" class="form-check-input shelf-checkbox"
+                                                                                           name="shelves[{{ $shelf->id }}][selected]" value="1">
+                                                                                </td>
+                                                                                <td>
+                                                                                    <label class="form-check-label fw-bold">{{ $shelf->code }}</label>
+                                                                                </td>
+                                                                                <td>{{ $shelf->size }}</td>
+                                                                                <td>{{ number_format($shelf->price, 2) }}</td>
+                                                                                <td width="20%">
+                                                                                    <input type="number" step="0.01"
+                                                                                           name="shelves[{{ $shelf->id }}][custom_price]"
+                                                                                           class="form-control form-control-sm"
+                                                                                           placeholder="{{ number_format($shelf->price, 2) }}">
+                                                                                </td>
+                                                                                <td width="30%">
+                                                                                    <div class="input-group input-group-sm">
+                                                                                        <input type="date" name="shelves[{{ $shelf->id }}][custom_start]"
+                                                                                               class="form-control form-control-sm" placeholder="{{ __('rental.start_date') }}">
+                                                                                        <span class="input-group-text">to</span>
+                                                                                        <input type="date" name="shelves[{{ $shelf->id }}][custom_end]"
+                                                                                               class="form-control form-control-sm" placeholder="{{ __('rental.end_date') }}">
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        @else
+                                                            <div class="alert alert-info mb-0">
+                                                                <i class="mdi mdi-alert-circle-outline me-2"></i>
+                                                                {{ __('shelf.no_shelves_available') }}
+                                                            </div>
+                                                        @endif
                                                     </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <label class="form-label">{{ __('rental.price') }}</label>
-                                                    <input type="number" step="0.01" name="shelves[{{ $shelf->id }}][custom_price]" class="form-control" placeholder="0.00">
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label class="form-label">{{ __('rental.rental_start') }}</label>
-                                                    <input type="date" name="shelves[{{ $shelf->id }}][custom_start]" class="form-control">
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label class="form-label">{{ __('rental.rental_end') }}</label>
-                                                    <input type="date" name="shelves[{{ $shelf->id }}][custom_end]" class="form-control">
                                                 </div>
                                             </div>
                                         @empty
-                                            <div class="text-muted">{{ __('shelf.no_shelves_available') }}</div>
+                                            <div class="alert alert-warning mb-0">
+                                                <i class="mdi mdi-alert-outline me-2"></i>
+                                                {{ __('warehouse.no_warehouses_found') }}
+                                            </div>
                                         @endforelse
                                     </div>
                                 </div>
                             </div>
-                        @empty
-                            <div class="text-muted">{{ __('warehouse.no_warehouses_found') }}</div>
-                        @endforelse
+                        </div>
                     </div>
 
-                    <!-- Submit -->
-                    <div class="text-end mt-4">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="mdi mdi-content-save-outline me-1"></i> {{ __('rental.save_rental_data') }}
-                        </button>
+                    <!-- Form Actions -->
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ route('admin.warehouse_rentals.index') }}" class="btn btn-light">
+                                    <i class="mdi mdi-arrow-left me-1"></i> {{ __('general.cancel') }}
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="mdi mdi-content-save-outline me-1"></i> {{ __('rental.save_rental_data') }}
+                                </button>
+                            </div>
+                        </div>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -153,3 +217,63 @@
 </div>
 
 @endsection
+
+@push('styles')
+<style>
+    .custom-accordion .card-header button {
+        text-decoration: none;
+        box-shadow: none;
+    }
+    .custom-accordion .card-header .accordion-arrow {
+        transition: transform 0.3s ease;
+    }
+    .custom-accordion .card-header button[aria-expanded="true"] .accordion-arrow {
+        transform: rotate(180deg);
+    }
+    .shelf-checkbox:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+    }
+    .flatpickr-input[readonly] {
+        background-color: #fff;
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        // Initialize select2
+        $('.select2').select2({
+            placeholder: "{{ __('rental.select_merchant') }}",
+            width: '100%'
+        });
+
+        // Initialize datepickers
+        $('#rental_start, #rental_end').flatpickr({
+            dateFormat: "Y-m-d",
+            minDate: "today"
+        });
+
+        // Validate end date is after start date
+        $('#rentalForm').validate({
+            rules: {
+                rental_end: {
+                    greaterThan: "#rental_start"
+                }
+            },
+            messages: {
+                rental_end: {
+                    greaterThan: "{{ __('validation.after', ['attribute' => __('rental.rental_end'), 'date' => __('rental.rental_start')]) }}"
+                }
+            }
+        });
+
+        $.validator.addMethod("greaterThan", function(value, element, param) {
+            var startDate = $(param).val();
+            if (!startDate || !value) return true;
+            return new Date(value) >= new Date(startDate);
+        });
+    });
+</script>
+@endpush

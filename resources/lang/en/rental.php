@@ -19,6 +19,7 @@ return [
     'shelf_info'            => 'Shelf Information',
     'add_payment'          => 'Add Rental Payment',
     'edit_contract'         => 'Edit Rental Contract',
+    'custom_dates'          => 'Custom Dates',
 
 
     'shelf_code'           => 'Shelf Code',

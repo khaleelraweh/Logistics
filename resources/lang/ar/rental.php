@@ -20,6 +20,7 @@ return [
     'shelf_info'            => 'معلومات الرفوف',
     'add_payment'          => 'إضافة دفعة إيجار',
     'edit_contract'         => 'تعديل عقد الإيجار',
+    'custom_dates'         => 'تواريخ مخصصة',
 
 
     'shelf_code'           => 'رمز الرف',
