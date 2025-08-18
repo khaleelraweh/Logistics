@@ -46,6 +46,9 @@ return [
 
 
     //show
+    'all_warehouses' => 'All Warehouses',
+    'all_rental_status' => 'All Rental Status',
+    'rented' => 'Rented',
     'shelf_details' => 'Shelf Details',
     'shelf' => 'Shelf',
     'id' => 'ID',
