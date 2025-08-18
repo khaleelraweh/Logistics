@@ -2,7 +2,7 @@
     <form action="{{ route('admin.shelves.index') }}" method="get">
         <div class="row">
             <!-- Status -->
-            <div class="col-md-2 d-none d-md-block">
+            <div class="col-md-2  d-md-block">
                 <div class="form-group">
                     <select name="status" class="form-select">
                         <option value="">{{ __('panel.show_all') }}</option>
@@ -17,7 +17,7 @@
             </div>
 
             <!-- Warehouse -->
-            <div class="col-md-3 d-none d-md-block">
+            <div class="col-md-3  d-md-block">
                 <div class="form-group">
                     <select name="warehouse_id" class="form-control select2">
                         <option value="">{{ __('shelf.all_warehouses') }}</option>
@@ -31,7 +31,7 @@
             </div>
 
             <!-- Rental Status -->
-            <div class="col-md-2 d-none d-md-block">
+            <div class="col-md-2  d-md-block">
                 <div class="form-group">
                     <select name="rented" class="form-select">
                         <option value="">{{ __('shelf.all_rental_status') }}</option>
@@ -42,7 +42,7 @@
             </div>
 
             <!-- Sort By -->
-            <div class="col-md-2 d-none d-md-block">
+            <div class="col-md-2  d-md-block">
                 <div class="form-group">
                     <select name="sort_by" class="form-select">
                         <option value="">{{ __('panel.sort_by') }}</option>
@@ -55,7 +55,7 @@
             </div>
 
             <!-- Order By -->
-            <div class="col-md-2 d-none d-md-block">
+            <div class="col-md-2  d-md-block">
                 <div class="form-group">
                     <select name="order_by" class="form-select">
                         <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>
@@ -68,13 +68,13 @@
                 </div>
             </div>
 
-            <!-- Buttons -->
-            <div class="col-md-1">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-search"></i> {{ __('panel.search') }}
-                    </button>
-                </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary me-2 flex-grow-1">
+                    <i class="fas fa-search me-1"></i>{{ __('general.filter') }}
+                </button>
+                <a href="{{ route('admin.shelves.index') }}" class="btn btn-outline-secondary flex-grow-1">
+                    <i class="fas fa-undo me-1"></i>{{ __('general.reset') }}
+                </a>
             </div>
         </div>
     </form>
