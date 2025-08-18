@@ -51,6 +51,35 @@
                         </div>
                     </div>
 
+                    <!-- Sort By -->
+                    <div class="col-md-3 mb-2 d-md-block">
+                        <div class="form-group">
+                            <select name="sort_by" class="form-select">
+                                <option value="">{{ __('panel.sort_by') }}</option>
+                                <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>{{ __('panel.id') }}</option>
+                                <option value="warehouse_name" {{ request('sort_by') == 'warehouse_name' ? 'selected' : '' }}>{{ __('shelf.warehouse_name') }}</option>
+                                <option value="merchant_name" {{ request('sort_by') == 'merchant_name' ? 'selected' : '' }}>{{ __('shelf.merchant_name') }}</option>
+                                <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>{{ __('panel.created_at') }}</option>
+                                <option value="published_on" {{ request('sort_by') == 'published_on' ? 'selected' : '' }}>{{ __('panel.published_on') }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="col-md-3 mb-2  d-md-block">
+                        <div class="form-group">
+                            <select name="status" class="form-select">
+                                <option value="">{{ __('panel.show_all') }}</option>
+                                <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>
+                                    {{ __('panel.status_active') }}
+                                </option>
+                                <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>
+                                    {{ __('panel.status_inactive') }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="col-md-1 mb-2 d-md-block" style="width: fit-content;display:flex !important;justify-content: center;align-items: center;">
                         {{ __('general.from') }}
                     </div>
@@ -82,34 +111,9 @@
                         </div>
                     </div>
 
-                    <!-- Sort By -->
-                    <div class="col-md-2 mb-2 d-md-block">
-                        <div class="form-group">
-                            <select name="sort_by" class="form-select">
-                                <option value="">{{ __('panel.sort_by') }}</option>
-                                <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>{{ __('panel.id') }}</option>
-                                <option value="warehouse_name" {{ request('sort_by') == 'warehouse_name' ? 'selected' : '' }}>{{ __('shelf.warehouse_name') }}</option>
-                                <option value="merchant_name" {{ request('sort_by') == 'merchant_name' ? 'selected' : '' }}>{{ __('shelf.merchant_name') }}</option>
-                                <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>{{ __('panel.created_at') }}</option>
-                                <option value="published_on" {{ request('sort_by') == 'published_on' ? 'selected' : '' }}>{{ __('panel.published_on') }}</option>
-                            </select>
-                        </div>
-                    </div>
 
-                    <!-- Status -->
-                    <div class="col-md-2 mb-2  d-md-block">
-                        <div class="form-group">
-                            <select name="status" class="form-select">
-                                <option value="">{{ __('panel.show_all') }}</option>
-                                <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>
-                                    {{ __('panel.status_active') }}
-                                </option>
-                                <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>
-                                    {{ __('panel.status_inactive') }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
+
+
 
                     <!-- Order By -->
                     <div class="col-md-2 mb-2 d-md-block">

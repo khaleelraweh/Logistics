@@ -24,6 +24,8 @@ return [
     // placeholder
     'select_shelf'               =>  'Select Shelf',
     'select_size'                   =>  'Select Size',
+    'merchant_name'                   =>  'Merchant Name',
+    'all_merchants'                   =>  'All Merchants',
 
     'add_new'                   =>  'Add New Shelf',
     'editing'                      =>  'Editing',

@@ -38,39 +38,6 @@
                 @include('admin.warehouse_rentals.filter.filter')
                 <!-- End Filters Section -->
 
-                <!-- Filters Section -->
-                <div class="filter-section mb-4">
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <label class="form-label">{{ __('rental.merchant') }}</label>
-                            <select class="form-select select2">
-                                <option value="">{{ __('general.all') }}</option>
-                                {{-- @foreach($merchants as $merchant)
-                                    <option value="{{ $merchant->id }}">{{ $merchant->name }}</option>
-                                @endforeach --}}
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">{{ __('rental.status') }}</label>
-                            <select class="form-select">
-                                <option value="">{{ __('general.all') }}</option>
-                                <option value="1">{{ __('panel.status_active') }}</option>
-                                <option value="0">{{ __('panel.status_inactive') }}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">{{ __('rental.date_range') }}</label>
-                            <input type="text" class="form-control flatpickr-range" placeholder="{{ __('general.select_date') }}">
-                        </div>
-                        <div class="col-md-3 d-flex align-items-end">
-                            <button class="btn btn-primary w-100">
-                                <i class="fas fa-filter me-2"></i>{{ __('general.filter') }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Filters Section -->
-
                 <!-- Rentals Table -->
                 <div class="table-responsive">
                     <table id="rentals-datatable" class="table table-hover table-bordered nowrap w-100">

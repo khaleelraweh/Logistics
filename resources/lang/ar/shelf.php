@@ -24,6 +24,8 @@ return [
     // placeholder
     'select_warehouse'               =>  'اختر المستودع',
     'select_size'                   =>  'اختر الحجم',
+    'merchant_name'                   =>  'اسم التاجر',
+    'all_merchants'                   =>  'جميع التجار',
 
     'add_new'                       =>  'إضافة رف جديد',
     'editing'                    =>  'التعديل لبيانات الرف',
