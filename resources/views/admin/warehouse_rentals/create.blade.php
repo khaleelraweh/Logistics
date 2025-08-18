@@ -205,18 +205,14 @@
                         </div>
                     </div>
 
-                    <!-- Form Actions -->
-                    <div class="row mt-4">
-                        <div class="col-md-12">
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ route('admin.warehouse_rentals.index') }}" class="btn btn-light">
-                                    <i class="mdi mdi-arrow-left me-1"></i> {{ __('general.cancel') }}
-                                </a>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="mdi mdi-content-save-outline me-1"></i> {{ __('rental.save_rental_data') }}
-                                </button>
-                            </div>
-                        </div>
+                    <!-- Submit -->
+                    <div class="text-end mt-4">
+                        <a href="{{ route('admin.warehouse_rentals.index') }}" class="btn btn-light me-2">
+                            <i class="mdi mdi-arrow-left me-1"></i> {{ __('general.cancel') }}
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="mdi mdi-content-save-outline me-1"></i> {{ __('rental.save_rental_data') }}
+                        </button>
                     </div>
                 </form>
             </div>
