@@ -104,6 +104,7 @@
                                     <p class="text-muted mb-4">
                                         <i class="mdi mdi-information-outline me-2"></i>
                                         {{ __('shelf.shelf_note1') }}<br>
+                                        <i class="mdi mdi-information-outline me-2"></i>
                                         {{ __('shelf.shelf_note2') }}
                                     </p>
 
