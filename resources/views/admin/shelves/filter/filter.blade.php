@@ -6,20 +6,6 @@
 <div class="card-body">
     <form action="{{ route('admin.shelves.index') }}" method="get">
         <div class="row">
-            <!-- Status -->
-            <div class="col-md-2 mb-2  d-md-block">
-                <div class="form-group">
-                    <select name="status" class="form-select">
-                        <option value="">{{ __('panel.show_all') }}</option>
-                        <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>
-                            {{ __('panel.status_active') }}
-                        </option>
-                        <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>
-                            {{ __('panel.status_inactive') }}
-                        </option>
-                    </select>
-                </div>
-            </div>
 
             <!-- Warehouse -->
             <div class="col-md-3 mb-2 d-md-block">
@@ -59,8 +45,23 @@
                 </div>
             </div>
 
+            <!-- Status -->
+            <div class="col-md-1 mb-2  d-md-block">
+                <div class="form-group">
+                    <select name="status" class="form-select">
+                        <option value="">{{ __('panel.show_all') }}</option>
+                        <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>
+                            {{ __('panel.status_active') }}
+                        </option>
+                        <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>
+                            {{ __('panel.status_inactive') }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
             <!-- Order By -->
-            <div class="col-md-2 mb-2 d-md-block">
+            <div class="col-md-1 mb-2 d-md-block">
                 <div class="form-group">
                     <select name="order_by" class="form-select">
                         <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>
