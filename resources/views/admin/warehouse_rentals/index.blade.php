@@ -90,8 +90,24 @@
                                     <div class="d-flex align-items-center">
                                         <div class="flex-shrink-0 me-3">
                                             <div class="avatar-sm bg-light rounded p-1">
-                                                <img src="{{ $rental->merchant->avatar_url ?? asset('assets/images/users/avatar-1.jpg') }}"
-                                                     alt="-"
+                                                  @php
+                                                    if ($rental->merchant->logo != null ) {
+                                                        $merchant_logo = asset('assets/merchants/' . $rental->merchant->logo);
+
+                                                        if (
+                                                            !file_exists(
+                                                                public_path('assets/merchants/' . $rental->merchant->logo),
+                                                            )
+                                                        ) {
+                                                            $merchant_logo = asset('images/not_found/logo-placeholder.png');
+                                                        }
+                                                    } else {
+                                                        $merchant_logo = asset('images/not_found/logo-placeholder.png');
+                                                    }
+                                                @endphp
+
+                                                <img src="{{ $merchant_logo }}"
+                                                     alt="{{ $rental->merchant->name }}"
                                                      class="img-fluid d-block rounded">
                                             </div>
                                         </div>
