@@ -448,7 +448,7 @@
                                                     <tr>
                                                         <td>
                                                             @if($product->image)
-                                                                <img src="{{ asset('storage/' . $product->image) }}"
+                                                                <img src="{{ asset('products/' . $product->image) }}"
                                                                     alt="{{ $product->name }}"
                                                                     class="rounded"
                                                                     style="width: 50px; height: 50px; object-fit: cover;">
