@@ -4,12 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class WarehouseRental extends Model
 {
-    use HasFactory;
+    use HasFactory , SearchableTrait;
 
     protected $guarded = [];
+
+         // searchable lab
+    protected $searchable = [
+        'columns' => [
+            'warehouse_rentals.price' => 10,
+            'warehouse_rentals.rental_start' => 10,
+            'warehouse_rentals.rental_end' => 10,
+            'warehouse_rentals.warehouse_id' => 10,
+            'warehouse_rentals.user_id' => 10,
+            'warehouse_rentals.status' => 10,
+            'warehouse_rentals.created_at' => 10,]
+    ];
 
     protected $casts = [
         'rental_start' => 'datetime',
