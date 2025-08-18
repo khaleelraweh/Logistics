@@ -34,7 +34,9 @@
 
             <div class="card-body">
                 <!-- Filters Section -->
-                <div class="filter-section mb-4">
+                @include('admin.shelves.filter.filter')
+                <!-- Filters Section -->
+                {{-- <div class="filter-section mb-4">
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-white border-bottom">
                             <h6 class="mb-0">
@@ -88,7 +90,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Shelves Table -->
                 <div class="table-responsive">
