@@ -14,122 +14,124 @@ class ShelfController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     if (!auth()->user()->ability('admin', 'manage_shelves , show_shelves')) {
-    //         return redirect('admin/index');
-    //     }
 
-    //     $shelves = Shelf::query()
-    //         ->when(\request()->keyword != null, function ($query) {
-    //             $query->search(\request()->keyword);
-    //         })
-    //         ->when(\request()->status != null, function ($query) {
-    //             $query->where('status', \request()->status);
-    //         })
-    //         ->orderByRaw(request()->sort_by == 'published_on'
-    //             ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-    //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-    //         ->paginate(\request()->limit_by ?? 100);
-
-    //     return view('admin.shelves.index', compact('shelves'));
-    // }
 
 
     // public function index()
     // {
-    //     if (!auth()->user()->ability('admin', 'manage_shelves , show_shelves')) {
+    //     if (!auth()->user()->ability('admin', 'manage_shelves, show_shelves')) {
     //         return redirect('admin/index');
     //     }
 
-    //     $shelves = Shelf::query()
-    //         // فلترة بالكلمة المفتاحية
+    //     $warehouses = \App\Models\Warehouse::all(); // لجلب المستودعات للفلاتر
+
+    //     $shelves = \App\Models\Shelf::query()
+    //         // فلتر الكلمة المفتاحية
     //         ->when(request()->keyword != null, function ($query) {
-    //             $query->search(request()->keyword);
+    //             $query->where('code', 'like', '%' . request()->keyword . '%')
+    //                 ->orWhere('description', 'like', '%' . request()->keyword . '%');
     //         })
-    //         // فلترة الحالة (نشط / غير نشط)
+    //         // فلتر الحالة (نشط/غير نشط)
     //         ->when(request()->status != null, function ($query) {
     //             $query->where('status', request()->status);
     //         })
-    //         // فلترة المستودع
+    //         // فلتر المستودع
     //         ->when(request()->warehouse_id != null, function ($query) {
     //             $query->where('warehouse_id', request()->warehouse_id);
     //         })
-    //         // فلترة التأجير (مؤجر / غير مؤجر)
+    //         // فلتر المؤجرة / غير المؤجرة
     //         ->when(request()->rented != null, function ($query) {
-    //             if(request()->rented == '1'){
-    //                 // مؤجر
+    //             if(request()->rented == '1'){ // مؤجرة
     //                 $query->whereHas('rentals', function($q){
-    //                     $q->where('end_date', '>=', now());
+    //                     $q->where(function($q2){
+    //                         $q2->whereDate('custom_end', '>=', now())
+    //                         ->orWhereDate('rental_end', '>=', now());
+    //                     });
     //                 });
-    //             } else {
-    //                 // غير مؤجر
+    //             } else { // غير مؤجرة
     //                 $query->whereDoesntHave('rentals', function($q){
-    //                     $q->where('end_date', '>=', now());
+    //                     $q->where(function($q2){
+    //                         $q2->whereDate('custom_end', '>=', now())
+    //                         ->orWhereDate('rental_end', '>=', now());
+    //                     });
     //                 });
     //             }
     //         })
-    //         // الترتيب
+    //         // ترتيب
     //         ->orderByRaw(request()->sort_by == 'published_on'
     //             ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
     //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
     //         ->paginate(request()->limit_by ?? 100);
 
-    //     // كل المستودعات للفلاتر في الـ view
-    //     $warehouses = Warehouse::all();
-
     //     return view('admin.shelves.index', compact('shelves', 'warehouses'));
     // }
 
-
     public function index()
-    {
-        if (!auth()->user()->ability('admin', 'manage_shelves, show_shelves')) {
-            return redirect('admin/index');
-        }
-
-        $warehouses = \App\Models\Warehouse::all(); // لجلب المستودعات للفلاتر
-
-        $shelves = \App\Models\Shelf::query()
-            // فلتر الكلمة المفتاحية
-            ->when(request()->keyword != null, function ($query) {
-                $query->where('code', 'like', '%' . request()->keyword . '%')
-                    ->orWhere('description', 'like', '%' . request()->keyword . '%');
-            })
-            // فلتر الحالة (نشط/غير نشط)
-            ->when(request()->status != null, function ($query) {
-                $query->where('status', request()->status);
-            })
-            // فلتر المستودع
-            ->when(request()->warehouse_id != null, function ($query) {
-                $query->where('warehouse_id', request()->warehouse_id);
-            })
-            // فلتر المؤجرة / غير المؤجرة
-            ->when(request()->rented != null, function ($query) {
-                if(request()->rented == '1'){ // مؤجرة
-                    $query->whereHas('rentals', function($q){
-                        $q->where(function($q2){
-                            $q2->whereDate('custom_end', '>=', now())
-                            ->orWhereDate('rental_end', '>=', now());
-                        });
-                    });
-                } else { // غير مؤجرة
-                    $query->whereDoesntHave('rentals', function($q){
-                        $q->where(function($q2){
-                            $q2->whereDate('custom_end', '>=', now())
-                            ->orWhereDate('rental_end', '>=', now());
-                        });
-                    });
-                }
-            })
-            // ترتيب
-            ->orderByRaw(request()->sort_by == 'published_on'
-                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-            ->paginate(request()->limit_by ?? 100);
-
-        return view('admin.shelves.index', compact('shelves', 'warehouses'));
+{
+    if (!auth()->user()->ability('admin', 'manage_shelves, show_shelves')) {
+        return redirect('admin/index');
     }
+
+    $warehouses = \App\Models\Warehouse::all(); // لجلب المستودعات للفلاتر
+
+    $shelves = \App\Models\Shelf::query()
+        ->with('warehouse') // مهم عشان ما يصير N+1 لما نعرض اسم المستودع
+        // فلتر الكلمة المفتاحية
+        ->when(request()->keyword != null, function ($query) {
+            $query->where(function($q){
+                $q->where('code', 'like', '%' . request()->keyword . '%')
+                  ->orWhere('description', 'like', '%' . request()->keyword . '%');
+            });
+        })
+        // فلتر الحالة (نشط/غير نشط)
+      ->when(request()->status != null, function ($query) {
+            $query->where('shelves.status', request()->status);
+        })
+        // فلتر المستودع
+        ->when(request()->warehouse_id != null, function ($query) {
+            $query->where('warehouse_id', request()->warehouse_id);
+        })
+        // فلتر المؤجرة / غير المؤجرة
+        ->when(request()->rented != null, function ($query) {
+            if(request()->rented == '1'){ // مؤجرة
+                $query->whereHas('rentals', function($q){
+                    $q->where(function($q2){
+                        $q2->whereDate('custom_end', '>=', now())
+                           ->orWhereDate('rental_end', '>=', now());
+                    });
+                });
+            } else { // غير مؤجرة
+                $query->whereDoesntHave('rentals', function($q){
+                    $q->where(function($q2){
+                        $q2->whereDate('custom_end', '>=', now())
+                           ->orWhereDate('rental_end', '>=', now());
+                    });
+                });
+            }
+        })
+        // ترتيب
+        ->when(request()->filled('sort_by'), function($query) {
+            $order = request()->order_by ?? 'desc';
+            $sortBy = request()->sort_by;
+
+            if ($sortBy === 'warehouse_name') {
+                $query->join('warehouses', 'shelves.warehouse_id', '=', 'warehouses.id')
+                      ->orderBy('warehouses.name', $order)
+                      ->select('shelves.*'); // عشان الأعمدة ما تتلخبط
+            } elseif ($sortBy === 'published_on') {
+                $query->orderByRaw('published_on IS NULL, published_on ' . $order);
+            } else {
+                $query->orderBy($sortBy, $order);
+            }
+        }, function($query) {
+            // الافتراضي
+            $query->orderBy('created_at', 'desc');
+        })
+        ->paginate(100);
+
+    return view('admin.shelves.index', compact('shelves', 'warehouses'));
+}
+
 
 
 
