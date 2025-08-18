@@ -73,9 +73,36 @@ $(document).ready(function(){
     });
 
     //  updateShelveStatus Status
+    // $(document).on("click",".updateShelveStatus",function(){
+    //     var status = $(this).children("i").attr("status");
+    //     var shelf_id = $(this).attr("shelf_id");
+
+    //     $.ajax({
+    //         headers:{
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         type:'post',
+    //         url:'/admin/shelves/update-shelves-status',
+    //         data:{status:status,shelf_id:shelf_id},
+    //         success:function(resp){
+    //             if(resp['status']==0){
+    //                 $("#shelf-"+shelf_id).html("<i class='fas fa-toggle-off fa-lg text-warning' aria-hidden='true' status='Inactive' style='font-size:1.6em' />");
+    //             }else if (resp['status'] ==1 ){
+    //                 $("#shelf-"+shelf_id).html("<i class='fas fa-toggle-on fa-lg text-success' aria-hidden='true' status='Active' style='font-size:1.6em' />");
+    //             }
+    //         },error:function(){
+    //             alert("Error");
+    //         }
+    //     });
+    // });
+
+
+
     $(document).on("click",".updateShelveStatus",function(){
-        var status = $(this).children("i").attr("status");
         var shelf_id = $(this).attr("shelf_id");
+        var status = $(this).children("i").attr("status");
+        var activeText = $(this).data('active-text');
+        var inactiveText = $(this).data('inactive-text');
 
         $.ajax({
             headers:{
@@ -85,16 +112,19 @@ $(document).ready(function(){
             url:'/admin/shelves/update-shelves-status',
             data:{status:status,shelf_id:shelf_id},
             success:function(resp){
-                if(resp['status']==0){
-                    $("#shelf-"+shelf_id).html("<i class='fas fa-toggle-off fa-lg text-warning' aria-hidden='true' status='Inactive' style='font-size:1.6em' />");
-                }else if (resp['status'] ==1 ){
-                    $("#shelf-"+shelf_id).html("<i class='fas fa-toggle-on fa-lg text-success' aria-hidden='true' status='Active' style='font-size:1.6em' />");
+                if(resp['status'] == 0){
+                    $("#shelf-"+shelf_id).html("<i class='fas fa-toggle-off fa-lg text-warning' aria-hidden='true' status='Inactive' style='font-size:1.6em'></i><span class='ms-1 text-warning fw-bold'>" + inactiveText + "</span>");
+                } else if (resp['status'] == 1){
+                    $("#shelf-"+shelf_id).html("<i class='fas fa-toggle-on fa-lg text-success' aria-hidden='true' status='Active' style='font-size:1.6em'></i><span class='ms-1 text-success fw-bold'>" + activeText + "</span>");
                 }
-            },error:function(){
-                alert("Error");
+            },
+            error:function(){
+                alert("Error updating status");
             }
         });
     });
+
+
 
     //  updateStockItemStatus Status
     $(document).on("click",".updateStockItemStatus",function(){
