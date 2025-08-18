@@ -77,7 +77,13 @@
                     </div>
 
                     <!-- Accordion -->
-                    <h5 class="text-muted mb-3">{{ __('rental.select_shelves') }}</h5>
+                    <h5 class="text-muted ">
+                        {{ __('rental.select_shelves') }}
+                    </h5>
+                    <p class="text-muted mb-3">
+                        {{ __('shelf.shelf_note') }}
+                    </p>
+
 
                     @php
                         $rentalShelves = $warehouseRental->shelves->keyBy('id');

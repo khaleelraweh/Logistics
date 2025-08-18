@@ -67,6 +67,7 @@ return [
     'added_on' => 'Added On',
     'no_items' => 'No Items Found',
     'no_shelves_available'  => 'No Shelves Available',
+    'shelf_note' => 'Note: If no start and end date is selected for the shelf rental, the dates from above will be used.',
 
 
 
