@@ -16,6 +16,9 @@ return [
     'actions'           => 'Actions',
 
     // Status
+    'invoice_status' => 'Invoice Status',
+
+    // Status
     'status' => [
         'paid'    => 'Paid',
         'partial' => 'Partially Paid',

@@ -77,7 +77,7 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <p><strong>{{ __('invoice.number') }}:</strong> {{ $warehouseRental->invoice->invoice_number }}</p>
-                            <p><strong>{{ __('invoice.status') }}:</strong> {{ ucfirst($warehouseRental->invoice->status) }}</p>
+                            <p><strong>{{ __('invoice.invoice_status') }}:</strong>{{ __('invoice.status.' . $warehouseRental->invoice->status) }}</p>
                             <p><strong>{{ __('general.total_amount') }}:</strong> {{ $warehouseRental->invoice->total_amount }} {{ __('general.sar') }}</p>
                             <p><strong>{{ __('invoice.amount_paid') }}:</strong> {{ $warehouseRental->invoice->payments->sum('amount')  }} {{ __('general.sar') }}</p>
                         </div>
