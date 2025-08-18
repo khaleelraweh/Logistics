@@ -86,6 +86,7 @@ return [
     'sort_by_shelf_code'    => 'ترتيب حسب رمز الرف',
     'show_filters'         => 'إظهار المرشحات',
     'select'                  => 'إختر',
+    'from'                      => 'من',
     'to'                      => 'إلى',
 
 

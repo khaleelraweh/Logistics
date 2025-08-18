@@ -19,6 +19,10 @@ class WarehouseRentalController extends Controller
             return redirect('admin/index');
         }
 
+        $warehouses = Warehouse::all(); // لجلب المستودعات للفلاتر
+        $merchants = Merchant::all(); // لجلب التجار للفلاتر
+
+
         $warehouse_rentals = WarehouseRental::with(['shelves', 'merchant'])
             ->when(request()->keyword != null, function ($query) {
                 $query->search(request()->keyword);
@@ -31,7 +35,7 @@ class WarehouseRentalController extends Controller
                 : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
             ->paginate(request()->limit_by ?? 100);
 
-        return view('admin.warehouse_rentals.index', compact('warehouse_rentals'));
+        return view('admin.warehouse_rentals.index', compact('warehouse_rentals' , 'warehouses', 'merchants'));
     }
 
     // هنا يعرض حتي المستودعات التي ليس فيها رفوف ويوضح بانه لا يوجه هناك رفوف فارغة

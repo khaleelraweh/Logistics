@@ -35,6 +35,10 @@
             <div class="card-body">
 
                 <!-- Filters Section -->
+                @include('admin.warehouse_rentals.filter.filter')
+                <!-- End Filters Section -->
+
+                <!-- Filters Section -->
                 <div class="filter-section mb-4">
                     <div class="row g-3">
                         <div class="col-md-3">
