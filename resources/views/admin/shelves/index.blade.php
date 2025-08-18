@@ -89,21 +89,26 @@
 
                                 <td>
                                     <a href="javascript:void(0);"
-                                    class="updateShelveStatus"
-                                    id="shelf-{{ $shelf->id }}"
-                                    shelf_id="{{ $shelf->id }}"
-                                    data-active-text="{{ __('panel.status_active') }}"
-                                    data-inactive-text="{{ __('panel.status_inactive') }}">
+                                        class="updateShelveStatus d-flex align-items-center form-switch"
+                                        id="shelf-{{ $shelf->id }}"
+                                        shelf_id="{{ $shelf->id }}"
+                                        data-active-text="{{ __('panel.status_active') }}"
+                                        data-inactive-text="{{ __('panel.status_inactive') }}">
 
                                         @if ($shelf->status == 1)
-                                            <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true" status="Active" style="font-size:1.6em"></i>
+                                            <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true" status="Active" style="font-size:1.8em"></i>
                                             <span class="ms-1 text-success fw-bold">{{ __('panel.status_active') }}</span>
+
                                         @else
-                                            <i class="fas fa-toggle-off fa-lg text-warning" aria-hidden="true" status="Inactive" style="font-size:1.6em"></i>
+                                            <i class="fas fa-toggle-off fa-lg text-warning" aria-hidden="true" status="Inactive" style="font-size:1.8em"></i>
                                             <span class="ms-1 text-warning fw-bold">{{ __('panel.status_inactive') }}</span>
                                         @endif
                                     </a>
                                 </td>
+
+
+
+
 
 
                                 <td>{{ $shelf->created_at->diffForHumans() }}</td>
