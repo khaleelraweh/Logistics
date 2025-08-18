@@ -34,6 +34,7 @@ class WarehouseRentalController extends Controller
         return view('admin.warehouse_rentals.index', compact('warehouse_rentals'));
     }
 
+    // هنا يعرض حتي المستودعات التي ليس فيها رفوف ويوضح بانه لا يوجه هناك رفوف فارغة
     // public function create()
     // {
     //     $merchants = Merchant::all();
@@ -48,8 +49,6 @@ class WarehouseRentalController extends Controller
 
     //     return view('admin.warehouse_rentals.create', compact('warehouses', 'merchants'));
     // }
-
-
 
 
     public function create()
@@ -153,12 +152,32 @@ class WarehouseRentalController extends Controller
         return view('admin.warehouse_rentals.show', compact('warehouseRental'));
     }
 
+    // هنا يعرض حتي المستودعات التي ليس فيها رفوف ويوضح بانه لا يوجد بها رفوف
+    // public function edit($id)
+    // {
+    //     $warehouseRental = WarehouseRental::with('shelves')->findOrFail($id);
+    //     $merchants = Merchant::all();
+
+    //     $warehouses = Warehouse::with(['shelves' => function ($query) use ($warehouseRental) {
+    //         $query->where(function ($q) use ($warehouseRental) {
+    //             $q->whereDoesntHave('rentals', function ($rentalQ) use ($warehouseRental) {
+    //                 $rentalQ->where('status', 1)
+    //                     ->where('rental_end', '>', now());
+    //             })->orWhereHas('rentals', function ($rentalQ) use ($warehouseRental) {
+    //                 $rentalQ->where('warehouse_rental_id', $warehouseRental->id);
+    //             });
+    //         });
+    //     }])->get();
+
+    //     return view('admin.warehouse_rentals.edit', compact('warehouseRental', 'warehouses', 'merchants'));
+    // }
+
     public function edit($id)
     {
         $warehouseRental = WarehouseRental::with('shelves')->findOrFail($id);
         $merchants = Merchant::all();
 
-        $warehouses = Warehouse::with(['shelves' => function ($query) use ($warehouseRental) {
+        $warehouses = Warehouse::whereHas('shelves', function ($query) use ($warehouseRental) {
             $query->where(function ($q) use ($warehouseRental) {
                 $q->whereDoesntHave('rentals', function ($rentalQ) use ($warehouseRental) {
                     $rentalQ->where('status', 1)
@@ -167,10 +186,22 @@ class WarehouseRentalController extends Controller
                     $rentalQ->where('warehouse_rental_id', $warehouseRental->id);
                 });
             });
-        }])->get();
+        })
+        ->with(['shelves' => function ($query) use ($warehouseRental) {
+            $query->where(function ($q) use ($warehouseRental) {
+                $q->whereDoesntHave('rentals', function ($rentalQ) use ($warehouseRental) {
+                    $rentalQ->where('status', 1)
+                        ->where('rental_end', '>', now());
+                })->orWhereHas('rentals', function ($rentalQ) use ($warehouseRental) {
+                    $rentalQ->where('warehouse_rental_id', $warehouseRental->id);
+                });
+            });
+        }])
+        ->get();
 
         return view('admin.warehouse_rentals.edit', compact('warehouseRental', 'warehouses', 'merchants'));
     }
+
 
     public function update(Request $request, $id)
     {
