@@ -2,7 +2,7 @@
     <form action="{{ route('admin.shelves.index') }}" method="get">
         <div class="row">
             <!-- Status -->
-            <div class="col-md-2  d-md-block">
+            <div class="col-md-2 mb-2  d-md-block">
                 <div class="form-group">
                     <select name="status" class="form-select">
                         <option value="">{{ __('panel.show_all') }}</option>
@@ -17,9 +17,9 @@
             </div>
 
             <!-- Warehouse -->
-            <div class="col-md-3  d-md-block">
+            <div class="col-md-3 mb-2 d-md-block">
                 <div class="form-group">
-                    <select name="warehouse_id" class="form-control select2">
+                    <select name="warehouse_id" class="form-select select2" style="width: 100%;">
                         <option value="">{{ __('shelf.all_warehouses') }}</option>
                         @foreach($warehouses as $warehouse)
                             <option value="{{ $warehouse->id }}" {{ request('warehouse_id') == $warehouse->id ? 'selected' : '' }}>
@@ -31,7 +31,7 @@
             </div>
 
             <!-- Rental Status -->
-            <div class="col-md-2  d-md-block">
+            <div class="col-md-2 mb-2 d-md-block">
                 <div class="form-group">
                     <select name="rented" class="form-select">
                         <option value="">{{ __('shelf.all_rental_status') }}</option>
@@ -42,7 +42,7 @@
             </div>
 
             <!-- Sort By -->
-            <div class="col-md-2  d-md-block">
+            <div class="col-md-2 mb-2 d-md-block">
                 <div class="form-group">
                     <select name="sort_by" class="form-select">
                         <option value="">{{ __('panel.sort_by') }}</option>
@@ -55,7 +55,7 @@
             </div>
 
             <!-- Order By -->
-            <div class="col-md-2  d-md-block">
+            <div class="col-md-2 mb-2 d-md-block">
                 <div class="form-group">
                     <select name="order_by" class="form-select">
                         <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>
@@ -68,7 +68,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3 d-flex align-items-end">
+            <div class="col-md-3 mb-2 d-flex align-items-end">
                 <button type="submit" class="btn btn-primary me-2 flex-grow-1">
                     <i class="fas fa-search me-1"></i>{{ __('general.filter') }}
                 </button>
