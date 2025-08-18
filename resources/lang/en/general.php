@@ -61,6 +61,29 @@ return [
     'sar'               => 'SAR',
     'reset_changes'     => 'Reset Changes',
 
+    //===== filters =====
+    'filter_by'            => 'Filter By',
+    'filter'                => 'Filter',
+    'filters'               => 'Filters',
+    'search'                => 'Search',
+    'search_placeholder'    => 'Search by name, email, or phone',
+    'search_results'        => 'Search Results',
+    'search_no_results'     => 'No results found for your search',
+    'searching'             => 'Searching...',
+    'sort_by'               => 'Sort By',
+    'sort_asc'              => 'Sort Ascending',
+    'sort_desc'             => 'Sort Descending',
+    'sort_by_name'          => 'Sort by Name',
+    'sort_by_email'         => 'Sort by Email',
+    'sort_by_phone'         => 'Sort by Phone',
+    'sort_by_created_at'    => 'Sort by Created At',
+    'sort_by_updated_at'    => 'Sort by Updated At',
+    'sort_by_published_on'  => 'Sort by Published On',
+    'sort_by_status'        => 'Sort by Status',
+    'sort_by_id'            => 'Sort by ID',
+    'sort_by_warehouse_name' => 'Sort by Warehouse Name',
+    'sort_by_shelf_code'    => 'Sort by Shelf Code',
+
 
 
 

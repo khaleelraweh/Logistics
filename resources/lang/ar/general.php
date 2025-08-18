@@ -62,6 +62,30 @@ return [
     'sar'         => 'ريال سعودي',
     'reset_changes'     => 'إعادة تعيين التغييرات',
 
+     //===== filters =====
+    'filter_by'            => 'تصفية حسب',
+    'filter'                => 'تصفية',
+    'filters'               => 'المرشحات',
+    'search'                => 'بحث',
+    'search_placeholder'    => 'ابحث بالاسم، البريد الإلكتروني، أو الهاتف',
+    'search_results'        => 'نتائج البحث',
+    'search_no_results'     => 'لا توجد نتائج',
+    'searching'             => 'جارٍ البحث...',
+    'sort_by'               => 'ترتيب حسب',
+    'sort_asc'              => 'ترتيب تصاعدي',
+    'sort_desc'             => 'ترتيب تنازلي',
+    'sort_by_name'          => 'ترتيب حسب الاسم',
+    'sort_by_email'         => 'ترتيب حسب البريد الإلكتروني',
+    'sort_by_phone'         => 'ترتيب حسب الهاتف',
+    'sort_by_created_at'    => 'ترتيب حسب تاريخ الإنشاء',
+    'sort_by_updated_at'    => 'ترتيب حسب تاريخ التحديث',
+    'sort_by_published_on'  => 'ترتيب حسب تاريخ النشر',
+    'sort_by_status'        => 'ترتيب حسب الحالة',
+    'sort_by_id'            => 'ترتيب حسب المعرف',
+    'sort_by_warehouse_name' => 'ترتيب حسب اسم المستودع',
+    'sort_by_shelf_code'    => 'ترتيب حسب رمز الرف',
+
+
     // ===== الحجم ===============
     'size'                  =>  'الحجم',
     'small'                 =>  'صغير',

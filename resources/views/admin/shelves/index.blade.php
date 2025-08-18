@@ -33,64 +33,10 @@
             </div>
 
             <div class="card-body">
+
                 <!-- Filters Section -->
                 @include('admin.shelves.filter.filter')
-                <!-- Filters Section -->
-                <div class="filter-section mb-4">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-white border-bottom">
-                            <h6 class="mb-0">
-                                <i class="fas fa-filter me-2 text-primary"></i>{{ __('general.filters') }}
-                            </h6>
-                        </div>
-                        <div class="card-body">
-                            <form method="GET" action="{{ route('admin.shelves.index') }}" class="row g-3">
-                                <!-- Status Filter -->
-                                <div class="col-md-3">
-                                    <label for="status" class="form-label">{{ __('shelf.status') }}</label>
-                                    <select name="status" id="status" class="form-select">
-                                        <option value="">{{ __('shelf.all_status') }}</option>
-                                        <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>{{ __('shelf.active') }}</option>
-                                        <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>{{ __('shelf.inactive') }}</option>
-                                    </select>
-                                </div>
-
-                                <!-- Warehouse Filter -->
-                                <div class="col-md-3">
-                                    <label for="warehouse_id" class="form-label">{{ __('warehouse.name') }}</label>
-                                    <select name="warehouse_id" id="warehouse_id" class="form-select select2">
-                                        <option value="">{{ __('shelf.all_warehouses') }}</option>
-                                        @foreach($warehouses as $warehouse)
-                                            <option value="{{ $warehouse->id }}" {{ request('warehouse_id') == $warehouse->id ? 'selected' : '' }}>
-                                                {{ $warehouse->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <!-- Rental Status Filter -->
-                                <div class="col-md-3">
-                                    <label for="rented" class="form-label">{{ __('shelf.rental_status') }}</label>
-                                    <select name="rented" id="rented" class="form-select">
-                                        <option value="">{{ __('shelf.all_rental_status') }}</option>
-                                        <option value="1" {{ request('rented') == '1' ? 'selected' : '' }}>{{ __('shelf.rented') }}</option>
-                                        <option value="0" {{ request('rented') == '0' ? 'selected' : '' }}>{{ __('shelf.not_rented') }}</option>
-                                    </select>
-                                </div>
-
-                                <!-- Action Buttons -->
-                                <div class="col-md-3 d-flex align-items-end">
-                                    <button type="submit" class="btn btn-primary me-2 flex-grow-1">
-                                        <i class="fas fa-search me-1"></i>{{ __('general.filter') }}
-                                    </button>
-                                    <a href="{{ route('admin.shelves.index') }}" class="btn btn-outline-secondary flex-grow-1">
-                                        <i class="fas fa-undo me-1"></i>{{ __('general.reset') }}
-                                    </a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <!-- End Filters Section -->
 
                 <!-- Shelves Table -->
                 <div class="table-responsive">

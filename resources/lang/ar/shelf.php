@@ -51,6 +51,7 @@ return [
     'all_warehouses' => 'جميع المستودعات',
     'all_rental_status' => 'جميع حالات الإيجار',
     'rented' => 'مستأجر',
+    'warehouse_name' => 'اسم المستودع',
     'shelf_details' => 'تفاصيل الرف',
     'shelf' => 'رف',
     'id' => 'الرقم التعريفي',

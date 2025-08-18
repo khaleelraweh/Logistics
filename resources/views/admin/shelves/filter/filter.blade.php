@@ -1,3 +1,8 @@
+ <div class="card-header bg-white border-bottom">
+    <h6 class="mb-0">
+        <i class="fas fa-filter me-2 text-primary"></i>{{ __('general.filters') }}
+    </h6>
+</div>
 <div class="card-body">
     <form action="{{ route('admin.shelves.index') }}" method="get">
         <div class="row">

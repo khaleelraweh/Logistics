@@ -49,6 +49,7 @@ return [
     'all_warehouses' => 'All Warehouses',
     'all_rental_status' => 'All Rental Status',
     'rented' => 'Rented',
+    'warehouse_name' => 'Warehouse Name',
     'shelf_details' => 'Shelf Details',
     'shelf' => 'Shelf',
     'id' => 'ID',
