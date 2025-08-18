@@ -114,8 +114,7 @@
 
                                 <div id="collapseWarehouse{{ $warehouse->id }}"
                                      class="collapse {{ $index === 0 ? 'show' : '' }}"
-                                     aria-labelledby="headingWarehouse{{ $warehouse->id }}"
-                                     data-bs-parent="#accordion">
+                                     aria-labelledby="headingWarehouse{{ $warehouse->id }}">
                                     <div class="card-body">
                                         @forelse($warehouse->shelves as $shelf)
                                             @php
@@ -255,14 +254,15 @@
             return new Date(value) >= new Date(startDate);
         });
 
-        // حل مشكلة إرسال النموذج عند النقر على الـ Accordion
+        // Allow multiple accordions to be open
         $('.accordion-toggle').on('click', function(e) {
             e.preventDefault();
             var target = $(this).data('bs-target');
             $(target).collapse('toggle');
 
-            // تحديث حالة الأيقونة
-            $(this).find('.accordion-arrow').toggleClass('mdi-chevron-down mdi-chevron-up');
+            // Update arrow icon
+            var arrow = $(this).find('.accordion-arrow');
+            arrow.toggleClass('mdi-chevron-down mdi-chevron-up');
         });
     });
 </script>
