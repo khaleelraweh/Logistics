@@ -20,6 +20,9 @@ return [
     'add_payment'          => 'Add Rental Payment',
     'edit_contract'         => 'Edit Rental Contract',
     'custom_dates'          => 'Custom Dates',
+    'rental_period'        => 'Rental Period',
+    'rentals'               =>  'Rentals',
+    'date_range'            => 'Date Range',
 
 
     'shelf_code'           => 'Shelf Code',

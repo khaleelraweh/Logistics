@@ -55,7 +55,7 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <label class="form-label">{{ __('general.date_range') }}</label>
+                            <label class="form-label">{{ __('rental.date_range') }}</label>
                             <input type="text" class="form-control flatpickr-range" placeholder="{{ __('general.select_date') }}">
                         </div>
                         <div class="col-md-3 d-flex align-items-end">
@@ -120,7 +120,7 @@
                                 <td>
                                     <div class="d-flex flex-column">
                                         <span class="fw-bold">{{ $rental->rental_start->format('Y-m-d') }}</span>
-                                        <span class="text-muted small">to</span>
+                                        <span class="text-muted small">{{ __('general.to') }}</span>
                                         <span class="fw-bold">{{ $rental->rental_end->format('Y-m-d') }}</span>
                                     </div>
                                 </td>

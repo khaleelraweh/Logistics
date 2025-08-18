@@ -21,6 +21,9 @@ return [
     'add_payment'          => 'إضافة دفعة إيجار',
     'edit_contract'         => 'تعديل عقد الإيجار',
     'custom_dates'         => 'تواريخ مخصصة',
+    'rental_period'      => 'فترة الإيجار',
+    'rentals'           =>  'إيجارات',
+    'date_range'        =>   'مدة الإيجار',
 
 
     'shelf_code'           => 'رمز الرف',

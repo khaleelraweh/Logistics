@@ -85,6 +85,7 @@ return [
     'sort_by_shelf_code'    => 'Sort by Shelf Code',
     'show_filters'         => 'Show Filters',
     'select'                => 'Select',
+    'to'                    => 'To',
 
 
 
