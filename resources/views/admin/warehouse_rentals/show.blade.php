@@ -73,10 +73,10 @@
                 {{-- الفاتورة المرتبطة --}}
                 @if($warehouseRental->invoice)
                     <hr>
-                    <h5 class="mb-3"><i class="fas fa-file-invoice-dollar me-2"></i> {{ __('invoice.details') }}</h5>
+                    <h5 class="mb-3"><i class="fas fa-file-invoice-dollar me-2"></i> {{ __('invoice.invoice_details') }}</h5>
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <p><strong>{{ __('invoice.number') }}:</strong> {{ $warehouseRental->invoice->invoice_number }}</p>
+                            <p><strong>{{ __('invoice.invoice_number') }}:</strong> {{ $warehouseRental->invoice->invoice_number }}</p>
                             <p><strong>{{ __('invoice.invoice_status') }}:</strong>{{ __('invoice.status.' . $warehouseRental->invoice->status) }}</p>
                             <p><strong>{{ __('general.total_amount') }}:</strong> {{ $warehouseRental->invoice->total_amount }} {{ __('general.sar') }}</p>
                             <p><strong>{{ __('invoice.amount_paid') }}:</strong> {{ $warehouseRental->invoice->payments->sum('amount')  }} {{ __('general.sar') }}</p>
