@@ -85,7 +85,6 @@
                         {{ __('shelf.shelf_note2') }}
                     </p>
 
-
                     @php
                         $rentalShelves = $warehouseRental->shelves->keyBy('id');
                     @endphp
