@@ -89,6 +89,13 @@
                         {{ __('shelf.shelf_note2') }}
                     </p>
 
+                    @if($errors->has('shelves'))
+                        <div class="alert alert-danger mt-2">
+                            <i class="mdi mdi-alert-circle-outline me-2"></i>
+                            {{ $errors->first('shelves') }}
+                        </div>
+                    @endif
+
                     @php
                         $rentalShelves = $warehouseRental->shelves->keyBy('id');
                     @endphp
