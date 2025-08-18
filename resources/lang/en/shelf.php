@@ -66,6 +66,7 @@ return [
     'quantity' => 'Quantity',
     'added_on' => 'Added On',
     'no_items' => 'No Items Found',
+    'no_shelves_available'  => 'No Shelves Available',
 
 
 

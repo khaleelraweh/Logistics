@@ -68,6 +68,7 @@ return [
     'quantity' => 'الكمية',
     'added_on' => 'تاريخ الإضافة',
     'no_items' => 'لا يوجد أصناف مضافة',
+    'no_shelves_available'  => 'لا توجد رفوف متاحة',
 
 
 
