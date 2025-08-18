@@ -80,8 +80,9 @@
                     <h5 class="text-muted ">
                         {{ __('rental.select_shelves') }}
                     </h5>
-                    <p class="text-muted mb-3">
-                        {{ __('shelf.shelf_note') }}
+                   <p class="text-muted mb-3">
+                        {{ __('shelf.shelf_note1') }}<br>
+                        {{ __('shelf.shelf_note2') }}
                     </p>
 
 
