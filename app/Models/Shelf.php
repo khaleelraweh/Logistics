@@ -4,12 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Shelf extends Model
 {
-    use HasFactory;
+    use HasFactory , SearchableTrait;
 
     protected $guarded = [];
+
+
+     // searchable lab
+    protected $searchable = [
+        'columns' => [
+            'shelves.code' => 10,
+            'shelves.description' => 10,
+        ]
+    ];
 
     public function warehouse()
     {
