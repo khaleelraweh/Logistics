@@ -40,7 +40,8 @@
 
                 <!-- Rentals Table -->
                 <div class="table-responsive">
-                    <table id="rentals-datatable" class="table table-hover table-bordered nowrap w-100">
+                    {{-- <table id="rentals-datatable" class="table table-hover table-bordered nowrap w-100"> --}}
+                    <table id="datatable" class="table table-hover table-bordered nowrap w-100">
                         <thead class="table-light">
                             <tr>
                                 <th width="5%">#</th>
@@ -210,10 +211,10 @@
         font-weight: 500;
         margin-bottom: 0.5rem;
     }
-    #rentals-datatable tbody tr {
+    #datatable tbody tr {
         transition: all 0.2s ease;
     }
-    #rentals-datatable tbody tr:hover {
+    #datatable tbody tr:hover {
         background-color: rgba(0, 0, 0, 0.02);
     }
     .form-switch .form-check-input {
@@ -235,7 +236,7 @@
 <script>
     $(document).ready(function() {
         // Initialize DataTable
-        $('#rentals-datatable').DataTable({
+        $('#datatable').DataTable({
             language: {
                 url: '{{ asset("assets/js/datatables-ar.json") }}'
             },
