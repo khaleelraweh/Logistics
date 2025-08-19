@@ -144,12 +144,16 @@
                                             @ability('admin', 'delete_warehouse_rentals')
                                             <li><hr class="dropdown-divider"></li>
                                             <li>
-                                                <a class="dropdown-item text-danger" href="#"
-                                                   onclick="confirmDelete('delete-form-{{ $rental->id }}',
-                                                          '{{ __('panel.confirm_delete_message') }}')">
+                                                <a class="dropdown-item text-danger" href="javascript:void(0)"
+                                                        onclick="confirmDelete('delete-warehouse-rental-{{ $rental->id }}',
+                                                                                '{{ __('panel.confirm_delete_message') }}',
+                                                                                '{{ __('panel.yes_delete') }}',
+                                                                                '{{ __('panel.cancel') }}')"
+
+                                                        >
                                                     <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
                                                 </a>
-                                                <form id="delete-form-{{ $rental->id }}"
+                                                <form id="delete-warehouse-rental-{{ $rental->id }}"
                                                       action="{{ route('admin.warehouse_rentals.destroy', $rental->id) }}"
                                                       method="POST" class="d-none">
                                                     @csrf
@@ -265,50 +269,6 @@
             width: '100%'
         });
 
-        // Update status toggle
-        $('.update-status').change(function() {
-            var rentalId = $(this).data('id');
-            var status = $(this).is(':checked') ? 1 : 0;
-
-            $.ajax({
-                url: "{{ route('admin.warehouse_rentals.update_warehouse_rentals_status') }}",
-                type: "POST",
-                data: {
-                    id: rentalId,
-                    status: status,
-                    _token: "{{ csrf_token() }}"
-                },
-                success: function(response) {
-                    Toast.fire({
-                        icon: 'success',
-                        title: response.message
-                    });
-                },
-                error: function(xhr) {
-                    Toast.fire({
-                        icon: 'error',
-                        title: "{{ __('panel.error_occurred') }}"
-                    });
-                }
-            });
-        });
     });
-
-    function confirmDelete(formId, message) {
-        Swal.fire({
-            title: "{{ __('panel.confirm_delete_title') }}",
-            text: message,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: "{{ __('panel.yes_delete') }}",
-            cancelButtonText: "{{ __('panel.cancel') }}"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById(formId).submit();
-            }
-        });
-    }
 </script>
 @endpush
