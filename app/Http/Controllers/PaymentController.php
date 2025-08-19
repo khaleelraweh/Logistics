@@ -34,34 +34,34 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-   public function store(Request $request, $invoiceId)
-    {
-        $invoice = Invoice::findOrFail($invoiceId);
 
-        // التحقق من البيانات
-        $request->validate([
-            'amount' => 'required|numeric|min:1|max:' . ($invoice->total_amount - $invoice->payments->sum('amount')),
-            'method' => 'required|in:cash,credit_card,bank_transfer,wallet,cod',
-            'reference_note' => 'nullable|string',
-            'payment_reference' => 'nullable|string',
-            'paid_on' => 'nullable|date',
-        ]);
+    public function store(Request $request)
+{
+    $invoice = Invoice::findOrFail($request->invoice_id);
 
-        // إنشاء دفعة جديدة
-        $payment = $invoice->payments()->create([
-            'amount' => $request->amount,
-            'method' => $request->method,
-            'reference_note' => $request->reference_note,
-            'payment_reference' => $request->payment_reference,
-            'paid_on' => $request->paid_on ?? now(), // إذا لم يتم إدخال paid_on استخدم التاريخ الحالي
-        ]);
+    $request->validate([
+        'amount' => 'required|numeric|min:1|max:' . ($invoice->total_amount - $invoice->payments->sum('amount')),
+        'method' => 'required|in:cash,credit_card,bank_transfer,wallet,cod',
+        'reference_note' => 'nullable|string',
+        'payment_reference' => 'nullable|string',
+        'paid_on' => 'nullable|date',
+        'merchant_id' => 'required|exists:merchants,id',
+    ]);
 
-        // تحديث حالة الفاتورة
-        $invoice->updateStatus();
+    $invoice->payments()->create([
+        'amount' => $request->amount,
+        'method' => $request->method,
+        'reference_note' => $request->reference_note,
+        'payment_reference' => $request->payment_reference,
+        'paid_on' => $request->paid_on ?? now(),
+        'merchant_id' => $request->merchant_id,
+    ]);
 
-        // إرجاع المستخدم مع رسالة نجاح
-        return back()->with('success', 'تم إضافة الدفع بنجاح.');
-    }
+    $invoice->updateStatus();
+
+    return back()->with('success', 'تم إضافة الدفع بنجاح.');
+}
+
 
 
     /**

@@ -429,8 +429,14 @@
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{{ __('payment.cancel') }}"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('admin.invoices.pay', $invoice->id) }}" method="POST">
+                        {{-- <form action="{{ route('admin.invoices.pay', $invoice->id) }}" method="POST"> --}}
+                        <form action="{{ route('admin.payments.store', $invoice->id) }}" method="POST">
                             @csrf
+
+                            <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
+                            <input type="hidden" name="merchant_id" value="{{ $invoice->merchant_id }}">
+
+
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label for="amount{{ $invoice->id }}" class="form-label">{{ __('payment.amount') }}</label>
