@@ -73,5 +73,32 @@
     @else
         <p>لا توجد فاتورة مرتبطة بهذا العقد.</p>
     @endif
+
+        <h2 class="section-title">تفاصيل الدفعات</h2>
+    @if($contract->invoice && $contract->invoice->payments->count())
+        <table>
+            <thead>
+                <tr>
+                    <th>رقم الدفعة</th>
+                    <th>المبلغ</th>
+                    <th>طريقة الدفع</th>
+                    <th>التاريخ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($contract->invoice->payments as $payment)
+                    <tr>
+                        <td>{{ $payment->id }}</td>
+                        <td>{{ $payment->amount }}</td>
+                        <td>{{ $payment->method ?? 'غير محدد' }}</td>
+                        <td>{{ $payment->created_at->format('Y-m-d') }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <p>لا توجد دفعات مرتبطة بهذه الفاتورة.</p>
+    @endif
+
 </body>
 </html>
