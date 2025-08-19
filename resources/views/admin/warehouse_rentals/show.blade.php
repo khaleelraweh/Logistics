@@ -277,59 +277,36 @@
                                     </div>
                                 @endif
 
-                                <!-- Add Payment Form -->
-                                @if($warehouseRental->invoice->status != 'paid')
-                                    <div class="mt-4 p-4 bg-light rounded-3">
-                                        <h6 class="mb-3">
-                                            <i class="fas fa-plus-circle me-2 text-success"></i>
-                                            {{ __('rental.add_payment') }}
-                                        </h6>
+                                @php
+                                    $invoice = $warehouseRental->invoice;
+                                    $paid = $invoice ? $invoice->payments->sum('amount') : 0;
+                                    $remaining = $invoice ? max(0, $invoice->total_amount - $paid) : $rental->price;
+                                @endphp
 
-                                        <form action="{{ route('admin.warehouse_rentals.pay_invoice', $warehouseRental->id) }}" method="POST">
-                                            @csrf
-                                            <div class="row g-3">
-                                                <div class="col-md-4">
-                                                    <label class="form-label">{{ __('payment.amount') }}</label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-text">{{ __('general.sar') }}</span>
-                                                        <input type="number" name="amount" class="form-control"
-                                                            max="{{ $warehouseRental->invoice->total_amount - $warehouseRental->invoice->payments->sum('amount') }}"
-                                                            required step="0.01">
-                                                    </div>
-                                                </div>
+                                 <!-- Action Buttons -->
+                                <div class="d-flex flex-wrap gap-2">
+                                    @if($invoice)
+                                        <a href="{{ route('admin.invoices.show', $invoice->id) }}" class="btn btn-outline-primary btn-sm rounded-pill">
+                                            <i class="fas fa-file-invoice me-1"></i>
+                                            {{ __('invoice.show_invoice') }}
+                                        </a>
+                                    @endif
 
-                                                <div class="col-md-4">
-                                                    <label class="form-label">{{ __('payment.method') }}</label>
-                                                    <select name="method" class="form-select" required>
-                                                        <option value="">{{ __('payment.choose_method') }}</option>
-                                                        <option value="cash">{{ __('payment.cash') }}</option>
-                                                        <option value="credit_card">{{ __('payment.credit_card') }}</option>
-                                                        <option value="bank_transfer">{{ __('payment.bank_transfer') }}</option>
-                                                        <option value="wallet">{{ __('payment.wallet') }}</option>
-                                                        <option value="cod">{{ __('payment.cod') }}</option>
-                                                    </select>
-                                                </div>
+                                    <a href="{{ route('admin.warehouse_rentals.edit', $warehouseRental->id) }}" class="btn btn-outline-secondary btn-sm rounded-pill">
+                                        <i class="fas fa-edit me-1"></i>
+                                        {{ __('rental.edit_contract') }}
+                                    </a>
 
-                                                <div class="col-md-4">
-                                                    <label class="form-label">{{ __('payment.payment_reference') }}</label>
-                                                    <input type="text" name="payment_reference" class="form-control">
-                                                </div>
+                                    @if($invoice)
+                                        <button type="button" class="btn btn-outline-success btn-sm rounded-pill"
+                                                data-bs-toggle="modal" data-bs-target="#paymentModal{{ $invoice->id }}">
+                                            <i class="fas fa-money-bill-wave me-1"></i>
+                                            {{ __('payment.add_payment') }}
+                                        </button>
+                                    @endif
+                                </div>
 
-                                                <div class="col-12">
-                                                    <label class="form-label">{{ __('payment.reference_note') }}</label>
-                                                    <textarea name="reference_note" class="form-control" rows="2"></textarea>
-                                                </div>
 
-                                                <div class="col-12">
-                                                    <button type="submit" class="btn btn-success rounded-pill">
-                                                        <i class="fas fa-money-bill-wave me-1"></i>
-                                                        {{ __('payment.pay') }}
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                @endif
                             </div>
                         @endif
                     </div>
@@ -368,4 +345,64 @@
             </div>
         </div>
     </div>
+
+
+    @if($invoice)
+    <div class="modal fade" id="paymentModal{{ $invoice->id }}" tabindex="-1" aria-labelledby="paymentModalLabel{{ $invoice->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="paymentModalLabel{{ $invoice->id }}">
+                        <i class="fas fa-money-bill-wave me-2"></i>
+                        {{ __('payment.add_payment') }} - {{ __('invoice.invoice_number') }}: #{{ $invoice->invoice_number }}
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{{ __('payment.cancel') }}"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.invoices.pay', $invoice->id) }}" method="POST">
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="amount{{ $invoice->id }}" class="form-label">{{ __('payment.amount') }}</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">{{ config('settings.currency_symbol') }}</span>
+                                    <input type="number" name="amount" id="amount{{ $invoice->id }}" class="form-control"
+                                        step="0.01" min="1"
+                                        max="{{ $invoice->total_amount - $invoice->payments->sum('amount') }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="method{{ $invoice->id }}" class="form-label">{{ __('payment.method') }}</label>
+                                <select name="method" id="method{{ $invoice->id }}" class="form-select" required>
+                                    <option value="">{{ __('payment.choose_method') }}</option>
+                                    <option value="cash">{{ __('payment.cash') }}</option>
+                                    <option value="credit_card">{{ __('payment.credit_card') }}</option>
+                                    <option value="bank_transfer">{{ __('payment.bank_transfer') }}</option>
+                                    <option value="wallet">{{ __('payment.wallet') }}</option>
+                                    <option value="cod">{{ __('payment.cod') }}</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="reference_note{{ $invoice->id }}" class="form-label">{{ __('payment.reference_note') }}</label>
+                                <textarea name="reference_note" id="reference_note{{ $invoice->id }}" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="payment_reference{{ $invoice->id }}" class="form-label">{{ __('payment.payment_reference') }}</label>
+                                <input type="text" name="payment_reference" id="payment_reference{{ $invoice->id }}" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer border-top-0">
+                            <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">
+                                <i class="fas fa-times me-1"></i> {{ __('payment.cancel') }}
+                            </button>
+                            <button type="submit" class="btn btn-success rounded-pill">
+                                <i class="fas fa-save me-1"></i> {{ __('payment.save_payment') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 @endsection
