@@ -70,6 +70,33 @@ class PaymentController extends Controller
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
+    // public function update(Request $request, Payment $payment)
+    // {
+    //     $invoice = $payment->invoice;
+
+    //     $request->validate([
+    //         'amount' => 'required|numeric|min:1|max:' . ($invoice->total_amount - ($invoice->payments()->where('id', '!=', $payment->id)->sum('amount'))),
+    //         'method' => 'required|in:cash,credit_card,bank_transfer,wallet,cod',
+    //         'reference_note' => 'nullable|string',
+    //         'payment_reference' => 'nullable|string',
+    //         'paid_on' => 'required|date',
+    //     ]);
+
+    //     $payment->update([
+    //         'amount' => $request->amount,
+    //         'method' => $request->method,
+    //         'reference_note' => $request->reference_note,
+    //         'payment_reference' => $request->payment_reference,
+    //         'paid_on' => $request->paid_on,
+    //     ]);
+
+    //     // تحديث حالة الفاتورة بعد تعديل الدفع
+    //     $invoice->updateStatus();
+
+    //     return redirect()->route('admin.invoices.show', $invoice->id)
+    //                     ->with('success', 'تم تحديث الدفع بنجاح.');
+    // }
+
     public function update(Request $request, Payment $payment)
     {
         $invoice = $payment->invoice;
@@ -79,7 +106,7 @@ class PaymentController extends Controller
             'method' => 'required|in:cash,credit_card,bank_transfer,wallet,cod',
             'reference_note' => 'nullable|string',
             'payment_reference' => 'nullable|string',
-            'paid_on' => 'required|date',
+            'paid_on' => 'nullable|date', // صارت مش إلزامية
         ]);
 
         $payment->update([
@@ -87,15 +114,18 @@ class PaymentController extends Controller
             'method' => $request->method,
             'reference_note' => $request->reference_note,
             'payment_reference' => $request->payment_reference,
-            'paid_on' => $request->paid_on,
+            'paid_on' => $request->paid_on ?? now(), // إذا فارغة يحط التاريخ الحالي
         ]);
 
         // تحديث حالة الفاتورة بعد تعديل الدفع
         $invoice->updateStatus();
 
-        return redirect()->route('admin.invoices.show', $invoice->id)
-                        ->with('success', 'تم تحديث الدفع بنجاح.');
+        return back()->with('success', 'تم تحديث الدفع بنجاح.');
+
+        // return redirect()->route('admin.invoices.show', $invoice->id)
+        //                 ->with('success', 'تم تحديث الدفع بنجاح.');
     }
+
 
 
     /**

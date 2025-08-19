@@ -253,10 +253,17 @@
                                                             </td>
                                                             <td class="text-end">
                                                                 <div class="btn-group" role="group">
-                                                                    <a href="{{ route('admin.payments.edit', $payment->id) }}"
+                                                                    {{-- <a href="{{ route('admin.payments.edit', $payment->id) }}"
                                                                         class="btn btn-sm btn-outline-primary rounded-pill me-1">
                                                                         <i class="fas fa-edit"></i>
-                                                                    </a>
+                                                                    </a> --}}
+
+                                                                    <button type="button"
+                                                                            class="btn btn-sm btn-outline-primary rounded-pill me-1"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#editPaymentModal{{ $payment->id }}">
+                                                                        <i class="fas fa-edit"></i>
+                                                                    </button>
 
                                                                     <form action="{{ route('admin.payments.destroy', $payment->id) }}"
                                                                         method="POST" class="d-inline"
@@ -271,6 +278,67 @@
                                                             </td>
                                                         </tr>
                                                     @endforeach
+
+                                                    @foreach($warehouseRental->invoice->payments as $payment)
+                                                        <div class="modal fade" id="editPaymentModal{{ $payment->id }}" tabindex="-1" aria-labelledby="editPaymentModalLabel{{ $payment->id }}" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content border-0 shadow">
+                                                                    <div class="modal-header bg-primary text-white">
+                                                                        <h5 class="modal-title" id="editPaymentModalLabel{{ $payment->id }}">
+                                                                            <i class="fas fa-edit me-2"></i>
+                                                                            {{ __('payment.edit_payment') }} #{{ $payment->id }}
+                                                                        </h5>
+                                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form action="{{ route('admin.payments.update', $payment->id) }}" method="POST">
+                                                                            @csrf
+                                                                            @method('PUT')
+                                                                            <div class="row g-3">
+                                                                                <div class="col-md-6">
+                                                                                    <label for="amount{{ $payment->id }}" class="form-label">{{ __('payment.amount') }}</label>
+                                                                                    <div class="input-group">
+                                                                                        <span class="input-group-text">{{ config('settings.currency_symbol') }}</span>
+                                                                                        <input type="number" name="amount" id="amount{{ $payment->id }}" class="form-control"
+                                                                                            step="0.01" min="1"
+                                                                                            value="{{ $payment->amount }}" required>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="method{{ $payment->id }}" class="form-label">{{ __('payment.method') }}</label>
+                                                                                    <select name="method" id="method{{ $payment->id }}" class="form-select" required>
+                                                                                        <option value="cash" {{ $payment->method == 'cash' ? 'selected' : '' }}>{{ __('payment.cash') }}</option>
+                                                                                        <option value="credit_card" {{ $payment->method == 'credit_card' ? 'selected' : '' }}>{{ __('payment.credit_card') }}</option>
+                                                                                        <option value="bank_transfer" {{ $payment->method == 'bank_transfer' ? 'selected' : '' }}>{{ __('payment.bank_transfer') }}</option>
+                                                                                        <option value="wallet" {{ $payment->method == 'wallet' ? 'selected' : '' }}>{{ __('payment.wallet') }}</option>
+                                                                                        <option value="cod" {{ $payment->method == 'cod' ? 'selected' : '' }}>{{ __('payment.cod') }}</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <label for="reference_note{{ $payment->id }}" class="form-label">{{ __('payment.reference_note') }}</label>
+                                                                                    <textarea name="reference_note" id="reference_note{{ $payment->id }}" class="form-control" rows="3">{{ $payment->reference_note }}</textarea>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="payment_reference{{ $payment->id }}" class="form-label">{{ __('payment.payment_reference') }}</label>
+                                                                                    <input type="text" name="payment_reference" id="payment_reference{{ $payment->id }}" class="form-control" value="{{ $payment->payment_reference }}">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer border-top-0">
+                                                                                <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">
+                                                                                    <i class="fas fa-times me-1"></i> {{ __('payment.cancel') }}
+                                                                                </button>
+                                                                                <button type="submit" class="btn btn-primary rounded-pill">
+                                                                                    <i class="fas fa-save me-1"></i> {{ __('payment.update_payment') }}
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+
+
                                                 </tbody>
                                             </table>
                                         </div>
