@@ -111,8 +111,11 @@
 
 
 
+
+
+
                     {{-- المدفوعات المرتبطة --}}
-                    {{-- @if($warehouseRental->invoice->payments->isNotEmpty())
+                    @if($warehouseRental->invoice->payments->isNotEmpty())
                         <hr>
                         <h6 class="mb-2">{{ __('invoice.payments') }}</h6>
                         <div class="table-responsive">
@@ -123,6 +126,7 @@
                                         <th>{{ __('payment.amount') }}</th>
                                         <th>{{ __('payment.method') }}</th>
                                         <th>{{ __('payment.status') }}</th>
+                                        <th>{{ __('general.actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -130,61 +134,30 @@
                                         <tr>
                                             <td>{{ $payment->paid_on?->format('Y-m-d') }}</td>
                                             <td>{{ $payment->amount }} {{ __('general.sar') }}</td>
-
                                             <td>{{ __('payment.' . $payment->method) }}</td>
                                             <td>{{ __('payment.' . $payment->status) }}</td>
+                                            <td>
+                                                {{-- زر تعديل --}}
+                                                <a href="{{ route('admin.payments.edit', $payment->id) }}"
+                                                class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+
+                                                {{-- زر حذف --}}
+                                                <form action="{{ route('admin.payments.destroy', $payment->id) }}"
+                                                    method="POST" class="d-inline"
+                                                    onsubmit="return confirm('{{ __('panel.confirm_delete_message') }}');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                    @endif --}}
-
-
-                    {{-- المدفوعات المرتبطة --}}
-    @if($warehouseRental->invoice->payments->isNotEmpty())
-        <hr>
-        <h6 class="mb-2">{{ __('invoice.payments') }}</h6>
-        <div class="table-responsive">
-            <table class="table table-sm table-bordered">
-                <thead>
-                    <tr>
-                        <th>{{ __('payment.date') }}</th>
-                        <th>{{ __('payment.amount') }}</th>
-                        <th>{{ __('payment.method') }}</th>
-                        <th>{{ __('payment.status') }}</th>
-                        <th>{{ __('general.actions') }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($warehouseRental->invoice->payments as $payment)
-                        <tr>
-                            <td>{{ $payment->paid_on?->format('Y-m-d') }}</td>
-                            <td>{{ $payment->amount }} {{ __('general.sar') }}</td>
-                            <td>{{ __('payment.' . $payment->method) }}</td>
-                            <td>{{ __('payment.' . $payment->status) }}</td>
-                            <td>
-                                {{-- زر تعديل --}}
-                                <a href="{{ route('admin.payments.edit', $payment->id) }}"
-                                class="btn btn-sm btn-primary">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-
-                                {{-- زر حذف --}}
-                                <form action="{{ route('admin.payments.destroy', $payment->id) }}"
-                                    method="POST" class="d-inline"
-                                    onsubmit="return confirm('{{ __('panel.confirm_delete_message') }}');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    @endif
+                    @endif
 
 
 
