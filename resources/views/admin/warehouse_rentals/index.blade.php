@@ -102,7 +102,7 @@
                                 <td>
                                     <span class="fw-bold text-success">{{ number_format($rental->price, 2) }} {{ __('general.sar') }}</span>
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <div class="form-check form-switch d-flex justify-content-center">
                                         <input class="form-check-input update-status" type="checkbox"
                                                data-id="{{ $rental->id }}"
@@ -111,7 +111,46 @@
                                             {{ $rental->status ? __('panel.status_active') : __('panel.status_inactive') }}
                                         </label>
                                     </div>
+                                </td> --}}
+
+                                <td>
+                                    <a href="javascript:void(0);"
+                                        class="updateWarehouseRentalStatus d-flex align-items-center form-switch"
+                                        id="shelf-{{ $shelf->id }}"
+                                        shelf_id="{{ $shelf->id }}"
+                                        data-active-text="{{ __('panel.status_active') }}"
+                                        data-inactive-text="{{ __('panel.status_inactive') }}">
+
+                                        @if ($shelf->status == 1)
+                                            <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true" status="Active" style="font-size:1.6em"></i>
+                                            <span class="ms-1 text-success fw-bold">{{ __('panel.status_active') }}</span>
+
+                                        @else
+                                            <i class="fas fa-toggle-off fa-lg text-warning" aria-hidden="true" status="Inactive" style="font-size:1.6em"></i>
+                                            <span class="ms-1 text-warning fw-bold">{{ __('panel.status_inactive') }}</span>
+                                        @endif
+                                    </a>
                                 </td>
+
+                                <td>
+                                    <a href="javascript:void(0);"
+                                        class="updateShelveStatus d-flex align-items-center form-switch"
+                                        id="shelf-{{ $shelf->id }}"
+                                        shelf_id="{{ $shelf->id }}"
+                                        data-active-text="{{ __('panel.status_active') }}"
+                                        data-inactive-text="{{ __('panel.status_inactive') }}">
+
+                                        @if ($shelf->status == 1)
+                                            <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true" status="Active" style="font-size:1.6em"></i>
+                                            <span class="ms-1 text-success fw-bold">{{ __('panel.status_active') }}</span>
+
+                                        @else
+                                            <i class="fas fa-toggle-off fa-lg text-warning" aria-hidden="true" status="Inactive" style="font-size:1.6em"></i>
+                                            <span class="ms-1 text-warning fw-bold">{{ __('panel.status_inactive') }}</span>
+                                        @endif
+                                    </a>
+                                </td>
+
                                 <td>
                                     <span class="text-muted" data-bs-toggle="tooltip"
                                           title="{{ $rental->created_at->format('Y-m-d H:i') }}">
