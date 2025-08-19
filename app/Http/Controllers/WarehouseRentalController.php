@@ -517,7 +517,13 @@ class WarehouseRentalController extends Controller
       // تنزيل العقد كوثيقة PDF
     public function download($id)
     {
-        $contract = WarehouseRental::with(['merchant', 'shelves'])->findOrFail($id);
+        // $contract = WarehouseRental::with(['merchant', 'shelves'])->findOrFail($id);
+
+        $contract = WarehouseRental::with([
+            'merchant',
+            'shelves.warehouse',
+            'invoice.payments'
+        ])->findOrFail($id);
 
         $pdf = Pdf::loadView('admin.warehouse_rentals.document', compact('contract'));
         return $pdf->download("contract_{$id}.pdf"); // تنزيل
