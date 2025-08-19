@@ -65,14 +65,18 @@
         .company-logo {
             width: 120px;
             height: 120px;
-            /* background-color: #fff; */
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             color: #2c3e50;
-            /* border: 2px solid #e74c3c; */
+        }
+
+        .company-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
         .contract-number {
@@ -155,10 +159,6 @@
             background: #f8f9fa;
         }
 
-        tr:hover {
-            background: #e9f7fe;
-        }
-
         /* حالة العقد */
         .status-badge {
             display: inline-block;
@@ -230,35 +230,6 @@
             font-size: 14px;
         }
 
-        /* طباعة */
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-
-            .contract-container {
-                box-shadow: none;
-                border-radius: 0;
-            }
-
-            .no-print {
-                display: none;
-            }
-
-            .contract-content {
-                padding: 25px;
-            }
-
-            .section {
-                page-break-inside: avoid;
-            }
-
-            .signatures {
-                page-break-before: always;
-            }
-        }
-
         /* زر الطباعة */
         .print-btn {
             position: fixed;
@@ -281,15 +252,120 @@
         .print-btn:hover {
             background: #1a2530;
         }
+
+        /* تنسيقات الطباعة المحسنة */
+        @media print {
+            @page {
+                size: portrait;
+                margin: 15mm 10mm 20mm 10mm;
+
+                /* إزالة الرأس والتذييل الافتراضي */
+                @top-left { content: ''; }
+                @top-center { content: ''; }
+                @top-right { content: ''; }
+                @bottom-left { content: ''; }
+                @bottom-center {
+                    content: "الصفحة " counter(page) " من " counter(pages);
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    font-size: 12px;
+                    color: #666;
+                }
+                @bottom-right { content: ''; }
+            }
+
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+
+            .contract-container {
+                box-shadow: none;
+                border-radius: 0;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .contract-header {
+                padding: 20px;
+                page-break-after: avoid;
+            }
+
+            .contract-header h1 {
+                font-size: 24px;
+            }
+
+            .contract-content {
+                padding: 20px;
+            }
+
+            .section {
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+                page-break-inside: avoid;
+            }
+
+            .info-grid {
+                gap: 15px;
+                margin-bottom: 15px;
+            }
+
+            .info-value {
+                padding: 8px 12px;
+            }
+
+            table {
+                font-size: 12px;
+                page-break-inside: avoid;
+            }
+
+            th, td {
+                padding: 8px 10px;
+            }
+
+            .signatures {
+                margin-top: 30px;
+                page-break-before: always;
+            }
+
+            /* إصلاح المسافات بين الأقسام في الطباعة */
+            .section + .section {
+                margin-top: 25px;
+            }
+
+            /* إخفاء العناصر غير الضرورية في الطباعة */
+            .stamp {
+                opacity: 0.8;
+            }
+
+            /* منع تقسيم الصفوف بين الصفحات */
+            tr {
+                page-break-inside: avoid;
+            }
+
+            /* تحسين تنسيق القوائم في الطباعة */
+            ol {
+                padding-right: 15px;
+            }
+
+            li {
+                margin-bottom: 8px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="contract-container">
         <div class="contract-header">
             <div class="logo-section">
-                {{-- <div class="company-logo">شعار الشركة</div> --}}
                 <div class="company-logo">
-                    <img src="{{asset('admin/assets/images/logo-dark.png')}}" alt="logo-dark" class="animate-bounce"  >
+                    <img src="{{asset('admin/assets/images/logo-dark.png')}}" alt="logo-dark">
                 </div>
                 <div>
                     <h1>عقد إيجار مستودع</h1>
@@ -317,7 +393,6 @@
                         <div class="info-label">الطرف الثاني (المستأجر)</div>
                         <div class="info-value">
                             <strong>{{ $contract->merchant->name }}</strong><br>
-                            {{-- <strong>{{ $contract->merchant->name['ar'] ?? $contract->merchant->name['en'] }}</strong><br> --}}
                             الشخص المسؤول: {{ $contract->merchant->contact_person }}<br>
                             الهاتف: {{ $contract->merchant->phone }}<br>
                             البريد الإلكتروني: {{ $contract->merchant->email }}<br>
