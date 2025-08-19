@@ -432,6 +432,20 @@ class WarehouseRentalController extends Controller
             ->with('success', __('rental.deleted_successfully'));
     }
 
+     public function updateWarehouseRentalStatus(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            if ($data['status'] == "Active") {
+                $status = 0;
+            } else {
+                $status = 1;
+            }
+            WarehouseRental::where('id', $data['warehouse_rental_id'])->update(['status' => $status]);
+            return response()->json(['status' => $status, 'warehouse_rental_id' => $data['warehouse_rental_id']]);
+        }
+    }
+
     /**
      * Handle payment for the invoice of a rental.
      *

@@ -116,12 +116,12 @@
                                 <td>
                                     <a href="javascript:void(0);"
                                         class="updateWarehouseRentalStatus d-flex align-items-center form-switch"
-                                        id="shelf-{{ $shelf->id }}"
-                                        shelf_id="{{ $shelf->id }}"
+                                        id="warehouse-rental-{{ $rental->id }}"
+                                        warehouse_rental_id="{{ $rental->id }}"
                                         data-active-text="{{ __('panel.status_active') }}"
                                         data-inactive-text="{{ __('panel.status_inactive') }}">
 
-                                        @if ($shelf->status == 1)
+                                        @if ($rental->status == 1)
                                             <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true" status="Active" style="font-size:1.6em"></i>
                                             <span class="ms-1 text-success fw-bold">{{ __('panel.status_active') }}</span>
 
@@ -134,13 +134,13 @@
 
                                 <td>
                                     <a href="javascript:void(0);"
-                                        class="updateShelveStatus d-flex align-items-center form-switch"
-                                        id="shelf-{{ $shelf->id }}"
-                                        shelf_id="{{ $shelf->id }}"
+                                        class="updateWarehouseRentalStatus d-flex align-items-center form-switch"
+                                        id="warehouse-rental-{{ $rental->id }}"
+                                        warehouse_rental_id="{{ $rental->id }}"
                                         data-active-text="{{ __('panel.status_active') }}"
                                         data-inactive-text="{{ __('panel.status_inactive') }}">
 
-                                        @if ($shelf->status == 1)
+                                        @if ($rental->status == 1)
                                             <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true" status="Active" style="font-size:1.6em"></i>
                                             <span class="ms-1 text-success fw-bold">{{ __('panel.status_active') }}</span>
 
