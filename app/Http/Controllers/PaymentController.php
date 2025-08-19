@@ -55,6 +55,8 @@ class PaymentController extends Controller
             'payment_reference' => $request->payment_reference,
             'paid_on' => $request->paid_on ?? now(),
             'merchant_id' => $request->merchant_id,
+            'status' => 'paid',
+
         ]);
 
         $invoice->updateStatus();
