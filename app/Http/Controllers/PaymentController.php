@@ -61,7 +61,7 @@ class PaymentController extends Controller
 
         $invoice->updateStatus();
 
-        return back()->with('success', 'تم إضافة الدفع بنجاح.');
+        return back()->with('success', __('payment.payment_added_successfully'));
     }
 
 
@@ -148,7 +148,7 @@ class PaymentController extends Controller
         // تحديث حالة الفاتورة بعد تعديل الدفع
         $invoice->updateStatus();
 
-        return back()->with('success', 'تم تحديث الدفع بنجاح.');
+        return back()->with('success', __('payment.payment_recorded_successfully'));
 
         // return redirect()->route('admin.invoices.show', $invoice->id)
         //                 ->with('success', 'تم تحديث الدفع بنجاح.');

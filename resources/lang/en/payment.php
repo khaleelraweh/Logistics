@@ -31,5 +31,8 @@ return [
     'update_payment'    =>  'Update Payment',
     'edit_payment'      =>  'Edit Payment',
 
+    'payment_recorded_successfully' =>  'Payment Recorded Successfully',
+    'payment_added_successfully'    =>  'Payment Added Successfully',
+
 
 ];

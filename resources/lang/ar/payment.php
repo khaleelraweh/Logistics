@@ -31,4 +31,7 @@ return [
     'update_payment'    =>  'تحديث الدفع',
     'edit_payment'      =>  'تعديل الدفع',
 
+    'payment_recorded_successfully' =>  'تم تعديل الدفع بنجاح',
+    'payment_added_successfully'    =>  'تم إضافة الدفع بنجاح',
+
 ];
