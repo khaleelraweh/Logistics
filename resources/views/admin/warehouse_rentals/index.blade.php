@@ -213,38 +213,7 @@
 </div>
 @endsection
 
-@push('styles')
-<style>
-    .filter-section {
-        background-color: #f8f9fa;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        margin-bottom: 1.5rem;
-    }
-    .filter-section .form-label {
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-    }
-    #datatable tbody tr {
-        transition: all 0.2s ease;
-    }
-    #datatable tbody tr:hover {
-        background-color: rgba(0, 0, 0, 0.02);
-    }
-    .form-switch .form-check-input {
-        width: 2.5em;
-        height: 1.5em;
-        cursor: pointer;
-    }
-    .dropdown-menu {
-        min-width: 10rem;
-    }
-    .avatar-sm {
-        width: 36px;
-        height: 36px;
-    }
-</style>
-@endpush
+
 
 @push('scripts')
 <script>

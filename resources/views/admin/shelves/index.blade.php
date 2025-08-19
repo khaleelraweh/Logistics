@@ -172,22 +172,3 @@
 </div>
 @endsection
 
-
-
-@section('styles')
-<style>
-    .filter-section .card {
-        border-radius: 0.5rem;
-    }
-    .table th {
-        white-space: nowrap;
-    }
-    .form-switch .form-check-input {
-        width: 2.5em;
-        height: 1.5em;
-    }
-    .dropdown-menu {
-        min-width: 10rem;
-    }
-</style>
-@endsection
