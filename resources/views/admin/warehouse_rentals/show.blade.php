@@ -374,6 +374,21 @@
                                             {{ __('payment.add_payment') }}
                                         </button>
                                     @endif
+
+
+
+                                    <div class="d-flex gap-2">
+                                        <!-- زر عرض الوثيقة -->
+                                        <a href="{{ route('admin.warehouse_rentals.contracts.view', $warehouseRental->id) }}" target="_blank" class="btn btn-info">
+                                            <i class="fa fa-eye"></i> عرض العقد كوثيقة
+                                        </a>
+
+                                        <!-- زر تنزيل الوثيقة -->
+                                        <a href="{{ route('admin.warehouse_rentals.contracts.download', $warehouseRental->id) }}" class="btn btn-success">
+                                            <i class="fa fa-download"></i> تنزيل العقد
+                                        </a>
+                                    </div>
+
                                 </div>
 
 

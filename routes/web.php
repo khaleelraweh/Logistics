@@ -105,7 +105,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('shelves', ShelfController::class);
 
     // ==============   Warehouse Rentals Tab   ==============  //
-      Route::post('warehouse-rentals/{rental}/pay-invoice', [WarehouseRentalController::class, 'payInvoice'])->name('warehouse_rentals.pay_invoice');
+
+    // routes/web.php
+    Route::get('/contracts/{id}/view', [WarehouseRentalController::class, 'view'])->name('warehouse_rentals.contracts.view');
+    Route::get('/contracts/{id}/download', [WarehouseRentalController::class, 'download'])->name('warehouse_rentals.contracts.download');
+
+    Route::post('warehouse-rentals/{rental}/pay-invoice', [WarehouseRentalController::class, 'payInvoice'])->name('warehouse_rentals.pay_invoice');
     Route::post('warehouse-rentals/update-warehouse-rentals-status', [WarehouseRentalController::class, 'updateWarehouseRentalStatus'])->name('warehouse_rentals.update_warehouse_rentals_status'); // not working yet
     Route::post('warehouse-rentals/remove-image', [WarehouseRentalController::class, 'remove_image'])->name('warehouse_rentals.remove_image');// not working yet
     Route::resource('warehouse_rentals', WarehouseRentalController::class);

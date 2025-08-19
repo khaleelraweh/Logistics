@@ -10,6 +10,7 @@ use App\Models\Shelf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf; // مكتبة PDF
 
 class WarehouseRentalController extends Controller
 {
@@ -487,6 +488,26 @@ class WarehouseRentalController extends Controller
         }
 
         return redirect()->back()->with('success', 'Payment recorded successfully.');
+    }
+
+    //======= عرض تفاصيل العقد وطباعته =======//
+     // عرض العقد كوثيقة رسمية داخل المتصفح
+    public function view($id)
+    {
+        $contract = WarehouseRental::with(['merchant', 'shelves'])->findOrFail($id);
+
+        // $pdf = Pdf::loadView('contracts.document', compact('contract'));
+        $pdf = Pdf::loadView('admin.warehouse_rentals.document', compact('contract'));
+        return $pdf->stream("contract_{$id}.pdf"); // عرض فقط
+    }
+
+      // تنزيل العقد كوثيقة PDF
+    public function download($id)
+    {
+        $contract = WarehouseRental::with(['merchant', 'shelves'])->findOrFail($id);
+
+        $pdf = Pdf::loadView('admin.warehouse_rentals.document', compact('contract'));
+        return $pdf->download("contract_{$id}.pdf"); // تنزيل
     }
 
 }
