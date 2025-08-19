@@ -64,5 +64,6 @@ return [
     // رسائل تنبيه
     'max_amount'     => 'الحد الأقصى: :amount',
     'exceed_amount'  => 'المبلغ المدخل يتجاوز المبلغ المتبقي!',
+    'payment_recorded_successfully'     =>  'تم تسجيل الدفع بنجاح',
 
 ];

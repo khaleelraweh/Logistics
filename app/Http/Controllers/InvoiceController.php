@@ -144,6 +144,6 @@ class InvoiceController extends Controller
 
         $invoice->updateStatus();
 
-        return redirect()->back()->with('success', 'Payment recorded successfully.');
+        return redirect()->back()->with('success', __('invoice.payment_recorded_successfully'));
     }
 }

@@ -63,5 +63,6 @@ return [
     // Alerts
     'max_amount'     => 'Maximum allowed: :amount',
     'exceed_amount'  => 'The entered amount exceeds the remaining amount!',
+    'payment_recorded_successfully' =>  'Payment Recorded Successfully',
 
 ];
