@@ -109,11 +109,6 @@
                     </div>
 
 
-
-
-
-
-
                     {{-- المدفوعات المرتبطة --}}
                     @if($warehouseRental->invoice->payments->isNotEmpty())
                         <hr>
@@ -158,8 +153,6 @@
                             </table>
                         </div>
                     @endif
-
-
 
 
                 @endif
