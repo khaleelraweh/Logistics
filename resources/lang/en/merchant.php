@@ -46,6 +46,7 @@ return [
 
     // placeholder
     'select_merchant'               =>  'Select Merchant',
+    
     'no_warehouse_rentals_found'    =>  'No Warehouse Rentals Found',
     'no_packages_found'             =>  'No Packages Found',
     'no_return_requests_found'      =>  'No Return Requests Found',
