@@ -89,7 +89,7 @@
 
                                 <td>
                                     <a href="javascript:void(0);"
-                                        class="updateShelveStatus d-flex align-items-center form-switch"
+                                        class="updateShelveStatus d-flex align-items-center "
                                         id="shelf-{{ $shelf->id }}"
                                         shelf_id="{{ $shelf->id }}"
                                         data-active-text="{{ __('panel.status_active') }}"
