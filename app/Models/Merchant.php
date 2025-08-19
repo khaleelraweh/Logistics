@@ -19,6 +19,7 @@ class Merchant extends Model
     public $translatable = ['name', 'slug' , 'contact_person' , 'address'];
 
 
+
     protected $searchable = [
         'columns' => [
             'merchants.name' => 10,

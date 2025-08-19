@@ -502,12 +502,17 @@ class WarehouseRentalController extends Controller
     //     return $pdf->stream("contract_{$id}.pdf", ["Attachment" => false]);
     // }
 
-    public function view($id)
-    {
-        $contract = WarehouseRental::with(['merchant', 'shelves'])->findOrFail($id);
+   public function view($id)
+{
+    $contract = WarehouseRental::with([
+        'merchant',
+        'shelves.warehouse',
+        'invoice.payments'
+    ])->findOrFail($id);
 
-        return view('admin.warehouse_rentals.document', compact('contract'));
-    }
+    return view('admin.warehouse_rentals.document', compact('contract'));
+}
+
 
       // تنزيل العقد كوثيقة PDF
     public function download($id)

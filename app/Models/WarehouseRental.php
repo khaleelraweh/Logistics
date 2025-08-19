@@ -29,6 +29,15 @@ class WarehouseRental extends Model
         'rental_end' => 'datetime',
     ];
 
+    // اذا تم حذف العقد يتم حذف الفاتورة
+    protected static function booted()
+    {
+        static::deleting(function ($rental) {
+            $rental->invoice()?->delete();
+        });
+    }
+
+
 
     public function getStatusLabelAttribute()
     {
@@ -97,5 +106,8 @@ class WarehouseRental extends Model
     {
         return max(($this->invoice?->total_amount ?? $this->price) - $this->paid_amount, 0);
     }
+
+
+
 
 }
