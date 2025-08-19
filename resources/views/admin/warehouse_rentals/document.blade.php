@@ -19,6 +19,9 @@
     <p><strong>تاريخ البداية:</strong> {{ $contract->rental_start->format('Y-m-d') }}</p>
     <p><strong>تاريخ النهاية:</strong> {{ $contract->rental_end->format('Y-m-d') }}</p>
     <p><strong>الحالة:</strong> {!! $contract->status_label !!}</p>
+
+     <p><strong>الطرف الثاني (الشركة اللوجستية ممثلة ب):</strong> مدير الفرع</p>
+
     <hr>
 
     <h2 class="section-title">تفاصيل الرفوف المؤجرة</h2>
