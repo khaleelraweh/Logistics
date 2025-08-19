@@ -9,6 +9,7 @@
             <h4 class="mb-sm-0 font-size-18">{{ __('rental.edit_rental') }}</h4>
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('admin.warehouse_rentals.index') }}">{{ __('rental.manage_rentals') }}</a></li>
                     <li class="breadcrumb-item active">{{ __('rental.edit_rental') }}</li>
                 </ol>

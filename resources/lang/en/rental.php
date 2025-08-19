@@ -25,6 +25,7 @@ return [
     'date_range'            => 'Date Range',
     'price_min'                => 'Price Min',
     'price_max'             => 'Price Max',
+    'show_rental'           =>  'Show Rental',
 
 
     'shelf_code'           => 'Shelf Code',

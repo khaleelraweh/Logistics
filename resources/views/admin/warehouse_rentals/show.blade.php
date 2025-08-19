@@ -1,6 +1,25 @@
 @extends('layouts.admin')
 
 @section('content')
+<!-- Page Header -->
+<div class="row ">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">{{ __('rental.show_rental') }}</h4>
+
+            <div class="page-title-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.warehouse_rentals.index') }}">{{ __('rental.manage_rentals') }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ __('rental.show_rental') }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-lg-10 mx-auto">
         <div class="card shadow border-0 rounded-lg">
@@ -123,49 +142,49 @@
 
 
                     {{-- المدفوعات المرتبطة --}}
-@if($warehouseRental->invoice->payments->isNotEmpty())
-    <hr>
-    <h6 class="mb-2">{{ __('invoice.payments') }}</h6>
-    <div class="table-responsive">
-        <table class="table table-sm table-bordered">
-            <thead>
-                <tr>
-                    <th>{{ __('payment.date') }}</th>
-                    <th>{{ __('payment.amount') }}</th>
-                    <th>{{ __('payment.method') }}</th>
-                    <th>{{ __('payment.status') }}</th>
-                    <th>{{ __('general.actions') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($warehouseRental->invoice->payments as $payment)
+    @if($warehouseRental->invoice->payments->isNotEmpty())
+        <hr>
+        <h6 class="mb-2">{{ __('invoice.payments') }}</h6>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered">
+                <thead>
                     <tr>
-                        <td>{{ $payment->paid_on?->format('Y-m-d') }}</td>
-                        <td>{{ $payment->amount }} {{ __('general.sar') }}</td>
-                        <td>{{ __('payment.' . $payment->method) }}</td>
-                        <td>{{ __('payment.' . $payment->status) }}</td>
-                        <td>
-                            {{-- زر تعديل --}}
-                            <a href="{{ route('admin.payments.edit', $payment->id) }}"
-                               class="btn btn-sm btn-primary">
-                                <i class="fas fa-edit"></i>
-                            </a>
-
-                            {{-- زر حذف --}}
-                            <form action="{{ route('admin.payments.destroy', $payment->id) }}"
-                                  method="POST" class="d-inline"
-                                  onsubmit="return confirm('{{ __('panel.confirm_delete_message') }}');">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                            </form>
-                        </td>
+                        <th>{{ __('payment.date') }}</th>
+                        <th>{{ __('payment.amount') }}</th>
+                        <th>{{ __('payment.method') }}</th>
+                        <th>{{ __('payment.status') }}</th>
+                        <th>{{ __('general.actions') }}</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-@endif
+                </thead>
+                <tbody>
+                    @foreach($warehouseRental->invoice->payments as $payment)
+                        <tr>
+                            <td>{{ $payment->paid_on?->format('Y-m-d') }}</td>
+                            <td>{{ $payment->amount }} {{ __('general.sar') }}</td>
+                            <td>{{ __('payment.' . $payment->method) }}</td>
+                            <td>{{ __('payment.' . $payment->status) }}</td>
+                            <td>
+                                {{-- زر تعديل --}}
+                                <a href="{{ route('admin.payments.edit', $payment->id) }}"
+                                class="btn btn-sm btn-primary">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                {{-- زر حذف --}}
+                                <form action="{{ route('admin.payments.destroy', $payment->id) }}"
+                                    method="POST" class="d-inline"
+                                    onsubmit="return confirm('{{ __('panel.confirm_delete_message') }}');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
 
 
 
