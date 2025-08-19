@@ -28,6 +28,8 @@ return [
     'choose_method' => 'Choose Payment Method',
     'save_payment' => 'Save Payment',
     'cancel' => 'Cancel',
+    'update_payment'    =>  'Update Payment',
+    'edit_payment'      =>  'Edit Payment',
 
 
 ];

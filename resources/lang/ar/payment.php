@@ -28,4 +28,7 @@ return [
     'save_payment' => 'حفظ الدفع',
     'cancel' => 'إلغاء',
 
+    'update_payment'    =>  'تحديث الدفع',
+    'edit_payment'      =>  'تعديل الدفع',
+
 ];
