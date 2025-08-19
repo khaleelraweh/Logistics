@@ -1,36 +1,43 @@
 @extends('layouts.admin')
 
 @section('content')
-<!-- Page Header -->
-<div class="page-header">
-    <div class="row align-items-center">
-        <div class="col">
-            <h1 class="page-title">{{ __('rental.manage_rentals') }}</h1>
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                <li class="breadcrumb-item active">{{ __('rental.rentals') }}</li>
-            </ul>
-        </div>
-        <div class="col-auto">
-            <a href="{{ route('admin.warehouse_rentals.create') }}" class="btn btn-primary">
-                <i class="mdi mdi-clipboard-text-outline me-2"></i>{{ __('rental.add_new_rental') }}
-            </a>
+
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0">{{ __('rental.manage_rentals') }}</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                    <li class="breadcrumb-item active">{{ __('rental.rentals') }}</li>
+                </ol>
+            </div>
         </div>
     </div>
 </div>
-<!-- /Page Header -->
+
 
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header bg-light">
-                <h5 class="card-title mb-0">
-                    <i class="mdi mdi-warehouse me-2"></i>{{ __('rental.rental_data') }}
-                </h5>
-                <p class="card-title-desc text-muted mb-0">
-                    {{ __('rental.rental_description') }}
-                </p>
-            </div>
+
+            <div class="card-header d-flex justify-content-between">
+                    <div class="head">
+
+                        <h4 class="card-title"> <i class="mdi mdi-warehouse me-2"></i> {{ __('rental.rental_data') }}</h4>
+                        <p class="card-title-desc">
+                            {{ __('rental.rental_description') }}
+                        </p>
+                    </div>
+
+                    <div class="button-items">
+                            <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.warehouse_rentals.create') }}">
+                                <i class="mdi mdi-warehouse me-2"></i> {{ __('rental.add_new_rental') }}
+                            </a>
+                    </div>
+
+                </div>
 
             <div class="card-body">
 
