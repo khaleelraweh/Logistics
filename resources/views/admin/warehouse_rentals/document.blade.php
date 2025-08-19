@@ -65,14 +65,14 @@
         .company-logo {
             width: 120px;
             height: 120px;
-            background-color: #fff;
+            /* background-color: #fff; */
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             color: #2c3e50;
-            border: 2px solid #e74c3c;
+            /* border: 2px solid #e74c3c; */
         }
 
         .contract-number {
@@ -287,7 +287,10 @@
     <div class="contract-container">
         <div class="contract-header">
             <div class="logo-section">
-                <div class="company-logo">شعار الشركة</div>
+                {{-- <div class="company-logo">شعار الشركة</div> --}}
+                <div class="company-logo">
+                    <img src="{{asset('admin/assets/images/logo-dark.png')}}" alt="logo-dark" class="animate-bounce"  >
+                </div>
                 <div>
                     <h1>عقد إيجار مستودع</h1>
                     <div class="contract-number">رقم العقد: {{ $contract->id }}</div>
