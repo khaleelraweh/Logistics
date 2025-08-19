@@ -492,13 +492,21 @@ class WarehouseRentalController extends Controller
 
     //======= عرض تفاصيل العقد وطباعته =======//
      // عرض العقد كوثيقة رسمية داخل المتصفح
+    // public function view($id)
+    // {
+    //     $contract = WarehouseRental::with(['merchant', 'shelves'])->findOrFail($id);
+
+    //     // $pdf = Pdf::loadView('contracts.document', compact('contract'));
+    //     $pdf = Pdf::loadView('admin.warehouse_rentals.document', compact('contract'));
+    //     // return $pdf->stream("contract_{$id}.pdf"); // عرض فقط
+    //     return $pdf->stream("contract_{$id}.pdf", ["Attachment" => false]);
+    // }
+
     public function view($id)
     {
         $contract = WarehouseRental::with(['merchant', 'shelves'])->findOrFail($id);
 
-        // $pdf = Pdf::loadView('contracts.document', compact('contract'));
-        $pdf = Pdf::loadView('admin.warehouse_rentals.document', compact('contract'));
-        return $pdf->stream("contract_{$id}.pdf"); // عرض فقط
+        return view('admin.warehouse_rentals.document', compact('contract'));
     }
 
       // تنزيل العقد كوثيقة PDF
