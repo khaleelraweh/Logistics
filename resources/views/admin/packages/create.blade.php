@@ -55,8 +55,8 @@
 
                                 <li class="nav-item">
                                     <a href="#confirm-detail" class="nav-link" data-toggle="tab">
-                                        <span class="step-number">04</span>
-                                        <span class="step-title">Confirm Detail</span>
+                                        <span class="step-number"><i class="fas fa-check-circle"></i></span>
+                                        <span class="step-title">مراجعة المعلومات</span>
                                     </a>
                                 </li>
                             </ul>
@@ -600,15 +600,55 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="confirm-detail">
-                                    <div class="row justify-content-center">
-                                        <div class="col-lg-6">
-                                            <div class="text-center">
-                                                <div class="mb-4">
-                                                    <i class="mdi mdi-check-circle-outline text-success display-4"></i>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>مراجعة المعلومات</h5>
                                                 </div>
-                                                <div>
-                                                    <h5>Confirm Detail</h5>
-                                                    <p class="text-muted">If several languages coalesce, the grammar of the resulting</p>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <h6 class="section-title">معلومات المرسل</h6>
+                                                            <p><strong>الاسم:</strong> <span id="review-sender-name"></span></p>
+                                                            <p><strong>البريد الإلكتروني:</strong> <span id="review-sender-email"></span></p>
+                                                            <p><strong>الهاتف:</strong> <span id="review-sender-phone"></span></p>
+                                                            <p><strong>العنوان:</strong> <span id="review-sender-address"></span></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h6 class="section-title">معلومات المستلم</h6>
+                                                            <p><strong>الاسم:</strong> <span id="review-receiver-name"></span></p>
+                                                            <p><strong>البريد الإلكتروني:</strong> <span id="review-receiver-email"></span></p>
+                                                            <p><strong>الهاتف:</strong> <span id="review-receiver-phone"></span></p>
+                                                            <p><strong>العنوان:</strong> <span id="review-receiver-address"></span></p>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    <div class="row mt-4">
+                                                        <div class="col-md-6">
+                                                            <h6 class="section-title">مواصفات الطرد</h6>
+                                                            <p><strong>النوع:</strong> <span id="review-package-type"></span></p>
+                                                            <p><strong>الحجم:</strong> <span id="review-package-size"></span></p>
+                                                            <p><strong>الوزن:</strong> <span id="review-weight"></span> كجم</p>
+                                                            <p><strong>الأبعاد:</strong> <span id="review-dimensions"></span></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <h6 class="section-title">خيارات التوصيل</h6>
+                                                            <p><strong>سرعة التوصيل:</strong> <span id="review-delivery-speed"></span></p>
+                                                            <p><strong>طريقة التوصيل:</strong> <span id="review-delivery-method"></span></p>
+                                                            <p><strong>تاريخ التوصيل:</strong> <span id="review-delivery-date"></span></p>
+                                                            <p><strong>الحالة:</strong> <span id="review-status"></span></p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mt-4">
+                                                        <div class="col-12">
+                                                            <h6 class="section-title">الخصائص الإضافية</h6>
+                                                            <div id="review-attributes" class="d-flex flex-wrap gap-2"></div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
