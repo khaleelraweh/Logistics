@@ -653,6 +653,16 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row mt-4">
+                                        <div class="col-6 text-start">
+
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <button type="submit" class="btn btn-success">
+                                                <i class="fas fa-save me-2"></i> حفظ الطرد
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
