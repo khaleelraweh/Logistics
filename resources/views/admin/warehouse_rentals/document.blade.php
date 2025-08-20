@@ -203,24 +203,6 @@
             color: #2c3e50;
         }
 
-        /* الختم */
-        .stamp {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            width: 120px;
-            height: 120px;
-            border: 3px solid #e74c3c;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: rotate(-15deg);
-            opacity: 0.7;
-            font-weight: bold;
-            color: #e74c3c;
-        }
-
         /* الفوتر */
         .contract-footer {
             background: #2c3e50;
@@ -256,10 +238,13 @@
         /* تنسيقات الطباعة المحسنة */
         @media print {
             @page {
-                size: portrait;
+                size: A4;
                 margin: 15mm 10mm 20mm 10mm;
 
-                /* إزالة الرأس والتذييل الافتراضي */
+                /* إزالة الرأس والتذييل الافتراضي بالكامل */
+                margin-header: 0;
+                margin-footer: 0;
+
                 @top-left { content: ''; }
                 @top-center { content: ''; }
                 @top-right { content: ''; }
@@ -267,8 +252,9 @@
                 @bottom-center {
                     content: "الصفحة " counter(page) " من " counter(pages);
                     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                    font-size: 12px;
+                    font-size: 10px;
                     color: #666;
+                    margin-bottom: 5mm;
                 }
                 @bottom-right { content: ''; }
             }
@@ -277,8 +263,12 @@
                 background: white;
                 padding: 0;
                 margin: 0;
-                font-size: 14px;
+                font-size: 13px;
                 line-height: 1.6;
+                width: 100%;
+                height: auto;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
             .contract-container {
@@ -286,6 +276,8 @@
                 border-radius: 0;
                 margin: 0;
                 max-width: 100%;
+                width: 100%;
+                height: auto;
             }
 
             .no-print {
@@ -295,6 +287,8 @@
             .contract-header {
                 padding: 20px;
                 page-break-after: avoid;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
             .contract-header h1 {
@@ -302,7 +296,7 @@
             }
 
             .contract-content {
-                padding: 20px;
+                padding: 20px 15px;
             }
 
             .section {
@@ -312,36 +306,35 @@
             }
 
             .info-grid {
-                gap: 15px;
+                gap: 12px;
                 margin-bottom: 15px;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
 
             .info-value {
-                padding: 8px 12px;
+                padding: 8px 10px;
+                font-size: 12px;
             }
 
             table {
-                font-size: 12px;
+                font-size: 11px;
                 page-break-inside: avoid;
+                width: 100%;
             }
 
             th, td {
-                padding: 8px 10px;
+                padding: 8px 6px;
             }
 
             .signatures {
                 margin-top: 30px;
-                page-break-before: always;
+                page-break-before: avoid;
+                page-break-inside: avoid;
             }
 
             /* إصلاح المسافات بين الأقسام في الطباعة */
             .section + .section {
-                margin-top: 25px;
-            }
-
-            /* إخفاء العناصر غير الضرورية في الطباعة */
-            .stamp {
-                opacity: 0.8;
+                margin-top: 20px;
             }
 
             /* منع تقسيم الصفوف بين الصفحات */
@@ -356,6 +349,49 @@
 
             li {
                 margin-bottom: 8px;
+                font-size: 12px;
+            }
+
+            /* إخفاء العناصر غير المرغوبة في الطباعة */
+            .stamp {
+                display: none;
+            }
+
+            .contract-footer {
+                padding: 15px;
+                font-size: 12px;
+                page-break-before: avoid;
+            }
+
+            /* تحسين مظهر العناصر في الطباعة */
+            .status-badge {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+
+            .section-title {
+                font-size: 16px;
+                padding: 10px 15px;
+            }
+
+            /* ضمان ظهور الألوان في الطباعة */
+            .contract-header,
+            .contract-header h1,
+            .contract-number,
+            th,
+            .contract-footer {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                color: white !important;
+            }
+
+            .status-active,
+            .status-inactive,
+            .status-expired,
+            .info-value,
+            .section-title {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
         }
     </style>
@@ -552,7 +588,7 @@
                 <div style="padding: 15px; background: #f8f9fa; border-radius: 5px;">
                     <ol style="padding-right: 20px;">
                         <li>يمتلك الطرف الثاني الحق في استخدام المساحة المستأجرة لتخزين البضائع والمنتجات وفقاً للشروط المتفق عليها.</li>
-                        <li>يلتزم الطرف الثاني بدفع كامل المبالغ المستحقة في المواعيد المحددة وفقاً لشروط الدفع المتفق عليها.</li>
+                        <li>يلتزم الطرف الثاني بدفع كامل المبالغ المستحقة в المواعيد المحددة وفقاً لشروط الدفع المتفق عليها.</li>
                         <li>يلتزم الطرف الثاني بعدم تخزين مواد خطرة أو محظورة قانوناً داخل المساحة المستأجرة.</li>
                         <li>يحق للطرف الأول فحص المساحة المستأجرة بعد إشعار مسبق للطرف الثاني.</li>
                         <li>في حالة عدم السداد في الموعد المحدد، يحق للطرف الأول تعليق الخدمات أو إنهاء العقد.</li>
@@ -578,7 +614,7 @@
                 </div>
             </div>
 
-            <div class="stamp">ختم الشركة</div>
+            <!-- تم إزالة ختم الشركة -->
         </div>
 
         <div class="contract-footer">
