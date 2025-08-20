@@ -45,6 +45,15 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="#delivery-options" class="nav-link" data-toggle="tab">
+                                        <span class="step-number"><i class="fas fa-shipping-fast"></i></span>
+                                        <span class="step-title">خيارات التوصيل</span>
+                                    </a>
+                                </li>
+
+
+
+                                <li class="nav-item">
                                     <a href="#confirm-detail" class="nav-link" data-toggle="tab">
                                         <span class="step-number">04</span>
                                         <span class="step-title">Confirm Detail</span>
@@ -339,6 +348,106 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="package-details">
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5 class="mb-0"><i class="fas fa-cube me-2"></i>مواصفات الطرد</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-4">
+                                                                <label for="package_type" class="form-label">نوع الطرد</label>
+                                                                <select class="form-select" id="package_type" name="package_type">
+                                                                    <option value="box" {{ old('package_type') == 'box' ? 'selected' : '' }}>صندوق</option>
+                                                                    <option value="envelope" {{ old('package_type') == 'envelope' ? 'selected' : '' }}>مظروف</option>
+                                                                    <option value="pallet" {{ old('package_type') == 'pallet' ? 'selected' : '' }}>بالت</option>
+                                                                    <option value="tube" {{ old('package_type') == 'tube' ? 'selected' : '' }}>أنبوب</option>
+                                                                    <option value="bag" {{ old('package_type') == 'bag' ? 'selected' : '' }}>حقيبة</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label for="package_size" class="form-label">الحجم</label>
+                                                                <select class="form-select" id="package_size" name="package_size">
+                                                                    <option value="small" {{ old('package_size') == 'small' ? 'selected' : '' }}>صغير</option>
+                                                                    <option value="medium" {{ old('package_size') == 'medium' ? 'selected' : '' }}>متوسط</option>
+                                                                    <option value="large" {{ old('package_size') == 'large' ? 'selected' : '' }}>كبير</option>
+                                                                    <option value="oversized" {{ old('package_size') == 'oversized' ? 'selected' : '' }}>كبير جداً</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label for="weight" class="form-label">الوزن (كجم)</label>
+                                                                <input type="number" step="0.01" class="form-control" id="weight" name="weight" value="{{ old('weight', 0) }}">
+                                                                @error('weight')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-4">
+                                                                <label for="dimensions.length" class="form-label">الطول (سم)</label>
+                                                                <input type="number" step="0.01" class="form-control" id="dimensions.length" name="dimensions[length]" value="{{ old('dimensions.length', 0) }}">
+                                                                @error('dimensions.length')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label for="dimensions.width" class="form-label">العرض (سم)</label>
+                                                                <input type="number" step="0.01" class="form-control" id="dimensions.width" name="dimensions[width]" value="{{ old('dimensions.width', 0) }}">
+                                                                @error('dimensions.width')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label for="dimensions.height" class="form-label">الارتفاع (سم)</label>
+                                                                <input type="number" step="0.01" class="form-control" id="dimensions.height" name="dimensions[height]" value="{{ old('dimensions.height', 0) }}">
+                                                                @error('dimensions.height')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mb-3">
+                                                            <div class="col-12">
+                                                                <label for="package_content" class="form-label">محتويات الطرد</label>
+                                                                <textarea class="form-control" id="package_content" name="package_content" rows="3">{{ old('package_content') }}</textarea>
+                                                                @error('package_content')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mb-3">
+                                                            <div class="col-12">
+                                                                <label for="package_note" class="form-label">ملاحظات</label>
+                                                                <textarea class="form-control" id="package_note" name="package_note" rows="3">{{ old('package_note') }}</textarea>
+                                                                @error('package_note')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5 class="mb-0"><i class="fas fa-cube me-2"></i>مواصفات الطرد</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        @livewire('admin.package.create-product-component')
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="delivery-options">
                                     <div>
                                         <div class="row">
                                             <div class="col-lg-12">
