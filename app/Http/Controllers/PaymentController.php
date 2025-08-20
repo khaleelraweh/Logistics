@@ -173,8 +173,10 @@ class PaymentController extends Controller
         // تحديث حالة الفاتورة بعد حذف الدفع
         $invoice->updateStatus();
 
-        return redirect()->route('admin.invoices.show', $invoice->id)
-                        ->with('success', 'تم حذف الدفع بنجاح.');
+        return back()->with('success', __('payment.payment_removed_successfully'));
+
+        // return redirect()->route('admin.invoices.show', $invoice->id)
+        //                 ->with('success', 'تم حذف الدفع بنجاح.');
     }
 
 }

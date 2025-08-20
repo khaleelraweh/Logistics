@@ -33,5 +33,7 @@ return [
 
     'payment_recorded_successfully' =>  'تم تعديل الدفع بنجاح',
     'payment_added_successfully'    =>  'تم إضافة الدفع بنجاح',
+    'payment_removed_successfully'    =>  'تم ازالة الدفع بنجاح',
+
 
 ];

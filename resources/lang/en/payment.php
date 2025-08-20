@@ -33,6 +33,7 @@ return [
 
     'payment_recorded_successfully' =>  'Payment Recorded Successfully',
     'payment_added_successfully'    =>  'Payment Added Successfully',
+    'payment_removed_successfully'    =>  'Payment Removed Successfully',
 
 
 ];
