@@ -584,7 +584,7 @@
                                                     <div class="card-body">
                                                         <div class="row mb-3">
                                                             @foreach($allKeys as $key => $label)
-                                                                <div class="col-md-4">
+                                                                <div class="col-6 col-md-4 mb-1">
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="checkbox" id="{{ $key }}" name="attributes[{{ $key }}]" value="1" {{ !empty($attrs[$key]) ? 'checked' : '' }}>
                                                                         <label class="form-check-label" for="{{ $key }}">{{ $label }}</label>
