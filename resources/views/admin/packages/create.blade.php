@@ -674,3 +674,59 @@
         </div>
     </div>
 @endsection
+
+@section('script')
+     <!-- Bootstrap & jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // عند الانتقال إلى خطوة المراجعة، تعبئة بيانات المراجعة
+            $('button[data-next="4"]').click(function() {
+                // معلومات المرسل
+                $('#review-sender-name').text(
+                    $('#sender_first_name').val() + ' ' +
+                    $('#sender_middle_name').val() + ' ' +
+                    $('#sender_last_name').val()
+                );
+                $('#review-sender-email').text($('#sender_email').val());
+                $('#review-sender-phone').text($('#sender_phone').val());
+                $('#review-sender-address').text($('#sender_address').val());
+
+                // معلومات المستلم
+                $('#review-receiver-name').text(
+                    $('#receiver_first_name').val() + ' ' +
+                    $('#receiver_middle_name').val() + ' ' +
+                    $('#receiver_last_name').val()
+                );
+                $('#review-receiver-email').text($('#receiver_email').val());
+                $('#review-receiver-phone').text($('#receiver_phone').val());
+                $('#review-receiver-address').text($('#receiver_address').val());
+
+                // مواصفات الطرد
+                $('#review-package-type').text($('#package_type option:selected').text());
+                $('#review-package-size').text($('#package_size option:selected').text());
+                $('#review-weight').text($('#weight').val());
+                $('#review-dimensions').text(
+                    $('#dimensions\\.length').val() + 'x' +
+                    $('#dimensions\\.width').val() + 'x' +
+                    $('#dimensions\\.height').val() + ' سم'
+                );
+
+                // خيارات التوصيل
+                $('#review-delivery-speed').text($('#delivery_speed option:selected').text());
+                $('#review-delivery-method').text($('#delivery_method option:selected').text());
+                $('#review-delivery-date').text($('#delivery_date').val());
+                $('#review-status').text($('#status1 option:selected').text());
+
+                // الخصائص
+                var attributesHtml = '';
+                $('input[name^="attributes"]:checked').each(function() {
+                    var label = $('label[for="' + $(this).attr('id') + '"]').text();
+                    attributesHtml += '<span class="badge bg-info">' + label + '</span>';
+                });
+                $('#review-attributes').html(attributesHtml);
+            });
+        });
+    </script>
+@endsection
