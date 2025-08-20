@@ -667,8 +667,8 @@
 
                             </div>
                             <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                <li class="previous"><a href="javascript: void(0);">Previous</a></li>
-                                <li class="next"><a href="javascript: void(0);">Next</a></li>
+                                <li class="previous"><a href="javascript: void(0);">{{ __('genreal.previous') }}</a></li>
+                                <li class="next"><a href="javascript: void(0);">{{ __('genreal.next') }}</a></li>
                             </ul>
                         </div>
                     </div>
