@@ -1,7 +1,7 @@
 <div>
     <div class="card">
         <div class="card-header">
-            <5 class="mb-0"><i class="fas fa-shipping-fast me-2"></i> {{ __('package.collection') }}</5>
+            <h5 class="mb-0"><i class=" fas fa-file-invoice-dollar "></i> {{ __('package.collection') }}</5>
         </div>
         <div class="card-body">
 
