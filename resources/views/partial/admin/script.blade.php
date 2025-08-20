@@ -90,6 +90,16 @@
 <script src="{{ asset('admin/assets/js/pages/materialdesign.init.js')}}"></script>
 
 
+<!-- twitter-bootstrap-wizard js -->
+<script src="{{  asset('admin/assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js')  }}"></script>
+
+<script src="{{  asset('admin/assets/libs/twitter-bootstrap-wizard/prettify.js')  }}"></script>
+
+
+<!-- form wizard init -->
+<script src="{{  asset('admin/assets/js/pages/form-wizard.init.js')}}"></script>
+
+
 <!-- App js -->
 <script src="{{ asset('admin/assets/js/app.js')}}"></script>
 
