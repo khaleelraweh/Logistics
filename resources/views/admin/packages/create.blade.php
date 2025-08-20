@@ -1,199 +1,301 @@
 @extends('layouts.admin')
+@section('style')
 
+<style>
+    :root {
+        --primary: #4361ee;
+        --secondary: #3f37c9;
+        --success: #4cc9f0;
+        --info: #4895ef;
+        --warning: #f72585;
+        --danger: #e63946;
+        --light: #f8f9fa;
+        --dark: #212529;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f7fb;
+        color: #333;
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 24px;
+        border: none;
+    }
+
+    .card-header {
+        background-color: #fff;
+        border-bottom: 1px solid #eaeaea;
+        padding: 15px 20px;
+        font-weight: 600;
+        color: var(--primary);
+        border-radius: 10px 10px 0 0 !important;
+    }
+
+    .page-title-box {
+        padding: 20px 0;
+    }
+
+    .breadcrumb {
+        background: transparent;
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #555;
+    }
+
+    .form-control, .form-select {
+        border-radius: 8px;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        transition: all 0.3s;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+    }
+
+    .btn-primary {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        padding: 10px 25px;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--secondary);
+        border-color: var(--secondary);
+    }
+
+    .section-title {
+        position: relative;
+        padding-right: 15px;
+        margin-bottom: 20px;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .section-title::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 3px;
+        height: 20px;
+        width: 5px;
+        background-color: var(--primary);
+        border-radius: 10px;
+    }
+
+    .form-check-input:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+    }
+
+    .attribute-checkbox {
+        margin-bottom: 10px;
+    }
+
+
+</style>
+
+@endsection
 @section('content')
-
-    <!-- start page title -->
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">{{ __('package.manage_packages') }}</h4>
-                <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('package.add_new_package') }}</a></li>
-                        <li class="breadcrumb-item active">{{ __('package.manage_packages') }}</li>
-                    </ol>
+    <div class="container-fluid py-3">
+        <!-- رأس الصفحة -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">{{ __('package.manage_packages') }}</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('package.add_new_package') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('package.manage_packages') }}</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="card">
+        <div class="card">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="basic-pills-wizard" class="twitter-bs-wizard">
+                                <ul class="twitter-bs-wizard-nav">
+                                    <li class="nav-item">
+                                        <a href="#basic-informaion" class="nav-link" data-toggle="tab">
+                                            <span class="step-number"><i class="fas fa-user"></i></span>
+                                            <span class="step-title">{{ __('package.basic_informaion') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#trip-information" class="nav-link" data-toggle="tab">
+                                            <span class="step-number"><i class=" fas fa-map-marked-alt"></i></span>
+                                            <span class="step-title">{{ __('package.trip_information') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#package-details" class="nav-link" data-toggle="tab">
+                                            <span class="step-number"><i class="fas fa-box"></i></span>
+                                            <span class="step-title">{{ __('package.package_details') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#delivery-options" class="nav-link" data-toggle="tab">
+                                            <span class="step-number"><i class="fas fa-shipping-fast"></i></span>
+                                            <span class="step-title">{{ __('package.delivery_options') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#confirm-detail" class="nav-link" data-toggle="tab">
+                                            <span class="step-number"><i class="fas fa-check-circle"></i></span>
+                                            <span class="step-title">{{ __('package.review') }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <div id="basic-pills-wizard" class="twitter-bs-wizard">
-                            <ul class="twitter-bs-wizard-nav">
-                                <li class="nav-item">
-                                    <a href="#basic-informaion" class="nav-link" data-toggle="tab">
-                                        <span class="step-number"><i class="fas fa-user"></i></span>
-                                        <span class="step-title">{{ __('package.basic_informaion') }}</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#trip-information" class="nav-link" data-toggle="tab">
-                                        <span class="step-number"><i class=" fas fa-map-marked-alt"></i></span>
-                                        <span class="step-title">{{ __('package.trip_information') }}</span>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="#package-details" class="nav-link" data-toggle="tab">
-                                        <span class="step-number"><i class="fas fa-box"></i></span>
-                                        <span class="step-title">{{ __('package.package_details') }}</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#delivery-options" class="nav-link" data-toggle="tab">
-                                        <span class="step-number"><i class="fas fa-shipping-fast"></i></span>
-                                        <span class="step-title">{{ __('package.delivery_options') }}</span>
-                                    </a>
-                                </li>
-
-
-
-                                <li class="nav-item">
-                                    <a href="#confirm-detail" class="nav-link" data-toggle="tab">
-                                        <span class="step-number"><i class="fas fa-check-circle"></i></span>
-                                        <span class="step-title">{{ __('package.review') }}</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <form action="{{ route('admin.packages.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="tab-content twitter-bs-wizard-tab-content">
-
-                                    <div class="tab-pane" id="basic-informaion">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="card">
-                                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                                        <h5 class="mb-0"><i class="fas fa-user me-2"></i>{{ __('package.sender_Information') }}</h5>
-                                                        <span class="badge bg-primary">{{ __('general.required') }}</span>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div class="row mb-3">
-                                                            <div class="col-12">
-                                                                @livewire('admin.package.create-select-merchant-component')
-                                                            </div>
+                                <form action="{{ route('admin.packages.store') }}" method="POST" enctype="multipart/form-data" id="packageForm">
+                                    @csrf
+                                    <div class="tab-content twitter-bs-wizard-tab-content">
+                                        <!-- الخطوة 1: المعلومات الأساسية -->
+                                        <div class="tab-pane" id="basic-informaion">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                                            <h5 class="mb-0"><i class="fas fa-user me-2"></i>{{ __('package.sender_Information') }}</h5>
+                                                            <span class="badge bg-primary">{{ __('general.required') }}</span>
                                                         </div>
+                                                        <div class="card-body">
+                                                            <div class="row mb-3">
+                                                                <div class="col-12">
+                                                                    @livewire('admin.package.create-select-merchant-component')
+                                                                </div>
+                                                            </div>
 
-                                                        <div class="row mb-3">
-                                                            <div class="col-md-4">
-                                                                <label for="sender_first_name" class="form-label">{{ __('package.sender_first_name') }}</label>
-                                                                <input type="text" class="form-control" id="sender_first_name" name="sender_first_name" value="{{ old('sender_first_name') }}">
-                                                                @error('sender_first_name')
-                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                                                @enderror
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-4">
+                                                                    <label for="sender_first_name" class="form-label">{{ __('package.sender_first_name') }}</label>
+                                                                    <input type="text" class="form-control" id="sender_first_name" name="sender_first_name" value="{{ old('sender_first_name') }}">
+                                                                    @error('sender_first_name')
+                                                                        <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <label for="sender_middle_name" class="form-label">{{ __('package.sender_middle_name') }}</label>
+                                                                    <input type="text" class="form-control" id="sender_middle_name" name="sender_middle_name" value="{{ old('sender_middle_name') }}">
+                                                                    @error('sender_middle_name')
+                                                                        <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <label for="sender_last_name" class="form-label">{{ __('package.sender_last_name') }}</label>
+                                                                    <input type="text" class="form-control" id="sender_last_name" name="sender_last_name" value="{{ old('sender_last_name') }}">
+                                                                    @error('sender_last_name')
+                                                                        <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
                                                             </div>
-                                                            <div class="col-md-4">
-                                                                <label for="sender_middle_name" class="form-label">{{ __('package.sender_middle_name') }}</label>
-                                                                <input type="text" class="form-control" id="sender_middle_name" name="sender_middle_name" value="{{ old('sender_middle_name') }}">
-                                                                @error('sender_middle_name')
-                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <label for="sender_last_name" class="form-label">{{ __('package.sender_last_name') }}</label>
-                                                                <input type="text" class="form-control" id="sender_last_name" name="sender_last_name" value="{{ old('sender_last_name') }}">
-                                                                @error('sender_last_name')
-                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
 
-                                                        <div class="row mb-3">
-                                                            <div class="col-md-6">
-                                                                <label for="sender_email" class="form-label">{{ __('package.sender_email') }}</label>
-                                                                <input type="email" class="form-control" id="sender_email" name="sender_email" value="{{ old('sender_email') }}">
-                                                                @error('sender_email')
-                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="sender_phone" class="form-label">{{ __('package.sender_phone') }}</label>
-                                                                <input type="text" class="form-control" id="sender_phone" name="sender_phone" value="{{ old('sender_phone') }}">
-                                                                @error('sender_phone')
-                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                                                @enderror
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6">
+                                                                    <label for="sender_email" class="form-label">{{ __('package.sender_email') }}</label>
+                                                                    <input type="email" class="form-control" id="sender_email" name="sender_email" value="{{ old('sender_email') }}">
+                                                                    @error('sender_email')
+                                                                        <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="sender_phone" class="form-label">{{ __('package.sender_phone') }}</label>
+                                                                    <input type="text" class="form-control" id="sender_phone" name="sender_phone" value="{{ old('sender_phone') }}">
+                                                                    @error('sender_phone')
+                                                                        <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-lg-6">
-                                                <div class="card">
-                                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                                        <h5 class="mb-0"><i class="fas fa-user me-2"></i> {{ __('package.receiver_Information') }}</h5>
-                                                        <span class="badge bg-primary">{{ __('general.required') }}</span>
-                                                    </div>
-                                                    <div class="card-body">
-
-                                                        <div class="row mb-3">
-                                                            <div class="com-md-12">
-                                                                <div class="mb-3">
-                                                                    <label for="merchant_id" class="form-label">التاجر ({{ __('general.optional') }})</label>
-                                                                    <select class="form-select"  id="merchant_recever_id" name="merchant_recever_id">
-                                                                        <option value="">بدون تاجر</option>
-                                                                        @foreach($merchants as $merchant)
-                                                                            <option value="{{ $merchant->id }}">{{ $merchant->name }}</option>
-                                                                        @endforeach
-                                                                    </select>
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                                            <h5 class="mb-0"><i class="fas fa-user me-2"></i> {{ __('package.receiver_Information') }}</h5>
+                                                            <span class="badge bg-primary">{{ __('general.required') }}</span>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="row mb-3">
+                                                                <div class="com-md-12">
+                                                                    <div class="mb-3">
+                                                                        <label for="merchant_recever_id" class="form-label">التاجر ({{ __('general.optional') }})</label>
+                                                                        <select class="form-select" id="merchant_recever_id" name="merchant_recever_id">
+                                                                            <option value="">بدون تاجر</option>
+                                                                            @foreach($merchants as $merchant)
+                                                                                <option value="{{ $merchant->id }}">{{ $merchant->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
-                                                        <div class="row mb-3">
-                                                            <div class="col-md-4">
-                                                                <label for="receiver_first_name" class="form-label">{{ __('package.receiver_first_name') }}</label>
-                                                                <input type="text" class="form-control" id="receiver_first_name" name="receiver_first_name" value="{{ old('receiver_first_name') }}">
-                                                                @error('receiver_first_name')
-                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                                                @enderror
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-4">
+                                                                    <label for="receiver_first_name" class="form-label">{{ __('package.receiver_first_name') }}</label>
+                                                                    <input type="text" class="form-control" id="receiver_first_name" name="receiver_first_name" value="{{ old('receiver_first_name') }}">
+                                                                    @error('receiver_first_name')
+                                                                        <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <label for="receiver_middle_name" class="form-label">{{ __('package.receiver_middle_name') }}</label>
+                                                                    <input type="text" class="form-control" id="receiver_middle_name" name="receiver_middle_name" value="{{ old('receiver_middle_name') }}">
+                                                                    @error('receiver_middle_name')
+                                                                        <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <label for="receiver_last_name" class="form-label">{{ __('package.receiver_last_name') }}</label>
+                                                                    <input type="text" class="form-control" id="receiver_last_name" name="receiver_last_name" value="{{ old('receiver_last_name') }}">
+                                                                    @error('receiver_last_name')
+                                                                        <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
                                                             </div>
-                                                            <div class="col-md-4">
-                                                                <label for="receiver_middle_name" class="form-label">{{ __('package.receiver_middle_name') }}</label>
-                                                                <input type="text" class="form-control" id="receiver_middle_name" name="receiver_middle_name" value="{{ old('receiver_middle_name') }}">
-                                                                @error('receiver_middle_name')
-                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <label for="receiver_last_name" class="form-label">{{ __('package.receiver_last_name') }}</label>
-                                                                <input type="text" class="form-control" id="receiver_last_name" name="receiver_last_name" value="{{ old('receiver_last_name') }}">
-                                                                @error('receiver_last_name')
-                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
 
-                                                        <div class="row mb-3">
-                                                            <div class="col-md-6">
-                                                                <label for="receiver_email" class="form-label">{{ __('package.receiver_email') }}</label>
-                                                                <input type="email" class="form-control" id="receiver_email" name="receiver_email" value="{{ old('receiver_email') }}">
-                                                                @error('receiver_email')
-                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                                                @enderror
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label for="receiver_phone" class="form-label">{{ __('package.receiver_phone') }}</label>
-                                                                <input type="text" class="form-control" id="receiver_phone" name="receiver_phone" value="{{ old('receiver_phone') }}">
-                                                                @error('receiver_phone')
-                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
-                                                                @enderror
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-6">
+                                                                    <label for="receiver_email" class="form-label">{{ __('package.receiver_email') }}</label>
+                                                                    <input type="email" class="form-control" id="receiver_email" name="receiver_email" value="{{ old('receiver_email') }}">
+                                                                    @error('receiver_email')
+                                                                        <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label for="receiver_phone" class="form-label">{{ __('package.receiver_phone') }}</label>
+                                                                    <input type="text" class="form-control" id="receiver_phone" name="receiver_phone" value="{{ old('receiver_phone') }}">
+                                                                    @error('receiver_phone')
+                                                                        <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="tab-pane" id="trip-information">
-                                        <div>
+                                        <!-- الخطوة 2: معلومات الرحلة -->
+                                        <div class="tab-pane" id="trip-information">
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="card">
@@ -350,10 +452,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="tab-pane" id="package-details">
-                                        <div>
+                                        <!-- الخطوة 3: تفاصيل الطرد -->
+                                        <div class="tab-pane" id="package-details">
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="card">
@@ -451,10 +552,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="tab-pane" id="delivery-options">
-                                        <div>
+                                        <!-- الخطوة 4: خيارات التوصيل -->
+                                        <div class="tab-pane" id="delivery-options">
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="card">
@@ -556,9 +656,6 @@
                                                             // لو في بيانات قديمة (بعد فشل التحقق مثلًا) نستخدمها، وإلا نستخدم الافتراضية
                                                             $attrs = old('attributes', $defaultAttributes);
 
-                                                            // الملاحظة الخاصة بالحالة
-                                                            $delivery_status_note = old('delivery_status_note', '');
-
                                                             // جميع المفاتيح مع الترجمة
                                                             $allKeys = [
                                                                 "is_fragile" => __('package.is_fragile'),
@@ -588,85 +685,119 @@
                                                                 @endforeach
                                                             </div>
                                                         </div>
-
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- الخطوة 5: المراجعة النهائية -->
+                                        <div class="tab-pane" id="confirm-detail">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>مراجعة المعلومات</h5>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <h6 class="section-title">معلومات المرسل</h6>
+                                                                    <p><strong>التاجر:</strong> <span id="review-sender-merchant"></span></p>
+                                                                    <p><strong>الاسم:</strong> <span id="review-sender-name"></span></p>
+                                                                    <p><strong>البريد الإلكتروني:</strong> <span id="review-sender-email"></span></p>
+                                                                    <p><strong>الهاتف:</strong> <span id="review-sender-phone"></span></p>
+                                                                    <p><strong>العنوان:</strong> <span id="review-sender-address"></span></p>
+                                                                    <p><strong>البلد:</strong> <span id="review-sender-country"></span></p>
+                                                                    <p><strong>المدينة:</strong> <span id="review-sender-city"></span></p>
+                                                                    <p><strong>الرمز البريدي:</strong> <span id="review-sender-postal"></span></p>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <h6 class="section-title">معلومات المستلم</h6>
+                                                                    <p><strong>التاجر:</strong> <span id="review-receiver-merchant"></span></p>
+                                                                    <p><strong>الاسم:</strong> <span id="review-receiver-name"></span></p>
+                                                                    <p><strong>البريد الإلكتروني:</strong> <span id="review-receiver-email"></span></p>
+                                                                    <p><strong>الهاتف:</strong> <span id="review-receiver-phone"></span></p>
+                                                                    <p><strong>العنوان:</strong> <span id="review-receiver-address"></span></p>
+                                                                    <p><strong>البلد:</strong> <span id="review-receiver-country"></span></p>
+                                                                    <p><strong>المدينة:</strong> <span id="review-receiver-city"></span></p>
+                                                                    <p><strong>الرمز البريدي:</strong> <span id="review-receiver-postal"></span></p>
+                                                                </div>
+                                                            </div>
+
+                                                            <hr>
+
+                                                            <div class="row mt-4">
+                                                                <div class="col-md-6">
+                                                                    <h6 class="section-title">مواصفات الطرد</h6>
+                                                                    <p><strong>النوع:</strong> <span id="review-package-type"></span></p>
+                                                                    <p><strong>الحجم:</strong> <span id="review-package-size"></span></p>
+                                                                    <p><strong>الوزن:</strong> <span id="review-weight"></span> كجم</p>
+                                                                    <p><strong>الأبعاد:</strong> <span id="review-dimensions"></span></p>
+                                                                    <p><strong>المحتويات:</strong> <span id="review-package-content"></span></p>
+                                                                    <p><strong>ملاحظات:</strong> <span id="review-package-note"></span></p>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <h6 class="section-title">خيارات التوصيل</h6>
+                                                                    <p><strong>سرعة التوصيل:</strong> <span id="review-delivery-speed"></span></p>
+                                                                    <p><strong>طريقة التوصيل:</strong> <span id="review-delivery-method"></span></p>
+                                                                    <p><strong>نوع المصدر:</strong> <span id="review-origin-type"></span></p>
+                                                                    <p><strong>تاريخ التوصيل:</strong> <span id="review-delivery-date"></span></p>
+                                                                    <p><strong>الحالة:</strong> <span id="review-status"></span></p>
+                                                                    <p><strong>ملاحظات الحالة:</strong> <span id="review-status-note"></span></p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row mt-4">
+                                                                <div class="col-12">
+                                                                    <h6 class="section-title">المنتجات</h6>
+                                                                    <div id="review-products"></div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row mt-4">
+                                                                <div class="col-md-6">
+                                                                    <h6 class="section-title">معلومات التحصيل</h6>
+                                                                    <p><strong>مسؤولية الدفع:</strong> <span id="review-payment-responsibility"></span></p>
+                                                                    <p><strong>طريقة الدفع:</strong> <span id="review-payment-method"></span></p>
+                                                                    <p><strong>طريقة التحصيل:</strong> <span id="review-collection-method"></span></p>
+                                                                    <p><strong>رسوم التوصيل:</strong> <span id="review-delivery-fee"></span></p>
+                                                                    <p><strong>رسوم التأمين:</strong> <span id="review-insurance-fee"></span></p>
+                                                                    <p><strong>رسوم الخدمة:</strong> <span id="review-service-fee"></span></p>
+                                                                    <p><strong>المبلغ الإجمالي:</strong> <span id="review-total-fee"></span></p>
+                                                                    <p><strong>المبلغ المدفوع:</strong> <span id="review-paid-amount"></span></p>
+                                                                    <p><strong>المبلغ المتبقي:</strong> <span id="review-remaining-amount"></span></p>
+                                                                    <p><strong>مبلغ الدفع عند الاستلام:</strong> <span id="review-cod-amount"></span></p>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <h6 class="section-title">الخصائص الإضافية</h6>
+                                                                    <div id="review-attributes" class="d-flex flex-wrap gap-2"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-6 text-start">
+                                                    <button type="button" class="btn btn-outline-secondary" id="prev-to-options">
+                                                        <i class="fas fa-arrow-right me-2"></i> السابق
+                                                    </button>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <button type="submit" class="btn btn-success">
+                                                        <i class="fas fa-save me-2"></i> حفظ الطرد
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane" id="confirm-detail">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>مراجعة المعلومات</h5>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <h6 class="section-title">معلومات المرسل</h6>
-                                                                <p><strong>الاسم:</strong> <span id="review-sender-name"></span></p>
-                                                                <p><strong>البريد الإلكتروني:</strong> <span id="review-sender-email"></span></p>
-                                                                <p><strong>الهاتف:</strong> <span id="review-sender-phone"></span></p>
-                                                                <p><strong>العنوان:</strong> <span id="review-sender-address"></span></p>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <h6 class="section-title">معلومات المستلم</h6>
-                                                                <p><strong>الاسم:</strong> <span id="review-receiver-name"></span></p>
-                                                                <p><strong>البريد الإلكتروني:</strong> <span id="review-receiver-email"></span></p>
-                                                                <p><strong>الهاتف:</strong> <span id="review-receiver-phone"></span></p>
-                                                                <p><strong>العنوان:</strong> <span id="review-receiver-address"></span></p>
-                                                            </div>
-                                                        </div>
-
-                                                        <hr>
-
-                                                        <div class="row mt-4">
-                                                            <div class="col-md-6">
-                                                                <h6 class="section-title">مواصفات الطرد</h6>
-                                                                <p><strong>النوع:</strong> <span id="review-package-type"></span></p>
-                                                                <p><strong>الحجم:</strong> <span id="review-package-size"></span></p>
-                                                                <p><strong>الوزن:</strong> <span id="review-weight"></span> كجم</p>
-                                                                <p><strong>الأبعاد:</strong> <span id="review-dimensions"></span></p>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <h6 class="section-title">خيارات التوصيل</h6>
-                                                                <p><strong>سرعة التوصيل:</strong> <span id="review-delivery-speed"></span></p>
-                                                                <p><strong>طريقة التوصيل:</strong> <span id="review-delivery-method"></span></p>
-                                                                <p><strong>تاريخ التوصيل:</strong> <span id="review-delivery-date"></span></p>
-                                                                <p><strong>الحالة:</strong> <span id="review-status"></span></p>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row mt-4">
-                                                            <div class="col-12">
-                                                                <h6 class="section-title">الخصائص الإضافية</h6>
-                                                                <div id="review-attributes" class="d-flex flex-wrap gap-2"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-4">
-                                            <div class="col-6 text-start">
-
-                                            </div>
-                                            <div class="col-6 text-end">
-                                                <button type="submit" class="btn btn-success">
-                                                    <i class="fas fa-save me-2"></i> حفظ الطرد
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                    <li class="previous"><a href="javascript: void(0);">{{ __('general.previous') }}</a></li>
-                                    <li class="next"><a href="javascript: void(0);">{{ __('general.next') }}</a></li>
-                                </ul>
-                            </form>
+                                    <ul class="pager wizard twitter-bs-wizard-pager-link">
+                                        <li class="previous"><a href="javascript: void(0);">{{ __('general.previous') }}</a></li>
+                                        <li class="next"><a href="javascript: void(0);">{{ __('general.next') }}</a></li>
+                                    </ul>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -674,16 +805,14 @@
         </div>
     </div>
 @endsection
-
 @section('script')
-     <!-- Bootstrap & jQuery JS -->
+   <!-- Bootstrap & jQuery JS -->
     <script>
         $(document).ready(function() {
-            // عند الانتقال إلى خطوة المراجعة، تعبئة بيانات المراجعة
-            // $('button[data-next="4"]').click(function() {
-            $('a[data-toggle="tab"][href="#confirm-detail"]').on('shown.bs.tab', function (e) {
-
+            // دالة لتحديث صفحة المراجعة
+            function updateReviewPage() {
                 // معلومات المرسل
+                $('#review-sender-merchant').text($('#merchant_id option:selected').text());
                 $('#review-sender-name').text(
                     $('#sender_first_name').val() + ' ' +
                     $('#sender_middle_name').val() + ' ' +
@@ -692,8 +821,12 @@
                 $('#review-sender-email').text($('#sender_email').val());
                 $('#review-sender-phone').text($('#sender_phone').val());
                 $('#review-sender-address').text($('#sender_address').val());
+                $('#review-sender-country').text($('#sender_country').val());
+                $('#review-sender-city').text($('#sender_city').val());
+                $('#review-sender-postal').text($('#sender_postal_code').val());
 
                 // معلومات المستلم
+                $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text());
                 $('#review-receiver-name').text(
                     $('#receiver_first_name').val() + ' ' +
                     $('#receiver_middle_name').val() + ' ' +
@@ -702,6 +835,9 @@
                 $('#review-receiver-email').text($('#receiver_email').val());
                 $('#review-receiver-phone').text($('#receiver_phone').val());
                 $('#review-receiver-address').text($('#receiver_address').val());
+                $('#review-receiver-country').text($('#receiver_country').val());
+                $('#review-receiver-city').text($('#receiver_city').val());
+                $('#review-receiver-postal').text($('#receiver_postal_code').val());
 
                 // مواصفات الطرد
                 $('#review-package-type').text($('#package_type option:selected').text());
@@ -712,21 +848,75 @@
                     $('#dimensions\\.width').val() + 'x' +
                     $('#dimensions\\.height').val() + ' سم'
                 );
+                $('#review-package-content').text($('#package_content').val());
+                $('#review-package-note').text($('#package_note').val());
 
                 // خيارات التوصيل
                 $('#review-delivery-speed').text($('#delivery_speed option:selected').text());
                 $('#review-delivery-method').text($('#delivery_method option:selected').text());
+                $('#review-origin-type').text($('#origin_type option:selected').text());
                 $('#review-delivery-date').text($('#delivery_date').val());
                 $('#review-status').text($('#status1 option:selected').text());
+                $('#review-status-note').text($('#delivery_status_note').val());
 
                 // الخصائص
                 var attributesHtml = '';
                 $('input[name^="attributes"]:checked').each(function() {
                     var label = $('label[for="' + $(this).attr('id') + '"]').text();
-                    attributesHtml += '<span class="badge bg-info">' + label + '</span>';
+                    attributesHtml += '<span class="badge bg-info me-1 mb-1">' + label + '</span>';
                 });
                 $('#review-attributes').html(attributesHtml);
+
+                // معلومات التحصيل (من Livewire components)
+                try {
+                    $('#review-payment-responsibility').text($('select[name="payment_responsibility"] option:selected').text());
+                    $('#review-payment-method').text($('select[name="payment_method"] option:selected').text());
+                    $('#review-collection-method').text($('select[name="collection_method"] option:selected').text());
+                    $('#review-delivery-fee').text($('input[name="delivery_fee"]').val() + ' ر.س');
+                    $('#review-insurance-fee').text($('input[name="insurance_fee"]').val() + ' ر.س');
+                    $('#review-service-fee').text($('input[name="service_fee"]').val() + ' ر.س');
+                    $('#review-total-fee').text($('input[name="total_fee"]').val() + ' ر.س');
+                    $('#review-paid-amount').text($('input[name="paid_amount"]').val() + ' ر.س');
+                    $('#review-remaining-amount').text($('input[name="due_amount"]').val() + ' ر.س');
+                    $('#review-cod-amount').text($('input[name="cod_amount"]').val() + ' ر.س');
+                } catch (e) {
+                    console.log('Livewire components not loaded yet');
+                }
+
+                // المنتجات (من Livewire component)
+                try {
+                    var productsHtml = '<table class="table table-bordered"><thead><tr><th>النوع</th><th>المنتج</th><th>الوزن</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead><tbody>';
+
+                    $('input[name^="products"]').each(function() {
+                        // هذا مثال بسيط، تحتاج إلى تعديله حسب هيكل Livewire component الخاص بالمنتجات
+                        var index = $(this).attr('name').match(/\[(\d+)\]/)[1];
+                        var type = $('select[name="products[' + index + '][type]"] option:selected').text() || 'مخصص';
+                        var name = $('input[name="products[' + index + '][custom_name]"]').val() || $('select[name="products[' + index + '][stock_item_id]"] option:selected').text();
+                        var weight = $('input[name="products[' + index + '][weight]"]').val();
+                        var quantity = $('input[name="products[' + index + '][quantity]"]').val();
+                        var price = $('input[name="products[' + index + '][price_per_unit]"]').val();
+                        var total = $('input[name="products[' + index + '][total_price]"]').val();
+
+                        productsHtml += '<tr><td>' + type + '</td><td>' + name + '</td><td>' + weight + ' كجم</td><td>' + quantity + '</td><td>' + price + ' ر.س</td><td>' + total + ' ر.س</td></tr>';
+                    });
+
+                    productsHtml += '</tbody></table>';
+                    $('#review-products').html(productsHtml);
+                } catch (e) {
+                    console.log('Error loading products:', e);
+                }
+            }
+
+            // تحديث صفحة المراجعة عند النقر على تبويب المراجعة
+            $('a[href="#confirm-detail"]').on('click', function() {
+                updateReviewPage();
+            });
+
+            // الانتقال إلى الخطوة السابقة من صفحة المراجعة
+            $('#prev-to-options').on('click', function() {
+                $('a[href="#delivery-options"]').tab('show');
             });
         });
     </script>
+
 @endsection
