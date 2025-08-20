@@ -32,16 +32,16 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#company-document" class="nav-link" data-toggle="tab">
-                                        <span class="step-number">02</span>
-                                        <span class="step-title">Company Document</span>
+                                    <a href="#trip-information" class="nav-link" data-toggle="tab">
+                                        <span class="step-number"><i class=" fas fa-map-marked-alt"></i></span>
+                                        <span class="step-title">معلومات الرحلة</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="#bank-detail" class="nav-link" data-toggle="tab">
-                                        <span class="step-number">03</span>
-                                        <span class="step-title">Bank Details</span>
+                                    <a href="#package-details" class="nav-link" data-toggle="tab">
+                                        <span class="step-number"><i class="fas fa-box"></i></span>
+                                        <span class="step-title">تفاصيل الطرد</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -179,58 +179,166 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="company-document">
+                                <div class="tab-pane" id="trip-information">
                                     <div>
-                                    <form>
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="basicpill-pancard-input">PAN Card</label>
-                                                    <input type="text" class="form-control" id="basicpill-pancard-input">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>عنوان المرسل</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            <div class="col-12">
+                                                                <label for="sender_address" class="form-label">العنوان</label>
+                                                                <input type="text" class="form-control" id="sender_address" name="sender_address" value="{{ old('sender_address') }}">
+                                                                @error('sender_address')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-4">
+                                                                <label for="sender_country" class="form-label">الدولة</label>
+                                                                <input type="text" class="form-control" id="sender_country" name="sender_country" value="{{ old('sender_country') }}">
+                                                                @error('sender_country')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label for="sender_region" class="form-label">المنطقة</label>
+                                                                <input type="text" class="form-control" id="sender_region" name="sender_region" value="{{ old('sender_region') }}">
+                                                                @error('sender_region')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label for="sender_city" class="form-label">المدينة</label>
+                                                                <input type="text" class="form-control" id="sender_city" name="sender_city" value="{{ old('sender_city') }}">
+                                                                @error('sender_city')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6">
+                                                                <label for="sender_district" class="form-label">الحي</label>
+                                                                <input type="text" class="form-control" id="sender_district" name="sender_district" value="{{ old('sender_district') }}">
+                                                                @error('sender_district')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="sender_postal_code" class="form-label">الرمز البريدي</label>
+                                                                <input type="text" class="form-control" id="sender_postal_code" name="sender_postal_code" value="{{ old('sender_postal_code') }}">
+                                                                @error('sender_postal_code')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6">
+                                                                <label for="sender_location" class="form-label">الموقع</label>
+                                                                <input type="text" class="form-control" id="sender_location" name="sender_location" value="{{ old('sender_location') }}">
+                                                                @error('sender_location')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="sender_others" class="form-label">معلومات إضافية</label>
+                                                                <input type="text" class="form-control" id="sender_others" name="sender_others" value="{{ old('sender_others') }}">
+                                                                @error('sender_others')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="basicpill-vatno-input">VAT/TIN No.</label>
-                                                    <input type="text" class="form-control" id="basicpill-vatno-input">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="basicpill-cstno-input">CST No.</label>
-                                                    <input type="text" class="form-control" id="basicpill-cstno-input">
-                                                </div>
-                                            </div>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>عنوان المستلم</h5>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            <div class="col-12">
+                                                                <label for="receiver_address" class="form-label">العنوان</label>
+                                                                <input type="text" class="form-control" id="receiver_address" name="receiver_address" value="{{ old('receiver_address') }}">
+                                                                @error('receiver_address')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
 
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="basicpill-servicetax-input">Service Tax No.</label>
-                                                    <input type="text" class="form-control" id="basicpill-servicetax-input">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="basicpill-companyuin-input">Company UIN</label>
-                                                    <input type="text" class="form-control" id="basicpill-companyuin-input">
-                                                </div>
-                                            </div>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-4">
+                                                                <label for="receiver_country" class="form-label">الدولة</label>
+                                                                <input type="text" class="form-control" id="receiver_country" name="receiver_country" value="{{ old('receiver_country') }}">
+                                                                @error('receiver_country')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label for="receiver_region" class="form-label">المنطقة</label>
+                                                                <input type="text" class="form-control" id="receiver_region" name="receiver_region" value="{{ old('receiver_region') }}">
+                                                                @error('receiver_region')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label for="receiver_city" class="form-label">المدينة</label>
+                                                                <input type="text" class="form-control" id="receiver_city" name="receiver_city" value="{{ old('receiver_city') }}">
+                                                                @error('receiver_city')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
 
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="basicpill-declaration-input">Declaration</label>
-                                                    <input type="text" class="form-control" id="basicpill-declaration-input">
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6">
+                                                                <label for="receiver_district" class="form-label">الحي</label>
+                                                                <input type="text" class="form-control" id="receiver_district" name="receiver_district" value="{{ old('receiver_district') }}">
+                                                                @error('receiver_district')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="receiver_postal_code" class="form-label">الرمز البريدي</label>
+                                                                <input type="text" class="form-control" id="receiver_postal_code" name="receiver_postal_code" value="{{ old('receiver_postal_code') }}">
+                                                                @error('receiver_postal_code')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-6">
+                                                                <label for="receiver_location" class="form-label">الموقع</label>
+                                                                <input type="text" class="form-control" id="receiver_location" name="receiver_location" value="{{ old('receiver_location') }}">
+                                                                @error('receiver_location')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="receiver_others" class="form-label">معلومات إضافية</label>
+                                                                <input type="text" class="form-control" id="receiver_others" name="receiver_others" value="{{ old('receiver_others') }}">
+                                                                @error('receiver_others')
+                                                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="bank-detail">
+                                <div class="tab-pane" id="package-details">
                                     <div>
                                         <form>
                                             <div class="row">
