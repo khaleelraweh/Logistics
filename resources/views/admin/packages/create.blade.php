@@ -26,9 +26,9 @@
                         <div id="basic-pills-wizard" class="twitter-bs-wizard">
                             <ul class="twitter-bs-wizard-nav">
                                 <li class="nav-item">
-                                    <a href="#seller-details" class="nav-link" data-toggle="tab">
+                                    <a href="#basic-informaion" class="nav-link" data-toggle="tab">
                                         <span class="step-number"><i class="fas fa-user"></i></span>
-                                        <span class="step-title">Seller Details</span>
+                                        <span class="step-title">المعلومات الأساسية</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -52,46 +52,132 @@
                                 </li>
                             </ul>
                             <div class="tab-content twitter-bs-wizard-tab-content">
-                                <div class="tab-pane" id="seller-details">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="basicpill-firstname-input">First name</label>
-                                                    <input type="text" class="form-control" id="basicpill-firstname-input">
+
+                                <div class="tab-pane" id="basic-informaion">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="card">
+                                                <div class="card-header d-flex justify-content-between align-items-center">
+                                                    <h5 class="mb-0"><i class="fas fa-user me-2"></i>معلومات المرسل</h5>
+                                                    <span class="badge bg-primary">مطلوب</span>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="basicpill-lastname-input">Last name</label>
-                                                    <input type="text" class="form-control" id="basicpill-lastname-input">
+                                                <div class="card-body">
+                                                    <div class="row mb-3">
+                                                        <div class="col-12">
+                                                            @livewire('admin.package.create-select-merchant-component')
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-4">
+                                                            <label for="sender_first_name" class="form-label">الاسم الأول</label>
+                                                            <input type="text" class="form-control" id="sender_first_name" name="sender_first_name" value="{{ old('sender_first_name') }}">
+                                                            @error('sender_first_name')
+                                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label for="sender_middle_name" class="form-label">الاسم الأوسط</label>
+                                                            <input type="text" class="form-control" id="sender_middle_name" name="sender_middle_name" value="{{ old('sender_middle_name') }}">
+                                                            @error('sender_middle_name')
+                                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label for="sender_last_name" class="form-label">الاسم الأخير</label>
+                                                            <input type="text" class="form-control" id="sender_last_name" name="sender_last_name" value="{{ old('sender_last_name') }}">
+                                                            @error('sender_last_name')
+                                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-6">
+                                                            <label for="sender_email" class="form-label">البريد الإلكتروني</label>
+                                                            <input type="email" class="form-control" id="sender_email" name="sender_email" value="{{ old('sender_email') }}">
+                                                            @error('sender_email')
+                                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="sender_phone" class="form-label">رقم الهاتف</label>
+                                                            <input type="text" class="form-control" id="sender_phone" name="sender_phone" value="{{ old('sender_phone') }}">
+                                                            @error('sender_phone')
+                                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="basicpill-phoneno-input">Phone</label>
-                                                    <input type="text" class="form-control" id="basicpill-phoneno-input">
+                                        <div class="col-lg-6">
+                                            <div class="card">
+                                                <div class="card-header d-flex justify-content-between align-items-center">
+                                                    <h5 class="mb-0"><i class="fas fa-user me-2"></i>معلومات المستلم</h5>
+                                                    <span class="badge bg-primary">مطلوب</span>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="basicpill-email-input">Email</label>
-                                                    <input type="email" class="form-control" id="basicpill-email-input">
+                                                <div class="card-body">
+
+                                                    <div class="row mb-3">
+                                                        <div class="com-md-12">
+                                                            <div class="mb-3">
+                                                                <label for="merchant_id" class="form-label">التاجر (اختياري)</label>
+                                                                <select class="form-select"  id="merchant_recever_id" name="merchant_recever_id">
+                                                                    <option value="">بدون تاجر</option>
+                                                                    @foreach($merchants as $merchant)
+                                                                        <option value="{{ $merchant->id }}">{{ $merchant->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-4">
+                                                            <label for="receiver_first_name" class="form-label">الاسم الأول</label>
+                                                            <input type="text" class="form-control" id="receiver_first_name" name="receiver_first_name" value="{{ old('receiver_first_name') }}">
+                                                            @error('receiver_first_name')
+                                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label for="receiver_middle_name" class="form-label">الاسم الأوسط</label>
+                                                            <input type="text" class="form-control" id="receiver_middle_name" name="receiver_middle_name" value="{{ old('receiver_middle_name') }}">
+                                                            @error('receiver_middle_name')
+                                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label for="receiver_last_name" class="form-label">الاسم الأخير</label>
+                                                            <input type="text" class="form-control" id="receiver_last_name" name="receiver_last_name" value="{{ old('receiver_last_name') }}">
+                                                            @error('receiver_last_name')
+                                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-6">
+                                                            <label for="receiver_email" class="form-label">البريد الإلكتروني</label>
+                                                            <input type="email" class="form-control" id="receiver_email" name="receiver_email" value="{{ old('receiver_email') }}">
+                                                            @error('receiver_email')
+                                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="receiver_phone" class="form-label">رقم الهاتف</label>
+                                                            <input type="text" class="form-control" id="receiver_phone" name="receiver_phone" value="{{ old('receiver_phone') }}">
+                                                            @error('receiver_phone')
+                                                                <div class="text-danger small mt-1">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="basicpill-address-input">Address</label>
-                                                    <textarea id="basicpill-address-input" class="form-control" rows="2"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 <div class="tab-pane" id="company-document">
                                     <div>
