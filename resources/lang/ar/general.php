@@ -88,7 +88,7 @@ return [
     'select'                  => 'إختر',
     'from'                      => 'من',
     'to'                      => 'إلى',
-    'Previous'              =>  'السابق',
+    'previous'              =>  'السابق',
     'next'                  =>  'التالي',
 
 

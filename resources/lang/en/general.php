@@ -87,7 +87,7 @@ return [
     'select'                => 'Select',
     'from'                    => 'From',
     'to'                    => 'To',
-    'Previous'              =>  'Previous',
+    'previous'              =>  'Previous',
     'next'                  =>  'Next',
 
 
