@@ -65,6 +65,21 @@ class PackageController extends Controller
         return view('admin.packages.create', compact('merchants', 'rentalShelves', 'packages'));
     }
 
+    public function create_for_good()
+    {
+        if (!auth()->user()->ability('admin', 'create_packages')) {
+            return redirect('admin/index');
+        }
+
+        $merchants = \App\Models\Merchant::select('id', 'name')->get();
+        $rentalShelves = \App\Models\RentalShelf::with('shelf.warehouse')->get();
+        $packages = \App\Models\Package::select('id', 'tracking_number')->get();
+
+        return view('admin.packages.create_for_good', compact('merchants', 'rentalShelves', 'packages'));
+    }
+
+
+
     /**
      * Store a newly created resource in storage.
      *
