@@ -1,10 +1,441 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>عقد إيجار مستودع - النظام اللوجستي</title>
-    <link rel="stylesheet" href="{{ asset('admin/assets/css/contract-style.css') }}">
+    <style>
+
+        /* تنسيقات عامة */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "DejaVu Sans", sans-serif !important;
+            line-height: 1.8;
+            direction: rtl;
+            color: #333;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+
+        .contract-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* الهيدر */
+        .contract-header {
+            background: linear-gradient(135deg, #2c3e50, #1a2530);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .contract-header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .contract-header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+        }
+
+        .logo-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .company-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .company-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .contract-number {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        /* محتوى العقد */
+        .contract-content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .section-title {
+            background: #f8f9fa;
+            padding: 12px 20px;
+            border-right: 5px solid #e74c3c;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-right: 3px solid #3498db;
+        }
+
+        /* الجداول */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        /* حالة العقد */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .status-active {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-inactive {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .status-expired {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+
+        /* التوقيعات */
+        .signatures {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .signature-box {
+            text-align: center;
+            padding: 20px;
+            border-top: 2px solid #2c3e50;
+        }
+
+        .signature-title {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        /* الفوتر */
+        .contract-footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        /* زر الطباعة */
+        .print-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .print-btn:hover {
+            background: #1a2530;
+        }
+
+        /* تنسيقات الطباعة المحسنة */
+        @media print {
+            @page {
+                size: A4;
+                margin: 10mm 8mm 15mm 8mm;
+
+                /* إزالة الرأس والتذييل الافتراضي بالكامل */
+                margin-header: 0;
+                margin-footer: 0;
+
+                @top-left { content: ''; }
+                @top-center { content: ''; }
+                @top-right { content: ''; }
+                @bottom-center {
+                    content: "الصفحة " counter(page) " من " counter(pages);
+                    font-family: "DejaVu Sans", sans-serif;
+                    font-size: 10px;
+                    color: #666;
+                    margin-bottom: 3mm;
+                }
+            }
+
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+                font-size: 12px;
+                line-height: 1.5;
+                width: 100%;
+                height: auto;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .contract-container {
+                box-shadow: none;
+                border-radius: 0;
+                margin: 0;
+                max-width: 100%;
+                width: 100%;
+                height: auto;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .contract-header {
+                padding: 15px;
+                page-break-after: avoid;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .contract-header h1 {
+                font-size: 22px;
+            }
+
+            .contract-content {
+                padding: 15px 10px;
+            }
+
+            .section {
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+                page-break-inside: avoid;
+            }
+
+            .info-grid {
+                gap: 8px;
+                margin-bottom: 12px;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .info-value {
+                padding: 6px 8px;
+                font-size: 11px;
+            }
+
+            table {
+                font-size: 10px;
+                page-break-inside: avoid;
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            th, td {
+                padding: 6px 4px;
+            }
+
+            .signatures {
+                margin-top: 20px;
+                page-break-before: avoid;
+                page-break-inside: avoid;
+                gap: 15px;
+            }
+
+            .signature-box {
+                padding: 10px;
+            }
+
+            /* تحسين المسافات بين الأقسام في الطباعة */
+            .section + .section {
+                margin-top: 15px;
+            }
+
+            /* منع تقسيم الصفوف بين الصفحات */
+            tr {
+                page-break-inside: avoid;
+            }
+
+            /* تحسين تنسيق القوائم في الطباعة */
+            ol {
+                padding-right: 12px;
+            }
+
+            li {
+                margin-bottom: 6px;
+                font-size: 11px;
+            }
+
+            /* إخفاء العناصر غير المرغوبة في الطباعة */
+            .stamp {
+                display: none;
+            }
+
+            .contract-footer {
+                padding: 12px;
+                font-size: 11px;
+                page-break-before: avoid;
+            }
+
+            /* تحسين مظهر العناصر في الطباعة */
+            .status-badge {
+                font-size: 10px;
+                padding: 3px 6px;
+            }
+
+            .section-title {
+                font-size: 14px;
+                padding: 8px 12px;
+                margin-bottom: 12px;
+            }
+
+            /* ضمان ظهور الألوان في الطباعة */
+            .contract-header,
+            .contract-header h1,
+            .contract-number,
+            th,
+            .contract-footer {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                color: white !important;
+            }
+
+            .status-active,
+            .status-inactive,
+            .status-expired,
+            .info-value,
+            .section-title {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* تحسين خاص للجداول القصيرة */
+            .compact-table {
+                font-size: 9px;
+            }
+
+            .compact-table th,
+            .compact-table td {
+                padding: 4px 3px;
+            }
+
+            /* منع الهوامش الكبيرة بعد الجداول القصيرة */
+            table + .section {
+                margin-top: 5px;
+            }
+
+            /* تحسين تخطيط التوقيعات للطباعة */
+            .signatures {
+                margin-top: 30px;
+                page-break-inside: avoid;
+            }
+        }
+
+        /* تحسينات إضافية للجداول القصيرة */
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 15px;
+        }
+
+        /* نمط للجداول ذات الصفوف القليلة */
+        .short-table {
+            width: auto;
+            min-width: 100%;
+            margin: 0 auto;
+        }
+
+    </style>
 </head>
 <body>
     <div class="contract-container">

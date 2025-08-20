@@ -7,7 +7,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "DejaVu Sans", sans-serif !important;
             line-height: 1.8;
             direction: rtl;
             color: #333;
@@ -244,7 +244,7 @@
                 @top-right { content: ''; }
                 @bottom-center {
                     content: "الصفحة " counter(page) " من " counter(pages);
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    font-family: "DejaVu Sans", sans-serif;
                     font-size: 10px;
                     color: #666;
                     margin-bottom: 3mm;
