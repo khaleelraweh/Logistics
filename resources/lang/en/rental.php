@@ -26,6 +26,7 @@ return [
     'price_min'                => 'Price Min',
     'price_max'             => 'Price Max',
     'show_rental'           =>  'Show Rental',
+    'show_contract' =>  'Show Contract',
 
 
     'shelf_code'           => 'Shelf Code',

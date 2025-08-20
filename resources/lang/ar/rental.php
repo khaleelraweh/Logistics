@@ -27,6 +27,7 @@ return [
     'price_min'           => 'الحد الأدنى للسعر',
     'price_max'           => 'الحد الأقصى للسعر',
     'show_rental'         =>    'عرض الايجار',
+    'show_contract'         =>  'عرض العقد كوثيقة',
 
 
     'shelf_code'           => 'رمز الرف',

@@ -356,13 +356,13 @@
                                  <!-- Action Buttons -->
                                 <div class="d-flex flex-wrap gap-2">
                                     @if($invoice)
-                                        <a href="{{ route('admin.invoices.show', $invoice->id) }}" class="btn btn-outline-primary btn-sm rounded-pill">
+                                        <a href="{{ route('admin.invoices.show', $invoice->id) }}" class="btn btn-outline-primary  rounded-pill">
                                             <i class="fas fa-file-invoice me-1"></i>
                                             {{ __('invoice.show_invoice') }}
                                         </a>
                                     @endif
 
-                                    <a href="{{ route('admin.warehouse_rentals.edit', $warehouseRental->id) }}" class="btn btn-outline-secondary btn-sm rounded-pill">
+                                    <a href="{{ route('admin.warehouse_rentals.edit', $warehouseRental->id) }}" class="btn btn-outline-secondary  rounded-pill">
                                         <i class="fas fa-edit me-1"></i>
                                         {{ __('rental.edit_contract') }}
                                     </a>
@@ -380,13 +380,13 @@
                                     <div class="d-flex gap-2">
                                         <!-- زر عرض الوثيقة -->
                                         <a href="{{ route('admin.warehouse_rentals.contracts.view', $warehouseRental->id) }}" target="_blank" class="btn btn-info">
-                                            <i class="fa fa-eye"></i> عرض العقد كوثيقة
+                                            <i class="fa fa-eye"></i>  {{ __('rental.show_contract') }}
                                         </a>
 
                                         <!-- زر تنزيل الوثيقة -->
-                                        <a href="{{ route('admin.warehouse_rentals.contracts.download', $warehouseRental->id) }}" class="btn btn-success">
+                                        {{-- <a href="{{ route('admin.warehouse_rentals.contracts.download', $warehouseRental->id) }}" class="btn btn-success">
                                             <i class="fa fa-download"></i> تنزيل العقد
-                                        </a>
+                                        </a> --}}
                                     </div>
 
                                 </div>
