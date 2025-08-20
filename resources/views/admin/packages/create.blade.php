@@ -808,10 +808,9 @@
 
 
 @section('script')
-<!-- Bootstrap & jQuery JS -->
 <script>
     $(document).ready(function() {
-        // دالة لتحديث صفحة المراجعة
+         // دالة لتحديث صفحة المراجعة
         function updateReviewPage() {
             // معلومات المرسل
             $('#review-sender-merchant').text($('#merchant_id option:selected').text());
@@ -937,51 +936,12 @@
             }
         }
 
-        // تحديث صفحة المراجعة عند النقر على تبويب المراجعة
-        $('a[href="#confirm-detail"]').on('click', function() {
+          // مراقبة متى يتم تفعيل التبويب "مراجعة"
+        $('a[data-toggle="tab"][href="#confirm-detail"]').on('shown.bs.tab', function (e) {
             updateReviewPage();
         });
 
-        // الانتقال إلى الخطوة السابقة من صفحة المراجعة
-        $('#prev-to-options').on('click', function() {
-            $('a[href="#delivery-options"]').tab('show');
-        });
 
-        // تهيئة نظام التبويب
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            // تحديث حالة الخطوات
-            var target = $(e.target).attr("href");
-            var currentStep = parseInt(target.substring(1));
-
-            $('.twitter-bs-wizard-nav .nav-item').removeClass('active completed');
-
-            $('.twitter-bs-wizard-nav .nav-item').each(function(index) {
-                if (index < currentStep) {
-                    $(this).addClass('completed');
-                } else if (index === currentStep) {
-                    $(this).addClass('active');
-                }
-            });
-        });
-
-        // معالجة أزرار التالي والسابق
-        $('.twitter-bs-wizard-pager-link .next').on('click', function() {
-            var $activeTab = $('.twitter-bs-wizard-tab-content .tab-pane.active');
-            var nextTab = $activeTab.next('.tab-pane');
-
-            if (nextTab.length) {
-                $('a[href="#' + nextTab.attr('id') + '"]').tab('show');
-            }
-        });
-
-        $('.twitter-bs-wizard-pager-link .previous').on('click', function() {
-            var $activeTab = $('.twitter-bs-wizard-tab-content .tab-pane.active');
-            var prevTab = $activeTab.prev('.tab-pane');
-
-            if (prevTab.length) {
-                $('a[href="#' + prevTab.attr('id') + '"]').tab('show');
-            }
-        });
     });
 </script>
 @endsection
