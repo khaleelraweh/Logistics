@@ -677,12 +677,12 @@
 
 @section('script')
      <!-- Bootstrap & jQuery JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function() {
             // عند الانتقال إلى خطوة المراجعة، تعبئة بيانات المراجعة
-            $('button[data-next="4"]').click(function() {
+            // $('button[data-next="4"]').click(function() {
+            $('a[data-toggle="tab"][href="#confirm-detail"]').on('shown.bs.tab', function (e) {
+
                 // معلومات المرسل
                 $('#review-sender-name').text(
                     $('#sender_first_name').val() + ' ' +
