@@ -28,26 +28,26 @@
                                 <li class="nav-item">
                                     <a href="#basic-informaion" class="nav-link" data-toggle="tab">
                                         <span class="step-number"><i class="fas fa-user"></i></span>
-                                        <span class="step-title">المعلومات الأساسية</span>
+                                        <span class="step-title">{{ __('package.basic_informaion') }}</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#trip-information" class="nav-link" data-toggle="tab">
                                         <span class="step-number"><i class=" fas fa-map-marked-alt"></i></span>
-                                        <span class="step-title">معلومات الرحلة</span>
+                                        <span class="step-title">{{ __('package.trip_information') }}</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a href="#package-details" class="nav-link" data-toggle="tab">
                                         <span class="step-number"><i class="fas fa-box"></i></span>
-                                        <span class="step-title">تفاصيل الطرد</span>
+                                        <span class="step-title">{{ __('package.package_details') }}</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#delivery-options" class="nav-link" data-toggle="tab">
                                         <span class="step-number"><i class="fas fa-shipping-fast"></i></span>
-                                        <span class="step-title">خيارات التوصيل</span>
+                                        <span class="step-title">{{ __('package.delivery_options') }}</span>
                                     </a>
                                 </li>
 
@@ -56,7 +56,7 @@
                                 <li class="nav-item">
                                     <a href="#confirm-detail" class="nav-link" data-toggle="tab">
                                         <span class="step-number"><i class="fas fa-check-circle"></i></span>
-                                        <span class="step-title">مراجعة المعلومات</span>
+                                        <span class="step-title">{{ __('package.review') }}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -67,8 +67,8 @@
                                         <div class="col-lg-6">
                                             <div class="card">
                                                 <div class="card-header d-flex justify-content-between align-items-center">
-                                                    <h5 class="mb-0"><i class="fas fa-user me-2"></i>معلومات المرسل</h5>
-                                                    <span class="badge bg-primary">مطلوب</span>
+                                                    <h5 class="mb-0"><i class="fas fa-user me-2"></i>{{ __('package.sender_Information') }}</h5>
+                                                    <span class="badge bg-primary">{{ __('general.required') }}</span>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="row mb-3">
@@ -79,21 +79,21 @@
 
                                                     <div class="row mb-3">
                                                         <div class="col-md-4">
-                                                            <label for="sender_first_name" class="form-label">الاسم الأول</label>
+                                                            <label for="sender_first_name" class="form-label">{{ __('package.sender_first_name') }}</label>
                                                             <input type="text" class="form-control" id="sender_first_name" name="sender_first_name" value="{{ old('sender_first_name') }}">
                                                             @error('sender_first_name')
                                                                 <div class="text-danger small mt-1">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <label for="sender_middle_name" class="form-label">الاسم الأوسط</label>
+                                                            <label for="sender_middle_name" class="form-label">{{ __('package.sender_middle_name') }}</label>
                                                             <input type="text" class="form-control" id="sender_middle_name" name="sender_middle_name" value="{{ old('sender_middle_name') }}">
                                                             @error('sender_middle_name')
                                                                 <div class="text-danger small mt-1">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <label for="sender_last_name" class="form-label">الاسم الأخير</label>
+                                                            <label for="sender_last_name" class="form-label">{{ __('package.sender_last_name') }}</label>
                                                             <input type="text" class="form-control" id="sender_last_name" name="sender_last_name" value="{{ old('sender_last_name') }}">
                                                             @error('sender_last_name')
                                                                 <div class="text-danger small mt-1">{{ $message }}</div>
@@ -103,14 +103,14 @@
 
                                                     <div class="row mb-3">
                                                         <div class="col-md-6">
-                                                            <label for="sender_email" class="form-label">البريد الإلكتروني</label>
+                                                            <label for="sender_email" class="form-label">{{ __('package.sender_email') }}</label>
                                                             <input type="email" class="form-control" id="sender_email" name="sender_email" value="{{ old('sender_email') }}">
                                                             @error('sender_email')
                                                                 <div class="text-danger small mt-1">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <label for="sender_phone" class="form-label">رقم الهاتف</label>
+                                                            <label for="sender_phone" class="form-label">{{ __('package.sender_phone') }}</label>
                                                             <input type="text" class="form-control" id="sender_phone" name="sender_phone" value="{{ old('sender_phone') }}">
                                                             @error('sender_phone')
                                                                 <div class="text-danger small mt-1">{{ $message }}</div>
@@ -124,15 +124,15 @@
                                         <div class="col-lg-6">
                                             <div class="card">
                                                 <div class="card-header d-flex justify-content-between align-items-center">
-                                                    <h5 class="mb-0"><i class="fas fa-user me-2"></i>معلومات المستلم</h5>
-                                                    <span class="badge bg-primary">مطلوب</span>
+                                                    <h5 class="mb-0"><i class="fas fa-user me-2"></i> {{ __('package.receiver_Information') }}</h5>
+                                                    <span class="badge bg-primary">{{ __('general.required') }}</span>
                                                 </div>
                                                 <div class="card-body">
 
                                                     <div class="row mb-3">
                                                         <div class="com-md-12">
                                                             <div class="mb-3">
-                                                                <label for="merchant_id" class="form-label">التاجر (اختياري)</label>
+                                                                <label for="merchant_id" class="form-label">التاجر ({{ __('general.optional') }})</label>
                                                                 <select class="form-select"  id="merchant_recever_id" name="merchant_recever_id">
                                                                     <option value="">بدون تاجر</option>
                                                                     @foreach($merchants as $merchant)
@@ -145,21 +145,21 @@
 
                                                     <div class="row mb-3">
                                                         <div class="col-md-4">
-                                                            <label for="receiver_first_name" class="form-label">الاسم الأول</label>
+                                                            <label for="receiver_first_name" class="form-label">{{ __('package.receiver_first_name') }}</label>
                                                             <input type="text" class="form-control" id="receiver_first_name" name="receiver_first_name" value="{{ old('receiver_first_name') }}">
                                                             @error('receiver_first_name')
                                                                 <div class="text-danger small mt-1">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <label for="receiver_middle_name" class="form-label">الاسم الأوسط</label>
+                                                            <label for="receiver_middle_name" class="form-label">{{ __('package.receiver_middle_name') }}</label>
                                                             <input type="text" class="form-control" id="receiver_middle_name" name="receiver_middle_name" value="{{ old('receiver_middle_name') }}">
                                                             @error('receiver_middle_name')
                                                                 <div class="text-danger small mt-1">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <label for="receiver_last_name" class="form-label">الاسم الأخير</label>
+                                                            <label for="receiver_last_name" class="form-label">{{ __('package.receiver_last_name') }}</label>
                                                             <input type="text" class="form-control" id="receiver_last_name" name="receiver_last_name" value="{{ old('receiver_last_name') }}">
                                                             @error('receiver_last_name')
                                                                 <div class="text-danger small mt-1">{{ $message }}</div>
@@ -169,14 +169,14 @@
 
                                                     <div class="row mb-3">
                                                         <div class="col-md-6">
-                                                            <label for="receiver_email" class="form-label">البريد الإلكتروني</label>
+                                                            <label for="receiver_email" class="form-label">{{ __('package.receiver_email') }}</label>
                                                             <input type="email" class="form-control" id="receiver_email" name="receiver_email" value="{{ old('receiver_email') }}">
                                                             @error('receiver_email')
                                                                 <div class="text-danger small mt-1">{{ $message }}</div>
                                                             @enderror
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <label for="receiver_phone" class="form-label">رقم الهاتف</label>
+                                                            <label for="receiver_phone" class="form-label">{{ __('package.receiver_phone') }}</label>
                                                             <input type="text" class="form-control" id="receiver_phone" name="receiver_phone" value="{{ old('receiver_phone') }}">
                                                             @error('receiver_phone')
                                                                 <div class="text-danger small mt-1">{{ $message }}</div>
@@ -194,12 +194,12 @@
                                             <div class="col-lg-6">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>عنوان المرسل</h5>
+                                                        <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>{{ __('package.sender_address') }}</h5>
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="row mb-3">
                                                             <div class="col-12">
-                                                                <label for="sender_address" class="form-label">العنوان</label>
+                                                                <label for="sender_address" class="form-label">{{ __('package.address') }}</label>
                                                                 <input type="text" class="form-control" id="sender_address" name="sender_address" value="{{ old('sender_address') }}">
                                                                 @error('sender_address')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
@@ -209,21 +209,21 @@
 
                                                         <div class="row mb-3">
                                                             <div class="col-md-4">
-                                                                <label for="sender_country" class="form-label">الدولة</label>
+                                                                <label for="sender_country" class="form-label">{{ __('package.sender_country') }}</label>
                                                                 <input type="text" class="form-control" id="sender_country" name="sender_country" value="{{ old('sender_country') }}">
                                                                 @error('sender_country')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <label for="sender_region" class="form-label">المنطقة</label>
+                                                                <label for="sender_region" class="form-label">{{ __('package.sender_region') }}</label>
                                                                 <input type="text" class="form-control" id="sender_region" name="sender_region" value="{{ old('sender_region') }}">
                                                                 @error('sender_region')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <label for="sender_city" class="form-label">المدينة</label>
+                                                                <label for="sender_city" class="form-label">{{ __('package.sender_city') }}</label>
                                                                 <input type="text" class="form-control" id="sender_city" name="sender_city" value="{{ old('sender_city') }}">
                                                                 @error('sender_city')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
@@ -233,14 +233,14 @@
 
                                                         <div class="row mb-3">
                                                             <div class="col-md-6">
-                                                                <label for="sender_district" class="form-label">الحي</label>
+                                                                <label for="sender_district" class="form-label">{{ __('package.sender_district') }}</label>
                                                                 <input type="text" class="form-control" id="sender_district" name="sender_district" value="{{ old('sender_district') }}">
                                                                 @error('sender_district')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="sender_postal_code" class="form-label">الرمز البريدي</label>
+                                                                <label for="sender_postal_code" class="form-label">{{ __('package.sender_postal_code') }}</label>
                                                                 <input type="text" class="form-control" id="sender_postal_code" name="sender_postal_code" value="{{ old('sender_postal_code') }}">
                                                                 @error('sender_postal_code')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
@@ -250,14 +250,14 @@
 
                                                         <div class="row mb-3">
                                                             <div class="col-md-6">
-                                                                <label for="sender_location" class="form-label">الموقع</label>
+                                                                <label for="sender_location" class="form-label">{{ __('package.sender_location') }}</label>
                                                                 <input type="text" class="form-control" id="sender_location" name="sender_location" value="{{ old('sender_location') }}">
                                                                 @error('sender_location')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="sender_others" class="form-label">معلومات إضافية</label>
+                                                                <label for="sender_others" class="form-label">{{ __('package.sender_others') }}</label>
                                                                 <input type="text" class="form-control" id="sender_others" name="sender_others" value="{{ old('sender_others') }}">
                                                                 @error('sender_others')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
@@ -271,12 +271,12 @@
                                             <div class="col-lg-6">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>عنوان المستلم</h5>
+                                                        <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>{{ __('package.receiver_address') }}</h5>
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="row mb-3">
                                                             <div class="col-12">
-                                                                <label for="receiver_address" class="form-label">العنوان</label>
+                                                                <label for="receiver_address" class="form-label">{{ __('package.address') }}</label>
                                                                 <input type="text" class="form-control" id="receiver_address" name="receiver_address" value="{{ old('receiver_address') }}">
                                                                 @error('receiver_address')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
@@ -286,21 +286,21 @@
 
                                                         <div class="row mb-3">
                                                             <div class="col-md-4">
-                                                                <label for="receiver_country" class="form-label">الدولة</label>
+                                                                <label for="receiver_country" class="form-label">{{ __('package.receiver_country') }}</label>
                                                                 <input type="text" class="form-control" id="receiver_country" name="receiver_country" value="{{ old('receiver_country') }}">
                                                                 @error('receiver_country')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <label for="receiver_region" class="form-label">المنطقة</label>
+                                                                <label for="receiver_region" class="form-label">{{ __('package.receiver_region') }}</label>
                                                                 <input type="text" class="form-control" id="receiver_region" name="receiver_region" value="{{ old('receiver_region') }}">
                                                                 @error('receiver_region')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <label for="receiver_city" class="form-label">المدينة</label>
+                                                                <label for="receiver_city" class="form-label">{{ __('package.receiver_city') }}</label>
                                                                 <input type="text" class="form-control" id="receiver_city" name="receiver_city" value="{{ old('receiver_city') }}">
                                                                 @error('receiver_city')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
@@ -310,14 +310,14 @@
 
                                                         <div class="row mb-3">
                                                             <div class="col-md-6">
-                                                                <label for="receiver_district" class="form-label">الحي</label>
+                                                                <label for="receiver_district" class="form-label">{{ __('package.receiver_district') }}</label>
                                                                 <input type="text" class="form-control" id="receiver_district" name="receiver_district" value="{{ old('receiver_district') }}">
                                                                 @error('receiver_district')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="receiver_postal_code" class="form-label">الرمز البريدي</label>
+                                                                <label for="receiver_postal_code" class="form-label">{{ __('package.receiver_postal_code') }}</label>
                                                                 <input type="text" class="form-control" id="receiver_postal_code" name="receiver_postal_code" value="{{ old('receiver_postal_code') }}">
                                                                 @error('receiver_postal_code')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
@@ -327,14 +327,14 @@
 
                                                         <div class="row mb-3">
                                                             <div class="col-md-6">
-                                                                <label for="receiver_location" class="form-label">الموقع</label>
+                                                                <label for="receiver_location" class="form-label">{{ __('package.receiver_location') }}</label>
                                                                 <input type="text" class="form-control" id="receiver_location" name="receiver_location" value="{{ old('receiver_location') }}">
                                                                 @error('receiver_location')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="receiver_others" class="form-label">معلومات إضافية</label>
+                                                                <label for="receiver_others" class="form-label">{{ __('package.receiver_others') }}</label>
                                                                 <input type="text" class="form-control" id="receiver_others" name="receiver_others" value="{{ old('receiver_others') }}">
                                                                 @error('receiver_others')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
@@ -353,31 +353,31 @@
                                             <div class="col-lg-12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5 class="mb-0"><i class="fas fa-cube me-2"></i>مواصفات الطرد</h5>
+                                                        <h5 class="mb-0"><i class="fas fa-cube me-2"></i>{{__('package.package_specifications')}}</h5>
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="row mb-3">
                                                             <div class="col-md-4">
-                                                                <label for="package_type" class="form-label">نوع الطرد</label>
+                                                                <label for="package_type" class="form-label">{{ __('package.package_type') }}</label>
                                                                 <select class="form-select" id="package_type" name="package_type">
-                                                                    <option value="box" {{ old('package_type') == 'box' ? 'selected' : '' }}>صندوق</option>
-                                                                    <option value="envelope" {{ old('package_type') == 'envelope' ? 'selected' : '' }}>مظروف</option>
-                                                                    <option value="pallet" {{ old('package_type') == 'pallet' ? 'selected' : '' }}>بالت</option>
-                                                                    <option value="tube" {{ old('package_type') == 'tube' ? 'selected' : '' }}>أنبوب</option>
-                                                                    <option value="bag" {{ old('package_type') == 'bag' ? 'selected' : '' }}>حقيبة</option>
+                                                                    <option value="box" {{ old('package_type') == 'box' ? 'selected' : '' }}>{{ __('package.type_box') }}</option>
+                                                                    <option value="envelope" {{ old('package_type') == 'envelope' ? 'selected' : '' }}>{{ __('package.type_envelope') }}</option>
+                                                                    <option value="pallet" {{ old('package_type') == 'pallet' ? 'selected' : '' }}>{{ __('package.type_pallet') }}</option>
+                                                                    <option value="tube" {{ old('package_type') == 'tube' ? 'selected' : '' }}>{{ __('package.type_tube') }}</option>
+                                                                    <option value="bag" {{ old('package_type') == 'bag' ? 'selected' : '' }}>{{ __('package.type_bag') }}</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <label for="package_size" class="form-label">الحجم</label>
+                                                                <label for="package_size" class="form-label">{{ __('package.package_size') }}</label>
                                                                 <select class="form-select" id="package_size" name="package_size">
-                                                                    <option value="small" {{ old('package_size') == 'small' ? 'selected' : '' }}>صغير</option>
-                                                                    <option value="medium" {{ old('package_size') == 'medium' ? 'selected' : '' }}>متوسط</option>
-                                                                    <option value="large" {{ old('package_size') == 'large' ? 'selected' : '' }}>كبير</option>
-                                                                    <option value="oversized" {{ old('package_size') == 'oversized' ? 'selected' : '' }}>كبير جداً</option>
+                                                                    <option value="small" {{ old('package_size') == 'small' ? 'selected' : '' }}>{{ __('package.size_small') }}</option>
+                                                                    <option value="medium" {{ old('package_size') == 'medium' ? 'selected' : '' }}>{{ __('package.size_medium') }}</option>
+                                                                    <option value="large" {{ old('package_size') == 'large' ? 'selected' : '' }}>{{ __('package.size_large') }}</option>
+                                                                    <option value="oversized" {{ old('package_size') == 'oversized' ? 'selected' : '' }}>{{ __('package.size_oversized') }}</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <label for="weight" class="form-label">الوزن (كجم)</label>
+                                                                <label for="weight" class="form-label">{{ __('package.weight') }} ({{ __('package.kgm') }})</label>
                                                                 <input type="number" step="0.01" class="form-control" id="weight" name="weight" value="{{ old('weight', 0) }}">
                                                                 @error('weight')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
@@ -387,21 +387,21 @@
 
                                                         <div class="row mb-3">
                                                             <div class="col-md-4">
-                                                                <label for="dimensions.length" class="form-label">الطول (سم)</label>
+                                                                <label for="dimensions.length" class="form-label">{{ __('package.dimensions.length') }} ({{ __('package.cm') }})</label>
                                                                 <input type="number" step="0.01" class="form-control" id="dimensions.length" name="dimensions[length]" value="{{ old('dimensions.length', 0) }}">
                                                                 @error('dimensions.length')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <label for="dimensions.width" class="form-label">العرض (سم)</label>
+                                                                <label for="dimensions.width" class="form-label">{{ __('package.dimensions.width') }} ({{ __('package.cm') }})</label>
                                                                 <input type="number" step="0.01" class="form-control" id="dimensions.width" name="dimensions[width]" value="{{ old('dimensions.width', 0) }}">
                                                                 @error('dimensions.width')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <label for="dimensions.height" class="form-label">الارتفاع (سم)</label>
+                                                                <label for="dimensions.height" class="form-label">{{ __('package.dimensions.height') }} ({{ __('package.cm') }})</label>
                                                                 <input type="number" step="0.01" class="form-control" id="dimensions.height" name="dimensions[height]" value="{{ old('dimensions.height', 0) }}">
                                                                 @error('dimensions.height')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
@@ -411,7 +411,7 @@
 
                                                         <div class="row mb-3">
                                                             <div class="col-12">
-                                                                <label for="package_content" class="form-label">محتويات الطرد</label>
+                                                                <label for="package_content" class="form-label">{{ __('package.package_content') }}</label>
                                                                 <textarea class="form-control" id="package_content" name="package_content" rows="3">{{ old('package_content') }}</textarea>
                                                                 @error('package_content')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
@@ -421,7 +421,7 @@
 
                                                         <div class="row mb-3">
                                                             <div class="col-12">
-                                                                <label for="package_note" class="form-label">ملاحظات</label>
+                                                                <label for="package_note" class="form-label">{{ __('package.package_note') }}</label>
                                                                 <textarea class="form-control" id="package_note" name="package_note" rows="3">{{ old('package_note') }}</textarea>
                                                                 @error('package_note')
                                                                     <div class="text-danger small mt-1">{{ $message }}</div>
@@ -437,7 +437,7 @@
                                             <div class="col-lg-12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5 class="mb-0"><i class="fas fa-cube me-2"></i>مواصفات الطرد</h5>
+                                                        <h5 class="mb-0"><i class="fas fa-cube me-2"></i>{{ __('package_specifications') }}</h5>
                                                     </div>
                                                     <div class="card-body">
                                                         @livewire('admin.package.create-product-component')
@@ -453,49 +453,49 @@
                                             <div class="col-lg-6">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5 class="mb-0"><i class="fas fa-shipping-fast me-2"></i>خيارات التوصيل</h5>
+                                                        <h5 class="mb-0"><i class="fas fa-shipping-fast me-2"></i> {{ __('package.delivery_options') }}</h5>
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="row mb-3">
                                                             <div class="col-md-6">
-                                                                <label for="delivery_speed" class="form-label">سرعة التوصيل</label>
+                                                                <label for="delivery_speed" class="form-label">{{ __('package.delivery_speed') }}</label>
                                                                 <select class="form-select" id="delivery_speed" name="delivery_speed">
-                                                                    <option value="standard" {{ old('delivery_speed') == 'standard' ? 'selected' : '' }}>عادي</option>
-                                                                    <option value="express" {{ old('delivery_speed') == 'express' ? 'selected' : '' }}>سريع</option>
-                                                                    <option value="same_day" {{ old('delivery_speed') == 'same_day' ? 'selected' : '' }}>نفس اليوم</option>
-                                                                    <option value="next_day" {{ old('delivery_speed') == 'next_day' ? 'selected' : '' }}>اليوم التالي</option>
+                                                                    <option value="standard" {{ old('delivery_speed') == 'standard' ? 'selected' : '' }}>{{ __('package.speed_standard') }}</option>
+                                                                    <option value="express" {{ old('delivery_speed') == 'express' ? 'selected' : '' }}>{{ __('package.speed_express') }}</option>
+                                                                    <option value="same_day" {{ old('delivery_speed') == 'same_day' ? 'selected' : '' }}>{{ __('package.speed_same_day') }}</option>
+                                                                    <option value="next_day" {{ old('delivery_speed') == 'next_day' ? 'selected' : '' }}>{{ __('package.speed_next_day') }}</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="delivery_date" class="form-label">تاريخ التوصيل</label>
+                                                                <label for="delivery_date" class="form-label">{{ __('package.delivery_date') }}</label>
                                                                 <input type="date" class="form-control" id="delivery_date" name="delivery_date" value="{{ old('delivery_date') }}">
                                                             </div>
                                                         </div>
 
                                                         <div class="row mb-3">
                                                             <div class="col-md-6">
-                                                                <label for="delivery_method" class="form-label">طريقة التوصيل</label>
+                                                                <label for="delivery_method" class="form-label">{{ __('package.delivery_method') }}</label>
                                                                 <select class="form-select" id="delivery_method" name="delivery_method">
-                                                                    <option value="standard" {{ old('delivery_method') == 'standard' ? 'selected' : '' }}>عادي</option>
-                                                                    <option value="express" {{ old('delivery_method') == 'express' ? 'selected' : '' }}>سريع</option>
-                                                                    <option value="pickup" {{ old('delivery_method') == 'pickup' ? 'selected' : '' }}>استلام من الفرع</option>
-                                                                    <option value="courier" {{ old('delivery_method') == 'courier' ? 'selected' : '' }}>مستعجل</option>
+                                                                    <option value="standard" {{ old('delivery_method') == 'standard' ? 'selected' : '' }}>{{ __('package.method_standard') }}</option>
+                                                                    <option value="express" {{ old('delivery_method') == 'express' ? 'selected' : '' }}>{{ __('package.method_express') }}</option>
+                                                                    <option value="pickup" {{ old('delivery_method') == 'pickup' ? 'selected' : '' }}>{{ __('package.method_pickup') }}</option>
+                                                                    <option value="courier" {{ old('delivery_method') == 'courier' ? 'selected' : '' }}>{{ __('package.method_courier') }}</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="origin_type" class="form-label">نوع المصدر</label>
+                                                                <label for="origin_type" class="form-label">{{ __('package.origin_type') }}</label>
                                                                 <select class="form-select" id="origin_type" name="origin_type">
-                                                                    <option value="warehouse" {{ old('origin_type') == 'warehouse' ? 'selected' : '' }}>مستودع</option>
-                                                                    <option value="store" {{ old('origin_type') == 'store' ? 'selected' : '' }}>متجر</option>
-                                                                    <option value="home" {{ old('origin_type') == 'home' ? 'selected' : '' }}>منزل</option>
-                                                                    <option value="other" {{ old('origin_type') == 'other' ? 'selected' : '' }}>أخرى</option>
+                                                                    <option value="warehouse" {{ old('origin_type') == 'warehouse' ? 'selected' : '' }}>{{ __('package.origin_warehouse') }}</option>
+                                                                    <option value="store" {{ old('origin_type') == 'store' ? 'selected' : '' }}>{{ __('package.origin_store') }}</option>
+                                                                    <option value="home" {{ old('origin_type') == 'home' ? 'selected' : '' }}>{{ __('package.origin_home') }}</option>
+                                                                    <option value="other" {{ old('origin_type') == 'other' ? 'selected' : '' }}>{{ __('package.origin_other') }}</option>
                                                                 </select>
                                                             </div>
                                                         </div>
 
                                                         <div class="row mb-3">
                                                             <div class="col-md-6">
-                                                                <label for="status1" class="form-label">الحالة</label>
+                                                                <label for="status1" class="form-label">{{ __('package.status') }}</label>
                                                                 <select class="form-select" id="status1" name="status">
                                                                     @foreach (\App\Models\Package::statuses() as $key => $label)
                                                                         <option value="{{ $key }}" {{ old('status', $package->status ?? '') == $key ? 'selected' : '' }}>
@@ -511,7 +511,7 @@
 
                                                         <div class="row mb-3">
                                                             <div class="col-12">
-                                                                <label for="delivery_status_note" class="form-label">ملاحظات الحالة</label>
+                                                                <label for="delivery_status_note" class="form-label">{{ __('package.delivery_status_note') }}</label>
                                                                 <textarea class="form-control" id="delivery_status_note" name="delivery_status_note" rows="3">{{ old('delivery_status_note') }}</textarea>
                                                             </div>
                                                         </div>
@@ -519,18 +519,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h5 class="mb-0"><i class="fas fa-shipping-fast me-2"></i>التحصيل</h5>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div class="row mb-3">
-                                                            <div class="col-md-12">
-                                                                @livewire('admin.package.create-package-collection-component')
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                @livewire('admin.package.create-package-collection-component')
                                             </div>
                                         </div>
 
@@ -538,7 +527,7 @@
                                             <div class="col-lg-12">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5 class="mb-0"><i class="fas fa-shipping-fast me-2"></i>خيارات اضافية</h5>
+                                                        <h5 class="mb-0"><i class="fas fa-shipping-fast me-2"></i>{{ __('package.additional_options') }}</h5>
                                                     </div>
                                                     @php
                                                         // القيم الافتراضية

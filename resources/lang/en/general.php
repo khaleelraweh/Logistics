@@ -89,6 +89,7 @@ return [
     'to'                    => 'To',
     'previous'              =>  'Previous',
     'next'                  =>  'Next',
+    'required'              =>  'Required',
 
 
 

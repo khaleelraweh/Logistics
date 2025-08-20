@@ -13,14 +13,18 @@ return [
     'package_description'    => 'يمكنك إدارة الطرود هنا',
 
     'trip_information'       => 'معلومات الرحلة',
+    'basic_informaion'      =>  'المعلومات الأساسية',
+    'delivery_options'      =>  'خيارات التوصيل',
+    'review'                =>  'مراجعة',
+    'review_the_information'                =>  'مراجعة المعلومات',
 
-    'sender_Information'     => 'بيانات المرسل',
+    'sender_Information'     => 'معلومات المرسل',
     'sender_first_name'      => 'الاسم الأول',
     'sender_middle_name'     => 'اسم الأب',
     'sender_last_name'       => 'الاسم الأخير',
     'sender_email'           => 'البريد الإلكتروني للمرسل',
     'sender_phone'           => 'هاتف المرسل',
-    'sender_address'         => 'العنوان',
+    'sender_address'         => 'عنوان المرسل',
     'sender_country'         => 'دولة المرسل',
     'sender_region'          => 'منطقة المرسل',
     'sender_city'            => 'مدينة المرسل',
@@ -29,13 +33,13 @@ return [
     'sender_location'        => 'الموقع الجغرافي',
     'sender_others'          => 'أخرى',
 
-    'receiver_Information'   => 'بيانات المستلم',
+    'receiver_Information'   => 'معلومات المستلم',
     'receiver_first_name'    => 'الاسم الأول',
     'receiver_middle_name'   => 'اسم الأب',
     'receiver_last_name'     => 'الاسم الأخير',
     'receiver_email'         => 'البريد الإلكتروني للمستلم',
     'receiver_phone'         => 'هاتف المستلم',
-    'receiver_address'       => 'العنوان',
+    'receiver_address'       => 'عنوان المستلم',
     'receiver_country'       => 'دولة المستلم',
     'receiver_region'        => 'منطقة المستلم',
     'receiver_city'          => 'مدينة المستلم',
@@ -43,6 +47,10 @@ return [
     'receiver_postal_code'   => 'الرمز البريدي',
     'receiver_location'      => 'الموقع الجغرافي',
     'receiver_others'        => 'أخرى',
+    'address'               =>  'العنوان',
+
+    'package_specifications'    =>  'مواصفات الطرد',
+
 
     'receiver_name'          => 'اسم المستلم',
     'tracking_number'        => 'رقم التتبع',
@@ -94,10 +102,13 @@ return [
         'height'            => 'الارتفاع',
     ],
 
+    'cm'                    =>  'سم',
+
     'package_content'       => 'محتويات الطرد',
     'package_note'          =>  'ملاحظات الطرد',
 
     'weight'                => 'الوزن',
+    'kgm'                   =>  'كجم',
 
     'additional_information' => 'معلومات إضافية',
 
@@ -158,6 +169,8 @@ return [
 
 
     'delivery_status_note'      => 'ملاحظات حالة التسليم',
+
+    'additional_options'         =>  'خيارات اضافية',
 
     'package_attributes'        => 'خصائص إضافية للطرد',
 

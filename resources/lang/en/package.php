@@ -13,6 +13,10 @@ return [
     'package_description'    => 'You can manage packages here',
 
     'trip_information'       => 'Trip Information',
+    'basic_informaion'      =>   'Basic Information',
+    'delivery_options'      =>   'Delivery Options',
+    'review'                =>  'Review',
+    'review_the_information'                =>  'Review The Information',
 
     'sender_Information'     => 'Sender Information',
     'sender_first_name'      => 'First Name',
@@ -20,7 +24,7 @@ return [
     'sender_last_name'       => 'Last Name',
     'sender_email'           => 'Sender Email',
     'sender_phone'           => 'Sender Phone',
-    'sender_address'         => 'Address',
+    'sender_address'         => 'Sender Address',
     'sender_country'         => 'Sender Country',
     'sender_region'          => 'Sender Region',
     'sender_city'            => 'Sender City',
@@ -35,7 +39,7 @@ return [
     'receiver_last_name'     => 'Last Name',
     'receiver_email'         => 'Receiver Email',
     'receiver_phone'         => 'Receiver Phone',
-    'receiver_address'       => 'Address',
+    'receiver_address'       => 'Receiver Address',
     'receiver_country'       => 'Receiver Country',
     'receiver_region'        => 'Receiver Region',
     'receiver_city'          => 'Receiver City',
@@ -43,6 +47,10 @@ return [
     'receiver_postal_code'   => 'Postal Code',
     'receiver_location'      => 'Geographic Location',
     'receiver_others'        => 'Others',
+    'address'               =>  'Address',
+
+    'package_specifications'    =>  'Package specifications',
+
 
     'receiver_name'          => 'Receiver Name',
     'tracking_number'        => 'Tracking Number',
@@ -94,10 +102,13 @@ return [
         'height'            => 'Height',
     ],
 
+    'cm'                    =>  'CM',
+
     'package_content'       => 'Package Content',
     'package_note'          =>  'Package Note',
 
     'weight'                => 'Weight',
+    'kgm'                   =>  'Kgm',
 
     'additional_information' => 'Additional Information',
 
@@ -162,6 +173,7 @@ return [
 
     'package_attributes'        => 'Additional Package Attributes',
 
+    'additional_options'         =>  'Additional Option',
     // Package attributes
     'is_fragile'                => 'Fragile',
     'is_returnable'             => 'Returnable',
