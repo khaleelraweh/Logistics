@@ -941,7 +941,6 @@
             updateReviewPage();
         });
 
-
     });
 </script>
 @endsection
