@@ -27,7 +27,7 @@
                             <ul class="twitter-bs-wizard-nav">
                                 <li class="nav-item">
                                     <a href="#seller-details" class="nav-link" data-toggle="tab">
-                                        <span class="step-number">01</span>
+                                        <span class="step-number"><i class="fas fa-user"></i></span>
                                         <span class="step-title">Seller Details</span>
                                     </a>
                                 </li>
