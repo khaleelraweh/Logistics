@@ -239,7 +239,7 @@
         @media print {
             @page {
                 size: A4;
-                margin: 15mm 10mm 20mm 10mm;
+                margin: 10mm 8mm 15mm 8mm;
 
                 /* إزالة الرأس والتذييل الافتراضي بالكامل */
                 margin-header: 0;
@@ -248,23 +248,21 @@
                 @top-left { content: ''; }
                 @top-center { content: ''; }
                 @top-right { content: ''; }
-                @bottom-left { content: ''; }
                 @bottom-center {
                     content: "الصفحة " counter(page) " من " counter(pages);
                     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                     font-size: 10px;
                     color: #666;
-                    margin-bottom: 5mm;
+                    margin-bottom: 3mm;
                 }
-                @bottom-right { content: ''; }
             }
 
             body {
                 background: white;
                 padding: 0;
                 margin: 0;
-                font-size: 13px;
-                line-height: 1.6;
+                font-size: 12px;
+                line-height: 1.5;
                 width: 100%;
                 height: auto;
                 -webkit-print-color-adjust: exact;
@@ -285,56 +283,62 @@
             }
 
             .contract-header {
-                padding: 20px;
+                padding: 15px;
                 page-break-after: avoid;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
 
             .contract-header h1 {
-                font-size: 24px;
+                font-size: 22px;
             }
 
             .contract-content {
-                padding: 20px 15px;
+                padding: 15px 10px;
             }
 
             .section {
-                margin-bottom: 20px;
-                padding-bottom: 15px;
+                margin-bottom: 15px;
+                padding-bottom: 10px;
                 page-break-inside: avoid;
             }
 
             .info-grid {
-                gap: 12px;
-                margin-bottom: 15px;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 8px;
+                margin-bottom: 12px;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
 
             .info-value {
-                padding: 8px 10px;
-                font-size: 12px;
+                padding: 6px 8px;
+                font-size: 11px;
             }
 
             table {
-                font-size: 11px;
+                font-size: 10px;
                 page-break-inside: avoid;
                 width: 100%;
+                margin: 10px 0;
             }
 
             th, td {
-                padding: 8px 6px;
+                padding: 6px 4px;
             }
 
             .signatures {
-                margin-top: 30px;
+                margin-top: 20px;
                 page-break-before: avoid;
                 page-break-inside: avoid;
+                gap: 15px;
             }
 
-            /* إصلاح المسافات بين الأقسام في الطباعة */
+            .signature-box {
+                padding: 10px;
+            }
+
+            /* تحسين المسافات بين الأقسام في الطباعة */
             .section + .section {
-                margin-top: 20px;
+                margin-top: 15px;
             }
 
             /* منع تقسيم الصفوف بين الصفحات */
@@ -344,12 +348,12 @@
 
             /* تحسين تنسيق القوائم في الطباعة */
             ol {
-                padding-right: 15px;
+                padding-right: 12px;
             }
 
             li {
-                margin-bottom: 8px;
-                font-size: 12px;
+                margin-bottom: 6px;
+                font-size: 11px;
             }
 
             /* إخفاء العناصر غير المرغوبة في الطباعة */
@@ -358,20 +362,21 @@
             }
 
             .contract-footer {
-                padding: 15px;
-                font-size: 12px;
+                padding: 12px;
+                font-size: 11px;
                 page-break-before: avoid;
             }
 
             /* تحسين مظهر العناصر في الطباعة */
             .status-badge {
-                font-size: 11px;
-                padding: 4px 8px;
+                font-size: 10px;
+                padding: 3px 6px;
             }
 
             .section-title {
-                font-size: 16px;
-                padding: 10px 15px;
+                font-size: 14px;
+                padding: 8px 12px;
+                margin-bottom: 12px;
             }
 
             /* ضمان ظهور الألوان في الطباعة */
@@ -393,6 +398,40 @@
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
+
+            /* تحسين خاص للجداول القصيرة */
+            .compact-table {
+                font-size: 9px;
+            }
+
+            .compact-table th,
+            .compact-table td {
+                padding: 4px 3px;
+            }
+
+            /* منع الهوامش الكبيرة بعد الجداول القصيرة */
+            table + .section {
+                margin-top: 5px;
+            }
+
+            /* تحسين تخطيط التوقيعات للطباعة */
+            .signatures {
+                margin-top: 30px;
+                page-break-inside: avoid;
+            }
+        }
+
+        /* تحسينات إضافية للجداول القصيرة */
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 15px;
+        }
+
+        /* نمط للجداول ذات الصفوف القليلة */
+        .short-table {
+            width: auto;
+            min-width: 100%;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -478,30 +517,32 @@
 
             <div class="section">
                 <h2 class="section-title">الرفوف المؤجرة</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>رمز الرف</th>
-                            <th>المستودع</th>
-                            <th>الحجم</th>
-                            <th>السعر (ريال/شهر)</th>
-                            <th>تاريخ البداية</th>
-                            <th>تاريخ النهاية</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($contract->shelves as $shelf)
+                <div class="table-container">
+                    <table class="short-table">
+                        <thead>
                             <tr>
-                                <td>{{ $shelf->code }}</td>
-                                <td>{{ $shelf->warehouse->name ?? 'غير محدد' }}</td>
-                                <td>{{ $shelf->size }}</td>
-                                <td>{{ number_format($shelf->pivot->custom_price ?? $shelf->price, 2) }}</td>
-                                <td>{{ $shelf->pivot->custom_start ?? $contract->rental_start->format('Y-m-d') }}</td>
-                                <td>{{ $shelf->pivot->custom_end ?? $contract->rental_end->format('Y-m-d') }}</td>
+                                <th>رمز الرف</th>
+                                <th>المستودع</th>
+                                <th>الحجم</th>
+                                <th>السعر (ريال/شهر)</th>
+                                <th>تاريخ البداية</th>
+                                <th>تاريخ النهاية</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach($contract->shelves as $shelf)
+                                <tr>
+                                    <td>{{ $shelf->code }}</td>
+                                    <td>{{ $shelf->warehouse->name ?? 'غير محدد' }}</td>
+                                    <td>{{ $shelf->size }}</td>
+                                    <td>{{ number_format($shelf->pivot->custom_price ?? $shelf->price, 2) }}</td>
+                                    <td>{{ $shelf->pivot->custom_start ?? $contract->rental_start->format('Y-m-d') }}</td>
+                                    <td>{{ $shelf->pivot->custom_end ?? $contract->rental_end->format('Y-m-d') }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="section">
@@ -540,44 +581,46 @@
                         </div>
                     </div>
 
-                    <h3 class="section-title" style="margin-top: 30px;">تفاصيل الدفعات</h3>
+                    <h3 class="section-title" style="margin-top: 20px;">تفاصيل الدفعات</h3>
 
                     @if($contract->invoice->payments->count())
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>رقم الدفعة</th>
-                                    <th>المبلغ (ريال)</th>
-                                    <th>طريقة الدفع</th>
-                                    <th>تاريخ الدفع</th>
-                                    <th>الحالة</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($contract->invoice->payments as $payment)
+                        <div class="table-container">
+                            <table class="compact-table">
+                                <thead>
                                     <tr>
-                                        <td>{{ $payment->id }}</td>
-                                        <td>{{ number_format($payment->amount, 2) }}</td>
-                                        <td>{{ $payment->method ?? 'غير محدد' }}</td>
-                                        <td>{{ $payment->paid_on ? $payment->paid_on->format('Y-m-d') : 'غير مدفوع' }}</td>
-                                        <td>
-                                            @if($payment->status == 'paid')
-                                                <span class="status-badge status-active">مدفوع</span>
-                                            @else
-                                                <span class="status-badge status-inactive">غير مدفوع</span>
-                                            @endif
-                                        </td>
+                                        <th>رقم الدفعة</th>
+                                        <th>المبلغ (ريال)</th>
+                                        <th>طريقة الدفع</th>
+                                        <th>تاريخ الدفع</th>
+                                        <th>الحالة</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach($contract->invoice->payments as $payment)
+                                        <tr>
+                                            <td>{{ $payment->id }}</td>
+                                            <td>{{ number_format($payment->amount, 2) }}</td>
+                                            <td>{{ $payment->method ?? 'غير محدد' }}</td>
+                                            <td>{{ $payment->paid_on ? $payment->paid_on->format('Y-m-d') : 'غير مدفوع' }}</td>
+                                            <td>
+                                                @if($payment->status == 'paid')
+                                                    <span class="status-badge status-active">مدفوع</span>
+                                                @else
+                                                    <span class="status-badge status-inactive">غير مدفوع</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     @else
-                        <div class="info-value" style="text-align: center; padding: 20px;">
+                        <div class="info-value" style="text-align: center; padding: 15px;">
                             لا توجد دفعات مرتبطة بهذه الفاتورة حتى الآن.
                         </div>
                     @endif
                 @else
-                    <div class="info-value" style="text-align: center; padding: 20px;">
+                    <div class="info-value" style="text-align: center; padding: 15px;">
                         لا توجد فاتورة مرتبطة بهذا العقد.
                     </div>
                 @endif
@@ -585,8 +628,8 @@
 
             <div class="section">
                 <h2 class="section-title">بنود العقد</h2>
-                <div style="padding: 15px; background: #f8f9fa; border-radius: 5px;">
-                    <ol style="padding-right: 20px;">
+                <div style="padding: 12px; background: #f8f9fa; border-radius: 5px;">
+                    <ol style="padding-right: 18px;">
                         <li>يمتلك الطرف الثاني الحق في استخدام المساحة المستأجرة لتخزين البضائع والمنتجات وفقاً للشروط المتفق عليها.</li>
                         <li>يلتزم الطرف الثاني بدفع كامل المبالغ المستحقة в المواعيد المحددة وفقاً لشروط الدفع المتفق عليها.</li>
                         <li>يلتزم الطرف الثاني بعدم تخزين مواد خطرة أو محظورة قانوناً داخل المساحة المستأجرة.</li>
@@ -603,18 +646,16 @@
                     <div class="signature-title">توقيع الطرف الأول (المؤجر)</div>
                     <p>الاسم: مدير الفرع</p>
                     <p>التاريخ: _______________</p>
-                    <div style="height: 80px; margin-top: 20px; border-bottom: 1px solid #ccc;"></div>
+                    <div style="height: 60px; margin-top: 15px; border-bottom: 1px solid #ccc;"></div>
                 </div>
 
                 <div class="signature-box">
                     <div class="signature-title">توقيع الطرف الثاني (المستأجر)</div>
                     <p>الاسم: {{ $contract->merchant->contact_person }}</p>
                     <p>التاريخ: _______________</p>
-                    <div style="height: 80px; margin-top: 20px; border-bottom: 1px solid #ccc;"></div>
+                    <div style="height: 60px; margin-top: 15px; border-bottom: 1px solid #ccc;"></div>
                 </div>
             </div>
-
-            <!-- تم إزالة ختم الشركة -->
         </div>
 
         <div class="contract-footer">
