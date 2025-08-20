@@ -533,6 +533,70 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5 class="mb-0"><i class="fas fa-shipping-fast me-2"></i>خيارات اضافية</h5>
+                                                    </div>
+                                                    @php
+                                                        // القيم الافتراضية
+                                                        $defaultAttributes = [
+                                                            "is_fragile" => true,
+                                                            "is_returnable" => false,
+                                                            "is_confidential" => true,
+                                                            "is_express" => false,
+                                                            "is_cod" => true,
+                                                            "is_gift" => false,
+                                                            "is_oversized" => false,
+                                                            "is_hazardous_material" => false,
+                                                            "is_temperature_controlled" => false,
+                                                            "is_perishable" => false,
+                                                            "is_signature_required" => true,
+                                                            "is_inspection_required" => false,
+                                                            "is_special_handling_required" => true,
+                                                        ];
+
+                                                        // لو في بيانات قديمة (بعد فشل التحقق مثلًا) نستخدمها، وإلا نستخدم الافتراضية
+                                                        $attrs = old('attributes', $defaultAttributes);
+
+                                                        // الملاحظة الخاصة بالحالة
+                                                        $delivery_status_note = old('delivery_status_note', '');
+
+                                                        // جميع المفاتيح مع الترجمة
+                                                        $allKeys = [
+                                                            "is_fragile" => __('package.is_fragile'),
+                                                            "is_returnable" => __('package.is_returnable'),
+                                                            "is_confidential" => __('package.is_confidential'),
+                                                            "is_express" => __('package.is_express'),
+                                                            "is_cod" => __('package.is_cod'),
+                                                            "is_gift" => __('package.is_gift'),
+                                                            "is_oversized" => __('package.is_oversized'),
+                                                            "is_hazardous_material" => __('package.is_hazardous_material'),
+                                                            "is_temperature_controlled" => __('package.is_temperature_controlled'),
+                                                            "is_perishable" => __('package.is_perishable'),
+                                                            "is_signature_required" => __('package.is_signature_required'),
+                                                            "is_inspection_required" => __('package.is_inspection_required'),
+                                                            "is_special_handling_required" => __('package.is_special_handling_required'),
+                                                        ];
+                                                    @endphp
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            @foreach($allKeys as $key => $label)
+                                                                <div class="col-md-4">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="checkbox" id="{{ $key }}" name="attributes[{{ $key }}]" value="1" {{ !empty($attrs[$key]) ? 'checked' : '' }}>
+                                                                        <label class="form-check-label" for="{{ $key }}">{{ $label }}</label>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="confirm-detail">
