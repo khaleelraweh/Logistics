@@ -12,7 +12,34 @@ File: Custom Bootstrap Css File
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+  @font-face {
+  font-family: 'DroidKufi-Regular';
+  src: url('../fonts/font/DroidKufi-Regular.eot');
+  src: url('../fonts/font/DroidKufi-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/font/DroidKufi-Regular.woff') format('woff'),
+  url('../fonts/font/DroidKufi-Regular.ttf') format('truetype'),
+  url('../fonts/font/DroidKufi-Regular.svg#DroidKufi-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DroidKufi-Bold';
+  src: url('../fonts/font/DroidKufi-Bold.eot');
+  src: url('../fonts/font/DroidKufi-Bold.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/font/DroidKufi-Bold.woff') format('woff'),
+  url('../fonts/font/DroidKufi-Bold.ttf') format('truetype'),
+  url('../fonts/font/DroidKufi-Bold.svg#DroidKufi-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
+  --bs-font-bold-sans-serif: "DroidKufi-Bold", Helvetica, sans-serif;
+  --bs-font-regular-sans-serif: "DroidKufi-Regular", Helvetica, sans-serif;
+
+
   --bs-blue: #5438DC;
   --bs-indigo: #564ab1;
   --bs-purple: #0f9cf3;
@@ -57,8 +84,8 @@ File: Custom Bootstrap Css File
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 80, 93, 105;
   --bs-body-bg-rgb: 239, 243, 246;
-  --bs-font-sans-serif: "Nunito", sans-serif;
-  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --bs-font-sans-serif: var(--bs-font-regular-sans-serif);
+  --bs-font-monospace: var(--bs-font-regular-sans-serif);
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 0.9rem;
@@ -13390,7 +13417,7 @@ h4,
 h5,
 h6 {
   color: #0a1832;
-  font-family: "Inter", sans-serif;
+  font-family: var(--bs-font-bold-sans-serif);
 }
 
 a {

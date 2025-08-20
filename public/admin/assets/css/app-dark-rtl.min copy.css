@@ -512,7 +512,7 @@ body[data-layout=horizontal] .footer {
   font-size: 13.3px;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
-  font-family: var(--bs-font-regular-sans-serif);
+  font-family: "Inter", sans-serif;
   font-weight: 500;
 }
 #sidebar-menu ul li a i {
@@ -561,7 +561,7 @@ body[data-layout=horizontal] .footer {
   text-transform: uppercase;
   color: #8590a5;
   font-weight: 600;
-  font-family: var(--bs-font-regular-sans-serif);;
+  font-family: "Inter", sans-serif;
   opacity: 0.5;
 }
 
@@ -948,7 +948,7 @@ body[data-sidebar=colored] .menu-title {
   position: relative;
   padding: 1rem 1.3rem;
   color: #919bae;
-  font-family: var(--bs-font-regular-sans-serif);;
+  font-family: "Inter", sans-serif;
 }
 .topnav .navbar-nav .nav-link i {
   font-size: 15px;
@@ -1401,7 +1401,7 @@ body[data-layout=horizontal][data-layout-size=boxed] .container-fluid, body[data
 }
 
 .font-family-secondary {
-  font-family: var(--bs-font-regular-sans-serif);;
+  font-family: "Inter", sans-serif;
 }
 
 .font-size-10 {

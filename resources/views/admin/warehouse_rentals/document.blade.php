@@ -6,6 +6,28 @@
     <title>عقد إيجار مستودع - النظام اللوجستي</title>
     <style>
 
+        @font-face {
+        font-family: 'DroidKufi-Regular';
+        src: url('../../../../admin/assets/fonts/font/DroidKufi-Regular.eot');
+        src: url('../../../../admin/assets/fonts/font/DroidKufi-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../../../../admin/assets/fonts/font/DroidKufi-Regular.woff') format('woff'),
+        url('../../../../admin/assets/fonts/font/DroidKufi-Regular.ttf') format('truetype'),
+        url('../../../../admin/assets/fonts/font/DroidKufi-Regular.svg#DroidKufi-Regular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+        }
+
+        @font-face {
+        font-family: 'DroidKufi-Bold';
+        src: url('../../../../admin/assets/fonts/font/DroidKufi-Bold.eot');
+        src: url('../../../../admin/assets/fonts/font/DroidKufi-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../../../../admin/assets/fonts/font/DroidKufi-Bold.woff') format('woff'),
+        url('../../../../admin/assets/fonts/font/DroidKufi-Bold.ttf') format('truetype'),
+        url('../../../../admin/assets/fonts/font/DroidKufi-Bold.svg#DroidKufi-Bold') format('svg');
+        font-weight: normal;
+        font-style: normal;
+        }
+
         /* تنسيقات عامة */
         * {
             box-sizing: border-box;
@@ -14,7 +36,7 @@
         }
 
         body {
-            font-family: "DejaVu Sans", sans-serif !important;
+            font-family: "DroidKufi-Bold" ,  "DejaVu Sans", sans-serif !important;
             line-height: 1.8;
             direction: rtl;
             color: #333;
@@ -251,7 +273,7 @@
                 @top-right { content: ''; }
                 @bottom-center {
                     content: "الصفحة " counter(page) " من " counter(pages);
-                    font-family: "DejaVu Sans", sans-serif;
+                    font-family: "DroidKufi-Regular" ,"DejaVu Sans", sans-serif;
                     font-size: 10px;
                     color: #666;
                     margin-bottom: 3mm;

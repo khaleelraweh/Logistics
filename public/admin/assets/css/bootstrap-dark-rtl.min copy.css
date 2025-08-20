@@ -85,10 +85,10 @@ File: Custom Bootstrap Css File
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 121, 133, 156;
   --bs-body-bg-rgb: 29, 34, 46;
-  --bs-font-sans-serif: var(--bs-font-regular-sans-serif);
+  --bs-font-sans-serif: "Nunito", sans-serif;
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --bs-body-font-family: var(--bs-font-regular-sans-serif);
+  --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 0.9rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
@@ -285,7 +285,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: var(--bs-font-regular-sans-serif);
+  font-family: var(--bs-font-monospace);
   font-size: 1em;
   direction: ltr ;
   unicode-bidi: bidi-override;
@@ -8567,7 +8567,7 @@ textarea.form-control-lg {
 }
 
 .font-monospace {
-  font-family: var(---bs-font-regular-sans-serif) !important;
+  font-family: var(--bs-font-monospace) !important;
 }
 
 .fs-1 {
@@ -13419,7 +13419,7 @@ h4,
 h5,
 h6 {
   color: #eff2f7;
-  font-family: var(--bs-font-bold-sans-serif);
+  font-family: "Inter", sans-serif;
 }
 
 a {
