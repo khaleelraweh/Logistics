@@ -76,65 +76,6 @@
         border-color: var(--secondary);
     }
 
-    .twitter-bs-wizard .twitter-bs-wizard-nav {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 30px;
-        position: relative;
-        padding: 0;
-        list-style: none;
-    }
-
-    .twitter-bs-wizard .twitter-bs-wizard-nav .nav-item {
-        flex: 1;
-        text-align: center;
-        position: relative;
-    }
-
-    .twitter-bs-wizard .twitter-bs-wizard-nav .nav-item .nav-link {
-        padding: 15px;
-        color: #6c757d;
-        display: block;
-        text-decoration: none;
-    }
-
-    .twitter-bs-wizard .twitter-bs-wizard-nav .nav-item .nav-link .step-number {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        background-color: #fff;
-        border: 4px solid #eaeaea;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 10px;
-        font-size: 18px;
-        color: #999;
-        transition: all 0.3s;
-    }
-
-    .twitter-bs-wizard .twitter-bs-wizard-nav .nav-item.active .nav-link {
-        color: var(--primary);
-    }
-
-    .twitter-bs-wizard .twitter-bs-wizard-nav .nav-item.active .nav-link .step-number {
-        border-color: var(--primary);
-        background-color: var(--primary);
-        color: #fff;
-    }
-
-    .twitter-bs-wizard .twitter-bs-wizard-nav .nav-item.completed .nav-link .step-number {
-        border-color: var(--success);
-        background-color: var(--success);
-        color: #fff;
-    }
-
-    .twitter-bs-wizard .twitter-bs-wizard-pager-link {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-    }
-
     .section-title {
         position: relative;
         padding-right: 15px;
@@ -163,25 +104,7 @@
         margin-bottom: 10px;
     }
 
-    @media (max-width: 768px) {
-        .twitter-bs-wizard .twitter-bs-wizard-nav {
-            flex-direction: column;
-        }
 
-        .twitter-bs-wizard .twitter-bs-wizard-nav .nav-item {
-            margin-bottom: 15px;
-        }
-
-        .step-title {
-            font-size: 12px;
-        }
-
-        .step-number {
-            width: 36px;
-            height: 36px;
-            font-size: 14px;
-        }
-    }
 </style>
 
 @endsection
