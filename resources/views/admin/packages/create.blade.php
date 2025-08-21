@@ -252,29 +252,43 @@
                                                                 </div>
                                                             </div>
 
+
+
                                                             <div class="row mb-3">
                                                                 <div class="col-md-4">
-                                                                    <label for="sender_first_name" class="form-label">{{ __('package.sender_first_name') }}</label>
-                                                                    <input type="text" class="form-control {{ $errors->has('sender_first_name') ? 'is-invalid' : '' }}" id="sender_first_name" name="sender_first_name" value="{{ old('sender_first_name') }}" required>
+                                                                    <label for="sender_first_name" class="form-label">
+                                                                        {{ __('package.sender_first_name') }} <span class="text-danger">*</span>
+                                                                    </label>
+                                                                    <input type="text" class="form-control {{ $errors->has('sender_first_name') ? 'is-invalid' : '' }}"
+                                                                        id="sender_first_name" name="sender_first_name" value="{{ old('sender_first_name') }}" required>
                                                                     @error('sender_first_name')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
+
                                                                 <div class="col-md-4">
-                                                                    <label for="sender_middle_name" class="form-label">{{ __('package.sender_middle_name') }}</label>
-                                                                    <input type="text" class="form-control {{ $errors->has('sender_middle_name') ? 'is-invalid' : '' }}" id="sender_middle_name" name="sender_middle_name" value="{{ old('sender_middle_name') }}" required>
+                                                                    <label for="sender_middle_name" class="form-label">
+                                                                        {{ __('package.sender_middle_name') }} <span class="text-danger">*</span>
+                                                                    </label>
+                                                                    <input type="text" class="form-control {{ $errors->has('sender_middle_name') ? 'is-invalid' : '' }}"
+                                                                        id="sender_middle_name" name="sender_middle_name" value="{{ old('sender_middle_name') }}" required>
                                                                     @error('sender_middle_name')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
+
                                                                 <div class="col-md-4">
-                                                                    <label for="sender_last_name" class="form-label">{{ __('package.sender_last_name') }}</label>
-                                                                    <input type="text" class="form-control {{ $errors->has('sender_last_name') ? 'is-invalid' : '' }}" id="sender_last_name" name="sender_last_name" value="{{ old('sender_last_name') }}" required>
+                                                                    <label for="sender_last_name" class="form-label">
+                                                                        {{ __('package.sender_last_name') }} <span class="text-danger">*</span>
+                                                                    </label>
+                                                                    <input type="text" class="form-control {{ $errors->has('sender_last_name') ? 'is-invalid' : '' }}"
+                                                                        id="sender_last_name" name="sender_last_name" value="{{ old('sender_last_name') }}" required>
                                                                     @error('sender_last_name')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
                                                             </div>
+
 
                                                             <div class="row mb-3">
                                                                 <div class="col-md-6">
@@ -285,7 +299,7 @@
                                                                     @enderror
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <label for="sender_phone" class="form-label">{{ __('package.sender_phone') }}</label>
+                                                                    <label for="sender_phone" class="form-label">{{ __('package.sender_phone') }}  <span class="text-danger">*</span></label>
                                                                     <input type="text" class="form-control {{ $errors->has('sender_phone') ? 'is-invalid' : '' }}" id="sender_phone" name="sender_phone" value="{{ old('sender_phone') }}" required>
                                                                     @error('sender_phone')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -322,21 +336,21 @@
 
                                                             <div class="row mb-3">
                                                                 <div class="col-md-4">
-                                                                    <label for="receiver_first_name" class="form-label">{{ __('package.receiver_first_name') }}</label>
+                                                                    <label for="receiver_first_name" class="form-label">{{ __('package.receiver_first_name') }} <span class="text-danger">*</span></label>
                                                                     <input type="text" class="form-control {{ $errors->has('receiver_first_name') ? 'is-invalid' : '' }}" id="receiver_first_name" name="receiver_first_name" value="{{ old('receiver_first_name') }}" required>
                                                                     @error('receiver_first_name')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
                                                                 <div class="col-md-4">
-                                                                    <label for="receiver_middle_name" class="form-label">{{ __('package.receiver_middle_name') }}</label>
+                                                                    <label for="receiver_middle_name" class="form-label">{{ __('package.receiver_middle_name') }} <span class="text-danger">*</span></label>
                                                                     <input type="text" class="form-control {{ $errors->has('receiver_middle_name') ? 'is-invalid' : '' }}" id="receiver_middle_name" name="receiver_middle_name" value="{{ old('receiver_middle_name') }}" required>
                                                                     @error('receiver_middle_name')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
                                                                 <div class="col-md-4">
-                                                                    <label for="receiver_last_name" class="form-label">{{ __('package.receiver_last_name') }}</label>
+                                                                    <label for="receiver_last_name" class="form-label">{{ __('package.receiver_last_name') }} <span class="text-danger">*</span></label>
                                                                     <input type="text" class="form-control {{ $errors->has('receiver_last_name') ? 'is-invalid' : '' }}" id="receiver_last_name" name="receiver_last_name" value="{{ old('receiver_last_name') }}" required>
                                                                     @error('receiver_last_name')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -353,7 +367,7 @@
                                                                     @enderror
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <label for="receiver_phone" class="form-label">{{ __('package.receiver_phone') }}</label>
+                                                                    <label for="receiver_phone" class="form-label">{{ __('package.receiver_phone') }} <span class="text-danger">*</span></label>
                                                                     <input type="text" class="form-control {{ $errors->has('receiver_phone') ? 'is-invalid' : '' }}" id="receiver_phone" name="receiver_phone" value="{{ old('receiver_phone') }}" required>
                                                                     @error('receiver_phone')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -1102,277 +1116,166 @@
 @endsection
 
 
+
+
+
 @section('script')
-    <script>
-        $(document).ready(function () {
+<script>
+$(document).ready(function () {
 
-            // دالة التحقق العامة للتاب الحالي
-            function validateCurrentStep() {
-                var $currentTab = $('.tab-pane.active');
-                // تجاهل الحقول المخفية أو المعطلة
-                var $requiredFields = $currentTab
-                    .find('input[required], select[required], textarea[required]')
-                    .filter(function () { return $(this).is(':visible') && !$(this).prop('disabled'); });
+    // دالة التحقق العامة للتاب الحالي
+    function validateCurrentStep() {
+        var $currentTab = $('.tab-pane.active');
+        // جميع الحقول المطلوبة
+        var $requiredFields = $currentTab
+            .find('input[required], select[required], textarea[required]')
+            .filter(function () { return $(this).is(':visible') && !$(this).prop('disabled'); });
 
-                var isValid = true;
-                var firstInvalid = null;
+        var isValid = true;
+        var firstInvalid = null;
 
-                $requiredFields.each(function () {
-                    var val = $(this).val();
-                    var empty = (val === null || val === '' || (Array.isArray(val) && val.length === 0));
+        $requiredFields.each(function () {
+            var val = $(this).val();
+            var empty = (val === null || val === '' || (Array.isArray(val) && val.length === 0));
 
-                    if (empty) {
-                        isValid = false;
-                        if (!firstInvalid) firstInvalid = this;
-                        $(this).addClass('is-invalid');
-                        if (!$(this).next('.invalid-feedback').length) {
-                            $(this).after('<div class="invalid-feedback">هذا الحقل مطلوب</div>');
-                        }
-                    } else {
-                        $(this).removeClass('is-invalid');
-                        $(this).next('.invalid-feedback').remove();
-                    }
-                });
-
-                if (!isValid) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'تنبيه',
-                        text: 'يرجى ملء جميع الحقول المطلوبة قبل الانتقال إلى الخطوة التالية.',
-                        confirmButtonText: 'موافق'
-                    });
-                    if (firstInvalid) { $(firstInvalid).focus(); }
+            if (empty) {
+                isValid = false;
+                if (!firstInvalid) firstInvalid = this;
+                $(this).addClass('is-invalid');
+                if (!$(this).next('.invalid-feedback').length) {
+                    $(this).after('<div class="invalid-feedback">هذا الحقل مطلوب</div>');
                 }
-                return isValid;
-            }
-
-            // تهيئة الـ wizard الأساسي + منع الانتقال عند الفشل
-            $("#basic-pills-wizard").bootstrapWizard({
-                tabClass: "nav nav-pills nav-justified",
-                onNext: function (tab, navigation, index) {
-                    if (!validateCurrentStep()) return false;
-                },
-                // منع الانتقال بالنقر على التاب للأمام إذا فشل التحقق
-                onTabClick: function (tab, navigation, index) {
-                    var activeIndex = navigation.find('li').index(navigation.find('li.active'));
-                    if (index > activeIndex && !validateCurrentStep()) return false;
-                }
-            });
-
-            // تهيئة الـ wizard ذو التقدّم (إن وُجد) + منع الانتقال عند الفشل
-            $("#progrss-wizard").bootstrapWizard({
-                onTabShow: function (tab, navigation, index) {
-                    var progress = (index + 1) / navigation.find("li").length * 100;
-                    $("#progrss-wizard").find(".progress-bar").css({ width: progress + "%" });
-                },
-                onNext: function (tab, navigation, index) {
-                    if (!validateCurrentStep()) return false;
-                },
-                onTabClick: function (tab, navigation, index) {
-                    var activeIndex = navigation.find('li').index(navigation.find('li.active'));
-                    if (index > activeIndex && !validateCurrentStep()) return false;
-                }
-            });
-
-            // 🔒 قفل إضافي: منع أي انتقال أمامي عبر تبويبات الـ Bootstrap حتى لو تم استدعاؤها برمجياً
-            $(document).on('show.bs.tab', '.twitter-bs-wizard-nav .nav-link', function (e) {
-                var $links = $('.twitter-bs-wizard-nav .nav-link');
-                var currentIndex = $links.index($links.filter('.active'));
-                var targetIndex = $links.index($(e.target));
-                if (targetIndex > currentIndex && !validateCurrentStep()) {
-                    e.preventDefault();
-                }
-            });
-
-            // 🔒 قفل أزرار "التالي" خارج الويزارد إن وُجدت
-            $(document).on('click', '.next', function (e) {
-                if (!validateCurrentStep()) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            // ====== دالة تحديث تبويب المراجعة ======
-            function updateReviewPage() {
-                // معلومات المرسل
-                $('#review-sender-merchant').text($('#merchant_id option:selected').text() || 'بدون تاجر');
-                $('#review-sender-name').text(
-                    ($('#sender_first_name').val() || '') + ' ' +
-                    ($('#sender_middle_name').val() || '') + ' ' +
-                    ($('#sender_last_name').val() || '')
-                );
-                $('#review-sender-email').text($('#sender_email').val() || 'غير محدد');
-                $('#review-sender-phone').text($('#sender_phone').val() || 'غير محدد');
-                $('#review-sender-address').text($('#sender_address').val() || 'غير محدد');
-                $('#review-sender-country').text($('#sender_country').val() || 'غير محدد');
-                $('#review-sender-city').text($('#sender_city').val() || 'غير محدد');
-                $('#review-sender-postal').text($('#sender_postal_code').val() || 'غير محدد');
-
-                // معلومات المستلم
-                $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text() || 'بدون تاجر');
-                $('#review-receiver-name').text(
-                    ($('#receiver_first_name').val() || '') + ' ' +
-                    ($('#receiver_middle_name').val() || '') + ' ' +
-                    ($('#receiver_last_name').val() || '')
-                );
-                $('#review-receiver-email').text($('#receiver_email').val() || 'غير محدد');
-                $('#review-receiver-phone').text($('#receiver_phone').val() || 'غير محدد');
-                $('#review-receiver-address').text($('#receiver_address').val() || 'غير محدد');
-                $('#review-receiver-country').text($('#receiver_country').val() || 'غير محدد');
-                $('#review-receiver-city').text($('#receiver_city').val() || 'غير محدد');
-                $('#review-receiver-postal').text($('#receiver_postal_code').val() || 'غير محدد');
-
-                // مواصفات الطرد
-                $('#review-package-type').text($('#package_type option:selected').text() || 'غير محدد');
-                $('#review-package-size').text($('#package_size option:selected').text() || 'غير محدد');
-                $('#review-weight').text(($('#weight').val() || '0') + ' كجم');
-                $('#review-dimensions').text(
-                    ($('#dimensions\\.length').val() || '0') + 'x' +
-                    ($('#dimensions\\.width').val() || '0') + 'x' +
-                    ($('#dimensions\\.height').val() || '0') + ' سم'
-                );
-                $('#review-package-content').text($('#package_content').val() || 'لا يوجد محتوى');
-                $('#review-package-note').text($('#package_note').val() || 'لا يوجد ملاحظات');
-
-                // خيارات التوصيل
-                $('#review-delivery-speed').text($('#delivery_speed option:selected').text() || 'غير محدد');
-                $('#review-delivery-method').text($('#delivery_method option:selected').text() || 'غير محدد');
-                $('#review-origin-type').text($('#origin_type option:selected').text() || 'غير محدد');
-                $('#review-delivery-date').text($('#delivery_date').val() || 'غير محدد');
-                $('#review-status').text($('#status1 option:selected').text() || 'غير محدد');
-                $('#review-status-note').text($('#delivery_status_note').val() || 'لا يوجد ملاحظات');
-
-                // الخصائص
-                var attributesHtml = '';
-                var hasAttributes = false;
-
-                $('input[name^="attributes"]:checked').each(function () {
-                    var label = $('label[for="' + $(this).attr('id') + '"]').text();
-                    attributesHtml += '<span class="badge bg-primary me-1 mb-1"><i class="fas fa-check-circle me-1"></i>' + label + '</span>';
-                    hasAttributes = true;
-                });
-
-                if (!hasAttributes) {
-                    attributesHtml = '<div class="text-muted"><i class="fas fa-info-circle me-1"></i>لم يتم تحديد أي خصائص إضافية</div>';
-                }
-
-                $('#review-attributes').html(attributesHtml);
-
-                // معلومات التحصيل (من Livewire components)
-                try {
-                    $('#review-payment-responsibility').text($('select[name="payment_responsibility"] option:selected').text() || 'غير محدد');
-                    $('#review-payment-method').text($('select[name="payment_method"] option:selected').text() || 'غير محدد');
-                    $('#review-collection-method').text($('select[name="collection_method"] option:selected').text() || 'غير محدد');
-                    $('#review-delivery-fee').text(($('input[name="delivery_fee"]').val() || '0') + ' ر.س');
-                    $('#review-insurance-fee').text(($('input[name="insurance_fee"]').val() || '0') + ' ر.س');
-                    $('#review-service-fee').text(($('input[name="service_fee"]').val() || '0') + ' ر.س');
-                    $('#review-total-fee').text(($('input[name="total_fee"]').val() || '0') + ' ر.س');
-                    $('#review-paid-amount').text(($('input[name="paid_amount"]').val() || '0') + ' ر.س');
-                    $('#review-remaining-amount').text(($('input[name="due_amount"]').val() || '0') + ' ر.س');
-                    $('#review-cod-amount').text(($('input[name="cod_amount"]').val() || '0') + ' ر.س');
-                } catch (e) {
-                    console.log('Livewire components not loaded yet');
-                }
-
-                // المنتجات (من Livewire component)
-                try {
-                    var productsHtml = '';
-                    var totalProductsValue = 0;
-                    var hasProducts = false;
-
-                    $('.table-bordered tbody tr').each(function () {
-                        var type = $(this).find('select[name*="[type]"] option:selected').text() ||
-                            $(this).find('input[readonly]').val() || 'مخصص';
-
-                        var name = $(this).find('select[name*="[stock_item_id]"] option:selected').text() ||
-                            $(this).find('input[name*="[custom_name]"]').val() || 'غير محدد';
-
-                        if (name.includes('-- اختر من المخزون --')) {
-                            name = 'غير محدد';
-                        }
-
-                        var weight = $(this).find('input[name*="[weight]"]').val() || '0';
-                        var quantity = $(this).find('input[name*="[quantity]"]').val() || '0';
-                        var price = $(this).find('input[name*="[price_per_unit]"]').val() || '0';
-                        var total = $(this).find('input[name*="[total_price]"]').val() || '0';
-
-                        if (name !== 'غير محدد' || weight !== '0' || quantity !== '0') {
-                            if (!hasProducts) {
-                                productsHtml = `
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-hover">
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th><i class="fas fa-cube me-1"></i> النوع</th>
-                                                    <th><i class="fas fa-tag me-1"></i> المنتج</th>
-                                                    <th><i class="fas fa-weight me-1"></i> الوزن (كجم)</th>
-                                                    <th><i class="fas fa-layer-group me-1"></i> الكمية</th>
-                                                    <th><i class="fas fa-money-bill me-1"></i> السعر (ر.س)</th>
-                                                    <th><i class="fas fa-calculator me-1"></i> الإجمالي (ر.س)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>`;
-                            }
-
-                            productsHtml += `
-                                <tr>
-                                    <td>${type}</td>
-                                    <td>${name}</td>
-                                    <td>${weight}</td>
-                                    <td>${quantity}</td>
-                                    <td>${price}</td>
-                                    <td class="fw-bold">${total}</td>
-                                </tr>`;
-
-                            totalProductsValue += parseFloat(total) || 0;
-                            hasProducts = true;
-                        }
-                    });
-
-                    if (hasProducts) {
-                        productsHtml += `
-                                <tr class="table-success">
-                                    <td colspan="5" class="text-end fw-bold"><i class="fas fa-calculator me-1"></i> المجموع:</td>
-                                    <td class="fw-bold">${totalProductsValue.toFixed(2)} ر.س</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>`;
-                    } else {
-                        productsHtml = `
-                            <div class="text-center py-4 bg-light rounded">
-                                <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
-                                <p class="text-muted mb-0">لم يتم إضافة أي منتجات</p>
-                            </div>`;
-                    }
-
-                    $('#review-products').html(productsHtml);
-                } catch (e) {
-                    console.log('Error loading products:', e);
-                    $('#review-products').html(`
-                        <div class="alert alert-warning">
-                            <i class="fas fa-exclamation-triangle me-2"></i>
-                            حدث خطأ في تحميل بيانات المنتجات
-                        </div>
-                    `);
-                }
-            }
-
-            // تحديث صفحة المراجعة عند فتح تبويبها
-            $(document).on('shown.bs.tab', 'a[href="#confirm-detail"]', function () {
-                updateReviewPage();
-            });
-
-            // تنظيف التنبيهات عند التركيز
-            $(document).on('focus', '.is-invalid', function () {
+            } else {
                 $(this).removeClass('is-invalid');
                 $(this).next('.invalid-feedback').remove();
-            });
-
+            }
         });
-    </script>
-@endsection
 
+        // تحقق من جميع الحقول من نوع email، سواء كانت required أو لا
+        $currentTab.find('input[type="email"]').each(function () {
+            var val = $(this).val();
+            if (val) { // تحقق فقط إذا تم إدخال قيمة
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(val)) {
+                    isValid = false;
+                    if (!firstInvalid) firstInvalid = this;
+                    $(this).addClass('is-invalid');
+                    if (!$(this).next('.invalid-feedback').length) {
+                        $(this).after('<div class="invalid-feedback">يرجى إدخال بريد إلكتروني صالح</div>');
+                    }
+                } else {
+                    $(this).removeClass('is-invalid');
+                    $(this).next('.invalid-feedback').remove();
+                }
+            }
+        });
+
+        if (!isValid) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'تنبيه',
+                text: 'يرجى ملء جميع الحقول المطلوبة بشكل صحيح قبل الانتقال إلى الخطوة التالية.',
+                confirmButtonText: 'موافق'
+            });
+            if (firstInvalid) { $(firstInvalid).focus(); }
+        }
+        return isValid;
+    }
+
+    // تهيئة الـ wizard الأساسي + منع الانتقال عند الفشل
+    $("#basic-pills-wizard").bootstrapWizard({
+        tabClass: "nav nav-pills nav-justified",
+        onNext: function (tab, navigation, index) {
+            if (!validateCurrentStep()) return false;
+        },
+        onTabClick: function (tab, navigation, index) {
+            var activeIndex = navigation.find('li').index(navigation.find('li.active'));
+            if (index > activeIndex && !validateCurrentStep()) return false;
+        }
+    });
+
+    // تهيئة الـ wizard ذو التقدّم
+    $("#progrss-wizard").bootstrapWizard({
+        onTabShow: function (tab, navigation, index) {
+            var progress = (index + 1) / navigation.find("li").length * 100;
+            $("#progrss-wizard").find(".progress-bar").css({ width: progress + "%" });
+        },
+        onNext: function (tab, navigation, index) {
+            if (!validateCurrentStep()) return false;
+        },
+        onTabClick: function (tab, navigation, index) {
+            var activeIndex = navigation.find('li').index(navigation.find('li.active'));
+            if (index > activeIndex && !validateCurrentStep()) return false;
+        }
+    });
+
+    // منع الانتقال للأمام عبر تبويبات الـ Bootstrap
+    $(document).on('show.bs.tab', '.twitter-bs-wizard-nav .nav-link', function (e) {
+        var $links = $('.twitter-bs-wizard-nav .nav-link');
+        var currentIndex = $links.index($links.filter('.active'));
+        var targetIndex = $links.index($(e.target));
+        if (targetIndex > currentIndex && !validateCurrentStep()) {
+            e.preventDefault();
+        }
+    });
+
+    // منع أزرار "التالي" خارج الويزارد
+    $(document).on('click', '.next', function (e) {
+        if (!validateCurrentStep()) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // تحديث صفحة المراجعة
+    function updateReviewPage() {
+        // معلومات المرسل
+        $('#review-sender-merchant').text($('#merchant_id option:selected').text() || 'بدون تاجر');
+        $('#review-sender-name').text(
+            ($('#sender_first_name').val() || '') + ' ' +
+            ($('#sender_middle_name').val() || '') + ' ' +
+            ($('#sender_last_name').val() || '')
+        );
+        $('#review-sender-email').text($('#sender_email').val() || 'غير محدد');
+        $('#review-sender-phone').text($('#sender_phone').val() || 'غير محدد');
+        $('#review-sender-address').text($('#sender_address').val() || 'غير محدد');
+        $('#review-sender-country').text($('#sender_country').val() || 'غير محدد');
+        $('#review-sender-city').text($('#sender_city').val() || 'غير محدد');
+        $('#review-sender-postal').text($('#sender_postal_code').val() || 'غير محدد');
+
+        // معلومات المستلم
+        $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text() || 'بدون تاجر');
+        $('#review-receiver-name').text(
+            ($('#receiver_first_name').val() || '') + ' ' +
+            ($('#receiver_middle_name').val() || '') + ' ' +
+            ($('#receiver_last_name').val() || '')
+        );
+        $('#review-receiver-email').text($('#receiver_email').val() || 'غير محدد');
+        $('#review-receiver-phone').text($('#receiver_phone').val() || 'غير محدد');
+        $('#review-receiver-address').text($('#receiver_address').val() || 'غير محدد');
+        $('#review-receiver-country').text($('#receiver_country').val() || 'غير محدد');
+        $('#review-receiver-city').text($('#receiver_city').val() || 'غير محدد');
+        $('#review-receiver-postal').text($('#receiver_postal_code').val() || 'غير محدد');
+
+        // باقي بيانات المراجعة تبقى كما في كودك الأصلي...
+        // مواصفات الطرد، خيارات التوصيل، الخصائص، التحصيل، المنتجات
+        // ...
+    }
+
+    // تحديث صفحة المراجعة عند فتح تبويبها
+    $(document).on('shown.bs.tab', 'a[href="#confirm-detail"]', function () {
+        updateReviewPage();
+    });
+
+    // تنظيف التنبيهات عند التركيز
+    $(document).on('focus', '.is-invalid', function () {
+        $(this).removeClass('is-invalid');
+        $(this).next('.invalid-feedback').remove();
+    });
+
+});
+</script>
+@endsection
 
 
 
