@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
              $table->id();
             $table->string('invoice_number')->unique(); // رقم الفاتورة
-            $table->foreignId('merchant_id')->constrained()->onDelete('cascade'); // التاجر
+            $table->foreignId('merchant_id')->nullable()->constrained()->onDelete('cascade'); // التاجر
             $table->morphs('payable'); // Polymorphic (ربط بطرد أو إيجار)
             $table->decimal('total_amount', 10, 2); // المبلغ الإجمالي
             $table->decimal('paid_amount', 10, 2)->default(0);
