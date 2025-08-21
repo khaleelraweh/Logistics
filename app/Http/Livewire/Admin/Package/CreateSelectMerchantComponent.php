@@ -17,7 +17,7 @@ class CreateSelectMerchantComponent extends Component
 
     public function updatedMerchantId($value)
     {
-        // نرسل الحدث مع القيمة للتعامل معه في الكومبوننت الآخر
+        // نرسل الحدث مع القيمة للتعامل معه في الكومبوننت الآخر اختيار المنتجات
         $this->emit('merchantSelected', $this->merchant_id);
     }
 
