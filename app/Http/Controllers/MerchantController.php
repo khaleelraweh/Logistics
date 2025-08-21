@@ -59,63 +59,118 @@ class MerchantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(MerchantRequest $request)
+    // {
+
+    //     if (!auth()->user()->ability('admin', 'create_merchants')) {
+    //         return redirect('admin/index');
+    //     }
+
+    //     // dd($request);
+
+    //     $input['name']              =   $request->name;
+    //     $input['contact_person']    =   $request->contact_person;
+    //     $input['address']           =   $request->address;
+    //     $input['phone']             =   $request->phone;
+    //     $input['email']             =   $request->email;
+    //     $input['api_key']           =   $request->api_key;
+
+    //     $input['status']            =   $request->status=='on' ? true : false;
+
+    //     $input['facebook']      =   $request->facebook;
+    //     $input['twitter']       =   $request->twitter;
+    //     $input['instagram']     =   $request->instagram;
+    //     $input['linkedin']      =   $request->linkedin;
+    //     $input['youtube']       =   $request->youtube;
+    //     $input['website']       =   $request->website;
+
+    //     $merchant = Merchant::create($input);
+
+    //     if($merchant){
+    //         if ($image = $request->file('logo')) {
+    //             $manager = new ImageManager(new Driver());
+    //             $file_name = $merchant->email . '.' . $image->extension();
+    //             $img = $manager->read($request->file('logo'));
+    //             $img->toJpeg(80)->save(base_path('public/assets/merchants/' . $file_name));
+
+    //             $merchant->update([
+    //                 'logo'  => $file_name,
+    //             ]);
+
+    //         }
+    //     }
+
+
+    //     if($merchant){
+    //         return redirect()->route('admin.merchants.index')->with([
+    //             'message' => __('messages.merchant_created'),
+    //             'alert-type' => 'success'
+    //         ]);
+
+    //     }
+
+    //     return redirect()->route('admin.merchants.index')->with([
+    //         'message' => __('messages.something_went_wrong'),
+    //         'alert-type' => 'danger'
+    //     ]);
+
+
+    // }
+
+
     public function store(MerchantRequest $request)
     {
-
         if (!auth()->user()->ability('admin', 'create_merchants')) {
             return redirect('admin/index');
         }
 
-        // dd($request);
-
-        $input['name']              =   $request->name;
-        $input['contact_person']    =   $request->contact_person;
-        $input['address']           =   $request->address;
-        $input['phone']             =   $request->phone;
-        $input['email']             =   $request->email;
-        $input['api_key']           =   $request->api_key;
-
-        $input['status']            =   $request->status=='on' ? true : false;
-
-        $input['facebook']      =   $request->facebook;
-        $input['twitter']       =   $request->twitter;
-        $input['instagram']     =   $request->instagram;
-        $input['linkedin']      =   $request->linkedin;
-        $input['youtube']       =   $request->youtube;
-        $input['website']       =   $request->website;
+        $input = [
+            'name'           => $request->name,
+            'contact_person' => $request->contact_person,
+            'country'        => $request->country,
+            'region'         => $request->region,
+            'city'           => $request->city,
+            'district'       => $request->district,
+            'postal_code'    => $request->postal_code,
+            'latitude'       => $request->latitude,
+            'longitude'      => $request->longitude,
+            'others'         => $request->others,
+            'phone'          => $request->phone,
+            'email'          => $request->email,
+            'api_key'        => $request->api_key,
+            'status'         => $request->status == 'on' ? true : false,
+            'facebook'       => $request->facebook,
+            'twitter'        => $request->twitter,
+            'instagram'      => $request->instagram,
+            'linkedin'       => $request->linkedin,
+            'youtube'        => $request->youtube,
+            'website'        => $request->website,
+        ];
 
         $merchant = Merchant::create($input);
 
-        if($merchant){
-            if ($image = $request->file('logo')) {
-                $manager = new ImageManager(new Driver());
-                $file_name = $merchant->email . '.' . $image->extension();
-                $img = $manager->read($request->file('logo'));
-                $img->toJpeg(80)->save(base_path('public/assets/merchants/' . $file_name));
+        if ($merchant && $request->hasFile('logo')) {
+            $manager = new ImageManager(new Driver());
+            $file_name = $merchant->email . '.' . $request->file('logo')->extension();
+            $img = $manager->read($request->file('logo'));
+            $img->toJpeg(80)->save(public_path('assets/merchants/' . $file_name));
 
-                $merchant->update([
-                    'logo'  => $file_name,
-                ]);
-
-            }
+            $merchant->update(['logo' => $file_name]);
         }
 
-
-        if($merchant){
+        if ($merchant) {
             return redirect()->route('admin.merchants.index')->with([
                 'message' => __('messages.merchant_created'),
                 'alert-type' => 'success'
             ]);
-
         }
 
         return redirect()->route('admin.merchants.index')->with([
             'message' => __('messages.something_went_wrong'),
             'alert-type' => 'danger'
         ]);
-
-
     }
+
 
 
 
