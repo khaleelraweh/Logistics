@@ -169,7 +169,14 @@
                         </div>
 
 
-                           <!-- Address / Location Fields -->
+                        <!-- Address Section -->
+                         <div class="mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                    <i class="bi bi-geo-alt text-primary"></i>
+                                </div>
+                                <h5 class="mb-0">{{ __('general.address_details') }}</h5>
+                            </div>
                             <div class="row mb-3">
                                 <label class="col-md-2 col-form-label" for="country">{{ __('general.country') }}</label>
                                 <div class="col-md-10">
@@ -227,28 +234,25 @@
 
                             <div class="row mb-3">
                                 <label class="col-md-2 col-form-label" for="latitude">{{ __('general.latitude') }}</label>
-                                <div class="col-md-10">
-                                    <input type="text" name="latitude" id="latitude" class="form-control"
-                                           value="{{ old('latitude', $merchant->latitude) }}">
+                                <div class="col-md-4">
+                                    <input name="latitude" class="form-control" id="latitude" type="text" value="{{ old('latitude' , $merchant->latitude) }}">
                                     @error('latitude')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
 
-                            <div class="row mb-3">
                                 <label class="col-md-2 col-form-label" for="longitude">{{ __('general.longitude') }}</label>
-                                <div class="col-md-10">
-                                    <input type="text" name="longitude" id="longitude" class="form-control"
-                                           value="{{ old('longitude', $merchant->longitude) }}">
+                                <div class="col-md-4">
+                                    <input name="longitude" class="form-control" id="longitude" type="text" value="{{ old('longitude' , $merchant->longitude) }}">
                                     @error('longitude')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
 
+
                             <div class="row mb-3">
-                                <label class="col-md-2 col-form-label" for="others">{{ __('general.others') }}</label>
+                                <label class="col-md-2 col-form-label" for="others">{{ __('general.additional_notes') }}</label>
                                 <div class="col-md-10">
                                     <input type="text" name="others" id="others" class="form-control"
                                            value="{{ old('others', $merchant->others) }}">
@@ -257,7 +261,7 @@
                                     @enderror
                                 </div>
                             </div>
-
+                        </div>
 
                         <!-- Social Links Section -->
                         <div class="mb-5">
