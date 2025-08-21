@@ -1221,29 +1221,35 @@
         });
 
         // تحقق client-side قبل الانتقال إلى الخطوة التالية
-        $('.next').click(function() {
-            let currentTab = $('.tab-pane.active');
-            let requiredFields = currentTab.find('input[required], select[required], textarea[required]');
-            let isValid = true;
+     $('.next').click(function() {
+    let currentTab = $('.tab-pane.active');
+    let requiredFields = currentTab.find('input[required], select[required], textarea[required]');
+    let isValid = true;
 
-            requiredFields.each(function() {
-                if (!$(this).val()) {
-                    isValid = false;
-                    $(this).addClass('is-invalid');
-                    if (!$(this).next('.invalid-feedback').length) {
-                        $(this).after('<div class="invalid-feedback">هذا الحقل مطلوب</div>');
-                    }
-                } else {
-                    $(this).removeClass('is-invalid');
-                    $(this).next('.invalid-feedback').remove();
-                }
-            });
-
-            if (!isValid) {
-                alert('يرجى ملء جميع الحقول المطلوبة قبل الانتقال إلى الخطوة التالية.');
-                return false;
+    requiredFields.each(function() {
+        if (!$(this).val()) {
+            isValid = false;
+            $(this).addClass('is-invalid');
+            if (!$(this).next('.invalid-feedback').length) {
+                $(this).after('<div class="invalid-feedback">هذا الحقل مطلوب</div>');
             }
+        } else {
+            $(this).removeClass('is-invalid');
+            $(this).next('.invalid-feedback').remove();
+        }
+    });
+
+    if (!isValid) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'تنبيه',
+            text: 'يرجى ملء جميع الحقول المطلوبة قبل الانتقال إلى الخطوة التالية.',
+            confirmButtonText: 'موافق'
         });
+        return false;
+    }
+});
+
 
         // إزالة الرسائل عند التركيز على الحقل
         $(document).on('focus', '.is-invalid', function() {
