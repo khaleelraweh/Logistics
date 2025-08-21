@@ -203,7 +203,7 @@
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <label for="sender_middle_name" class="form-label">{{ __('package.sender_middle_name') }}</label>
-                                                                    <input type="text" class="form-control {{ $errors->has('sender_middle_name') ? 'is-invalid' : '' }}" id="sender_middle_name" name="sender_middle_name" value="{{ old('sender_middle_name') }}">
+                                                                    <input type="text" class="form-control {{ $errors->has('sender_middle_name') ? 'is-invalid' : '' }}" id="sender_middle_name" name="sender_middle_name" value="{{ old('sender_middle_name') }}" required>
                                                                     @error('sender_middle_name')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
@@ -271,7 +271,7 @@
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <label for="receiver_middle_name" class="form-label">{{ __('package.receiver_middle_name') }}</label>
-                                                                    <input type="text" class="form-control {{ $errors->has('receiver_middle_name') ? 'is-invalid' : '' }}" id="receiver_middle_name" name="receiver_middle_name" value="{{ old('receiver_middle_name') }}">
+                                                                    <input type="text" class="form-control {{ $errors->has('receiver_middle_name') ? 'is-invalid' : '' }}" id="receiver_middle_name" name="receiver_middle_name" value="{{ old('receiver_middle_name') }}" required>
                                                                     @error('receiver_middle_name')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
