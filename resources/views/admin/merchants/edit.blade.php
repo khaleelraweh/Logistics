@@ -63,24 +63,7 @@
                                 </div>
                             @endforeach
 
-                            @foreach (config('locales.languages') as $key => $val)
-                                <div class="row mb-3">
-                                    <label class="col-md-2 col-form-label" for="address[{{ $key }}]">
-                                        {{ __('general.address') }}
-                                        <span class="badge bg-light text-dark ms-2">
-                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} me-1"></i>
-                                            {{ __('language.' . $key) }}
-                                        </span>
-                                    </label>
-                                    <div class="col-md-10">
-                                        <input name="address[{{ $key }}]" class="form-control" id="address[{{ $key }}]" type="text"
-                                               value="{{ old('address.' . $key, $merchant->getTranslation('address', $key)) }}">
-                                        @error('address.' . $key)
-                                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            @endforeach
+
                         </div>
 
                         <!-- Contact Data Section -->
@@ -184,6 +167,97 @@
                                 </div>
                             </div>
                         </div>
+
+
+                           <!-- Address / Location Fields -->
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="country">{{ __('general.country') }}</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="country" id="country" class="form-control"
+                                           value="{{ old('country', $merchant->country) }}">
+                                    @error('country')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="region">{{ __('general.region') }}</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="region" id="region" class="form-control"
+                                           value="{{ old('region', $merchant->region) }}">
+                                    @error('region')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="city">{{ __('general.city') }}</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="city" id="city" class="form-control"
+                                           value="{{ old('city', $merchant->city) }}">
+                                    @error('city')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="district">{{ __('general.district') }}</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="district" id="district" class="form-control"
+                                           value="{{ old('district', $merchant->district) }}">
+                                    @error('district')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="postal_code">{{ __('general.postal_code') }}</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="postal_code" id="postal_code" class="form-control"
+                                           value="{{ old('postal_code', $merchant->postal_code) }}">
+                                    @error('postal_code')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="latitude">{{ __('general.latitude') }}</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="latitude" id="latitude" class="form-control"
+                                           value="{{ old('latitude', $merchant->latitude) }}">
+                                    @error('latitude')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="longitude">{{ __('general.longitude') }}</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="longitude" id="longitude" class="form-control"
+                                           value="{{ old('longitude', $merchant->longitude) }}">
+                                    @error('longitude')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="others">{{ __('general.others') }}</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="others" id="others" class="form-control"
+                                           value="{{ old('others', $merchant->others) }}">
+                                    @error('others')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
 
                         <!-- Social Links Section -->
                         <div class="mb-5">
@@ -408,3 +482,7 @@
     });
 </script>
 @endsection
+
+
+
+
