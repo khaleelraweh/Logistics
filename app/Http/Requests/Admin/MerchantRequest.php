@@ -28,7 +28,6 @@ class MerchantRequest extends FormRequest
                     return [
                         'name.ar'                           =>  'required|string|max:255',
                         'contact_person.ar'                 =>  'required|string|max:255',
-                        'address.*'                         =>  'required|string|max:255',
                         'phone'                             =>  'required|string|max:20|unique:merchants',
                         'email'                             =>  'required|email|max:255|unique:merchants',
                         'api_key'                           =>  'nullable',
@@ -53,7 +52,6 @@ class MerchantRequest extends FormRequest
                     return [
                         'name.ar'                           =>  'required|string|max:255',
                         'contact_person.ar'                 =>  'required|string|max:255',
-                        'address.*'                         =>  'required|string|max:255',
                         'phone'                             =>  'required|string|max:20|unique:merchants,phone,'.$this->route()->merchant,
                         'email'                             =>  'required|email|max:255|unique:merchants,email,'.$this->route()->merchant,
                         'api_key'                           =>  'nullable',
@@ -100,7 +98,6 @@ class MerchantRequest extends FormRequest
 
         foreach (config('locales.languages') as $key => $val) {
             $attr += ['name.' . $key       =>  "( " . __('merchant.name')   . ' ' . __('panel.in') . ' ' . __('panel.' . $val['lang'])   . " )",];
-            $attr += ['address.' . $key       =>  "( " . __('general.address')   . ' ' . __('panel.in') . ' ' . __('panel.' . $val['lang'])   . " )",];
             $attr += ['contact_person.' . $key       =>  "( " . __('merchant.contact_person')   . ' ' . __('panel.in') . ' ' . __('panel.' . $val['lang'])   . " )",];
         }
 

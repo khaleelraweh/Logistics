@@ -211,6 +211,18 @@ return [
     'icon'                   => 'أيقونة',
     'fluid'                  => 'مرن',
     'boxed'                  => 'محصور',
+
+
+    // العنوان التفصيلي
+    'address_details'    => 'تفاصيل العنوان',
+    'country'            => 'الدولة',
+    'region'             => 'المنطقة',
+    'city'               => 'المدينة',
+    'district'           => 'الحي',
+    'postal_code'        => 'الرمز البريدي',
+    'latitude'           => 'خط العرض',
+    'longitude'          => 'خط الطول',
+    'additional_notes'   => 'ملاحظات إضافية',
 ];
 
 

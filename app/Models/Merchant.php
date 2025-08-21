@@ -16,7 +16,7 @@ class Merchant extends Model
 
     protected $guarded = [];
 
-    public $translatable = ['name', 'slug' , 'contact_person' , 'address'];
+    public $translatable = ['name', 'slug' , 'contact_person' ];
 
 
 

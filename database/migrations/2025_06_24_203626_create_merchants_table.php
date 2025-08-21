@@ -18,7 +18,16 @@ return new class extends Migration
             $table->id();
             $table->json('name');
             $table->json('slug');
-            $table->json('address');
+               // عنوان التاجر مفصل
+            $table->string('country')->nullable();
+            $table->string('region')->nullable();
+            $table->string('city')->nullable();
+            $table->string('district')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();  // خط العرض
+            $table->decimal('longitude', 10, 7)->nullable();
+            $table->string('others')->nullable();   // ملاحظات إضافية أو تفاصيل صغيرة
+
             $table->json('contact_person');
             $table->string('phone');
             $table->string('email');

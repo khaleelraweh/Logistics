@@ -214,5 +214,18 @@ return [
     'fluid'                  => 'Fluid',
     'boxed'                  => 'Boxed',
 
+     // Detailed Address
+    'address_details'    => 'Address Details',
+    'country'            => 'Country',
+    'region'             => 'Region',
+    'city'               => 'City',
+    'district'           => 'District',
+    'postal_code'        => 'Postal Code',
+    'latitude'           => 'Latitude',
+    'longitude'          => 'Longitude',
+    'additional_notes'   => 'Additional Notes',
+
+
+
 ];
 

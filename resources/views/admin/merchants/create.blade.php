@@ -1,5 +1,93 @@
 @extends('layouts.admin')
 
+@section('styles')
+<style>
+    /* Custom Form Styles */
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+        border: none;
+    }
+
+    .form-control, .form-select, .input-group-text {
+        border-radius: 8px;
+    }
+
+    .form-switch .form-check-input {
+        width: 3rem;
+        height: 1.5rem;
+    }
+
+    .form-switch.form-switch-lg .form-check-input {
+        width: 4rem;
+        height: 2rem;
+    }
+
+    .file-upload-container {
+        border: 2px dashed #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+    }
+
+    .file-upload-container:hover {
+        border-color: #0d6efd;
+        background-color: rgba(13, 110, 253, 0.05);
+    }
+
+    .file-input-overview {
+        width: 100%;
+    }
+
+    .file-upload-preview img {
+        border-radius: 8px;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
+    /* Language Badge */
+    .language-type .flag-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Section Headers */
+    .section-header {
+        position: relative;
+        padding-left: 40px;
+        margin-bottom: 20px;
+    }
+
+    .section-header i {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: rgba(13, 110, 253, 0.1);
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0d6efd;
+    }
+
+    /* Social Icons */
+    .input-group-text i {
+        min-width: 16px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .col-form-label {
+            text-align: left !important;
+            margin-bottom: 5px;
+        }
+    }
+</style>
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <!-- Page Title -->
@@ -62,24 +150,7 @@
                                 </div>
                             @endforeach
 
-                            @foreach (config('locales.languages') as $key => $val)
-                                <div class="row mb-3">
-                                    <label class="col-md-2 col-form-label" for="address[{{ $key }}]">
-                                        {{ __('general.address') }}
-                                        <span class="badge bg-light text-dark ms-2">
-                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} me-1"></i>
-                                            {{ __('language.' . $key) }}
-                                        </span>
-                                    </label>
-                                    <div class="col-md-10">
-                                        <input name="address[{{ $key }}]" class="form-control" id="address[{{ $key }}]" type="text"
-                                               value="{{ old('address.' . $key) }}">
-                                        @error('address.' . $key)
-                                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            @endforeach
+
                         </div>
 
                         <!-- Contact Data Section -->
@@ -181,6 +252,96 @@
                             </div>
                         </div>
 
+                        <!-- address section -->
+                        <!-- Address Section -->
+<div class="mb-5">
+    <div class="d-flex align-items-center mb-4">
+        <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+            <i class="bi bi-geo-alt text-primary"></i>
+        </div>
+        <h5 class="mb-0">{{ __('general.address_details') }}</h5>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="country">{{ __('general.country') }}</label>
+        <div class="col-md-10">
+            <input name="country" class="form-control" id="country" type="text" value="{{ old('country') }}">
+            @error('country')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="region">{{ __('general.region') }}</label>
+        <div class="col-md-10">
+            <input name="region" class="form-control" id="region" type="text" value="{{ old('region') }}">
+            @error('region')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="city">{{ __('general.city') }}</label>
+        <div class="col-md-10">
+            <input name="city" class="form-control" id="city" type="text" value="{{ old('city') }}">
+            @error('city')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="district">{{ __('general.district') }}</label>
+        <div class="col-md-10">
+            <input name="district" class="form-control" id="district" type="text" value="{{ old('district') }}">
+            @error('district')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="postal_code">{{ __('general.postal_code') }}</label>
+        <div class="col-md-10">
+            <input name="postal_code" class="form-control" id="postal_code" type="text" value="{{ old('postal_code') }}">
+            @error('postal_code')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="latitude">{{ __('general.latitude') }}</label>
+        <div class="col-md-4">
+            <input name="latitude" class="form-control" id="latitude" type="text" value="{{ old('latitude') }}">
+            @error('latitude')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <label class="col-md-2 col-form-label" for="longitude">{{ __('general.longitude') }}</label>
+        <div class="col-md-4">
+            <input name="longitude" class="form-control" id="longitude" type="text" value="{{ old('longitude') }}">
+            @error('longitude')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-md-2 col-form-label" for="others">{{ __('general.additional_notes') }}</label>
+        <div class="col-md-10">
+            <input name="others" class="form-control" id="others" type="text" value="{{ old('others') }}">
+            @error('others')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+</div>
+
+
                         <!-- Social Links Section -->
                         <div class="mb-5">
                             <div class="d-flex align-items-center mb-4">
@@ -247,93 +408,7 @@
 </div>
 @endsection
 
-@section('styles')
-<style>
-    /* Custom Form Styles */
-    .card {
-        border-radius: 12px;
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
-        border: none;
-    }
 
-    .form-control, .form-select, .input-group-text {
-        border-radius: 8px;
-    }
-
-    .form-switch .form-check-input {
-        width: 3rem;
-        height: 1.5rem;
-    }
-
-    .form-switch.form-switch-lg .form-check-input {
-        width: 4rem;
-        height: 2rem;
-    }
-
-    .file-upload-container {
-        border: 2px dashed #dee2e6;
-        border-radius: 8px;
-        padding: 20px;
-        text-align: center;
-        background-color: #f8f9fa;
-        transition: all 0.3s ease;
-    }
-
-    .file-upload-container:hover {
-        border-color: #0d6efd;
-        background-color: rgba(13, 110, 253, 0.05);
-    }
-
-    .file-input-overview {
-        width: 100%;
-    }
-
-    .file-upload-preview img {
-        border-radius: 8px;
-        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    }
-
-    /* Language Badge */
-    .language-type .flag-icon {
-        width: 16px;
-        height: 16px;
-    }
-
-    /* Section Headers */
-    .section-header {
-        position: relative;
-        padding-left: 40px;
-        margin-bottom: 20px;
-    }
-
-    .section-header i {
-        position: absolute;
-        left: 0;
-        top: 0;
-        background-color: rgba(13, 110, 253, 0.1);
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #0d6efd;
-    }
-
-    /* Social Icons */
-    .input-group-text i {
-        min-width: 16px;
-    }
-
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-        .col-form-label {
-            text-align: left !important;
-            margin-bottom: 5px;
-        }
-    }
-</style>
-@endsection
 
 @section('script')
 <script>
