@@ -216,68 +216,126 @@ class MerchantController extends Controller
      * @param  \App\Models\Merchant  $merchant
      * @return \Illuminate\Http\Response
      */
+    // public function update(MerchantRequest $request, $merchant)
+    // {
+    //     if (!auth()->user()->ability('admin', 'update_merchants')) {
+    //         return redirect('admin/index');
+    //     }
+
+    //     $merchant = Merchant::where('id', $merchant)->first();
+
+    //     $input['name']              =   $request->name;
+    //     $input['contact_person']    =   $request->contact_person;
+    //     $input['address']           =   $request->address;
+    //     $input['phone']             =   $request->phone;
+    //     $input['email']             =   $request->email;
+    //     $input['api_key']           =   $request->api_key;
+
+    //     $input['status']            =   $request->status=='on' ? true : false;
+
+    //     $input['facebook']      =   $request->facebook;
+    //     $input['twitter']       =   $request->twitter;
+    //     $input['instagram']     =   $request->instagram;
+    //     $input['linkedin']      =   $request->linkedin;
+    //     $input['youtube']       =   $request->youtube;
+    //     $input['website']       =   $request->website;
+
+    //     $merchant->update($input);
+
+    //      if($merchant){
+    //         if ($image = $request->file('logo')) {
+
+    //             if ($merchant->logo != '') {
+    //                 if (File::exists('assets/merchants/' . $merchant->logo)) {
+    //                     unlink('assets/merchants/' . $merchant->logo);
+    //                 }
+    //             }
+
+    //             $manager = new ImageManager(new Driver());
+    //             $file_name = $merchant->email . '.' . $image->extension();
+    //             $img = $manager->read($request->file('logo'));
+    //             $img->toJpeg(80)->save(base_path('public/assets/merchants/' . $file_name));
+
+    //             $merchant->update([
+    //                 'logo'  => $file_name,
+    //             ]);
+
+    //         }
+    //     }
+
+
+    //     if($merchant){
+    //         return redirect()->route('admin.merchants.index')->with([
+    //             'message' => __('messages.merchant_updated'),
+    //             'alert-type' => 'success'
+    //         ]);
+
+    //     }
+
+    //     return redirect()->route('admin.merchants.index')->with([
+    //         'message' => __('messages.something_went_wrong'),
+    //         'alert-type' => 'danger'
+    //     ]);
+
+    // }
+
+
     public function update(MerchantRequest $request, $merchant)
-    {
-        if (!auth()->user()->ability('admin', 'update_merchants')) {
-            return redirect('admin/index');
-        }
-
-        $merchant = Merchant::where('id', $merchant)->first();
-
-        $input['name']              =   $request->name;
-        $input['contact_person']    =   $request->contact_person;
-        $input['address']           =   $request->address;
-        $input['phone']             =   $request->phone;
-        $input['email']             =   $request->email;
-        $input['api_key']           =   $request->api_key;
-
-        $input['status']            =   $request->status=='on' ? true : false;
-
-        $input['facebook']      =   $request->facebook;
-        $input['twitter']       =   $request->twitter;
-        $input['instagram']     =   $request->instagram;
-        $input['linkedin']      =   $request->linkedin;
-        $input['youtube']       =   $request->youtube;
-        $input['website']       =   $request->website;
-
-        $merchant->update($input);
-
-         if($merchant){
-            if ($image = $request->file('logo')) {
-
-                if ($merchant->logo != '') {
-                    if (File::exists('assets/merchants/' . $merchant->logo)) {
-                        unlink('assets/merchants/' . $merchant->logo);
-                    }
-                }
-
-                $manager = new ImageManager(new Driver());
-                $file_name = $merchant->email . '.' . $image->extension();
-                $img = $manager->read($request->file('logo'));
-                $img->toJpeg(80)->save(base_path('public/assets/merchants/' . $file_name));
-
-                $merchant->update([
-                    'logo'  => $file_name,
-                ]);
-
-            }
-        }
-
-
-        if($merchant){
-            return redirect()->route('admin.merchants.index')->with([
-                'message' => __('messages.merchant_updated'),
-                'alert-type' => 'success'
-            ]);
-
-        }
-
-        return redirect()->route('admin.merchants.index')->with([
-            'message' => __('messages.something_went_wrong'),
-            'alert-type' => 'danger'
-        ]);
-
+{
+    if (!auth()->user()->ability('admin', 'update_merchants')) {
+        return redirect('admin/index');
     }
+
+    $merchant = Merchant::findOrFail($merchant);
+
+    $input['name']           = $request->name;
+    $input['contact_person'] = $request->contact_person;
+
+    // الحقول الجديدة للموقع
+    $input['country']      = $request->country;
+    $input['region']       = $request->region;
+    $input['city']         = $request->city;
+    $input['district']     = $request->district;
+    $input['postal_code']  = $request->postal_code;
+    $input['latitude']     = $request->latitude;
+    $input['longitude']    = $request->longitude;
+    $input['others']       = $request->others;
+
+    $input['phone']        = $request->phone;
+    $input['email']        = $request->email;
+    $input['api_key']      = $request->api_key;
+
+    $input['status']       = $request->status == 'on' ? true : false;
+
+    $input['facebook']     = $request->facebook;
+    $input['twitter']      = $request->twitter;
+    $input['instagram']    = $request->instagram;
+    $input['linkedin']     = $request->linkedin;
+    $input['youtube']      = $request->youtube;
+    $input['website']      = $request->website;
+
+    $merchant->update($input);
+
+    // تحديث الشعار
+    if ($image = $request->file('logo')) {
+        if ($merchant->logo && file_exists(public_path('assets/merchants/' . $merchant->logo))) {
+            unlink(public_path('assets/merchants/' . $merchant->logo));
+        }
+
+        $manager = new ImageManager(new Driver());
+        $file_name = $merchant->email . '.' . $image->extension();
+        $img = $manager->read($image);
+        $img->toJpeg(80)->save(public_path('assets/merchants/' . $file_name));
+
+        $merchant->update(['logo' => $file_name]);
+    }
+
+    return redirect()->route('admin.merchants.index')->with([
+        'message' => __('messages.merchant_updated'),
+        'alert-type' => 'success'
+    ]);
+}
+
 
     /**
      * Remove the specified resource from storage.

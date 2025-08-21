@@ -64,7 +64,15 @@
                                     <td>{{ $merchant->name }}</td>
                                     <td>{{ $merchant->contact_person }}</td>
                                     <td>{{ $merchant->phone }}</td>
-                                    <td>{{ $merchant->address }}</td>
+                                    <td>
+                                        {{
+                                            ($merchant->country ?? '') . ' - ' .
+                                            ($merchant->region ?? '') . ' - ' .
+                                            ($merchant->city ?? '') . ' - ' .
+                                            ($merchant->district ?? '') . ' - ' .
+                                            ($merchant->postal_code ?? '')
+                                        }}
+                                    </td>
                                     <td>
                                         @if ($merchant->status == 1)
                                             <a href="javascript:void(0);" class="updateMerchantStatus "

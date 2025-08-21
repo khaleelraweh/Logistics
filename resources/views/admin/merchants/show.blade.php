@@ -130,7 +130,17 @@
                                                         </div>
                                                         <div>
                                                             <small class="text-muted d-block">{{ __('general.address') }}</small>
-                                                            <span class="fw-semibold">{{ $merchant->address }}</span>
+                                                            <span class="fw-semibold">
+
+                                                                {{
+                                                                    ($merchant->country ?? '') . ' - ' .
+                                                                    ($merchant->region ?? '') . ' - ' .
+                                                                    ($merchant->city ?? '') . ' - ' .
+                                                                    ($merchant->district ?? '') . ' - ' .
+                                                                    ($merchant->postal_code ?? '')
+                                                                }}
+
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
