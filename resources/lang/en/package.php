@@ -48,6 +48,8 @@ return [
     'receiver_district'      => 'Receiver District',
     'receiver_postal_code'   => 'Postal Code',
     'receiver_location'      => 'Geographic Location',
+    'receiver_latitude'      => 'Receiver Latitude',
+    'receiver_longitude'      => 'Receiver Longitude',
     'receiver_others'        => 'Others',
     'address'               =>  'Address',
 

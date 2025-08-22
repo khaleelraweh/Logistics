@@ -48,6 +48,8 @@ return [
     'receiver_district'      => 'حي المستلم',
     'receiver_postal_code'   => 'الرمز البريدي',
     'receiver_location'      => 'الموقع الجغرافي',
+    'receiver_latitude'      => 'خط العرض (Latitude)',
+    'receiver_longitude'      => 'خط الطول (Longitude)',
     'receiver_others'        => 'أخرى',
     'address'               =>  'العنوان',
 
