@@ -37,11 +37,11 @@
                     <div class="row mb-2">
                         <div class="col-md-6">
                             <label class="form-label">خط العرض (Latitude)</label>
-                            <input type="text" class="form-control" wire:model="latitude">
+                            <input type="text" class="form-control" name="sender_latitude" wire:model="latitude">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">خط الطول (Longitude)</label>
-                            <input type="text" class="form-control" wire:model="longitude">
+                            <input type="text" class="form-control" name="sender_longitude" wire:model="longitude">
                         </div>
                     </div>
                     <div id="map" wire:ignore style="width: 100%; height: 300px;"></div>
