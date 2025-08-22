@@ -78,9 +78,19 @@ class Merchant extends Model
     //     return $this->hasMany(Warehouse::class);
     // }
 
+    // public function packages()
+    // {
+    //     return $this->hasMany(Package::class);
+    // }
+
     public function packages()
     {
-        return $this->hasMany(Package::class);
+        return $this->hasMany(Package::class, 'merchant_id'); // الطرود المُرسلة
+    }
+
+    public function receivedPackages()
+    {
+        return $this->hasMany(Package::class, 'receiver_merchant_id'); // الطرود المُستلمة
     }
 
     public function returnRequests()

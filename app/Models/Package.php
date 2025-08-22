@@ -53,7 +53,12 @@ class Package extends Model
 
     public function merchant()
     {
-        return $this->belongsTo(Merchant::class);
+        return $this->belongsTo(Merchant::class); // المرسل
+    }
+
+    public function receiverMerchant()
+    {
+        return $this->belongsTo(Merchant::class, 'receiver_merchant_id'); // المستلم
     }
 
     public function packageProducts()
