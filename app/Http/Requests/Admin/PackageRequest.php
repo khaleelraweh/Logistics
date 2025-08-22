@@ -28,6 +28,7 @@ class PackageRequest extends FormRequest
                 return [
                     'merchant_id' => 'nullable|exists:merchants,id',
 
+
                     // Sender information
                     'sender_first_name' => 'required|string|max:255',
                     'sender_middle_name' => 'nullable|string|max:255',
@@ -45,6 +46,9 @@ class PackageRequest extends FormRequest
                     'sender_others' => 'nullable|string|max:500',
 
                     // Receiver information
+                    'receiver_merchant_id' => 'nullable|exists:merchants,id',
+
+
                     'receiver_first_name' => 'required|string|max:255',
                     'receiver_middle_name' => 'required|string|max:255', // Changed to required to match database schema
                     'receiver_last_name' => 'required|string|max:255',
@@ -126,6 +130,9 @@ class PackageRequest extends FormRequest
                     'sender_others' => 'nullable|string|max:500',
 
                     // Receiver information
+                    'receiver_merchant_id' => 'nullable|exists:merchants,id',
+
+
                     'receiver_first_name' => 'required|string|max:255',
                     'receiver_middle_name' => 'required|string|max:255', // Changed to required to match database schema
                     'receiver_last_name' => 'required|string|max:255',
