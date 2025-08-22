@@ -74,6 +74,10 @@ class ReceiverLocationComponent extends Component
         $this->emit('refreshReceiverMap');
     }
 
+    public function refreshReceiverMap()
+    {
+    }
+
     public function render()
     {
         return view('livewire.admin.package.receiver-location-component');
