@@ -39,7 +39,9 @@ class PackageRequest extends FormRequest
                     'sender_city' => 'required|string|max:100',
                     'sender_district' => 'nullable|string|max:100',
                     'sender_postal_code' => 'nullable|string|max:20',
-                    'sender_location' => 'nullable|string|max:255',
+                    'sender_latitude' => 'nullable|string|max:255',
+                    'sender_longitude' => 'nullable|string|max:255',
+
                     'sender_others' => 'nullable|string|max:500',
 
                     // Receiver information
@@ -118,7 +120,8 @@ class PackageRequest extends FormRequest
                     'sender_city' => 'required|string|max:100',
                     'sender_district' => 'nullable|string|max:100',
                     'sender_postal_code' => 'nullable|string|max:20',
-                    'sender_location' => 'nullable|string|max:255',
+                    'sender_latitude' => 'nullable|string|max:255',
+                    'sender_longitude' => 'nullable|string|max:255',
                     'sender_others' => 'nullable|string|max:500',
 
                     // Receiver information
@@ -206,7 +209,8 @@ class PackageRequest extends FormRequest
             'sender_city' => __('package.sender_city'),
             'sender_district' => __('package.sender_district'),
             'sender_postal_code' => __('package.sender_postal_code'),
-            'sender_location' => __('package.sender_location'),
+            'sender_latitude' => __('package.sender_latitude'),
+            'sender_longitude' => __('package.sender_longitude'),
             'sender_others' => __('package.sender_others'),
             'receiver_first_name' => __('package.receiver_first_name'),
             'receiver_middle_name' => __('package.receiver_middle_name'),

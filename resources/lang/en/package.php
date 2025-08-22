@@ -30,7 +30,9 @@ return [
     'sender_city'            => 'Sender City',
     'sender_district'        => 'Sender District',
     'sender_postal_code'     => 'Postal Code',
-    'sender_location'        => 'Geographic Location',
+    'sender_location'        => 'Sender Location',
+    'sender_latitude'        => 'Sender Latitude',
+    'sender_longitude'        => 'Sender Longitude',
     'sender_others'          => 'Others',
 
     'receiver_Information'   => 'Receiver Information',

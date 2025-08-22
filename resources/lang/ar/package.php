@@ -31,6 +31,8 @@ return [
     'sender_district'        => 'حي المرسل',
     'sender_postal_code'     => 'الرمز البريدي',
     'sender_location'        => 'الموقع الجغرافي',
+    'sender_latitude'        => 'خط العرض (Latitude)',
+    'sender_longitude'        => 'خط الطول (Longitude)',
     'sender_others'          => 'أخرى',
 
     'receiver_Information'   => 'معلومات المستلم',

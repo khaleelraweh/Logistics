@@ -38,7 +38,8 @@ return new class extends Migration
             $table->string('sender_city')->nullable();
             $table->string('sender_district')->nullable();
             $table->string('sender_postal_code')->nullable();
-            $table->string('sender_location')->nullable();
+            $table->string('sender_latitude')->nullable();
+            $table->string('sender_longitude')->nullable();
             $table->string('sender_others')->nullable();
 
             // ====================== بيانات المستلم ===========================
@@ -58,7 +59,8 @@ return new class extends Migration
             $table->string('receiver_city')->nullable();
             $table->string('receiver_district')->nullable();
             $table->string('receiver_postal_code')->nullable();
-            $table->string('receiver_location')->nullable();
+            $table->string('receiver_latitude')->nullable();
+            $table->string('receiver_longitude')->nullable();
             $table->string('receiver_others')->nullable();
 
 
