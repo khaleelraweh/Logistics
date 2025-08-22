@@ -5,41 +5,41 @@
         </div>
         <div class="card-body">
 
-            <div class="row mb-3">
-                <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-4 mb-3">
                     <label class="form-label" for="sender_country">{{ __('package.sender_country') }}</label>
                     <input type="text" class="form-control" name="sender_country" id="sender_country" wire:model="sender_country">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3">
                     <label class="form-label" for="sender_region">{{ __('package.sender_region') }}</label>
                     <input type="text" class="form-control" name="sender_region" id="sender_region" wire:model="sender_region">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3">
                     <label class="form-label" for="sender_city">{{ __('package.sender_city') }}</label>
                     <input type="text" class="form-control" name="sender_city" id="sender_city" wire:model="sender_city">
                 </div>
             </div>
 
-            <div class="row mb-3">
-                <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6 mb-3">
                     <label class="form-label" for="sender_district">{{ __('package.sender_district') }}</label>
                     <input type="text" class="form-control" name="sender_district" id="sender_district" wire:model="sender_district">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3">
                     <label class="form-label" for="sender_postal_code">{{ __('package.sender_postal_code') }}</label>
                     <input type="text" class="form-control" name="sender_postal_code" id="sender_postal_code" wire:model="sender_postal_code">
                 </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row">
                 <div class="col-12">
                     <label class="form-label">{{ __('package.sender_location') }}</label>
                     <div class="row mb-2">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <label class="form-label" for="sender_latitude"> {{ __('package.sender_latitude') }}</label>
                             <input type="text" class="form-control" name="sender_latitude" id="sender_latitude" wire:model="latitude" readonly>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <label class="form-label" for="sender_longitude"> {{ __('package.sender_longitude') }}</label>
                             <input type="text" class="form-control" name="sender_longitude" id="sender_longitude" wire:model="longitude" readonly>
                         </div>

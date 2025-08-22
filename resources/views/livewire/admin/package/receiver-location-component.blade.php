@@ -5,41 +5,41 @@
         </div>
         <div class="card-body">
 
-            <div class="row mb-3">
-                <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-4 mb-3">
                     <label class="form-label" for="receiver_country">{{ __('package.receiver_country') }}</label>
                     <input type="text" class="form-control" name="receiver_country" id="receiver_country" wire:model="receiver_country">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3">
                     <label class="form-label" for="receiver_region">{{ __('package.receiver_region') }}</label>
                     <input type="text" class="form-control" name="receiver_region" id="receiver_region" wire:model="receiver_region">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3">
                     <label class="form-label" for="receiver_city">{{ __('package.receiver_city') }}</label>
                     <input type="text" class="form-control" name="receiver_city" id="receiver_city" wire:model="receiver_city">
                 </div>
             </div>
 
-            <div class="row mb-3">
-                <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6 mb-3">
                     <label class="form-label" for="receiver_district">{{ __('package.receiver_district') }}</label>
                     <input type="text" class="form-control" name="receiver_district" id="receiver_district" wire:model="receiver_district">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3">
                     <label class="form-label" for="receiver_postal_code">{{ __('package.receiver_postal_code') }}</label>
                     <input type="text" class="form-control" name="receiver_postal_code" id="receiver_postal_code" wire:model="receiver_postal_code">
                 </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row">
                 <div class="col-12">
                     <label class="form-label">{{ __('package.receiver_location') }}</label>
                     <div class="row mb-2">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <label class="form-label" for="receiver_latitude">{{ __('package.receiver_latitude') }}</label>
                             <input type="text" class="form-control" name="receiver_latitude" id="receiver_latitude" wire:model="latitude" >
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3">
                             <label class="form-label" for="receiver_longitude">{{ __('package.receiver_longitude') }}</label>
                             <input type="text" class="form-control" name="receiver_longitude" id="receiver_longitude" wire:model="longitude" >
                         </div>
