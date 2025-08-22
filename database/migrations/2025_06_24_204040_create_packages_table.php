@@ -43,6 +43,8 @@ return new class extends Migration
             $table->string('sender_others')->nullable();
 
             // ====================== بيانات المستلم ===========================
+            // تاجر المستلم (اختياري)
+            $table->foreignId('receiver_merchant_id')->nullable()->constrained('merchants')->nullOnDelete();
             // معلومات المستلم (ضرورية)
             $table->string('receiver_first_name');
             $table->string('receiver_middle_name');
