@@ -865,7 +865,7 @@
 
 
 
-
+{{--
 @section('script')
     <script>
         $(document).ready(function () {
@@ -1103,7 +1103,238 @@
     </script>
 
 
+@endsection --}}
+
+
+{{-- @section('script')
+<script>
+document.addEventListener('livewire:load', function () {
+
+    // =========================
+    // دالة لتحديث صفحة المراجعة
+    // =========================
+    function updateReviewPage(products) {
+
+        // معلومات المرسل
+        $('#review-sender-merchant').text($('#merchant_id option:selected').text() || 'غير محدد');
+        $('#review-sender-name').text(
+            ($('#sender_first_name').val() || '') + ' ' +
+            ($('#sender_middle_name').val() || '') + ' ' +
+            ($('#sender_last_name').val() || '')
+        );
+        $('#review-sender-email').text($('#sender_email').val() || 'غير محدد');
+        $('#review-sender-phone').text($('#sender_phone').val() || 'غير محدد');
+        $('#review-sender-address').text($('#sender_address').val() || 'غير محدد');
+        $('#review-sender-country').text($('#sender_country').val() || 'غير محدد');
+        $('#review-sender-city').text($('#sender_city').val() || 'غير محدد');
+        $('#review-sender-postal').text($('#sender_postal_code').val() || 'غير محدد');
+
+        // معلومات المستلم
+        $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text() || 'غير محدد');
+        $('#review-receiver-name').text(
+            ($('#receiver_first_name').val() || '') + ' ' +
+            ($('#receiver_middle_name').val() || '') + ' ' +
+            ($('#receiver_last_name').val() || '')
+        );
+        $('#review-receiver-email').text($('#receiver_email').val() || 'غير محدد');
+        $('#review-receiver-phone').text($('#receiver_phone').val() || 'غير محدد');
+        $('#review-receiver-address').text($('#receiver_address').val() || 'غير محدد');
+        $('#review-receiver-country').text($('#receiver_country').val() || 'غير محدد');
+        $('#review-receiver-city').text($('#receiver_city').val() || 'غير محدد');
+        $('#review-receiver-postal').text($('#receiver_postal_code').val() || 'غير محدد');
+
+        // مواصفات الطرد
+        $('#review-package-type').text($('#package_type option:selected').text() || 'غير محدد');
+        $('#review-package-size').text($('#package_size option:selected').text() || 'غير محدد');
+        $('#review-weight').text($('#weight').val() || 'غير محدد');
+        $('#review-dimensions').text(
+            ($('#dimensions\\.length').val() || 0) + 'x' +
+            ($('#dimensions\\.width').val() || 0) + 'x' +
+            ($('#dimensions\\.height').val() || 0) + ' سم'
+        );
+        $('#review-package-content').text($('#package_content').val() || 'غير محدد');
+        $('#review-package-note').text($('#package_note').val() || 'غير محدد');
+
+        // خيارات التوصيل
+        $('#review-delivery-speed').text($('#delivery_speed option:selected').text() || 'غير محدد');
+        $('#review-delivery-method').text($('#delivery_method option:selected').text() || 'غير محدد');
+        $('#review-origin-type').text($('#origin_type option:selected').text() || 'غير محدد');
+        $('#review-delivery-date').text($('#delivery_date').val() || 'غير محدد');
+        $('#review-status').text($('#status1 option:selected').text() || 'غير محدد');
+        $('#review-status-note').text($('#delivery_status_note').val() || 'غير محدد');
+
+        // الخصائص
+        var attributesHtml = '';
+        $('input[name^="attributes"]:checked').each(function() {
+            var label = $('label[for="' + $(this).attr('id') + '"]').text();
+            attributesHtml += '<span class="badge bg-info me-1 mb-1">' + label + '</span>';
+        });
+        $('#review-attributes').html(attributesHtml || '<span>لا توجد خصائص إضافية</span>');
+
+        // التحصيل
+        $('#review-payment-responsibility').text($('select[name="payment_responsibility"] option:selected').text() || 'غير محدد');
+        $('#review-payment-method').text($('select[name="payment_method"] option:selected').text() || 'غير محدد');
+        $('#review-collection-method').text($('select[name="collection_method"] option:selected').text() || 'غير محدد');
+        $('#review-delivery-fee').text($('input[name="delivery_fee"]').val() || 0 + ' ر.س');
+        $('#review-insurance-fee').text($('input[name="insurance_fee"]').val() || 0 + ' ر.س');
+        $('#review-service-fee').text($('input[name="service_fee"]').val() || 0 + ' ر.س');
+        $('#review-total-fee').text($('input[name="total_fee"]').val() || 0 + ' ر.س');
+        $('#review-paid-amount').text($('input[name="paid_amount"]').val() || 0 + ' ر.س');
+        $('#review-remaining-amount').text($('input[name="due_amount"]').val() || 0 + ' ر.س');
+        $('#review-cod-amount').text($('input[name="cod_amount"]').val() || 0 + ' ر.س');
+
+        // المنتجات
+        products = products || [];
+        var productsHtml = '<table class="table table-bordered"><thead><tr><th>النوع</th><th>المنتج</th><th>الوزن</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead><tbody>';
+        products.forEach(function(prod) {
+            var typeText = prod.type === 'stock' ? 'مخزون' : 'مخصص';
+            productsHtml += '<tr>';
+            productsHtml += '<td>' + typeText + '</td>';
+            productsHtml += '<td>' + (prod.custom_name || 'غير محدد') + '</td>';
+            productsHtml += '<td>' + (prod.weight || 0) + ' كجم</td>';
+            productsHtml += '<td>' + (prod.quantity || 0) + '</td>';
+            productsHtml += '<td>' + (prod.price_per_unit || 0) + ' ر.س</td>';
+            productsHtml += '<td>' + (prod.total_price || 0) + ' ر.س</td>';
+            productsHtml += '</tr>';
+        });
+        productsHtml += '</tbody></table>';
+        $('#review-products').html(productsHtml);
+    }
+
+    // تحديث عند فتح تبويب المراجعة
+    $('a[href="#confirm-detail"]').on('click', function() {
+        updateReviewPage();
+    });
+
+    // =========================
+    // الاستماع لأي تغييرات من Livewire
+    // =========================
+    Livewire.hook('message.processed', (message, component) => {
+        var products = component.get('products') || [];
+        updateReviewPage(products);
+    });
+
+});
+</script>
+@endsection --}}
+
+
+@section('script')
+   <!-- Bootstrap & jQuery JS -->
+    <script>
+        $(document).ready(function() {
+            // دالة لتحديث صفحة المراجعة
+            function updateReviewPage() {
+                // معلومات المرسل
+                $('#review-sender-merchant').text($('#merchant_id option:selected').text());
+                $('#review-sender-name').text(
+                    $('#sender_first_name').val() + ' ' +
+                    $('#sender_middle_name').val() + ' ' +
+                    $('#sender_last_name').val()
+                );
+                $('#review-sender-email').text($('#sender_email').val());
+                $('#review-sender-phone').text($('#sender_phone').val());
+                $('#review-sender-address').text($('#sender_address').val());
+                $('#review-sender-country').text($('#sender_country').val());
+                $('#review-sender-city').text($('#sender_city').val());
+                $('#review-sender-postal').text($('#sender_postal_code').val());
+
+                // معلومات المستلم
+                $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text());
+                $('#review-receiver-name').text(
+                    $('#receiver_first_name').val() + ' ' +
+                    $('#receiver_middle_name').val() + ' ' +
+                    $('#receiver_last_name').val()
+                );
+                $('#review-receiver-email').text($('#receiver_email').val());
+                $('#review-receiver-phone').text($('#receiver_phone').val());
+                $('#review-receiver-address').text($('#receiver_address').val());
+                $('#review-receiver-country').text($('#receiver_country').val());
+                $('#review-receiver-city').text($('#receiver_city').val());
+                $('#review-receiver-postal').text($('#receiver_postal_code').val());
+
+                // مواصفات الطرد
+                $('#review-package-type').text($('#package_type option:selected').text());
+                $('#review-package-size').text($('#package_size option:selected').text());
+                $('#review-weight').text($('#weight').val());
+                $('#review-dimensions').text(
+                    $('#dimensions\\.length').val() + 'x' +
+                    $('#dimensions\\.width').val() + 'x' +
+                    $('#dimensions\\.height').val() + ' سم'
+                );
+                $('#review-package-content').text($('#package_content').val());
+                $('#review-package-note').text($('#package_note').val());
+
+                // خيارات التوصيل
+                $('#review-delivery-speed').text($('#delivery_speed option:selected').text());
+                $('#review-delivery-method').text($('#delivery_method option:selected').text());
+                $('#review-origin-type').text($('#origin_type option:selected').text());
+                $('#review-delivery-date').text($('#delivery_date').val());
+                $('#review-status').text($('#status1 option:selected').text());
+                $('#review-status-note').text($('#delivery_status_note').val());
+
+                // الخصائص
+                var attributesHtml = '';
+                $('input[name^="attributes"]:checked').each(function() {
+                    var label = $('label[for="' + $(this).attr('id') + '"]').text();
+                    attributesHtml += '<span class="badge bg-info me-1 mb-1">' + label + '</span>';
+                });
+                $('#review-attributes').html(attributesHtml);
+
+                // معلومات التحصيل (من Livewire components)
+                try {
+                    $('#review-payment-responsibility').text($('select[name="payment_responsibility"] option:selected').text());
+                    $('#review-payment-method').text($('select[name="payment_method"] option:selected').text());
+                    $('#review-collection-method').text($('select[name="collection_method"] option:selected').text());
+                    $('#review-delivery-fee').text($('input[name="delivery_fee"]').val() + ' ر.س');
+                    $('#review-insurance-fee').text($('input[name="insurance_fee"]').val() + ' ر.س');
+                    $('#review-service-fee').text($('input[name="service_fee"]').val() + ' ر.س');
+                    $('#review-total-fee').text($('input[name="total_fee"]').val() + ' ر.س');
+                    $('#review-paid-amount').text($('input[name="paid_amount"]').val() + ' ر.س');
+                    $('#review-remaining-amount').text($('input[name="due_amount"]').val() + ' ر.س');
+                    $('#review-cod-amount').text($('input[name="cod_amount"]').val() + ' ر.س');
+                } catch (e) {
+                    console.log('Livewire components not loaded yet');
+                }
+
+                // المنتجات (من Livewire component)
+                try {
+                    var productsHtml = '<table class="table table-bordered"><thead><tr><th>النوع</th><th>المنتج</th><th>الوزن</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead><tbody>';
+
+                    $('input[name^="products"]').each(function() {
+                        // هذا مثال بسيط، تحتاج إلى تعديله حسب هيكل Livewire component الخاص بالمنتجات
+                        var index = $(this).attr('name').match(/\[(\d+)\]/)[1];
+                        var type = $('select[name="products[' + index + '][type]"] option:selected').text() || 'مخصص';
+                        var name = $('input[name="products[' + index + '][custom_name]"]').val() || $('select[name="products[' + index + '][stock_item_id]"] option:selected').text();
+                        var weight = $('input[name="products[' + index + '][weight]"]').val();
+                        var quantity = $('input[name="products[' + index + '][quantity]"]').val();
+                        var price = $('input[name="products[' + index + '][price_per_unit]"]').val();
+                        var total = $('input[name="products[' + index + '][total_price]"]').val();
+
+                        productsHtml += '<tr><td>' + type + '</td><td>' + name + '</td><td>' + weight + ' كجم</td><td>' + quantity + '</td><td>' + price + ' ر.س</td><td>' + total + ' ر.س</td></tr>';
+                    });
+
+                    productsHtml += '</tbody></table>';
+                    $('#review-products').html(productsHtml);
+                } catch (e) {
+                    console.log('Error loading products:', e);
+                }
+            }
+
+            // تحديث صفحة المراجعة عند النقر على تبويب المراجعة
+            $('a[href="#confirm-detail"]').on('click', function() {
+                updateReviewPage();
+            });
+
+            // الانتقال إلى الخطوة السابقة من صفحة المراجعة
+            $('#prev-to-options').on('click', function() {
+                $('a[href="#delivery-options"]').tab('show');
+            });
+        });
+    </script>
+
 @endsection
+
 
 
 
