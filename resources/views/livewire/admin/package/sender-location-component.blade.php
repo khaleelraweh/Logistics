@@ -1,52 +1,53 @@
 <div>
-    <div class="row mb-3">
-        <div class="col-12">
-            <label for="sender_address" class="form-label">العنوان</label>
-            <input type="text" id="sender_address" class="form-control" wire:model="sender_address">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>{{ __('package.sender_address') }}</h5>
         </div>
-    </div>
+        <div class="card-body">
 
-    <div class="row mb-3">
-        <div class="col-md-4">
-            <label class="form-label">الدولة</label>
-            <input type="text" class="form-control" wire:model="sender_country">
-        </div>
-        <div class="col-md-4">
-            <label class="form-label">المنطقة</label>
-            <input type="text" class="form-control" wire:model="sender_region">
-        </div>
-        <div class="col-md-4">
-            <label class="form-label">المدينة</label>
-            <input type="text" class="form-control" wire:model="sender_city">
-        </div>
-    </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">الدولة</label>
+                    <input type="text" class="form-control" wire:model="sender_country">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">المنطقة</label>
+                    <input type="text" class="form-control" wire:model="sender_region">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">المدينة</label>
+                    <input type="text" class="form-control" wire:model="sender_city">
+                </div>
+            </div>
 
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label class="form-label">الحي</label>
-            <input type="text" class="form-control" wire:model="sender_district">
-        </div>
-        <div class="col-md-6">
-            <label class="form-label">الرمز البريدي</label>
-            <input type="text" class="form-control" wire:model="sender_postal_code">
-        </div>
-    </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">الحي</label>
+                    <input type="text" class="form-control" wire:model="sender_district">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">الرمز البريدي</label>
+                    <input type="text" class="form-control" wire:model="sender_postal_code">
+                </div>
+            </div>
 
-    <div class="row mb-3">
-        <div class="col-12">
-            <label class="form-label">الموقع</label>
-<div class="row mb-2">
-    <div class="col-md-6">
-        <label class="form-label">خط العرض (Latitude)</label>
-        <input type="text" class="form-control" wire:model="latitude">
-    </div>
-    <div class="col-md-6">
-        <label class="form-label">خط الطول (Longitude)</label>
-        <input type="text" class="form-control" wire:model="longitude">
-    </div>
-</div>
-            <div id="map" wire:ignore style="width: 100%; height: 300px;"></div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label class="form-label">الموقع</label>
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            <label class="form-label">خط العرض (Latitude)</label>
+                            <input type="text" class="form-control" wire:model="latitude">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">خط الطول (Longitude)</label>
+                            <input type="text" class="form-control" wire:model="longitude">
+                        </div>
+                    </div>
+                    <div id="map" wire:ignore style="width: 100%; height: 300px;"></div>
 
+                </div>
+            </div>
         </div>
     </div>
 
