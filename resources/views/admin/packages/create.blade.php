@@ -871,161 +871,161 @@
 
 
 
-{{-- @section('script')
-<script>
-$(document).ready(function () {
+ @section('script')
+    <script>
+        $(document).ready(function () {
 
-    // دالة التحقق العامة للتاب الحالي
-    function validateCurrentStep() {
-        var $currentTab = $('.tab-pane.active');
-        // جميع الحقول المطلوبة
-        var $requiredFields = $currentTab
-            .find('input[required], select[required], textarea[required]')
-            .filter(function () { return $(this).is(':visible') && !$(this).prop('disabled'); });
+            // دالة التحقق العامة للتاب الحالي
+            function validateCurrentStep() {
+                var $currentTab = $('.tab-pane.active');
+                // جميع الحقول المطلوبة
+                var $requiredFields = $currentTab
+                    .find('input[required], select[required], textarea[required]')
+                    .filter(function () { return $(this).is(':visible') && !$(this).prop('disabled'); });
 
-        var isValid = true;
-        var firstInvalid = null;
+                var isValid = true;
+                var firstInvalid = null;
 
-        $requiredFields.each(function () {
-            var val = $(this).val();
-            var empty = (val === null || val === '' || (Array.isArray(val) && val.length === 0));
+                $requiredFields.each(function () {
+                    var val = $(this).val();
+                    var empty = (val === null || val === '' || (Array.isArray(val) && val.length === 0));
 
-            if (empty) {
-                isValid = false;
-                if (!firstInvalid) firstInvalid = this;
-                $(this).addClass('is-invalid');
-                if (!$(this).next('.invalid-feedback').length) {
-                    $(this).after('<div class="invalid-feedback">هذا الحقل مطلوب</div>');
+                    if (empty) {
+                        isValid = false;
+                        if (!firstInvalid) firstInvalid = this;
+                        $(this).addClass('is-invalid');
+                        if (!$(this).next('.invalid-feedback').length) {
+                            $(this).after('<div class="invalid-feedback">هذا الحقل مطلوب</div>');
+                        }
+                    } else {
+                        $(this).removeClass('is-invalid');
+                        $(this).next('.invalid-feedback').remove();
+                    }
+                });
+
+                // تحقق من جميع الحقول من نوع email، سواء كانت required أو لا
+                $currentTab.find('input[type="email"]').each(function () {
+                    var val = $(this).val();
+                    if (val) { // تحقق فقط إذا تم إدخال قيمة
+                        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailPattern.test(val)) {
+                            isValid = false;
+                            if (!firstInvalid) firstInvalid = this;
+                            $(this).addClass('is-invalid');
+                            if (!$(this).next('.invalid-feedback').length) {
+                                $(this).after('<div class="invalid-feedback">يرجى إدخال بريد إلكتروني صالح</div>');
+                            }
+                        } else {
+                            $(this).removeClass('is-invalid');
+                            $(this).next('.invalid-feedback').remove();
+                        }
+                    }
+                });
+
+                if (!isValid) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'تنبيه',
+                        text: 'يرجى ملء جميع الحقول المطلوبة بشكل صحيح قبل الانتقال إلى الخطوة التالية.',
+                        confirmButtonText: 'موافق'
+                    });
+                    if (firstInvalid) { $(firstInvalid).focus(); }
                 }
-            } else {
+                return isValid;
+            }
+
+            // تهيئة الـ wizard الأساسي + منع الانتقال عند الفشل
+            $("#basic-pills-wizard").bootstrapWizard({
+                tabClass: "nav nav-pills nav-justified",
+                onNext: function (tab, navigation, index) {
+                    if (!validateCurrentStep()) return false;
+                },
+                onTabClick: function (tab, navigation, index) {
+                    var activeIndex = navigation.find('li').index(navigation.find('li.active'));
+                    if (index > activeIndex && !validateCurrentStep()) return false;
+                }
+            });
+
+            // تهيئة الـ wizard ذو التقدّم
+            $("#progrss-wizard").bootstrapWizard({
+                onTabShow: function (tab, navigation, index) {
+                    var progress = (index + 1) / navigation.find("li").length * 100;
+                    $("#progrss-wizard").find(".progress-bar").css({ width: progress + "%" });
+                },
+                onNext: function (tab, navigation, index) {
+                    if (!validateCurrentStep()) return false;
+                },
+                onTabClick: function (tab, navigation, index) {
+                    var activeIndex = navigation.find('li').index(navigation.find('li.active'));
+                    if (index > activeIndex && !validateCurrentStep()) return false;
+                }
+            });
+
+            // منع الانتقال للأمام عبر تبويبات الـ Bootstrap
+            $(document).on('show.bs.tab', '.twitter-bs-wizard-nav .nav-link', function (e) {
+                var $links = $('.twitter-bs-wizard-nav .nav-link');
+                var currentIndex = $links.index($links.filter('.active'));
+                var targetIndex = $links.index($(e.target));
+                if (targetIndex > currentIndex && !validateCurrentStep()) {
+                    e.preventDefault();
+                }
+            });
+
+            // منع أزرار "التالي" خارج الويزارد
+            $(document).on('click', '.next', function (e) {
+                if (!validateCurrentStep()) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // تحديث صفحة المراجعة
+            function updateReviewPage() {
+                // معلومات المرسل
+                $('#review-sender-merchant').text($('#merchant_id option:selected').text() || 'بدون تاجر');
+                $('#review-sender-name').text(
+                    ($('#sender_first_name').val() || '') + ' ' +
+                    ($('#sender_middle_name').val() || '') + ' ' +
+                    ($('#sender_last_name').val() || '')
+                );
+                $('#review-sender-email').text($('#sender_email').val() || 'غير محدد');
+                $('#review-sender-phone').text($('#sender_phone').val() || 'غير محدد');
+                $('#review-sender-country').text($('#sender_country').val() || 'غير محدد');
+                $('#review-sender-city').text($('#sender_city').val() || 'غير محدد');
+                $('#review-sender-postal').text($('#sender_postal_code').val() || 'غير محدد');
+
+                // معلومات المستلم
+                $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text() || 'بدون تاجر');
+                $('#review-receiver-name').text(
+                    ($('#receiver_first_name').val() || '') + ' ' +
+                    ($('#receiver_middle_name').val() || '') + ' ' +
+                    ($('#receiver_last_name').val() || '')
+                );
+                $('#review-receiver-email').text($('#receiver_email').val() || 'غير محدد');
+                $('#review-receiver-phone').text($('#receiver_phone').val() || 'غير محدد');
+                $('#review-receiver-country').text($('#receiver_country').val() || 'غير محدد');
+                $('#review-receiver-city').text($('#receiver_city').val() || 'غير محدد');
+                $('#review-receiver-postal').text($('#receiver_postal_code').val() || 'غير محدد');
+
+                // باقي بيانات المراجعة تبقى كما في كودك الأصلي...
+                // مواصفات الطرد، خيارات التوصيل، الخصائص، التحصيل، المنتجات
+                // ...
+            }
+
+            // تحديث صفحة المراجعة عند فتح تبويبها
+            $(document).on('shown.bs.tab', 'a[href="#confirm-detail"]', function () {
+                updateReviewPage();
+            });
+
+            // تنظيف التنبيهات عند التركيز
+            $(document).on('focus', '.is-invalid', function () {
                 $(this).removeClass('is-invalid');
                 $(this).next('.invalid-feedback').remove();
-            }
-        });
-
-        // تحقق من جميع الحقول من نوع email، سواء كانت required أو لا
-        $currentTab.find('input[type="email"]').each(function () {
-            var val = $(this).val();
-            if (val) { // تحقق فقط إذا تم إدخال قيمة
-                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailPattern.test(val)) {
-                    isValid = false;
-                    if (!firstInvalid) firstInvalid = this;
-                    $(this).addClass('is-invalid');
-                    if (!$(this).next('.invalid-feedback').length) {
-                        $(this).after('<div class="invalid-feedback">يرجى إدخال بريد إلكتروني صالح</div>');
-                    }
-                } else {
-                    $(this).removeClass('is-invalid');
-                    $(this).next('.invalid-feedback').remove();
-                }
-            }
-        });
-
-        if (!isValid) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'تنبيه',
-                text: 'يرجى ملء جميع الحقول المطلوبة بشكل صحيح قبل الانتقال إلى الخطوة التالية.',
-                confirmButtonText: 'موافق'
             });
-            if (firstInvalid) { $(firstInvalid).focus(); }
-        }
-        return isValid;
-    }
 
-    // تهيئة الـ wizard الأساسي + منع الانتقال عند الفشل
-    $("#basic-pills-wizard").bootstrapWizard({
-        tabClass: "nav nav-pills nav-justified",
-        onNext: function (tab, navigation, index) {
-            if (!validateCurrentStep()) return false;
-        },
-        onTabClick: function (tab, navigation, index) {
-            var activeIndex = navigation.find('li').index(navigation.find('li.active'));
-            if (index > activeIndex && !validateCurrentStep()) return false;
-        }
-    });
-
-    // تهيئة الـ wizard ذو التقدّم
-    $("#progrss-wizard").bootstrapWizard({
-        onTabShow: function (tab, navigation, index) {
-            var progress = (index + 1) / navigation.find("li").length * 100;
-            $("#progrss-wizard").find(".progress-bar").css({ width: progress + "%" });
-        },
-        onNext: function (tab, navigation, index) {
-            if (!validateCurrentStep()) return false;
-        },
-        onTabClick: function (tab, navigation, index) {
-            var activeIndex = navigation.find('li').index(navigation.find('li.active'));
-            if (index > activeIndex && !validateCurrentStep()) return false;
-        }
-    });
-
-    // منع الانتقال للأمام عبر تبويبات الـ Bootstrap
-    $(document).on('show.bs.tab', '.twitter-bs-wizard-nav .nav-link', function (e) {
-        var $links = $('.twitter-bs-wizard-nav .nav-link');
-        var currentIndex = $links.index($links.filter('.active'));
-        var targetIndex = $links.index($(e.target));
-        if (targetIndex > currentIndex && !validateCurrentStep()) {
-            e.preventDefault();
-        }
-    });
-
-    // منع أزرار "التالي" خارج الويزارد
-    $(document).on('click', '.next', function (e) {
-        if (!validateCurrentStep()) {
-            e.preventDefault();
-            return false;
-        }
-    });
-
-    // تحديث صفحة المراجعة
-    function updateReviewPage() {
-        // معلومات المرسل
-        $('#review-sender-merchant').text($('#merchant_id option:selected').text() || 'بدون تاجر');
-        $('#review-sender-name').text(
-            ($('#sender_first_name').val() || '') + ' ' +
-            ($('#sender_middle_name').val() || '') + ' ' +
-            ($('#sender_last_name').val() || '')
-        );
-        $('#review-sender-email').text($('#sender_email').val() || 'غير محدد');
-        $('#review-sender-phone').text($('#sender_phone').val() || 'غير محدد');
-        $('#review-sender-country').text($('#sender_country').val() || 'غير محدد');
-        $('#review-sender-city').text($('#sender_city').val() || 'غير محدد');
-        $('#review-sender-postal').text($('#sender_postal_code').val() || 'غير محدد');
-
-        // معلومات المستلم
-        $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text() || 'بدون تاجر');
-        $('#review-receiver-name').text(
-            ($('#receiver_first_name').val() || '') + ' ' +
-            ($('#receiver_middle_name').val() || '') + ' ' +
-            ($('#receiver_last_name').val() || '')
-        );
-        $('#review-receiver-email').text($('#receiver_email').val() || 'غير محدد');
-        $('#review-receiver-phone').text($('#receiver_phone').val() || 'غير محدد');
-        $('#review-receiver-country').text($('#receiver_country').val() || 'غير محدد');
-        $('#review-receiver-city').text($('#receiver_city').val() || 'غير محدد');
-        $('#review-receiver-postal').text($('#receiver_postal_code').val() || 'غير محدد');
-
-        // باقي بيانات المراجعة تبقى كما في كودك الأصلي...
-        // مواصفات الطرد، خيارات التوصيل، الخصائص، التحصيل، المنتجات
-        // ...
-    }
-
-    // تحديث صفحة المراجعة عند فتح تبويبها
-    $(document).on('shown.bs.tab', 'a[href="#confirm-detail"]', function () {
-        updateReviewPage();
-    });
-
-    // تنظيف التنبيهات عند التركيز
-    $(document).on('focus', '.is-invalid', function () {
-        $(this).removeClass('is-invalid');
-        $(this).next('.invalid-feedback').remove();
-    });
-
-});
-</script>
-@endsection --}}
+        });
+    </script>
+@endsection
 
 
 
