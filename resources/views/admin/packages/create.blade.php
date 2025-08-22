@@ -421,7 +421,7 @@
                                                                 </div>
                                                                 <div class="col-md-6 mb-3">
                                                                     <label for="delivery_date" class="form-label">{{ __('package.delivery_date') }}</label>
-                                                                    <input type="date" class="form-control {{ $errors->has('delivery_date') ? 'is-invalid' : '' }}" id="delivery_date" name="delivery_date" value="{{ old('delivery_date') }}" required>
+                                                                    <input type="date" class="form-control {{ $errors->has('delivery_date') ? 'is-invalid' : '' }}" id="delivery_date" name="delivery_date" value="{{ old('delivery_date', date('Y-m-d')) }}" required>
                                                                     @error('delivery_date')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
