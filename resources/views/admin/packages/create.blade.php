@@ -594,10 +594,7 @@
                                                                             <span class="review-value" id="review-sender-phone"></span>
                                                                         </div>
 
-                                                                        <div class="review-item">
-                                                                            <span class="review-label">العنوان:</span>
-                                                                            <span class="review-value" id="review-sender-address"></span>
-                                                                        </div>
+
 
                                                                         <div class="review-item">
                                                                             <span class="review-label">البلد:</span>
@@ -644,10 +641,7 @@
                                                                             <span class="review-value" id="review-receiver-phone"></span>
                                                                         </div>
 
-                                                                        <div class="review-item">
-                                                                            <span class="review-label">العنوان:</span>
-                                                                            <span class="review-value" id="review-receiver-address"></span>
-                                                                        </div>
+
 
                                                                         <div class="review-item">
                                                                             <span class="review-label">البلد:</span>
@@ -981,8 +975,41 @@
             });
 
             // تحديث صفحة المراجعة
+            // function updateReviewPage() {
+            //     // معلومات المرسل
+            //     $('#review-sender-merchant').text($('#merchant_id option:selected').text() || 'بدون تاجر');
+            //     $('#review-sender-name').text(
+            //         ($('#sender_first_name').val() || '') + ' ' +
+            //         ($('#sender_middle_name').val() || '') + ' ' +
+            //         ($('#sender_last_name').val() || '')
+            //     );
+            //     $('#review-sender-email').text($('#sender_email').val() || 'غير محدد');
+            //     $('#review-sender-phone').text($('#sender_phone').val() || 'غير محدد');
+            //     $('#review-sender-country').text($('#sender_country').val() || 'غير محدد');
+            //     $('#review-sender-city').text($('#sender_city').val() || 'غير محدد');
+            //     $('#review-sender-postal').text($('#sender_postal_code').val() || 'غير محدد');
+
+            //     // معلومات المستلم
+            //     $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text() || 'بدون تاجر');
+            //     $('#review-receiver-name').text(
+            //         ($('#receiver_first_name').val() || '') + ' ' +
+            //         ($('#receiver_middle_name').val() || '') + ' ' +
+            //         ($('#receiver_last_name').val() || '')
+            //     );
+            //     $('#review-receiver-email').text($('#receiver_email').val() || 'غير محدد');
+            //     $('#review-receiver-phone').text($('#receiver_phone').val() || 'غير محدد');
+            //     $('#review-receiver-country').text($('#receiver_country').val() || 'غير محدد');
+            //     $('#review-receiver-city').text($('#receiver_city').val() || 'غير محدد');
+            //     $('#review-receiver-postal').text($('#receiver_postal_code').val() || 'غير محدد');
+
+            //     // باقي بيانات المراجعة تبقى كما في كودك الأصلي...
+            //     // مواصفات الطرد، خيارات التوصيل، الخصائص، التحصيل، المنتجات
+            //     // ...
+            // }
+
+            // تحديث صفحة المراجعة بشكل كامل
             function updateReviewPage() {
-                // معلومات المرسل
+                // --- معلومات المرسل ---
                 $('#review-sender-merchant').text($('#merchant_id option:selected').text() || 'بدون تاجر');
                 $('#review-sender-name').text(
                     ($('#sender_first_name').val() || '') + ' ' +
@@ -995,7 +1022,7 @@
                 $('#review-sender-city').text($('#sender_city').val() || 'غير محدد');
                 $('#review-sender-postal').text($('#sender_postal_code').val() || 'غير محدد');
 
-                // معلومات المستلم
+                // --- معلومات المستلم ---
                 $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text() || 'بدون تاجر');
                 $('#review-receiver-name').text(
                     ($('#receiver_first_name').val() || '') + ' ' +
@@ -1004,14 +1031,69 @@
                 );
                 $('#review-receiver-email').text($('#receiver_email').val() || 'غير محدد');
                 $('#review-receiver-phone').text($('#receiver_phone').val() || 'غير محدد');
+                $('#review-receiver-address').text($('#receiver_address').val() || 'غير محدد');
                 $('#review-receiver-country').text($('#receiver_country').val() || 'غير محدد');
                 $('#review-receiver-city').text($('#receiver_city').val() || 'غير محدد');
                 $('#review-receiver-postal').text($('#receiver_postal_code').val() || 'غير محدد');
 
-                // باقي بيانات المراجعة تبقى كما في كودك الأصلي...
-                // مواصفات الطرد، خيارات التوصيل، الخصائص، التحصيل، المنتجات
-                // ...
+                // --- مواصفات الطرد ---
+                $('#review-package-type').text($('#package_type option:selected').text() || 'غير محدد');
+                $('#review-package-size').text($('#package_size option:selected').text() || 'غير محدد');
+                $('#review-weight').text($('#weight').val() || 'غير محدد');
+                $('#review-dimensions').text($('#dimensions').val() || 'غير محدد');
+                $('#review-package-content').text($('#package_content').val() || 'غير محدد');
+                $('#review-package-note').text($('#package_note').val() || 'غير محدد');
+
+                // --- خيارات التوصيل ---
+                $('#review-delivery-speed').text($('#delivery_speed option:selected').text() || 'غير محدد');
+                $('#review-delivery-method').text($('#delivery_method option:selected').text() || 'غير محدد');
+                $('#review-origin-type').text($('#origin_type option:selected').text() || 'غير محدد');
+                $('#review-delivery-date').text($('#delivery_date').val() || 'غير محدد');
+                $('#review-status').text($('#status1 option:selected').text() || 'غير محدد');
+                $('#review-status-note').text($('#delivery_status_note').val() || 'غير محدد');
+
+                // --- المنتجات (Livewire Component) ---
+                var productsHtml = '';
+                $('#products-list .product-item').each(function() {
+                    var name = $(this).find('.product-name').text();
+                    var qty = $(this).find('.product-qty').text();
+                    var weight = $(this).find('.product-weight').text();
+                    var price = $(this).find('.product-price').text();
+                    productsHtml += `<div class="review-item">
+                                        <span class="review-label">${name}:</span>
+                                        <span class="review-value">الكمية: ${qty}, الوزن: ${weight}, السعر: ${price}</span>
+                                    </div>`;
+                });
+                $('#review-products').html(productsHtml || '<div>لا توجد منتجات</div>');
+
+                // --- معلومات التحصيل ---
+                $('#review-payment-responsibility').text($('#payment_responsibility option:selected').text() || 'غير محدد');
+                $('#review-payment-method').text($('#payment_method option:selected').text() || 'غير محدد');
+                $('#review-collection-method').text($('#collection_method option:selected').text() || 'غير محدد');
+                $('#review-delivery-fee').text($('#delivery_fee').val() || 0);
+                $('#review-insurance-fee').text($('#insurance_fee').val() || 0);
+                $('#review-service-fee').text($('#service_fee').val() || 0);
+                $('#review-total-fee').text($('#total_fee').val() || 0);
+                $('#review-paid-amount').text($('#paid_amount').val() || 0);
+                $('#review-remaining-amount').text($('#due_amount').val() || 0);
+                $('#review-cod-amount').text($('#cod_amount').val() || 0);
+
+                // --- الخصائص الإضافية ---
+                var attributesHtml = '';
+                $('#delivery-options input[type="checkbox"]').each(function() {
+                    if ($(this).is(':checked')) {
+                        var label = $(this).next('label').text();
+                        attributesHtml += `<span class="badge bg-primary">${label}</span>`;
+                    }
+                });
+                $('#review-attributes').html(attributesHtml || '<span>لا توجد خصائص إضافية</span>');
             }
+
+// تحديث صفحة المراجعة عند فتح تبويبها
+$(document).on('shown.bs.tab', 'a[href="#confirm-detail"]', function () {
+    updateReviewPage();
+});
+
 
             // تحديث صفحة المراجعة عند فتح تبويبها
             $(document).on('shown.bs.tab', 'a[href="#confirm-detail"]', function () {
