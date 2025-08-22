@@ -323,7 +323,7 @@
                                         <div class="tab-pane" id="trip-information">
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <div class="card">
+                                                    {{-- <div class="card">
                                                         <div class="card-header">
                                                             <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>{{ __('package.sender_address') }}</h5>
                                                         </div>
@@ -396,7 +396,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
+                                                    @livewire('admin.package.sender-location-component')
                                                 </div>
 
                                                 <div class="col-lg-6">
