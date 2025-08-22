@@ -16,15 +16,19 @@ class SenderLocationComponent extends Component
     public $sender_city = '';
     public $sender_district = '';
     public $sender_postal_code = '';
-    public $sender_location = ''; // latitude,longitude
 
-    protected $listeners = ['merchantSelected', 'refreshMapFromBlade'];
+    // الحقول الجديدة
+    public $latitude = '';
+    public $longitude = '';
+
+    protected $listeners = ['merchantSelected', 'refreshMapFromBlade', 'setMyLocation'];
 
     public function mount()
     {
-        // يمكن وضع قيم افتراضية لوسط الرياض
-        if (!$this->sender_location) {
-            $this->sender_location = '24.7136,46.6753';
+        // إذا ما فيش بيانات مسبقة → وسط الرياض
+        if (!$this->latitude || !$this->longitude) {
+            $this->latitude = '24.7136';
+            $this->longitude = '46.6753';
         }
     }
 
@@ -42,8 +46,10 @@ class SenderLocationComponent extends Component
                 $this->sender_city = $merchant->city ?? '';
                 $this->sender_district = $merchant->district ?? '';
                 $this->sender_postal_code = $merchant->postal_code ?? '';
-                if($merchant->latitude && $merchant->longitude){
-                    $this->sender_location = $merchant->latitude . ',' . $merchant->longitude;
+
+                if ($merchant->latitude && $merchant->longitude) {
+                    $this->latitude = $merchant->latitude;
+                    $this->longitude = $merchant->longitude;
                 }
             }
         } else {
@@ -54,10 +60,20 @@ class SenderLocationComponent extends Component
             $this->sender_city = '';
             $this->sender_district = '';
             $this->sender_postal_code = '';
-            $this->sender_location = '24.7136,46.6753';
+            $this->latitude = '24.7136';
+            $this->longitude = '46.6753';
         }
 
         $this->emit('refreshMap'); // لتحديث الخريطة
+    }
+
+    // استدعاء عند الضغط على "تحديد موقعي الحالي"
+    public function setMyLocation($lat, $lng)
+    {
+        $this->latitude = $lat;
+        $this->longitude = $lng;
+
+        $this->emit('refreshMap'); // تحديث الخريطة بعد تغيير الموقع
     }
 
     public function render()

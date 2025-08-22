@@ -35,8 +35,16 @@
     <div class="row mb-3">
         <div class="col-12">
             <label class="form-label">الموقع</label>
-             <input type="text" class="form-control mb-2" wire:model="sender_location" readonly>
-
+<div class="row mb-2">
+    <div class="col-md-6">
+        <label class="form-label">خط العرض (Latitude)</label>
+        <input type="text" class="form-control" wire:model="latitude">
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">خط الطول (Longitude)</label>
+        <input type="text" class="form-control" wire:model="longitude">
+    </div>
+</div>
             <div id="map" wire:ignore style="width: 100%; height: 300px;"></div>
 
         </div>
@@ -110,7 +118,7 @@
     </script> --}}
 
 
-    <script>
+    {{-- <script>
         document.addEventListener('livewire:load', function () {
             function updateFieldsFromLatLng(lat, lng){
                 fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
@@ -175,8 +183,74 @@
             // ⚡ إصلاح مشكلة العرض في التابات أو النماذج
             setTimeout(() => map.invalidateSize(), 300);
         });
-    </script>
+    </script> --}}
 
+
+    <script>
+    document.addEventListener('livewire:load', function () {
+
+        function updateFieldsFromLatLng(lat, lng){
+            fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.address){
+                        @this.set('sender_country', data.address.country || '');
+                        @this.set('sender_city', data.address.city || data.address.town || data.address.village || '');
+                        @this.set('sender_region', data.address.state || '');
+                        @this.set('sender_district', data.address.suburb || '');
+                        @this.set('sender_postal_code', data.address.postcode || '');
+                    }
+                });
+        }
+
+        var mapDiv = document.getElementById('map');
+        if(!mapDiv) return;
+
+        // ⚡ اجلب القيم من Livewire مباشرة
+        var initialLat = parseFloat(@this.latitude) || 24.7136;
+        var initialLng = parseFloat(@this.longitude) || 46.6753;
+
+        var map = L.map('map', {
+            minZoom: 8,
+            maxZoom: 18,
+            zoomControl: true,
+        }).setView([initialLat, initialLng], 11);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+            subdomains: ['a','b','c'],
+            tileSize: 256,
+        }).addTo(map);
+
+        var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
+
+        marker.on('dragend', function(e){
+            var latlng = marker.getLatLng();
+            @this.set('latitude', latlng.lat);
+            @this.set('longitude', latlng.lng);
+            updateFieldsFromLatLng(latlng.lat, latlng.lng);
+        });
+
+        map.on('click', function(e){
+            marker.setLatLng(e.latlng);
+            @this.set('latitude', e.latlng.lat);
+            @this.set('longitude', e.latlng.lng);
+            updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
+        });
+
+        Livewire.on('refreshMap', () => {
+            var lat = parseFloat(@this.latitude);
+            var lng = parseFloat(@this.longitude);
+            if(!isNaN(lat) && !isNaN(lng)){
+                marker.setLatLng([lat, lng]);
+                map.setView([lat, lng], 11);
+                map.invalidateSize();
+            }
+        });
+
+        setTimeout(() => map.invalidateSize(), 300);
+    });
+</script>
 
 
 </div>
