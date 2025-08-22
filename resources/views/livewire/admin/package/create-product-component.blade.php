@@ -62,7 +62,7 @@
                                 name="products[{{ $index }}][weight]"
                                 placeholder="{{ __('product.weight_placeholder') }}"
                                 wire:model.lazy="products.{{ $index }}.weight"
-                                min="0" step="0.01">
+                                min="0" step="0.01"  oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         </td>
 
                         {{-- الكمية --}}
@@ -71,7 +71,7 @@
                                 name="products[{{ $index }}][quantity]"
                                 placeholder="{{ __('product.quantity_placeholder') }}"
                                 wire:model.lazy="products.{{ $index }}.quantity"
-                                min="0" step="1">
+                                min="0" step="1"  oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         </td>
 
                         {{-- سعر الوحدة --}}
@@ -81,6 +81,7 @@
                                 placeholder="{{ __('product.price_per_unit_placeholder') }}"
                                 wire:model.lazy="products.{{ $index }}.price_per_unit"
                                 min="0"
+                                 oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                 @if ($merchant_id && $product['type'] === 'stock') readonly @endif>
                         </td>
 
