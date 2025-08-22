@@ -76,7 +76,7 @@
 
             {{-- 🏷️ الدفع عند الاستلام --}}
             <div class="row mb-3">
-                <div class="col-sm-4">
+                <div class="col-sm-12">
                     <label class="col-form-label">{{ __('package.cod_amount') }}</label>
                     <input wire:model="cod_amount" name="cod_amount" type="number" step="0.01" class="form-control">
                 </div>
