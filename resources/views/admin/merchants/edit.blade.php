@@ -233,6 +233,18 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label class="col-md-2 col-form-label">{{ __('general.location') }}</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="Latitude" value="{{ old('latitude', $merchant->latitude ?? '24.7136') }}">
+                                    <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="Longitude" value="{{ old('longitude', $merchant->longitude ?? '46.6753') }}">
+                                    <div id="map" style="width: 100%; height: 300px;"></div>
+                                </div>
+                            </div>
+
+
+
+
+                            {{-- <div class="row mb-3">
                                 <label class="col-md-2 col-form-label" for="latitude">{{ __('general.latitude') }}</label>
                                 <div class="col-md-4">
                                     <input name="latitude" class="form-control" id="latitude" type="text" value="{{ old('latitude' , $merchant->latitude) }}">
@@ -248,7 +260,7 @@
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                             <div class="row mb-3">
@@ -419,73 +431,110 @@
 @endsection
 
 @section('script')
-<script>
-    $(document).ready(function() {
-        // Initialize file input
-        $("#merchant_logo").fileinput({
-            theme: "fa5",
-            maxFileCount: 1,
-            allowedFileTypes: ['image'],
-            showCancel: true,
-            showRemove: false,
-            showUpload: false,
-            overwriteInitial: false,
-            browseClass: "btn btn-primary",
-            browseIcon: '<i class="bi bi-folder2-open"></i> ',
-            browseLabel: "{{ __('general.select_file') }}",
-            msgPlaceholder: "{{ __('general.choose_file') }}",
-            dropZoneEnabled: false,
-            @if($merchant->logo)
-            initialPreview: [
-                "{{ asset('assets/merchants/' . $merchant->logo) }}"
-            ],
-            initialPreviewAsData: true,
-            initialPreviewFileType: 'image',
-            initialPreviewConfig: [
-                {
-                    caption: "{{ $merchant->logo }}",
-                    size: '{{ filesize(public_path("assets/merchants/" . $merchant->logo)) }}',
-                    width: "120px",
-                    url: "{{ route('admin.merchants.remove_image', ['merchant_id' => $merchant->id, '_token' => csrf_token()]) }}",
-                    key: {{ $merchant->id }}
+    <script>
+        $(document).ready(function() {
+            // Initialize file input
+            $("#merchant_logo").fileinput({
+                theme: "fa5",
+                maxFileCount: 1,
+                allowedFileTypes: ['image'],
+                showCancel: true,
+                showRemove: false,
+                showUpload: false,
+                overwriteInitial: false,
+                browseClass: "btn btn-primary",
+                browseIcon: '<i class="bi bi-folder2-open"></i> ',
+                browseLabel: "{{ __('general.select_file') }}",
+                msgPlaceholder: "{{ __('general.choose_file') }}",
+                dropZoneEnabled: false,
+                @if($merchant->logo)
+                initialPreview: [
+                    "{{ asset('assets/merchants/' . $merchant->logo) }}"
+                ],
+                initialPreviewAsData: true,
+                initialPreviewFileType: 'image',
+                initialPreviewConfig: [
+                    {
+                        caption: "{{ $merchant->logo }}",
+                        size: '{{ filesize(public_path("assets/merchants/" . $merchant->logo)) }}',
+                        width: "120px",
+                        url: "{{ route('admin.merchants.remove_image', ['merchant_id' => $merchant->id, '_token' => csrf_token()]) }}",
+                        key: {{ $merchant->id }}
+                    }
+                ]
+                @endif
+            });
+
+            // Generate API Key
+            $('#generateApiKey').click(function() {
+                $('#api_key').val(generateApiKey(32));
+            });
+
+            function generateApiKey(length) {
+                var result = '';
+                var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                var charactersLength = characters.length;
+                for (var i = 0; i < length; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * charactersLength));
                 }
-            ]
-            @endif
-        });
-
-        // Generate API Key
-        $('#generateApiKey').click(function() {
-            $('#api_key').val(generateApiKey(32));
-        });
-
-        function generateApiKey(length) {
-            var result = '';
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            var charactersLength = characters.length;
-            for (var i = 0; i < length; i++) {
-                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                return result;
             }
-            return result;
-        }
 
-        // Form validation
-        (function () {
-            'use strict'
-            var forms = document.querySelectorAll('.needs-validation')
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-        })()
-    });
-</script>
+            // Form validation
+            (function () {
+                'use strict'
+                var forms = document.querySelectorAll('.needs-validation')
+                Array.prototype.slice.call(forms)
+                    .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+            })()
+        });
+    </script>
+
+<!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // إحداثيات البداية
+            var initialLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
+            var initialLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
+
+            // إنشاء الخريطة
+            var map = L.map('map').setView([initialLat, initialLng], 13);
+
+            // إضافة خريطة OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            // إضافة Marker يمكن سحبه
+            var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
+
+            // عند سحب Marker، يتم تحديث الحقول
+            marker.on('dragend', function(e) {
+                var latLng = e.target.getLatLng();
+                document.getElementById('latitude').value = latLng.lat.toFixed(6);
+                document.getElementById('longitude').value = latLng.lng.toFixed(6);
+            });
+
+            // عند النقر على الخريطة، يتم نقل Marker وتحديث الحقول
+            map.on('click', function(e) {
+                marker.setLatLng(e.latlng);
+                document.getElementById('latitude').value = e.latlng.lat.toFixed(6);
+                document.getElementById('longitude').value = e.latlng.lng.toFixed(6);
+            });
+        });
+    </script>
 @endsection
+
 
 
 

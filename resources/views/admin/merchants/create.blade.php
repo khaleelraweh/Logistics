@@ -312,6 +312,16 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label class="col-md-2 col-form-label">{{ __('general.location') }}</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="Latitude" value="{{ old('latitude', $merchant->latitude ?? '') }}">
+                                    <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="Longitude" value="{{ old('longitude', $merchant->longitude ?? '') }}">
+                                    <div id="map" style="width: 100%; height: 300px;"></div>
+                                </div>
+                            </div>
+
+
+                            {{-- <div class="row mb-3">
                                 <label class="col-md-2 col-form-label" for="latitude">{{ __('general.latitude') }}</label>
                                 <div class="col-md-4">
                                     <input name="latitude" class="form-control" id="latitude" type="text" value="{{ old('latitude') }}">
@@ -327,7 +337,7 @@
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="row mb-3">
                                 <label class="col-md-2 col-form-label" for="others">{{ __('general.additional_notes') }}</label>
@@ -469,4 +479,88 @@
         })()
     });
 </script>
+
+ <!-- تضمين مكتبة Leaflet CSS و JS -->
+ <!-- مكتبة خاصة بالخرائط -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // إحداثيات البداية
+        // صنعاء
+        // var initialLat = parseFloat(document.getElementById('latitude').value) || 15.3694;
+        // var initialLng = parseFloat(document.getElementById('longitude').value) || 44.1910;
+
+        // وسط الرياض
+        var initialLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
+        var initialLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
+
+        // إنشاء الخريطة
+        var map = L.map('map').setView([initialLat, initialLng], 13);
+
+        // إضافة طبقة OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // إنشاء العلامة القابلة للسحب
+        var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
+
+        // تحديث الحقول عند تحريك العلامة
+        marker.on('dragend', function(e) {
+            var latlng = marker.getLatLng();
+            document.getElementById('latitude').value = latlng.lat.toFixed(7);
+            document.getElementById('longitude').value = latlng.lng.toFixed(7);
+        });
+
+        // تحديث العلامة عند النقر على الخريطة
+        map.on('click', function(e) {
+            marker.setLatLng(e.latlng);
+            document.getElementById('latitude').value = e.latlng.lat.toFixed(7);
+            document.getElementById('longitude').value = e.latlng.lng.toFixed(7);
+        });
+    });
+</script>
+
+
+{{-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+<script>
+    let map;
+    let marker;
+
+    function initMap() {
+        const lat = parseFloat(document.getElementById('latitude').value) || 15.3694; // قيمة افتراضية
+        const lng = parseFloat(document.getElementById('longitude').value) || 44.1910;
+
+        const initialPosition = { lat: lat, lng: lng };
+
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: initialPosition,
+            zoom: 8,
+        });
+
+        marker = new google.maps.Marker({
+            position: initialPosition,
+            map: map,
+            draggable: true
+        });
+
+        // عند تحريك المؤشر يتم تحديث الحقول
+        marker.addListener('dragend', function(event) {
+            document.getElementById('latitude').value = event.latLng.lat();
+            document.getElementById('longitude').value = event.latLng.lng();
+        });
+
+        // يمكن النقر على الخريطة لتغيير الموقع
+        map.addListener('click', function(event) {
+            marker.setPosition(event.latLng);
+            document.getElementById('latitude').value = event.latLng.lat();
+            document.getElementById('longitude').value = event.latLng.lng();
+        });
+    }
+
+    window.onload = initMap;
+</script> --}}
+
 @endsection
