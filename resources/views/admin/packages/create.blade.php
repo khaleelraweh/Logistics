@@ -550,7 +550,7 @@
                                         </div>
 
 
-                                        {{-- <!-- الخطوة 5: المراجعة النهائية -->
+                                        <!-- الخطوة 5: المراجعة النهائية -->
                                         <div class="tab-pane" id="confirm-detail">
                                             <div class="row">
                                                 <div class="col-12">
@@ -850,282 +850,7 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div> --}}
-
-                                        <!-- الخطوة 5: المراجعة النهائية -->
-<div class="tab-pane" id="confirm-detail">
-    <div class="row">
-        <div class="col-12">
-            <div class="card review-card mb-4">
-                <div class="card-header d-flex align-items-center">
-                    <i class="fas fa-clipboard-check me-2"></i>
-                    <span>مراجعة المعلومات النهائية</span>
-                </div>
-                <div class="card-body">
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle me-2"></i>
-                        يرجى مراجعة المعلومات التالية قبل حفظ الطرد. تأكد من صحة جميع البيانات المدخلة.
-                    </div>
-
-                    <div class="row">
-                        <!-- معلومات المرسل -->
-                        <div class="col-md-6 mb-4">
-                            <div class="review-section">
-                                <h6 class="mb-3 d-flex align-items-center">
-                                    <i class="fas fa-user-circle me-2 text-primary"></i>
-                                    <span>معلومات المرسل</span>
-                                </h6>
-                                <div class="review-item"><span class="review-label">التاجر:</span> <span class="review-value" id="review-sender-merchant"></span></div>
-                                <div class="review-item"><span class="review-label">الاسم:</span> <span class="review-value" id="review-sender-name"></span></div>
-                                <div class="review-item"><span class="review-label">البريد الإلكتروني:</span> <span class="review-value" id="review-sender-email"></span></div>
-                                <div class="review-item"><span class="review-label">الهاتف:</span> <span class="review-value" id="review-sender-phone"></span></div>
-                                <div class="review-item"><span class="review-label">العنوان:</span> <span class="review-value" id="review-sender-address"></span></div>
-                                <div class="review-item"><span class="review-label">البلد:</span> <span class="review-value" id="review-sender-country"></span></div>
-                                <div class="review-item"><span class="review-label">المدينة:</span> <span class="review-value" id="review-sender-city"></span></div>
-                                <div class="review-item"><span class="review-label">الرمز البريدي:</span> <span class="review-value" id="review-sender-postal"></span></div>
-                            </div>
-                        </div>
-
-                        <!-- معلومات المستلم -->
-                        <div class="col-md-6 mb-4">
-                            <div class="review-section">
-                                <h6 class="mb-3 d-flex align-items-center">
-                                    <i class="fas fa-user-check me-2 text-success"></i>
-                                    <span>معلومات المستلم</span>
-                                </h6>
-                                <div class="review-item"><span class="review-label">التاجر:</span> <span class="review-value" id="review-receiver-merchant"></span></div>
-                                <div class="review-item"><span class="review-label">الاسم:</span> <span class="review-value" id="review-receiver-name"></span></div>
-                                <div class="review-item"><span class="review-label">البريد الإلكتروني:</span> <span class="review-value" id="review-receiver-email"></span></div>
-                                <div class="review-item"><span class="review-label">الهاتف:</span> <span class="review-value" id="review-receiver-phone"></span></div>
-                                <div class="review-item"><span class="review-label">العنوان:</span> <span class="review-value" id="review-receiver-address"></span></div>
-                                <div class="review-item"><span class="review-label">البلد:</span> <span class="review-value" id="review-receiver-country"></span></div>
-                                <div class="review-item"><span class="review-label">المدينة:</span> <span class="review-value" id="review-receiver-city"></span></div>
-                                <div class="review-item"><span class="review-label">الرمز البريدي:</span> <span class="review-value" id="review-receiver-postal"></span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- مواصفات الطرد -->
-                        <div class="col-md-6 mb-4">
-                            <div class="review-section">
-                                <h6 class="mb-3 d-flex align-items-center">
-                                    <i class="fas fa-box me-2 text-warning"></i>
-                                    <span>مواصفات الطرد</span>
-                                </h6>
-                                <div class="review-item"><span class="review-label">النوع:</span> <span class="review-value" id="review-package-type"></span></div>
-                                <div class="review-item"><span class="review-label">الحجم:</span> <span class="review-value" id="review-package-size"></span></div>
-                                <div class="review-item"><span class="review-label">الوزن:</span> <span class="review-value" id="review-weight"></span></div>
-                                <div class="review-item"><span class="review-label">الأبعاد:</span> <span class="review-value" id="review-dimensions"></span></div>
-                                <div class="review-item"><span class="review-label">المحتويات:</span> <span class="review-value" id="review-package-content"></span></div>
-                                <div class="review-item"><span class="review-label">ملاحظات:</span> <span class="review-value" id="review-package-note"></span></div>
-                            </div>
-                        </div>
-
-                        <!-- خيارات التوصيل -->
-                        <div class="col-md-6 mb-4">
-                            <div class="review-section">
-                                <h6 class="mb-3 d-flex align-items-center">
-                                    <i class="fas fa-shipping-fast me-2 text-info"></i>
-                                    <span>خيارات التوصيل</span>
-                                </h6>
-                                <div class="review-item"><span class="review-label">سرعة التوصيل:</span> <span class="review-value" id="review-delivery-speed"></span></div>
-                                <div class="review-item"><span class="review-label">طريقة التوصيل:</span> <span class="review-value" id="review-delivery-method"></span></div>
-                                <div class="review-item"><span class="review-label">نوع المصدر:</span> <span class="review-value" id="review-origin-type"></span></div>
-                                <div class="review-item"><span class="review-label">تاريخ التوصيل:</span> <span class="review-value" id="review-delivery-date"></span></div>
-                                <div class="review-item"><span class="review-label">الحالة:</span> <span class="review-value" id="review-status"></span></div>
-                                <div class="review-item"><span class="review-label">ملاحظات الحالة:</span> <span class="review-value" id="review-status-note"></span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- المنتجات -->
-                    <div class="row mb-4">
-                        <div class="col-12">
-                            <div class="review-section">
-                                <h6 class="mb-3 d-flex align-items-center">
-                                    <i class="fas fa-cubes me-2 text-danger"></i>
-                                    <span>المنتجات</span>
-                                </h6>
-                                <div id="review-products"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <!-- معلومات التحصيل -->
-                        <div class="col-md-6 mb-4">
-                            <div class="review-section">
-                                <h6 class="mb-3 d-flex align-items-center">
-                                    <i class="fas fa-money-bill-wave me-2 text-success"></i>
-                                    <span>معلومات التحصيل</span>
-                                </h6>
-                                <div class="review-item"><span class="review-label">مسؤولية الدفع:</span> <span class="review-value" id="review-payment-responsibility"></span></div>
-                                <div class="review-item"><span class="review-label">طريقة الدفع:</span> <span class="review-value" id="review-payment-method"></span></div>
-                                <div class="review-item"><span class="review-label">طريقة التحصيل:</span> <span class="review-value" id="review-collection-method"></span></div>
-                                <div class="review-item"><span class="review-label">رسوم التوصيل:</span> <span class="review-value" id="review-delivery-fee"></span></div>
-                                <div class="review-item"><span class="review-label">رسوم التأمين:</span> <span class="review-value" id="review-insurance-fee"></span></div>
-                                <div class="review-item"><span class="review-label">رسوم الخدمة:</span> <span class="review-value" id="review-service-fee"></span></div>
-                                <div class="review-item"><span class="review-label">المبلغ الإجمالي:</span> <span class="review-value" id="review-total-fee"></span></div>
-                                <div class="review-item"><span class="review-label">المبلغ المدفوع:</span> <span class="review-value" id="review-paid-amount"></span></div>
-                                <div class="review-item"><span class="review-label">المبلغ المتبقي:</span> <span class="review-value" id="review-remaining-amount"></span></div>
-                                <div class="review-item"><span class="review-label">مبلغ الدفع عند الاستلام:</span> <span class="review-value" id="review-cod-amount"></span></div>
-                            </div>
-                        </div>
-
-                        <!-- الخصائص الإضافية -->
-                        <div class="col-md-6 mb-4">
-                            <div class="review-section">
-                                <h6 class="mb-3 d-flex align-items-center">
-                                    <i class="fas fa-star me-2 text-warning"></i>
-                                    <span>الخصائص الإضافية</span>
-                                </h6>
-                                <div id="review-attributes" class="d-flex flex-wrap gap-2 p-3 bg-light rounded"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-6 text-start">
-            <button type="button" class="btn btn-outline-secondary" id="prev-to-options">
-                <i class="fas fa-arrow-right me-2"></i> السابق
-            </button>
-        </div>
-        <div class="col-6 text-end">
-            <button type="submit" class="btn btn-success">
-                <i class="fas fa-save me-2"></i> حفظ الطرد
-            </button>
-        </div>
-    </div>
-</div>
-
-@section('script')
-<script>
-$(document).ready(function () {
-
-    function validateCurrentStep() {
-        var $currentTab = $('.tab-pane.active');
-        var $requiredFields = $currentTab.find('input[required], select[required], textarea[required]').filter(function() { return $(this).is(':visible') && !$(this).prop('disabled'); });
-        var isValid = true;
-        var firstInvalid = null;
-
-        $requiredFields.each(function () {
-            var val = $(this).val();
-            if (!val || (Array.isArray(val) && val.length === 0)) {
-                isValid = false;
-                if (!firstInvalid) firstInvalid = this;
-                $(this).addClass('is-invalid');
-                if (!$(this).next('.invalid-feedback').length) {
-                    $(this).after('<div class="invalid-feedback">هذا الحقل مطلوب</div>');
-                }
-            } else {
-                $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
-            }
-        });
-
-        $currentTab.find('input[type="email"]').each(function () {
-            var val = $(this).val();
-            if (val) {
-                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailPattern.test(val)) {
-                    isValid = false;
-                    if (!firstInvalid) firstInvalid = this;
-                    $(this).addClass('is-invalid');
-                    if (!$(this).next('.invalid-feedback').length) {
-                        $(this).after('<div class="invalid-feedback">يرجى إدخال بريد إلكتروني صالح</div>');
-                    }
-                } else {
-                    $(this).removeClass('is-invalid').next('.invalid-feedback').remove();
-                }
-            }
-        });
-
-        if (!isValid) {
-            Swal.fire({ icon: 'warning', title: 'تنبيه', text: 'يرجى ملء جميع الحقول المطلوبة بشكل صحيح قبل الانتقال إلى الخطوة التالية.', confirmButtonText: 'موافق' });
-            if (firstInvalid) { $(firstInvalid).focus(); }
-        }
-        return isValid;
-    }
-
-    $("#basic-pills-wizard").bootstrapWizard({
-        tabClass: "nav nav-pills nav-justified",
-        onNext: function(tab, navigation, index) { if (!validateCurrentStep()) return false; },
-        onTabClick: function(tab, navigation, index) {
-            var activeIndex = navigation.find('li').index(navigation.find('li.active'));
-            if (index > activeIndex && !validateCurrentStep()) return false;
-        }
-    });
-
-    $("#progrss-wizard").bootstrapWizard({
-        onTabShow: function(tab, navigation, index) {
-            var progress = (index + 1) / navigation.find("li").length * 100;
-            $("#progrss-wizard").find(".progress-bar").css({ width: progress + "%" });
-        },
-        onNext: function(tab, navigation, index) { if (!validateCurrentStep()) return false; },
-        onTabClick: function(tab, navigation, index) {
-            var activeIndex = navigation.find('li').index(navigation.find('li.active'));
-            if (index > activeIndex && !validateCurrentStep()) return false;
-        }
-    });
-
-    $(document).on('shown.bs.tab', 'a[href="#confirm-detail"]', function () {
-        updateReviewPage();
-    });
-
-    function updateReviewPage() {
-        // المرسل
-        $('#review-sender-merchant').text($('#merchant_id option:selected').text() || 'بدون تاجر');
-        $('#review-sender-name').text(
-            ($('#sender_first_name').val()||'')+' '+($('#sender_middle_name').val()||'')+' '+($('#sender_last_name').val()||'')
-        );
-        $('#review-sender-email').text($('#sender_email').val()||'غير محدد');
-        $('#review-sender-phone').text($('#sender_phone').val()||'غير محدد');
-        $('#review-sender-country').text($('#sender_country').val()||'غير محدد');
-        $('#review-sender-city').text($('#sender_city').val()||'غير محدد');
-        $('#review-sender-postal').text($('#sender_postal_code').val()||'غير محدد');
-
-        // المستلم
-        $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text()||'بدون تاجر');
-        $('#review-receiver-name').text(
-            ($('#receiver_first_name').val()||'')+' '+($('#receiver_middle_name').val()||'')+' '+($('#receiver_last_name').val()||'')
-        );
-        $('#review-receiver-email').text($('#receiver_email').val()||'غير محدد');
-        $('#review-receiver-phone').text($('#receiver_phone').val()||'غير محدد');
-        $('#review-receiver-country').text($('#receiver_country').val()||'غير محدد');
-        $('#review-receiver-city').text($('#receiver_city').val()||'غير محدد');
-        $('#review-receiver-postal').text($('#receiver_postal_code').val()||'غير محدد');
-
-        // المنتجات
-        let $productsContainer = $('#review-products');
-        $productsContainer.empty();
-        $('.product-id').each(function() {
-            let productName = $(this).data('name') || 'غير محدد';
-            let productDesc = $(this).data('description') || 'غير محدد';
-            let productSku = $(this).data('sku') || 'غير محدد';
-            let productPrice = $(this).data('price') || 0;
-            let productHtml = `<div class="review-item border rounded p-2 mb-2">
-                <strong>المنتج:</strong> ${productName}<br>
-                <strong>الوصف:</strong> ${productDesc}<br>
-                <strong>SKU:</strong> ${productSku}<br>
-                <strong>السعر:</strong> ${productPrice} ر.س
-            </div>`;
-            $productsContainer.append(productHtml);
-        });
-
-        // باقي بيانات المراجعة مثل مواصفات الطرد، التحصيل، الخصائص تبقى كما في الكود الأصلي
-    }
-
-    $(document).on('focus', '.is-invalid', function() {
-        $(this).removeClass('is-invalid');
-        $(this).next('.invalid-feedback').remove();
-    });
-
-});
-</script>
-@endsection
+                                        </div>
 
                                     </div>
 
@@ -1147,7 +872,7 @@ $(document).ready(function () {
 
 
 
- {{-- @section('script')
+@section('script')
     <script>
         $(document).ready(function () {
 
@@ -1302,7 +1027,7 @@ $(document).ready(function () {
         });
     </script>
 @endsection
- --}}
+
 
 
 
