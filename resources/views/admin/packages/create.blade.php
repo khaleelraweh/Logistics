@@ -974,38 +974,37 @@
                 }
             });
 
-            // تحديث صفحة المراجعة
-            // function updateReviewPage() {
-            //     // معلومات المرسل
-            //     $('#review-sender-merchant').text($('#merchant_id option:selected').text() || 'بدون تاجر');
-            //     $('#review-sender-name').text(
-            //         ($('#sender_first_name').val() || '') + ' ' +
-            //         ($('#sender_middle_name').val() || '') + ' ' +
-            //         ($('#sender_last_name').val() || '')
-            //     );
-            //     $('#review-sender-email').text($('#sender_email').val() || 'غير محدد');
-            //     $('#review-sender-phone').text($('#sender_phone').val() || 'غير محدد');
-            //     $('#review-sender-country').text($('#sender_country').val() || 'غير محدد');
-            //     $('#review-sender-city').text($('#sender_city').val() || 'غير محدد');
-            //     $('#review-sender-postal').text($('#sender_postal_code').val() || 'غير محدد');
 
-            //     // معلومات المستلم
-            //     $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text() || 'بدون تاجر');
-            //     $('#review-receiver-name').text(
-            //         ($('#receiver_first_name').val() || '') + ' ' +
-            //         ($('#receiver_middle_name').val() || '') + ' ' +
-            //         ($('#receiver_last_name').val() || '')
-            //     );
-            //     $('#review-receiver-email').text($('#receiver_email').val() || 'غير محدد');
-            //     $('#review-receiver-phone').text($('#receiver_phone').val() || 'غير محدد');
-            //     $('#review-receiver-country').text($('#receiver_country').val() || 'غير محدد');
-            //     $('#review-receiver-city').text($('#receiver_city').val() || 'غير محدد');
-            //     $('#review-receiver-postal').text($('#receiver_postal_code').val() || 'غير محدد');
+             // عرض المنتجات في صفحة المراجعة
+            function updateReviewProducts() {
+                var $container = $('#review-products');
+                $container.empty(); // تنظيف الحاوية أولاً
 
-            //     // باقي بيانات المراجعة تبقى كما في كودك الأصلي...
-            //     // مواصفات الطرد، خيارات التوصيل، الخصائص، التحصيل، المنتجات
-            //     // ...
-            // }
+                if (window.products && window.products.length > 0) {
+                    var table = '<div class="table-responsive"><table class="table table-bordered table-striped align-middle">';
+                    table += '<thead class="table-light"><tr>';
+                    table += '<th>#</th><th>النوع</th><th>تفاصيل المنتج</th><th>الوزن</th><th>الكمية</th><th>سعر الوحدة</th><th>الإجمالي</th>';
+                    table += '</tr></thead><tbody>';
+
+                    window.products.forEach(function(prod, index) {
+                        table += '<tr>';
+                        table += '<td class="text-center">' + (index + 1) + '</td>';
+                        table += '<td>' + (prod.type === 'stock' ? 'مخزون' : 'مخصص') + '</td>';
+                        table += '<td>' + (prod.custom_name || (prod.stock_name || 'غير محدد')) + '</td>';
+                        table += '<td>' + (prod.weight || 0) + '</td>';
+                        table += '<td>' + (prod.quantity || 0) + '</td>';
+                        table += '<td>' + (prod.price_per_unit || 0) + '</td>';
+                        table += '<td>' + (prod.total_price || 0) + '</td>';
+                        table += '</tr>';
+                    });
+
+                    table += '</tbody></table></div>';
+                    $container.html(table);
+                } else {
+                    $container.html('<p class="text-muted">لا يوجد منتجات</p>');
+                }
+            }
+
 
             // تحديث صفحة المراجعة بشكل كامل
             function updateReviewPage() {
@@ -1052,20 +1051,11 @@
                 $('#review-status').text($('#status1 option:selected').text() || 'غير محدد');
                 $('#review-status-note').text($('#delivery_status_note').val() || 'غير محدد');
 
-                // --- المنتجات (Livewire Component) ---
-                var productsHtml = '';
-                $('#products-list .product-item').each(function() {
-                    var name = $(this).find('.product-name').text();
-                    var qty = $(this).find('.product-qty').text();
-                    var weight = $(this).find('.product-weight').text();
-                    var price = $(this).find('.product-price').text();
-                    productsHtml += `<div class="review-item">
-                                        <span class="review-label">${name}:</span>
-                                        <span class="review-value">الكمية: ${qty}, الوزن: ${weight}, السعر: ${price}</span>
-                                    </div>`;
-                });
-                $('#review-products').html(productsHtml || '<div>لا توجد منتجات</div>');
+                // --- جلب المنتجات من Livewire ---
+                window.products = @this.get('products') || [];
 
+                // --- المنتجات (Livewire Component) ---
+                updateReviewProducts();
                 // --- معلومات التحصيل ---
                 $('#review-payment-responsibility').text($('#payment_responsibility option:selected').text() || 'غير محدد');
                 $('#review-payment-method').text($('#payment_method option:selected').text() || 'غير محدد');
@@ -1089,6 +1079,9 @@
                 $('#review-attributes').html(attributesHtml || '<span>لا توجد خصائص إضافية</span>');
             }
 
+
+
+
             // تحديث صفحة المراجعة عند فتح تبويبها
             $(document).on('shown.bs.tab', 'a[href="#confirm-detail"]', function () {
                 updateReviewPage();
@@ -1108,6 +1101,8 @@
 
         });
     </script>
+
+
 @endsection
 
 
