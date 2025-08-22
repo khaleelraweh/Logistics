@@ -258,61 +258,6 @@
                                                             <span class="badge bg-primary">{{ __('general.required') }}</span>
                                                         </div>
                                                         <div class="card-body">
-                                                            {{-- <div class="row mb-3">
-                                                                <div class="com-md-12">
-                                                                    <label for="merchant_recever_id" class="form-label">التاجر ({{ __('general.optional') }})</label>
-                                                                    <select class="form-select {{ $errors->has('merchant_recever_id') ? 'is-invalid' : '' }}" id="merchant_recever_id" name="merchant_recever_id">
-                                                                        <option value="">بدون تاجر</option>
-                                                                        @foreach($merchants as $merchant)
-                                                                            <option value="{{ $merchant->id }}" {{ old('merchant_recever_id') == $merchant->id ? 'selected' : '' }}>{{ $merchant->name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    @error('merchant_recever_id')
-                                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <div class="col-md-4">
-                                                                    <label for="receiver_first_name" class="form-label">{{ __('package.receiver_first_name') }} <span class="text-danger">*</span></label>
-                                                                    <input type="text" class="form-control {{ $errors->has('receiver_first_name') ? 'is-invalid' : '' }}" id="receiver_first_name" name="receiver_first_name" value="{{ old('receiver_first_name') }}" required>
-                                                                    @error('receiver_first_name')
-                                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                                    @enderror
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <label for="receiver_middle_name" class="form-label">{{ __('package.receiver_middle_name') }} <span class="text-danger">*</span></label>
-                                                                    <input type="text" class="form-control {{ $errors->has('receiver_middle_name') ? 'is-invalid' : '' }}" id="receiver_middle_name" name="receiver_middle_name" value="{{ old('receiver_middle_name') }}" required>
-                                                                    @error('receiver_middle_name')
-                                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                                    @enderror
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <label for="receiver_last_name" class="form-label">{{ __('package.receiver_last_name') }} <span class="text-danger">*</span></label>
-                                                                    <input type="text" class="form-control {{ $errors->has('receiver_last_name') ? 'is-invalid' : '' }}" id="receiver_last_name" name="receiver_last_name" value="{{ old('receiver_last_name') }}" required>
-                                                                    @error('receiver_last_name')
-                                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                                    @enderror
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mb-3">
-                                                                <div class="col-md-6">
-                                                                    <label for="receiver_email" class="form-label">{{ __('package.receiver_email') }}</label>
-                                                                    <input type="email" class="form-control {{ $errors->has('receiver_email') ? 'is-invalid' : '' }}" id="receiver_email" name="receiver_email" value="{{ old('receiver_email') }}">
-                                                                    @error('receiver_email')
-                                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                                    @enderror
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <label for="receiver_phone" class="form-label">{{ __('package.receiver_phone') }} <span class="text-danger">*</span></label>
-                                                                    <input type="text" class="form-control {{ $errors->has('receiver_phone') ? 'is-invalid' : '' }}" id="receiver_phone" name="receiver_phone" value="{{ old('receiver_phone') }}" required>
-                                                                    @error('receiver_phone')
-                                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                                    @enderror
-                                                                </div>
-                                                            </div> --}}
                                                             @livewire('admin.package.create-select-receiver-merchant-component')
 
                                                         </div>
