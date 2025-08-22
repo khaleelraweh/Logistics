@@ -25,14 +25,12 @@ class PackageSeeder extends Seeder
             'sender_middle_name'    =>  'عبدالله',
             'sender_last_name'     =>  'على',
             'sender_phone'          =>  '772036131',
-            'sender_address'        =>  'صنعاء - شارع بغداد',
             'sender_email'          =>  'khaled@gmail.com',
 
             'receiver_first_name'   => 'خليل',
             'receiver_middle_name'  => 'عبدالله',
             'receiver_last_name'    => 'راوح',
             'receiver_phone'        => '777000111',
-            'receiver_address'      => 'عدن - شارع المنصورة',
             'receiver_email'        => 'khaleel@gmail.com',
 
             'tracking_number' => 'PKG-' . strtoupper(Str::random(8)),
@@ -137,14 +135,12 @@ class PackageSeeder extends Seeder
             'sender_middle_name'    => 'أحمد',
             'sender_last_name'      => 'يوسف',
             'sender_phone'         => '777123456',
-            'sender_address'      => 'إب - شارع العدين',
             'sender_email'        => 'sami@gmail.com',
 
             'receiver_first_name'  => 'محمد',
             'receiver_middle_name' => 'علي',
             'receiver_last_name'   => 'سالم',
             'receiver_phone'       => '735000222',
-            'receiver_address'     => 'تعز - التحرير',
             'receiver_email'       => 'mohammed@gmail.com',
 
             'tracking_number' => 'PKG-' . strtoupper(Str::random(8)),

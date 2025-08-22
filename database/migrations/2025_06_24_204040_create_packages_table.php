@@ -33,7 +33,6 @@ return new class extends Migration
             // ايميل المرسل
 
             // Trip sender information
-            $table->string('sender_address')->nullable();
             $table->string('sender_country')->nullable();
             $table->string('sender_region')->nullable();
             $table->string('sender_city')->nullable();
@@ -54,7 +53,6 @@ return new class extends Migration
             // ايميل المستلم
 
             // Trip receiver information
-            $table->string('receiver_address')->nullable();
             $table->string('receiver_country')->nullable();
             $table->string('receiver_region')->nullable();
             $table->string('receiver_city')->nullable();

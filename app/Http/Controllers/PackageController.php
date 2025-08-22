@@ -106,7 +106,6 @@ class PackageController extends Controller
             $input['sender_last_name']    = $request->sender_last_name;
             $input['sender_email']        = $request->sender_email;
             $input['sender_phone']        = $request->sender_phone;
-            $input['sender_address']      = $request->sender_address;
             $input['sender_country']      = $request->sender_country;
             $input['sender_region']       = $request->sender_region;
             $input['sender_city']         = $request->sender_city;
@@ -121,7 +120,6 @@ class PackageController extends Controller
             $input['receiver_last_name']   = $request->receiver_last_name;
             $input['receiver_email']       = $request->receiver_email;
             $input['receiver_phone']       = $request->receiver_phone;
-            $input['receiver_address']     = $request->receiver_address;
             $input['receiver_country']     = $request->receiver_country;
             $input['receiver_region']      = $request->receiver_region;
             $input['receiver_city']        = $request->receiver_city;
@@ -360,7 +358,6 @@ class PackageController extends Controller
             $input['sender_last_name']    = $request->sender_last_name;
             $input['sender_email']        = $request->sender_email;
             $input['sender_phone']        = $request->sender_phone;
-            $input['sender_address']      = $request->sender_address;
             $input['sender_country']      = $request->sender_country;
             $input['sender_region']       = $request->sender_region;
             $input['sender_city']         = $request->sender_city;
@@ -374,7 +371,6 @@ class PackageController extends Controller
             $input['receiver_last_name']   = $request->receiver_last_name;
             $input['receiver_email']       = $request->receiver_email;
             $input['receiver_phone']       = $request->receiver_phone;
-            $input['receiver_address']     = $request->receiver_address;
             $input['receiver_country']     = $request->receiver_country;
             $input['receiver_region']      = $request->receiver_region; // fix
             $input['receiver_city']        = $request->receiver_city;
