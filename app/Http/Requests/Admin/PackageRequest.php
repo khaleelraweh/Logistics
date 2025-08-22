@@ -55,7 +55,8 @@ class PackageRequest extends FormRequest
                     'receiver_city' => 'required|string|max:100',
                     'receiver_district' => 'nullable|string|max:100',
                     'receiver_postal_code' => 'nullable|string|max:20',
-                    'receiver_location' => 'nullable|string|max:255',
+                    'receiver_latitude' => 'nullable|string|max:255',
+                    'receiver_longitude' => 'nullable|string|max:255',
                     'receiver_others' => 'nullable|string|max:500',
 
                     // Package details
@@ -135,7 +136,8 @@ class PackageRequest extends FormRequest
                     'receiver_city' => 'required|string|max:100',
                     'receiver_district' => 'nullable|string|max:100',
                     'receiver_postal_code' => 'nullable|string|max:20',
-                    'receiver_location' => 'nullable|string|max:255',
+                    'receiver_latitude' => 'nullable|string|max:255',
+                    'receiver_longitude' => 'nullable|string|max:255',
                     'receiver_others' => 'nullable|string|max:500',
 
                     // Package details
@@ -222,7 +224,8 @@ class PackageRequest extends FormRequest
             'receiver_city' => __('package.receiver_city'),
             'receiver_district' => __('package.receiver_district'),
             'receiver_postal_code' => __('package.receiver_postal_code'),
-            'receiver_location' => __('package.receiver_location'),
+            'receiver_latitude' => __('package.receiver_latitude'),
+            'receiver_longitude' => __('package.receiver_longitude'),
             'receiver_others' => __('package.receiver_others'),
             'package_type' => __('package.package_type'),
             'package_size' => __('package.package_size'),
