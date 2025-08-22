@@ -1,10 +1,10 @@
-<div>
-    <div class="container-fluid">
+جيد هذا هو <div class="container-fluid">
     <div class="table-responsive">
         <table class="table table-bordered table-striped align-middle">
             <thead class="table-light">
                 <tr>
-                    <th>{{ __('product.type') }}</th>
+                    <th>#</th> {{-- عمود الترقيم --}}
+                    <th class="type-column">{{ __('product.type') }}</th>
                     <th>{{ __('product.details') }}</th>
                     <th>{{ __('product.weight') }}</th>
                     <th>{{ __('product.quantity') }}</th>
@@ -16,8 +16,11 @@
             <tbody>
                 @foreach ($products as $index => $product)
                     <tr>
+                        {{-- الترقيم --}}
+                        <td class="align-middle text-center">{{ $index + 1 }}</td>
+
                         {{-- النوع --}}
-                        <td class="align-middle">
+                        <td class="align-middle type-column">
                             @if($merchant_id)
                                 <select class="form-select form-select-sm"
                                         name="products[{{ $index }}][type]"
@@ -123,12 +126,10 @@
 </script>
 
 <style>
-    /* لجعل الجدول أكثر قابلية للعرض على الجوال */
     @media (max-width: 767px) {
         table.table thead {
             display: none;
         }
-
         table.table tbody tr {
             display: block;
             margin-bottom: 1rem;
@@ -136,23 +137,25 @@
             padding: 0.5rem;
             border-radius: 0.25rem;
         }
-
         table.table tbody td {
             display: flex;
             justify-content: space-between;
             padding: 0.3rem 0.5rem;
         }
-
         table.table tbody td::before {
             content: attr(data-label);
             font-weight: 600;
             flex: 1;
         }
-
         table.table tbody td:last-child {
             justify-content: center;
         }
     }
-</style>
 
-</div>
+    /* تكبير حقل النوع على الشاشات الكبيرة */
+    @media (min-width: 992px) {
+        .type-column {
+            width: 100px; /* تعديل الحجم حسب الحاجة */
+        }
+    }
+</style>
