@@ -37,27 +37,22 @@
                     <div class="row mb-2">
                         <div class="col-md-6">
                             <label class="form-label" for="sender_latitude"> {{ __('package.sender_latitude') }}</label>
-                            <input type="text" class="form-control" name="sender_latitude" id="sender_latitude" wire:model="latitude">
+                            <input type="text" class="form-control" name="sender_latitude" id="sender_latitude" wire:model="latitude" readonly>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label" for="sender_longitude"> {{ __('package.sender_longitude') }}</label>
-                            <input type="text" class="form-control" name="sender_longitude" id="sender_longitude" wire:model="longitude">
+                            <input type="text" class="form-control" name="sender_longitude" id="sender_longitude" wire:model="longitude" readonly>
                         </div>
                     </div>
                     <div id="map" wire:ignore style="width: 100%; height: 300px;"></div>
-
                 </div>
             </div>
         </div>
     </div>
 
-
-
     <!-- مكتبة Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-
 
     <script>
         document.addEventListener('livewire:load', function () {
@@ -79,9 +74,8 @@
             var mapDiv = document.getElementById('map');
             if(!mapDiv) return;
 
-            // ⚡ اجلب القيم من Livewire مباشرة
-            var initialLat = parseFloat(@this.latitude) || 24.7136;
-            var initialLng = parseFloat(@this.longitude) || 46.6753;
+            var initialLat = parseFloat(@this.latitude) || @this.defaultLatitude;
+            var initialLng = parseFloat(@this.longitude) || @this.defaultLongitude;
 
             var map = L.map('map', {
                 minZoom: 8,
@@ -124,6 +118,4 @@
             setTimeout(() => map.invalidateSize(), 300);
         });
     </script>
-
-
 </div>

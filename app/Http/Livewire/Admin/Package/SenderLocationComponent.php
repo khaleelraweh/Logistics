@@ -17,19 +17,20 @@ class SenderLocationComponent extends Component
     public $sender_district = '';
     public $sender_postal_code = '';
 
-    // الحقول الجديدة
     public $latitude = '';
     public $longitude = '';
+
+    // الموقع الافتراضي للخريطة
+    public $defaultLatitude = 24.7136;
+    public $defaultLongitude = 46.6753;
 
     protected $listeners = ['merchantSelected', 'refreshMapFromBlade', 'setMyLocation'];
 
     public function mount()
     {
-        // إذا ما فيش بيانات مسبقة → وسط الرياض
-        if (!$this->latitude || !$this->longitude) {
-            $this->latitude = '24.7136';
-            $this->longitude = '46.6753';
-        }
+        // الحقول تبقى فارغة عند عدم وجود بيانات مسبقة
+        $this->latitude = '';
+        $this->longitude = '';
     }
 
     // عند اختيار تاجر
@@ -50,6 +51,9 @@ class SenderLocationComponent extends Component
                 if ($merchant->latitude && $merchant->longitude) {
                     $this->latitude = $merchant->latitude;
                     $this->longitude = $merchant->longitude;
+                } else {
+                    $this->latitude = '';
+                    $this->longitude = '';
                 }
             }
         } else {
@@ -60,8 +64,8 @@ class SenderLocationComponent extends Component
             $this->sender_city = '';
             $this->sender_district = '';
             $this->sender_postal_code = '';
-            $this->latitude = '24.7136';
-            $this->longitude = '46.6753';
+            $this->latitude = '';
+            $this->longitude = '';
         }
 
         $this->emit('refreshMap'); // لتحديث الخريطة
