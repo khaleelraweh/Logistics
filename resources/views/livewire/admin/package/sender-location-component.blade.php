@@ -35,8 +35,10 @@
     <div class="row mb-3">
         <div class="col-12">
             <label class="form-label">الموقع</label>
-            <input type="text" class="form-control mb-2" wire:model="sender_location" readonly>
-            <div id="map" style="width: 100%; height: 300px;"></div>
+             <input type="text" class="form-control mb-2" wire:model="sender_location" readonly>
+
+            <div id="map" wire:ignore style="width: 100%; height: 300px;"></div>
+
         </div>
     </div>
 
@@ -44,7 +46,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <script>
+    {{-- <script>
         document.addEventListener('livewire:load', function () {
 
             function updateFieldsFromLatLng(lat, lng){
@@ -93,5 +95,68 @@
                 }
             });
         });
+    </script> --}}
+
+    <script>
+        document.addEventListener('livewire:load', function () {
+
+            function updateFieldsFromLatLng(lat, lng){
+                fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.address){
+                            @this.set('sender_country', data.address.country || '');
+                            @this.set('sender_city', data.address.city || data.address.town || data.address.village || '');
+                            @this.set('sender_region', data.address.state || '');
+                            @this.set('sender_district', data.address.suburb || '');
+                            @this.set('sender_postal_code', data.address.postcode || '');
+                        }
+                    });
+            }
+
+            var mapDiv = document.getElementById('map');
+            if(!mapDiv) return;
+
+            var senderLocation = @this.sender_location || '24.7136,46.6753';
+            var loc = senderLocation.split(',');
+            var initialLat = parseFloat(loc[0]) || 24.7136;
+            var initialLng = parseFloat(loc[1]) || 46.6753;
+
+            var map = L.map('map').setView([initialLat, initialLng], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
+
+            marker.on('dragend', function(e){
+                var latlng = marker.getLatLng();
+                @this.set('sender_location', latlng.lat + ',' + latlng.lng);
+                updateFieldsFromLatLng(latlng.lat, latlng.lng);
+            });
+
+            map.on('click', function(e){
+                marker.setLatLng(e.latlng);
+                @this.set('sender_location', e.latlng.lat + ',' + e.latlng.lng);
+                updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
+            });
+
+            Livewire.on('refreshMap', () => {
+                var loc = @this.sender_location.split(',');
+                if(loc.length === 2){
+                    marker.setLatLng([parseFloat(loc[0]), parseFloat(loc[1])]);
+                    map.setView([parseFloat(loc[0]), parseFloat(loc[1])], 13);
+                    map.invalidateSize(); // 👈 هذه السطر مهم جدًا
+                }
+            });
+
+            // إذا كانت الخريطة مخفية عند التحميل (مثلاً داخل tab)، أضف هذا:
+            setTimeout(() => map.invalidateSize(), 500);
+
+        });
     </script>
+
+
+
 </div>
