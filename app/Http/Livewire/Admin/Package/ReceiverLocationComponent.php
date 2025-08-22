@@ -20,14 +20,17 @@ class ReceiverLocationComponent extends Component
     public $latitude = '';
     public $longitude = '';
 
+    // الموقع الافتراضي للخريطة
+    public $defaultLatitude = 24.7136;
+    public $defaultLongitude = 46.6753;
+
     protected $listeners = ['receiverMerchantSelected', 'refreshReceiverMap', 'setReceiverLocation'];
 
     public function mount()
     {
-        if (!$this->latitude || !$this->longitude) {
-            $this->latitude = '24.7136';
-            $this->longitude = '46.6753';
-        }
+        // الحقول تبقى فارغة
+        $this->latitude = '';
+        $this->longitude = '';
     }
 
     // عند اختيار تاجر المستقبل
@@ -48,6 +51,9 @@ class ReceiverLocationComponent extends Component
                 if ($merchant->latitude && $merchant->longitude) {
                     $this->latitude = $merchant->latitude;
                     $this->longitude = $merchant->longitude;
+                } else {
+                    $this->latitude = '';
+                    $this->longitude = '';
                 }
             }
         } else {
@@ -58,8 +64,8 @@ class ReceiverLocationComponent extends Component
             $this->receiver_city = '';
             $this->receiver_district = '';
             $this->receiver_postal_code = '';
-            $this->latitude = '24.7136';
-            $this->longitude = '46.6753';
+            $this->latitude = '';
+            $this->longitude = '';
         }
 
         $this->emit('refreshReceiverMap');
@@ -76,6 +82,7 @@ class ReceiverLocationComponent extends Component
 
     public function refreshReceiverMap()
     {
+        // مجرد مستمع لتحديث الخريطة
     }
 
     public function render()

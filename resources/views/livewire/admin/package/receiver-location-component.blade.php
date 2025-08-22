@@ -37,11 +37,11 @@
                     <div class="row mb-2">
                         <div class="col-md-6">
                             <label class="form-label" for="receiver_latitude">{{ __('package.receiver_latitude') }}</label>
-                            <input type="text" class="form-control" name="receiver_latitude" id="receiver_latitude" wire:model="latitude">
+                            <input type="text" class="form-control" name="receiver_latitude" id="receiver_latitude" wire:model="latitude" >
                         </div>
                         <div class="col-md-6">
                             <label class="form-label" for="receiver_longitude">{{ __('package.receiver_longitude') }}</label>
-                            <input type="text" class="form-control" name="receiver_longitude" id="receiver_longitude" wire:model="longitude">
+                            <input type="text" class="form-control" name="receiver_longitude" id="receiver_longitude" wire:model="longitude" >
                         </div>
                     </div>
                     <div id="receiver-map" wire:ignore style="width: 100%; height: 300px;"></div>
@@ -70,8 +70,8 @@
             var mapDiv = document.getElementById('receiver-map');
             if(!mapDiv) return;
 
-            var initialLat = parseFloat(@this.latitude) || 24.7136;
-            var initialLng = parseFloat(@this.longitude) || 46.6753;
+            var initialLat = parseFloat(@this.latitude) || @this.defaultLatitude;
+            var initialLng = parseFloat(@this.longitude) || @this.defaultLongitude;
 
             var map = L.map('receiver-map', {
                 minZoom: 8,
