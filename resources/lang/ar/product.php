@@ -58,5 +58,26 @@ return [
 
 
 
+    'type' => 'النوع',
+    'details' => 'تفاصيل المنتج',
+    'weight' => 'الوزن',
+    'quantity' => 'الكمية',
+    'price_per_unit' => 'سعر الوحدة',
+    'total' => 'الإجمالي',
+    'delete' => 'حذف',
+    'custom' => 'مخصص',
+    'stock' => 'من المخزون',
+    'choose_stock' => '-- اختر من المخزون --',
+    'available_qty' => 'الكمية المتاحة',
+    'name_placeholder' => 'اسم المنتج',
+    'weight_placeholder' => 'الوزن',
+    'quantity_placeholder' => 'الكمية',
+    'price_per_unit_placeholder' => 'سعر الوحدة',
+    'total_placeholder' => 'الإجمالي',
+    'add_new' => 'إضافة منتج جديد',
+    'notify' => 'تنبيه'
+
+
+
 
 ];

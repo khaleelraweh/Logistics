@@ -60,5 +60,26 @@ return [
     'name_max'        => 'Product name must not exceed 255 characters',
 
 
+    'type' => 'Type',
+    'details' => 'Product Details',
+    'weight' => 'Weight',
+    'quantity' => 'Quantity',
+    'price_per_unit' => 'Price per Unit',
+    'total' => 'Total',
+    'delete' => 'Delete',
+    'custom' => 'Custom',
+    'stock' => 'From Stock',
+    'choose_stock' => '-- Choose from Stock --',
+    'available_qty' => 'Available Quantity',
+    'name_placeholder' => 'Product Name',
+    'weight_placeholder' => 'Weight',
+    'quantity_placeholder' => 'Quantity',
+    'price_per_unit_placeholder' => 'Price per Unit',
+    'total_placeholder' => 'Total',
+    'add_new' => 'Add New Product',
+    'notify' => 'Notification'
+
+
+
 
 ];
