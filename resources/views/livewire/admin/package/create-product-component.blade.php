@@ -1,4 +1,4 @@
-جيد هذا هو <div class="container-fluid">
+<div class="container-fluid">
     <div class="table-responsive">
         <table class="table table-bordered table-striped align-middle">
             <thead class="table-light">
@@ -61,7 +61,8 @@
                             <input type="number" class="form-control form-control-sm"
                                 name="products[{{ $index }}][weight]"
                                 placeholder="{{ __('product.weight_placeholder') }}"
-                                wire:model="products.{{ $index }}.weight">
+                                wire:model.lazy="products.{{ $index }}.weight"
+                                min="0" step="0.01">
                         </td>
 
                         {{-- الكمية --}}
@@ -69,7 +70,8 @@
                             <input type="number" class="form-control form-control-sm"
                                 name="products[{{ $index }}][quantity]"
                                 placeholder="{{ __('product.quantity_placeholder') }}"
-                                wire:model="products.{{ $index }}.quantity">
+                                wire:model.lazy="products.{{ $index }}.quantity"
+                                min="0" step="1">
                         </td>
 
                         {{-- سعر الوحدة --}}
@@ -77,9 +79,11 @@
                             <input type="number" step="0.01" class="form-control form-control-sm"
                                 name="products[{{ $index }}][price_per_unit]"
                                 placeholder="{{ __('product.price_per_unit_placeholder') }}"
-                                wire:model="products.{{ $index }}.price_per_unit"
+                                wire:model.lazy="products.{{ $index }}.price_per_unit"
+                                min="0"
                                 @if ($merchant_id && $product['type'] === 'stock') readonly @endif>
                         </td>
+
 
                         {{-- الإجمالي --}}
                         <td class="align-middle">
