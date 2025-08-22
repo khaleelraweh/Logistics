@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-sm-4 mb-3">
                     <label class="col-form-label">{{ __('package.payment_responsibility') }}</label>
-                    <select wire:model="payment_responsibility" name="payment_responsibility" class="form-select">
+                    <select wire:model="payment_responsibility" name="payment_responsibility" id="payment_responsibility" class="form-select">
                         <option value="merchant">{{ __('package.responsibility_merchant') }}</option>
                         <option value="recipient">{{ __('package.responsibility_recipient') }}</option>
                     </select>
