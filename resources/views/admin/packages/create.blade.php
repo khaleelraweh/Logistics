@@ -279,73 +279,7 @@
                                                             <div class="col-lg-6">
                                                                 @livewire('admin.package.receiver-location-component')
                                                             </div>
-                                                             {{-- <div class="col-lg-6">
-                                                                <div class="card">
-                                                                    <div class="card-header">
-                                                                        <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>{{ __('package.receiver_address') }}</h5>
-                                                                    </div>
-                                                                    <div class="card-body">
 
-                                                                        <div class="row mb-3">
-                                                                            <div class="col-md-4">
-                                                                                <label for="receiver_country" class="form-label">{{ __('package.receiver_country') }}</label>
-                                                                                <input type="text" class="form-control {{ $errors->has('receiver_country') ? 'is-invalid' : '' }}" id="receiver_country" name="receiver_country" value="{{ old('receiver_country') }}" required>
-                                                                                @error('receiver_country')
-                                                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <label for="receiver_region" class="form-label">{{ __('package.receiver_region') }}</label>
-                                                                                <input type="text" class="form-control {{ $errors->has('receiver_region') ? 'is-invalid' : '' }}" id="receiver_region" name="receiver_region" value="{{ old('receiver_region') }}">
-                                                                                @error('receiver_region')
-                                                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div class="col-md-4">
-                                                                                <label for="receiver_city" class="form-label">{{ __('package.receiver_city') }}</label>
-                                                                                <input type="text" class="form-control {{ $errors->has('receiver_city') ? 'is-invalid' : '' }}" id="receiver_city" name="receiver_city" value="{{ old('receiver_city') }}" required>
-                                                                                @error('receiver_city')
-                                                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                                                @enderror
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row mb-3">
-                                                                            <div class="col-md-6">
-                                                                                <label for="receiver_district" class="form-label">{{ __('package.receiver_district') }}</label>
-                                                                                <input type="text" class="form-control {{ $errors->has('receiver_district') ? 'is-invalid' : '' }}" id="receiver_district" name="receiver_district" value="{{ old('receiver_district') }}">
-                                                                                @error('receiver_district')
-                                                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label for="receiver_postal_code" class="form-label">{{ __('package.receiver_postal_code') }}</label>
-                                                                                <input type="text" class="form-control {{ $errors->has('receiver_postal_code') ? 'is-invalid' : '' }}" id="receiver_postal_code" name="receiver_postal_code" value="{{ old('receiver_postal_code') }}">
-                                                                                @error('receiver_postal_code')
-                                                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                                                @enderror
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row mb-3">
-                                                                            <div class="col-md-6">
-                                                                                <label for="receiver_location" class="form-label">{{ __('package.receiver_location') }}</label>
-                                                                                <input type="text" class="form-control {{ $errors->has('receiver_location') ? 'is-invalid' : '' }}" id="receiver_location" name="receiver_location" value="{{ old('receiver_location') }}">
-                                                                                @error('receiver_location')
-                                                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                                                @enderror
-                                                                            </div>
-                                                                            <div class="col-md-6">
-                                                                                <label for="receiver_others" class="form-label">{{ __('package.receiver_others') }}</label>
-                                                                                <input type="text" class="form-control {{ $errors->has('receiver_others') ? 'is-invalid' : '' }}" id="receiver_others" name="receiver_others" value="{{ old('receiver_others') }}">
-                                                                                @error('receiver_others')
-                                                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                                                @enderror
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </div>
