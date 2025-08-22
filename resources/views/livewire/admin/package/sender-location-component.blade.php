@@ -12,7 +12,7 @@
             <input type="text" class="form-control" wire:model="sender_country">
         </div>
         <div class="col-md-4">
-            <label class="form-label">المحافظة/المنطقة</label>
+            <label class="form-label">المنطقة</label>
             <input type="text" class="form-control" wire:model="sender_region">
         </div>
         <div class="col-md-4">
