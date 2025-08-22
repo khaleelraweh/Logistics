@@ -258,7 +258,7 @@
                                                             <span class="badge bg-primary">{{ __('general.required') }}</span>
                                                         </div>
                                                         <div class="card-body">
-                                                            <div class="row mb-3">
+                                                            {{-- <div class="row mb-3">
                                                                 <div class="com-md-12">
                                                                     <label for="merchant_recever_id" class="form-label">التاجر ({{ __('general.optional') }})</label>
                                                                     <select class="form-select {{ $errors->has('merchant_recever_id') ? 'is-invalid' : '' }}" id="merchant_recever_id" name="merchant_recever_id">
@@ -312,7 +312,9 @@
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
+                                                            @livewire('admin.package.create-select-receiver-merchant-component')
+
                                                         </div>
                                                     </div>
                                                 </div>
