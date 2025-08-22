@@ -158,6 +158,35 @@ class Package extends Model
         return $query->where('merchant_id', $merchantId);
     }
 
+    // حسب تاريخ التوصيل المتوقع
+    public function scopeExpectedBefore($query, $date)
+    {
+        return $query->whereDate('expected_delivery_date', '<=', $date);
+    }
+
+    // حسب نوع التوصيل (standard, express, pickup, courier)
+    public function scopeDeliveryMethod($query, $method)
+    {
+        return $query->where('delivery_method', $method);
+    }
+
+    // حسب سرعة التوصيل (standard, express, same_day, next_day)
+    public function scopeDeliverySpeed($query, $speed)
+    {
+        return $query->where('delivery_speed', $speed);
+    }
+
+    // حسب نوع الطرد
+    public function scopePackageType($query, $type)
+    {
+        return $query->where('package_type', $type);
+    }
+
+    // حسب الحجم
+    public function scopePackageSize($query, $size)
+    {
+        return $query->where('package_size', $size);
+    }
 
     // الطرود غير مدفوعة بالكامل
     public function scopeUnpaid($query)
@@ -170,17 +199,118 @@ class Package extends Model
     {
         return $query->whereColumn('paid_amount', '>=', 'total_fee');
     }
+
+    // الطرود الجاهزة للتوصيل
+    public function scopeReadyForDelivery($query)
+    {
+        return $query->where('status', 'pending')
+                    ->whereColumn('paid_amount', '>=', 'total_fee');
+    }
+
+    // حسب المدينة الأصلية (بافتراض وجود علاقة)
+    public function scopeFromCity($query, $cityId)
+    {
+        return $query->where('origin_city_id', $cityId);
+    }
+
     // حسب نطاق زمني معين (مثلاً خلال أسبوع)
     public function scopeCreatedBetween($query, $from, $to)
     {
         return $query->whereBetween('created_at', [$from, $to]);
     }
+
+    // الطرود التي لم يتم نشرها بعد
+    public function scopeUnpublished($query)
+    {
+        return $query->whereNull('published_on');
+    }
+
     // الطرود حسب المسؤول عن الدفع
     public function scopePaymentBy($query, $who = 'merchant')
     {
         return $query->where('payment_responsibility', $who);
     }
 
+    // الطرود حسب نوع المصدر
+    public function scopeOriginType($query, $type)
+    {
+        return $query->where('origin_type', $type);
+    }
+
+    // الطرود القابلة للتوصيل اليوم
+    public function scopeDeliverableToday($query)
+    {
+        return $query->whereDate('expected_delivery_date', now()->toDateString());
+    }
+
+
+
+    // Helper methods for package attributes
+    // هل الطرد هش؟
+    public function isFragile()
+    {
+        return $this->attributes['is_fragile'] ?? false;
+    }
+
+    // هل الطرد قابل للإرجاع؟
+    public function isReturnable()
+    {
+        return $this->attributes['is_returnable'] ?? false;
+    }
+
+    // هل الطرد فيه معلومات سرية؟
+    public function isConfidential()
+    {
+        return $this->attributes['is_confidential'] ?? false;
+    }
+
+    // هل هو توصيل سريع؟
+    public function isExpress()
+    {
+        return $this->delivery_speed === 'express' || ($this->attributes['is_express'] ?? false);
+    }
+
+    // هل الدفع عند الاستلام مفعل؟
+    public function isCOD()
+    {
+        return $this->attributes['is_cod'] ?? false;
+    }
+
+    // هل الطرد بحاجة توقيع؟
+    public function isSignatureRequired()
+    {
+        return $this->attributes['is_signature_required'] ?? false;
+    }
+
+    // هل الطرد مؤمن عليه؟
+    public function isInsured()
+    {
+        return $this->insurance_fee > 0;
+    }
+
+    // هل الطرد مدفوع بالكامل؟
+    public function isFullyPaid()
+    {
+        return $this->paid_amount >= $this->total_fee;
+    }
+
+    // هل الطرد متأخر عن التوصيل المتوقع؟
+    public function isDeliveryOverdue()
+    {
+        return $this->expected_delivery_date && now()->gt($this->expected_delivery_date) && $this->status !== 'delivered';
+    }
+
+    // هل الطرد موجود في المستودع؟
+    public function isInWarehouse()
+    {
+        return $this->status === 'in_warehouse';
+    }
+
+    // هل الطرد تم تسليمه؟
+    public function isDelivered()
+    {
+        return $this->status === 'delivered';
+    }
 
     // حساب المبلغ المتبقي (احتياطي)
     public function remainingAmount()
@@ -312,7 +442,14 @@ class Package extends Model
         return $this->morphOne(Invoice::class, 'payable');
     }
 
-
+    // public function invoice()
+    // {
+    //     return $this->hasOne(Invoice::class, 'payable_id')->where('payable_type', Package::class);
+    // }
+    // public function getInvoice()
+    // {
+    //     return $this->invoice()->first();
+    // }
 
 
 }
