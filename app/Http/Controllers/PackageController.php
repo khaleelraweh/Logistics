@@ -111,7 +111,8 @@ class PackageController extends Controller
             $input['sender_city']         = $request->sender_city;
             $input['sender_district']     = $request->sender_district;
             $input['sender_postal_code']  = $request->sender_postal_code;
-            $input['sender_location']     = $request->sender_location;
+            $input['sender_latitude']     = $request->sender_latitude;
+            $input['sender_longitude']     = $request->sender_longitude;
             $input['sender_others']       = $request->sender_others;
 
             // Receiver  (إصلاح typo: receiver_region)
@@ -125,7 +126,8 @@ class PackageController extends Controller
             $input['receiver_city']        = $request->receiver_city;
             $input['receiver_district']    = $request->receiver_district;
             $input['receiver_postal_code'] = $request->receiver_postal_code;
-            $input['receiver_location']    = $request->receiver_location;
+            $input['receiver_latitude']    = $request->receiver_latitude;
+            $input['receiver_longitude']    = $request->receiver_longitude;
             $input['receiver_others']      = $request->receiver_others;
 
             // Package
@@ -363,7 +365,8 @@ class PackageController extends Controller
             $input['sender_city']         = $request->sender_city;
             $input['sender_district']     = $request->sender_district;
             $input['sender_postal_code']  = $request->sender_postal_code;
-            $input['sender_location']     = $request->sender_location;
+            $input['sender_latitude']     = $request->sender_latitude;
+            $input['sender_longitude']     = $request->sender_longitude;
             $input['sender_others']       = $request->sender_others;
 
             $input['receiver_first_name']  = $request->receiver_first_name;
@@ -376,7 +379,8 @@ class PackageController extends Controller
             $input['receiver_city']        = $request->receiver_city;
             $input['receiver_district']    = $request->receiver_district;
             $input['receiver_postal_code'] = $request->receiver_postal_code;
-            $input['receiver_location']    = $request->receiver_location;
+            $input['receiver_latitude']    = $request->receiver_latitude;
+            $input['receiver_longitude']    = $request->receiver_longitude;
             $input['receiver_others']      = $request->receiver_others;
 
             $input['package_type']   = $request->package_type;
