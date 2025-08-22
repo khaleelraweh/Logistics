@@ -276,10 +276,10 @@
                                                             <div class="col-lg-6">
                                                                 @livewire('admin.package.sender-location-component')
                                                             </div>
-                                                            {{-- <div class="col-lg-6">
+                                                            <div class="col-lg-6">
                                                                 @livewire('admin.package.receiver-location-component')
-                                                            </div> --}}
-                                                             <div class="col-lg-6">
+                                                            </div>
+                                                             {{-- <div class="col-lg-6">
                                                                 <div class="card">
                                                                     <div class="card-header">
                                                                         <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>{{ __('package.receiver_address') }}</h5>
@@ -345,7 +345,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </div>
