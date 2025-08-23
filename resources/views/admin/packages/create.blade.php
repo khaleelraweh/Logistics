@@ -1014,7 +1014,7 @@ $(document).ready(function () {
                 $('#review-sender-postal').text($('#sender_postal_code').val());
 
                 // معلومات المستلم
-                $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text());
+                $('#review-receiver-merchant').text($('#merchant_receiver_id option:selected').text());
                 $('#review-receiver-name').text(
                     $('#receiver_first_name').val() + ' ' +
                     $('#receiver_middle_name').val() + ' ' +
