@@ -32,7 +32,10 @@ class CreateSelectMerchantComponent extends Component
                 $names = explode(' ', $merchant->contact_person);
                 $this->sender_first_name = $names[0] ?? '';
                 $this->sender_middle_name = $names[1] ?? '';
-                $this->sender_last_name = $names[2] ?? '';
+
+                // $this->sender_last_name = $names[2] ?? '';
+                $this->sender_last_name = end($names) ?? '';
+
                 $this->sender_email = $merchant->email;
                 $this->sender_phone = $merchant->phone;
             }
