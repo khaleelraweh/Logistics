@@ -31,10 +31,19 @@ class CreateSelectMerchantComponent extends Component
             if ($merchant) {
                 $names = explode(' ', $merchant->contact_person);
                 $this->sender_first_name = $names[0] ?? '';
-                $this->sender_middle_name = $names[1] ?? '';
+                // $this->sender_middle_name = $names[1] ?? '';
 
                 // $this->sender_last_name = $names[2] ?? '';
                 $this->sender_last_name = end($names) ?? '';
+
+                  // الاسم الأوسط هو كل العناصر بين الأول والأخير
+                if (count($names) > 2) {
+                    $middleNames = array_slice($names, 1, count($names) - 2);
+                    $this->sender_middle_name = implode(' ', $middleNames);
+                } else {
+                    $this->sender_middle_name = '';
+                }
+
 
                 $this->sender_email = $merchant->email;
                 $this->sender_phone = $merchant->phone;

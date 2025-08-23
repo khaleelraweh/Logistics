@@ -29,10 +29,18 @@ class CreateSelectReceiverMerchantComponent extends Component
             if ($merchant) {
                 $names = explode(' ', $merchant->contact_person);
                 $this->receiver_first_name = $names[0] ?? '';
-                $this->receiver_middle_name = $names[1] ?? '';
+                // $this->receiver_middle_name = $names[1] ?? '';
 
                 // $this->receiver_last_name = $names[2] ?? '';
                 $this->receiver_last_name = end($names) ?? '';
+
+                // الاسم الأوسط هو كل العناصر بين الأول والأخير
+                if (count($names) > 2) {
+                    $middleNames = array_slice($names, 1, count($names) - 2);
+                    $this->receiver_middle_name = implode(' ', $middleNames);
+                } else {
+                    $this->receiver_middle_name = '';
+                }
 
                 $this->receiver_email = $merchant->email;
                 $this->receiver_phone = $merchant->phone;
