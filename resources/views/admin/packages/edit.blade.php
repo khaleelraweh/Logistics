@@ -195,6 +195,7 @@
             </div>
         </div>
     </div>
+
     <div class="card">
         <div class="card-body">
             <form action="{{ route('admin.packages.update' , $package->id) }}" method="POST" enctype="multipart/form-data">
@@ -210,22 +211,6 @@
                             </div>
 
                             <div class="card-body">
-
-                                {{-- <div class="row mb-3">
-                                    <div class="col-sm-12">
-
-                                        <label for="merchant_id" class="col-form-label">{{ __('merchant.sender_merchant') }} ({{ __('general.optional') }})</label>
-                                        <select name="merchant_id" id="merchant_id" class="form-select">
-                                            <option value="">{{ __('merchant.without_merchant') }}</option>
-                                            @foreach($merchants as $merchant)
-                                                <option value="{{ $merchant->id }}" {{ old('merchant_id' , $package->merchant_id) == $merchant->id ? 'selected' : null }}>{{ $merchant->name }}  - {{ $merchant->email }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('merchant_id')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div> --}}
 
                                 <div class="row mb-3">
                                     <div class="col-sm-12">
