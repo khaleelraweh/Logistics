@@ -42,7 +42,7 @@ class UpdateSelectReceiverMerchantComponent extends Component
         }
 
         // إرسال الحدث للكومبوننت الآخر إذا لزم الأمر
-        $this->emit('merchantSelected', $this->receiver_merchant_id);
+        $this->emit('receiverMerchantSelected', $this->receiver_merchant_id);
     }
 
     private function fillReceiverMerchantData($receiverMerchantId)
