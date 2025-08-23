@@ -1072,51 +1072,152 @@ $(document).ready(function () {
                 }
 
                 // المنتجات (من Livewire components)
-                try {
-                    var productsHtml = `
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>النوع</th>
-                                    <th>المنتج</th>
-                                    <th>الوزن</th>
-                                    <th>الكمية</th>
-                                    <th>السعر</th>
-                                    <th>الإجمالي</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                // try {
+                //     var productsHtml = `
+                //         <table class="table table-bordered">
+                //             <thead>
+                //                 <tr>
+                //                     <th>النوع</th>
+                //                     <th>المنتج</th>
+                //                     <th>الوزن</th>
+                //                     <th>الكمية</th>
+                //                     <th>السعر</th>
+                //                     <th>الإجمالي</th>
+                //                 </tr>
+                //             </thead>
+                //             <tbody>
+                //     `;
+
+                //     // استخرج كل الفهارس (indexes) للمنتجات
+                //     $('input[name^="products"][name$="[custom_name]"]').each(function () {
+                //         var index = $(this).attr('name').match(/\[(\d+)\]/)[1];
+
+                //         var type = $('select[name="products[' + index + '][type]"] option:selected').text() || 'مخصص';
+                //         var name = $(this).val() || $('select[name="products[' + index + '][stock_item_id]"] option:selected').text();
+                //         var weight = $('input[name="products[' + index + '][weight]"]').val();
+                //         var quantity = $('input[name="products[' + index + '][quantity]"]').val();
+                //         var price = $('input[name="products[' + index + '][price_per_unit]"]').val();
+                //         var total = $('input[name="products[' + index + '][total_price]"]').val();
+
+                //         productsHtml += `
+                //             <tr>
+                //                 <td>${type}</td>
+                //                 <td>${name}</td>
+                //                 <td>${weight} كجم</td>
+                //                 <td>${quantity}</td>
+                //                 <td>${price} ر.س</td>
+                //                 <td>${total} ر.س</td>
+                //             </tr>
+                //         `;
+                //     });
+
+                //     productsHtml += '</tbody></table>';
+                //     $('#review-products').html(productsHtml);
+
+                // } catch (e) {
+                //     console.log('Error loading products:', e);
+                // }
+
+                // المنتجات (من Livewire components)
+// try {
+//     let productsHtml = `
+//         <table class="table table-bordered">
+//             <thead>
+//                 <tr>
+//                     <th>النوع</th>
+//                     <th>المنتج</th>
+//                     <th>الوزن</th>
+//                     <th>الكمية</th>
+//                     <th>السعر</th>
+//                     <th>الإجمالي</th>
+//                 </tr>
+//             </thead>
+//             <tbody>
+//     `;
+
+//     // استخرج كل الفهارس (indexes) للمنتجات
+//     $('input[name^="products"][name$="[custom_name]"]').each(function () {
+//         let index = $(this).attr('name').match(/\[(\d+)\]/)[1];
+
+//         let type     = $(`select[name="products[${index}][type]"] option:selected`).text() || 'مخصص';
+//         let name     = $(this).val() || $(`select[name="products[${index}][stock_item_id]"] option:selected`).text() || '-';
+//         let weight   = $(`input[name="products[${index}][weight]"]`).val() || 0;
+//         let quantity = $(`input[name="products[${index}][quantity]"]`).val() || 0;
+//         let price    = $(`input[name="products[${index}][price_per_unit]"]`).val() || 0;
+//         let total    = $(`input[name="products[${index}][total_price]"]`).val() || 0;
+
+//         productsHtml += `
+//             <tr>
+//                 <td>${type}</td>
+//                 <td>${name}</td>
+//                 <td>${weight} كجم</td>
+//                 <td>${quantity}</td>
+//                 <td>${price} ر.س</td>
+//                 <td>${total} ر.س</td>
+//             </tr>
+//         `;
+//     });
+
+//     productsHtml += `
+//             </tbody>
+//         </table>
+//     `;
+
+//     $('#review-products').html(productsHtml);
+
+// } catch (e) {
+//     console.error('Error loading products:', e);
+// }
+
+
+        try {
+            var productsHtml = `
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>النوع</th>
+                            <th>المنتج</th>
+                            <th>الوزن</th>
+                            <th>الكمية</th>
+                            <th>السعر</th>
+                            <th>الإجمالي</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            // استخرج كل الفهارس (indexes) للمنتجات
+            $('input[name^="products"][name$="[custom_name]"]').each(function () {
+                var index = $(this).attr('name').match(/\[(\d+)\]/)[1];
+
+                var type = $('select[name="products[' + index + '][type]"] option:selected').text() || '';
+                var name = $(this).val() || $('select[name="products[' + index + '][stock_item_id]"] option:selected').text() || '';
+                var weight = $('input[name="products[' + index + '][weight]"]').val() || '';
+                var quantity = $('input[name="products[' + index + '][quantity]"]').val() || '';
+                var price = $('input[name="products[' + index + '][price_per_unit]"]').val() || '';
+                var total = $('input[name="products[' + index + '][total_price]"]').val() || '';
+
+                // ✅ أظهر المنتج فقط إذا تم تعبئة جميع الحقول
+                if (type && name && weight && quantity && price && total) {
+                    productsHtml += `
+                        <tr>
+                            <td>${type}</td>
+                            <td>${name}</td>
+                            <td>${weight} كجم</td>
+                            <td>${quantity}</td>
+                            <td>${price} ر.س</td>
+                            <td>${total} ر.س</td>
+                        </tr>
                     `;
-
-                    // استخرج كل الفهارس (indexes) للمنتجات
-                    $('input[name^="products"][name$="[custom_name]"]').each(function () {
-                        var index = $(this).attr('name').match(/\[(\d+)\]/)[1];
-
-                        var type = $('select[name="products[' + index + '][type]"] option:selected').text() || 'مخصص';
-                        var name = $(this).val() || $('select[name="products[' + index + '][stock_item_id]"] option:selected').text();
-                        var weight = $('input[name="products[' + index + '][weight]"]').val();
-                        var quantity = $('input[name="products[' + index + '][quantity]"]').val();
-                        var price = $('input[name="products[' + index + '][price_per_unit]"]').val();
-                        var total = $('input[name="products[' + index + '][total_price]"]').val();
-
-                        productsHtml += `
-                            <tr>
-                                <td>${type}</td>
-                                <td>${name}</td>
-                                <td>${weight} كجم</td>
-                                <td>${quantity}</td>
-                                <td>${price} ر.س</td>
-                                <td>${total} ر.س</td>
-                            </tr>
-                        `;
-                    });
-
-                    productsHtml += '</tbody></table>';
-                    $('#review-products').html(productsHtml);
-
-                } catch (e) {
-                    console.log('Error loading products:', e);
                 }
+            });
+
+            productsHtml += '</tbody></table>';
+            $('#review-products').html(productsHtml);
+
+        } catch (e) {
+            console.log('Error loading products:', e);
+        }
 
     }
 
