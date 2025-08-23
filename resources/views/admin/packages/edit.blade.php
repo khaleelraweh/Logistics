@@ -400,6 +400,158 @@
                                             </div>
                                         </div>
 
+                                        <!-- الخطوة 4: خيارات التوصيل -->
+                                        <div class="tab-pane" id="delivery-options">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h5 class="mb-0"><i class="fas fa-shipping-fast me-2"></i> {{ __('package.delivery_options') }}</h5>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="delivery_speed" class="form-label">{{ __('package.delivery_speed') }}</label>
+                                                                    <select class="form-select {{ $errors->has('delivery_speed') ? 'is-invalid' : '' }}" id="delivery_speed" name="delivery_speed" required>
+                                                                        <option value="standard" {{ old('delivery_speed', $package->delivery_speed) == 'standard' ? 'selected' : '' }}>{{ __('package.speed_standard') }}</option>
+                                                                        <option value="express" {{ old('delivery_speed', $package->delivery_speed) == 'express' ? 'selected' : '' }}>{{ __('package.speed_express') }}</option>
+                                                                        <option value="same_day" {{ old('delivery_speed', $package->delivery_speed) == 'same_day' ? 'selected' : '' }}>{{ __('package.speed_same_day') }}</option>
+                                                                        <option value="next_day" {{ old('delivery_speed', $package->delivery_speed) == 'next_day' ? 'selected' : '' }}>{{ __('package.speed_next_day') }}</option>
+                                                                    </select>
+                                                                    @error('delivery_speed')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="delivery_date" class="form-label">{{ __('package.delivery_date') }}</label>
+                                                                    <input type="date" class="form-control {{ $errors->has('delivery_date') ? 'is-invalid' : '' }}" id="delivery_date" name="delivery_date" value="{{ old('delivery_date', $package->delivery_date ? \Carbon\Carbon::parse($package->delivery_date)->toDateString() : '') }}" required>
+                                                                    @error('delivery_date')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="delivery_method" class="form-label">{{ __('package.delivery_method') }}</label>
+                                                                    <select class="form-select {{ $errors->has('delivery_method') ? 'is-invalid' : '' }}" id="delivery_method" name="delivery_method" required>
+                                                                        <option value="standard" {{ old('delivery_method', $package->delivery_method) == 'standard' ? 'selected' : '' }}>{{ __('package.method_standard') }}</option>
+                                                                        <option value="express" {{ old('delivery_method', $package->delivery_method) == 'express' ? 'selected' : '' }}>{{ __('package.method_express') }}</option>
+                                                                        <option value="pickup" {{ old('delivery_method', $package->delivery_method) == 'pickup' ? 'selected' : '' }}>{{ __('package.method_pickup') }}</option>
+                                                                        <option value="courier" {{ old('delivery_method', $package->delivery_method) == 'courier' ? 'selected' : '' }}>{{ __('package.method_courier') }}</option>
+                                                                    </select>
+                                                                    @error('delivery_method')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="origin_type" class="form-label">{{ __('package.origin_type') }}</label>
+                                                                    <select class="form-select {{ $errors->has('origin_type') ? 'is-invalid' : '' }}" id="origin_type" name="origin_type" required>
+                                                                        <option value="warehouse" {{ old('origin_type') == 'warehouse' ? 'selected' : '' }}>{{ __('package.origin_warehouse') }}</option>
+                                                                        <option value="store" {{ old('origin_type') == 'store' ? 'selected' : '' }}>{{ __('package.origin_store') }}</option>
+                                                                        <option value="home" {{ old('origin_type') == 'home' ? 'selected' : '' }}>{{ __('package.origin_home') }}</option>
+                                                                        <option value="other" {{ old('origin_type') == 'other' ? 'selected' : '' }}>{{ __('package.origin_other') }}</option>
+                                                                    </select>
+                                                                    @error('origin_type')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="status1" class="form-label">{{ __('package.status') }}</label>
+                                                                    <select class="form-select {{ $errors->has('status') ? 'is-invalid' : '' }}" id="status1" name="status" required>
+                                                                        @foreach (\App\Models\Package::statuses() as $key => $label)
+                                                                            <option value="{{ $key }}" {{ old('status') == $key ? 'selected' : '' }}>
+                                                                                {{ $label }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    @error('status')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-12 mb-3">
+                                                                    <label for="delivery_status_note" class="form-label">{{ __('package.delivery_status_note') }}</label>
+                                                                    <textarea class="form-control {{ $errors->has('delivery_status_note') ? 'is-invalid' : '' }}" id="delivery_status_note" name="delivery_status_note" rows="3">{{ old('delivery_status_note') }}</textarea>
+                                                                    @error('delivery_status_note')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    @livewire('admin.package.create-package-collection-component')
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h5 class="mb-0"><i class="fas fa-shipping-fast me-2"></i>{{ __('package.additional_options') }}</h5>
+                                                        </div>
+                                                        @php
+                                                            // القيم الافتراضية
+                                                            $defaultAttributes = [
+                                                                "is_fragile" => true,
+                                                                "is_returnable" => false,
+                                                                "is_confidential" => true,
+                                                                "is_express" => false,
+                                                                "is_cod" => true,
+                                                                "is_gift" => false,
+                                                                "is_oversized" => false,
+                                                                "is_hazardous_material" => false,
+                                                                "is_temperature_controlled" => false,
+                                                                "is_perishable" => false,
+                                                                "is_signature_required" => true,
+                                                                "is_inspection_required" => false,
+                                                                "is_special_handling_required" => true,
+                                                            ];
+
+                                                            // لو في بيانات قديمة (بعد فشل التحقق مثلًا) نستخدمها، وإلا نستخدم الافتراضية
+                                                            $attrs = old('attributes', $defaultAttributes);
+
+                                                            // جميع المفاتيح مع الترجمة
+                                                            $allKeys = [
+                                                                "is_fragile" => __('package.is_fragile'),
+                                                                "is_returnable" => __('package.is_returnable'),
+                                                                "is_confidential" => __('package.is_confidential'),
+                                                                "is_express" => __('package.is_express'),
+                                                                "is_cod" => __('package.is_cod'),
+                                                                "is_gift" => __('package.is_gift'),
+                                                                "is_oversized" => __('package.is_oversized'),
+                                                                "is_hazardous_material" => __('package.is_hazardous_material'),
+                                                                "is_temperature_controlled" => __('package.is_temperature_controlled'),
+                                                                "is_perishable" => __('package.is_perishable'),
+                                                                "is_signature_required" => __('package.is_signature_required'),
+                                                                "is_inspection_required" => __('package.is_inspection_required'),
+                                                                "is_special_handling_required" => __('package.is_special_handling_required'),
+                                                            ];
+                                                        @endphp
+                                                        <div class="card-body">
+                                                            <div class="row mb-3">
+                                                                @foreach($allKeys as $key => $label)
+                                                                    <div class="col-6 col-md-4 mb-1">
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" type="checkbox" id="{{ $key }}" name="attributes[{{ $key }}]" value="1" {{ !empty($attrs[$key]) ? 'checked' : '' }}>
+                                                                            <label class="form-check-label" for="{{ $key }}">{{ $label }}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                      <!-- ازرار التنقل -->
                                     <ul class="pager wizard twitter-bs-wizard-pager-link">
