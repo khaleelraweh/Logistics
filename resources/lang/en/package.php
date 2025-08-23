@@ -13,10 +13,21 @@ return [
     'package_description'    => 'You can manage packages here',
 
     'trip_information'       => 'Trip Information',
-    'basic_informaion'      =>   'Basic Information',
-    'delivery_options'      =>   'Delivery Options',
-    'review'                =>  'Review',
-    'review_the_information'                =>  'Review The Information',
+    'basic_informaion'       => 'Basic Information',
+    'delivery_options'       => 'Delivery Options',
+    'review'                 => 'Review',
+    'review_the_information' => 'Review The Information',
+
+    // Review final step
+    'review_final_info'      => 'Final Review',
+    'review_before_save'     => 'Please review all the information before saving.',
+    'sender_info'            => 'Sender Information',
+    'receiver_info'          => 'Receiver Information',
+    'package_specs'          => 'Package Specifications',
+    'notes'                  => 'Notes',
+    'extra_attributes'       => 'Extra Attributes',
+    'previous'               => 'Previous',
+    'save_package'           => 'Save Package',
 
     'sender_Information'     => 'Sender Information',
     'sender_first_name'      => 'First Name',
@@ -32,7 +43,7 @@ return [
     'sender_postal_code'     => 'Postal Code',
     'sender_location'        => 'Sender Location',
     'sender_latitude'        => 'Sender Latitude',
-    'sender_longitude'        => 'Sender Longitude',
+    'sender_longitude'       => 'Sender Longitude',
     'sender_others'          => 'Others',
 
     'receiver_Information'   => 'Receiver Information',
@@ -49,13 +60,11 @@ return [
     'receiver_postal_code'   => 'Postal Code',
     'receiver_location'      => 'Geographic Location',
     'receiver_latitude'      => 'Receiver Latitude',
-    'receiver_longitude'      => 'Receiver Longitude',
+    'receiver_longitude'     => 'Receiver Longitude',
     'receiver_others'        => 'Others',
-    'address'               =>  'Address',
+    'address'                => 'Address',
 
-    'package_specifications'    =>  'Package specifications',
-
-
+    'package_specifications' => 'Package specifications',
     'receiver_name'          => 'Receiver Name',
     'tracking_number'        => 'Tracking Number',
     'merchant'               => 'Merchant',
@@ -99,20 +108,20 @@ return [
 
     'collection'             => 'Collection',
 
-    'dimensionss'           =>  'Dimensions',
+    'dimensionss'           => 'Dimensions',
     'dimensions' => [
         'length'            => 'Length',
         'width'             => 'Width',
         'height'            => 'Height',
     ],
 
-    'cm'                    =>  'CM',
+    'cm'                    => 'CM',
 
     'package_content'       => 'Package Content',
-    'package_note'          =>  'Package Note',
+    'package_note'          => 'Package Note',
 
     'weight'                => 'Weight',
-    'kgm'                   =>  'Kgm',
+    'kgm'                   => 'Kgm',
 
     'additional_information' => 'Additional Information',
 
@@ -171,19 +180,17 @@ return [
     'collection_credit_card' => 'Credit Card',
     'collection_mada' => 'Mada',
 
-
-
     'delivery_status_note'      => 'Delivery Status Note',
 
     'package_attributes'        => 'Additional Package Attributes',
+    'additional_options'        => 'Additional Option',
 
-    'additional_options'         =>  'Additional Option',
     // Package attributes
     'is_fragile'                => 'Fragile',
     'is_returnable'             => 'Returnable',
     'is_confidential'           => 'Confidential Information',
     'is_express'                => 'Express Delivery',
-    'is_cod'                   => 'Cash on Delivery',
+    'is_cod'                    => 'Cash on Delivery',
     'is_gift'                   => 'Gift',
     'is_oversized'              => 'Oversized',
     'is_hazardous_material'     => 'Hazardous Material',
@@ -198,32 +205,28 @@ return [
 
     // Products in package
     'products_in_package'       => 'Products in Package',
-    'type'                     => 'Type',
-    'stock_item'               => 'Stock Item',
-    'custom_name'              => 'Custom Name',
-    'quantity'                 => 'Quantity',
-    'price_per_unit'           => 'Price Per Unit',
-    'total_price'              => 'Total Price',
-
-    'no_products'              => 'No products added to this package.',
+    'products'                  => 'Products',
+    'type'                      => 'Type',
+    'stock_item'                => 'Stock Item',
+    'custom_name'               => 'Custom Name',
+    'quantity'                  => 'Quantity',
+    'price_per_unit'            => 'Price Per Unit',
+    'total_price'               => 'Total Price',
+    'no_products'               => 'No products added to this package.',
 
     // Contact info labels
     'email'                   => 'Email',
     'phone'                   => 'Phone',
-    'address'                 => 'Address',
     'country'                 => 'Country',
 
-    'custom'                    => 'Custom',
-    'stock'                     =>  'Stock',
-
+    'custom'                   => 'Custom',
+    'stock'                    => 'Stock',
 
     // Invoice and payments
     'invoice_payment'        => 'Invoice & Payments',
     'invoice_number'         => 'Invoice Number',
     'total_amount'           => 'Total Amount',
     'payment_date'           => 'Payment Date',
-    'payment_method'         => 'Payment Method',
-    'collection_method'      => 'Collection Method',
     'amount'                 => 'Amount',
     'no_payments'            => 'No Payments',
     'no_invoice'             => 'No Invoice',
@@ -232,6 +235,4 @@ return [
     'paid'                   => 'Paid',
     'pending'                => 'Pending',
     'unpaid'                 => 'Unpaid',
-
-
 ];

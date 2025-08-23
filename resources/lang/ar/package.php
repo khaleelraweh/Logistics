@@ -13,12 +13,19 @@ return [
     'package_description'    => 'يمكنك إدارة الطرود هنا',
 
     'trip_information'       => 'معلومات الرحلة',
-    'basic_informaion'      =>  'المعلومات الأساسية',
-    'delivery_options'      =>  'خيارات التوصيل',
-    'review'                =>  'مراجعة',
-    'review_the_information'                =>  'مراجعة المعلومات',
+    'basic_informaion'       => 'المعلومات الأساسية',
+    'delivery_options'       => 'خيارات التوصيل',
+    'review'                 => 'مراجعة',
+    'review_the_information' => 'مراجعة المعلومات',
 
+    // تبويب المراجعة النهائية
+    'review_final_info'      => 'مراجعة المعلومات النهائية',
+    'review_alert'           => 'يرجى مراجعة المعلومات التالية قبل حفظ الطرد. تأكد من صحة جميع البيانات المدخلة.',
+    'review_before_save'     => 'يرجى مراجعة المعلومات التالية قبل حفظ الطرد. تأكد من صحة جميع البيانات المدخلة.',
+
+    // معلومات المرسل/المستلم
     'sender_Information'     => 'معلومات المرسل',
+    'sender_info'            => 'معلومات المرسل',
     'sender_first_name'      => 'الاسم الأول',
     'sender_middle_name'     => 'اسم الأب',
     'sender_last_name'       => 'الاسم الأخير',
@@ -32,10 +39,11 @@ return [
     'sender_postal_code'     => 'الرمز البريدي',
     'sender_location'        => 'الموقع الجغرافي',
     'sender_latitude'        => 'خط العرض (Latitude)',
-    'sender_longitude'        => 'خط الطول (Longitude)',
+    'sender_longitude'       => 'خط الطول (Longitude)',
     'sender_others'          => 'أخرى',
 
     'receiver_Information'   => 'معلومات المستلم',
+    'receiver_info'          => 'معلومات المستلم',
     'receiver_first_name'    => 'الاسم الأول',
     'receiver_middle_name'   => 'اسم الأب',
     'receiver_last_name'     => 'الاسم الأخير',
@@ -49,12 +57,17 @@ return [
     'receiver_postal_code'   => 'الرمز البريدي',
     'receiver_location'      => 'الموقع الجغرافي',
     'receiver_latitude'      => 'خط العرض (Latitude)',
-    'receiver_longitude'      => 'خط الطول (Longitude)',
+    'receiver_longitude'     => 'خط الطول (Longitude)',
     'receiver_others'        => 'أخرى',
-    'address'               =>  'العنوان',
+    'address'                => 'العنوان',
 
-    'package_specifications'    =>  'مواصفات الطرد',
-
+    // مواصفات/خيارات/أقسام في شاشة المراجعة
+    'package_specifications' => 'مواصفات الطرد',
+    'package_specs'          => 'مواصفات الطرد',
+    'package_options'        => 'خيارات التوصيل',
+    'package_products'       => 'المنتجات',
+    'package_collection'     => 'معلومات التحصيل',
+    'package_additional'     => 'الخصائص الإضافية',
 
     'receiver_name'          => 'اسم المستلم',
     'tracking_number'        => 'رقم التتبع',
@@ -98,60 +111,69 @@ return [
     'delete_package'         => 'حذف الطرد',
 
     'collection'             => 'التحصيل',
+    'collection_info'        => 'معلومات التحصيل',
 
-    'dimensionss'           =>  'الأبعاد',
+    'dimensionss'            => 'الأبعاد',
     'dimensions' => [
         'length'            => 'الطول',
         'width'             => 'العرض',
         'height'            => 'الارتفاع',
     ],
 
-    'cm'                    =>  'سم',
+    'cm'                     => 'سم',
 
-    'package_content'       => 'محتويات الطرد',
-    'package_note'          =>  'ملاحظات الطرد',
+    'package_content'        => 'محتويات الطرد',
+    'package_note'           => 'ملاحظات الطرد',
 
-    'weight'                => 'الوزن',
-    'kgm'                   =>  'كجم',
+    // تسميات عامة مستخدمة في شاشة المراجعة
+    'weight'                 => 'الوزن',
+    'kgm'                    => 'كجم',
+    'type'                   => 'النوع',
+    'size'                   => 'الحجم',
+    'contents'               => 'المحتويات',
+    'notes'                  => 'ملاحظات',
+    'name'                   => 'الاسم',
+    'city'                   => 'المدينة',
+    'postal_code'            => 'الرمز البريدي',
 
     'additional_information' => 'معلومات إضافية',
 
-    'delivery_fee'          => 'رسوم التوصيل',
-    'insurance_fee'         => 'رسوم التأمين',
-    'service_fee'           => 'رسوم الخدمة',
-    'cod_amount'            => 'الدفع عند الاستلام',
+    'delivery_fee'           => 'رسوم التوصيل',
+    'insurance_fee'          => 'رسوم التأمين',
+    'service_fee'            => 'رسوم الخدمة',
+    'cod_amount'             => 'الدفع عند الاستلام',
 
     // طرق التوصيل
-    'method_standard'       => 'توصيل عادي',
-    'method_express'        => 'توصيل سريع',
-    'method_pickup'         => 'استلام من المتجر',
-    'method_courier'        => 'خدمة المندوب',
+    'method_standard'        => 'توصيل عادي',
+    'method_express'         => 'توصيل سريع',
+    'method_pickup'          => 'استلام من المتجر',
+    'method_courier'         => 'خدمة المندوب',
 
     // أنواع الطرود
-    'type_box'              => 'صندوق',
-    'type_envelope'         => 'ظرف',
-    'type_pallet'           => 'منصة نقالة',
-    'type_tube'             => 'أنبوب',
-    'type_bag'              => 'حقيبة',
+    'type_box'               => 'صندوق',
+    'type_envelope'          => 'ظرف',
+    'type_pallet'            => 'منصة نقالة',
+    'type_tube'              => 'أنبوب',
+    'type_bag'               => 'حقيبة',
 
     // مصادر الطرد
-    'origin_type'           => 'مصدر الطرد',
-    'origin_warehouse'      => 'المستودع',
-    'origin_store'          => 'المتجر',
-    'origin_home'           => 'المنزل',
-    'origin_other'          => 'مصدر آخر',
+    'origin_type'            => 'مصدر الطرد',
+    'origin_warehouse'       => 'المستودع',
+    'origin_store'           => 'المتجر',
+    'origin_home'            => 'المنزل',
+    'origin_other'           => 'مصدر آخر',
 
     // أحجام الطرود
-    'size_small'            => 'صغير',
-    'size_medium'           => 'متوسط',
-    'size_large'            => 'كبير',
-    'size_oversized'        => 'كبير جداً',
+    'size_small'             => 'صغير',
+    'size_medium'            => 'متوسط',
+    'size_large'             => 'كبير',
+    'size_oversized'         => 'كبير جداً',
 
     // سرعات التوصيل
-    'speed_standard'        => 'عادي',
-    'speed_express'         => 'سريع',
-    'speed_same_day'        => 'نفس اليوم',
-    'speed_next_day'        => 'اليوم التالي',
+    'speed_standard'         => 'عادي',
+    'speed_express'          => 'سريع',
+    'speed_same_day'         => 'نفس اليوم',
+    'speed_next_day'         => 'اليوم التالي',
 
     'payment_responsibility'    => 'مسؤولية الدفع',
     'responsibility_merchant'   => 'التاجر',
@@ -171,19 +193,20 @@ return [
     'collection_credit_card' => 'بطاقة ائتمان',
     'collection_mada' => 'مدى',
 
-
     'delivery_status_note'      => 'ملاحظات حالة التسليم',
+    'status_note'               => 'ملاحظات الحالة',
 
-    'additional_options'         =>  'خيارات اضافية',
+    'additional_options'        => 'خيارات اضافية',
 
     'package_attributes'        => 'خصائص إضافية للطرد',
+    'extra_attributes'          => 'الخصائص الإضافية',
 
     // خصائص الطرد
     'is_fragile'                => 'هش',
     'is_returnable'             => 'قابل للإرجاع',
     'is_confidential'           => 'معلومات سرية',
     'is_express'                => 'توصيل سريع',
-    'is_cod'                   => 'الدفع عند الاستلام',
+    'is_cod'                    => 'الدفع عند الاستلام',
     'is_gift'                   => 'هدية',
     'is_oversized'              => 'كبير جداً',
     'is_hazardous_material'     => 'مواد خطرة',
@@ -195,17 +218,19 @@ return [
 
     'save_package_data'         => 'حفظ بيانات الطرد',
     'update_package_data'       => 'تحديث بيانات الطرد',
+    'save_package'              => 'حفظ الطرد',
+    'previous'                  => 'السابق',
 
     // المنتجات في الطرد
     'products_in_package'       => 'المنتجات في الطرد',
-    'type'                     => 'النوع',
-    'stock_item'               => 'عنصر المخزون',
-    'custom_name'              => 'اسم مخصص',
-    'quantity'                 => 'الكمية',
-    'price_per_unit'           => 'سعر الوحدة',
-    'total_price'              => 'السعر الإجمالي',
+    'products'                  => 'المنتجات',
+    'stock_item'                => 'عنصر المخزون',
+    'custom_name'               => 'اسم مخصص',
+    'quantity'                  => 'الكمية',
+    'price_per_unit'            => 'سعر الوحدة',
+    'total_price'               => 'السعر الإجمالي',
 
-    'no_products'              => 'لا توجد منتجات مضافة لهذا الطرد.',
+    'no_products'               => 'لا توجد منتجات مضافة لهذا الطرد.',
 
     // بيانات الاتصال
     'email'                   => 'البريد الإلكتروني',
@@ -213,9 +238,8 @@ return [
     'address'                 => 'العنوان',
     'country'                 => 'الدولة',
 
-    'custom'                    => 'مخصص',
-    'stock'                     =>  'من مخزن',
-
+    'custom'                  => 'مخصص',
+    'stock'                   => 'من مخزن',
 
     // قسم الفاتورة والدفع
     'invoice_payment'        => 'الفاتورة والدفعات',
@@ -232,6 +256,5 @@ return [
     'paid'                   => 'مدفوع',
     'pending'                => 'معلق',
     'unpaid'                 => 'غير مدفوع',
-
 
 ];

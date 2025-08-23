@@ -560,12 +560,12 @@
                                                     <div class="card review-card mb-4">
                                                         <div class="card-header d-flex align-items-center">
                                                             <i class="fas fa-clipboard-check me-2"></i>
-                                                            <span>مراجعة المعلومات النهائية</span>
+                                                            <span>{{ __('package.review_final_info') }}</span>
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="alert alert-info">
                                                                 <i class="fas fa-info-circle me-2"></i>
-                                                                يرجى مراجعة المعلومات التالية قبل حفظ الطرد. تأكد من صحة جميع البيانات المدخلة.
+                                                                {{ __('package.review_before_save') }}
                                                             </div>
 
                                                             <div class="row">
@@ -574,43 +574,41 @@
                                                                     <div class="review-section">
                                                                         <h6 class="mb-3 d-flex align-items-center">
                                                                             <i class="fas fa-user-circle me-2 text-primary"></i>
-                                                                            <span>معلومات المرسل</span>
+                                                                            <span>{{ __('package.sender_info') }}</span>
                                                                         </h6>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">التاجر:</span>
+                                                                            <span class="review-label">{{ __('package.merchant') }}:</span>
                                                                             <span class="review-value" id="review-sender-merchant"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">الاسم:</span>
+                                                                            <span class="review-label">{{ __('package.name') }}:</span>
                                                                             <span class="review-value" id="review-sender-name"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">البريد الإلكتروني:</span>
+                                                                            <span class="review-label">{{ __('package.email') }}:</span>
                                                                             <span class="review-value" id="review-sender-email"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">الهاتف:</span>
+                                                                            <span class="review-label">{{ __('package.phone') }}:</span>
                                                                             <span class="review-value" id="review-sender-phone"></span>
                                                                         </div>
 
-
-
                                                                         <div class="review-item">
-                                                                            <span class="review-label">البلد:</span>
+                                                                            <span class="review-label">{{ __('package.country') }}:</span>
                                                                             <span class="review-value" id="review-sender-country"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">المدينة:</span>
+                                                                            <span class="review-label">{{ __('package.city') }}:</span>
                                                                             <span class="review-value" id="review-sender-city"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">الرمز البريدي:</span>
+                                                                            <span class="review-label">{{ __('package.postal_code') }}:</span>
                                                                             <span class="review-value" id="review-sender-postal"></span>
                                                                         </div>
                                                                     </div>
@@ -621,43 +619,41 @@
                                                                     <div class="review-section">
                                                                         <h6 class="mb-3 d-flex align-items-center">
                                                                             <i class="fas fa-user-check me-2 text-success"></i>
-                                                                            <span>معلومات المستلم</span>
+                                                                            <span>{{ __('package.receiver_info') }}</span>
                                                                         </h6>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">التاجر:</span>
+                                                                            <span class="review-label">{{ __('package.merchant') }}:</span>
                                                                             <span class="review-value" id="review-receiver-merchant"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">الاسم:</span>
+                                                                            <span class="review-label">{{ __('package.name') }}:</span>
                                                                             <span class="review-value" id="review-receiver-name"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">البريد الإلكتروني:</span>
+                                                                            <span class="review-label">{{ __('package.email') }}:</span>
                                                                             <span class="review-value" id="review-receiver-email"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">الهاتف:</span>
+                                                                            <span class="review-label">{{ __('package.phone') }}:</span>
                                                                             <span class="review-value" id="review-receiver-phone"></span>
                                                                         </div>
 
-
-
                                                                         <div class="review-item">
-                                                                            <span class="review-label">البلد:</span>
+                                                                            <span class="review-label">{{ __('package.country') }}:</span>
                                                                             <span class="review-value" id="review-receiver-country"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">المدينة:</span>
+                                                                            <span class="review-label">{{ __('package.city') }}:</span>
                                                                             <span class="review-value" id="review-receiver-city"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">الرمز البريدي:</span>
+                                                                            <span class="review-label">{{ __('package.postal_code') }}:</span>
                                                                             <span class="review-value" id="review-receiver-postal"></span>
                                                                         </div>
                                                                     </div>
@@ -670,36 +666,36 @@
                                                                     <div class="review-section">
                                                                         <h6 class="mb-3 d-flex align-items-center">
                                                                             <i class="fas fa-box me-2 text-warning"></i>
-                                                                            <span>مواصفات الطرد</span>
+                                                                            <span>{{ __('package.package_specs') }}</span>
                                                                         </h6>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">النوع:</span>
+                                                                            <span class="review-label">{{ __('package.type') }}:</span>
                                                                             <span class="review-value" id="review-package-type"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">الحجم:</span>
+                                                                            <span class="review-label">{{ __('package.size') }}:</span>
                                                                             <span class="review-value" id="review-package-size"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">الوزن:</span>
+                                                                            <span class="review-label">{{ __('package.weight') }}:</span>
                                                                             <span class="review-value" id="review-weight"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">الأبعاد:</span>
+                                                                            <span class="review-label">{{ __('package.dimensionss') }}:</span>
                                                                             <span class="review-value" id="review-dimensions"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">المحتويات:</span>
+                                                                            <span class="review-label">{{ __('package.contents') }}:</span>
                                                                             <span class="review-value" id="review-package-content"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">ملاحظات:</span>
+                                                                            <span class="review-label">{{ __('package.notes') }}:</span>
                                                                             <span class="review-value" id="review-package-note"></span>
                                                                         </div>
                                                                     </div>
@@ -710,36 +706,36 @@
                                                                     <div class="review-section">
                                                                         <h6 class="mb-3 d-flex align-items-center">
                                                                             <i class="fas fa-shipping-fast me-2 text-info"></i>
-                                                                            <span>خيارات التوصيل</span>
+                                                                            <span>{{ __('package.delivery_options') }}</span>
                                                                         </h6>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">سرعة التوصيل:</span>
+                                                                            <span class="review-label">{{ __('package.delivery_speed') }}:</span>
                                                                             <span class="review-value" id="review-delivery-speed"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">طريقة التوصيل:</span>
+                                                                            <span class="review-label">{{ __('package.delivery_method') }}:</span>
                                                                             <span class="review-value" id="review-delivery-method"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">نوع المصدر:</span>
+                                                                            <span class="review-label">{{ __('package.origin_type') }}:</span>
                                                                             <span class="review-value" id="review-origin-type"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">تاريخ التوصيل:</span>
+                                                                            <span class="review-label">{{ __('package.delivery_date') }}:</span>
                                                                             <span class="review-value" id="review-delivery-date"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">الحالة:</span>
+                                                                            <span class="review-label">{{ __('package.status') }}:</span>
                                                                             <span class="review-value" id="review-status"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">ملاحظات الحالة:</span>
+                                                                            <span class="review-label">{{ __('package.status_note') }}:</span>
                                                                             <span class="review-value" id="review-status-note"></span>
                                                                         </div>
                                                                     </div>
@@ -752,7 +748,7 @@
                                                                     <div class="review-section">
                                                                         <h6 class="mb-3 d-flex align-items-center">
                                                                             <i class="fas fa-cubes me-2 text-danger"></i>
-                                                                            <span>المنتجات</span>
+                                                                            <span>{{ __('package.products') }}</span>
                                                                         </h6>
                                                                         <div id="review-products"></div>
                                                                     </div>
@@ -765,56 +761,56 @@
                                                                     <div class="review-section">
                                                                         <h6 class="mb-3 d-flex align-items-center">
                                                                             <i class="fas fa-money-bill-wave me-2 text-success"></i>
-                                                                            <span>معلومات التحصيل</span>
+                                                                            <span>{{ __('package.collection_info') }}</span>
                                                                         </h6>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">مسؤولية الدفع:</span>
+                                                                            <span class="review-label">{{ __('package.payment_responsibility') }}:</span>
                                                                             <span class="review-value" id="review-payment-responsibility"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">طريقة الدفع:</span>
+                                                                            <span class="review-label">{{ __('package.payment_method') }}:</span>
                                                                             <span class="review-value" id="review-payment-method"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">طريقة التحصيل:</span>
+                                                                            <span class="review-label">{{ __('package.collection_method') }}:</span>
                                                                             <span class="review-value" id="review-collection-method"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">رسوم التوصيل:</span>
+                                                                            <span class="review-label">{{ __('package.delivery_fee') }}:</span>
                                                                             <span class="review-value" id="review-delivery-fee"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">رسوم التأمين:</span>
+                                                                            <span class="review-label">{{ __('package.insurance_fee') }}:</span>
                                                                             <span class="review-value" id="review-insurance-fee"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">رسوم الخدمة:</span>
+                                                                            <span class="review-label">{{ __('package.service_fee') }}:</span>
                                                                             <span class="review-value" id="review-service-fee"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">المبلغ الإجمالي:</span>
+                                                                            <span class="review-label">{{ __('package.total_fee') }}:</span>
                                                                             <span class="review-value" id="review-total-fee"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">المبلغ المدفوع:</span>
+                                                                            <span class="review-label">{{ __('package.paid_amount') }}:</span>
                                                                             <span class="review-value" id="review-paid-amount"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">المبلغ المتبقي:</span>
+                                                                            <span class="review-label">{{ __('package.remaining_amount') }}:</span>
                                                                             <span class="review-value" id="review-remaining-amount"></span>
                                                                         </div>
 
                                                                         <div class="review-item">
-                                                                            <span class="review-label">مبلغ الدفع عند الاستلام:</span>
+                                                                            <span class="review-label">{{ __('package.cod_amount') }}:</span>
                                                                             <span class="review-value" id="review-cod-amount"></span>
                                                                         </div>
                                                                     </div>
@@ -825,7 +821,7 @@
                                                                     <div class="review-section">
                                                                         <h6 class="mb-3 d-flex align-items-center">
                                                                             <i class="fas fa-star me-2 text-warning"></i>
-                                                                            <span>الخصائص الإضافية</span>
+                                                                            <span>{{ __('package.extra_attributes') }}</span>
                                                                         </h6>
                                                                         <div id="review-attributes" class="d-flex flex-wrap gap-2 p-3 bg-light rounded"></div>
                                                                     </div>
@@ -835,15 +831,16 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="row mt-4">
                                                 <div class="col-6 text-start">
-                                                    {{-- <button type="button" class="btn btn-outline-secondary" id="prev-to-options">
-                                                        <i class="fas fa-arrow-right me-2"></i> السابق
-                                                    </button> --}}
+                                                    <button type="button" class="btn btn-outline-secondary" id="prev-to-options">
+                                                        <i class="fas fa-arrow-right me-2"></i> {{ __('package.previous') }}
+                                                    </button>
                                                 </div>
                                                 <div class="col-6 text-end">
                                                     <button type="submit" class="btn btn-success">
-                                                        <i class="fas fa-save me-2"></i>  حفظ التعديلات
+                                                        <i class="fas fa-save me-2"></i> {{ __('package.save_package') }}
                                                     </button>
                                                 </div>
                                             </div>
