@@ -177,6 +177,8 @@
     </style>
 
 @endsection
+
+
 @section('content')
     <div class="container-fluid py-3">
         <!-- رأس الصفحة -->
