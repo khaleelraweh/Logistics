@@ -257,4 +257,25 @@ return [
     'pending'                => 'معلق',
     'unpaid'                 => 'غير مدفوع',
 
+    // الرسائل التنبيهية
+    'merchant' => 'التاجر',
+    'optional' => 'اختياري',
+    'select'   => 'اختر',
+
+    // Review and alerts
+    'review_before_save' => 'Please fill in all required fields correctly before proceeding to the next step.',
+    'no_products'        => 'No products available',
+
+    // Units
+    'cm' => 'cm',
+    'kg' => 'kg',
+
+    // Products table
+    'type'     => 'Type',
+    'product'  => 'Product',
+    'weight'   => 'Weight',
+    'quantity' => 'Quantity',
+    'price'    => 'Price',
+    'total'    => 'Total',
+
 ];

@@ -158,6 +158,22 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+         'sender_merchant_id' => 'Sender Merchant ID',
+         'delivery_date' => 'Delivery Date',
+         'sender_first_name' => 'Sender First Name',
+         'sender_middle_name' => 'Sender Middle Name',
+         'sender_last_name' => 'Sender Last Name',
+         'sender_email' => 'Sender Email',
+         'sender_phone' => 'Sender Phone',
+
+         'receiver_merchant_id' => 'Receiver Merchant ID',
+         'receiver_first_name' => 'Receiver First Name',
+         'receiver_middle_name' => 'Receiver Middle Name',
+         'receiver_last_name' => 'Receiver Last Name',
+         'receiver_email' => 'Receiver Email',
+         'receiver_phone' => 'Receiver Phone',
+
+    ],
 
 ];

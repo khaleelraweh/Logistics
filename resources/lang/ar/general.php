@@ -223,6 +223,10 @@ return [
     'latitude'           => 'خط العرض',
     'longitude'          => 'خط الطول',
     'additional_notes'   => 'ملاحظات إضافية',
+
+    'alert'    => 'تنبيه',
+    'ok'       => 'موافق',
+    'currency' => 'ر.س',
 ];
 
 

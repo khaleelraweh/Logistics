@@ -153,4 +153,22 @@ return [
     */
 
     "min_words" => "حقل :attribute يجب ان يحتوى على الأقل :min_words كلمات.",
+
+    'attributes' => [
+        'sender_merchant_id' => 'المتجر المرسل',
+        'delivery_date' => 'تاريخ التوصيل',
+        'sender_first_name' => 'اسم المرسل الأول',
+        'sender_middle_name' => 'اسم المرسل الأوسط',
+        'sender_last_name' => 'اسم المرسل الأخير',
+        'sender_phone' => 'رقم هاتف المرسل',
+        'sender_email' => 'البريد الإلكتروني للمرسل',
+
+        'receiver_merchant_id' => 'المتجر المستلم',
+        'receiver_first_name' => 'اسم المستلم الأول',
+        'receiver_middle_name' => 'اسم المستلم الأوسط',
+        'receiver_last_name' => 'اسم المستلم الأخير',
+        'receiver_phone' => 'رقم هاتف المستلم',
+        'receiver_email' => 'البريد الإلكتروني للمستلم',
+
+    ],
 ];

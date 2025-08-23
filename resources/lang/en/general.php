@@ -225,6 +225,9 @@ return [
     'longitude'          => 'Longitude',
     'additional_notes'   => 'Additional Notes',
 
+    'alert'    => 'Alert',
+    'ok'       => 'OK',
+    'currency' => 'SAR',
 
 
 ];
