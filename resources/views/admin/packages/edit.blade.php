@@ -447,10 +447,10 @@
                                                                 <div class="col-md-6 mb-3">
                                                                     <label for="origin_type" class="form-label">{{ __('package.origin_type') }}</label>
                                                                     <select class="form-select {{ $errors->has('origin_type') ? 'is-invalid' : '' }}" id="origin_type" name="origin_type" required>
-                                                                        <option value="warehouse" {{ old('origin_type') == 'warehouse' ? 'selected' : '' }}>{{ __('package.origin_warehouse') }}</option>
-                                                                        <option value="store" {{ old('origin_type') == 'store' ? 'selected' : '' }}>{{ __('package.origin_store') }}</option>
-                                                                        <option value="home" {{ old('origin_type') == 'home' ? 'selected' : '' }}>{{ __('package.origin_home') }}</option>
-                                                                        <option value="other" {{ old('origin_type') == 'other' ? 'selected' : '' }}>{{ __('package.origin_other') }}</option>
+                                                                        <option value="warehouse" {{ old('origin_type', $package->origin_type) == 'warehouse' ? 'selected' : '' }}>{{ __('package.origin_warehouse') }}</option>
+                                                                        <option value="store" {{ old('origin_type', $package->origin_type) == 'store' ? 'selected' : '' }}>{{ __('package.origin_store') }}</option>
+                                                                        <option value="home" {{ old('origin_type', $package->origin_type) == 'home' ? 'selected' : '' }}>{{ __('package.origin_home') }}</option>
+                                                                        <option value="other" {{ old('origin_type', $package->origin_type) == 'other' ? 'selected' : '' }}>{{ __('package.origin_other') }}</option>
                                                                     </select>
                                                                     @error('origin_type')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -463,7 +463,7 @@
                                                                     <label for="status1" class="form-label">{{ __('package.status') }}</label>
                                                                     <select class="form-select {{ $errors->has('status') ? 'is-invalid' : '' }}" id="status1" name="status" required>
                                                                         @foreach (\App\Models\Package::statuses() as $key => $label)
-                                                                            <option value="{{ $key }}" {{ old('status') == $key ? 'selected' : '' }}>
+                                                                            <option value="{{ $key }}" {{ old('status' , $package->status) == $key ? 'selected' : '' }}>
                                                                                 {{ $label }}
                                                                             </option>
                                                                         @endforeach
@@ -477,7 +477,7 @@
                                                             <div class="row">
                                                                 <div class="col-12 mb-3">
                                                                     <label for="delivery_status_note" class="form-label">{{ __('package.delivery_status_note') }}</label>
-                                                                    <textarea class="form-control {{ $errors->has('delivery_status_note') ? 'is-invalid' : '' }}" id="delivery_status_note" name="delivery_status_note" rows="3">{{ old('delivery_status_note') }}</textarea>
+                                                                    <textarea class="form-control {{ $errors->has('delivery_status_note') ? 'is-invalid' : '' }}" id="delivery_status_note" name="delivery_status_note" rows="3">{{ old('delivery_status_note' , $package->delivery_status_note) }}</textarea>
                                                                     @error('delivery_status_note')
                                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                                     @enderror
