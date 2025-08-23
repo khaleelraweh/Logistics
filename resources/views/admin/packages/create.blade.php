@@ -999,36 +999,101 @@ $(document).ready(function () {
     // تحديث صفحة المراجعة
     // ===============================
     function updateReviewPage() {
-        // معلومات المرسل
-        $('#review-sender-merchant').text($('#merchant_id option:selected').text() || 'بدون تاجر');
-        $('#review-sender-name').text(
-            ($('#sender_first_name').val() || '') + ' ' +
-            ($('#sender_middle_name').val() || '') + ' ' +
-            ($('#sender_last_name').val() || '')
-        );
-        $('#review-sender-email').text($('#sender_email').val() || 'غير محدد');
-        $('#review-sender-phone').text($('#sender_phone').val() || 'غير محدد');
-        $('#review-sender-country').text($('#sender_country').val() || 'غير محدد');
-        $('#review-sender-city').text($('#sender_city').val() || 'غير محدد');
-        $('#review-sender-postal').text($('#sender_postal_code').val() || 'غير محدد');
+                // معلومات المرسل
+                $('#review-sender-merchant').text($('#merchant_id option:selected').text());
+                $('#review-sender-name').text(
+                    $('#sender_first_name').val() + ' ' +
+                    $('#sender_middle_name').val() + ' ' +
+                    $('#sender_last_name').val()
+                );
+                $('#review-sender-email').text($('#sender_email').val());
+                $('#review-sender-phone').text($('#sender_phone').val());
+                $('#review-sender-address').text($('#sender_address').val());
+                $('#review-sender-country').text($('#sender_country').val());
+                $('#review-sender-city').text($('#sender_city').val());
+                $('#review-sender-postal').text($('#sender_postal_code').val());
 
-        // معلومات المستلم
-        $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text() || 'بدون تاجر');
-        $('#review-receiver-name').text(
-            ($('#receiver_first_name').val() || '') + ' ' +
-            ($('#receiver_middle_name').val() || '') + ' ' +
-            ($('#receiver_last_name').val() || '')
-        );
-        $('#review-receiver-email').text($('#receiver_email').val() || 'غير محدد');
-        $('#review-receiver-phone').text($('#receiver_phone').val() || 'غير محدد');
-        $('#review-receiver-country').text($('#receiver_country').val() || 'غير محدد');
-        $('#review-receiver-city').text($('#receiver_city').val() || 'غير محدد');
-        $('#review-receiver-postal').text($('#receiver_postal_code').val() || 'غير محدد');
+                // معلومات المستلم
+                $('#review-receiver-merchant').text($('#merchant_recever_id option:selected').text());
+                $('#review-receiver-name').text(
+                    $('#receiver_first_name').val() + ' ' +
+                    $('#receiver_middle_name').val() + ' ' +
+                    $('#receiver_last_name').val()
+                );
+                $('#review-receiver-email').text($('#receiver_email').val());
+                $('#review-receiver-phone').text($('#receiver_phone').val());
+                $('#review-receiver-address').text($('#receiver_address').val());
+                $('#review-receiver-country').text($('#receiver_country').val());
+                $('#review-receiver-city').text($('#receiver_city').val());
+                $('#review-receiver-postal').text($('#receiver_postal_code').val());
 
-        // باقي بيانات المراجعة مثل مواصفات الطرد، خيارات التوصيل، الخصائص، التحصيل، المنتجات
-        // يمكن إضافة باقي الكود هنا كما هو
-    }
+                // مواصفات الطرد
+                $('#review-package-type').text($('#package_type option:selected').text());
+                $('#review-package-size').text($('#package_size option:selected').text());
+                $('#review-weight').text($('#weight').val());
+                $('#review-dimensions').text(
+                    $('#dimensions\\.length').val() + 'x' +
+                    $('#dimensions\\.width').val() + 'x' +
+                    $('#dimensions\\.height').val() + ' سم'
+                );
+                $('#review-package-content').text($('#package_content').val());
+                $('#review-package-note').text($('#package_note').val());
 
+                // خيارات التوصيل
+                $('#review-delivery-speed').text($('#delivery_speed option:selected').text());
+                $('#review-delivery-method').text($('#delivery_method option:selected').text());
+                $('#review-origin-type').text($('#origin_type option:selected').text());
+                $('#review-delivery-date').text($('#delivery_date').val());
+                $('#review-status').text($('#status1 option:selected').text());
+                $('#review-status-note').text($('#delivery_status_note').val());
+
+                // الخصائص
+                var attributesHtml = '';
+                $('input[name^="attributes"]:checked').each(function() {
+                    var label = $('label[for="' + $(this).attr('id') + '"]').text();
+                    attributesHtml += '<span class="badge bg-info me-1 mb-1">' + label + '</span>';
+                });
+                $('#review-attributes').html(attributesHtml);
+
+                // معلومات التحصيل (من Livewire components)
+                try {
+                    $('#review-payment-responsibility').text($('select[name="payment_responsibility"] option:selected').text());
+                    $('#review-payment-method').text($('select[name="payment_method"] option:selected').text());
+                    $('#review-collection-method').text($('select[name="collection_method"] option:selected').text());
+                    $('#review-delivery-fee').text($('input[name="delivery_fee"]').val() + ' ر.س');
+                    $('#review-insurance-fee').text($('input[name="insurance_fee"]').val() + ' ر.س');
+                    $('#review-service-fee').text($('input[name="service_fee"]').val() + ' ر.س');
+                    $('#review-total-fee').text($('input[name="total_fee"]').val() + ' ر.س');
+                    $('#review-paid-amount').text($('input[name="paid_amount"]').val() + ' ر.س');
+                    $('#review-remaining-amount').text($('input[name="due_amount"]').val() + ' ر.س');
+                    $('#review-cod-amount').text($('input[name="cod_amount"]').val() + ' ر.س');
+                } catch (e) {
+                    console.log('Livewire components not loaded yet');
+                }
+
+                // المنتجات (من Livewire component)
+                try {
+                    var productsHtml = '<table class="table table-bordered"><thead><tr><th>النوع</th><th>المنتج</th><th>الوزن</th><th>الكمية</th><th>السعر</th><th>الإجمالي</th></tr></thead><tbody>';
+
+                    $('input[name^="products"]').each(function() {
+                        // هذا مثال بسيط، تحتاج إلى تعديله حسب هيكل Livewire component الخاص بالمنتجات
+                        var index = $(this).attr('name').match(/\[(\d+)\]/)[1];
+                        var type = $('select[name="products[' + index + '][type]"] option:selected').text() || 'مخصص';
+                        var name = $('input[name="products[' + index + '][custom_name]"]').val() || $('select[name="products[' + index + '][stock_item_id]"] option:selected').text();
+                        var weight = $('input[name="products[' + index + '][weight]"]').val();
+                        var quantity = $('input[name="products[' + index + '][quantity]"]').val();
+                        var price = $('input[name="products[' + index + '][price_per_unit]"]').val();
+                        var total = $('input[name="products[' + index + '][total_price]"]').val();
+
+                        productsHtml += '<tr><td>' + type + '</td><td>' + name + '</td><td>' + weight + ' كجم</td><td>' + quantity + '</td><td>' + price + ' ر.س</td><td>' + total + ' ر.س</td></tr>';
+                    });
+
+                    productsHtml += '</tbody></table>';
+                    $('#review-products').html(productsHtml);
+                } catch (e) {
+                    console.log('Error loading products:', e);
+                }
+            }
     // تحديث صفحة المراجعة عند فتح تبويبها
     $(document).on('shown.bs.tab', 'a[href="#confirm-detail"]', function () {
         updateReviewPage();
