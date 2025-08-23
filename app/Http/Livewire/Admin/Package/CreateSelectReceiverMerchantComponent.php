@@ -27,7 +27,7 @@ class CreateSelectReceiverMerchantComponent extends Component
             $merchant = Merchant::find($value);
 
             if ($merchant) {
-                $names = explode(' ', $merchant->name);
+                $names = explode(' ', $merchant->contact_person);
                 $this->receiver_first_name = $names[0] ?? '';
                 $this->receiver_middle_name = $names[1] ?? '';
                 $this->receiver_last_name = $names[2] ?? '';
