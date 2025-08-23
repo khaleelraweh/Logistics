@@ -1,16 +1,16 @@
 <div>
-    <!-- اختيار التاجر -->
-    <div class="mb-3" wire:ignore>
-        <label for="receiver_merchant_id" class="form-label">{{ __('general.merchant') }} ({{ __('general.optional') }})</label>
-        <select class="form-select" wire:model="receiver_merchant_id" id="receiver_merchant_id" name="receiver_merchant_id">
-            <option value="">{{ __('general.select') }}</option>
-            @foreach($merchants as $merchant)
-                <option value="{{ $merchant->id }}">{{ $merchant->name }}</option>
-            @endforeach
-        </select>
+    <div class="row mb-3">
+        <div class="col-12 mb-3">
+            <label for="receiver_merchant_id" class="form-label">{{ __('general.merchant') }} ({{ __('general.optional') }})</label>
+            <select class="form-select" wire:model="receiver_merchant_id" id="receiver_merchant_id" name="receiver_merchant_id">
+                <option value="">{{ __('general.select') }}</option>
+                @foreach($merchants as $merchant)
+                    <option value="{{ $merchant->id }}">{{ $merchant->name }}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
 
-    <!-- معلومات المستلم -->
     <div class="row">
         <div class="col-md-4 mb-3">
             <label class="form-label" for="receiver_first_name">{{ __('package.receiver_first_name') }} <span class="text-danger">*</span></label>
@@ -31,7 +31,6 @@
         </div>
     </div>
 
-    <!-- البريد والهاتف -->
     <div class="row">
         <div class="col-md-6 mb-3">
             <label class="form-label" for="receiver_email">{{ __('package.receiver_email') }}</label>
