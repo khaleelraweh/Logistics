@@ -272,6 +272,27 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                         <!-- الخطوة 2: معلومات الرحلة -->
+                                        <div class="tab-pane" id="trip-information">
+                                            <div class="row">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                @livewire('admin.package.sender-location-component')
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                @livewire('admin.package.receiver-location-component')
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                      <!-- ازرار التنقل -->
                                     <ul class="pager wizard twitter-bs-wizard-pager-link">
