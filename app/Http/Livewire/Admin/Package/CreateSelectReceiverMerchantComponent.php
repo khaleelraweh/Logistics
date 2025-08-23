@@ -30,7 +30,10 @@ class CreateSelectReceiverMerchantComponent extends Component
                 $names = explode(' ', $merchant->contact_person);
                 $this->receiver_first_name = $names[0] ?? '';
                 $this->receiver_middle_name = $names[1] ?? '';
-                $this->receiver_last_name = $names[2] ?? '';
+
+                // $this->receiver_last_name = $names[2] ?? '';
+                $this->receiver_last_name = end($names) ?? '';
+
                 $this->receiver_email = $merchant->email;
                 $this->receiver_phone = $merchant->phone;
             }
