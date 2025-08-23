@@ -35,6 +35,7 @@
                             <option value="name" {{ request('sort_by') == 'name' ? 'selected' : '' }}>{{ __('panel.name') }}</option>
                             <option value="email" {{ request('sort_by') == 'email' ? 'selected' : '' }}>{{ __('panel.email') }}</option>
                             <option value="phone" {{ request('sort_by') == 'phone' ? 'selected' : '' }}>{{ __('panel.phone') }}</option>
+                            <option value="contact_person" {{ request('sort_by') == 'contact_person' ? 'selected' : '' }}>{{ __('panel.contact_person') }}</option>
                             <option value="published_on" {{ request('sort_by') == 'published_on' ? 'selected' : '' }}>{{ __('panel.published_on') }}</option>
                             <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>{{ __('panel.created_at') }}</option>
                         </select>
