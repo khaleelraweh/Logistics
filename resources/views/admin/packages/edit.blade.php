@@ -252,7 +252,8 @@
                                                             <span class="badge bg-primary">{{ __('general.required') }}</span>
                                                         </div>
                                                         <div class="card-body">
-                                                            @livewire('admin.package.update-select-merchant-component' , ['merchant_id' => $package->merchant_id])
+                                                            {{-- @livewire('admin.package.update-select-merchant-component' , ['merchant_id' => $package->merchant_id]) --}}
+                                                            @livewire('admin.package.update-select-merchant-component', ['package' => $package])
                                                         </div>
                                                     </div>
                                                 </div>
@@ -264,9 +265,7 @@
                                                             <span class="badge bg-primary">{{ __('general.required') }}</span>
                                                         </div>
                                                         <div class="card-body">
-                                                            @livewire('admin.package.update-select-receiver-merchant-component', [
-                                                                'package' => $package
-                                                            ])
+                                                            @livewire('admin.package.update-select-receiver-merchant-component', ['package' => $package])
                                                         </div>
                                                     </div>
                                                 </div>
@@ -304,7 +303,7 @@
 
                                 <div class="row mb-3">
                                     <div class="col-sm-12">
-                                        @livewire('admin.package.update-select-merchant-component' , ['merchant_id' => $package->merchant_id])
+                                        {{-- @livewire('admin.package.update-select-merchant-component' , ['merchant_id' => $package->merchant_id]) --}}
                                     </div>
                                 </div>
 
