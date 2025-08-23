@@ -238,11 +238,39 @@
                                 </ul>
 
                                 <!-- محتويات الويزرد -->
-                                <form action="{{ route('admin.packages.store') }}" method="POST" enctype="multipart/form-data" id="packageForm">
+                                <form action="{{ route('admin.packages.update' , $package->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
+                                    @method('PATCH')
                                     <!-- المحتويات كخطوات -->
                                     <div class="tab-content twitter-bs-wizard-tab-content">
+                                        <div class="tab-pane" id="basic-informaion">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                                            <h5 class="mb-0"><i class="fas fa-user me-2"></i>{{ __('package.sender_Information') }}</h5>
+                                                            <span class="badge bg-primary">{{ __('general.required') }}</span>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            @livewire('admin.package.update-select-merchant-component' , ['merchant_id' => $package->merchant_id])
+                                                        </div>
+                                                    </div>
+                                                </div>
 
+                                                <div class="col-lg-6">
+                                                    <div class="card">
+                                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                                            <h5 class="mb-0"><i class="fas fa-user me-2"></i> {{ __('package.receiver_Information') }}</h5>
+                                                            <span class="badge bg-primary">{{ __('general.required') }}</span>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            @livewire('admin.package.create-select-receiver-merchant-component')
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                      <!-- ازرار التنقل -->
                                     <ul class="pager wizard twitter-bs-wizard-pager-link">
