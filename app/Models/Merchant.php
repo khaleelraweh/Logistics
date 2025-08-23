@@ -23,7 +23,13 @@ class Merchant extends Model
     protected $searchable = [
         'columns' => [
             'merchants.name' => 10,
-            'merchants.contact_person' => 5,
+            'merchants.contact_person' => 10,
+            'merchants.country' => 10,
+            'merchants.region' => 10,
+            'merchants.city' => 10,
+            'merchants.district' => 10,
+            'merchants.phone' => 10,
+            'merchants.email' => 10,
         ]
     ];
 
