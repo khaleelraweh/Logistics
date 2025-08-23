@@ -393,7 +393,8 @@
                                                             <h5 class="mb-0"><i class="fas fa-cube me-2"></i>{{ __('package.package_specifications') }}</h5>
                                                         </div>
                                                         <div class="card-body">
-                                                            @livewire('admin.package.create-product-component')
+                                                            @livewire('admin.package.update-product-component', ['package' => $package])
+
                                                         </div>
                                                     </div>
                                                 </div>
