@@ -393,8 +393,7 @@
                                                             <h5 class="mb-0"><i class="fas fa-cube me-2"></i>{{ __('package.package_specifications') }}</h5>
                                                         </div>
                                                         <div class="card-body">
-                                                            @livewire('admin.package.update-product-component', ['package' => $package])
-
+                                                            @livewire('admin.package.update-product-component', ['package_id' => $package->id])
                                                         </div>
                                                     </div>
                                                 </div>
@@ -428,7 +427,7 @@
                                 <h4>{{ __('package.package_information') }}</h4>
                             </div>
                             <div class="card-body">
-                                @livewire('admin.package.update-product-component',['package_id'=>$package->id])
+                                {{-- @livewire('admin.package.update-product-component',['package_id'=>$package->id]) --}}
                             </div>
                         </div>
 
