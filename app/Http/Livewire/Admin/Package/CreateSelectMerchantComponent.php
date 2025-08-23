@@ -29,7 +29,7 @@ class CreateSelectMerchantComponent extends Component
             $merchant = Merchant::find($value);
 
             if ($merchant) {
-                $names = explode(' ', $merchant->name);
+                $names = explode(' ', $merchant->contact_person);
                 $this->sender_first_name = $names[0] ?? '';
                 $this->sender_middle_name = $names[1] ?? '';
                 $this->sender_last_name = $names[2] ?? '';
