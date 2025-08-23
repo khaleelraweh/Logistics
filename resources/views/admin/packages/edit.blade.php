@@ -283,7 +283,8 @@
                                                                 @livewire('admin.package.update-sender-location-component', ['package' => $package])
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                @livewire('admin.package.receiver-location-component')
+                                                                @livewire('admin.package.update-receiver-location-component', ['package' => $package])
+
                                                             </div>
 
                                                         </div>
