@@ -17,17 +17,15 @@ class UpdateSelectReceiverMerchantComponent extends Component
     public $receiver_email = '';
     public $receiver_phone = '';
 
-    public function mount($receiver_merchant_id = null, $receiver_first_name = '', $receiver_middle_name = '', $receiver_last_name = '', $receiver_email = '', $receiver_phone = '')
+    public function mount($receiver_merchant_id)
     {
-        $this->merchants = Merchant::all();
         $this->receiver_merchant_id = $receiver_merchant_id;
+        $this->merchants = Merchant::all();
 
-        // إذا كانت هناك بيانات موجودة مسبقًا، نعبي الحقول
-        $this->receiver_first_name = $receiver_first_name;
-        $this->receiver_middle_name = $receiver_middle_name;
-        $this->receiver_last_name = $receiver_last_name;
-        $this->receiver_email = $receiver_email;
-        $this->receiver_phone = $receiver_phone;
+        if($this->receiver_merchant_id) {
+            $this->fillReceiverMerchantData($this->receiver_merchant_id);
+        }
+
     }
 
     public function updatedReceiverMerchantId($value)
