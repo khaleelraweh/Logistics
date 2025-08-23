@@ -243,6 +243,8 @@
                                     @method('PATCH')
                                     <!-- المحتويات كخطوات -->
                                     <div class="tab-content twitter-bs-wizard-tab-content">
+
+                                        <!-- الخطوة 1: المعلومات الأساسية -->
                                         <div class="tab-pane" id="basic-informaion">
                                             <div class="row">
                                                 <div class="col-lg-6">
@@ -252,7 +254,6 @@
                                                             <span class="badge bg-primary">{{ __('general.required') }}</span>
                                                         </div>
                                                         <div class="card-body">
-                                                            {{-- @livewire('admin.package.update-select-merchant-component' , ['merchant_id' => $package->merchant_id]) --}}
                                                             @livewire('admin.package.update-select-merchant-component', ['package' => $package])
                                                         </div>
                                                     </div>
@@ -294,64 +295,7 @@
                 <div class="row">
                     <!-- Sender Information -->
                     <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">{{ __('package.sender_Information') }}</h4>
-                            </div>
 
-                            <div class="card-body">
-
-                                <div class="row mb-3">
-                                    <div class="col-sm-12">
-                                        {{-- @livewire('admin.package.update-select-merchant-component' , ['merchant_id' => $package->merchant_id]) --}}
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-sm-4">
-                                        <label class="col-form-label" for="sender_first_name">{{ __('package.sender_first_name') }}</label>
-                                        <input name="sender_first_name" class="form-control" id="sender_first_name" type="text" value="{{ old('sender_first_name', $package->sender_first_name) }}">
-                                        @error('sender_first_name')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <label class="col-form-label" for="sender_middle_name">{{ __('package.sender_middle_name') }}</label>
-                                        <input name="sender_middle_name" class="form-control" id="sender_middle_name" type="text" value="{{ old('sender_middle_name' , $package->sender_middle_name) }}">
-                                        @error('sender_middle_name')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <label class="col-form-label" for="sender_last_name">{{ __('package.sender_last_name') }}</label>
-                                        <input name="sender_last_name" class="form-control" id="sender_last_name" type="text" value="{{ old('sender_last_name' , $package->sender_last_name) }}">
-                                        @error('sender_last_name')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-sm-6">
-                                        <label class="col-form-label" for="sender_email">{{ __('package.sender_email') }}</label>
-                                        <input name="sender_email" class="form-control" id="sender_email" type="text" value="{{ old('sender_email', $package->sender_email) }}">
-                                        @error('sender_email')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <label class="col-form-label" for="sender_phone">{{ __('package.sender_phone') }}</label>
-                                        <input name="sender_phone" class="form-control" id="sender_phone" type="text" value="{{ old('sender_phone' , $package->sender_phone) }}">
-                                        @error('sender_phone')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="card">
                             <div class="card-header">
@@ -438,78 +382,7 @@
 
 
                     <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">{{ __('package.receiver_Information') }}</h4>
-                            </div>
 
-                            <div class="card-body">
-
-                                {{-- <div class="row mb-3">
-                                    <div class="col-sm-12">
-
-                                        <label for="merchant_id" class="col-form-label">{{ __('merchant.receiver_merchant') }} ({{ __('general.optional') }})</label>
-                                        <select name="merchant_id" id="merchant_id" class="form-select">
-                                            <option value=""> {{ __('merchant.without_merchant') }}</option>
-                                            @foreach($merchants as $merchant)
-                                                <option value="{{ $merchant->id }}">{{ $merchant->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('merchant_id')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-
-                                </div> --}}
-
-                                <div class="row mb-3">
-                                    <div class="col-sm-4">
-                                        <label class="col-form-label" for="receiver_first_name">{{ __('package.receiver_first_name') }}</label>
-                                        <input name="receiver_first_name" class="form-control" id="receiver_first_name" type="text" value="{{ old('receiver_first_name', $package->receiver_first_name) }}">
-                                        @error('receiver_first_name')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <label class="col-form-label" for="receiver_middle_name">{{ __('package.receiver_middle_name') }}</label>
-                                        <input name="receiver_middle_name" class="form-control" id="receiver_middle_name" type="text" value="{{ old('receiver_middle_name' , $package->receiver_middle_name) }}">
-                                        @error('receiver_middle_name')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <label class="col-form-label" for="receiver_last_name">{{ __('package.receiver_last_name') }}</label>
-                                        <input name="receiver_last_name" class="form-control" id="receiver_last_name" type="text" value="{{ old('receiver_last_name', $package->receiver_last_name) }}">
-                                        @error('receiver_last_name')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-sm-6">
-                                        <label class="col-form-label" for="receiver_email">{{ __('package.receiver_email') }}</label>
-                                        <input name="receiver_email" class="form-control" id="receiver_email" type="text" value="{{ old('receiver_email', $package->receiver_email) }}">
-                                        @error('receiver_email')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <label class="col-form-label" for="receiver_phone">{{ __('package.receiver_phone') }}</label>
-                                        <input name="receiver_phone" class="form-control" id="receiver_phone" type="text" value="{{ old('receiver_phone', $package->receiver_phone) }}">
-                                        @error('receiver_phone')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
 
                         <div class="card">
                             <div class="card-header">
