@@ -280,7 +280,7 @@
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-lg-6">
-                                                                @livewire('admin.package.sender-location-component')
+                                                                @livewire('admin.package.update-sender-location-component', ['package' => $package])
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 @livewire('admin.package.receiver-location-component')
