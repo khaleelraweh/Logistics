@@ -20,16 +20,12 @@ return [
 
     // Review final step
     'review_final_info'      => 'Final Review',
-    'review_before_save'     => 'Please review all the information before saving.',
-    'sender_info'            => 'Sender Information',
-    'receiver_info'          => 'Receiver Information',
-    'package_specs'          => 'Package Specifications',
-    'notes'                  => 'Notes',
-    'extra_attributes'       => 'Extra Attributes',
-    'previous'               => 'Previous',
-    'save_package'           => 'Save Package',
+    'review_alert'           => 'Please review the following information before saving the package. Make sure all data is correct.',
+    'review_before_save'     => 'Please review the following information before saving the package. Make sure all data is correct.',
 
+    // Sender / Receiver
     'sender_Information'     => 'Sender Information',
+    'sender_info'            => 'Sender Information',
     'sender_first_name'      => 'First Name',
     'sender_middle_name'     => 'Middle Name',
     'sender_last_name'       => 'Last Name',
@@ -42,11 +38,12 @@ return [
     'sender_district'        => 'Sender District',
     'sender_postal_code'     => 'Postal Code',
     'sender_location'        => 'Sender Location',
-    'sender_latitude'        => 'Sender Latitude',
-    'sender_longitude'       => 'Sender Longitude',
+    'sender_latitude'        => 'Latitude',
+    'sender_longitude'       => 'Longitude',
     'sender_others'          => 'Others',
 
     'receiver_Information'   => 'Receiver Information',
+    'receiver_info'          => 'Receiver Information',
     'receiver_first_name'    => 'First Name',
     'receiver_middle_name'   => 'Middle Name',
     'receiver_last_name'     => 'Last Name',
@@ -59,12 +56,19 @@ return [
     'receiver_district'      => 'Receiver District',
     'receiver_postal_code'   => 'Postal Code',
     'receiver_location'      => 'Geographic Location',
-    'receiver_latitude'      => 'Receiver Latitude',
-    'receiver_longitude'     => 'Receiver Longitude',
+    'receiver_latitude'      => 'Latitude',
+    'receiver_longitude'     => 'Longitude',
     'receiver_others'        => 'Others',
     'address'                => 'Address',
 
-    'package_specifications' => 'Package specifications',
+    // Review tabs
+    'package_specifications' => 'Package Specifications',
+    'package_specs'          => 'Package Specifications',
+    'package_options'        => 'Delivery Options',
+    'package_products'       => 'Products',
+    'package_collection'     => 'Collection Information',
+    'package_additional'     => 'Additional Attributes',
+
     'receiver_name'          => 'Receiver Name',
     'tracking_number'        => 'Tracking Number',
     'merchant'               => 'Merchant',
@@ -107,85 +111,97 @@ return [
     'delete_package'         => 'Delete Package',
 
     'collection'             => 'Collection',
+    'collection_info'        => 'Collection Information',
 
-    'dimensionss'           => 'Dimensions',
+    'dimensionss'            => 'Dimensions',
     'dimensions' => [
         'length'            => 'Length',
         'width'             => 'Width',
         'height'            => 'Height',
     ],
 
-    'cm'                    => 'CM',
+    'cm'                     => 'CM',
 
-    'package_content'       => 'Package Content',
-    'package_note'          => 'Package Note',
+    'package_content'        => 'Package Content',
+    'package_note'           => 'Package Note',
 
-    'weight'                => 'Weight',
-    'kgm'                   => 'Kgm',
+    'weight'                 => 'Weight',
+    'kgm'                    => 'KG',
+
+    'type'                   => 'Type',
+    'size'                   => 'Size',
+    'contents'               => 'Contents',
+    'notes'                  => 'Notes',
+    'name'                   => 'Name',
+    'city'                   => 'City',
+    'postal_code'            => 'Postal Code',
 
     'additional_information' => 'Additional Information',
 
-    'delivery_fee'          => 'Delivery Fee',
-    'insurance_fee'         => 'Insurance Fee',
-    'service_fee'           => 'Service Fee',
-    'cod_amount'            => 'Cash on Delivery',
+    'delivery_fee'           => 'Delivery Fee',
+    'insurance_fee'          => 'Insurance Fee',
+    'service_fee'            => 'Service Fee',
+    'cod_amount'             => 'Cash on Delivery',
 
     // Delivery methods
-    'method_standard'       => 'Standard Delivery',
-    'method_express'        => 'Express Delivery',
-    'method_pickup'         => 'Store Pickup',
-    'method_courier'        => 'Courier Service',
+    'method_standard'        => 'Standard Delivery',
+    'method_express'         => 'Express Delivery',
+    'method_pickup'          => 'Store Pickup',
+    'method_courier'         => 'Courier Service',
 
     // Package types
-    'type_box'              => 'Box',
-    'type_envelope'         => 'Envelope',
-    'type_pallet'           => 'Pallet',
-    'type_tube'             => 'Tube',
-    'type_bag'              => 'Bag',
+    'type_box'               => 'Box',
+    'type_envelope'          => 'Envelope',
+    'type_pallet'            => 'Pallet',
+    'type_tube'              => 'Tube',
+    'type_bag'               => 'Bag',
 
-    // Package origins
-    'origin_type'           => 'Package Origin',
-    'origin_warehouse'      => 'Warehouse',
-    'origin_store'          => 'Store',
-    'origin_home'           => 'Home',
-    'origin_other'          => 'Other Origin',
+    // Origins
+    'origin_type'            => 'Package Origin',
+    'origin_warehouse'       => 'Warehouse',
+    'origin_store'           => 'Store',
+    'origin_home'            => 'Home',
+    'origin_other'           => 'Other',
 
-    // Package sizes
-    'size_small'            => 'Small',
-    'size_medium'           => 'Medium',
-    'size_large'            => 'Large',
-    'size_oversized'        => 'Oversized',
+    // Sizes
+    'size_small'             => 'Small',
+    'size_medium'            => 'Medium',
+    'size_large'             => 'Large',
+    'size_oversized'         => 'Oversized',
 
-    // Delivery speeds
-    'speed_standard'        => 'Standard',
-    'speed_express'         => 'Express',
-    'speed_same_day'        => 'Same Day',
-    'speed_next_day'        => 'Next Day',
+    // Speeds
+    'speed_standard'         => 'Standard',
+    'speed_express'          => 'Express',
+    'speed_same_day'         => 'Same Day',
+    'speed_next_day'         => 'Next Day',
 
     'payment_responsibility'    => 'Payment Responsibility',
     'responsibility_merchant'   => 'Merchant',
     'responsibility_recipient'  => 'Recipient',
 
-    'payment_method' => 'Payment Method',
-    'payment_prepaid' => 'Prepaid',
-    'payment_cod' => 'Cash on Delivery',
-    'payment_exchange' => 'Exchange',
-    'payment_bring' => 'Bring',
+    'payment_method'            => 'Payment Method',
+    'payment_prepaid'           => 'Prepaid',
+    'payment_cod'               => 'Cash on Delivery',
+    'payment_exchange'          => 'Exchange',
+    'payment_bring'             => 'Bring',
 
-    'collection_method' => 'Collection Method',
-    'collection_cash' => 'Cash',
-    'collection_cheque' => 'Cheque',
-    'collection_bank_transfer' => 'Bank Transfer',
-    'collection_e_wallet' => 'E-Wallet',
-    'collection_credit_card' => 'Credit Card',
-    'collection_mada' => 'Mada',
+    'collection_method'         => 'Collection Method',
+    'collection_cash'           => 'Cash',
+    'collection_cheque'         => 'Cheque',
+    'collection_bank_transfer'  => 'Bank Transfer',
+    'collection_e_wallet'       => 'E-Wallet',
+    'collection_credit_card'    => 'Credit Card',
+    'collection_mada'           => 'Mada',
 
     'delivery_status_note'      => 'Delivery Status Note',
+    'status_note'               => 'Status Note',
+
+    'additional_options'        => 'Additional Options',
 
     'package_attributes'        => 'Additional Package Attributes',
-    'additional_options'        => 'Additional Option',
+    'extra_attributes'          => 'Extra Attributes',
 
-    // Package attributes
+    // Attributes
     'is_fragile'                => 'Fragile',
     'is_returnable'             => 'Returnable',
     'is_confidential'           => 'Confidential Information',
@@ -202,31 +218,36 @@ return [
 
     'save_package_data'         => 'Save Package Data',
     'update_package_data'       => 'Update Package Data',
+    'save_package'              => 'Save Package',
+    'previous'                  => 'Previous',
 
     // Products in package
     'products_in_package'       => 'Products in Package',
     'products'                  => 'Products',
-    'type'                      => 'Type',
     'stock_item'                => 'Stock Item',
     'custom_name'               => 'Custom Name',
     'quantity'                  => 'Quantity',
     'price_per_unit'            => 'Price Per Unit',
     'total_price'               => 'Total Price',
+
     'no_products'               => 'No products added to this package.',
 
-    // Contact info labels
+    // Contact info
     'email'                   => 'Email',
     'phone'                   => 'Phone',
+    'address'                 => 'Address',
     'country'                 => 'Country',
 
-    'custom'                   => 'Custom',
-    'stock'                    => 'Stock',
+    'custom'                  => 'Custom',
+    'stock'                   => 'Stock',
 
     // Invoice and payments
     'invoice_payment'        => 'Invoice & Payments',
     'invoice_number'         => 'Invoice Number',
     'total_amount'           => 'Total Amount',
     'payment_date'           => 'Payment Date',
+    'payment_method'         => 'Payment Method',
+    'collection_method'      => 'Collection Method',
     'amount'                 => 'Amount',
     'no_payments'            => 'No Payments',
     'no_invoice'             => 'No Invoice',
@@ -235,4 +256,5 @@ return [
     'paid'                   => 'Paid',
     'pending'                => 'Pending',
     'unpaid'                 => 'Unpaid',
+
 ];
