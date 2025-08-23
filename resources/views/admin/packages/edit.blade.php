@@ -553,6 +553,302 @@
                                             </div>
                                         </div>
 
+                                        <!-- الخطوة 5: المراجعة النهائية -->
+                                        <div class="tab-pane" id="confirm-detail">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card review-card mb-4">
+                                                        <div class="card-header d-flex align-items-center">
+                                                            <i class="fas fa-clipboard-check me-2"></i>
+                                                            <span>مراجعة المعلومات النهائية</span>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="alert alert-info">
+                                                                <i class="fas fa-info-circle me-2"></i>
+                                                                يرجى مراجعة المعلومات التالية قبل حفظ الطرد. تأكد من صحة جميع البيانات المدخلة.
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <!-- معلومات المرسل -->
+                                                                <div class="col-md-6 mb-4">
+                                                                    <div class="review-section">
+                                                                        <h6 class="mb-3 d-flex align-items-center">
+                                                                            <i class="fas fa-user-circle me-2 text-primary"></i>
+                                                                            <span>معلومات المرسل</span>
+                                                                        </h6>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">التاجر:</span>
+                                                                            <span class="review-value" id="review-sender-merchant"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">الاسم:</span>
+                                                                            <span class="review-value" id="review-sender-name"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">البريد الإلكتروني:</span>
+                                                                            <span class="review-value" id="review-sender-email"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">الهاتف:</span>
+                                                                            <span class="review-value" id="review-sender-phone"></span>
+                                                                        </div>
+
+
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">البلد:</span>
+                                                                            <span class="review-value" id="review-sender-country"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">المدينة:</span>
+                                                                            <span class="review-value" id="review-sender-city"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">الرمز البريدي:</span>
+                                                                            <span class="review-value" id="review-sender-postal"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- معلومات المستلم -->
+                                                                <div class="col-md-6 mb-4">
+                                                                    <div class="review-section">
+                                                                        <h6 class="mb-3 d-flex align-items-center">
+                                                                            <i class="fas fa-user-check me-2 text-success"></i>
+                                                                            <span>معلومات المستلم</span>
+                                                                        </h6>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">التاجر:</span>
+                                                                            <span class="review-value" id="review-receiver-merchant"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">الاسم:</span>
+                                                                            <span class="review-value" id="review-receiver-name"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">البريد الإلكتروني:</span>
+                                                                            <span class="review-value" id="review-receiver-email"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">الهاتف:</span>
+                                                                            <span class="review-value" id="review-receiver-phone"></span>
+                                                                        </div>
+
+
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">البلد:</span>
+                                                                            <span class="review-value" id="review-receiver-country"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">المدينة:</span>
+                                                                            <span class="review-value" id="review-receiver-city"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">الرمز البريدي:</span>
+                                                                            <span class="review-value" id="review-receiver-postal"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <!-- مواصفات الطرد -->
+                                                                <div class="col-md-6 mb-4">
+                                                                    <div class="review-section">
+                                                                        <h6 class="mb-3 d-flex align-items-center">
+                                                                            <i class="fas fa-box me-2 text-warning"></i>
+                                                                            <span>مواصفات الطرد</span>
+                                                                        </h6>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">النوع:</span>
+                                                                            <span class="review-value" id="review-package-type"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">الحجم:</span>
+                                                                            <span class="review-value" id="review-package-size"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">الوزن:</span>
+                                                                            <span class="review-value" id="review-weight"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">الأبعاد:</span>
+                                                                            <span class="review-value" id="review-dimensions"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">المحتويات:</span>
+                                                                            <span class="review-value" id="review-package-content"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">ملاحظات:</span>
+                                                                            <span class="review-value" id="review-package-note"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- خيارات التوصيل -->
+                                                                <div class="col-md-6 mb-4">
+                                                                    <div class="review-section">
+                                                                        <h6 class="mb-3 d-flex align-items-center">
+                                                                            <i class="fas fa-shipping-fast me-2 text-info"></i>
+                                                                            <span>خيارات التوصيل</span>
+                                                                        </h6>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">سرعة التوصيل:</span>
+                                                                            <span class="review-value" id="review-delivery-speed"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">طريقة التوصيل:</span>
+                                                                            <span class="review-value" id="review-delivery-method"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">نوع المصدر:</span>
+                                                                            <span class="review-value" id="review-origin-type"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">تاريخ التوصيل:</span>
+                                                                            <span class="review-value" id="review-delivery-date"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">الحالة:</span>
+                                                                            <span class="review-value" id="review-status"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">ملاحظات الحالة:</span>
+                                                                            <span class="review-value" id="review-status-note"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- المنتجات -->
+                                                            <div class="row mb-4">
+                                                                <div class="col-12">
+                                                                    <div class="review-section">
+                                                                        <h6 class="mb-3 d-flex align-items-center">
+                                                                            <i class="fas fa-cubes me-2 text-danger"></i>
+                                                                            <span>المنتجات</span>
+                                                                        </h6>
+                                                                        <div id="review-products"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <!-- معلومات التحصيل -->
+                                                                <div class="col-md-6 mb-4">
+                                                                    <div class="review-section">
+                                                                        <h6 class="mb-3 d-flex align-items-center">
+                                                                            <i class="fas fa-money-bill-wave me-2 text-success"></i>
+                                                                            <span>معلومات التحصيل</span>
+                                                                        </h6>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">مسؤولية الدفع:</span>
+                                                                            <span class="review-value" id="review-payment-responsibility"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">طريقة الدفع:</span>
+                                                                            <span class="review-value" id="review-payment-method"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">طريقة التحصيل:</span>
+                                                                            <span class="review-value" id="review-collection-method"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">رسوم التوصيل:</span>
+                                                                            <span class="review-value" id="review-delivery-fee"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">رسوم التأمين:</span>
+                                                                            <span class="review-value" id="review-insurance-fee"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">رسوم الخدمة:</span>
+                                                                            <span class="review-value" id="review-service-fee"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">المبلغ الإجمالي:</span>
+                                                                            <span class="review-value" id="review-total-fee"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">المبلغ المدفوع:</span>
+                                                                            <span class="review-value" id="review-paid-amount"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">المبلغ المتبقي:</span>
+                                                                            <span class="review-value" id="review-remaining-amount"></span>
+                                                                        </div>
+
+                                                                        <div class="review-item">
+                                                                            <span class="review-label">مبلغ الدفع عند الاستلام:</span>
+                                                                            <span class="review-value" id="review-cod-amount"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- الخصائص الإضافية -->
+                                                                <div class="col-md-6 mb-4">
+                                                                    <div class="review-section">
+                                                                        <h6 class="mb-3 d-flex align-items-center">
+                                                                            <i class="fas fa-star me-2 text-warning"></i>
+                                                                            <span>الخصائص الإضافية</span>
+                                                                        </h6>
+                                                                        <div id="review-attributes" class="d-flex flex-wrap gap-2 p-3 bg-light rounded"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-6 text-start">
+                                                    <button type="button" class="btn btn-outline-secondary" id="prev-to-options">
+                                                        <i class="fas fa-arrow-right me-2"></i> السابق
+                                                    </button>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <button type="submit" class="btn btn-success">
+                                                        <i class="fas fa-save me-2"></i> حفظ الطرد
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                      <!-- ازرار التنقل -->
                                     <ul class="pager wizard twitter-bs-wizard-pager-link">
@@ -567,167 +863,6 @@
             </div>
     </div>
 
-    <div class="card">
-        <div class="card-body">
-            <form action="{{ route('admin.packages.update' , $package->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PATCH')
-
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        @livewire('admin.package.update-package-collection-component' , ['package_id' => $package->id])
-                    </div>
-                </div>
-
-                <div class="row">
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>{{ __('package.additional_information') }}</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-sm-4">
-                                    <label class="col-form-label" for="delivery_speed">{{ __('package.delivery_speed') }}</label>
-                                    <select name="delivery_speed" id="delivery_speed" class="form-select">
-                                        <option value="standard" {{ old('delivery_speed', $package->delivery_speed) == 'standard' ? 'selected' : '' }}>{{ __('package.speed_standard') }}</option>
-                                        <option value="express" {{ old('delivery_speed', $package->delivery_speed) == 'express' ? 'selected' : '' }}>{{ __('package.speed_express') }}</option>
-                                        <option value="same_day" {{ old('delivery_speed', $package->delivery_speed) == 'same_day' ? 'selected' : '' }}>{{ __('package.speed_same_day') }}</option>
-                                        <option value="next_day" {{ old('delivery_speed', $package->delivery_speed) == 'next_day' ? 'selected' : '' }}>{{ __('package.speed_next_day') }}</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-4">
-                                    <label class="col-form-label" for="delivery_date">{{ __('package.delivery_date') }}</label>
-                                    <input name="delivery_date" class="form-control" id="delivery_date" type="date" value="{{ old('delivery_date', $package->delivery_date ? \Carbon\Carbon::parse($package->delivery_date)->toDateString() : '') }}">
-                                </div>
-                                <div class="col-sm-4">
-                                    <label class="col-form-label" for="status1">{{ __('package.status') }}</label>
-                                    <select name="status" id="status1" class="form-select">
-                                        @foreach(\App\Models\Package::statuses() as $key => $label)
-                                            <option value="{{ $key }}" {{ old('status', $package->status) == $key ? 'selected' : '' }}>
-                                                {{ $label }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('status')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-sm-4">
-                                    <label class="col-form-label" for="delivery_method">{{ __('package.delivery_method') }}</label>
-                                    <select name="delivery_method" id="delivery_method" class="form-select">
-                                        <option value="standard" {{ old('delivery_method', $package->delivery_method) == 'standard' ? 'selected' : '' }}>{{ __('package.method_standard') }}</option>
-                                        <option value="express" {{ old('delivery_method', $package->delivery_method) == 'express' ? 'selected' : '' }}>{{ __('package.method_express') }}</option>
-                                        <option value="pickup" {{ old('delivery_method', $package->delivery_method) == 'pickup' ? 'selected' : '' }}>{{ __('package.method_pickup') }}</option>
-                                        <option value="courier" {{ old('delivery_method', $package->delivery_method) == 'courier' ? 'selected' : '' }}>{{ __('package.method_courier') }}</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-4">
-                                    <label class="col-form-label" for="package_type">{{ __('package.package_type') }}</label>
-                                    <select name="package_type" id="package_type" class="form-select">
-                                        <option value="box" {{ old('package_type', $package->package_type) == 'box' ? 'selected' : '' }}>{{ __('package.type_box') }}</option>
-                                        <option value="envelope" {{ old('package_type', $package->package_type) == 'envelope' ? 'selected' : '' }}>{{ __('package.type_envelope') }}</option>
-                                        <option value="pallet" {{ old('package_type', $package->package_type) == 'pallet' ? 'selected' : '' }}>{{ __('package.type_pallet') }}</option>
-                                        <option value="tube" {{ old('package_type', $package->package_type) == 'tube' ? 'selected' : '' }}>{{ __('package.type_tube') }}</option>
-                                        <option value="bag" {{ old('package_type', $package->package_type) == 'bag' ? 'selected' : '' }}>{{ __('package.type_bag') }}</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-4">
-                                    <label class="col-form-label" for="origin_type">{{ __('package.origin_type') }}</label>
-                                    <select name="origin_type" id="origin_type" class="form-select">
-                                        <option value="warehouse" {{ old('origin_type', $package->origin_type) == 'warehouse' ? 'selected' : '' }}>{{ __('package.origin_warehouse') }}</option>
-                                        <option value="store" {{ old('origin_type', $package->origin_type) == 'store' ? 'selected' : '' }}>{{ __('package.origin_store') }}</option>
-                                        <option value="home" {{ old('origin_type', $package->origin_type) == 'home' ? 'selected' : '' }}>{{ __('package.origin_home') }}</option>
-                                        <option value="other" {{ old('origin_type', $package->origin_type) == 'other' ? 'selected' : '' }}>{{ __('package.origin_other') }}</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="col-form-label" for="delivery_status_note">{{ __('package.delivery_status_note') }}</label>
-                                <textarea name="delivery_status_note" class="form-control" id="delivery_status_note">{{ old('delivery_status_note', $package->delivery_status_note) }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-                @php
-                    // القيم الافتراضية
-                    $defaultAttributes = [
-                        "is_fragile" => true,
-                        "is_returnable" => false,
-                        "is_confidential" => true,
-                        "is_express" => false,
-                        "is_cod" => true,
-                        "is_gift" => false,
-                        "is_oversized" => false,
-                        "is_hazardous_material" => false,
-                        "is_temperature_controlled" => false,
-                        "is_perishable" => false,
-                        "is_signature_required" => true,
-                        "is_inspection_required" => false,
-                        "is_special_handling_required" => true,
-                    ];
-
-                    // لو في بيانات قديمة (بعد فشل التحقق مثلًا) نستخدمها، وإلا نستخدم الافتراضية
-                    $attrs = old('attributes',  $package->attributes ?? $defaultAttributes);
-
-                    // الملاحظة الخاصة بالحالة
-                    $delivery_status_note = old('delivery_status_note', '');
-
-                    // جميع المفاتيح مع الترجمة
-                    $allKeys = [
-                        "is_fragile" => __('package.is_fragile'),
-                        "is_returnable" => __('package.is_returnable'),
-                        "is_confidential" => __('package.is_confidential'),
-                        "is_express" => __('package.is_express'),
-                        "is_cod" => __('package.is_cod'),
-                        "is_gift" => __('package.is_gift'),
-                        "is_oversized" => __('package.is_oversized'),
-                        "is_hazardous_material" => __('package.is_hazardous_material'),
-                        "is_temperature_controlled" => __('package.is_temperature_controlled'),
-                        "is_perishable" => __('package.is_perishable'),
-                        "is_signature_required" => __('package.is_signature_required'),
-                        "is_inspection_required" => __('package.is_inspection_required'),
-                        "is_special_handling_required" => __('package.is_special_handling_required'),
-                    ];
-                @endphp
-
-
-
-                <div class="mb-3">
-                    <h5>{{ __('package.package_attributes') }}</h5>
-                    @foreach($allKeys as $key => $label)
-                        <div class="form-check form-check-inline">
-                            <input
-                                class="form-check-input"
-                                type="checkbox"
-                                id="{{ $key }}"
-                                name="attributes[{{ $key }}]"
-                                value="1"
-                                {{ !empty($attrs[$key]) ? 'checked' : '' }}>
-                            <label class="form-check-label" for="{{ $key }}">{{ $label }}</label>
-                        </div>
-                    @endforeach
-                </div>
-
-
-
-                @ability('admin', 'create_packages')
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-primary">{{ __('package.update_package_data') }}</button>
-                    </div>
-                @endability
-            </form>
-        </div>
-    </div>
 @endsection
 
 @section('script')
