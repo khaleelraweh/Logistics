@@ -25,7 +25,7 @@
                     <!-- Status -->
                     <div class="col-md-2 mb-2 d-md-block">
                         <div class="form-group">
-                            <select name="status" class="form-select">
+                            <select name="status" class="form-select select2">
                                 <option value="">{{ __('filter.show_all') }}</option>
                                 <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>{{ __('filter.status_active') }}</option>
                                 <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>{{ __('filter.status_inactive') }}</option>
@@ -36,7 +36,7 @@
                     <!-- Sort By -->
                     <div class="col-md-2 mb-2 d-md-block">
                         <div class="form-group">
-                            <select name="sort_by" class="form-select">
+                            <select name="sort_by" class="form-select select2">
                                 <option value="">{{ __('filter.sort_by') }}</option>
                                 <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>{{ __('filter.id') }}</option>
                                 <option value="name" {{ request('sort_by') == 'name' ? 'selected' : '' }}>{{ __('filter.name') }}</option>
@@ -52,7 +52,7 @@
                     <!-- Order By -->
                     <div class="col-md-2 mb-2 d-md-block">
                         <div class="form-group">
-                            <select name="order_by" class="form-select">
+                            <select name="order_by" class="form-select select2">
                                 <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>{{ __('filter.asc') }}</option>
                                 <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}>{{ __('filter.desc') }}</option>
                             </select>
