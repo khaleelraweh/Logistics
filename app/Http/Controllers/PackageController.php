@@ -101,6 +101,7 @@ class PackageController extends Controller
             // =========================
 
             // Sender
+            $input['merchant_id']         = $request->merchant_id; // (المرسل هو التاجر) اختياري
             $input['sender_first_name']   = $request->sender_first_name;
             $input['sender_middle_name']  = $request->sender_middle_name;
             $input['sender_last_name']    = $request->sender_last_name;
@@ -116,6 +117,7 @@ class PackageController extends Controller
             $input['sender_others']       = $request->sender_others;
 
             // Receiver  (إصلاح typo: receiver_region)
+            $input['receiver_merchant_id'] = $request->receiver_merchant_id; // (المستقبل هو التاجر) اختياري
             $input['receiver_first_name']  = $request->receiver_first_name;
             $input['receiver_middle_name'] = $request->receiver_middle_name;
             $input['receiver_last_name']   = $request->receiver_last_name;
@@ -166,7 +168,7 @@ class PackageController extends Controller
             $input['cod_amount']   = (float)($request->cod_amount ?? 0);
             $input['total_fee']    = $totalFee;
 
-            $input['merchant_id']  = $request->merchant_id;
+
 
             // Attributes
             $input['attributes'] = [
