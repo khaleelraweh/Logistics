@@ -1,180 +1,180 @@
 @extends('layouts.admin')
 @section('style')
 
-<style>
-    :root {
-        --primary: #4361ee;
-        --secondary: #3f37c9;
-        --success: #4cc9f0;
-        --info: #4895ef;
-        --warning: #f72585;
-        --danger: #e63946;
-        --light: #f8f9fa;
-        --dark: #212529;
-    }
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --info: #4895ef;
+            --warning: #f72585;
+            --danger: #e63946;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
 
-    body {
-        /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-        background-color: #f5f7fb;
-        color: #333;
-    }
+        body {
+            /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+            background-color: #f5f7fb;
+            color: #333;
+        }
 
-    .card {
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        margin-bottom: 24px;
-        border: none;
-    }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            border: none;
+        }
 
-    .card-header {
-        background-color: #fff;
-        border-bottom: 1px solid #eaeaea;
-        padding: 15px 20px;
-        font-weight: 600;
-        color: var(--primary);
-        border-radius: 10px 10px 0 0 !important;
-    }
+        .card-header {
+            background-color: #fff;
+            border-bottom: 1px solid #eaeaea;
+            padding: 15px 20px;
+            font-weight: 600;
+            color: var(--primary);
+            border-radius: 10px 10px 0 0 !important;
+        }
 
-    .page-title-box {
-        padding: 20px 0;
-    }
+        .page-title-box {
+            padding: 20px 0;
+        }
 
-    .breadcrumb {
-        background: transparent;
-        margin-bottom: 0;
-        padding: 0;
-    }
+        .breadcrumb {
+            background: transparent;
+            margin-bottom: 0;
+            padding: 0;
+        }
 
-    .form-label {
-        font-weight: 500;
-        margin-bottom: 8px;
-        color: #555;
-    }
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #555;
+        }
 
-    .form-control, .form-select {
-        border-radius: 8px;
-        padding: 10px 15px;
-        border: 1px solid #ddd;
-        transition: all 0.3s;
-    }
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            transition: all 0.3s;
+        }
 
-    .form-control:focus, .form-select:focus {
-        border-color: var(--primary);
-        box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
-    }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+        }
 
-    .btn-primary {
-        background-color: var(--primary);
-        border-color: var(--primary);
-        padding: 10px 25px;
-        border-radius: 8px;
-        font-weight: 500;
-    }
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
 
-    .btn-primary:hover {
-        background-color: var(--secondary);
-        border-color: var(--secondary);
-    }
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
 
-    .section-title {
-        position: relative;
-        padding-right: 15px;
-        margin-bottom: 20px;
-        font-weight: 600;
-        color: var(--primary);
-    }
+        .section-title {
+            position: relative;
+            padding-right: 15px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: var(--primary);
+        }
 
-    .section-title::before {
-        content: '';
-        position: absolute;
-        right: 0;
-        top: 3px;
-        height: 20px;
-        width: 5px;
-        background-color: var(--primary);
-        border-radius: 10px;
-    }
+        .section-title::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 3px;
+            height: 20px;
+            width: 5px;
+            background-color: var(--primary);
+            border-radius: 10px;
+        }
 
-    .form-check-input:checked {
-        background-color: var(--primary);
-        border-color: var(--primary);
-    }
+        .form-check-input:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
 
-    .attribute-checkbox {
-        margin-bottom: 10px;
-    }
+        .attribute-checkbox {
+            margin-bottom: 10px;
+        }
 
-    .is-invalid {
-        border-color: var(--danger) !important;
-    }
+        .is-invalid {
+            border-color: var(--danger) !important;
+        }
 
-    .invalid-feedback {
-        display: block;
-        color: var(--danger);
-        font-size: 0.875rem;
-        margin-top: 0.25rem;
-    }
+        .invalid-feedback {
+            display: block;
+            color: var(--danger);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
 
-</style>
+    </style>
 
-<style>
-    .review-section {
-        border-left: 4px solid #4361ee;
-        padding: 15px;
-        margin-bottom: 20px;
-        background-color: #f8f9fa;
-        border-radius: 8px;
-    }
+    <style>
+        .review-section {
+            border-left: 4px solid #4361ee;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
 
-    .review-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 8px 0;
-        border-bottom: 1px solid #eee;
-    }
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
 
-    .review-item:last-child {
-        border-bottom: none;
-    }
+        .review-item:last-child {
+            border-bottom: none;
+        }
 
-    .review-label {
-        font-weight: 600;
-        color: #495057;
-        min-width: 120px;
-    }
+        .review-label {
+            font-weight: 600;
+            color: #495057;
+            min-width: 120px;
+        }
 
-    .review-value {
-        color: #212529;
-        text-align: left;
-        flex: 1;
-    }
+        .review-value {
+            color: #212529;
+            text-align: left;
+            flex: 1;
+        }
 
-    .review-card {
-        border: none;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        transition: transform 0.2s;
-    }
+        .review-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
 
-    .review-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-    }
+        .review-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        }
 
-    .review-card .card-header {
-        background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
-        color: white;
-        border-radius: 10px 10px 0 0 !important;
-        padding: 15px 20px;
-        font-weight: 600;
-    }
+        .review-card .card-header {
+            background: linear-gradient(135deg, #4361ee 0%, #3a56d4 100%);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
 
-    .review-badge {
-        font-size: 0.85rem;
-        padding: 5px 10px;
-        border-radius: 20px;
-    }
-</style>
+        .review-badge {
+            font-size: 0.85rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+    </style>
 
 @endsection
 @section('content')
