@@ -487,7 +487,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    @livewire('admin.package.create-package-collection-component')
+                                                    @livewire('admin.package.update-package-collection-component', ['package_id' => $package->id])
+
                                                 </div>
                                             </div>
 
