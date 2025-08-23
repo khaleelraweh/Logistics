@@ -21,7 +21,7 @@ class UpdateSelectReceiverMerchantComponent extends Component
     public function mount($package)
     {
         $this->package = $package;
-        $this->receiver_merchant_id = $package->receiver_merchant_id;
+        $this->receiver_merchant_id = $package->receiver_merchant_id ? (int) $package->receiver_merchant_id : null;
         $this->merchants = Merchant::all();
 
         // تعبئة الحقول من قاعدة البيانات
