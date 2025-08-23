@@ -837,13 +837,13 @@
                                             </div>
                                             <div class="row mt-4">
                                                 <div class="col-6 text-start">
-                                                    <button type="button" class="btn btn-outline-secondary" id="prev-to-options">
+                                                    {{-- <button type="button" class="btn btn-outline-secondary" id="prev-to-options">
                                                         <i class="fas fa-arrow-right me-2"></i> السابق
-                                                    </button>
+                                                    </button> --}}
                                                 </div>
                                                 <div class="col-6 text-end">
                                                     <button type="submit" class="btn btn-success">
-                                                        <i class="fas fa-save me-2"></i> حفظ الطرد
+                                                        <i class="fas fa-save me-2"></i>  حفظ التعديلات
                                                     </button>
                                                 </div>
                                             </div>
