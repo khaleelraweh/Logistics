@@ -1093,7 +1093,7 @@ $(document).ready(function () {
                 } catch (e) {
                     console.log('Error loading products:', e);
                 }
-            }
+    }
     // تحديث صفحة المراجعة عند فتح تبويبها
     $(document).on('shown.bs.tab', 'a[href="#confirm-detail"]', function () {
         updateReviewPage();
