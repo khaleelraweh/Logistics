@@ -516,7 +516,7 @@
                                                             ];
 
                                                             // لو في بيانات قديمة (بعد فشل التحقق مثلًا) نستخدمها، وإلا نستخدم الافتراضية
-                                                            $attrs = old('attributes', $defaultAttributes);
+                                                            $attrs = old('attributes', $package->attributes ?? $defaultAttributes);
 
                                                             // جميع المفاتيح مع الترجمة
                                                             $allKeys = [
