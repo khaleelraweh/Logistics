@@ -196,6 +196,52 @@
         </div>
     </div>
 
+
+    <div class="card">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="basic-pills-wizard" class="twitter-bs-wizard">
+                                <ul class="twitter-bs-wizard-nav">
+                                    <li class="nav-item">
+                                        <a href="#basic-informaion" class="nav-link" data-toggle="tab">
+                                            <span class="step-number"><i class="fas fa-user"></i></span>
+                                            <span class="step-title">{{ __('package.basic_informaion') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#trip-information" class="nav-link" data-toggle="tab">
+                                            <span class="step-number"><i class=" fas fa-map-marked-alt"></i></span>
+                                            <span class="step-title">{{ __('package.trip_information') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#package-details" class="nav-link" data-toggle="tab">
+                                            <span class="step-number"><i class="fas fa-box"></i></span>
+                                            <span class="step-title">{{ __('package.package_details') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#delivery-options" class="nav-link" data-toggle="tab">
+                                            <span class="step-number"><i class="fas fa-shipping-fast"></i></span>
+                                            <span class="step-title">{{ __('package.delivery_options') }}</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#confirm-detail" class="nav-link" data-toggle="tab">
+                                            <span class="step-number"><i class="fas fa-check-circle"></i></span>
+                                            <span class="step-title">{{ __('package.review') }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
     <div class="card">
         <div class="card-body">
             <form action="{{ route('admin.packages.update' , $package->id) }}" method="POST" enctype="multipart/form-data">
