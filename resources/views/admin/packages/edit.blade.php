@@ -294,6 +294,112 @@
 
                                         </div>
 
+                                         <!-- الخطوة 3: تفاصيل الطرد -->
+                                        <div class="tab-pane" id="package-details">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h5 class="mb-0"><i class="fas fa-cube me-2"></i>{{__('package.package_specifications')}}</h5>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-4">
+                                                                    <label for="package_type" class="form-label">{{ __('package.package_type') }}</label>
+                                                                    <select class="form-select {{ $errors->has('package_type') ? 'is-invalid' : '' }}" id="package_type" name="package_type" required>
+                                                                        <option value="box" {{ old('package_type' , $package->package_type) == 'box' ? 'selected' : '' }}>{{ __('package.type_box') }}</option>
+                                                                        <option value="envelope" {{ old('package_type' , $package->package_type) == 'envelope' ? 'selected' : '' }}>{{ __('package.type_envelope') }}</option>
+                                                                        <option value="pallet" {{ old('package_type' , $package->package_type) == 'pallet' ? 'selected' : '' }}>{{ __('package.type_pallet') }}</option>
+                                                                        <option value="tube" {{ old('package_type' , $package->package_type) == 'tube' ? 'selected' : '' }}>{{ __('package.type_tube') }}</option>
+                                                                        <option value="bag" {{ old('package_type' , $package->package_type) == 'bag' ? 'selected' : '' }}>{{ __('package.type_bag') }}</option>
+                                                                    </select>
+                                                                    @error('package_type')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <label for="package_size" class="form-label">{{ __('package.package_size') }}</label>
+                                                                    <select class="form-select {{ $errors->has('package_size') ? 'is-invalid' : '' }}" id="package_size" name="package_size" required>
+                                                                        <option value="small" {{ old('package_size' , $package->package_size) == 'small' ? 'selected' : '' }}>{{ __('package.size_small') }}</option>
+                                                                        <option value="medium" {{ old('package_size' , $package->package_size) == 'medium' ? 'selected' : '' }}>{{ __('package.size_medium') }}</option>
+                                                                        <option value="large" {{ old('package_size' , $package->package_size) == 'large' ? 'selected' : '' }}>{{ __('package.size_large') }}</option>
+                                                                        <option value="oversized" {{ old('package_size' , $package->package_size) == 'oversized' ? 'selected' : '' }}>{{ __('package.size_oversized') }}</option>
+                                                                    </select>
+                                                                    @error('package_size')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <label for="weight" class="form-label">{{ __('package.weight') }} ({{ __('package.kgm') }})</label>
+                                                                    <input type="number" step="0.01" class="form-control {{ $errors->has('weight') ? 'is-invalid' : '' }}" id="weight" name="weight" value="{{ old('weight', $package->weight ?? 0) }}" required min="0">
+                                                                    @error('weight')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row mb-3">
+                                                                <div class="col-md-4">
+                                                                    <label for="dimensions.length" class="form-label">{{ __('package.dimensions.length') }} ({{ __('package.cm') }})</label>
+                                                                    <input type="number" step="0.01" class="form-control {{ $errors->has('dimensions.length') ? 'is-invalid' : '' }}" id="dimensions.length" name="dimensions[length]" value="{{ old('dimensions.length', $package->dimensions['length'] ?? 0) }}" required min="0">
+                                                                    @error('dimensions.length')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <label for="dimensions.width" class="form-label">{{ __('package.dimensions.width') }} ({{ __('package.cm') }})</label>
+                                                                    <input type="number" step="0.01" class="form-control {{ $errors->has('dimensions.width') ? 'is-invalid' : '' }}" id="dimensions.width" name="dimensions[width]" value="{{ old('dimensions.width', $package->dimensions['width'] ?? 0) }}" required min="0">
+                                                                    @error('dimensions.width')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <label for="dimensions.height" class="form-label">{{ __('package.dimensions.height') }} ({{ __('package.cm') }})</label>
+                                                                    <input type="number" step="0.01" class="form-control {{ $errors->has('dimensions.height') ? 'is-invalid' : '' }}" id="dimensions.height" name="dimensions[height]" value="{{ old('dimensions.height', $package->dimensions['height'] ?? 0) }}" required min="0">
+                                                                    @error('dimensions.height')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row mb-3">
+                                                                <div class="col-12">
+                                                                    <label for="package_content" class="form-label">{{ __('package.package_content') }}</label>
+                                                                    <textarea class="form-control {{ $errors->has('package_content') ? 'is-invalid' : '' }}" id="package_content" name="package_content" rows="3">{{ old('package_content' , $package->package_content) }}</textarea>
+                                                                    @error('package_content')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row mb-3">
+                                                                <div class="col-12">
+                                                                    <label for="package_note" class="form-label">{{ __('package.package_note') }}</label>
+                                                                    <textarea class="form-control {{ $errors->has('package_note') ? 'is-invalid' : '' }}" id="package_note" name="package_note" rows="3">{{ old('package_note' , $package->package_note) }}</textarea>
+                                                                    @error('package_note')
+                                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h5 class="mb-0"><i class="fas fa-cube me-2"></i>{{ __('package.package_specifications') }}</h5>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            @livewire('admin.package.create-product-component')
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                      <!-- ازرار التنقل -->
                                     <ul class="pager wizard twitter-bs-wizard-pager-link">
