@@ -74,8 +74,9 @@
             var mapDiv = document.getElementById('map');
             if(!mapDiv) return;
 
-            var initialLat = parseFloat(@this.latitude) || @this.defaultLatitude;
-            var initialLng = parseFloat(@this.longitude) || @this.defaultLongitude;
+            var initialLat = parseFloat(@this.latitude) || parseFloat(@this.defaultLatitude);
+            var initialLng = parseFloat(@this.longitude) || parseFloat(@this.defaultLongitude);
+
 
             var map = L.map('map', {
                 minZoom: 8,
