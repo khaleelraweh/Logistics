@@ -202,6 +202,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div id="basic-pills-wizard" class="twitter-bs-wizard">
+                                <!-- رئس الويزرد  -->
                                 <ul class="twitter-bs-wizard-nav">
                                     <li class="nav-item">
                                         <a href="#basic-informaion" class="nav-link" data-toggle="tab">
@@ -235,8 +236,10 @@
                                     </li>
                                 </ul>
 
+                                <!-- محتويات الويزرد -->
                                 <form action="{{ route('admin.packages.store') }}" method="POST" enctype="multipart/form-data" id="packageForm">
                                     @csrf
+                                    <!-- المحتويات كخطوات -->
                                     <div class="tab-content twitter-bs-wizard-tab-content">
                                         <!-- الخطوة 1: المعلومات الأساسية -->
                                         <div class="tab-pane" id="basic-informaion">
@@ -288,10 +291,6 @@
                                             </div>
 
                                         </div>
-
-
-
-
 
                                         <!-- الخطوة 3: تفاصيل الطرد -->
                                         <div class="tab-pane" id="package-details">
@@ -550,7 +549,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
 
                                         <!-- الخطوة 5: المراجعة النهائية -->
                                         <div class="tab-pane" id="confirm-detail">

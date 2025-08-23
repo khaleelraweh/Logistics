@@ -196,13 +196,14 @@
         </div>
     </div>
 
-
+    <!-- new style -->
     <div class="card">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <div id="basic-pills-wizard" class="twitter-bs-wizard">
+                                <!-- رئس الويزرد  -->
                                 <ul class="twitter-bs-wizard-nav">
                                     <li class="nav-item">
                                         <a href="#basic-informaion" class="nav-link" data-toggle="tab">
@@ -235,6 +236,20 @@
                                         </a>
                                     </li>
                                 </ul>
+
+                                <!-- محتويات الويزرد -->
+                                <form action="{{ route('admin.packages.store') }}" method="POST" enctype="multipart/form-data" id="packageForm">
+                                    @csrf
+                                    <!-- المحتويات كخطوات -->
+                                    <div class="tab-content twitter-bs-wizard-tab-content">
+
+                                    </div>
+                                     <!-- ازرار التنقل -->
+                                    <ul class="pager wizard twitter-bs-wizard-pager-link">
+                                        <li class="previous"><a href="javascript: void(0);">{{ __('general.previous') }}</a></li>
+                                        <li class="next"><a href="javascript: void(0);">{{ __('general.next') }}</a></li>
+                                    </ul>
+                                </form>
                             </div>
                         </div>
                     </div>
