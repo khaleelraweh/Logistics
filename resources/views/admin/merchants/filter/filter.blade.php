@@ -21,31 +21,31 @@
                     <!-- Status -->
                     <div class="col-md-2 mb-2">
                         <select name="status" class="form-select">
-                            <option value="">{{ __('panel.show_all') }}</option>
-                            <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>{{ __('panel.status_active') }}</option>
-                            <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>{{ __('panel.status_inactive') }}</option>
+                            <option value="">{{ __('filter.show_all') }}</option>
+                            <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>{{ __('filter.status_active') }}</option>
+                            <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>{{ __('filter.status_inactive') }}</option>
                         </select>
                     </div>
 
                     <!-- Sort By -->
                     <div class="col-md-2 mb-2">
                         <select name="sort_by" class="form-select">
-                            <option value="">{{ __('panel.sort_by') }}</option>
-                            <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>{{ __('panel.id') }}</option>
-                            <option value="name" {{ request('sort_by') == 'name' ? 'selected' : '' }}>{{ __('panel.name') }}</option>
-                            <option value="email" {{ request('sort_by') == 'email' ? 'selected' : '' }}>{{ __('panel.email') }}</option>
-                            <option value="phone" {{ request('sort_by') == 'phone' ? 'selected' : '' }}>{{ __('panel.phone') }}</option>
-                            <option value="contact_person" {{ request('sort_by') == 'contact_person' ? 'selected' : '' }}>{{ __('panel.contact_person') }}</option>
-                            <option value="published_on" {{ request('sort_by') == 'published_on' ? 'selected' : '' }}>{{ __('panel.published_on') }}</option>
-                            <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>{{ __('panel.created_at') }}</option>
+                            <option value="">{{ __('filter.sort_by') }}</option>
+                            <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>{{ __('filter.id') }}</option>
+                            <option value="name" {{ request('sort_by') == 'name' ? 'selected' : '' }}>{{ __('filter.name') }}</option>
+                            <option value="email" {{ request('sort_by') == 'email' ? 'selected' : '' }}>{{ __('filter.email') }}</option>
+                            <option value="phone" {{ request('sort_by') == 'phone' ? 'selected' : '' }}>{{ __('filter.phone') }}</option>
+                            <option value="contact_person" {{ request('sort_by') == 'contact_person' ? 'selected' : '' }}>{{ __('filter.contact_person') }}</option>
+                            <option value="published_on" {{ request('sort_by') == 'published_on' ? 'selected' : '' }}>{{ __('filter.published_on') }}</option>
+                            <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>{{ __('filter.created_at') }}</option>
                         </select>
                     </div>
 
                     <!-- Order By -->
                     <div class="col-md-1 mb-2">
                         <select name="order_by" class="form-select">
-                            <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>{{ __('panel.asc') }}</option>
-                            <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}>{{ __('panel.desc') }}</option>
+                            <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>{{ __('filter.asc') }}</option>
+                            <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}>{{ __('filter.desc') }}</option>
                         </select>
                     </div>
 
