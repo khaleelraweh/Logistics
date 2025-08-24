@@ -78,8 +78,22 @@ class PackageController extends Controller
             })
             ->when(request()->package_size != null, function ($query) {
                 $query->where('package_size', request()->package_size);
+            })
+            ->when(request()->origin_type != null, function ($query) {
+                $query->where('origin_type', request()->origin_type);
+            })
+            ->when(request()->delivery_speed != null, function ($query) {
+                $query->where('delivery_speed', request()->delivery_speed);
+            })
+            ->when(request()->payment_responsibility != null, function ($query) {
+                $query->where('payment_responsibility', request()->payment_responsibility);
+            })
+            ->when(request()->payment_method != null, function ($query) {
+                $query->where('payment_method', request()->payment_method);
+            })
+            ->when(request()->collection_method != null, function ($query) {
+                $query->where('collection_method', request()->collection_method);
             });
-
 
 
         // الترتيب
