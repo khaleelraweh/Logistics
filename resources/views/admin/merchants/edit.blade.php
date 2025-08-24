@@ -2,12 +2,11 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Page Title -->
      <!-- Page Header -->
     <div class="row ">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="mb-0 font-size-18">{{ __('rental.add_rental') }}</h4>
+                <h4 class="mb-0 font-size-18">{{ __('merchant.edit_merchant') }}</h4>
 
                 <div class="page-title-right">
                     <nav aria-label="breadcrumb">
