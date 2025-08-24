@@ -1,55 +1,46 @@
 @extends('layouts.admin')
 
 @section('content')
+
 <!-- Page Header -->
-<div class="page-header">
-    <div class="row align-items-center">
-        <div class="col">
-            <h1 class="page-title">{{ __('shelf.manage_shelves') }}</h1>
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                <li class="breadcrumb-item active">{{ __('shelf.shelves') }}</li>
-            </ul>
-        </div>
-        <div class="col-auto">
-            <a href="{{ route('admin.shelves.create') }}" class="btn btn-primary">
-                <i class="mdi mdi-library-shelves me-2"></i>{{ __('shelf.add_new_shelf') }}
-            </a>
+<div class="row ">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">{{ __('shelf.manage_shelves') }}</h4>
+
+            <div class="page-title-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.shelves.index') }}">{{ __('shelf.shelves') }}</a></li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
 </div>
 <!-- /Page Header -->
 
-<!-- Page Header -->
-    <div class="row ">
-        <div class="col-12">
-            <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="mb-0 font-size-18">{{ __('shelf.manage_shelves') }}</h4>
-
-                <div class="page-title-right">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.shelves.index') }}">{{ __('shelf.shelves') }}</a></li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Page Header -->
-
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header bg-light">
-                <h5 class="card-title mb-0">
-                    <i class="fas fa-pallet me-2"></i>{{ __('shelf.shelf_data') }}
-                </h5>
-                <p class="card-title-desc text-muted mb-0">
-                    {{ __('shelf.shelf_description') }}
-                </p>
+
+            <div class="card-header d-flex justify-content-between">
+                <div class="head">
+                    <h4 class="card-title"> <i class="fas fa-pallet me-2"></i> {{ __('shelf.shelf_data') }}</h4>
+                    <p class="card-title-desc">
+                        {{ __('shelf.shelf_description') }}
+                    </p>
+                </div>
+
+                <div class="button-items">
+                        <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.shelves.create') }}">
+                            <i class="mdi mdi-warehouse me-2"></i> {{ __('shelf.add_new_shelf') }}
+                        </a>
+                </div>
+
             </div>
+
 
             <div class="card-body">
 

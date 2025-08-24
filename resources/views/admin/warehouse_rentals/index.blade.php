@@ -23,21 +23,20 @@
         <div class="card">
 
             <div class="card-header d-flex justify-content-between">
-                    <div class="head">
-
-                        <h4 class="card-title"> <i class="mdi mdi-warehouse me-2"></i> {{ __('rental.rental_data') }}</h4>
-                        <p class="card-title-desc">
-                            {{ __('rental.rental_description') }}
-                        </p>
-                    </div>
-
-                    <div class="button-items">
-                            <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.warehouse_rentals.create') }}">
-                                <i class="mdi mdi-warehouse me-2"></i> {{ __('rental.add_new_rental') }}
-                            </a>
-                    </div>
-
+                <div class="head">
+                    <h4 class="card-title"> <i class="mdi mdi-warehouse me-2"></i> {{ __('rental.rental_data') }}</h4>
+                    <p class="card-title-desc">
+                        {{ __('rental.rental_description') }}
+                    </p>
                 </div>
+
+                <div class="button-items">
+                        <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.warehouse_rentals.create') }}">
+                            <i class="mdi mdi-warehouse me-2"></i> {{ __('rental.add_new_rental') }}
+                        </a>
+                </div>
+
+            </div>
 
             <div class="card-body">
 
