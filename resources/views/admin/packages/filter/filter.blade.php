@@ -14,6 +14,7 @@
         <div class="card-body">
             <form action="{{ route('admin.packages.index') }}" method="get">
                 <div class="row g-2">
+
                     <!-- Keyword -->
                     <div class="col-md-2">
                         <input type="text" name="keyword" value="{{ old('keyword', request()->input('keyword')) }}" class="form-control" placeholder="{{ __('filter.search_here') }}">
@@ -22,7 +23,7 @@
                     <!-- Status -->
                     <div class="col-md-2">
                         <select name="status" class="form-select select2">
-                            <option value="">{{ __('filter.show_all') }}</option>
+                            <option value="">{{ __('filter.all_statuses') }}</option>
                             @foreach ($statuses as $key => $label)
                                 <option value="{{ $key }}" {{ request('status') == $key ? 'selected' : '' }}>
                                     {{ $label }}
@@ -35,20 +36,11 @@
                     <div class="col-md-3">
                         <select name="sort_by" class="form-select select2">
                             <option value=""> {{ __('filter.sort_by') }} </option>
-                            <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>ID</option>
-                            <option value="tracking_number" {{ request('sort_by') == 'tracking_number' ? 'selected' : '' }}>
-                                {{ __('package.tracking_number') }}
-                            </option>
-                            <option value="status" {{ request('sort_by') == 'status' ? 'selected' : '' }}>
-                                {{ __('package.status') }}
-                            </option>
-                            <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>
-                                {{ __('package.created_at') }}
-                            </option>
-                            <option value="updated_at" {{ request('sort_by') == 'updated_at' ? 'selected' : '' }}>
-                                {{ __('package.updated_at') }}
-                            </option>
-                            <!-- يمكن إضافة باقي الحقول هنا حسب الحاجة -->
+                            <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}> {{ __('filter.id') }} </option>
+                            <option value="tracking_number" {{ request('sort_by') == 'tracking_number' ? 'selected' : '' }}> {{ __('filter.tracking_number') }} </option>
+                            <option value="status" {{ request('sort_by') == 'status' ? 'selected' : '' }}> {{ __('filter.status') }} </option>
+                            <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}> {{ __('filter.created_at') }} </option>
+                            <option value="updated_at" {{ request('sort_by') == 'updated_at' ? 'selected' : '' }}> {{ __('filter.updated_at') }} </option>
                         </select>
                     </div>
 
@@ -56,18 +48,10 @@
                     <div class="col-md-2">
                         <select name="delivery_method" class="form-select select2">
                             <option value="">{{ __('filter.all_delivery_methods') }}</option>
-                            <option value="standard" {{ request('delivery_method') == 'standard' ? 'selected' : '' }}>
-                                {{ __('package.standard') }}
-                            </option>
-                            <option value="express" {{ request('delivery_method') == 'express' ? 'selected' : '' }}>
-                                {{ __('package.express') }}
-                            </option>
-                            <option value="pickup" {{ request('delivery_method') == 'pickup' ? 'selected' : '' }}>
-                                {{ __('package.pickup') }}
-                            </option>
-                            <option value="courier" {{ request('delivery_method') == 'courier' ? 'selected' : '' }}>
-                                {{ __('package.courier') }}
-                            </option>
+                            <option value="standard" {{ request('delivery_method') == 'standard' ? 'selected' : '' }}> {{ __('package.standard') }} </option>
+                            <option value="express" {{ request('delivery_method') == 'express' ? 'selected' : '' }}> {{ __('package.express') }} </option>
+                            <option value="pickup" {{ request('delivery_method') == 'pickup' ? 'selected' : '' }}> {{ __('package.pickup') }} </option>
+                            <option value="courier" {{ request('delivery_method') == 'courier' ? 'selected' : '' }}> {{ __('package.courier') }} </option>
                         </select>
                     </div>
 
@@ -75,86 +59,86 @@
                     <div class="col-md-2">
                         <select name="package_type" class="form-select select2">
                             <option value="">{{ __('filter.all_package_types') }}</option>
-                            <option value="box" {{ request('package_type') == 'box' ? 'selected' : '' }}>Box</option>
-                            <option value="envelope" {{ request('package_type') == 'envelope' ? 'selected' : '' }}>Envelope</option>
-                            <option value="pallet" {{ request('package_type') == 'pallet' ? 'selected' : '' }}>Pallet</option>
-                            <option value="tube" {{ request('package_type') == 'tube' ? 'selected' : '' }}>Tube</option>
-                            <option value="bag" {{ request('package_type') == 'bag' ? 'selected' : '' }}>Bag</option>
+                            <option value="box" {{ request('package_type') == 'box' ? 'selected' : '' }}> {{ __('package.box') }} </option>
+                            <option value="envelope" {{ request('package_type') == 'envelope' ? 'selected' : '' }}> {{ __('package.envelope') }} </option>
+                            <option value="pallet" {{ request('package_type') == 'pallet' ? 'selected' : '' }}> {{ __('package.pallet') }} </option>
+                            <option value="tube" {{ request('package_type') == 'tube' ? 'selected' : '' }}> {{ __('package.tube') }} </option>
+                            <option value="bag" {{ request('package_type') == 'bag' ? 'selected' : '' }}> {{ __('package.bag') }} </option>
                         </select>
                     </div>
 
-                    <!-- حجم الطرد -->
+                    <!-- Package Size -->
                     <div class="col-md-2">
                         <select name="package_size" class="form-select select2">
                             <option value="">{{ __('filter.all_package_sizes') }}</option>
-                            <option value="small" {{ request('package_size')=='small'?'selected':'' }}>Small</option>
-                            <option value="medium" {{ request('package_size')=='medium'?'selected':'' }}>Medium</option>
-                            <option value="large" {{ request('package_size')=='large'?'selected':'' }}>Large</option>
-                            <option value="oversized" {{ request('package_size')=='oversized'?'selected':'' }}>Oversized</option>
+                            <option value="small" {{ request('package_size')=='small'?'selected':'' }}> {{ __('package.small') }} </option>
+                            <option value="medium" {{ request('package_size')=='medium'?'selected':'' }}> {{ __('package.medium') }} </option>
+                            <option value="large" {{ request('package_size')=='large'?'selected':'' }}> {{ __('package.large') }} </option>
+                            <option value="oversized" {{ request('package_size')=='oversized'?'selected':'' }}> {{ __('package.oversized') }} </option>
                         </select>
                     </div>
 
-                    <!-- مصدر الطرد -->
+                    <!-- Origin Type -->
                     <div class="col-md-2">
                         <select name="origin_type" class="form-select select2">
                             <option value="">{{ __('filter.all_origin_types') }}</option>
-                            <option value="warehouse" {{ request('origin_type')=='warehouse'?'selected':'' }}>Warehouse</option>
-                            <option value="store" {{ request('origin_type')=='store'?'selected':'' }}>Store</option>
-                            <option value="home" {{ request('origin_type')=='home'?'selected':'' }}>Home</option>
-                            <option value="other" {{ request('origin_type')=='other'?'selected':'' }}>Other</option>
+                            <option value="warehouse" {{ request('origin_type')=='warehouse'?'selected':'' }}> {{ __('package.warehouse') }} </option>
+                            <option value="store" {{ request('origin_type')=='store'?'selected':'' }}> {{ __('package.store') }} </option>
+                            <option value="home" {{ request('origin_type')=='home'?'selected':'' }}> {{ __('package.home') }} </option>
+                            <option value="other" {{ request('origin_type')=='other'?'selected':'' }}> {{ __('package.other') }} </option>
                         </select>
                     </div>
 
-                    <!-- سرعة التوصيل -->
+                    <!-- Delivery Speed -->
                     <div class="col-md-2">
                         <select name="delivery_speed" class="form-select select2">
                             <option value="">{{ __('filter.all_delivery_speeds') }}</option>
-                            <option value="standard" {{ request('delivery_speed')=='standard'?'selected':'' }}>Standard</option>
-                            <option value="express" {{ request('delivery_speed')=='express'?'selected':'' }}>Express</option>
-                            <option value="same_day" {{ request('delivery_speed')=='same_day'?'selected':'' }}>Same Day</option>
-                            <option value="next_day" {{ request('delivery_speed')=='next_day'?'selected':'' }}>Next Day</option>
+                            <option value="standard" {{ request('delivery_speed')=='standard'?'selected':'' }}> {{ __('package.standard') }} </option>
+                            <option value="express" {{ request('delivery_speed')=='express'?'selected':'' }}> {{ __('package.express') }} </option>
+                            <option value="same_day" {{ request('delivery_speed')=='same_day'?'selected':'' }}> {{ __('package.same_day') }} </option>
+                            <option value="next_day" {{ request('delivery_speed')=='next_day'?'selected':'' }}> {{ __('package.next_day') }} </option>
                         </select>
                     </div>
 
-                    <!-- مسؤولية الدفع -->
+                    <!-- Payment Responsibility -->
                     <div class="col-md-2">
                         <select name="payment_responsibility" class="form-select select2">
                             <option value="">{{ __('filter.all_payment_responsibilities') }}</option>
-                            <option value="merchant" {{ request('payment_responsibility')=='merchant'?'selected':'' }}>Merchant</option>
-                            <option value="recipient" {{ request('payment_responsibility')=='recipient'?'selected':'' }}>Recipient</option>
+                            <option value="merchant" {{ request('payment_responsibility')=='merchant'?'selected':'' }}> {{ __('package.merchant') }} </option>
+                            <option value="recipient" {{ request('payment_responsibility')=='recipient'?'selected':'' }}> {{ __('package.recipient') }} </option>
                         </select>
                     </div>
 
-                    <!-- طريقة الدفع -->
+                    <!-- Payment Method -->
                     <div class="col-md-2">
                         <select name="payment_method" class="form-select select2">
                             <option value="">{{ __('filter.all_payment_methods') }}</option>
-                            <option value="prepaid" {{ request('payment_method')=='prepaid'?'selected':'' }}>Prepaid</option>
-                            <option value="cash_on_delivery" {{ request('payment_method')=='cash_on_delivery'?'selected':'' }}>COD</option>
-                            <option value="exchange" {{ request('payment_method')=='exchange'?'selected':'' }}>Exchange</option>
-                            <option value="bring" {{ request('payment_method')=='bring'?'selected':'' }}>Bring</option>
+                            <option value="prepaid" {{ request('payment_method')=='prepaid'?'selected':'' }}> {{ __('package.prepaid') }} </option>
+                            <option value="cash_on_delivery" {{ request('payment_method')=='cash_on_delivery'?'selected':'' }}> {{ __('package.cod') }} </option>
+                            <option value="exchange" {{ request('payment_method')=='exchange'?'selected':'' }}> {{ __('package.exchange') }} </option>
+                            <option value="bring" {{ request('payment_method')=='bring'?'selected':'' }}> {{ __('package.bring') }} </option>
                         </select>
                     </div>
 
-                    <!-- طريقة التحصيل -->
+                    <!-- Collection Method -->
                     <div class="col-md-2">
                         <select name="collection_method" class="form-select select2">
                             <option value="">{{ __('filter.all_collection_methods') }}</option>
-                            <option value="cash" {{ request('collection_method')=='cash'?'selected':'' }}>Cash</option>
-                            <option value="cheque" {{ request('collection_method')=='cheque'?'selected':'' }}>Cheque</option>
-                            <option value="bank_transfer" {{ request('collection_method')=='bank_transfer'?'selected':'' }}>Bank Transfer</option>
-                            <option value="e_wallet" {{ request('collection_method')=='e_wallet'?'selected':'' }}>E-Wallet</option>
-                            <option value="credit_card" {{ request('collection_method')=='credit_card'?'selected':'' }}>Credit Card</option>
-                            <option value="mada" {{ request('collection_method')=='mada'?'selected':'' }}>Mada</option>
+                            <option value="cash" {{ request('collection_method')=='cash'?'selected':'' }}> {{ __('package.cash') }} </option>
+                            <option value="cheque" {{ request('collection_method')=='cheque'?'selected':'' }}> {{ __('package.cheque') }} </option>
+                            <option value="bank_transfer" {{ request('collection_method')=='bank_transfer'?'selected':'' }}> {{ __('package.bank_transfer') }} </option>
+                            <option value="e_wallet" {{ request('collection_method')=='e_wallet'?'selected':'' }}> {{ __('package.e_wallet') }} </option>
+                            <option value="credit_card" {{ request('collection_method')=='credit_card'?'selected':'' }}> {{ __('package.credit_card') }} </option>
+                            <option value="mada" {{ request('collection_method')=='mada'?'selected':'' }}> {{ __('package.mada') }} </option>
                         </select>
                     </div>
-
 
                     <!-- Order By -->
                     <div class="col-md-2">
                         <select name="order_by" class="form-select select2">
-                            <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>{{ __('filter.asc') }}</option>
-                            <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}>{{ __('filter.desc') }}</option>                        </select>
+                            <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}> {{ __('filter.asc') }} </option>
+                            <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}> {{ __('filter.desc') }} </option>
+                        </select>
                     </div>
 
                     <!-- Limit By -->
@@ -176,6 +160,7 @@
                             <i class="fas fa-undo me-1"></i>{{ __('general.reset') }}
                         </a>
                     </div>
+
                 </div>
             </form>
         </div>
