@@ -55,7 +55,7 @@
                                 <th>{{ __('general.address') }}</th>
                                 <th>{{ __('general.status') }}</th>
                                 <th>{{ __('general.created_at') }}</th>
-                                <th>{{ __('general.the_actions') }}</th>
+                                <th width="12%">{{ __('general.actions') }}</th>
                             </tr>
                             </thead>
 
