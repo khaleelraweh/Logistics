@@ -6,14 +6,14 @@
     <div class="row ">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="mb-0 font-size-18">{{ __('warehouse.create') }}</h4>
+                <h4 class="mb-0 font-size-18">{{ __('warehouse.create_warehouse') }}</h4>
 
                 <div class="page-title-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('admin.warehouses.index') }}">{{ __('warehouse.warehouses') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('warehouse.create') }}</li>
+                            <li class="breadcrumb-item active">{{ __('warehouse.create_warehouse') }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -169,14 +169,29 @@
                         </div>
 
                         <!-- Form Actions -->
-                        <div class="form-actions text-end">
+                        {{-- <div class="form-actions text-end">
                             <button type="reset" class="btn btn-light">{{ __('general.reset') }}</button>
                             @ability('admin', 'create_warehouses')
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-save me-2"></i>{{ __('warehouse.save_warehouse') }}
                                 </button>
                             @endability
-                        </div>
+                        </div> --}}
+
+                        @ability('admin', 'create_warehouses')
+                            <div class="text-end pt-3">
+                                <button type="submit" class="btn btn-primary rounded-pill px-4 d-inline-flex align-items-center">
+                                    <i class="ri-save-3-line me-2"></i>
+                                    <i class="bi bi-save me-2"></i>
+                                    {{ __('warehouse.create_warehouse') }}
+                                </button>
+
+                                <a href="{{ route('admin.warehouses.index') }}" class="btn btn-outline-danger ms-2">
+                                    <i class="ri-arrow-go-back-line me-1"></i>
+                                    {{ __('panel.cancel') }}
+                                </a>
+                            </div>
+                        @endability
                     </form>
                 </div>
             </div>

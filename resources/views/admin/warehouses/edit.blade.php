@@ -1,21 +1,21 @@
 @extends('layouts.admin')
 
 @section('content')
-    <!-- Page Header -->
-    <div class="page-header">
-        <div class="row align-items-center">
-            <div class="col">
-                <h1 class="page-title">{{ __('warehouse.edit_warehouse') }}</h1>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.warehouses.index') }}">{{ __('warehouse.warehouses') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('warehouse.edit') }}</li>
-                </ul>
-            </div>
-            <div class="col-auto">
-                <a href="{{ route('admin.warehouses.index') }}" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left me-2"></i>{{ __('general.back') }}
-                </a>
+      <!-- Page Header -->
+    <div class="row ">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('warehouse.edit_warehouse') }}</h4>
+
+                <div class="page-title-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.warehouses.index') }}">{{ __('warehouse.warehouses') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('warehouse.edit_warehouse') }}</li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
@@ -178,14 +178,29 @@
                         </div>
 
                         <!-- Form Actions -->
-                        <div class="form-actions text-end">
+                        {{-- <div class="form-actions text-end">
                             <button type="reset" class="btn btn-light">{{ __('general.reset_changes') }}</button>
                             @ability('admin', 'update_warehouses')
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-save me-2"></i>{{ __('warehouse.update_warehouse') }}
                                 </button>
                             @endability
-                        </div>
+                        </div> --}}
+
+                        @ability('admin', 'update_warehouses')
+                            <div class="text-end pt-3">
+                                <button type="submit" class="btn btn-primary rounded-pill px-4 d-inline-flex align-items-center">
+                                    <i class="ri-save-3-line me-2"></i>
+                                    <i class="bi bi-save me-2"></i>
+                                    {{ __('warehouse.update_warehouse') }}
+                                </button>
+
+                                <a href="{{ route('admin.warehouses.index') }}" class="btn btn-outline-danger ms-2">
+                                    <i class="ri-arrow-go-back-line me-1"></i>
+                                    {{ __('panel.cancel') }}
+                                </a>
+                            </div>
+                        @endability
                     </form>
                 </div>
             </div>
