@@ -168,20 +168,22 @@
                             </div>
                         </div>
 
-                        @ability('admin', 'create_warehouses')
+
                             <div class="text-end pt-3">
-                                <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
-                                    <i class="ri-save-3-line me-2"></i>
-                                    <i class="bi bi-save me-2"></i>
-                                    {{ __('warehouse.create_warehouse') }}
-                                </button>
+                                @ability('admin', 'create_warehouses')
+                                    <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
+                                        <i class="ri-save-3-line me-2"></i>
+                                        <i class="bi bi-save me-2"></i>
+                                        {{ __('warehouse.create_warehouse') }}
+                                    </button>
+                                @endability
 
                                 <a href="{{ route('admin.warehouses.index') }}" class="btn btn-outline-danger ms-2">
                                     <i class="ri-arrow-go-back-line me-1"></i>
                                     {{ __('panel.cancel') }}
                                 </a>
                             </div>
-                        @endability
+
                     </form>
                 </div>
             </div>
