@@ -91,25 +91,23 @@
 @section('content')
 <div class="container-fluid">
     <!-- Page Title -->
-    <div class="row mb-4">
+
+
+    <!-- Page Header -->
+    <div class="row ">
         <div class="col-12">
-            <div class="d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <i class="bi bi-shop-window fs-3 me-2 text-primary"></i>
-                    <div>
-                        <h4 class="mb-0">{{ __('merchant.manage_merchants') }}</h4>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb mb-0">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.merchants.index') }}">{{ __('merchant.merchants') }}</a></li>
-                                <li class="breadcrumb-item active">{{ __('merchant.add_merchant') }}</li>
-                            </ol>
-                        </nav>
-                    </div>
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('rental.add_rental') }}</h4>
+
+                <div class="page-title-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.merchants.index') }}">{{ __('merchant.merchants') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('merchant.add_merchant') }}</li>
+                        </ol>
+                    </nav>
                 </div>
-                <a href="{{ route('admin.merchants.index') }}" class="btn btn-outline-secondary rounded-pill px-3">
-                    <i class="bi bi-arrow-left me-1"></i> {{ __('general.back') }}
-                </a>
             </div>
         </div>
     </div>
