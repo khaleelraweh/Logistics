@@ -453,15 +453,17 @@
                 ],
                 initialPreviewAsData: true,
                 initialPreviewFileType: 'image',
-                initialPreviewConfig: [
+               initialPreviewConfig: [
+                    @if(file_exists(public_path('assets/merchants/' . $merchant->logo)))
                     {
                         caption: "{{ $merchant->logo }}",
-                        size: '{{ filesize(public_path("assets/merchants/" . $merchant->logo)) }}',
+                        size: {{ filesize(public_path('assets/merchants/' . $merchant->logo)) }},
                         width: "120px",
                         url: "{{ route('admin.merchants.remove_image', ['merchant_id' => $merchant->id, '_token' => csrf_token()]) }}",
                         key: {{ $merchant->id }}
                     }
-                ]
+                    @endif
+                ],
                 @endif
             });
 
