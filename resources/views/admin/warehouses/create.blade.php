@@ -168,16 +168,6 @@
                             </div>
                         </div>
 
-                        <!-- Form Actions -->
-                        {{-- <div class="form-actions text-end">
-                            <button type="reset" class="btn btn-light">{{ __('general.reset') }}</button>
-                            @ability('admin', 'create_warehouses')
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save me-2"></i>{{ __('warehouse.save_warehouse') }}
-                                </button>
-                            @endability
-                        </div> --}}
-
                         @ability('admin', 'create_warehouses')
                             <div class="text-end pt-3">
                                 <button type="submit" class="btn btn-primary rounded-pill px-4 d-inline-flex align-items-center">
