@@ -57,6 +57,13 @@ return [
          */
         'font_cache' => storage_path('fonts'),
 
+        'fonts' => [
+            'droidkufi' => [
+                'R'  => 'DroidKufi-Regular.ttf',    // Regular
+                'B'  => 'DroidKufi-Bold.ttf',       // Bold
+            ],
+        ],
+
         /**
          * The location of a temporary directory.
          *
