@@ -8,18 +8,14 @@
             </div>
             <div class="col-2">
                 <div class="form-group">
-                    <select name="status" class="form-control">
-                        <option value="">---</option>
-                        <option value="0" {{old('status',request()->input('status')) == '0' ? 'selected' : ''}}>New order</option>
-                        <option value="1" {{old('status',request()->input('status')) == '1' ? 'selected' : ''}}>Paid</option>
-                        <option value="2" {{old('status',request()->input('status')) == '2' ? 'selected' : ''}}>Under process</option>
-                        <option value="3" {{old('status',request()->input('status')) == '3' ? 'selected' : ''}}>Finished</option>
-                        <option value="4" {{old('status',request()->input('status')) == '4' ? 'selected' : ''}}>Rejected</option>
-                        <option value="5" {{old('status',request()->input('status')) == '5' ? 'selected' : ''}}>Canceled</option>
-                        <option value="6" {{old('status',request()->input('status')) == '6' ? 'selected' : ''}}>Refund requested</option>
-                        <option value="7" {{old('status',request()->input('status')) == '7' ? 'selected' : ''}}>Refunded</option>
-                        <option value="8" {{old('status',request()->input('status')) == '8' ? 'selected' : ''}}>Returned order</option>
-                    </select>
+                       <select name="status"  class="form-select">
+                            <option value="">{{ __('package.all_statuses') }}</option>
+                            @foreach ($statuses as $key => $label)
+                                <option value="{{ $key }}" {{ request('status') == $key ? 'selected' : '' }}>
+                                    {{ $label }}
+                                </option>
+                            @endforeach
+                        </select>
                 </div>
             </div>
             <div class="col-2">

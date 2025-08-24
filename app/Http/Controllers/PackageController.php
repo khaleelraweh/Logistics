@@ -51,43 +51,44 @@ class PackageController extends Controller
 
 
     public function index()
-{
-    if (!auth()->user()->ability('admin', 'manage_stock_items , show_stock_items')) {
-        return redirect('admin/index');
+    {
+        if (!auth()->user()->ability('admin', 'manage_stock_items , show_stock_items')) {
+            return redirect('admin/index');
+        }
+
+        // جلب جميع التجار للفلاتر
+        $merchants = Merchant::all();
+         $statuses = Package::statuses();
+
+        $packages = Package::with('merchant')
+            ->when(request()->keyword != null, function ($query) {
+                $query->search(request()->keyword);
+            })
+            ->when(request()->status != null, function ($query) {
+                $query->where('status', request()->status);
+            })
+            ->when(request()->merchant_id != null, function ($query) {
+                $query->where('merchant_id', request()->merchant_id);
+            });
+
+
+        // الترتيب
+        if(request()->sort_by == 'merchant_name') {
+            $packages->join('merchants', 'packages.merchant_id', '=', 'merchants.id')
+                    ->select('packages.*')
+                    ->orderBy('merchants.name', request()->order_by ?? 'asc');
+        } else {
+            $packages->orderByRaw(
+                request()->sort_by == 'published_on'
+                    ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+                    : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
+            );
+        }
+
+        $packages = $packages->paginate(request()->limit_by ?? 100);
+
+        return view('admin.packages.index', compact('packages', 'merchants','statuses'));
     }
-
-    // جلب جميع التجار للفلاتر
-    $merchants = Merchant::all();
-
-    $packages = Package::with('merchant')
-        ->when(request()->keyword != null, function ($query) {
-            $query->search(request()->keyword);
-        })
-        ->when(request()->status != null, function ($query) {
-            $query->where('status', request()->status);
-        })
-        ->when(request()->merchant_id != null, function ($query) {
-            $query->where('merchant_id', request()->merchant_id);
-        });
-
-
-    // الترتيب
-    if(request()->sort_by == 'merchant_name') {
-        $packages->join('merchants', 'packages.merchant_id', '=', 'merchants.id')
-                 ->select('packages.*')
-                 ->orderBy('merchants.name', request()->order_by ?? 'asc');
-    } else {
-        $packages->orderByRaw(
-            request()->sort_by == 'published_on'
-                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
-        );
-    }
-
-    $packages = $packages->paginate(request()->limit_by ?? 100);
-
-    return view('admin.packages.index', compact('packages', 'merchants'));
-}
 
 
 // public function index()
