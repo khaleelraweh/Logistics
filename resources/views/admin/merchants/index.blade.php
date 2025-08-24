@@ -65,8 +65,8 @@
                             @forelse ($merchants as $merchant)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td title="{{ $merchant->name }}">{{ Str::words($merchant->name, 2, '') }}</td>
-                                    <td title="{{ $merchant->contact_person }}">{{ Str::words($merchant->contact_person, 2, '') }}</td>
+                                    <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $merchant->name }}">{{ Str::words($merchant->name, 2, '') }}</td>
+                                    <td data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $merchant->contact_person }}">{{ Str::words($merchant->contact_person, 2, '') }}</td>
                                     <td>{{ $merchant->phone }}</td>
                                     @php
                                         $locationParts = array_filter([
@@ -81,7 +81,7 @@
                                         $fullLocation = implode(' - ', $locationParts); // كامل النص
                                     @endphp
 
-                                    <td title="{{ $fullLocation }}">
+                                    <td title="{{ $fullLocation }}" data-bs-toggle="tooltip" data-bs-placement="top">
                                         {{ $shortLocation }}
                                     </td>
 
