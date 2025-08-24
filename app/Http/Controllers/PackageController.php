@@ -75,6 +75,9 @@ class PackageController extends Controller
             })
             ->when(request()->package_type != null, function ($query) {
                 $query->where('package_type', request()->package_type);
+            })
+            ->when(request()->package_size != null, function ($query) {
+                $query->where('package_size', request()->package_size);
             });
 
 

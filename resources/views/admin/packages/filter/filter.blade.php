@@ -83,6 +83,73 @@
                         </select>
                     </div>
 
+                    <!-- حجم الطرد -->
+                    <div class="col-md-2">
+                        <select name="package_size" class="form-select select2">
+                            <option value="">{{ __('filter.all_package_sizes') }}</option>
+                            <option value="small" {{ request('package_size')=='small'?'selected':'' }}>Small</option>
+                            <option value="medium" {{ request('package_size')=='medium'?'selected':'' }}>Medium</option>
+                            <option value="large" {{ request('package_size')=='large'?'selected':'' }}>Large</option>
+                            <option value="oversized" {{ request('package_size')=='oversized'?'selected':'' }}>Oversized</option>
+                        </select>
+                    </div>
+
+                    <!-- مصدر الطرد -->
+<div class="col-md-2">
+    <select name="origin_type" class="form-select select2">
+        <option value="">{{ __('filter.all_origin_types') }}</option>
+        <option value="warehouse" {{ request('origin_type')=='warehouse'?'selected':'' }}>Warehouse</option>
+        <option value="store" {{ request('origin_type')=='store'?'selected':'' }}>Store</option>
+        <option value="home" {{ request('origin_type')=='home'?'selected':'' }}>Home</option>
+        <option value="other" {{ request('origin_type')=='other'?'selected':'' }}>Other</option>
+    </select>
+</div>
+
+<!-- سرعة التوصيل -->
+<div class="col-md-2">
+    <select name="delivery_speed" class="form-select select2">
+        <option value="">{{ __('filter.all_delivery_speeds') }}</option>
+        <option value="standard" {{ request('delivery_speed')=='standard'?'selected':'' }}>Standard</option>
+        <option value="express" {{ request('delivery_speed')=='express'?'selected':'' }}>Express</option>
+        <option value="same_day" {{ request('delivery_speed')=='same_day'?'selected':'' }}>Same Day</option>
+        <option value="next_day" {{ request('delivery_speed')=='next_day'?'selected':'' }}>Next Day</option>
+    </select>
+</div>
+
+<!-- مسؤولية الدفع -->
+<div class="col-md-2">
+    <select name="payment_responsibility" class="form-select select2">
+        <option value="">{{ __('filter.all_payment_responsibilities') }}</option>
+        <option value="merchant" {{ request('payment_responsibility')=='merchant'?'selected':'' }}>Merchant</option>
+        <option value="recipient" {{ request('payment_responsibility')=='recipient'?'selected':'' }}>Recipient</option>
+    </select>
+</div>
+
+<!-- طريقة الدفع -->
+<div class="col-md-2">
+    <select name="payment_method" class="form-select select2">
+        <option value="">{{ __('filter.all_payment_methods') }}</option>
+        <option value="prepaid" {{ request('payment_method')=='prepaid'?'selected':'' }}>Prepaid</option>
+        <option value="cash_on_delivery" {{ request('payment_method')=='cash_on_delivery'?'selected':'' }}>COD</option>
+        <option value="exchange" {{ request('payment_method')=='exchange'?'selected':'' }}>Exchange</option>
+        <option value="bring" {{ request('payment_method')=='bring'?'selected':'' }}>Bring</option>
+    </select>
+</div>
+
+<!-- طريقة التحصيل -->
+<div class="col-md-2">
+    <select name="collection_method" class="form-select select2">
+        <option value="">{{ __('filter.all_collection_methods') }}</option>
+        <option value="cash" {{ request('collection_method')=='cash'?'selected':'' }}>Cash</option>
+        <option value="cheque" {{ request('collection_method')=='cheque'?'selected':'' }}>Cheque</option>
+        <option value="bank_transfer" {{ request('collection_method')=='bank_transfer'?'selected':'' }}>Bank Transfer</option>
+        <option value="e_wallet" {{ request('collection_method')=='e_wallet'?'selected':'' }}>E-Wallet</option>
+        <option value="credit_card" {{ request('collection_method')=='credit_card'?'selected':'' }}>Credit Card</option>
+        <option value="mada" {{ request('collection_method')=='mada'?'selected':'' }}>Mada</option>
+    </select>
+</div>
+
+
                     <!-- Order By -->
                     <div class="col-md-2">
                         <select name="order_by" class="form-select select2">
