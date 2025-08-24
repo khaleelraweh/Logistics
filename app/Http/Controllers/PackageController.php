@@ -11,6 +11,7 @@ use App\Models\PackageProduct;
 use App\Models\Payment;
 use Carbon\Carbon;
 use App\Models\StockItem;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str; // في أعلى الكود
@@ -26,26 +27,67 @@ class PackageController extends Controller
      */
 
 
+    // public function index()
+    // {
+    //     if (!auth()->user()->ability('admin', 'manage_stock_items , show_stock_items')) {
+    //         return redirect('admin/index');
+    //     }
+
+    //     $packages = Package::with('merchant')
+    //         ->when(\request()->keyword != null, function ($query) {
+    //             $query->search(\request()->keyword);
+    //         })
+    //         ->when(\request()->status != null, function ($query) {
+    //             $query->where('status', \request()->status);
+    //         })
+    //         ->orderByRaw(request()->sort_by == 'published_on'
+    //             ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+    //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
+    //         ->paginate(\request()->limit_by ?? 100);
+
+    //     return view('admin.packages.index', compact('packages'));
+    // }
+
     public function index()
-    {
-        if (!auth()->user()->ability('admin', 'manage_stock_items , show_stock_items')) {
-            return redirect('admin/index');
-        }
-
-        $packages = Package::with('merchant')
-            ->when(\request()->keyword != null, function ($query) {
-                $query->search(\request()->keyword);
-            })
-            ->when(\request()->status != null, function ($query) {
-                $query->where('status', \request()->status);
-            })
-            ->orderByRaw(request()->sort_by == 'published_on'
-                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-            ->paginate(\request()->limit_by ?? 100);
-
-        return view('admin.packages.index', compact('packages'));
+{
+    if (!auth()->user()->ability('admin', 'manage_packages, show_packages')) {
+        return redirect('admin/index');
     }
+
+    $packages = Package::with(['merchant', 'receiverMerchant'])
+        ->when(request()->keyword != null, function ($query) {
+            $query->search(request()->keyword);
+        })
+        ->when(request()->merchant_id != null, function ($query) {
+            $query->where('merchant_id', request()->merchant_id);
+        })
+        ->when(request()->receiver_merchant_id != null, function ($query) {
+            $query->where('receiver_merchant_id', request()->receiver_merchant_id);
+        })
+        ->when(request()->status != null, function ($query) {
+            $query->status(request()->status);
+        })
+        ->when(request()->payment_method != null, function ($query) {
+            $query->where('payment_method', request()->payment_method);
+        })
+        ->when(request()->date_start != null && request()->date_end != null, function ($query) {
+            $query->createdBetween(request()->date_start, request()->date_end);
+        })
+        ->when(request()->price_min != null, function ($query) {
+            $query->where('total_fee', '>=', request()->price_min);
+        })
+        ->when(request()->price_max != null, function ($query) {
+            $query->where('total_fee', '<=', request()->price_max);
+        })
+        ->orderBy(request()->sort_by ?? 'created_at', request()->order_by ?? 'desc')
+        ->paginate(request()->limit_by ?? 50);
+
+    $merchants = Merchant::all();
+    $warehouses = Warehouse::all();
+
+    return view('admin.packages.index', compact('packages', 'merchants', 'warehouses'));
+}
+
 
     /**
      * Show the form for creating a new resource.
