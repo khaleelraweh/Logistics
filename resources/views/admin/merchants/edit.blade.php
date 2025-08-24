@@ -500,41 +500,7 @@
         });
     </script>
 
-{{-- <!-- Leaflet CSS & JS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // إحداثيات البداية
-            var initialLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
-            var initialLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
 
-            // إنشاء الخريطة
-            var map = L.map('map').setView([initialLat, initialLng], 13);
-
-            // إضافة خريطة OpenStreetMap
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
-
-            // إضافة Marker يمكن سحبه
-            var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
-
-            // عند سحب Marker، يتم تحديث الحقول
-            marker.on('dragend', function(e) {
-                var latLng = e.target.getLatLng();
-                document.getElementById('latitude').value = latLng.lat.toFixed(6);
-                document.getElementById('longitude').value = latLng.lng.toFixed(6);
-            });
-
-            // عند النقر على الخريطة، يتم نقل Marker وتحديث الحقول
-            map.on('click', function(e) {
-                marker.setLatLng(e.latlng);
-                document.getElementById('latitude').value = e.latlng.lat.toFixed(6);
-                document.getElementById('longitude').value = e.latlng.lng.toFixed(6);
-            });
-        });
-    </script> --}}
 
     <!-- Leaflet CSS & JS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
