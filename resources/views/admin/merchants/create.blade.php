@@ -402,14 +402,14 @@
                         <!-- Submit Button -->
                         @ability('admin', 'create_merchants')
                            <div class="text-end pt-3">
-                                <button type="submit" class="btn btn-primary rounded-pill px-4 d-inline-flex align-items-center">
+                                <button type="submit" class="btn btn-primary rounded-pill px-3 d-inline-flex align-items-center">
                                     <i class="ri-save-3-line me-2"></i>
                                     <i class="bi bi-save me-2"></i>
                                     {{ __('merchant.save_merchant_data') }}
                                 </button>
 
-                                <a href="{{ route('admin.merchants.index') }}" class="btn btn-outline-danger ms-2">
-                                    <i class="ri-arrow-go-back-line me-1"></i>
+                                <a href="{{ route('admin.merchants.index') }}" class="btn btn-outline-danger rounded-pill px-3 ms-2">
+                                    <i class="ri-arrow-go-back-line me-2"></i>
                                     {{ __('panel.cancel') }}
                                 </a>
                             </div>
