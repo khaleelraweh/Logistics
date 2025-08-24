@@ -54,7 +54,7 @@
                             <th>{{ __('stock-item.quantity') }}</th>
                             <th>{{ __('stock-item.status') }}</th>
                             <th>{{ __('general.created_at') }}</th>
-                            <th>{{ __('general.the_actions') }}</th>
+                            <th>{{ __('general.actions') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -65,23 +65,33 @@
                                 {{-- المنتج --}}
                                 <td data-bs-toggle="tooltip" data-bs-placement="top"
                                     title="{{ $stock_item->product->name ?? '' }}">
-                                    {{ \Illuminate\Support\Str::words($stock_item->product->name ?? '', 2, '') }}
+                                    <a href="{{ route('admin.products.show', $stock_item->product->id ?? 0) }}">
+                                        {{ \Illuminate\Support\Str::words($stock_item->product->name ?? '', 2, '') }}
+                                    </a>
                                 </td>
 
                                 {{-- التاجر --}}
                                 <td data-bs-toggle="tooltip" data-bs-placement="top"
                                     title="{{ $stock_item->merchant->name ?? '' }}">
-                                    {{ \Illuminate\Support\Str::words($stock_item->merchant->name ?? '', 3, '') }}
+                                    <a href="{{ route('admin.merchants.show', $stock_item->merchant->id) }}">
+                                        {{ \Illuminate\Support\Str::words($stock_item->merchant->name ?? '', 3, '') }}
+                                    </a>
                                 </td>
 
-                                {{-- الكود + المستودع --}}
                                 <td>
-                                    {{ $stock_item->rentalShelf->shelf->code ?? '' }}
-                                    <button type="button"
-                                            class="d-block btn btn-info btn-rounded waves-effect waves-light mt-1">
-                                        <small>{{ $stock_item->rentalShelf->shelf->warehouse->name ?? '' }}</small>
-                                    </button>
+                                    {{-- رابط الرف --}}
+                                    <a href="{{ route('admin.shelves.show', $stock_item->rentalShelf->shelf->id ?? '') }}">
+                                        {{ $stock_item->rentalShelf->shelf->code ?? '' }}
+                                    </a>
+
+                                    {{-- رابط المستودع --}}
+                                    <a href="{{ route('admin.warehouses.show', $stock_item->rentalShelf->shelf->warehouse->id ?? '') }}"
+                                    class="d-block btn btn-info btn-rounded waves-effect waves-light mt-1" style="width: fit-content; font-size: 0.75em;padd
+                                    ing: 2px 6px; font-weight: 500;">
+                                        <small style="font-size: 0.7em">{{ $stock_item->rentalShelf->shelf->warehouse->name ?? '' }}</small>
+                                    </a>
                                 </td>
+
 
                                 {{-- الكمية --}}
                                 <td>{{ $stock_item->quantity }}</td>
