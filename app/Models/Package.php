@@ -14,57 +14,57 @@ class Package extends Model
 
     protected $guarded = [];
 
-   protected $searchable = [
-    'columns' => [
-        'packages.merchant_id'          => 10,
-        'packages.sender_first_name'    => 10,
-        'packages.sender_middle_name'   => 10,
-        'packages.sender_last_name'     => 10,
-        'packages.sender_phone'         => 10,
-        'packages.sender_email'         => 10,
+    // protected $searchable = [
+    //     'columns' => [
+    //         'packages.merchant_id'          => 10,
+    //         'packages.sender_first_name'    => 10,
+    //         'packages.sender_middle_name'   => 10,
+    //         'packages.sender_last_name'     => 10,
+    //         'packages.sender_phone'         => 10,
+    //         'packages.sender_email'         => 10,
 
-        'packages.sender_country'       => 10,
-        'packages.sender_region'        => 10,
-        'packages.sender_city'          => 10,
-        'packages.sender_district'      => 10,
-        'packages.sender_postal_code'   => 10,
-        'packages.sender_others'        => 10,
+    //         'packages.sender_country'       => 10,
+    //         'packages.sender_region'        => 10,
+    //         'packages.sender_city'          => 10,
+    //         'packages.sender_district'      => 10,
+    //         'packages.sender_postal_code'   => 10,
+    //         'packages.sender_others'        => 10,
 
-        'packages.receiver_first_name'  => 10,
-        'packages.receiver_middle_name' => 10,
-        'packages.receiver_last_name'   => 10,
-        'packages.receiver_phone'       => 10,
-        'packages.receiver_email'       => 10,
-        'packages.receiver_country'     => 10,
-        'packages.receiver_region'      => 10,
-        'packages.receiver_city'        => 10,
-        'packages.receiver_district'    => 10,
-        'packages.receiver_postal_code' => 10,
-        'packages.receiver_others'      => 10,
+    //         'packages.receiver_first_name'  => 10,
+    //         'packages.receiver_middle_name' => 10,
+    //         'packages.receiver_last_name'   => 10,
+    //         'packages.receiver_phone'       => 10,
+    //         'packages.receiver_email'       => 10,
+    //         'packages.receiver_country'     => 10,
+    //         'packages.receiver_region'      => 10,
+    //         'packages.receiver_city'        => 10,
+    //         'packages.receiver_district'    => 10,
+    //         'packages.receiver_postal_code' => 10,
+    //         'packages.receiver_others'      => 10,
 
-        'packages.package_content'      => 10,
-        'packages.package_note'         => 10,
-        'packages.tracking_number'      => 10,
-        'packages.weight'               => 10,
-        'packages.dimensions'           => 10,
-        'packages.quantity'             => 10,
-        'packages.delivery_fee'         => 10,
-        'packages.insurance_fee'        => 10,
-        'packages.service_fee'          => 10,
-        'packages.total_fee'            => 10,
-        'packages.paid_amount'          => 10,
-        'packages.due_amount'           => 10,
-        'packages.cod_amount'           => 10,
+    //         'packages.package_content'      => 10,
+    //         'packages.package_note'         => 10,
+    //         'packages.tracking_number'      => 10,
+    //         'packages.weight'               => 10,
+    //         'packages.dimensions'           => 10,
+    //         'packages.quantity'             => 10,
+    //         'packages.delivery_fee'         => 10,
+    //         'packages.insurance_fee'        => 10,
+    //         'packages.service_fee'          => 10,
+    //         'packages.total_fee'            => 10,
+    //         'packages.paid_amount'          => 10,
+    //         'packages.due_amount'           => 10,
+    //         'packages.cod_amount'           => 10,
 
-        'merchants.name'                => 10,
-        'merchants.contact_person'      => 10,
-        'merchants.email'               => 10,
-        'merchants.phone'               => 10,
-    ],
-    'joins' => [
-        'merchants' => ['merchants.id','packages.merchant_id'],
-    ],
-];
+    //         'merchants.name'                => 10,
+    //         'merchants.contact_person'      => 10,
+    //         'merchants.email'               => 10,
+    //         'merchants.phone'               => 10,
+    //     ],
+    //     'joins' => [
+    //         'merchants' => ['merchants.id','packages.merchant_id'],
+    //     ],
+    // ];
 
 
 
@@ -110,16 +110,79 @@ class Package extends Model
         'in_warehouse',
     ];
 
+    protected $searchable = [
+        'columns' => [
+            // كل أعمدة packages
+            'packages.id'                 => 10,
+            'packages.tracking_number'    => 10,
+            'packages.status'             => 10,
+            'packages.delivery_method'    => 10,
+            'packages.package_type'       => 10,
+            'packages.package_size'       => 10,
+            'packages.origin_type'        => 10,
+            'packages.delivery_speed'     => 10,
+            'packages.payment_method'     => 10,
+            'packages.collection_method'  => 10,
 
-    public function merchant()
-    {
-        return $this->belongsTo(Merchant::class); // المرسل
+            'packages.sender_first_name'  => 10,
+            'packages.sender_middle_name' => 10,
+            'packages.sender_last_name'   => 10,
+            'packages.sender_phone'       => 10,
+            'packages.sender_email'       => 10,
+            'packages.sender_country'     => 10,
+            'packages.sender_region'      => 10,
+            'packages.sender_city'        => 10,
+            'packages.sender_district'    => 10,
+            'packages.sender_postal_code' => 10,
+            'packages.sender_others'      => 10,
+
+            'packages.receiver_first_name'  => 10,
+            'packages.receiver_middle_name' => 10,
+            'packages.receiver_last_name'   => 10,
+            'packages.receiver_phone'       => 10,
+            'packages.receiver_email'       => 10,
+            'packages.receiver_country'     => 10,
+            'packages.receiver_region'      => 10,
+            'packages.receiver_city'        => 10,
+            'packages.receiver_district'    => 10,
+            'packages.receiver_postal_code' => 10,
+            'packages.receiver_others'      => 10,
+
+            'packages.package_content'   => 10,
+            'packages.package_note'      => 10,
+            'packages.delivery_status_note' => 10,
+
+            'packages.weight'            => 10,
+            'packages.dimensions'        => 10,
+            'packages.quantity'          => 10,
+
+            'packages.delivery_fee'      => 10,
+            'packages.insurance_fee'     => 10,
+            'packages.service_fee'       => 10,
+            'packages.total_fee'         => 10,
+            'packages.paid_amount'       => 10,
+            'packages.due_amount'        => 10,
+            'packages.cod_amount'        => 10,
+
+            // من جدول التجار (المرسل والمستلم)
+            'merchants.name'             => 10,
+            'merchants.contact_person'   => 10,
+            'merchants.email'            => 10,
+            'merchants.phone'            => 10,
+        ],
+        'joins' => [
+            'merchants' => ['merchants.id', 'packages.merchant_id'],
+        ],
+    ];
+
+    public function merchant() {
+        return $this->belongsTo(Merchant::class, 'merchant_id');
     }
 
-    public function receiverMerchant()
-    {
-        return $this->belongsTo(Merchant::class, 'receiver_merchant_id'); // المستلم
+    public function receiverMerchant() {
+        return $this->belongsTo(Merchant::class, 'receiver_merchant_id');
     }
+
 
     public function packageProducts()
     {
