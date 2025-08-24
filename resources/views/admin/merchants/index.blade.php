@@ -65,18 +65,26 @@
                             @forelse ($merchants as $merchant)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $merchant->name }}</td>
-                                    <td>{{ $merchant->contact_person }}</td>
+                                    <td title="{{ $merchant->name }}">{{ Str::words($merchant->name, 2, '') }}</td>
+                                    <td title="{{ $merchant->contact_person }}">{{ Str::words($merchant->contact_person, 2, '') }}</td>
                                     <td>{{ $merchant->phone }}</td>
-                                    <td>
-                                        {{
-                                            ($merchant->country ?? '') . ' - ' .
-                                            ($merchant->region ?? '') . ' - ' .
-                                            ($merchant->city ?? '') . ' - ' .
-                                            ($merchant->district ?? '') . ' - ' .
-                                            ($merchant->postal_code ?? '')
-                                        }}
+                                    @php
+                                        $locationParts = array_filter([
+                                            $merchant->country,
+                                            $merchant->region,
+                                            $merchant->city,
+                                            $merchant->district,
+                                            $merchant->postal_code,
+                                        ]); // إزالة القيم الفارغة
+
+                                        $shortLocation = implode(' - ', array_slice($locationParts, 0, 2)); // أول قيمتين فقط
+                                        $fullLocation = implode(' - ', $locationParts); // كامل النص
+                                    @endphp
+
+                                    <td title="{{ $fullLocation }}">
+                                        {{ $shortLocation }}
                                     </td>
+
                                     <td>
                                         @if ($merchant->status == 1)
                                             <a href="javascript:void(0);" class="updateMerchantStatus "
