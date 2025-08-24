@@ -35,31 +35,31 @@ class StockItemController extends Controller
         // ->paginate(\request()->limit_by ?? 100);
 
         $stock_items = StockItem::with(['merchant', 'product', 'rentalShelf.shelf.warehouse', 'rentalShelf.rental'])
-    ->when(request('keyword') != null, function ($query) {
-        $query->whereHas('product', function ($q) {
-            $q->where('name', 'like', '%' . request('keyword') . '%');
-        })->orWhereHas('merchant', function ($q) {
-            $q->where('name', 'like', '%' . request('keyword') . '%');
-        });
-    })
-    ->when(request('merchant_id') != null, function ($query) {
-        $query->where('merchant_id', request('merchant_id'));
-    })
-    ->when(request('product_id') != null, function ($query) {
-        $query->where('product_id', request('product_id'));
-    })
-    ->when(request('warehouse_id') != null, function ($query) {
-        $query->whereHas('rentalShelf.shelf.warehouse', function ($q) {
-            $q->where('id', request('warehouse_id'));
-        });
-    })
-    ->when(request('status') != null, function ($query) {
-        $query->where('status', request('status'));
-    })
-    ->orderByRaw(request('sort_by') == 'published_on'
-        ? 'published_on IS NULL, published_on ' . (request('order_by') ?? 'desc')
-        : (request('sort_by') ?? 'created_at') . ' ' . (request('order_by') ?? 'desc'))
-    ->paginate(request('limit_by') ?? 100);
+            ->when(request('keyword') != null, function ($query) {
+                $query->whereHas('product', function ($q) {
+                    $q->where('name', 'like', '%' . request('keyword') . '%');
+                })->orWhereHas('merchant', function ($q) {
+                    $q->where('name', 'like', '%' . request('keyword') . '%');
+                });
+            })
+            ->when(request('merchant_id') != null, function ($query) {
+                $query->where('merchant_id', request('merchant_id'));
+            })
+            ->when(request('product_id') != null, function ($query) {
+                $query->where('product_id', request('product_id'));
+            })
+            ->when(request('warehouse_id') != null, function ($query) {
+                $query->whereHas('rentalShelf.shelf.warehouse', function ($q) {
+                    $q->where('id', request('warehouse_id'));
+                });
+            })
+            ->when(request('status') != null, function ($query) {
+                $query->where('status', request('status'));
+            })
+            ->orderByRaw(request('sort_by') == 'published_on'
+                ? 'published_on IS NULL, published_on ' . (request('order_by') ?? 'desc')
+                : (request('sort_by') ?? 'created_at') . ' ' . (request('order_by') ?? 'desc'))
+        ->paginate(request('limit_by') ?? 100);
 
 
         return view('admin.stock_items.index', compact('stock_items'));
