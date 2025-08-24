@@ -135,47 +135,47 @@
                                         </div>
                                     </td> --}}
                                     <td>
-    <div class="dropdown">
-        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-cog"></i>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end">
-            @ability('admin', 'show_merchants')
-            <li>
-                <a class="dropdown-item" href="{{ route('admin.merchants.show', $merchant->id) }}">
-                    <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
-                </a>
-            </li>
-            @endability
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-cog"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                @ability('admin', 'show_merchants')
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('admin.merchants.show', $merchant->id) }}">
+                                                        <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
+                                                    </a>
+                                                </li>
+                                                @endability
 
-            @ability('admin', 'update_merchants')
-            <li>
-                <a class="dropdown-item" href="{{ route('admin.merchants.edit', $merchant->id) }}">
-                    <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
-                </a>
-            </li>
-            @endability
+                                                @ability('admin', 'update_merchants')
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('admin.merchants.edit', $merchant->id) }}">
+                                                        <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
+                                                    </a>
+                                                </li>
+                                                @endability
 
-            @ability('admin', 'delete_merchants')
-            <li><hr class="dropdown-divider"></li>
-            <li>
-                <a class="dropdown-item text-danger" href="#"
-                   onclick="confirmDelete('delete-merchant-{{ $merchant->id }}',
-                        '{{ __('panel.confirm_delete_message') }}')">
-                    <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
-                </a>
-                <form id="delete-merchant-{{ $merchant->id }}"
-                      action="{{ route('admin.merchants.destroy', $merchant->id) }}"
-                      method="POST" class="d-none">
-                    @csrf
-                    @method('DELETE')
-                </form>
-            </li>
-            @endability
-        </ul>
-    </div>
-</td>
+                                                @ability('admin', 'delete_merchants')
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li>
+                                                    <a class="dropdown-item text-danger" href="#"
+                                                    onclick="confirmDelete('delete-merchant-{{ $merchant->id }}',
+                                                            '{{ __('panel.confirm_delete_message') }}')">
+                                                        <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
+                                                    </a>
+                                                    <form id="delete-merchant-{{ $merchant->id }}"
+                                                        action="{{ route('admin.merchants.destroy', $merchant->id) }}"
+                                                        method="POST" class="d-none">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </li>
+                                                @endability
+                                            </ul>
+                                        </div>
+                                    </td>
 
                                 </tr>
                             @empty
