@@ -33,9 +33,8 @@
 
                             <div class="button-items">
                                    <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.stock_items.create') }}">
+                                       <i class="mdi mdi-1  mdi-stocking"></i>
                                         {{ __('stock-item.add_new_stock_item') }}
-                                        {{-- <i class="ri-stock-item-hunt-line  align-middle ms-2"></i> --}}
-                                        <i class="mdi mdi-18px mdi-library-shelves"></i>
                                    </a>
                             </div>
 
