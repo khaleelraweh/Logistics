@@ -48,10 +48,10 @@
                     <div class="col-md-2">
                         <select name="delivery_method" class="form-select select2">
                             <option value="">{{ __('filter.all_delivery_methods') }}</option>
-                            <option value="standard" {{ request('delivery_method') == 'standard' ? 'selected' : '' }}> {{ __('package.speed_standard') }} </option>
-                            <option value="express" {{ request('delivery_method') == 'express' ? 'selected' : '' }}> {{ __('package.speed_express') }} </option>
-                            <option value="pickup" {{ request('delivery_method') == 'pickup' ? 'selected' : '' }}> {{ __('package.speed_pickup') }} </option>
-                            <option value="courier" {{ request('delivery_method') == 'courier' ? 'selected' : '' }}> {{ __('package.speed_courier') }} </option>
+                            <option value="standard" {{ request('delivery_method') == 'standard' ? 'selected' : '' }}> {{ __('package.method_standard') }} </option>
+                            <option value="express" {{ request('delivery_method') == 'express' ? 'selected' : '' }}> {{ __('package.method_express') }} </option>
+                            <option value="pickup" {{ request('delivery_method') == 'pickup' ? 'selected' : '' }}> {{ __('package.method_pickup') }} </option>
+                            <option value="courier" {{ request('delivery_method') == 'courier' ? 'selected' : '' }}> {{ __('package.method_courier') }} </option>
                         </select>
                     </div>
 
