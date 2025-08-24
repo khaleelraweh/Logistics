@@ -767,19 +767,42 @@ class PackageController extends Controller
 
 
 
+    // public function printPackage($id)
+    // {
+    //     $package = Package::findOrFail($id);
+
+    //     // عرض صفحة الطباعة (HTML)
+    //     return view('admin.packages.print', compact('package'));
+
+    //     // أو لتحويله إلى PDF و تحميله:
+    //     /*
+    //     $pdf = PDF::loadView('admin.packages.print', compact('package'));
+    //     return $pdf->download('package_'.$package->id.'.pdf');
+    //     */
+    // }
+
+    // public function printPackage($id)
+    // {
+    //     $package = Package::findOrFail($id);
+
+    //     $pdf = PDF::loadView('admin.packages.print', compact('package'));
+
+    //     // تحميل الملف مباشرة
+    //     return $pdf->download('package_'.$package->id.'.pdf');
+    // }
+
     public function printPackage($id)
     {
         $package = Package::findOrFail($id);
 
-        // عرض صفحة الطباعة (HTML)
-        return view('admin.packages.print', compact('package'));
+        $pdf = PDF::loadView('admin.packages.print', compact('package'))
+                ->setPaper('a4')
+                ->setOption('isHtml5ParserEnabled', true)
+                ->setOption('isRemoteEnabled', true);
 
-        // أو لتحويله إلى PDF و تحميله:
-        /*
-        $pdf = PDF::loadView('admin.packages.print', compact('package'));
         return $pdf->download('package_'.$package->id.'.pdf');
-        */
     }
+
 
     /**
      * تحويل أي نص طريقة دفع إلى enum المدعوم بجدول payments.

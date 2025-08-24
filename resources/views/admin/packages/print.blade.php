@@ -4,8 +4,16 @@
     <meta charset="UTF-8" />
     <title>سجل الطرد - {{ $package->tracking_number ?? 'غير محدد' }}</title>
     <style>
+        @font-face {
+            font-family: 'Tajawal';
+            src: url('{{ public_path('fonts/DroidKufi-Regular.ttf') }}') format('DroidKufi-Regular');
+            font-weight: normal;
+            font-style: normal;
+        }
         body {
-            font-family: "Arial", sans-serif;
+            font-family: "DroidKufi-Regular", sans-serif;
+            direction: rtl; /* لضبط الكتابة من اليمين لليسار */
+            text-align: right;
             margin: 0;
             padding: 20px;
             color: #333;
