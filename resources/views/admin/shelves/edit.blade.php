@@ -141,14 +141,15 @@
                         <!-- Form Actions -->
                         <div class="form-actions border-top pt-4 mt-4">
                             <div class="text-end">
-                                <button type="reset" class="btn btn-light me-2">
-                                    <i class="fas fa-undo me-2"></i>{{ __('general.reset_changes') }}
-                                </button>
                                 @ability('admin', 'update_shelves')
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fas fa-save me-2"></i>{{ __('shelf.update_shelf') }}
                                     </button>
                                 @endability
+                                 <a href="{{ route('admin.merchants.index') }}" class="btn btn-outline-danger ms-2">
+                                    <i class="ri-arrow-go-back-line me-1"></i>
+                                    {{ __('panel.cancel') }}
+                                </a>
                             </div>
                         </div>
                     </form>
