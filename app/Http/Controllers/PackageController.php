@@ -70,12 +70,12 @@ class PackageController extends Controller
             ->when(request()->merchant_id != null, function ($query) {
                 $query->where('merchant_id', request()->merchant_id);
             })
-              ->when(request()->delivery_method != null, function ($query) {
-        $query->where('delivery_method', request()->delivery_method);
-    })
-    ->when(request()->package_type != null, function ($query) {
-        $query->where('package_type', request()->package_type);
-    });
+            ->when(request()->delivery_method != null, function ($query) {
+                $query->where('delivery_method', request()->delivery_method);
+            })
+            ->when(request()->package_type != null, function ($query) {
+                $query->where('package_type', request()->package_type);
+            });
 
 
 
