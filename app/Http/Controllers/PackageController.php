@@ -679,47 +679,91 @@ class PackageController extends Controller
      * @param  \App\Models\Package  $package
      * @return \Illuminate\Http\Response
      */
-      public function destroy($package)
+    // public function destroy($package)
+    // {
+    //     if (!auth()->user()->ability('admin', 'delete_packages')) {
+    //         return redirect('admin/index');
+    //     }
+
+    //     $package = Package::where('id', $package)->first();
+
+    //     if ($package) {
+    //             $package->addLog('تم حذف الطرد');
+    //         }
+
+    //     foreach($package->packageProducts as $item){
+    //         // إذا المنتج من المخزون، نقص الكمية من StockItem
+    //         if ($item->type === 'stock' && !empty($item->stock_item_id)) {
+    //             DB::transaction(function () use ($item) {
+    //                 $stockItem = StockItem::lockForUpdate()->find($item->stock_item_id);
+    //                 if ($stockItem) {
+    //                     $newQuantity = max(0, $stockItem->quantity + (int)$item->quantity);
+    //                     $stockItem->quantity = $newQuantity;
+    //                     $stockItem->save();
+    //                 }
+    //             });
+    //         }
+    //         $item->delete();
+    //     }
+
+
+    //     $package->delete();
+
+
+
+    //     if ($package) {
+    //         return redirect()->route('admin.packages.index')->with([
+    //             'message' => __('messages.package_deleted'),
+    //             'alert-type' => 'success'
+    //         ]);
+    //     }
+    //     return redirect()->route('admin.packages.index')->with([
+    //         'message' => __('messages.something_was_wrong'),
+    //         'alert-type' => 'danger'
+    //     ]);
+    // }
+
+    public function destroy($packageId)
     {
         if (!auth()->user()->ability('admin', 'delete_packages')) {
             return redirect('admin/index');
         }
 
-        $package = Package::where('id', $package)->first();
+        $package = Package::where('id', $packageId)->first();
 
-        foreach($package->packageProducts as $item){
-            // إذا المنتج من المخزون، نقص الكمية من StockItem
-            if ($item->type === 'stock' && !empty($item->stock_item_id)) {
-                DB::transaction(function () use ($item) {
-                    $stockItem = StockItem::lockForUpdate()->find($item->stock_item_id);
-                    if ($stockItem) {
-                        $newQuantity = max(0, $stockItem->quantity + (int)$item->quantity);
-                        $stockItem->quantity = $newQuantity;
-                        $stockItem->save();
-                    }
-                });
-            }
-            $item->delete();
-        }
-
-
-        $package->delete();
-
-        if ($package) {
-            $package->addLog('تم حذف الطرد');
-        }
-
-        if ($package) {
+        if (!$package) {
             return redirect()->route('admin.packages.index')->with([
-                'message' => __('messages.package_deleted'),
-                'alert-type' => 'success'
+                'message' => __('messages.something_was_wrong'),
+                'alert-type' => 'danger'
             ]);
         }
+
+        DB::transaction(function () use ($package) {
+            // سجل لوج قبل الحذف
+            $package->addLog('تم حذف الطرد');
+
+            // تحديث المخزون وحذف المنتجات
+            foreach ($package->packageProducts as $item) {
+                if ($item->type === 'stock' && !empty($item->stock_item_id)) {
+                    $stockItem = StockItem::lockForUpdate()->find($item->stock_item_id);
+                    if ($stockItem) {
+                        $stockItem->quantity = max(0, $stockItem->quantity + (int)$item->quantity);
+                        $stockItem->save();
+                    }
+                }
+                $item->delete();
+            }
+
+            // حذف الطرد نفسه
+            $package->delete();
+        });
+
         return redirect()->route('admin.packages.index')->with([
-            'message' => __('messages.something_was_wrong'),
-            'alert-type' => 'danger'
+            'message' => __('messages.package_deleted'),
+            'alert-type' => 'success'
         ]);
     }
+
 
 
 
