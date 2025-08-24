@@ -45,7 +45,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{ __('merchant.name') }}</th>
+                            <th>{{ __('package.sender_name') }}</th>
                             <th>{{ __('package.receiver_name') }}</th>
                             <th>{{ __('package.tracking_number') }}</th>
                             <th>{{ __('package.status') }}</th>
@@ -60,8 +60,8 @@
                         @forelse ($packages as $package)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $package->merchant->name ?? '-' }}</td>
-                                <td>{{ $package->sender_full_name  }}</td>
+                                <td>{{ $package->sender_full_name ?? '-' }}</td>
+                                <td>{{ $package->receiver_full_name ?? '-' }}</td>
                                 <td>{{ $package->tracking_number }}</td>
                                 <td>
                                     {{-- <span class="badge bg-{{ $package->status === 'pending' ? 'warning' : ($package->status === 'assigned' ? 'info' : 'success') }}">

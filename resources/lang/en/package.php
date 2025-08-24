@@ -281,5 +281,6 @@ return [
     'price'    => 'Price',
     'total'    => 'Total',
     'updated_at' => 'Updated At',
+    'sender_name' => 'Sender Name',
 
 ];
