@@ -60,82 +60,102 @@
 
                             <tbody>
 
-                            @forelse ($warehouses as $warehouse)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ \Illuminate\Support\Str::limit($warehouse->name ?? '', 15) }}</td>
-                                    <td>{{ \Illuminate\Support\Str::limit($warehouse->location ?? '', 25) }} </td>
-                                    <td>{{ \Illuminate\Support\Str::limit($warehouse->manager ?? '', 15) }} </td>
-                                    <td>
-                                        @if ($warehouse->status == 1)
-                                            <a href="javascript:void(0);" class="updateWarehouseStatus"
-                                                id="warehouse-{{ $warehouse->id }}" warehouse_id="{{ $warehouse->id }}">
-                                                <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true"
-                                                    status="Active" style="font-size: 1.6em"></i>
-                                            </a>
-                                        @else
-                                            <a href="javascript:void(0);" class="updateWarehouseStatus" id="warehouse-{{ $warehouse->id }}"
-                                                warehouse_id="{{ $warehouse->id }}">
-                                                <i class="fas fa-toggle-off fa-lg text-warning" aria-hidden="true"
-                                                    status="Inactive" style="font-size: 1.6em"></i>
-                                            </a>
-                                        @endif
-                                    </td>
-                                    <td>{{ $warehouse->created_at->diffForHumans() }}</td>
+                           @forelse ($warehouses as $warehouse)
+    <tr>
+        <td>{{ $loop->iteration }}</td>
 
-                                    <td>
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fas fa-cog"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
+        {{-- الاسم مع Tooltip --}}
+        <td data-bs-toggle="tooltip" data-bs-placement="top"
+            title="{{ $warehouse->name }}">
+            {{ \Illuminate\Support\Str::words($warehouse->name, 2, '') }}
+        </td>
 
-                                                @ability('admin', 'show_warehouses')
-                                                <li>
-                                                    <a class="dropdown-item" href="{{ route('admin.warehouses.show', $warehouse->id) }}">
-                                                        <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
-                                                    </a>
-                                                </li>
-                                                @endability
+        {{-- الموقع مع Tooltip --}}
+        <td data-bs-toggle="tooltip" data-bs-placement="top"
+            title="{{ $warehouse->location }}">
+            {{ \Illuminate\Support\Str::words($warehouse->location, 3, '') }}
+        </td>
 
-                                                @ability('admin', 'update_warehouses')
-                                                <li>
-                                                    <a class="dropdown-item" href="{{ route('admin.warehouses.edit', $warehouse->id) }}">
-                                                        <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
-                                                    </a>
-                                                </li>
-                                                @endability
+        {{-- المدير مع Tooltip --}}
+        <td data-bs-toggle="tooltip" data-bs-placement="top"
+            title="{{ $warehouse->manager }}">
+            {{ \Illuminate\Support\Str::words($warehouse->manager, 2, '') }}
+        </td>
 
-                                                @ability('admin', 'delete_warehouses')
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li>
-                                                    <a class="dropdown-item text-danger" href="javascript:void(0);"
-                                                    onclick="confirmDelete('delete-warehouse-{{ $warehouse->id }}',
-                                                                                '{{ __('panel.confirm_delete_message') }}',
-                                                                                '{{ __('panel.yes_delete') }}',
-                                                                                '{{ __('panel.cancel') }}')">
-                                                        <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
-                                                    </a>
-                                                    <form action="{{ route('admin.warehouses.destroy', $warehouse->id) }}"
-                                                        method="post" class="d-none"
-                                                        id="delete-warehouse-{{ $warehouse->id }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                </li>
-                                                @endability
+        {{-- الحالة --}}
+        <td>
+            @if ($warehouse->status == 1)
+                <a href="javascript:void(0);" class="updateWarehouseStatus"
+                   id="warehouse-{{ $warehouse->id }}" warehouse_id="{{ $warehouse->id }}">
+                    <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true"
+                       status="Active" style="font-size: 1.6em"></i>
+                </a>
+            @else
+                <a href="javascript:void(0);" class="updateWarehouseStatus"
+                   id="warehouse-{{ $warehouse->id }}" warehouse_id="{{ $warehouse->id }}">
+                    <i class="fas fa-toggle-off fa-lg text-warning" aria-hidden="true"
+                       status="Inactive" style="font-size: 1.6em"></i>
+                </a>
+            @endif
+        </td>
 
-                                            </ul>
-                                        </div>
-                                    </td>
+        {{-- تاريخ الإنشاء --}}
+        <td>{{ $warehouse->created_at->diffForHumans() }}</td>
 
-                                </tr>
-                            @empty
-                             <tr>
-                                <td colspan="5" class="text-center">{{ __('panel.no_found_item') }}</td>
-                            </tr>
-                            @endforelse
+        {{-- العمليات --}}
+        <td>
+            <div class="dropdown">
+                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+
+                    @ability('admin', 'show_warehouses')
+                        <li>
+                            <a class="dropdown-item" href="{{ route('admin.warehouses.show', $warehouse->id) }}">
+                                <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
+                            </a>
+                        </li>
+                    @endability
+
+                    @ability('admin', 'update_warehouses')
+                        <li>
+                            <a class="dropdown-item" href="{{ route('admin.warehouses.edit', $warehouse->id) }}">
+                                <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
+                            </a>
+                        </li>
+                    @endability
+
+                    @ability('admin', 'delete_warehouses')
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="javascript:void(0);"
+                               onclick="confirmDelete('delete-warehouse-{{ $warehouse->id }}',
+                                   '{{ __('panel.confirm_delete_message') }}',
+                                   '{{ __('panel.yes_delete') }}',
+                                   '{{ __('panel.cancel') }}')">
+                                <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
+                            </a>
+                            <form action="{{ route('admin.warehouses.destroy', $warehouse->id) }}"
+                                  method="post" class="d-none"
+                                  id="delete-warehouse-{{ $warehouse->id }}">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        </li>
+                    @endability
+
+                </ul>
+            </div>
+        </td>
+    </tr>
+@empty
+    <tr>
+        <td colspan="7" class="text-center">{{ __('panel.no_found_item') }}</td>
+    </tr>
+@endforelse
+
 
 
 
