@@ -25,34 +25,34 @@ class ProductController extends Controller
             return redirect('admin/index');
         }
 
-        // $products = Product::query()
-        //     ->when(\request()->keyword != null, function ($query) {
-        //         $query->search(\request()->keyword);
-        //     })
-        //     ->when(\request()->status != null, function ($query) {
-        //         $query->where('status', \request()->status);
-        //     })
-        //     ->orderByRaw(request()->sort_by == 'published_on'
-        //         ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-        //         : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-        // ->paginate(\request()->limit_by ?? 100);
-
         $products = Product::query()
-            ->when(request('keyword'), function ($query) {
-                $query->search(request('keyword'));
+            ->when(\request()->keyword != null, function ($query) {
+                $query->search(\request()->keyword);
             })
-            ->when(request('merchant_keyword'), function ($query) {
-                $query->whereHas('merchant', function($q){
-                    $q->where('name', 'like', '%' . request('merchant_keyword') . '%');
-                });
-            })
-            ->when(request('status') !== null, function ($query) {
-                $query->where('status', request('status'));
+            ->when(\request()->status != null, function ($query) {
+                $query->where('status', \request()->status);
             })
             ->orderByRaw(request()->sort_by == 'published_on'
                 ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
                 : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-        ->paginate(request()->limit_by ?? 100);
+        ->paginate(\request()->limit_by ?? 100);
+
+        // $products = Product::query()
+        //     ->when(request('keyword'), function ($query) {
+        //         $query->search(request('keyword'));
+        //     })
+        //     ->when(request('merchant_keyword'), function ($query) {
+        //         $query->whereHas('merchant', function($q){
+        //             $q->where('name', 'like', '%' . request('merchant_keyword') . '%');
+        //         });
+        //     })
+        //     ->when(request('status') !== null, function ($query) {
+        //         $query->where('status', request('status'));
+        //     })
+        //     ->orderByRaw(request()->sort_by == 'published_on'
+        //         ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+        //         : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
+        // ->paginate(request()->limit_by ?? 100);
 
 
         return view('admin.products.index', compact('products'));
