@@ -434,38 +434,73 @@
     <script>
         $(document).ready(function() {
             // Initialize file input
+            // $("#merchant_logo").fileinput({
+            //     theme: "fa5",
+            //     maxFileCount: 1,
+            //     allowedFileTypes: ['image'],
+            //     showCancel: true,
+            //     showRemove: false,
+            //     showUpload: false,
+            //     overwriteInitial: false,
+            //     browseClass: "btn btn-primary",
+            //     browseIcon: '<i class="bi bi-folder2-open"></i> ',
+            //     browseLabel: "{{ __('general.select_file') }}",
+            //     msgPlaceholder: "{{ __('general.choose_file') }}",
+            //     dropZoneEnabled: false,
+            //     @if($merchant->logo)
+            //     initialPreview: [
+            //         "{{ asset('assets/merchants/' . $merchant->logo) }}"
+            //     ],
+            //     initialPreviewAsData: true,
+            //     initialPreviewFileType: 'image',
+            //    initialPreviewConfig: [
+            //         @if(file_exists(public_path('assets/merchants/' . $merchant->logo)))
+            //         {
+            //             caption: "{{ $merchant->logo }}",
+            //             size: {{ filesize(public_path('assets/merchants/' . $merchant->logo)) }},
+            //             width: "120px",
+            //             url: "{{ route('admin.merchants.remove_image', ['merchant_id' => $merchant->id, '_token' => csrf_token()]) }}",
+            //             key: {{ $merchant->id }}
+            //         }
+            //         @endif
+            //     ],
+            //     @endif
+            // });
+
             $("#merchant_logo").fileinput({
-                theme: "fa5",
-                maxFileCount: 1,
-                allowedFileTypes: ['image'],
-                showCancel: true,
-                showRemove: false,
-                showUpload: false,
-                overwriteInitial: false,
-                browseClass: "btn btn-primary",
-                browseIcon: '<i class="bi bi-folder2-open"></i> ',
-                browseLabel: "{{ __('general.select_file') }}",
-                msgPlaceholder: "{{ __('general.choose_file') }}",
-                dropZoneEnabled: false,
-                @if($merchant->logo)
-                initialPreview: [
-                    "{{ asset('assets/merchants/' . $merchant->logo) }}"
-                ],
-                initialPreviewAsData: true,
-                initialPreviewFileType: 'image',
-               initialPreviewConfig: [
-                    @if(file_exists(public_path('assets/merchants/' . $merchant->logo)))
-                    {
-                        caption: "{{ $merchant->logo }}",
-                        size: {{ filesize(public_path('assets/merchants/' . $merchant->logo)) }},
-                        width: "120px",
-                        url: "{{ route('admin.merchants.remove_image', ['merchant_id' => $merchant->id, '_token' => csrf_token()]) }}",
-                        key: {{ $merchant->id }}
-                    }
-                    @endif
-                ],
-                @endif
-            });
+    theme: "fa5",
+    maxFileCount: 1,
+    allowedFileTypes: ['image'],
+    showCancel: true,
+    showRemove: false,
+    showUpload: false,
+    overwriteInitial: true, // استبدال مباشر
+    browseClass: "btn btn-primary",
+    browseIcon: '<i class="bi bi-folder2-open"></i> ',
+    browseLabel: "{{ __('general.select_file') }}",
+    msgPlaceholder: "{{ __('general.choose_file') }}",
+    dropZoneEnabled: false,
+    @if($merchant->logo)
+    initialPreview: [
+        "{{ asset('assets/merchants/' . $merchant->logo) }}"
+    ],
+    initialPreviewAsData: true,
+    initialPreviewFileType: 'image',
+    initialPreviewConfig: [
+        {
+            caption: "{{ $merchant->logo }}",
+            size: {{ file_exists(public_path('assets/merchants/' . $merchant->logo)) ? filesize(public_path('assets/merchants/' . $merchant->logo)) : 0 }},
+            width: "120px",
+            url: "{{ route('admin.merchants.remove_image') }}", // فقط الرابط
+            key: {{ $merchant->id }},
+            extra: {
+                _token: "{{ csrf_token() }}"
+            }
+        }
+    ]
+    @endif
+});
+
 
             // Generate API Key
             $('#generateApiKey').click(function() {

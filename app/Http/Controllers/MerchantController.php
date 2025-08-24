@@ -371,25 +371,25 @@ class MerchantController extends Controller
         ]);
     }
 
+
+
     public function remove_image(Request $request)
     {
         if (!auth()->user()->ability('admin', 'delete_merchants')) {
-            return redirect('admin/index');
+            return response()->json(['error' => 'Unauthorized'], 403);
         }
 
-        $merchant = Merchant::findOrFail($request->merchant_id);
+        $merchant = Merchant::findOrFail($request->key); // key = merchant id
 
-        if ($merchant->logo != '') {
-            if (File::exists('assets/merchants/' . $merchant->logo)) {
-                unlink('assets/merchants/' . $merchant->logo);
-            }
-
+        if ($merchant->logo && File::exists(public_path('assets/merchants/' . $merchant->logo))) {
+            File::delete(public_path('assets/merchants/' . $merchant->logo));
             $merchant->logo = null;
             $merchant->save();
-
-            return true;
         }
+
+        return response()->json(['success' => true]);
     }
+
 
 
     public function updateMerchantStatus(Request $request)
