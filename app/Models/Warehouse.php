@@ -13,7 +13,7 @@ class Warehouse extends Model
     use HasFactory, SearchableTrait ,HasTranslations;
 
     protected $guarded = [];
-        public $translatable = ['name','location','manager'];
+    public $translatable = ['name','location','manager'];
 
     protected $searchable = [
         'columns' => [

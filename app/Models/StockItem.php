@@ -11,6 +11,7 @@ class StockItem extends Model
 
     protected $guarded = [];
 
+
     protected $casts = [
         'custom_start' => 'date',
         'custom_end' => 'date',
