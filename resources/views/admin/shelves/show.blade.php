@@ -16,8 +16,13 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0 bg-transparent p-0">
                             <li class="breadcrumb-item">
+                                <a href="{{ route('admin.index') }}" class="text-muted">
+                                    {{ __('general.main') }}
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
                                 <a class="text-muted" href="{{ route('admin.shelves.index') }}">
-                                    <i class="fas fa-chevron-left me-1 text-primary"></i>
+                                    {{-- <i class="fas fa-chevron-left me-1 text-primary"></i> --}}
                                     {{ __('shelf.shelves') }}
                                 </a>
                             </li>
