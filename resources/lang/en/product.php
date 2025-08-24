@@ -77,7 +77,8 @@ return [
     'price_per_unit_placeholder' => 'Price per Unit',
     'total_placeholder' => 'Total',
     'add_new' => 'Add New Product',
-    'notify' => 'Notification'
+    'notify' => 'Notification',
+    'products' => 'Products',
 
 
 

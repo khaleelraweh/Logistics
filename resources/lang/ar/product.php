@@ -75,7 +75,8 @@ return [
     'price_per_unit_placeholder' => 'سعر الوحدة',
     'total_placeholder' => 'الإجمالي',
     'add_new' => 'إضافة منتج جديد',
-    'notify' => 'تنبيه'
+    'notify' => 'تنبيه',
+    'products' => 'المنتجات',
 
 
 
