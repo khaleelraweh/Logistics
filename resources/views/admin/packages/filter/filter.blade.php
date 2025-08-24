@@ -16,12 +16,12 @@
                 <div class="row g-2">
 
                     <!-- Keyword -->
-                    <div class="col-md-2">
+                    <div class="col-md-6">
                         <input type="text" name="keyword" value="{{ old('keyword', request()->input('keyword')) }}" class="form-control" placeholder="{{ __('filter.search_here') }}">
                     </div>
 
                     <!-- Status -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select name="status" class="form-select select2">
                             <option value="">{{ __('filter.all_statuses') }}</option>
                             @foreach ($statuses as $key => $label)
@@ -45,7 +45,7 @@
                     </div>
 
                     <!-- Delivery Method -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select name="delivery_method" class="form-select select2">
                             <option value="">{{ __('filter.all_delivery_methods') }}</option>
                             <option value="standard" {{ request('delivery_method') == 'standard' ? 'selected' : '' }}> {{ __('package.method_standard') }} </option>
@@ -56,7 +56,7 @@
                     </div>
 
                     <!-- Package Type -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select name="package_type" class="form-select select2">
                             <option value="">{{ __('filter.all_package_types') }}</option>
                             <option value="box" {{ request('package_type') == 'box' ? 'selected' : '' }}> {{ __('package.type_box') }} </option>
@@ -68,7 +68,7 @@
                     </div>
 
                     <!-- Package Size -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select name="package_size" class="form-select select2">
                             <option value="">{{ __('filter.all_package_sizes') }}</option>
                             <option value="small" {{ request('package_size')=='small'?'selected':'' }}> {{ __('package.size_small') }} </option>
@@ -79,7 +79,7 @@
                     </div>
 
                     <!-- Origin Type -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select name="origin_type" class="form-select select2">
                             <option value="">{{ __('filter.all_origin_types') }}</option>
                             <option value="warehouse" {{ request('origin_type')=='warehouse'?'selected':'' }}> {{ __('package.origin_warehouse') }} </option>
@@ -90,7 +90,7 @@
                     </div>
 
                     <!-- Delivery Speed -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select name="delivery_speed" class="form-select select2">
                             <option value="">{{ __('filter.all_delivery_speeds') }}</option>
                             <option value="standard" {{ request('delivery_speed')=='standard'?'selected':'' }}> {{ __('package.speed_standard') }} </option>
@@ -101,7 +101,7 @@
                     </div>
 
                     <!-- Payment Responsibility -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select name="payment_responsibility" class="form-select select2">
                             <option value="">{{ __('filter.all_payment_responsibilities') }}</option>
                             <option value="merchant" {{ request('payment_responsibility')=='merchant'?'selected':'' }}> {{ __('package.responsibility_merchant') }} </option>
@@ -110,7 +110,7 @@
                     </div>
 
                     <!-- Payment Method -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select name="payment_method" class="form-select select2">
                             <option value="">{{ __('filter.all_payment_methods') }}</option>
                             <option value="prepaid" {{ request('payment_method')=='prepaid'?'selected':'' }}> {{ __('package.payment_prepaid') }} </option>
@@ -121,7 +121,7 @@
                     </div>
 
                     <!-- Collection Method -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select name="collection_method" class="form-select select2">
                             <option value="">{{ __('filter.all_collection_methods') }}</option>
                             <option value="cash" {{ request('collection_method')=='cash'?'selected':'' }}> {{ __('package.collection_cash') }} </option>
@@ -134,7 +134,7 @@
                     </div>
 
                     <!-- Order By -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select name="order_by" class="form-select select2">
                             <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}> {{ __('filter.asc') }} </option>
                             <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}> {{ __('filter.desc') }} </option>
@@ -152,7 +152,7 @@
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="col-md-2 d-flex align-items-end">
+                    <div class="col-md-4 d-flex align-items-end">
                         <button type="submit" class="btn btn-primary me-2 flex-grow-1">
                             <i class="fas fa-search me-1"></i>{{ __('general.filter') }}
                         </button>
