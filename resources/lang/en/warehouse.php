@@ -29,6 +29,7 @@ return [
     'update_warehouse'               =>  'Update Warehouse',
     'warehouse_status'               =>  'Warehouse Status',
 
+
     'update_basic_info'            =>  'Update Basic Information',
     'editing_warehouse'                =>  'Editing Warehouse',
     'edit_warehouse'                          =>  'Edit Warehouse',
