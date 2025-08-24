@@ -7,6 +7,7 @@ return [
     'stock_item_description'          =>  'هذه الصفحة تمكنك من استعراض المخزون والتجار  والقيام بالعديد من العمليات عليهم',
     'add_new_stock_item'              =>  ' إضافة عنصر مخزن جديد',
     'item_details'                    =>   'تفاصيل العنصر',
+    'published_on'                    =>   'تاريخ النشر',
 
     //create page
     'stock_item_info'                 =>  'معلومات عناصر المخزون',

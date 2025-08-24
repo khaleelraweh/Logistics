@@ -1,128 +1,85 @@
-<div class="card-body">
-    <form action="{{route('admin.packages.index')}}" method="get">
-        <div class="row">
-            <div class="col-2">
-                <div class="form-group">
-                    <input type="text" name="keyword" value="{{old('keyword',request()->input('keyword'))}}" class="form-control" placeholder="search here">
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="form-group">
-                       <select name="status"  class="form-select">
-                            <option value="">{{ __('package.all_statuses') }}</option>
+<div class="card mb-4">
+    <!-- Header -->
+    <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
+        <h6 class="mb-0">
+            <i class="fas fa-filter me-2 text-primary"></i>{{ __('general.filters') }}
+        </h6>
+        <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#packagesFiltersCollapse" aria-expanded="false" aria-controls="packagesFiltersCollapse">
+            <i class="fas fa-sliders-h me-1"></i>{{ __('general.show_filters') }}
+        </button>
+    </div>
+
+    <!-- Filter Body -->
+    <div id="packagesFiltersCollapse" class="collapse">
+        <div class="card-body">
+            <form action="{{ route('admin.packages.index') }}" method="get">
+                <div class="row g-2">
+                    <!-- Keyword -->
+                    <div class="col-md-2">
+                        <input type="text" name="keyword" value="{{ old('keyword', request()->input('keyword')) }}" class="form-control" placeholder="{{ __('filter.search_here') }}">
+                    </div>
+
+                    <!-- Status -->
+                    <div class="col-md-2">
+                        <select name="status" class="form-select select2">
+                            <option value="">{{ __('filter.show_all') }}</option>
                             @foreach ($statuses as $key => $label)
                                 <option value="{{ $key }}" {{ request('status') == $key ? 'selected' : '' }}>
                                     {{ $label }}
                                 </option>
                             @endforeach
                         </select>
+                    </div>
+
+                    <!-- Sort By -->
+                    <div class="col-md-3">
+                        <select name="sort_by" class="form-select select2">
+                            <option value=""> {{ __('filter.sort_by') }} </option>
+                            <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>ID</option>
+                            <option value="tracking_number" {{ request('sort_by') == 'tracking_number' ? 'selected' : '' }}>
+                                {{ __('package.tracking_number') }}
+                            </option>
+                            <option value="status" {{ request('sort_by') == 'status' ? 'selected' : '' }}>
+                                {{ __('package.status') }}
+                            </option>
+                            <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>
+                                {{ __('package.created_at') }}
+                            </option>
+                            <option value="updated_at" {{ request('sort_by') == 'updated_at' ? 'selected' : '' }}>
+                                {{ __('package.updated_at') }}
+                            </option>
+                            <!-- يمكن إضافة باقي الحقول هنا حسب الحاجة -->
+                        </select>
+                    </div>
+
+                    <!-- Order By -->
+                    <div class="col-md-2">
+                        <select name="order_by" class="form-select select2">
+                            <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>{{ __('filter.asc') }}</option>
+                            <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}>{{ __('filter.desc') }}</option>                        </select>
+                    </div>
+
+                    <!-- Limit By -->
+                    <div class="col-md-1">
+                        <select name="limit_by" class="form-select select2">
+                            <option value="10" {{ old('limit_by', request()->input('limit_by')) == '10' ? 'selected' : '' }}>10</option>
+                            <option value="20" {{ old('limit_by', request()->input('limit_by')) == '20' ? 'selected' : '' }}>20</option>
+                            <option value="50" {{ old('limit_by', request()->input('limit_by')) == '50' ? 'selected' : '' }}>50</option>
+                            <option value="100" {{ old('limit_by', request()->input('limit_by')) == '100' ? 'selected' : '' }}>100</option>
+                        </select>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary me-2 flex-grow-1">
+                            <i class="fas fa-search me-1"></i>{{ __('general.filter') }}
+                        </button>
+                        <a href="{{ route('admin.packages.index') }}" class="btn btn-outline-secondary flex-grow-1">
+                            <i class="fas fa-undo me-1"></i>{{ __('general.reset') }}
+                        </a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-2">
-                <div class="form-group">
-                    <select name="sort_by" class="form-control">
-                        <option value="">---</option>
-
-                        {{-- أساسية --}}
-                        <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>ID</option>
-                        <option value="tracking_number" {{ request('sort_by') == 'tracking_number' ? 'selected' : '' }}>
-                            {{ __('package.tracking_number') }}
-                        </option>
-                        <option value="status" {{ request('sort_by') == 'status' ? 'selected' : '' }}>
-                            {{ __('package.status') }}
-                        </option>
-                        <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>
-                            {{ __('package.created_at') }}
-                        </option>
-                        <option value="updated_at" {{ request('sort_by') == 'updated_at' ? 'selected' : '' }}>
-                            {{ __('package.updated_at') }}
-                        </option>
-
-                        {{-- بيانات المرسل --}}
-                        <option value="sender_first_name" {{ request('sort_by') == 'sender_first_name' ? 'selected' : '' }}>
-                            {{ __('package.sender_first_name') }}
-                        </option>
-                        <option value="sender_phone" {{ request('sort_by') == 'sender_phone' ? 'selected' : '' }}>
-                            {{ __('package.sender_phone') }}
-                        </option>
-                        <option value="sender_city" {{ request('sort_by') == 'sender_city' ? 'selected' : '' }}>
-                            {{ __('package.sender_city') }}
-                        </option>
-
-                        {{-- بيانات المستلم --}}
-                        <option value="receiver_first_name" {{ request('sort_by') == 'receiver_first_name' ? 'selected' : '' }}>
-                            {{ __('package.receiver_first_name') }}
-                        </option>
-                        <option value="receiver_phone" {{ request('sort_by') == 'receiver_phone' ? 'selected' : '' }}>
-                            {{ __('package.receiver_phone') }}
-                        </option>
-                        <option value="receiver_city" {{ request('sort_by') == 'receiver_city' ? 'selected' : '' }}>
-                            {{ __('package.receiver_city') }}
-                        </option>
-
-                        {{-- بيانات الطرد --}}
-                        <option value="weight" {{ request('sort_by') == 'weight' ? 'selected' : '' }}>
-                            {{ __('package.weight') }}
-                        </option>
-                        <option value="quantity" {{ request('sort_by') == 'quantity' ? 'selected' : '' }}>
-                            {{ __('package.quantity') }}
-                        </option>
-                        <option value="delivery_fee" {{ request('sort_by') == 'delivery_fee' ? 'selected' : '' }}>
-                            {{ __('package.delivery_fee') }}
-                        </option>
-                        <option value="cod_amount" {{ request('sort_by') == 'cod_amount' ? 'selected' : '' }}>
-                            {{ __('package.cod_amount') }}
-                        </option>
-                        <option value="total_fee" {{ request('sort_by') == 'total_fee' ? 'selected' : '' }}>
-                            {{ __('package.total_fee') }}
-                        </option>
-
-                        {{-- بيانات أخرى --}}
-                        <option value="delivery_date" {{ request('sort_by') == 'delivery_date' ? 'selected' : '' }}>
-                            {{ __('package.delivery_date') }}
-                        </option>
-                        <option value="package_type" {{ request('sort_by') == 'package_type' ? 'selected' : '' }}>
-                            {{ __('package.package_type') }}
-                        </option>
-                        <option value="package_size" {{ request('sort_by') == 'package_size' ? 'selected' : '' }}>
-                            {{ __('package.package_size') }}
-                        </option>
-                        <option value="delivery_method" {{ request('sort_by') == 'delivery_method' ? 'selected' : '' }}>
-                            {{ __('package.delivery_method') }}
-                        </option>
-                    </select>
-                </div>
-            </div>
-
-
-            <div class="col-2">
-                <div class="form-group">
-                    <select name="order_by" class="form-control">
-                        <option value="">---</option>
-                        <option value="asc" {{old('order_by',request()->input('order_by')) == 'asc' ? 'selected' : ''}}>Ascending</option>
-                        <option value="desc" {{old('order_by',request()->input('order_by')) == 'desc' ? 'selected' : ''}}>Descending</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-1">
-                <div class="form-group">
-                    <select name="limit_by" class="form-control">
-                        <option value="">---</option>
-                        <option value="10" {{old('limit_by',request()->input('limit_by')) == '10' ? 'selected' : ''}}>10</option>
-                        <option value="20" {{old('limit_by',request()->input('limit_by')) == '20' ? 'selected' : ''}}>20</option>
-                        <option value="50" {{old('limit_by',request()->input('limit_by')) == '50' ? 'selected' : ''}}>50</option>
-                        <option value="100" {{old('limit_by',request()->input('limit_by')) == '100' ? 'selected' : ''}}>100</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-2">
-            </div>
-            <div class="col-1">
-                <div class="form-group">
-                    <button type="submit" name="submit" class="btn btn-link">Search</button>
-                </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>

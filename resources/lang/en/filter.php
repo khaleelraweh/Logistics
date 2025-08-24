@@ -5,6 +5,7 @@ return [
     'show_all'  =>  'Show All',
 
     // حقول بحث
+    'search_here' => 'Search here...',
     'status_active' => 'Active',
     'status_inactive' => 'Inactive',
     'sort_by' => 'Sort By',

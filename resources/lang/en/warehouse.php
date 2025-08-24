@@ -18,6 +18,7 @@ return [
     'fill_basic_info'               =>  'Fill Basic Information',
     'enter_name'                    =>  'Enter Warehouse Name',
     'enter_location'                =>  'Enter Warehouse Location',
+    'select_warehouse'               =>  'Select Warehouse',
 
     'fill_management_info'         =>  'Fill Management Information',
     'enter_manager_name'         =>  'Enter Warehouse Manager Name',

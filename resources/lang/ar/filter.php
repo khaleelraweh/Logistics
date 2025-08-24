@@ -6,6 +6,7 @@ return [
 
 
     // حقول بحث
+    'search_here' => 'ابحث هنا...',
     'status_active' => 'نشط',
     'status_inactive' => 'غير نشط',
     'sort_by' => 'ترتيب حسب',

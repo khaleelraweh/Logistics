@@ -16,6 +16,8 @@ return [
     'fill_basic_info'               =>  'املأ المعلومات الأساسية',
     'enter_name'                    =>  'أدخل اسم المستودع',
     'enter_location'                =>  'أدخل موقع المستودع',
+    'select_warehouse'               =>  'اختر مستودع',
+
     'fill_management_info'         =>  'املأ معلومات الإدارة',
     'enter_manager_name'         =>  'أدخل اسم مدير المستودع',
     'enter_email'                   =>  'أدخل بريد المستودع الإلكتروني',

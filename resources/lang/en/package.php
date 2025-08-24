@@ -262,20 +262,24 @@ return [
     'optional' => 'Optional',
     'select'   => 'Select',
 
-    // المراجعة والتنبيهات
-    'review_before_save' => 'يرجى ملء جميع الحقول المطلوبة بشكل صحيح قبل الانتقال إلى الخطوة التالية.',
-    'no_products'        => 'لا توجد منتجات',
 
-    // الوحدات
-    'cm' => 'سم',
-    'kg' => 'كجم',
 
-    // جدول المنتجات
-    'type'     => 'النوع',
-    'product'  => 'المنتج',
-    'weight'   => 'الوزن',
-    'quantity' => 'الكمية',
-    'price'    => 'السعر',
-    'total'    => 'الإجمالي',
+
+    // Review and alerts
+    'review_before_save' => 'Please fill in all required fields correctly before proceeding to the next step.',
+    'no_products'        => 'No products available',
+
+    // Units
+    'cm' => 'cm',
+    'kg' => 'kg',
+
+    // Products table
+    'type'     => 'Type',
+    'product'  => 'Product',
+    'weight'   => 'Weight',
+    'quantity' => 'Quantity',
+    'price'    => 'Price',
+    'total'    => 'Total',
+    'updated_at' => 'Updated At',
 
 ];

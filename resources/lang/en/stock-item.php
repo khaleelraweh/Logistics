@@ -7,6 +7,7 @@ return [
     'stock_item_description'          =>  'In This page you can view Stock Items related to merchants and do many actions on them',
     'add_new_stock-item'              =>  'Add New Stock Item',
     'item_details'                    =>   'Item Details',
+    'published_on'                    =>   'Published On',
 
 
     // create page
