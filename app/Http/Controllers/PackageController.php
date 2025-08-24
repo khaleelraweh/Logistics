@@ -70,12 +70,6 @@ class PackageController extends Controller
             $query->where('merchant_id', request()->merchant_id);
         });
 
-        // $packages = Package::with(['merchant', 'receiverMerchant'])
-        // ->search(request('keyword'))
-        // ->when(request()->status != null, fn($q) => $q->where('status', request('status')))
-        // ->when(request()->merchant_id != null, fn($q) => $q->where('merchant_id', request('merchant_id')))
-        // ->orderBy(request('sort_by', 'created_at'), request('order_by', 'desc'))
-        // ->paginate(request('limit_by', 100));
 
     // الترتيب
     if(request()->sort_by == 'merchant_name') {
