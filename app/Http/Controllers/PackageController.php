@@ -50,29 +50,79 @@ class PackageController extends Controller
     // }
 
 
-    public function index()
+//     public function index()
+// {
+//     if (!auth()->user()->ability('admin', 'manage_stock_items , show_stock_items')) {
+//         return redirect('admin/index');
+//     }
+
+//     // جلب جميع التجار للفلاتر
+//     $merchants = Merchant::all();
+
+//     $packages = Package::with('merchant')
+//         ->when(request()->keyword != null, function ($query) {
+//             $query->search(request()->keyword);
+//         })
+//         ->when(request()->status != null, function ($query) {
+//             $query->where('status', request()->status);
+//         })
+//         ->when(request()->merchant_id != null, function ($query) {
+//             $query->where('merchant_id', request()->merchant_id);
+//         });
+
+//     // الترتيب
+//     if(request()->sort_by == 'merchant_name') {
+//         $packages->join('merchants', 'packages.merchant_id', '=', 'merchants.id')
+//                  ->select('packages.*')
+//                  ->orderBy('merchants.name', request()->order_by ?? 'asc');
+//     } else {
+//         $packages->orderByRaw(
+//             request()->sort_by == 'published_on'
+//                 ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+//                 : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
+//         );
+//     }
+
+//     $packages = $packages->paginate(request()->limit_by ?? 100);
+
+//     return view('admin.packages.index', compact('packages', 'merchants'));
+// }
+
+
+public function index()
 {
     if (!auth()->user()->ability('admin', 'manage_stock_items , show_stock_items')) {
         return redirect('admin/index');
     }
 
-    // جلب جميع التجار للفلاتر
     $merchants = Merchant::all();
 
-    $packages = Package::with('merchant')
-        ->when(request()->keyword != null, function ($query) {
-            $query->search(request()->keyword);
-        })
-        ->when(request()->status != null, function ($query) {
-            $query->where('status', request()->status);
-        })
-        ->when(request()->merchant_id != null, function ($query) {
-            $query->where('merchant_id', request()->merchant_id);
-        });
+    $packages = Package::with(['merchant','receiverMerchant'])
+        ->when(request()->keyword, fn($q) => $q->search(request()->keyword))
+        ->when(request()->merchant_id, fn($q) => $q->where('merchant_id', request()->merchant_id))
+        ->when(request()->receiver_merchant_id, fn($q) => $q->where('receiver_merchant_id', request()->receiver_merchant_id))
+        ->when(request()->sender_name, fn($q) => $q->where(function($q2){
+            $q2->where('sender_first_name', 'like', '%'.request()->sender_name.'%')
+               ->orWhere('sender_middle_name', 'like', '%'.request()->sender_name.'%')
+               ->orWhere('sender_last_name', 'like', '%'.request()->sender_name.'%');
+        }))
+        ->when(request()->sender_city, fn($q) => $q->where('sender_city', 'like', '%'.request()->sender_city.'%'))
+        ->when(request()->receiver_name, fn($q) => $q->where(function($q2){
+            $q2->where('receiver_first_name', 'like', '%'.request()->receiver_name.'%')
+               ->orWhere('receiver_middle_name', 'like', '%'.request()->receiver_name.'%')
+               ->orWhere('receiver_last_name', 'like', '%'.request()->receiver_name.'%');
+        }))
+        ->when(request()->receiver_city, fn($q) => $q->where('receiver_city', 'like', '%'.request()->receiver_city.'%'))
+        ->when(request()->receiver_district, fn($q) => $q->where('receiver_district', 'like', '%'.request()->receiver_district.'%'))
+        ->when(request()->quantity_min, fn($q) => $q->where('quantity', '>=', request()->quantity_min))
+        ->when(request()->quantity_max, fn($q) => $q->where('quantity', '<=', request()->quantity_max))
+        ->when(request()->payment_responsibility, fn($q) => $q->where('payment_responsibility', request()->payment_responsibility))
+        ->when(request()->collection_method, fn($q) => $q->where('collection_method', request()->collection_method))
+        ->when(request()->status, fn($q) => $q->where('status', request()->status));
 
     // الترتيب
-    if(request()->sort_by == 'merchant_name') {
-        $packages->join('merchants', 'packages.merchant_id', '=', 'merchants.id')
+    if(request()->sort_by == 'merchant_name'){
+        $packages->join('merchants','packages.merchant_id','=','merchants.id')
                  ->select('packages.*')
                  ->orderBy('merchants.name', request()->order_by ?? 'asc');
     } else {
@@ -85,8 +135,9 @@ class PackageController extends Controller
 
     $packages = $packages->paginate(request()->limit_by ?? 100);
 
-    return view('admin.packages.index', compact('packages', 'merchants'));
+    return view('admin.packages.index', compact('packages','merchants'));
 }
+
 
 
 

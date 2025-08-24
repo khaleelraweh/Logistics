@@ -50,6 +50,21 @@ class Package extends Model
         'attributes' => 'array',
     ];
 
+       // حالات الطرد
+    public const STATUSES = [
+        'pending',
+        'assigned_to_driver',
+        'driver_picked_up',
+        'in_transit',
+        'arrived_at_hub',
+        'out_for_delivery',
+        'delivered',
+        'delivery_failed',
+        'returned',
+        'cancelled',
+        'in_warehouse',
+    ];
+
 
     public function merchant()
     {
