@@ -15,10 +15,17 @@
             <form action="{{ route('admin.products.index') }}" method="get">
                 <div class="row">
 
-                    <!-- Keyword Search -->
+                    <!-- Keyword Search (Product) -->
                     <div class="col-md-3 mb-2 d-md-block">
                         <div class="form-group">
-                            <input type="text" name="keyword" value="{{ request('keyword') }}" class="form-control" placeholder="{{ __('general.search') }}">
+                            <input type="text" name="keyword" value="{{ request('keyword') }}" class="form-control" placeholder="{{ __('general.search_product') }}">
+                        </div>
+                    </div>
+
+                    <!-- Keyword Search (Merchant) -->
+                    <div class="col-md-3 mb-2 d-md-block">
+                        <div class="form-group">
+                            <input type="text" name="merchant_keyword" value="{{ request('merchant_keyword') }}" class="form-control" placeholder="{{ __('general.search_merchant') }}">
                         </div>
                     </div>
 
@@ -27,8 +34,8 @@
                         <div class="form-group">
                             <select name="status" class="form-select select2">
                                 <option value="">{{ __('filter.show_all') }}</option>
-                                <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>{{ __('filter.status_active') }}</option>
-                                <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>{{ __('filter.status_inactive') }}</option>
+                                <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>{{ __('filter.status_active') }}</option>
+                                <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>{{ __('filter.status_inactive') }}</option>
                             </select>
                         </div>
                     </div>
@@ -40,11 +47,9 @@
                                 <option value="">{{ __('filter.sort_by') }}</option>
                                 <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>{{ __('filter.id') }}</option>
                                 <option value="name" {{ request('sort_by') == 'name' ? 'selected' : '' }}>{{ __('filter.name') }}</option>
-                                <option value="email" {{ request('sort_by') == 'email' ? 'selected' : '' }}>{{ __('filter.email') }}</option>
-                                <option value="phone" {{ request('sort_by') == 'phone' ? 'selected' : '' }}>{{ __('filter.phone') }}</option>
-                                <option value="contact_person" {{ request('sort_by') == 'contact_person' ? 'selected' : '' }}>{{ __('filter.contact_person') }}</option>
-                                <option value="published_on" {{ request('sort_by') == 'published_on' ? 'selected' : '' }}>{{ __('filter.published_on') }}</option>
+                                <option value="sku" {{ request('sort_by') == 'sku' ? 'selected' : '' }}>{{ __('product.sku_code') }}</option>
                                 <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>{{ __('filter.created_at') }}</option>
+                                <option value="published_on" {{ request('sort_by') == 'published_on' ? 'selected' : '' }}>{{ __('filter.published_on') }}</option>
                             </select>
                         </div>
                     </div>
@@ -64,7 +69,7 @@
                         <button type="submit" class="btn btn-primary me-2 flex-grow-1">
                             <i class="fas fa-search me-1"></i>{{ __('general.filter') }}
                         </button>
-                        <a href="{{ route('admin.merchants.index') }}" class="btn btn-outline-secondary flex-grow-1">
+                        <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary flex-grow-1">
                             <i class="fas fa-undo me-1"></i>{{ __('general.reset') }}
                         </a>
                     </div>
