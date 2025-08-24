@@ -70,12 +70,16 @@
                                 </td>
                                 <td>
                                     @if ($product->status == 1)
-                                        <a href="javascript:void(0);" class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}">
-                                            <i class="fas fa-toggle-on fa-lg text-success" style="font-size: 1.6em"></i>
+                                        <a href="javascript:void(0);" class="updateProductStatus "
+                                            id="product-{{ $product->id }}" product_id="{{ $product->id }}">
+                                            <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true"
+                                                status="Active" style="font-size: 1.6em"></i>
                                         </a>
                                     @else
-                                        <a href="javascript:void(0);" class="updateProductStatus" id="product-{{ $product->id }}" product_id="{{ $product->id }}">
-                                            <i class="fas fa-toggle-off fa-lg text-warning" style="font-size: 1.6em"></i>
+                                        <a href="javascript:void(0);" class="updateProductStatus" id="product-{{ $product->id }}"
+                                            product_id="{{ $product->id }}">
+                                            <i class="fas fa-toggle-off fa-lg text-warning" aria-hidden="true"
+                                                status="Inactive" style="font-size: 1.6em"></i>
                                         </a>
                                     @endif
                                 </td>
