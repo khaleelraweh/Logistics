@@ -53,7 +53,7 @@
                             <th>{{ __('package.paid_amount') }}</th>
                             <th>{{ __('package.remaining_amount') }}</th>
                             <th>{{ __('general.created_at') }}</th>
-                            <th>{{ __('general.the_actions') }}</th>
+                            <th>{{ __('general.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,9 +64,6 @@
                                 <td>{{ $package->sender_full_name ?? '-' }}</td>
                                 <td>{{ $package->receiver_full_name ?? '-' }}</td>
                                 <td>
-                                    {{-- <span class="badge bg-{{ $package->status === 'pending' ? 'warning' : ($package->status === 'assigned' ? 'info' : 'success') }}">
-                                        {{ __('package.status_'.$package->status) }}
-                                    </span> --}}
                                     <span class="badge bg-{{ $package->statusColor() }}">
                                         {{ $package->statusLabel() }}
                                     </span>
@@ -76,60 +73,69 @@
                                 <td>{{ number_format($package->remainingAmount(), 2) }}</td>
                                 <td>{{ $package->created_at->diffForHumans() }}</td>
                                 <td>
-                                    <div class="btn-group me-2 mb-2 mb-sm-0">
-                                        <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {{ __('general.operations') }} <i class="mdi mdi-dots-vertical ms-2"></i>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-cog"></i>
                                         </button>
-                                        <div class="dropdown-menu">
+                                        <ul class="dropdown-menu dropdown-menu-end">
 
                                             @ability('admin', 'show_packages')
-                                                <a class="dropdown-item" href="{{ route('admin.packages.show' , $package->id) }}">{{ __('general.show') }}</a>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('admin.packages.show', $package->id) }}">
+                                                        <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
+                                                    </a>
+                                                </li>
                                             @endability
 
                                             @ability('admin', 'update_packages')
-                                                <a class="dropdown-item" href="{{ route('admin.packages.edit' , $package->id) }}">{{ __('general.edit') }}</a>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('admin.packages.edit', $package->id) }}">
+                                                        <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
+                                                    </a>
+                                                </li>
                                             @endability
 
-                                            {{-- زر إسناد الطرد لسائق --}}
                                             @ability('admin', 'create_deliveries')
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#assignDeliveryModal{{ $package->id }}">
-                                                    {{ __('delivery.assign_to_driver') }}
-                                                </a>
+                                                <li>
+                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#assignDeliveryModal{{ $package->id }}">
+                                                        {{ __('delivery.assign_to_driver') }}
+                                                    </a>
+                                                </li>
                                             @endability
 
                                             @ability('admin', 'delete_packages')
-                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                    onclick="confirmDelete('delete-package-{{ $package->id }}',
-                                                        '{{ __('panel.confirm_delete_message') }}',
-                                                        '{{ __('panel.yes_delete') }}',
-                                                        '{{ __('panel.cancel') }}')"
-                                                >
-                                                    {{ __('general.delete') }}
-                                                </a>
-                                                <form action="{{ route('admin.packages.destroy', $package->id) }}"
-                                                        method="post" class="d-none"
-                                                        id="delete-package-{{ $package->id }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li>
+                                                    <a class="dropdown-item text-danger" href="javascript:void(0)"
+                                                       onclick="confirmDelete('delete-package-{{ $package->id }}',
+                                                       '{{ __('panel.confirm_delete_message') }}',
+                                                       '{{ __('panel.yes_delete') }}',
+                                                       '{{ __('panel.cancel') }}')">
+                                                        <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
+                                                    </a>
+                                                    <form id="delete-package-{{ $package->id }}" action="{{ route('admin.packages.destroy', $package->id) }}" method="POST" class="d-none">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </li>
                                             @endability
-                                        </div>
+
+                                        </ul>
                                     </div>
 
-                                    <!-- مودال إسناد التوصيل -->
+                                    <!-- Assign Delivery Modal -->
                                     <div class="modal fade" id="assignDeliveryModal{{ $package->id }}" tabindex="-1" aria-labelledby="assignDeliveryLabel{{ $package->id }}" aria-hidden="true">
                                       <div class="modal-dialog">
                                         <form action="{{ route('admin.deliveries.store') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="package_id" value="{{ $package->id }}">
-
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="assignDeliveryLabel{{ $package->id }}">{{ __('delivery.assign_to_driver') }}</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('general.close') }}"></button>
                                                 </div>
                                                 <div class="modal-body">
-
                                                     <div class="mb-3">
                                                         <label for="driver_id_{{ $package->id }}" class="form-label">{{ __('driver.name') }}</label>
                                                         <select name="driver_id" id="driver_id_{{ $package->id }}" class="form-select" required>
@@ -139,17 +145,14 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
-
                                                     <div class="mb-3">
                                                         <label for="assigned_at_{{ $package->id }}" class="form-label">{{ __('delivery.assigned_at') }}</label>
                                                         <input type="date" name="assigned_at" id="assigned_at_{{ $package->id }}" class="form-control" value="{{ date('Y-m-d') }}" required>
                                                     </div>
-
                                                     <div class="mb-3">
                                                         <label for="note_{{ $package->id }}" class="form-label">{{ __('delivery.note') }}</label>
                                                         <textarea name="note" id="note_{{ $package->id }}" class="form-control" rows="2"></textarea>
                                                     </div>
-
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('general.cancel') }}</button>
@@ -174,4 +177,5 @@
         </div>
     </div>
 </div>
+
 @endsection
