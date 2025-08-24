@@ -82,39 +82,54 @@
                                         @endif
                                     </td>
                                     <td>{{ $warehouse->created_at->diffForHumans() }}</td>
+
                                     <td>
-                                        <div class="btn-group me-2 mb-2 mb-sm-0">
-                                                <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    {{ __('general.operations') }} <i class="mdi mdi-dots-vertical ms-2"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    @ability('admin', 'show_warehouses')
-                                                        <a class="dropdown-item" href="{{ route('admin.warehouses.show' , $warehouse->id) }}">{{ __('general.show') }}</a>
-                                                    @endability
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-cog"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end">
 
-                                                    @ability('admin', 'update_warehouses')
-                                                        <a class="dropdown-item" href="{{ route('admin.warehouses.edit' , $warehouse->id) }}">{{ __('general.edit') }}</a>
-                                                    @endability
+                                                @ability('admin', 'show_warehouses')
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('admin.warehouses.show', $warehouse->id) }}">
+                                                        <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
+                                                    </a>
+                                                </li>
+                                                @endability
 
-                                                    @ability('admin', 'delete_warehouses')
-                                                        <a class="dropdown-item" href="javascript:void(0)"
-                                                                                onclick="confirmDelete('delete-warehouse-{{ $warehouse->id }}',
-                                                                                    '{{ __('panel.confirm_delete_message') }}',
-                                                                                    '{{ __('panel.yes_delete') }}',
-                                                                                    '{{ __('panel.cancel') }}')"
-                                                        >
-                                                        {{ __('general.delete') }}
-                                                        </a>
-                                                        <form action="{{ route('admin.warehouses.destroy', $warehouse->id) }}"
-                                                              method="post" class="d-none"
-                                                              id="delete-warehouse-{{ $warehouse->id }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                        </form>
-                                                    @endability
-                                                </div>
+                                                @ability('admin', 'update_warehouses')
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('admin.warehouses.edit', $warehouse->id) }}">
+                                                        <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
+                                                    </a>
+                                                </li>
+                                                @endability
+
+                                                @ability('admin', 'delete_warehouses')
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li>
+                                                    <a class="dropdown-item text-danger" href="javascript:void(0);"
+                                                    onclick="confirmDelete('delete-warehouse-{{ $warehouse->id }}',
+                                                                                '{{ __('panel.confirm_delete_message') }}',
+                                                                                '{{ __('panel.yes_delete') }}',
+                                                                                '{{ __('panel.cancel') }}')">
+                                                        <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
+                                                    </a>
+                                                    <form action="{{ route('admin.warehouses.destroy', $warehouse->id) }}"
+                                                        method="post" class="d-none"
+                                                        id="delete-warehouse-{{ $warehouse->id }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </li>
+                                                @endability
+
+                                            </ul>
                                         </div>
                                     </td>
+
                                 </tr>
                             @empty
                              <tr>
