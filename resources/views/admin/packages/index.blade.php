@@ -45,9 +45,9 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>{{ __('package.tracking_number') }}</th>
                             <th>{{ __('package.sender_name') }}</th>
                             <th>{{ __('package.receiver_name') }}</th>
-                            <th>{{ __('package.tracking_number') }}</th>
                             <th>{{ __('package.status') }}</th>
                             <th>{{ __('package.total_fee') }}</th>
                             <th>{{ __('package.paid_amount') }}</th>
@@ -60,9 +60,9 @@
                         @forelse ($packages as $package)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $package->tracking_number }}</td>
                                 <td>{{ $package->sender_full_name ?? '-' }}</td>
                                 <td>{{ $package->receiver_full_name ?? '-' }}</td>
-                                <td>{{ $package->tracking_number }}</td>
                                 <td>
                                     {{-- <span class="badge bg-{{ $package->status === 'pending' ? 'warning' : ($package->status === 'assigned' ? 'info' : 'success') }}">
                                         {{ __('package.status_'.$package->status) }}
