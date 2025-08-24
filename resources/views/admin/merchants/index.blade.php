@@ -101,39 +101,6 @@
                                         @endif
                                     </td>
                                     <td>{{ $merchant->created_at->diffForHumans() }}</td>
-                                    {{-- <td>
-                                        <div class="btn-group me-2 mb-2 mb-sm-0">
-                                                <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    {{ __('general.operations') }} <i class="mdi mdi-dots-vertical ms-2"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    @ability('admin', 'show_merchants')
-                                                        <a class="dropdown-item" href="{{ route('admin.merchants.show' , $merchant->id) }}">{{ __('general.show') }}</a>
-                                                    @endability
-
-                                                    @ability('admin', 'update_merchants')
-                                                        <a class="dropdown-item" href="{{ route('admin.merchants.edit' , $merchant->id) }}">{{ __('general.edit') }}</a>
-                                                    @endability
-
-                                                    @ability('admin', 'delete_merchants')
-                                                        <a class="dropdown-item" href="javascript:void(0)"
-                                                                                onclick="confirmDelete('delete-merchant-{{ $merchant->id }}',
-                                                                                    '{{ __('panel.confirm_delete_message') }}',
-                                                                                    '{{ __('panel.yes_delete') }}',
-                                                                                    '{{ __('panel.cancel') }}')"
-                                                        >
-                                                        {{ __('general.delete') }}
-                                                        </a>
-                                                        <form action="{{ route('admin.merchants.destroy', $merchant->id) }}"
-                                                              method="post" class="d-none"
-                                                              id="delete-merchant-{{ $merchant->id }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                        </form>
-                                                    @endability
-                                                </div>
-                                        </div>
-                                    </td> --}}
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
@@ -161,8 +128,12 @@
                                                 <li><hr class="dropdown-divider"></li>
                                                 <li>
                                                     <a class="dropdown-item text-danger" href="#"
+
                                                     onclick="confirmDelete('delete-merchant-{{ $merchant->id }}',
-                                                            '{{ __('panel.confirm_delete_message') }}')">
+                                                                                    '{{ __('panel.confirm_delete_message') }}',
+                                                                                    '{{ __('panel.yes_delete') }}',
+                                                                                    '{{ __('panel.cancel') }}')"
+                                                            >
                                                         <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
                                                     </a>
                                                     <form id="delete-merchant-{{ $merchant->id }}"
