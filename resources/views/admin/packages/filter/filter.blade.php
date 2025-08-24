@@ -52,6 +52,38 @@
                         </select>
                     </div>
 
+                    <!-- Delivery Method -->
+<div class="col-md-2">
+    <select name="delivery_method" class="form-select select2">
+        <option value="">{{ __('filter.all_delivery_methods') }}</option>
+        <option value="standard" {{ request('delivery_method') == 'standard' ? 'selected' : '' }}>
+            {{ __('package.standard') }}
+        </option>
+        <option value="express" {{ request('delivery_method') == 'express' ? 'selected' : '' }}>
+            {{ __('package.express') }}
+        </option>
+        <option value="pickup" {{ request('delivery_method') == 'pickup' ? 'selected' : '' }}>
+            {{ __('package.pickup') }}
+        </option>
+        <option value="courier" {{ request('delivery_method') == 'courier' ? 'selected' : '' }}>
+            {{ __('package.courier') }}
+        </option>
+    </select>
+</div>
+
+<!-- Package Type -->
+<div class="col-md-2">
+    <select name="package_type" class="form-select select2">
+        <option value="">{{ __('filter.all_package_types') }}</option>
+        <option value="box" {{ request('package_type') == 'box' ? 'selected' : '' }}>Box</option>
+        <option value="envelope" {{ request('package_type') == 'envelope' ? 'selected' : '' }}>Envelope</option>
+        <option value="pallet" {{ request('package_type') == 'pallet' ? 'selected' : '' }}>Pallet</option>
+        <option value="tube" {{ request('package_type') == 'tube' ? 'selected' : '' }}>Tube</option>
+        <option value="bag" {{ request('package_type') == 'bag' ? 'selected' : '' }}>Bag</option>
+    </select>
+</div>
+
+
                     <!-- Order By -->
                     <div class="col-md-2">
                         <select name="order_by" class="form-select select2">
