@@ -1,21 +1,22 @@
 @extends('layouts.admin')
 
 @section('content')
+
     <!-- Page Header -->
-    <div class="page-header">
-        <div class="row align-items-center">
-            <div class="col">
-                <h1 class="page-title">{{ __('warehouse.manage_warehouses') }}</h1>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('admin.warehouses.index') }}">{{ __('warehouse.warehouses') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('warehouse.create') }}</li>
-                </ul>
-            </div>
-            <div class="col-auto">
-                <a href="{{ route('admin.warehouses.index') }}" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left me-2"></i>{{ __('general.back') }}
-                </a>
+    <div class="row ">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('warehouse.create') }}</h4>
+
+                <div class="page-title-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.warehouses.index') }}">{{ __('warehouse.warehouses') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('warehouse.create') }}</li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>

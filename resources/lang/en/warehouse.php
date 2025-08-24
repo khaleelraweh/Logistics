@@ -31,8 +31,8 @@ return [
 
     'update_basic_info'            =>  'Update Basic Information',
     'editing_warehouse'                =>  'Editing Warehouse',
-    'edit'                          =>  'Edit',
-    'create'                        =>  'Create',
+    'edit_warehouse'                          =>  'Edit Warehouse',
+    'create_warehouse'                        =>  'Create Warehouse',
     'update_management_info'         =>  'Update Management Information',
     'unique_identifier'            =>  'Unique Identifier',
     'reset_changes'                 =>  'Reset Changes',
