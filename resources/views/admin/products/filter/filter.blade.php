@@ -22,12 +22,6 @@
                         </div>
                     </div>
 
-                    <!-- Keyword Search (Merchant) -->
-                    <div class="col-md-3 mb-2 d-md-block">
-                        <div class="form-group">
-                            <input type="text" name="merchant_keyword" value="{{ request('merchant_keyword') }}" class="form-control" placeholder="{{ __('general.search_merchant') }}">
-                        </div>
-                    </div>
 
                     <!-- Status -->
                     <div class="col-md-2 mb-2 d-md-block">
