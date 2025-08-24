@@ -57,12 +57,24 @@ return [
          */
         'font_cache' => storage_path('fonts'),
 
-        'fonts' => [
-            'droidkufi' => [
-                'R'  => 'DroidKufi-Regular.ttf',    // Regular
-                'B'  => 'DroidKufi-Bold.ttf',       // Bold
+    //    'fonts' => [
+    //         'droidkufi' => [
+    //             'R'  => storage_path('fonts/DroidKufi-Regular.ttf'),    // Regular
+    //             'B'  => storage_path('fonts/DroidKufi-Bold.ttf'),       // Bold
+    //         ],
+    //     ],
+    //     'default_font' => 'droidkufi',
+
+            'fonts' => [
+                'droidkufi' => [
+                    'R'  => 'DroidKufi-Regular.ttf',
+                    'B'  => 'DroidKufi-Bold.ttf',
+                ],
+                'tajawal' => [
+                    'R'  => 'Tajawal-Regular.ttf',
+                    'B'  => 'Tajawal-Bold.ttf',
+                ],
             ],
-        ],
 
         /**
          * The location of a temporary directory.

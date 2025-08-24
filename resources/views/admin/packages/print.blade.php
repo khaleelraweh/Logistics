@@ -11,7 +11,7 @@
             font-style: normal;
         }
         body {
-            font-family: 'droidkufi', sans-serif;
+            font-family: 'Tajawal', 'DroidKufi', sans-serif !important;
             direction: rtl; /* لضبط الكتابة من اليمين لليسار */
             text-align: right;
             margin: 0;
