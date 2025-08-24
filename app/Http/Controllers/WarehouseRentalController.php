@@ -40,74 +40,6 @@ class WarehouseRentalController extends Controller
     // }
 
 
-    // public function index()
-    // {
-    //     // صلاحيات الوصول
-    //     if (!auth()->user()->ability('admin', 'manage_warehouse_rentals , show_warehouse_rentals')) {
-    //         return redirect('admin/index');
-    //     }
-
-    //     // لجلب بيانات الفلاتر
-    //     $warehouses = Warehouse::all();
-    //     $merchants = Merchant::all();
-
-    //     // الاستعلام الأساسي مع الفلاتر
-    //     $warehouse_rentals = WarehouseRental::with(['shelves', 'merchant'])
-    //         ->when(request()->keyword != null, function ($query) {
-    //             $query->search(request()->keyword);
-    //         })
-    //         ->when(request()->status != null, function ($query) {
-    //             $query->where('status', request()->status);
-    //         })
-    //         ->when(request()->warehouse_id != null, function ($query) {
-    //             $query->whereHas('shelves', function ($q) {
-    //                 $q->where('warehouse_id', request()->warehouse_id);
-    //             });
-    //         })
-    //         ->when(request()->merchant_id != null, function ($query) {
-    //             $query->where('merchant_id', request()->merchant_id);
-    //         })
-    //         // فلترة حسب مدة الإيجار من – إلى
-    //         ->when(request()->rental_start != null, function ($query) {
-    //             $query->whereDate('rental_start', '>=', request()->rental_start);
-    //         })
-    //         ->when(request()->rental_end != null, function ($query) {
-    //             $query->whereDate('rental_end', '<=', request()->rental_end);
-    //         });
-
-    //     // الترتيب
-    //     if (request()->sort_by == 'warehouse_name') {
-    //     $warehouse_rentals->join('rental_shelves', 'warehouse_rentals.id', '=', 'rental_shelves.warehouse_rental_id')
-    //         ->join('shelves', 'rental_shelves.shelf_id', '=', 'shelves.id')
-    //         ->join('warehouses', 'shelves.warehouse_id', '=', 'warehouses.id')
-    //         ->select('warehouse_rentals.*') // مهم لاختيار أعمدة العقد فقط
-    //         ->distinct() // إزالة التكرار
-    //         ->orderBy('warehouses.name', request()->order_by ?? 'asc');
-
-    //     }
-    //     elseif(request()->sort_by == 'merchant_name') {
-    //     $warehouse_rentals->join('merchants', 'warehouse_rentals.merchant_id', '=', 'merchants.id')
-    //         ->select('warehouse_rentals.*') // مهم للحفاظ على بيانات العقود فقط
-    //         ->orderBy('merchants.name', request()->order_by ?? 'asc');
-
-    //     }
-
-    //     else {
-    //         $warehouse_rentals->orderByRaw(
-    //             request()->sort_by == 'published_on'
-    //                 ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-    //                 : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
-    //         );
-    //     }
-
-    //     // التقطيع للصفحات
-    //     $warehouse_rentals = $warehouse_rentals->paginate(request()->limit_by ?? 100);
-
-    //     // إرجاع الـ View مع البيانات
-    //     return view('admin.warehouse_rentals.index', compact('warehouse_rentals', 'warehouses', 'merchants'));
-    // }
-
-
     public function index()
     {
         // صلاحيات الوصول
@@ -121,64 +53,60 @@ class WarehouseRentalController extends Controller
 
         // الاستعلام الأساسي مع الفلاتر
         $warehouse_rentals = WarehouseRental::with(['shelves', 'merchant'])
-            // بحث بالكلمة المفتاحية
             ->when(request()->keyword != null, function ($query) {
                 $query->search(request()->keyword);
             })
-            // فلترة حسب الحالة
             ->when(request()->status != null, function ($query) {
                 $query->where('status', request()->status);
             })
-            // فلترة حسب المستودع
             ->when(request()->warehouse_id != null, function ($query) {
                 $query->whereHas('shelves', function ($q) {
                     $q->where('warehouse_id', request()->warehouse_id);
                 });
             })
-            // فلترة حسب التاجر
             ->when(request()->merchant_id != null, function ($query) {
                 $query->where('merchant_id', request()->merchant_id);
             })
-            // فلترة حسب فترة الإيجار
+            // فلترة حسب مدة الإيجار من – إلى
             ->when(request()->rental_start != null, function ($query) {
                 $query->whereDate('rental_start', '>=', request()->rental_start);
             })
             ->when(request()->rental_end != null, function ($query) {
                 $query->whereDate('rental_end', '<=', request()->rental_end);
-            })
-            // فلترة حسب السعر
-            ->when(request()->price_min != null, function ($query) {
-                $query->where('price', '>=', request()->price_min);
-            })
-            ->when(request()->price_max != null, function ($query) {
-                $query->where('price', '<=', request()->price_max);
-            })
-            // ترتيب النتائج
-            ->when(request()->sort_by != null, function ($query) {
-                if (in_array(request()->sort_by, ['warehouse_name', 'merchant_name'])) {
-                    // إذا كان الترتيب حسب المستودع أو التاجر
-                    $query->join('shelves', 'warehouse_rentals.id', '=', 'shelves.warehouse_rental_id')
-                        ->join('warehouses', 'shelves.warehouse_id', '=', 'warehouses.id')
-                        ->join('merchants', 'warehouse_rentals.merchant_id', '=', 'merchants.id')
-                        ->select('warehouse_rentals.*')
-                        ->orderBy(
-                            request()->sort_by == 'warehouse_name' ? 'warehouses.name' : 'merchants.name',
-                            request()->order_by ?? 'asc'
-                        )
-                        ->distinct();
-                } else {
-                    // ترتيب حسب باقي الأعمدة
-                    $query->orderBy(request()->sort_by, request()->order_by ?? 'desc');
-                }
-            }, function ($query) {
-                // ترتيب افتراضي
-                $query->orderBy('created_at', 'desc');
-            })
-            ->paginate(request()->limit_by ?? 100);
+            });
+
+        // الترتيب
+        if (request()->sort_by == 'warehouse_name') {
+        $warehouse_rentals->join('rental_shelves', 'warehouse_rentals.id', '=', 'rental_shelves.warehouse_rental_id')
+            ->join('shelves', 'rental_shelves.shelf_id', '=', 'shelves.id')
+            ->join('warehouses', 'shelves.warehouse_id', '=', 'warehouses.id')
+            ->select('warehouse_rentals.*') // مهم لاختيار أعمدة العقد فقط
+            ->distinct() // إزالة التكرار
+            ->orderBy('warehouses.name', request()->order_by ?? 'asc');
+
+        }
+        elseif(request()->sort_by == 'merchant_name') {
+        $warehouse_rentals->join('merchants', 'warehouse_rentals.merchant_id', '=', 'merchants.id')
+            ->select('warehouse_rentals.*') // مهم للحفاظ على بيانات العقود فقط
+            ->orderBy('merchants.name', request()->order_by ?? 'asc');
+
+        }
+
+        else {
+            $warehouse_rentals->orderByRaw(
+                request()->sort_by == 'published_on'
+                    ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+                    : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
+            );
+        }
+
+        // التقطيع للصفحات
+        $warehouse_rentals = $warehouse_rentals->paginate(request()->limit_by ?? 100);
 
         // إرجاع الـ View مع البيانات
         return view('admin.warehouse_rentals.index', compact('warehouse_rentals', 'warehouses', 'merchants'));
     }
+
 
 
 
