@@ -19,29 +19,49 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function index()
+    // {
+    //     if (!auth()->user()->ability('admin', 'manage_products , show_products')) {
+    //         return redirect('admin/index');
+    //     }
+
+    //     $products = Product::query()
+    //         ->when(\request()->keyword != null, function ($query) {
+    //             $query->search(\request()->keyword);
+    //         })
+    //         ->when(\request()->status != null, function ($query) {
+    //             $query->where('status', \request()->status);
+    //         })
+    //         ->orderByRaw(request()->sort_by == 'published_on'
+    //             ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+    //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
+    //     ->paginate(\request()->limit_by ?? 100);
+
+
+
+
+    //     return view('admin.products.index', compact('products'));
+    // }
+
     public function index()
-    {
-        if (!auth()->user()->ability('admin', 'manage_products , show_products')) {
-            return redirect('admin/index');
-        }
-
-        $products = Product::query()
-            ->when(\request()->keyword != null, function ($query) {
-                $query->search(\request()->keyword);
-            })
-            ->when(\request()->status != null, function ($query) {
-                $query->where('status', \request()->status);
-            })
-            ->orderByRaw(request()->sort_by == 'published_on'
-                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-        ->paginate(\request()->limit_by ?? 100);
-
-
-
-
-        return view('admin.products.index', compact('products'));
+{
+    if (!auth()->user()->ability('admin', 'manage_products , show_products')) {
+        return redirect('admin/index');
     }
+
+    $products = Product::query()
+        ->when(request('merchant_id'), fn($q) => $q->where('merchant_id', request('merchant_id')))
+        ->when(request('status') !== null, fn($q) => $q->where('status', request('status')))
+        ->orderByRaw(request()->sort_by == 'published_on'
+            ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+            : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
+        ->paginate(request()->limit_by ?? 100);
+
+    $merchants = \App\Models\Merchant::all(); // لملئ قائمة التاجر في الفلتر
+
+    return view('admin.products.index', compact('products', 'merchants'));
+}
+
 
     /**
      * Show the form for creating a new resource.

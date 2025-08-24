@@ -17,4 +17,6 @@ return [
     'asc' => 'Ascending',
     'desc' => 'Descending',
     'contact_person'   =>  'Contact Person',
+    'all_merchants' => 'All Merchants',
+    'filter' => 'Filter',
 ];

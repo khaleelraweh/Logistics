@@ -18,5 +18,7 @@ return [
     'asc' => 'تصاعدي',
     'desc' => 'تنازلي',
     'contact_person'   =>  'مسؤول التواصل',
+    'all_merchants' => 'جميع التجار',
+    'filter' => 'تصفية',
 
 ];
