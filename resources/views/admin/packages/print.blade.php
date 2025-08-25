@@ -79,7 +79,7 @@
             </div>
         </div> --}}
 
-      <table style="width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 20px;">
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 20px; text-align: {{ app()->getLocale() == 'ar' ? 'right' : 'left' }};">
             <thead>
                 <tr>
                     <th style="background-color: #2c3e50; color: #fff; padding: 8px; border-radius: 5px 0 0 0;">{{ __('package.sender_Information') }}</th>
@@ -200,7 +200,7 @@
                     </div>
                 </div>
 
-                <div class="section">
+                {{-- <div class="section">
                     <h3>{{ __('package.sender_Information') }}</h3>
                     <div class="info-item">
                         <span class="info-label">{{ __('package.sender_name') }}:</span>
@@ -215,9 +215,9 @@
                         <span>{{ $package->sender_address ?? __('package.not_specified') }}</span> <br>
                         <span>{{ $package->sender_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}  </span>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="section">
+                {{-- <div class="section">
                     <h3>{{ __('package.receiver_Information') }}</h3>
                     <div class="info-item">
                         <span class="info-label">{{ __('package.receiver_name') }}:</span>
@@ -232,7 +232,37 @@
                         <span>{{ $package->receiver_address ?? __('package.not_specified') }}</span> <br>
                         <span>{{ $package->receiver_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}  </span>
                     </div>
-                </div>
+                </div> --}}
+
+                <table style="width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 20px; text-align: {{ app()->getLocale() == 'ar' ? 'right' : 'left' }};">
+                    <thead>
+                        <tr>
+                            <th style="background-color: #2c3e50; color: #fff; padding: 8px; border-radius: 5px 0 0 0;">{{ __('package.sender_Information') }}</th>
+                            <th style="background-color: #2c3e50; color: #fff; padding: 8px; border-radius: 0 5px 0 0;">{{ __('package.receiver_Information') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!-- معلومات المرسل -->
+                            <td style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9; vertical-align: top;">
+                                <div class="info-item"><span class="info-label">{{ __('package.name') }}:</span> {{ $package->sender_full_name ?? __('package.not_specified') }}</div>
+                                <div class="info-item"><span class="info-label">{{ __('package.phone') }}:</span> {{ $package->sender_phone ?? __('package.not_specified') }}</div>
+                                <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span>
+                                    <span>{{ $package->sender_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}  </span>
+                                </div>
+                            </td>
+
+                            <!-- معلومات المستلم -->
+                            <td style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9; vertical-align: top;">
+                                <div class="info-item"><span class="info-label">{{ __('package.name') }}:</span> {{ $package->receiver_full_name ?? __('package.not_specified') }}</div>
+                                <div class="info-item"><span class="info-label">{{ __('package.phone') }}:</span> {{ $package->receiver_phone ?? __('package.not_specified') }}</div>
+                                <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span>
+                                    <span>{{ $package->receiver_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}  </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 <div class="footer">
                     {{ __('package.generated_by') }} LogesTechsKSA {{ date('d/m/Y H:i') }}
