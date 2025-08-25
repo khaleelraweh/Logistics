@@ -35,7 +35,7 @@
                                 </p>
                             </div>
 
-                            @ability('admin', 'create_packages')
+                            @ability('admin', 'create_merchants')
                                 <div class="button-items">
                                     <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.merchants.create') }}">
                                         {{ __('merchant.add_new_merchant') }} <i class=" ri-user-add-line align-middle ms-2"></i>

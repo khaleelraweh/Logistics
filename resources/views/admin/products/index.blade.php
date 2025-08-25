@@ -32,11 +32,13 @@
                             <p class="card-title-desc">{{ __('product.product_description') }}</p>
                         </div>
 
-                        <div class="button-items">
-                            <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.products.create') }}">
-                                {{ __('product.add_new_product') }} <i class="ri-product-hunt-line align-middle ms-2"></i>
-                            </a>
-                        </div>
+                        @ability('admin', 'create_products')
+                            <div class="button-items">
+                                <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.products.create') }}">
+                                    {{ __('product.add_new_product') }} <i class="ri-product-hunt-line align-middle ms-2"></i>
+                                </a>
+                            </div>
+                        @endability
                     </div>
 
                     <!-- Filters Section -->
