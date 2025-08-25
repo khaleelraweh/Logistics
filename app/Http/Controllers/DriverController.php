@@ -70,6 +70,13 @@ class DriverController extends Controller
         $input['email']                 =   $request->email;
         $input['password']              =   $request->password;
 
+        $input['country']               =  $request->country;
+        $input['region']               =  $request->region;
+        $input['city']               =  $request->city;
+        $input['district']               =  $request->district;
+        $input['latitude']               =  $request->latitude;
+        $input['longitude']               =  $request->longitude;
+
         $input['vehicle_type']              =   $request->vehicle_type;
         $input['vehicle_number']            =   $request->vehicle_number;
         $input['vehicle_model']             =   $request->vehicle_model;
@@ -208,6 +215,13 @@ class DriverController extends Controller
         $input['username']              =   $request->username;
         $input['email']                 =   $request->email;
         $input['password']              =   $request->password;
+
+        $input['country']               =  $request->country;
+        $input['region']               =  $request->region;
+        $input['city']               =  $request->city;
+        $input['district']               =  $request->district;
+        $input['latitude']               =  $request->latitude;
+        $input['longitude']               =  $request->longitude;
 
         $input['vehicle_type']              =   $request->vehicle_type;
         $input['vehicle_number']            =   $request->vehicle_number;
