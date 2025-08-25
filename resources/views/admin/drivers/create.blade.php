@@ -276,53 +276,39 @@
                             <!-- step3: License and Documentation -->
                             <div class="tab-pane" id="license-and-documentation">
                                 <div>
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="progress-basicpill-namecard-input">Name on Card</label>
-                                                    <input type="text" class="form-control" id="progress-basicpill-namecard-input">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label>Credit Card Type</label>
-                                                    <select class="form-select">
-                                                        <option selected>Select Card Type</option>
-                                                        <option value="AE">American Express</option>
-                                                        <option value="VI">Visa</option>
-                                                        <option value="MC">MasterCard</option>
-                                                        <option value="DI">Discover</option>
-                                                    </select>
-                                                </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="license_number">{{ __('driver.license_number') }}</label>
+                                                <input type="text" class="form-control" name="license_number" value="{{ old('license_number') }}" placeholder="{{ __('driver.license_number') }}" id="license_number">
+                                                @error('license_number')<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="progress-basicpill-cardno-input">Credit Card Number</label>
-                                                    <input type="text" class="form-control" id="progress-basicpill-cardno-input">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="progress-basicpill-card-verification-input">Card Verification Number</label>
-                                                    <input type="text" class="form-control" id="progress-basicpill-card-verification-input">
-                                                </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="license_expiry_date">{{ __('driver.license_expiry_date') }}</label>
+                                                <input type="date" class="form-control" name="license_expiry_date" value="{{ old('license_expiry_date') }}" placeholder="{{ __('driver.license_expiry_date') }}" id="license_expiry_date">
+                                                @error('license_expiry_date')<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="progress-basicpill-expiration-input">Expiration Date</label>
-                                                    <input type="text" class="form-control" id="progress-basicpill-expiration-input">
-                                                </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="license_image">{{ __('driver.license_image') }}</label>
+                                                <input type="file" class="form-control" name="license_image" value="{{ old('license_image') }}" placeholder="{{ __('driver.license_image') }}" id="license_image">
+                                                @error('license_image')<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
-
                                         </div>
-                                    </form>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="id_card_image">{{ __('driver.id_card_image') }}</label>
+                                                <input type="file" class="form-control" name="id_card_image" value="{{ old('id_card_image') }}" placeholder="{{ __('driver.id_card_image') }}" id="id_card_image">
+                                                @error('id_card_image')<span class="text-danger">{{ $message }}</span>@enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <!-- step4: Hire and Supervision -->
@@ -407,72 +393,7 @@
 <form action="{{ route('admin.drivers.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
-    <div class="row">
 
-
-        <!-- بيانات المركبة -->
-        <div class="col-md-6">
-            <div class="card p-3 mb-4">
-                <h5 class="mb-3">{{ __('driver.vehicle_data') }}</h5>
-
-                <div class="mb-3">
-                    <label for="vehicle_type">{{ __('driver.vehicle_type') }}</label>
-                    <input type="text" name="vehicle_type" id="vehicle_type" class="form-control" value="{{ old('vehicle_type') }}">
-                    @error('vehicle_type')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="vehicle_number">{{ __('driver.vehicle_number') }}</label>
-                    <input type="text" name="vehicle_number" id="vehicle_number" class="form-control" value="{{ old('vehicle_number') }}">
-                    @error('vehicle_number')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="vehicle_model">{{ __('driver.vehicle_model') }}</label>
-                    <input type="text" name="vehicle_model" id="vehicle_model" class="form-control" value="{{ old('vehicle_model') }}">
-                    @error('vehicle_model')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="vehicle_color">{{ __('driver.vehicle_color') }}</label>
-                    <input type="text" name="vehicle_color" id="vehicle_color" class="form-control" value="{{ old('vehicle_color') }}">
-                    @error('vehicle_coloe')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="vehicle_capacity_weight">{{ __('driver.vehicle_capacity_weight') }}</label>
-                    <input type="number" step="0.01" name="vehicle_capacity_weight" id="vehicle_capacity_weight" class="form-control" value="{{ old('vehicle_capacity_weight') }}">
-                    @error('vehicle_capacity_weight')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="vehicle_capacity_volume">{{ __('driver.vehicle_capacity_volume') }}</label>
-                    <input type="number" step="0.01" name="vehicle_capacity_volume" id="vehicle_capacity_volume" class="form-control" value="{{ old('vehicle_capacity_volume') }}">
-                    @error('vehicle_capacity_volume')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="vehicle_image">{{ __('driver.vehicle_image') }}</label>
-                    <input type="file" name="vehicle_image" id="vehicle_image" class="file-input-overview ">
-                    @error('vehicle_image')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <!-- بيانات التراخيص والمستندات -->
