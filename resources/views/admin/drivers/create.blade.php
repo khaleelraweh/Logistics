@@ -658,7 +658,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <p><strong>{{ __('driver.license_image') }}:</strong>
                                     <span id="review_license_image">
                                         @if(old('license_image'))
@@ -670,9 +670,9 @@
                                 </p>
                             </div>
                             <div class="col-md-4">
-                                <p><strong>{{ __('driver.id_card_image') }}:</strong>
-                                    <span id="review_id_card_image">
-                                        @if(old('id_card_image'))
+                                <p><strong>{{ __('driver.vehicle_image') }}:</strong>
+                                    <span id="review_vehicle_image">
+                                        @if(old('vehicle_image'))
                                             {{ __('general.file_uploaded') }}
                                         @else
                                             {{ __('general.no_file') }}
@@ -680,10 +680,24 @@
                                     </span>
                                 </p>
                             </div>
-                            <div class="col-md-4">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <p><strong>{{ __('driver.driver_image') }}:</strong>
                                     <span id="review_driver_image">
                                         @if(old('driver_image'))
+                                            {{ __('general.file_uploaded') }}
+                                        @else
+                                            {{ __('general.no_file') }}
+                                        @endif
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>{{ __('driver.id_card_image') }}:</strong>
+                                    <span id="review_id_card_image">
+                                        @if(old('id_card_image'))
                                             {{ __('general.file_uploaded') }}
                                         @else
                                             {{ __('general.no_file') }}
