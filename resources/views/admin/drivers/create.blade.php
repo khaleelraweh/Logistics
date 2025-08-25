@@ -369,17 +369,24 @@
                             </div>
                             <!-- step5: Confirm Details -->
                             <div class="tab-pane" id="progress-confirm-detail">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-6">
-                                        <div class="text-center">
-                                            <div class="mb-4">
-                                                <i class="mdi mdi-check-circle-outline text-success display-4"></i>
-                                            </div>
-                                            <div>
-                                                <h5>Confirm Detail</h5>
-                                                <p class="text-muted">If several languages coalesce, the grammar of the resulting</p>
-                                            </div>
-                                        </div>
+                                <div>
+
+
+
+                                    <!-- Submit Button -->
+                                    <div class="text-end pt-3">
+                                        @ability('admin', 'create_merchants')
+                                            <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
+                                                <i class="ri-save-3-line me-2"></i>
+                                                <i class="bi bi-save me-2"></i>
+                                                {{ __('merchant.save_merchant_data') }}
+                                            </button>
+                                        @endability
+
+                                        <a href="{{ route('admin.merchants.index') }}" class="btn btn-outline-danger ms-2">
+                                            <i class="ri-arrow-go-back-line me-1"></i>
+                                            {{ __('panel.cancel') }}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
