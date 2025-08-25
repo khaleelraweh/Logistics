@@ -9,7 +9,7 @@
     <style>
 
         body {
-            font-family: 'Tajawal', 'DroidKufi', sans-serif !important;
+            /* font-family: 'Tajawal', 'DroidKufi', sans-serif !important; */
             direction: rtl; /* لضبط الكتابة من اليمين لليسار */
             text-align: right;
             margin: 0;
@@ -113,7 +113,7 @@
         }
     </style>
 </head>
-<body>
+<body style="font-family: 'Cairo', sans-serif;">
 
     {{-- صفحة معلومات الطرد الرئيسية --}}
     <div class="document">
