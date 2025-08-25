@@ -70,6 +70,13 @@
                             <!-- step1: Driver Information -->
                             <div class="tab-pane" id="driver-information">
 
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                        <i class="bi bi-info-circle text-primary"></i>
+                                    </div>
+                                    <h5 class="mb-0">{{ __('driver.driver_info') }}</h5>
+                                </div>
+
                                 @foreach (config('locales.languages') as $key => $val)
                                     <div class="row">
                                         <div class="col-lg-4">
@@ -129,9 +136,29 @@
                                     </div>
                                 </div>
 
-                                <hr>
+                                <div class="mb-5"></div>
 
-                                <h4>مكان الاقامة </h4>
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                        <i class="bi bi-geo-alt text-primary"></i>
+                                    </div>
+                                    <h5 class="mb-0">{{ __('general.address_details') }}</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="phone">{{ __('driver.phone') }}</label>
+                                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" id="phone">
+                                            @error('phone')<span class="text-danger">{{ $message }}</span> @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="email">{{ __('driver.email') }}</label>
+                                            <input type="email" class="form-control" name="email" value="{{ old('email') }}" id="email">
+                                        </div>
+                                    </div>
+                                </div>
 
 
                             </div>
