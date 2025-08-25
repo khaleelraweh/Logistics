@@ -228,6 +228,7 @@ return [
     'alert'    => 'Alert',
     'ok'       => 'OK',
     'currency' => 'SAR',
+    'other'    => 'Other',
 
 
 ];
