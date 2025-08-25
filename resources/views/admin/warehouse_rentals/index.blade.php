@@ -30,11 +30,13 @@
                     </p>
                 </div>
 
-                <div class="button-items">
+                @ability('admin', 'create_warehouse_rentals')
+                    <div class="button-items">
                         <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.warehouse_rentals.create') }}">
                             <i class="mdi mdi-warehouse me-2"></i> {{ __('rental.add_new_rental') }}
                         </a>
-                </div>
+                    </div>
+                @endability
 
             </div>
 
