@@ -16,7 +16,10 @@
         </div>
     </div>
 
-    <a href="{{ route('admin.packages.print', $package->id) }}" target="_blank">طباعة سجل الطرد</a>
+    <a href="{{ route('admin.packages.print', $package->id) }}" target="_blank">
+        <i class="fas fa-download me-1"></i>
+        {{ __('package.download_waybill') }}
+    </a>
 
 
     <div class="row mt-4">

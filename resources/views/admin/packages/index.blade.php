@@ -103,6 +103,14 @@
                                                     </a>
                                                 </li>
                                             @endability
+                                            @ability('admin', 'show_packages')
+                                                <li>
+                                                     <a class="dropdown-item" href="{{ route('admin.packages.print', $package->id) }}">
+                                                        <i class="fas fa-download me-2"></i> {{ __('package.download_waybill') }}
+                                                    </a>
+
+                                                </li>
+                                            @endability
 
                                             @ability('admin', 'delete_packages')
                                                 <li><hr class="dropdown-divider"></li>

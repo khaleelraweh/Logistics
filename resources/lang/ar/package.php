@@ -280,5 +280,8 @@ return [
 
     'updated_at' => 'تم التحديث في',
     'sender_name' => 'اسم المرسل',
+    'Waybill' =>  'بوليصة الشحن',
+    'print_waybill' => 'طباعة بوليصة الشحن',
+    'download_waybill' => 'تحميل بوليصة الشحن',
 
 ];

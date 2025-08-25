@@ -282,5 +282,8 @@ return [
     'total'    => 'Total',
     'updated_at' => 'Updated At',
     'sender_name' => 'Sender Name',
+    'waybill' => 'Waybill',
+    'print_waybill' => 'Print Waybill',
+    'download_waybill' => 'Download Waybill',
 
 ];
