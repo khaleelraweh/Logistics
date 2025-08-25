@@ -108,7 +108,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label" for="phone">{{ __('driver.phone') }}</label>
                                                 <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" id="phone">
-                                                                    @error('phone')<span class="text-danger">{{ $message }}</span> @enderror
+                                                @error('phone')<span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
