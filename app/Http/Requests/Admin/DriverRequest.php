@@ -36,6 +36,14 @@ class DriverRequest extends FormRequest
                     'password'                  => 'nullable|string|min:6',
                     'driver_image'              =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
 
+                    // Location details
+                    'country'                   => 'nullable|string|max:100',
+                    'region'                    => 'nullable|string|max:100',
+                    'city'                      => 'nullable|string|max:100',
+                    'district'                  => 'nullable|string|max:100',
+                    'latitude'                  => 'nullable|numeric|between:-90,90',
+                    'longitude'                 => 'nullable|numeric|between:-180,180',
+
 
                     'vehicle_type'              => 'nullable|string|max:100',
                     'vehicle_number'            => 'nullable|string|max:100',
@@ -77,6 +85,14 @@ class DriverRequest extends FormRequest
                     // 'password'                  => 'nullable|string|min:6|confirmed',
                     'password'                  => 'nullable|string|min:6',
                     'driver_image'              =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
+
+                    // Location details
+                    'country'                   => 'nullable|string|max:100',
+                    'region'                    => 'nullable|string|max:100',
+                    'city'                      => 'nullable|string|max:100',
+                    'district'                  => 'nullable|string|max:100',
+                    'latitude'                  => 'nullable|numeric|between:-90,90',
+                    'longitude'                 => 'nullable|numeric|between:-180,180',
 
                     'vehicle_type'              => 'nullable|string|max:100',
                     'vehicle_number'            => 'nullable|string|max:100',
