@@ -8,110 +8,25 @@
 
     <style>
 
-        body {
-            direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }};
-            text-align: {{ app()->getLocale() == 'ar' ? 'right' : 'left' }};
-            margin: 0;
-            padding: 20px;
-            color: #333;
-            font-family: 'Cairo', sans-serif;
-
-        }
-        .document {
-            max-width: 800px;
-            margin: 0 auto 40px auto;
-            border: 1px solid #ddd;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #2c3e50;
-            padding-bottom: 15px;
-        }
-        .header h1 {
-            color: #2c3e50;
-            margin: 0;
-            font-size: 24px;
-        }
-        .header .commercial-number {
-            font-weight: bold;
-            font-size: 16px;
-            margin: 5px 0;
-        }
-        .section {
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-        }
-        .section h3 {
-            margin-top: 0;
-            color: #2c3e50;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-        }
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .info-item {
-            margin-bottom: 8px;
-        }
-        .info-label {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .notes {
-            background-color: #fff8e1;
-            padding: 10px;
-            border-left: 4px solid #ffc107;
-        }
-        .tracking-number {
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            padding: 10px;
-            background-color: #e3f2fd;
-            border-radius: 5px;
-            margin: 15px 0;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #777;
-        }
-        .page-break {
-            page-break-after: always;
-        }
-        .product-image {
-            max-width: 150px;
-            max-height: 150px;
-            margin: 10px auto;
-            display: block;
-        }
-        .barcode {
-            text-align: center;
-            margin: 15px 0;
-            font-family: 'Libre Barcode 128', cursive;
-            font-size: 30px;
-        }
+         body {direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }};text-align: {{ app()->getLocale() == 'ar' ? 'right' : 'left' }};margin: 0;padding: 20px;color: #333;font-family: 'Cairo', sans-serif;}
+        .document {max-width: 800px;margin: 0 auto 40px auto;border: 1px solid #ddd;padding: 20px;box-shadow: 0 0 10px rgba(0,0,0,0.1);}
+        .header {text-align: center;margin-bottom: 20px;border-bottom: 2px solid #2c3e50;padding-bottom: 15px;}
+        .header h1 {color: #2c3e50;margin: 0;font-size: 24px;}
+        .header .commercial-number {font-weight: bold;font-size: 16px;margin: 5px 0;}
+        .section {margin-bottom: 20px;padding: 15px;background-color: #f9f9f9;border-radius: 5px;}
+        .section h3 {margin-top: 0;color: #2c3e50;border-bottom: 1px solid #ddd;padding-bottom: 5px;}
+        .info-grid {display: grid;grid-template-columns: 1fr 1fr;gap: 15px;}
+        .info-item {margin-bottom: 8px;}
+        .info-label {font-weight: bold;color: #2c3e50;}
+        table {width: 100%;border-collapse: collapse;margin-top: 10px;}
+        th, td {border: 1px solid #ddd;padding: 8px;text-align: center;}
+        th {background-color: #f2f2f2;}
+        .notes {background-color: #fff8e1;padding: 10px;border-left: 4px solid #ffc107;}
+        .tracking-number {font-size: 18px;font-weight: bold;text-align: center;padding: 10px;background-color: #e3f2fd;border-radius: 5px;margin: 15px 0;}
+        .footer {text-align: center;margin-top: 20px;font-size: 12px;color: #777;}
+        .page-break {page-break-after: always;}
+        .product-image {max-width: 150px;max-height: 150px;margin: 10px auto;display: block;}
+        .barcode {text-align: center;margin: 15px 0;font-family: 'Libre Barcode 128', cursive;font-size: 30px;}
     </style>
 </head>
 
