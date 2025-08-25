@@ -355,6 +355,16 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="reason">{{ __('driver.reason') }}</label>
+                                                <textarea name="reason" id="tinymceExample" rows="10" class="form-control">{!! old('reason') !!}</textarea>
+                                                @error('reason')<span class="text-danger">{{ $message }}</span>@enderror
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- step5: Confirm Details -->
