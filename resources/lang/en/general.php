@@ -229,6 +229,7 @@ return [
     'ok'       => 'OK',
     'currency' => 'SAR',
     'other'    => 'Other',
+    'not_set'  => 'Not Set',
 
 
 ];
