@@ -65,7 +65,6 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $package->tracking_number }}</td>
-                                {{-- <td>{{ $package->sender_full_name ?? '-' }}</td> --}}
                                 <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $package->sender_full_name }}">{{ Str::words($package->sender_full_name, 2, '') }}</td>
                                 <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $package->receiver_full_name }}">{{ Str::words($package->receiver_full_name, 2, '') }}</td>
                                 <td>
