@@ -53,9 +53,12 @@
                             <th>{{ __('package.sender_name') }}</th>
                             <th>{{ __('package.receiver_name') }}</th>
                             <th>{{ __('package.status') }}</th>
-                            <th>{{ __('package.total_fee') }}</th>
-                            <th>{{ __('package.paid_amount') }}</th>
-                            <th>{{ __('package.remaining_amount') }}</th>
+                            {{-- <th>{{ __('package.total_fee') }}</th> --}}
+                            <th>{{ __('package.fee') }}</th>
+                            {{-- <th>{{ __('package.paid_amount') }}</th> --}}
+                            <th>{{ __('package.paid') }}</th>
+                            {{-- <th>{{ __('package.remaining_amount') }}</th> --}}
+                            <th>{{ __('package.remaining') }}</th>
                             <th>{{ __('general.created_at') }}</th>
                             <th>{{ __('general.actions') }}</th>
                         </tr>
