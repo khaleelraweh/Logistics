@@ -33,13 +33,17 @@
                         <p class="card-title-desc">{{ __('package.package_description') }}</p>
                     </div>
 
-                    <div class="button-items">
-                        <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.packages.create') }}">
-                            <i class="mdi mdi-18px mdi-package-variant-closed me-2"></i>
-                            {{ __('package.add_new_package') }}
-                        </a>
-                    </div>
+                    @ability('admin', 'create_packages')
+                        <div class="button-items">
+                            <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.packages.create') }}">
+                                <i class="mdi mdi-18px mdi-package-variant-closed me-2"></i>
+                                {{ __('package.add_new_package') }}
+                            </a>
+                        </div>
+                    @endability
                 </div>
+
+
 
                 <!-- Filters Section -->
                 @include('admin.packages.filter.filter')
