@@ -35,11 +35,13 @@
                                 </p>
                             </div>
 
-                            <div class="button-items">
-                                <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.merchants.create') }}">
-                                    {{ __('merchant.add_new_merchant') }} <i class=" ri-user-add-line align-middle ms-2"></i>
-                                </a>
-                            </div>
+                            @ability('admin', 'create_packages')
+                                <div class="button-items">
+                                    <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.merchants.create') }}">
+                                        {{ __('merchant.add_new_merchant') }} <i class=" ri-user-add-line align-middle ms-2"></i>
+                                    </a>
+                                </div>
+                            @endability
 
                         </div>
 
