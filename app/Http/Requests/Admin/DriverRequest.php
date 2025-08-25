@@ -55,10 +55,10 @@ class DriverRequest extends FormRequest
                     'vehicle_capacity_volume'   => 'nullable|numeric|min:0',
                     'vehicle_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
 
-                    'license_number'            => 'nullable|string|max:100',
-                    'license_expiry_date'       => 'nullable|date',
+                    'license_number'            => 'required|string|max:100',
+                    'license_expiry_date'       => 'required|date',
                     'hired_date'                => 'nullable|date',
-                    'license_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
+                    'license_image'             =>  'required|mimes:jpg,jpeg,png,svg,webp|max:20000',
                     'id_card_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
 
                     // 'supervisor_id'             => 'nullable|integer|exists:users,id', // إذا كان المشرف من جدول users
