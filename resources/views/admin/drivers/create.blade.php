@@ -144,20 +144,37 @@
                                     </div>
                                     <h5 class="mb-0">{{ __('general.address_details') }}</h5>
                                 </div>
+
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="mb-3">
-                                            <label class="form-label" for="phone">{{ __('driver.phone') }}</label>
-                                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" id="phone">
-                                            @error('phone')<span class="text-danger">{{ $message }}</span> @enderror
+                                            <label class="form-label" for="country">{{ __('driver.country') }}</label>
+                                            <input type="text" class="form-control" name="country" value="{{ old('country') }}" id="country">
+                                            @error('country')<span class="text-danger">{{ $message }}</span> @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="mb-3">
-                                            <label class="form-label" for="email">{{ __('driver.email') }}</label>
-                                            <input type="email" class="form-control" name="email" value="{{ old('email') }}" id="email">
+                                            <label class="form-label" for="region">{{ __('driver.region') }}</label>
+                                            <input type="text" class="form-control" name="region" value="{{ old('region') }}" id="region">
+                                            @error('region')<span class="text-danger">{{ $message }}</span> @enderror
                                         </div>
                                     </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="city">{{ __('driver.city') }}</label>
+                                            <input type="text" class="form-control" name="city" value="{{ old('city') }}" id="city">
+                                            @error('city')<span class="text-danger">{{ $message }}</span> @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="district">{{ __('driver.district') }}</label>
+                                            <input type="text" class="form-control" name="district" value="{{ old('district') }}" id="district">
+                                            @error('district')<span class="text-danger">{{ $message }}</span> @enderror
+                                        </div>
+                                    </div>
+
                                 </div>
 
 
