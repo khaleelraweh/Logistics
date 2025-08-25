@@ -70,54 +70,54 @@
                             <!-- step1: Driver Information -->
                             <div class="tab-pane" id="driver-information">
 
-                                    @foreach (config('locales.languages') as $key => $val)
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="first_name">{{ __('driver.driver_first_name') }}
-                                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
-                                                    </label>
-                                                    <input name="first_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('first_name.' . $key) }}">
-                                                    @error('first_name.' . $key)<span class="text-danger">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="first_name">{{ __('driver.driver_middle_name') }}
-                                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
-                                                    </label>
-                                                    <input name="first_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('first_name.' . $key) }}">
-                                                    @error('first_name.' . $key)<span class="text-danger">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="first_name">{{ __('driver.driver_last_name') }}
-                                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
-                                                    </label>
-                                                    <input name="first_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('first_name.' . $key) }}">
-                                                    @error('first_name.' . $key)<span class="text-danger">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    @endforeach
-
+                                @foreach (config('locales.languages') as $key => $val)
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label" for="phone">{{ __('driver.phone') }}</label>
-                                                <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" id="phone">
-                                                @error('phone')<span class="text-danger">{{ $message }}</span> @enderror
+                                                <label class="form-label" for="first_name">{{ __('driver.driver_first_name') }}
+                                                    <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
+                                                </label>
+                                                <input name="first_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('first_name.' . $key) }}">
+                                                @error('first_name.' . $key)<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
                                             <div class="mb-3">
-                                                <label class="form-label" for="email">{{ __('driver.email') }}</label>
-                                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" id="email">
+                                                <label class="form-label" for="first_name">{{ __('driver.driver_middle_name') }}
+                                                    <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
+                                                </label>
+                                                <input name="first_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('first_name.' . $key) }}">
+                                                @error('first_name.' . $key)<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="first_name">{{ __('driver.driver_last_name') }}
+                                                    <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
+                                                </label>
+                                                <input name="first_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('first_name.' . $key) }}">
+                                                @error('first_name.' . $key)<span class="text-danger">{{ $message }}</span>@enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                @endforeach
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="phone">{{ __('driver.phone') }}</label>
+                                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" id="phone">
+                                            @error('phone')<span class="text-danger">{{ $message }}</span> @enderror
                                         </div>
                                     </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="email">{{ __('driver.email') }}</label>
+                                            <input type="email" class="form-control" name="email" value="{{ old('email') }}" id="email">
+                                        </div>
+                                    </div>
+                                </div>
 
 
                             </div>
