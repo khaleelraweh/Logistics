@@ -291,5 +291,6 @@ return [
     'not_specified' => 'غير محدد',
     'payment_collection' => 'الدفع والتحصيل',
     'generated_by'=> 'تم الإنشاء بواسطة',
+    'items_info' => 'معلومات المنتجات',
 
 ];

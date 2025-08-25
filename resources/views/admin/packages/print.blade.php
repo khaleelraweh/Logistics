@@ -134,34 +134,34 @@
 
 
                 <div class="section">
-                    <h3>معلومات المنتج</h3>
+                    <h3>{{ __('package.items_info') }}</h3>
                     <div class="info-grid">
                         <div class="info-item">
-                            <span class="info-label">الاسم:</span>
-                            <span>{{ $product->custom_name ?? 'غير محدد' }}</span>
+                            <span class="info-label">{{ __('product.name') }}:</span>
+                            <span>{{ $product->custom_name ?? __('package.not_specified')  }}</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">النوع:</span>
+                            <span class="info-label">{{ __('product.type') }}:</span>
                             <span>{{ $product->type ?? '-' }}</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">الكمية:</span>
+                            <span class="info-label">{{ __('product.quantity') }}:</span>
                             <span>{{ $packageProduct->quantity ?? '1' }}</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">السعر:</span>
-                            <span>{{ $packageProduct->price_per_unit ?? '0' }} ريال</span>
+                            <span class="info-label">{{ __('product.price_per_unit') }}:</span>
+                            <span>{{ $packageProduct->price_per_unit ?? '0' }} {{ __('general.sar') }}</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">الوزن:</span>
-                            <span>{{ $product->weight ?? '-' }} كجم</span>
+                            <span class="info-label">{{ __('product.weight') }}:</span>
+                            <span>{{ $product->weight ?? '-' }} {{ __('package.kg') }}</span>
                         </div>
                         <div class="info-item">
-                            <span class="info-label">الأبعاد:</span>
+                            <span class="info-label">{{ __('package.dimensionss') }}:</span>
                             <span>
-                                {{ $product->dimensions['length'] ?? '-' }} سم ×
-                                {{ $product->dimensions['width'] ?? '-' }} سم ×
-                                {{ $product->dimensions['height'] ?? '-' }} سم
+                                {{ $product->dimensions['length'] ?? '-' }} {{ __('package.cm') }} ×
+                                {{ $product->dimensions['width'] ?? '-' }} {{ __('package.cm') }} ×
+                                {{ $product->dimensions['height'] ?? '-' }} {{ __('package.cm') }}
                             </span>
                         </div>
                     </div>
