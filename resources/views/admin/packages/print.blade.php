@@ -202,13 +202,13 @@
                 </div>
 
                 <div class="footer">
-                    تم إنشاء هذا السجل بواسطة نظام LogesTechsKSA في {{ date('d/m/Y H:i') }}
+                    {{ __('package.generated_by') }} LogesTechsKSA {{ date('d/m/Y H:i') }}
                 </div>
             </div>
         @endforeach
     @else
         <div class="document">
-            <p>لا توجد منتجات في هذا الطرد.</p>
+            <p>{{ __('package.no_products_in_package') }}</p>
         </div>
     @endif
 

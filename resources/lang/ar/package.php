@@ -292,5 +292,6 @@ return [
     'payment_collection' => 'الدفع والتحصيل',
     'generated_by'=> 'تم الإنشاء بواسطة',
     'items_info' => 'معلومات المنتجات',
+    'no_products_in_package' => 'لا توجد منتجات في الطرد',
 
 ];
