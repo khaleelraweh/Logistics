@@ -11,7 +11,7 @@ class Driver extends Model
     use HasFactory, HasTranslations;
 
     protected $guarded = [];
-    public $translatable = ['name'];
+    public $translatable = ['first_name', 'middle_name', 'last_name'];
 
     public function deliveries()
     {
