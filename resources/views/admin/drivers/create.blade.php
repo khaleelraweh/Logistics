@@ -174,6 +174,32 @@
                                             @error('district')<span class="text-danger">{{ $message }}</span> @enderror
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="mb-5"></div>
+
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                        <i class="bi bi-geo-alt text-primary"></i>
+                                    </div>
+                                    <h5 class="mb-0">{{ __('general.location') }}</h5>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="latitude">{{ __('driver.latitude') }}</label>
+                                            <input type="text" class="form-control" name="latitude" value="{{ old('latitude') }}" id="latitude">
+                                            @error('latitude')<span class="text-danger">{{ $message }}</span> @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="longitude">{{ __('driver.longitude') }}</label>
+                                            <input type="text" class="form-control" name="longitude" value="{{ old('longitude') }}" id="longitude">
+                                            @error('longitude')<span class="text-danger">{{ $message }}</span> @enderror
+                                        </div>
+                                    </div>
 
                                 </div>
 
