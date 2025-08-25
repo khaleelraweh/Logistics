@@ -24,6 +24,7 @@ return [
     'vehicle_data'                => 'بيانات المركبة',
     'license_and_documentation'   =>  'التراخيص والمستندات',
     'hire_and_supervision'        =>    'التوظيف والاشراف',
+    'confirm_details'                => 'تأكيد التفاصيل',
 
 
 

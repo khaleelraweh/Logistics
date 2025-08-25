@@ -24,6 +24,7 @@ return [
     'vehicle_data'                => 'Vehicle Data',
     'license_and_documentation'   =>  'License and Documentation',
     'hire_and_supervision'        =>    'Hire and Supervision',
+    'confirm_details'              => 'Confirm Details',
 
 
     // Fields

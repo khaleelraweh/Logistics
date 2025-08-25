@@ -52,7 +52,7 @@
                             <li class="nav-item">
                                 <a href="#progress-confirm-detail" class="nav-link" data-toggle="tab">
                                     <span class="step-number"><i class="fas fa-check-circle" ></i></span>
-                                    <span class="step-title">{{ __('driver.confirm_detail') }}</span>
+                                    <span class="step-title">{{ __('driver.confirm_details') }}</span>
                                 </a>
                             </li>
                         </ul>
