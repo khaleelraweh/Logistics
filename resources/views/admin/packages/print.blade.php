@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <div class="info-grid">
+        {{-- <div class="info-grid">
             <div class="section">
                 <h3>{{ __('package.sender_info') }}</h3>
                 <div class="info-item"><span class="info-label">{{ __('package.name') }}:</span> {{ $package->sender_full_name ?? __('package.not_specified') }}</div>
@@ -77,7 +77,36 @@
                 <div class="info-item"><span class="info-label">{{ __('package.phone') }}:</span> {{ $package->receiver_phone ?? __('package.not_specified') }}</div>
                 <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span> {{ $package->receiver_address ?? __('package.not_specified') }}</div>
             </div>
-        </div>
+        </div> --}}
+
+      <table style="width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 20px;">
+            <thead>
+                <tr>
+                    <th style="background-color: #2c3e50; color: #fff; padding: 8px; border-radius: 5px 0 0 0;">{{ __('package.sender_Information') }}</th>
+                    <th style="background-color: #2c3e50; color: #fff; padding: 8px; border-radius: 0 5px 0 0;">{{ __('package.receiver_Information') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!-- معلومات المرسل -->
+                    <td style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9; vertical-align: top;">
+                        <div class="info-item"><span class="info-label">{{ __('package.name') }}:</span> {{ $package->sender_full_name ?? __('package.not_specified') }}</div>
+                        <div class="info-item"><span class="info-label">{{ __('package.phone') }}:</span> {{ $package->sender_phone ?? __('package.not_specified') }}</div>
+                        <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span> {{ $package->sender_address ?? __('package.not_specified') }}</div>
+                    </td>
+
+                    <!-- معلومات المستلم -->
+                    <td style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9; vertical-align: top;">
+                        <div class="info-item"><span class="info-label">{{ __('package.name') }}:</span> {{ $package->receiver_full_name ?? __('package.not_specified') }}</div>
+                        <div class="info-item"><span class="info-label">{{ __('package.phone') }}:</span> {{ $package->receiver_phone ?? __('package.not_specified') }}</div>
+                        <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span> {{ $package->receiver_address ?? __('package.not_specified') }}</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
 
           <div class="section">
             <h3>{{ __('package.package_details') }}</h3>
