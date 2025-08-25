@@ -892,7 +892,7 @@
     });
 </script>
 
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         // دالة لتحديث معاينة البيانات
         function updateReview() {
@@ -934,6 +934,100 @@
             document.getElementById('review_availability_status').textContent = document.querySelector('[name="availability_status"]').value || '{{ __("general.not_set") }}';
             document.getElementById('review_status').textContent = document.querySelector('[name="status"]').value || '{{ __("general.not_set") }}';
             document.getElementById('review_reason').innerHTML = document.querySelector('[name="reason"]').value ? nl2br(document.querySelector('[name="reason"]').value) : '{{ __("general.not_set") }}';
+        }
+
+        // تحديث المعاينة عند الانتقال إلى الخطوة الخامسة
+        document.querySelector('a[href="#progress-confirm-detail"]').addEventListener('click', function() {
+            updateReview();
+        });
+    });
+</script> --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // دالة لتحديث معاينة البيانات
+        function updateReview() {
+            // معلومات السائق - جلب القيم الحالية من الحقول
+            document.getElementById('review_first_name_ar').textContent = document.querySelector('[name="first_name[ar]"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_middle_name_ar').textContent = document.querySelector('[name="middle_name[ar]"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_last_name_ar').textContent = document.querySelector('[name="last_name[ar]"]').value || '{{ __("general.not_set") }}';
+
+            document.getElementById('review_first_name_en').textContent = document.querySelector('[name="first_name[en]"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_middle_name_en').textContent = document.querySelector('[name="middle_name[en]"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_last_name_en').textContent = document.querySelector('[name="last_name[en]"]').value || '{{ __("general.not_set") }}';
+
+            document.getElementById('review_phone').textContent = document.querySelector('[name="phone"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_email').textContent = document.querySelector('[name="email"]').value || '{{ __("general.not_set") }}';
+
+            // العنوان
+            document.getElementById('review_country').textContent = document.querySelector('[name="country"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_region').textContent = document.querySelector('[name="region"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_city').textContent = document.querySelector('[name="city"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_district').textContent = document.querySelector('[name="district"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_latitude').textContent = document.querySelector('[name="latitude"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_longitude').textContent = document.querySelector('[name="longitude"]').value || '{{ __("general.not_set") }}';
+
+            // المركبة
+            document.getElementById('review_vehicle_type').textContent = document.querySelector('[name="vehicle_type"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_vehicle_model').textContent = document.querySelector('[name="vehicle_model"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_vehicle_number').textContent = document.querySelector('[name="vehicle_number"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_vehicle_color').textContent = document.querySelector('[name="vehicle_color"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_vehicle_capacity_weight').textContent = document.querySelector('[name="vehicle_capacity_weight"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_vehicle_capacity_volume').textContent = document.querySelector('[name="vehicle_capacity_volume"]').value || '{{ __("general.not_set") }}';
+
+            // الرخصة والمستندات
+            document.getElementById('review_license_number').textContent = document.querySelector('[name="license_number"]').value || '{{ __("general.not_set") }}';
+            document.getElementById('review_license_expiry_date').textContent = document.querySelector('[name="license_expiry_date"]').value || '{{ __("general.not_set") }}';
+
+            // معالجة خاصة لحقول SELECT للحصول على النص المعروض وليس القيمة
+            var vehicleTypeSelect = document.querySelector('[name="vehicle_type"]');
+            document.getElementById('review_vehicle_type').textContent = vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+            var vehicleModelSelect = document.querySelector('[name="vehicle_model"]');
+            document.getElementById('review_vehicle_model').textContent = vehicleModelSelect.options[vehicleModelSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+            var vehicleColorSelect = document.querySelector('[name="vehicle_color"]');
+            document.getElementById('review_vehicle_color').textContent = vehicleColorSelect.options[vehicleColorSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+            var capacityWeightSelect = document.querySelector('[name="vehicle_capacity_weight"]');
+            document.getElementById('review_vehicle_capacity_weight').textContent = capacityWeightSelect.options[capacityWeightSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+            var capacityVolumeSelect = document.querySelector('[name="vehicle_capacity_volume"]');
+            document.getElementById('review_vehicle_capacity_volume').textContent = capacityVolumeSelect.options[capacityVolumeSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+            // التوظيف
+            document.getElementById('review_username').textContent = document.querySelector('[name="username"]').value || '{{ __("general.not_set") }}';
+
+            // كلمة المرور - إظهار النجوم إذا كانت هناك قيمة
+            var passwordField = document.querySelector('[name="password"]');
+            document.getElementById('review_password').textContent = passwordField.value ? '••••••••' : '{{ __("general.not_set") }}';
+
+            document.getElementById('review_hired_date').textContent = document.querySelector('[name="hired_date"]').value || '{{ __("general.not_set") }}';
+
+            // المشرف - الحصول على النص المعروض
+            var supervisorSelect = document.querySelector('[name="supervisor_id"]');
+            document.getElementById('review_supervisor_id').textContent = supervisorSelect.options[supervisorSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+            var availabilitySelect = document.querySelector('[name="availability_status"]');
+            document.getElementById('review_availability_status').textContent = availabilitySelect.options[availabilitySelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+            var statusSelect = document.querySelector('[name="status"]');
+            document.getElementById('review_status').textContent = statusSelect.options[statusSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+            document.getElementById('review_reason').innerHTML = document.querySelector('[name="reason"]').value ? nl2br(document.querySelector('[name="reason"]').value) : '{{ __("general.not_set") }}';
+
+            // الملفات - التحقق إذا تم اختيار ملف
+            var licenseImage = document.querySelector('[name="license_image"]');
+            document.getElementById('review_license_image').textContent = licenseImage.files.length > 0 ? '{{ __("general.file_uploaded") }}' : '{{ __("general.no_file") }}';
+
+            var idCardImage = document.querySelector('[name="id_card_image"]');
+            document.getElementById('review_id_card_image').textContent = idCardImage.files.length > 0 ? '{{ __("general.file_uploaded") }}' : '{{ __("general.no_file") }}';
+
+            var driverImage = document.querySelector('[name="driver_image"]');
+            document.getElementById('review_driver_image').textContent = driverImage.files.length > 0 ? '{{ __("general.file_uploaded") }}' : '{{ __("general.no_file") }}';
+
+            var vehicleImage = document.querySelector('[name="vehicle_image"]');
+            document.getElementById('review_vehicle_image').textContent = vehicleImage.files.length > 0 ? '{{ __("general.file_uploaded") }}' : '{{ __("general.no_file") }}';
         }
 
         // تحديث المعاينة عند الانتقال إلى الخطوة الخامسة

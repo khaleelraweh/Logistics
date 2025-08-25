@@ -229,6 +229,7 @@ return [
     'currency' => 'ر.س',
     'other'    => 'أخرى',
     'not_set'  => 'غير محدد',
+    'file_uploaded' => 'تم رفع الملف بنجاح',
 ];
 
 

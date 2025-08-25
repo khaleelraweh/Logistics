@@ -230,6 +230,7 @@ return [
     'currency' => 'SAR',
     'other'    => 'Other',
     'not_set'  => 'Not Set',
+    'file_uploaded' => 'File Uploaded Successfully',
 
 
 ];
