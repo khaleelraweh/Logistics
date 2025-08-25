@@ -106,8 +106,9 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label" for="progress-basicpill-phoneno-input">Phone</label>
-                                                <input type="text" class="form-control" id="progress-basicpill-phoneno-input">
+                                                <label class="form-label" for="phone">{{ __('driver.phone') }}</label>
+                                                <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" id="phone">
+                                                                    @error('phone')<span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -342,9 +343,7 @@
                 <div class="mb-3">
                     <label for="phone">{{ __('driver.phone') }}</label>
                     <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone') }}">
-                    @error('phone')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
+                    @error('phone')<span class="text-danger">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="mb-3">
