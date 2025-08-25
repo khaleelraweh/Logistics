@@ -124,6 +124,8 @@
                                             <div class="mb-3">
                                                 <label class="form-label" for="email">{{ __('driver.email') }}</label>
                                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}" id="email">
+                                                @error('email')<span class="text-danger">{{ $message }}</span> @enderror
+
                                             </div>
                                         </div>
                                     </div>

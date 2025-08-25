@@ -30,9 +30,9 @@ class DriverRequest extends FormRequest
                     'middle_name.*'                  => 'required|string|max:255',
                     'last_name.*'                    => 'required|string|max:255',
 
-                    'phone'                     => 'nullable|string|max:20',
+                    'phone'                     => 'required|string|max:20',
                     'username'                  => 'nullable|string|max:50|unique:drivers,username',
-                    'email'                     => 'nullable|email|max:255|unique:drivers,email',
+                    'email'                     => 'required|email|max:255|unique:drivers,email',
                     // 'password'                  => 'nullable|string|min:6|confirmed',
                     'password'                  => 'nullable|string|min:6',
                     'driver_image'              =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
@@ -81,9 +81,9 @@ class DriverRequest extends FormRequest
                     'middle_name.*'                  => 'required|string|max:255',
                     'last_name.*'                    => 'required|string|max:255',
 
-                    'phone'                     => 'nullable|string|max:20',
+                    'phone'                     => 'required|string|max:20',
                     'username'                  => 'nullable|string|max:50|unique:drivers,username,' . $this->route('driver'),
-                    'email'                     => 'nullable|email|max:255|unique:drivers,email,' . $this->route('driver'),
+                    'email'                     => 'required|email|max:255|unique:drivers,email,' . $this->route('driver'),
                     // 'password'                  => 'nullable|string|min:6|confirmed',
                     'password'                  => 'nullable|string|min:6',
                     'driver_image'              =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
@@ -163,7 +163,9 @@ class DriverRequest extends FormRequest
 
         foreach (config('locales.languages') as $key => $val) {
             $attr += [
-                'name.' . $key => __('driver.name') . ' (' . __('panel.' . $val['lang']) . ')',
+                'first_name.' . $key => __('driver.first_name') . ' (' . __('panel.' . $val['lang']) . ')',
+                'first_middle_name.' . $key => __('driver.first_middle_name') . ' (' . __('panel.' . $val['lang']) . ')',
+                'first_last_name.' . $key => __('driver.first_last_name') . ' (' . __('panel.' . $val['lang']) . ')',
             ];
         }
 
