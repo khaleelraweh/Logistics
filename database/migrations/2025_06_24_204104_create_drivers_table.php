@@ -18,8 +18,8 @@ return new class extends Migration
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
             $table->json('first_name');
-            $table->json('middle_name')->nullable();
-            $table->json('last_name')->nullable();
+            $table->json('middle_name');
+            $table->json('last_name');
             $table->string('phone')->nullable();
             $table->string('driver_image')->nullable();
 

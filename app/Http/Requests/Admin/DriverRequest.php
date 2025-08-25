@@ -26,8 +26,9 @@ class DriverRequest extends FormRequest
         switch ($this->method()) {
             case 'POST': {
                 return [
-                    'name.ar'                   => 'required|string|max:255',
-                    'name.en'                   => 'required|string|max:255',
+                    'first_name.*'                   => 'required|string|max:255',
+                    'middle_name.*'                  => 'required|string|max:255',
+                    'last_name.*'                    => 'required|string|max:255',
 
                     'phone'                     => 'nullable|string|max:20',
                     'username'                  => 'nullable|string|max:50|unique:drivers,username',
@@ -77,8 +78,8 @@ class DriverRequest extends FormRequest
             case 'PATCH': {
                 return [
                     'first_name.*'                   => 'required|string|max:255',
-                    'middle_name.*'                  => 'nullable|string|max:255',
-                    'last_name.*'                    => 'nullable|string|max:255',
+                    'middle_name.*'                  => 'required|string|max:255',
+                    'last_name.*'                    => 'required|string|max:255',
 
                     'phone'                     => 'nullable|string|max:20',
                     'username'                  => 'nullable|string|max:50|unique:drivers,username,' . $this->route('driver'),
