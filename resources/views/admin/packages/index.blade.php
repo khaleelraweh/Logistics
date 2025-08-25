@@ -106,7 +106,7 @@
                                             @ability('admin', 'create_deliveries')
                                                 <li>
                                                     <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#assignDeliveryModal{{ $package->id }}">
-                                                        {{ __('delivery.assign_to_driver') }}
+                                                       <i class="mdi mdi-1 8px mdi-truck-fast-outline me-2"></i> {{ __('delivery.assign_to_driver') }}
                                                     </a>
                                                 </li>
                                             @endability
