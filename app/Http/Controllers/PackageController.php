@@ -798,7 +798,7 @@ class PackageController extends Controller
     {
         $package = Package::findOrFail($id);
 
-        $pdf = PDF::loadView('admin.packages.print', compact('package'));
+       $pdf = PDF::loadView('admin.packages.print', compact('package'));
 
 
         return $pdf->download('package_'.$package->id.'.pdf');
