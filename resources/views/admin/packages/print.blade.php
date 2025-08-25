@@ -79,35 +79,40 @@
             </div>
         </div> --}}
 
-        <table style="width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 20px; text-align: {{ app()->getLocale() == 'ar' ? 'right' : 'left' }};">
+        <table style="width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 20px;">
             <thead>
                 <tr>
-                    <th style="background-color: #2c3e50; color: #fff; padding: 8px; border-radius: 5px 0 0 0;">{{ __('package.sender_Information') }}</th>
-                    <th style="background-color: #2c3e50; color: #fff; padding: 8px; border-radius: 0 5px 0 0;">{{ __('package.receiver_Information') }}</th>
+                    <th style="background-color: #2c3e50; color: #fff; padding: 8px; border-radius: 5px 0 0 0;" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+                        {{ __('package.sender_Information') }}
+                    </th>
+                    <th style="background-color: #2c3e50; color: #fff; padding: 8px; border-radius: 0 5px 0 0;" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
+                        {{ __('package.receiver_Information') }}
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <!-- معلومات المرسل -->
-                    <td style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9; vertical-align: top;">
+                    <td style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9; vertical-align: top;" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
                         <div class="info-item"><span class="info-label">{{ __('package.name') }}:</span> {{ $package->sender_full_name ?? __('package.not_specified') }}</div>
                         <div class="info-item"><span class="info-label">{{ __('package.phone') }}:</span> {{ $package->sender_phone ?? __('package.not_specified') }}</div>
                         <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span>
-                            <span>{{ $package->sender_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}  </span>
+                            <span>{{ $package->sender_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}</span>
                         </div>
                     </td>
 
                     <!-- معلومات المستلم -->
-                    <td style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9; vertical-align: top;">
+                    <td style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9; vertical-align: top;" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
                         <div class="info-item"><span class="info-label">{{ __('package.name') }}:</span> {{ $package->receiver_full_name ?? __('package.not_specified') }}</div>
                         <div class="info-item"><span class="info-label">{{ __('package.phone') }}:</span> {{ $package->receiver_phone ?? __('package.not_specified') }}</div>
                         <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span>
-                            <span>{{ $package->receiver_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}  </span>
+                            <span>{{ $package->receiver_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}</span>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
+
 
 
 
