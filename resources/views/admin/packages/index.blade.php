@@ -59,7 +59,7 @@
                             <th>{{ __('package.paid') }}</th>
                             {{-- <th>{{ __('package.remaining_amount') }}</th> --}}
                             <th>{{ __('package.remaining') }}</th>
-                            <th>{{ __('general.created_at') }}</th>
+                            {{-- <th>{{ __('general.created_at') }}</th> --}}
                             <th>{{ __('general.actions') }}</th>
                         </tr>
                     </thead>
@@ -78,7 +78,7 @@
                                 <td>{{ number_format($package->total_fee, 2) }}</td>
                                 <td>{{ number_format($package->paid_amount, 2) }}</td>
                                 <td>{{ number_format($package->remainingAmount(), 2) }}</td>
-                                <td>{{ $package->created_at->diffForHumans() }}</td>
+                                {{-- <td>{{ $package->created_at->diffForHumans() }}</td> --}}
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
