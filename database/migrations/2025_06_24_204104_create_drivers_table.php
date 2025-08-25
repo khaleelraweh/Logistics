@@ -26,8 +26,12 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('password')->nullable();
 
-            $table->decimal('current_latitude', 10, 7)->nullable();
-            $table->decimal('current_longitude', 10, 7)->nullable();
+            $table->string('country')->nullable();
+            $table->string('region')->nullable();
+            $table->string('city')->nullable();
+            $table->string('district')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
 
             $table->string('license_number')->nullable(); // رقم الترخيص
             $table->string('vehicle_type')->nullable();  // نوع السيارة
