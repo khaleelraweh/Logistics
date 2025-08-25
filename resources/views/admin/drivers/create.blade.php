@@ -317,6 +317,22 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-3">
+                                                <label class="form-label" for="username">{{ __('driver.username') }}</label>
+                                                <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="{{ __('driver.username') }}" id="username">
+                                                @error('username')<span class="text-danger">{{ $message }}</span>@enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="password">{{ __('driver.password') }}</label>
+                                                <input type="text" class="form-control" name="password" value="{{ old('password') }}" placeholder="{{ __('driver.password') }}" id="password">
+                                                @error('password')<span class="text-danger">{{ $message }}</span>@enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
                                                 <label class="form-label" for="availability_status">{{ __('driver.availability_status') }}</label>
                                                 <select name="availability_status" class="form-select" required>
                                                     <option value="available">{{ __('driver.available') }}</option>
