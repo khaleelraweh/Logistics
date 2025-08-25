@@ -231,6 +231,7 @@ return [
     'other'    => 'Other',
     'not_set'  => 'Not Set',
     'file_uploaded' => 'File Uploaded Successfully',
+    'no_file'   =>  'No File'
 
 
 ];
