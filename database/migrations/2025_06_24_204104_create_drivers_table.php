@@ -52,7 +52,9 @@ return new class extends Migration
             $table->date('license_expiry_date')->nullable(); // تاريخ انتهاء الرخصة
 
             $table->date('hired_date')->nullable();      // تاريخ التوظيف
-            $table->string('supervisor_id')->nullable(); // المراقب المسؤول عنه
+            $table->foreignId('supervisor_id')->nullable()->constrained('users')->onDelete('set null');
+
+
 
             $table->integer('total_deliveries')->default(0);   // عدد التوصيلات
             $table->float('rating')->default(0);
