@@ -180,7 +180,7 @@
 
 
 @section('content')
-    <div class="container-fluid py-3">
+    <div class="container-fluid pb-3">
 
          <!-- Page Header -->
         <div class="row ">
