@@ -67,8 +67,10 @@
                             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"></div>
                         </div>
                         <div class="tab-content twitter-bs-wizard-tab-content">
+                            <!-- step1: Driver Information -->
                             <div class="tab-pane" id="driver-information">
                                 <form>
+
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-3">
@@ -108,6 +110,7 @@
                                     </div>
                                 </form>
                             </div>
+                            <!-- step2: Vehicle Information -->
                             <div class="tab-pane" id="vehicle-information">
                                 <div>
                                 <form>
@@ -159,6 +162,7 @@
                                 </form>
                                 </div>
                             </div>
+                            <!-- step3: License and Documentation -->
                             <div class="tab-pane" id="license-and-documentation">
                                 <div>
                                     <form>
@@ -210,6 +214,7 @@
                                     </form>
                                 </div>
                             </div>
+                            <!-- step4: Hire and Supervision -->
                             <div class="tab-pane" id="hire-and-supervision">
                                 <div>
                                     <form>
@@ -261,6 +266,7 @@
                                     </form>
                                 </div>
                             </div>
+                            <!-- step5: Confirm Details -->
                             <div class="tab-pane" id="progress-confirm-detail">
                                 <div class="row justify-content-center">
                                     <div class="col-lg-6">
