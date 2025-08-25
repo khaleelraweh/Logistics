@@ -25,26 +25,26 @@
                     <div id="progrss-wizard" class="twitter-bs-wizard">
                         <ul class="twitter-bs-wizard-nav nav-justified">
                             <li class="nav-item">
-                                <a href="#progress-seller-details" class="nav-link" data-toggle="tab">
+                                <a href="#driver-information" class="nav-link" data-toggle="tab">
                                     <span class="step-number"> <i class="mdi mdi-account-tie" style="font-size: 1.4rem;"></i> </span>
                                     <span class="step-title">{{ __('driver.driver_info') }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#progress-company-document" class="nav-link" data-toggle="tab">
+                                <a href="#vehicle-information" class="nav-link" data-toggle="tab">
                                     <span class="step-number"> <i class="mdi mdi-train-car" style="font-size: 1.4rem;"></i></span>
                                     <span class="step-title">{{ __('driver.vehicle_info') }}</span>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="#progress-bank-detail" class="nav-link" data-toggle="tab">
+                                <a href="#license-and-documentation" class="nav-link" data-toggle="tab">
                                     <span class="step-number"><i class="mdi mdi-license" style="font-size: 1.4rem;"></i></span>
                                     <span class="step-title">{{ __('driver.license_and_documentation') }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#progress-bank-detail" class="nav-link" data-toggle="tab">
+                                <a href="#progress-bank-detai2l" class="nav-link" data-toggle="tab">
                                     <span class="step-number"><i class="mdi mdi-account-supervisor" style="font-size: 1.4rem;"></i></span>
                                     <span class="step-title">{{ __('driver.hire_and_supervision') }}</span>
                                 </a>
@@ -61,7 +61,7 @@
                             <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"></div>
                         </div>
                         <div class="tab-content twitter-bs-wizard-tab-content">
-                            <div class="tab-pane" id="progress-seller-details">
+                            <div class="tab-pane" id="driver-information">
                                 <form>
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -102,7 +102,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="tab-pane" id="progress-company-document">
+                            <div class="tab-pane" id="vehicle-information">
                                 <div>
                                 <form>
                                     <div class="row">
@@ -153,7 +153,7 @@
                                 </form>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="progress-bank-detail">
+                            <div class="tab-pane" id="license-and-documentation">
                                 <div>
                                     <form>
                                         <div class="row">
