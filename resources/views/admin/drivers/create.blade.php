@@ -450,6 +450,24 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="hired_date">{{ __('driver.hired_date') }}</label>
+                                                    <input type="date" class="form-control" name="hired_date" value="{{ old('hired_date') }}" placeholder="{{ __('driver.hired_date') }}" id="hired_date">
+                                                    @error('hired_date')<span class="text-danger">{{ $message }}</span>@enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="supervisor_id">{{ __('driver.supervisor_id') }}</label>
+                                                    <input type="text" class="form-control" name="supervisor_id" value="{{ old('supervisor_id') }}" placeholder="{{ __('driver.supervisor_id') }}" id="supervisor_id">
+                                                    @error('supervisor_id')<span class="text-danger">{{ $message }}</span>@enderror
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
