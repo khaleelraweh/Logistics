@@ -4,17 +4,18 @@
     <meta charset="UTF-8" />
         <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
 
-    <title>سجل الطرد - {{ $package->tracking_number ?? 'غير محدد' }}</title>
+    <title>{{ __('package.package_record') }} - {{ $package->tracking_number ?? __('package.not_specified') }}</title>
 
     <style>
 
         body {
-            /* font-family: 'tajawal', 'droidkufi', 'Cairo', sans-serif ; */
-            direction: rtl; /* لضبط الكتابة من اليمين لليسار */
-            text-align: right;
+            direction: {{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }};
+            text-align: {{ app()->getLocale() == 'ar' ? 'right' : 'left' }};
             margin: 0;
             padding: 20px;
             color: #333;
+            font-family: 'Cairo', sans-serif;
+
         }
         .document {
             max-width: 800px;
