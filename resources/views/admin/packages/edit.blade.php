@@ -181,16 +181,21 @@
 
 @section('content')
 
-    <!-- start page title -->
-    <div class="row">
+
+    <!-- Page Header -->
+    <div class="row ">
         <div class="col-12">
-            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">{{ __('package.manage_packages') }}</h4>
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('package.edit_package') }}</h4>
+
                 <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('package.edit_package') }}</a></li>
-                        <li class="breadcrumb-item active">{{ __('package.manage_packages') }}</li>
-                    </ol>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.packages.index') }}">{{ __('package.manage_packages') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('package.edit_package') }}</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
