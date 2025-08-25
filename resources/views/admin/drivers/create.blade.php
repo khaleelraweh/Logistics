@@ -370,16 +370,6 @@
                                             </div>
                                         </div>
 
-                                        <div class="row">
-                                            <!-- vehicle_image -->
-                                            <div class="col-lg-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="vehicle_image">{{ __('driver.vehicle_image') }}</label>
-                                                    <input type="file" class="form-control" name="vehicle_image" id="vehicle_image">
-                                                    @error('vehicle_image')<span class="text-danger">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -412,20 +402,29 @@
                                                     @error('license_image')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
+                                            <!-- vehicle_image -->
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="vehicle_image">{{ __('driver.vehicle_image') }}</label>
+                                                    <input type="file" class="form-control" name="vehicle_image" id="vehicle_image">
+                                                    @error('vehicle_image')<span class="text-danger">{{ $message }}</span>@enderror
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="driver_image">{{ __('driver.driver_image') }}</label>
+                                                    <input type="file" class="form-control" name="driver_image" value="{{ old('driver_image') }}" id="driver_image">
+                                                    @error('driver_image')<span class="text-danger">{{ $message }}</span> @enderror
+                                                </div>
+                                            </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="id_card_image">{{ __('driver.id_card_image') }}</label>
                                                     <input type="file" class="form-control" name="id_card_image" value="{{ old('id_card_image') }}" placeholder="{{ __('driver.id_card_image') }}" id="id_card_image">
                                                     @error('id_card_image')<span class="text-danger">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="driver_image">{{ __('driver.driver_image') }}</label>
-                                                    <input type="file" class="form-control" name="driver_image" value="{{ old('driver_image') }}" id="driver_image">
-                                                    @error('driver_image')<span class="text-danger">{{ $message }}</span> @enderror
                                                 </div>
                                             </div>
                                         </div>
