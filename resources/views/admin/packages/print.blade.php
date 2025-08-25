@@ -2,14 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
+        <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+
     <title>سجل الطرد - {{ $package->tracking_number ?? 'غير محدد' }}</title>
+
     <style>
-        @font-face {
-            font-family: 'Tajawal';
-            src: url('{{ public_path('fonts/DroidKufi-Regular.ttf') }}') format('DroidKufi-Regular');
-            font-weight: normal;
-            font-style: normal;
-        }
+
         body {
             font-family: 'Tajawal', 'DroidKufi', sans-serif !important;
             direction: rtl; /* لضبط الكتابة من اليمين لليسار */
