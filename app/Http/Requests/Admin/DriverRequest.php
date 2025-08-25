@@ -31,7 +31,7 @@ class DriverRequest extends FormRequest
                     'last_name.*'                    => 'required|string|max:255',
 
                     'phone'                     => 'required|string|max:20',
-                    'username'                  => 'nullable|string|max:50|unique:drivers,username',
+                    'username'                  => 'required|string|max:50|unique:drivers,username',
                     'email'                     => 'required|email|max:255|unique:drivers,email',
                     // 'password'                  => 'nullable|string|min:6|confirmed',
                     'password'                  => 'nullable|string|min:6',
@@ -82,7 +82,7 @@ class DriverRequest extends FormRequest
                     'last_name.*'                    => 'required|string|max:255',
 
                     'phone'                     => 'required|string|max:20',
-                    'username'                  => 'nullable|string|max:50|unique:drivers,username,' . $this->route('driver'),
+                    'username'                  => 'required|string|max:50|unique:drivers,username,' . $this->route('driver'),
                     'email'                     => 'required|email|max:255|unique:drivers,email,' . $this->route('driver'),
                     // 'password'                  => 'nullable|string|min:6|confirmed',
                     'password'                  => 'nullable|string|min:6',
@@ -96,17 +96,17 @@ class DriverRequest extends FormRequest
                     'latitude'                  => 'nullable|numeric|between:-90,90',
                     'longitude'                 => 'nullable|numeric|between:-180,180',
 
-                    'vehicle_type'              => 'nullable|string|max:100',
-                    'vehicle_number'            => 'nullable|string|max:100',
-                    'vehicle_model'             => 'nullable|string|max:100',
+                    'vehicle_type'              => 'required|string|max:100',
+                    'vehicle_number'            => 'required|string|max:100',
+                    'vehicle_model'             => 'required|string|max:100',
                     'vehicle_color'             => 'nullable|string|max:50',
 
                     'vehicle_capacity_weight'   => 'nullable|numeric|min:0',
                     'vehicle_capacity_volume'   => 'nullable|numeric|min:0',
                     'vehicle_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
 
-                    'license_number'            => 'nullable|string|max:100',
-                    'license_expiry_date'       => 'nullable|date',
+                    'license_number'            => 'required|string|max:100',
+                    'license_expiry_date'       => 'required|date',
                     'hired_date'                => 'nullable|date',
                     'license_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
                     'id_card_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
