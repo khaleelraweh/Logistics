@@ -8,6 +8,7 @@ return [
     'add_new_stock_item'              =>  ' إضافة عنصر مخزن جديد',
     'item_details'                    =>   'تفاصيل العنصر',
     'published_on'                    =>   'تاريخ النشر',
+    'stock_items'                     =>   'المخزون',
 
     //create page
     'stock_item_info'                 =>  'معلومات عناصر المخزون',

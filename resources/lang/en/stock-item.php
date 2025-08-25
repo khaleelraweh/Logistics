@@ -8,6 +8,7 @@ return [
     'add_new_stock-item'              =>  'Add New Stock Item',
     'item_details'                    =>   'Item Details',
     'published_on'                    =>   'Published On',
+    'stock_item'                       =>   'Stock Items',
 
 
     // create page
