@@ -90,8 +90,6 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Page Title -->
-
 
     <!-- Page Header -->
     <div class="row ">
