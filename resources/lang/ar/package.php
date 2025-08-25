@@ -106,6 +106,11 @@ return [
     'package_size'           => 'حجم الطرد',
     'created_at'             => 'تاريخ الإنشاء',
 
+    'fee'                     => 'الرسوم',
+    'paid'                    => 'مدفوع',
+    'unpaid'                  => 'غير مدفوع',
+    'remaining'               => 'المتبقي',
+
     'show_package'           => 'عرض الطرد',
     'edit_package'           => 'تعديل الطرد',
     'delete_package'         => 'حذف الطرد',

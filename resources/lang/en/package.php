@@ -106,6 +106,11 @@ return [
     'package_size'           => 'Package Size',
     'created_at'             => 'Created At',
 
+    'fee'                     => 'Fee',
+    'paid'                    => 'Paid',
+    'unpaid'                  => 'Unpaid',
+    'remaining'               => 'Remaining',
+
     'show_package'           => 'Show Package',
     'edit_package'           => 'Edit Package',
     'delete_package'         => 'Delete Package',
