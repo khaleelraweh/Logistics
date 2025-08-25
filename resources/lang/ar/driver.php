@@ -98,4 +98,40 @@ return [
 
     // Messages
     'no_drivers_found'           => 'لم يتم العثور على سائقين',
+
+
+    // vehicle types
+    'vehicle_type_car' => '🚗 سيارة صغيرة',
+    'vehicle_type_van' => '🚐 فان',
+    'vehicle_type_small_truck' => '🚚 شاحنة صغيرة',
+    'vehicle_type_big_truck' => '🚛 شاحنة كبيرة',
+    'vehicle_type_motorcycle' => '🛵 دراجة نارية',
+
+    // vehicle models
+    'vehicle_model_toyota' => 'تويوتا',
+    'vehicle_model_nissan' => 'نيسان',
+    'vehicle_model_ford' => 'فورد',
+    'vehicle_model_mercedes' => 'مرسيدس',
+
+    // vehicle colors
+    'vehicle_color_white' => 'أبيض',
+    'vehicle_color_black' => 'أسود',
+    'vehicle_color_silver' => 'فضي',
+    'vehicle_color_red' => 'أحمر',
+    'vehicle_color_blue' => 'أزرق',
+    'vehicle_color_green' => 'أخضر',
+    'vehicle_color_gray' => 'رمادي',
+
+    // vehicle capacity weight
+    'vehicle_capacity_weight_lt1' => 'أقل من 1 طن',
+    'vehicle_capacity_weight_1to3' => '1 – 3 طن',
+    'vehicle_capacity_weight_3to7' => '3 – 7 طن',
+    'vehicle_capacity_weight_gt7' => 'أكثر من 7 طن',
+
+    // vehicle capacity volume
+    'vehicle_capacity_volume_small' => 'صغيرة (0 – 3 م³)',
+    'vehicle_capacity_volume_medium' => 'متوسطة (3 – 7 م³)',
+    'vehicle_capacity_volume_large' => 'كبيرة (7 – 15 م³)',
+    'vehicle_capacity_volume_huge' => 'ضخمة (أكثر من 15 م³)',
+
 ];

@@ -97,4 +97,40 @@ return [
 
     // Messages
     'no_drivers_found'           => 'No drivers found',
+
+
+    // vehicle types
+    'vehicle_type_car' => '🚗 Small Car',
+    'vehicle_type_van' => '🚐 Van',
+    'vehicle_type_small_truck' => '🚚 Small Truck',
+    'vehicle_type_big_truck' => '🚛 Big Truck',
+    'vehicle_type_motorcycle' => '🛵 Motorcycle',
+
+    // vehicle models
+    'vehicle_model_toyota' => 'Toyota',
+    'vehicle_model_nissan' => 'Nissan',
+    'vehicle_model_ford' => 'Ford',
+    'vehicle_model_mercedes' => 'Mercedes',
+
+    // vehicle colors
+    'vehicle_color_white' => 'White',
+    'vehicle_color_black' => 'Black',
+    'vehicle_color_silver' => 'Silver',
+    'vehicle_color_red' => 'Red',
+    'vehicle_color_blue' => 'Blue',
+    'vehicle_color_green' => 'Green',
+    'vehicle_color_gray' => 'Gray',
+
+    // vehicle capacity weight
+    'vehicle_capacity_weight_lt1' => 'Less than 1 ton',
+    'vehicle_capacity_weight_1to3' => '1 – 3 tons',
+    'vehicle_capacity_weight_3to7' => '3 – 7 tons',
+    'vehicle_capacity_weight_gt7' => 'More than 7 tons',
+
+    // vehicle capacity volume
+    'vehicle_capacity_volume_small' => 'Small (0 – 3 m³)',
+    'vehicle_capacity_volume_medium' => 'Medium (3 – 7 m³)',
+    'vehicle_capacity_volume_large' => 'Large (7 – 15 m³)',
+    'vehicle_capacity_volume_huge' => 'Huge (More than 15 m³)',
+
 ];
