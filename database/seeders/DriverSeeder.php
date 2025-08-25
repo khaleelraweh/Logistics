@@ -30,7 +30,6 @@ class DriverSeeder extends Seeder
             'license_expiry_date' => now()->addYear(),
 
             'hired_date' => now()->subMonths(3),
-            'supervisor_id' => 'admin',
 
             'total_deliveries' => 28,
             'rating' => 4.6,
