@@ -29,6 +29,12 @@ return [
 
     // Fields
     'name'                        => 'Driver Name',
+    'driver_first_name'           => 'Driver First Name',
+    'driver_middle_name'          => 'Driver Middle Name',
+    'driver_last_name'            => 'Driver Last Name',
+    'first_name'                  => 'First Name',
+    'middle_name'                 => 'Middle Name',
+    'last_name'                   => 'Last Name',
     'username'                    => 'Username',
     'email'                       => 'Email',
     'phone'                       => 'Phone Number',

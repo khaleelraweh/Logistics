@@ -69,22 +69,39 @@
                         <div class="tab-content twitter-bs-wizard-tab-content">
                             <!-- step1: Driver Information -->
                             <div class="tab-pane" id="driver-information">
-                                <form>
 
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label class="form-label" for="progress-basicpill-firstname-input">First name</label>
-                                                <input type="text" class="form-control" id="progress-basicpill-firstname-input">
+                                    @foreach (config('locales.languages') as $key => $val)
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="first_name">{{ __('driver.driver_first_name') }}
+                                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
+                                                    </label>
+                                                    <input name="first_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('first_name.' . $key) }}">
+                                                    @error('first_name.' . $key)<span class="text-danger">{{ $message }}</span>@enderror
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label class="form-label" for="progress-basicpill-lastname-input">Last name</label>
-                                                <input type="text" class="form-control" id="progress-basicpill-lastname-input">
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="first_name">{{ __('driver.driver_middle_name') }}
+                                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
+                                                    </label>
+                                                    <input name="first_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('first_name.' . $key) }}">
+                                                    @error('first_name.' . $key)<span class="text-danger">{{ $message }}</span>@enderror
+                                                </div>
                                             </div>
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="first_name">{{ __('driver.driver_last_name') }}
+                                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
+                                                    </label>
+                                                    <input name="first_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('first_name.' . $key) }}">
+                                                    @error('first_name.' . $key)<span class="text-danger">{{ $message }}</span>@enderror
+                                                </div>
+                                            </div>
+
                                         </div>
-                                    </div>
+                                    @endforeach
 
                                     <div class="row">
                                         <div class="col-lg-6">
@@ -108,7 +125,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+
                             </div>
                             <!-- step2: Vehicle Information -->
                             <div class="tab-pane" id="vehicle-information">

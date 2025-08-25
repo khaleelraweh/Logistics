@@ -30,6 +30,12 @@ return [
 
     // Fields
     'name'                        => 'اسم السائق',
+    'driver_first_name'           => 'الاسم الأول للسائق',
+    'driver_middle_name'          => 'اسم الأب للسائق',
+    'driver_last_name'            => 'اسم العائلة للسائق',
+    'first_name'                  => 'الاسم الأول',
+    'middle_name'                 => 'اسم الأب',
+    'last_name'                   => 'اسم العائلة',
     'username'                    => 'اسم المستخدم',
     'email'                       => 'البريد الإلكتروني',
     'phone'                       => 'رقم الهاتف',
