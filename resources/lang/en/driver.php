@@ -69,7 +69,7 @@ return [
     'longitude'                   => 'Longitude',
 
     'hired_date'                 => 'Hired Date',
-    'supervisor_id'              => 'Supervisor ID',
+    'supervisor_id'              => 'Supervisor',
 
     'total_deliveries'           => 'Total Deliveries',
     'rating'                     => 'Rating',

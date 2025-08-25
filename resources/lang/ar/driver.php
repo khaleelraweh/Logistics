@@ -70,7 +70,7 @@ return [
     'longitude'                   => 'خط الطول',
 
     'hired_date'                 => 'تاريخ التوظيف',
-    'supervisor_id'              => 'معرف المشرف',
+    'supervisor_id'              =>  'المشرف المسؤول',
 
     'total_deliveries'           => 'إجمالي التوصيلات',
     'rating'                     => 'التقييم',

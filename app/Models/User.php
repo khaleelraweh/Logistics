@@ -75,14 +75,11 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
-
-    public function specializations(): BelongsToMany
+    public function drivers()
     {
-        return $this->belongsToMany(Specialization::class);
+        return $this->hasMany(Driver::class, 'supervisor_id');
     }
 
-    public function posts(): MorphToMany
-    {
-        return $this->morphedByMany(Post::class, 'userable');
-    }
+
+
 }

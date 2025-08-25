@@ -466,8 +466,9 @@
                                                         <option value="">{{ __('general.select') }}</option>
                                                         @forelse ($supervisors as $supervisor)
                                                             <option value="{{ $supervisor->id }}"
-                                                                {{ in_array($supervisor->id, old('supervisor_id')) ? 'selected' : null }}>
-                                                                {{ $supervisor->first_name }} {{ $supervisor->last_name }}</option>
+                                                                {{ old('supervisor_id') == $supervisor->id ? 'selected' : '' }}>
+                                                                {{ $supervisor->first_name }} {{ $supervisor->last_name }}  {{ $supervisor->email }}
+                                                            </option>
                                                         @empty
                                                         @endforelse
                                                     </select>

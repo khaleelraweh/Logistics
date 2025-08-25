@@ -39,4 +39,9 @@ class Driver extends Model
         return $this->hasMany(Package::class)
                     ->whereIn('status', ['assigned_to_driver', 'in_transit', 'out_for_delivery']);
     }
+
+    public function supervisor()
+    {
+        return $this->belongsTo(User::class, 'supervisor_id');
+    }
 }
