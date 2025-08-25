@@ -64,7 +64,10 @@ class DriverController extends Controller
             return redirect('admin/index');
         }
 
-        $input['name']                  =   $request->name;
+        $input['first_name']                  =   $request->first_name;
+        $input['middle_name']                  =   $request->middle_name;
+        $input['last_name']                  =   $request->last_name;
+
         $input['phone']                 =   $request->phone;
         $input['username']              =   $request->username;
         $input['email']                 =   $request->email;
@@ -210,7 +213,9 @@ class DriverController extends Controller
         $driver = DriverModel::where('id', $driver)->first();
 
 
-        $input['name']                  =   $request->name;
+        $input['first_name']                  =   $request->first_name;
+        $input['middle_name']                  =   $request->middle_name;
+        $input['last_name']                  =   $request->last_name;
         $input['phone']                 =   $request->phone;
         $input['username']              =   $request->username;
         $input['email']                 =   $request->email;
@@ -239,7 +244,7 @@ class DriverController extends Controller
         $input['status']                =   $request->status;
         $input['reason']                =   $request->reason;
 
-        $input['created_by']                =   auth()->user()->full_name;
+        $input['created_by']            =   auth()->user()->full_name;
 
 
         $driver->update($input);
