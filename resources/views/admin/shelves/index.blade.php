@@ -33,11 +33,13 @@
                     </p>
                 </div>
 
-                <div class="button-items">
+                @ability('admin', 'create_shelves')
+                    <div class="button-items">
                         <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.shelves.create') }}">
                             <i class="mdi mdi-warehouse me-2"></i> {{ __('shelf.add_new_shelf') }}
                         </a>
-                </div>
+                    </div>
+                @endability
 
             </div>
 
