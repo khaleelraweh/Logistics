@@ -17,7 +17,9 @@ return new class extends Migration
         // جدول السائقين
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
-            $table->json('name');
+            $table->json('first_name');
+            $table->json('middle_name')->nullable();
+            $table->json('last_name')->nullable();
             $table->string('phone')->nullable();
             $table->string('driver_image')->nullable();
 
