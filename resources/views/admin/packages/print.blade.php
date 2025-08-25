@@ -113,8 +113,7 @@
         }
     </style>
 </head>
-{{-- <body style="font-family: 'Cairo', sans-serif;"> --}}
-    {{-- <body> --}}
+
 <body style="font-family: 'Cairo', sans-serif;">
 
 
