@@ -280,8 +280,16 @@ return [
 
     'updated_at' => 'تم التحديث في',
     'sender_name' => 'اسم المرسل',
+
+    // بوليصة الشحن
     'Waybill' =>  'بوليصة الشحن',
     'print_waybill' => 'طباعة بوليصة الشحن',
     'download_waybill' => 'تحميل بوليصة الشحن',
+    'commercial_number' => 'الرقم التجاري',
+    'basic_info' => 'المعلومات الأساسية',
+    'creation_date' => 'تاريخ الإنشاء',
+    'not_specified' => 'غير محدد',
+    'payment_collection' => 'الدفع والتحصيل',
+    'generated_by'=> 'تم الإنشاء بواسطة',
 
 ];
