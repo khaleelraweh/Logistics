@@ -848,7 +848,7 @@
                                                     <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
                                                         <i class="ri-save-3-line me-2"></i>
                                                         <i class="bi bi-save me-2"></i>
-                                                        {{ __('package.save_package') }}
+                                                        {{ __('package.save_package_data') }}
                                                     </button>
                                                 @endability
 
