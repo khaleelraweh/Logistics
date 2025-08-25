@@ -121,20 +121,17 @@
             <div class="document page-break">
                 <div class="header">
                     <h1>LogesTechsKSA</h1>
-                    <div class="commercial-number">السجل التجاري: {{ $package->commercial_number ?? '123456789' }}</div>
+                    <div class="commercial-number"> {{ __('package.commercial_number') }}: {{ $package->commercial_number ?? '123456789' }}</div>
                 </div>
 
                 <div class="tracking-number">
-                    رقم متابعة الطرد: {{ $package->tracking_number ?? 'غير محدد' }}:{{ str_pad($index + 1, 3, '0', STR_PAD_LEFT) }}
+                    {{ __('package.tracking_number') }}: {{ $package->tracking_number ?? __('package.not_specified') }}:{{ str_pad($index + 1, 3, '0', STR_PAD_LEFT) }}
                 </div>
 
                 @if($product && $product->image)
                     <img src="{{ $product->image }}" class="product-image" alt="صورة المنتج">
                 @endif
 
-                {{-- <div class="barcode">
-                    *{{ $package->tracking_number ?? 'غير محدد' }}:{{ str_pad($index + 1, 3, '0', STR_PAD_LEFT) }}*
-                </div> --}}
 
                 <div class="section">
                     <h3>معلومات المنتج</h3>
