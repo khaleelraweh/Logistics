@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->json('name');
             $table->json('slug');
-               // عنوان التاجر مفصل
+            // عنوان التاجر مفصل
             $table->string('country')->nullable();
             $table->string('region')->nullable();
             $table->string('city')->nullable();
