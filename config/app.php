@@ -170,6 +170,8 @@ return [
 
         Mindscms\Entrust\EntrustServiceProvider::class,
         Alkoumi\LaravelHijriDate\LaravelHijriDateServiceProvider::class,
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+
 
 
 
@@ -202,6 +204,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // ...
         'Entrust'   => Mindscms\Entrust\EntrustFacade::class,
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
     ])->toArray(),
 
 ];

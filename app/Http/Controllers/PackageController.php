@@ -17,7 +17,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str; // في أعلى الكود
 // use PDF; // إذا تستخدم barryvdh/laravel-dompdf أو أي مكتبة PDF
-use Barryvdh\DomPDF\Facade\Pdf; // لاحظ Pdf وليس PDF
+// use Barryvdh\DomPDF\Facade\Pdf; // لاحظ Pdf وليس PDF
+use PDF;
 
 
 
@@ -797,12 +798,8 @@ class PackageController extends Controller
     {
         $package = Package::findOrFail($id);
 
-        $pdf = Pdf::loadView('admin.packages.print', compact('package'))
-            ->setPaper('a4')
-            ->setOption('isHtml5ParserEnabled', true)
-            ->setOption('isRemoteEnabled', true)
-            ->setOption('fontDir', storage_path('fonts'))
-            ->setOption('fontCache', storage_path('fonts'));
+        $pdf = PDF::loadView('admin.packages.print', compact('package'));
+
 
         return $pdf->download('package_'.$package->id.'.pdf');
     }
