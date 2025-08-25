@@ -330,7 +330,22 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="hired_date">{{ __('driver.hired_date') }}</label>
+                                                <input type="date" class="form-control" name="hired_date" value="{{ old('hired_date') }}" placeholder="{{ __('driver.hired_date') }}" id="hired_date">
+                                                @error('hired_date')<span class="text-danger">{{ $message }}</span>@enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="supervisor_id">{{ __('driver.supervisor_id') }}</label>
+                                                <input type="text" class="form-control" name="supervisor_id" value="{{ old('supervisor_id') }}" placeholder="{{ __('driver.supervisor_id') }}" id="supervisor_id">
+                                                @error('supervisor_id')<span class="text-danger">{{ $message }}</span>@enderror
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- step5: Confirm Details -->
@@ -366,69 +381,11 @@
 
 
 
-    <!-- بيانات التراخيص والمستندات -->
-    <div class="card p-3 mb-4">
-        <h5 class="mb-3">{{ __('driver.license_and_documentation') }}</h5>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="license_number">{{ __('driver.license_number') }}</label>
-                <input type="text" name="license_number" id="license_number" class="form-control" value="{{ old('license_number') }}">
-                @error('license_number')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
 
-            <div class="col-md-6 mb-3">
-                <label for="license_expiry_date">{{ __('driver.license_expiry_date') }}</label>
-                <input type="date" name="license_expiry_date" id="license_expiry_date" class="form-control" value="{{ old('license_expiry_date') }}">
-                @error('license_expiry_date')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
 
-            <div class="col-md-6 mb-3">
-                <label for="license_image">{{ __('driver.license_image') }}</label>
-                <input type="file" name="license_image" id="license_image" value="{{ old('license_image') }}" class="file-input-overview ">
-                @error('license_image')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
 
-            <div class="col-md-6 mb-3">
-                <label for="id_card_image">{{ __('driver.id_card_image') }}</label>
-                <input type="file" name="id_card_image" id="id_card_image" class="file-input-overview ">
-                @error('id_card_image')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-        </div>
-    </div>
 
-    <hr>
 
-    <!-- بيانات التوظيف والإشراف -->
-    <div class="card p-3 mb-4">
-        <h5 class="mb-3">{{ __('driver.hire_and_supervision') }}</h5>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="hired_date">{{ __('driver.hired_date') }}</label>
-                <input type="date" name="hired_date" id="hired_date" class="form-control" value="{{ old('hired_date') }}">
-                @error('hired_date')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label for="supervisor_id">{{ __('driver.supervisor_id') }}</label>
-                <input type="text" name="supervisor_id" id="supervisor_id" class="form-control" value="{{ old('supervisor_id') }}">
-                @error('supervisor_id')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-        </div>
-    </div>
-
-    <hr>
 
     <!-- الحالة -->
     <div class="card p-3 mb-4">
