@@ -113,19 +113,12 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label" for="progress-basicpill-email-input">Email</label>
-                                                <input type="email" class="form-control" id="progress-basicpill-email-input">
+                                                <label class="form-label" for="email">{{ __('driver.email') }}</label>
+                                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" id="email">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="mb-3">
-                                                <label class="form-label" for="progress-basicpill-address-input">Address</label>
-                                                <textarea id="progress-basicpill-address-input" class="form-control" rows="2"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
+
 
                             </div>
                             <!-- step2: Vehicle Information -->
