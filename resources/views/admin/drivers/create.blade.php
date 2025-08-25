@@ -462,10 +462,11 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="supervisor_id">{{ __('driver.supervisor_id') }}</label>
-                                                       <select name="supervisor_id[]" class="form-select select2">
+                                                       <select name="supervisor_id" class="form-select select2">
+                                                        <option value="">{{ __('general.select') }}</option>
                                                         @forelse ($supervisors as $supervisor)
                                                             <option value="{{ $supervisor->id }}"
-                                                                {{ in_array($supervisor->id, old('supervisor_id', [])) ? 'selected' : null }}>
+                                                                {{ in_array($supervisor->id, old('supervisor_id')) ? 'selected' : null }}>
                                                                 {{ $supervisor->first_name }} {{ $supervisor->last_name }}</option>
                                                         @empty
                                                         @endforelse
