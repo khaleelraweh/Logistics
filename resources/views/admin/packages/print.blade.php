@@ -87,18 +87,17 @@
         </div>
 
         <div class="section">
-            <h3>التحصيل المالي</h3>
+            <h3>{{ __('package.payment_collection') }}</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>مبلغ التحصيل</th>
-                        <th>طريقة الدفع</th>
+                        <th>{{ __('package.amount') }}</th>
+                        <th>{{ __('package.payment_method') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ $package->total_fee ?? '0' }} SAR</td>
-                        {{-- <td>{{ $package->payment_method ?? '-' }}</td> --}}
+                        <td>{{ $package->total_fee ?? '0' }} {{ __('general.sar') }}</td>
                         <td>{{ $package->payment_method_translated  ?? '-'}}</td>
                     </tr>
                 </tbody>
@@ -106,12 +105,12 @@
         </div>
 
         <div class="section notes">
-            <h3>ملاحظات</h3>
+            <h3>{{ __('package.notes') }}</h3>
             <p>{{ $package->notes ?? '-' }}</p>
         </div>
 
         <div class="footer">
-            تم إنشاء هذا السجل بواسطة نظام LogesTechsKSA في {{ date('d/m/Y H:i') }}
+            {{ __('package.generated_by') }} LogesTechsKSA {{ date('d/m/Y H:i') }}
         </div>
     </div>
 
