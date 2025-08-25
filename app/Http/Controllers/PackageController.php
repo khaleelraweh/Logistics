@@ -418,7 +418,7 @@ class PackageController extends Controller
         });
 
         // بعد النجاح
-        return redirect()->route('admin.packages.print', $result)
+        return redirect()->route('admin.packages.index', $result)
             ->with(['message' => __('messages.package_created'), 'alert-type' => 'success']);
     }
 
