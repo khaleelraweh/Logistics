@@ -92,14 +92,18 @@
                     <td style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9; vertical-align: top;">
                         <div class="info-item"><span class="info-label">{{ __('package.name') }}:</span> {{ $package->sender_full_name ?? __('package.not_specified') }}</div>
                         <div class="info-item"><span class="info-label">{{ __('package.phone') }}:</span> {{ $package->sender_phone ?? __('package.not_specified') }}</div>
-                        <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span> {{ $package->sender_address ?? __('package.not_specified') }}</div>
+                        <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span>
+                            <span>{{ $package->sender_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}  </span>
+                        </div>
                     </td>
 
                     <!-- معلومات المستلم -->
                     <td style="border: 1px solid #ddd; padding: 10px; background-color: #f9f9f9; vertical-align: top;">
                         <div class="info-item"><span class="info-label">{{ __('package.name') }}:</span> {{ $package->receiver_full_name ?? __('package.not_specified') }}</div>
                         <div class="info-item"><span class="info-label">{{ __('package.phone') }}:</span> {{ $package->receiver_phone ?? __('package.not_specified') }}</div>
-                        <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span> {{ $package->receiver_address ?? __('package.not_specified') }}</div>
+                        <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span>
+                            <span>{{ $package->receiver_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}  </span>
+                        </div>
                     </td>
                 </tr>
             </tbody>
