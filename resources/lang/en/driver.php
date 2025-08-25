@@ -60,6 +60,14 @@ return [
     'id_card_image'              => 'ID Card Image',
     'license_expiry_date'        => 'License Expiry Date',
 
+    'country'                     => 'Country',
+    'state'                       => 'State',
+    'city'                        => 'City',
+    'region'                      => 'Region',
+    'district'                    => 'District',
+    'latitude'                    => 'Latitude',
+    'longitude'                   => 'Longitude',
+
     'hired_date'                 => 'Hired Date',
     'supervisor_id'              => 'Supervisor ID',
 

@@ -61,6 +61,14 @@ return [
     'id_card_image'              => 'صورة البطاقة الشخصية',
     'license_expiry_date'        => 'تاريخ انتهاء الرخصة',
 
+    'country'                     => 'البلد',
+    'state'                       => 'المقاطعة',
+    'city'                        => 'المدينة',
+    'region'                      => 'المنطقة',
+    'district'                    => 'الحي',
+    'latitude'                    => 'خط العرض',
+    'longitude'                   => 'خط الطول',
+
     'hired_date'                 => 'تاريخ التوظيف',
     'supervisor_id'              => 'معرف المشرف',
 
