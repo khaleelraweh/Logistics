@@ -36,12 +36,14 @@
                             </p>
                         </div>
 
-                        <div class="button-items">
-                            <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.stock_items.create') }}">
-                                {{ __('stock-item.add_new_stock_item') }}
-                                <i class="mdi mdi-stocking align-middle ms-2"></i>
-                            </a>
-                        </div>
+                        @ability('admin', 'create_stock_items')
+                            <div class="button-items">
+                                <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.stock_items.create') }}">
+                                    {{ __('stock-item.add_new_stock_item') }}
+                                    <i class="mdi mdi-stocking align-middle ms-2"></i>
+                                </a>
+                            </div>
+                        @endability
                     </div>
 
                     <!-- Filters Section -->
