@@ -27,13 +27,13 @@
                             <li class="nav-item">
                                 <a href="#progress-seller-details" class="nav-link" data-toggle="tab">
                                     <span class="step-number"> <i class="mdi mdi-account-tie" style="font-size: 1.4rem;"></i> </span>
-                                    <span class="step-title">Seller Details</span>
+                                    <span class="step-title">{{ __('driver.driver_info') }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#progress-company-document" class="nav-link" data-toggle="tab">
-                                    <span class="step-number">02</span>
-                                    <span class="step-title">Company Document</span>
+                                    <span class="step-number"> <i class="mdi mdi-train-car" style="font-size: 1.4rem;"></i></span>
+                                    <span class="step-title">{{ __('driver.vehicle_info') }}</span>
                                 </a>
                             </li>
 
