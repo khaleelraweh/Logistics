@@ -38,90 +38,52 @@
     <div class="document">
         <div class="header">
             <h1>LogesTechsKSA</h1>
-            <div class="commercial-number">السجل التجاري: {{ $package->commercial_number ?? '123456789' }}</div>
+            <div class="commercial-number">{{ __('package.commercial_number') }}: {{ $package->commercial_number ?? '123456789' }}</div>
         </div>
 
-        <div class="tracking-number">
-            رقم متابعة الطرد: {{ $package->tracking_number ?? 'غير محدد' }}
+         <div class="tracking-number">
+            {{ __('package.tracking_number') }}: {{ $package->tracking_number ?? __('package.not_specified') }}
         </div>
 
         <div class="section">
-            <h3>معلومات أساسية</h3>
+            <h3>{{ __('package.basic_info') }}</h3>
             <div class="info-grid">
                 <div class="info-item">
-                    <span class="info-label">تاريخ إنشاء الطرد:</span>
-                    <span>{{ optional($package->created_at)->format('d/m/Y H:i') ?? 'غير محدد' }}</span>
+                    <div><span class="info-label">{{ __('package.creation_date') }}:</span> {{ optional($package->created_at)->format('d/m/Y H:i') ?? __('package.not_specified') }}</div>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">نوع الطرد:</span>
-                    <span>{{ $package->package_type ? __('package.type_' . $package->package_type) : 'غير محدد' }}</span>
-                    {{-- <span>{{ $package->package_type ?? 'غير محدد' }}</span> --}}
+                    <div><span class="info-label">{{ __('package.package_type') }}:</span> {{ $package->package_type ? __('package.type_' . $package->package_type) : __('package.not_specified') }}</div>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">الكمية:</span>
-                    <span>{{ $package->quantity ?? 'غير محدد' }}</span>
+                    <div><span class="info-label">{{ __('package.quantity') }}:</span> {{ $package->quantity ?? __('package.not_specified') }}</div>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">طريقة التوصيل:</span>
-                    <span >{{$package->delivery_method  ? __('package.speed_' . $package->delivery_speed) : 'غير محدد' }}</span>
+                    <div><span class="info-label">{{ __('package.delivery_method') }}:</span> {{ $package->delivery_method ? __('package.speed_' . $package->delivery_speed) : __('package.not_specified') }}</div>
                 </div>
             </div>
         </div>
 
         <div class="info-grid">
             <div class="section">
-                <h3>معلومات المرسل</h3>
-                <div class="info-item">
-                    <span class="info-label">الاسم:</span>
-                    <span>{{ $package->sender_full_name ?? 'غير محدد' }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">الهاتف:</span>
-                    <span>{{ $package->sender_phone ?? 'غير محدد' }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">العنوان:</span>
-                    <span>{{ $package->sender_address ?? 'غير محدد' }}</span>
-                </div>
+                <h3>{{ __('package.sender_info') }}</h3>
+                <div class="info-item"><span class="info-label">{{ __('package.name') }}:</span> {{ $package->sender_full_name ?? __('package.not_specified') }}</div>
+                <div class="info-item"><span class="info-label">{{ __('package.phone') }}:</span> {{ $package->sender_phone ?? __('package.not_specified') }}</div>
+                <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span> {{ $package->sender_address ?? __('package.not_specified') }}</div>
             </div>
 
             <div class="section">
-                <h3>معلومات المستلم</h3>
-                <div class="info-item">
-                    <span class="info-label">الاسم:</span>
-                    <span>{{ $package->receiver_full_name ?? 'غير محدد' }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">الهاتف:</span>
-                    <span>{{ $package->receiver_phone ?? 'غير محدد' }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">العنوان:</span>
-                    <span>{{ $package->receiver_address ?? 'غير محدد' }}</span>
-                </div>
+                <h3>{{ __('package.receiver_info') }}</h3>
+                <div class="info-item"><span class="info-label">{{ __('package.name') }}:</span> {{ $package->receiver_full_name ?? __('package.not_specified') }}</div>
+                <div class="info-item"><span class="info-label">{{ __('package.phone') }}:</span> {{ $package->receiver_phone ?? __('package.not_specified') }}</div>
+                <div class="info-item"><span class="info-label">{{ __('package.address') }}:</span> {{ $package->receiver_address ?? __('package.not_specified') }}</div>
             </div>
         </div>
 
-        <div class="section">
-            <h3>تفاصيل الطرد</h3>
-            <div class="info-item">
-                <span class="info-label">المحتويات:</span>
-                <span>{{ $package->contents ?? '-' }}</span>
-            </div>
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="info-label">الوزن:</span>
-                    <span>{{ $package->weight ?? '-' }} كجم</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">الأبعاد:</span>
-                    <span>
-                        {{ $package->dimensions['length'] ?? '-' }} سم ×
-                        {{ $package->dimensions['width'] ?? '-' }} سم ×
-                        {{ $package->dimensions['height'] ?? '-' }} سم
-                    </span>
-                </div>
-            </div>
+          <div class="section">
+            <h3>{{ __('package.package_details') }}</h3>
+            <div class="info-item"><span class="info-label">{{ __('package.contents') }}:</span> {{ $package->contents ?? '-' }}</div>
+            <div class="info-item"><span class="info-label">{{ __('package.weight') }}:</span> {{ $package->weight ?? '-' }} {{ __('package.kg') }}</div>
+            <div class="info-item"><span class="info-label">{{ __('package.dimensionss') }}:</span> {{ $package->dimensions['length'] ?? '-' }} {{ __('package.cm') }} ×{{ $package->dimensions['width'] ?? '-' }} {{ __('package.cm') }} ×{{ $package->dimensions['height'] ?? '-' }} {{ __('package.cm') }}</div>
         </div>
 
         <div class="section">
