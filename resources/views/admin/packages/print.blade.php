@@ -168,18 +168,35 @@
                 </div>
 
                 <div class="section">
-                    <h3>معلومات المستلم</h3>
+                    <h3>{{ __('package.sender_Information') }}</h3>
                     <div class="info-item">
-                        <span class="info-label">الاسم:</span>
-                        <span>{{ $package->receiver_full_name ?? 'غير محدد' }}</span>
+                        <span class="info-label">{{ __('package.sender_name') }}:</span>
+                        <span>{{ $package->sender_full_name ?? __('package.not_specified') }}</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">الهاتف:</span>
-                        <span>{{ $package->receiver_phone ?? 'غير محدد' }}</span>
+                        <span class="info-label">{{ __('package.sender_phone') }}:</span>
+                        <span>{{ $package->sender_phone ?? __('package.not_specified') }}</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">العنوان:</span>
-                        <span>{{ $package->receiver_address ?? 'غير محدد' }}</span> <br>
+                        <span class="info-label">{{ __('package.sender_address') }}:</span>
+                        <span>{{ $package->sender_address ?? __('package.not_specified') }}</span> <br>
+                        <span>{{ $package->sender_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}  </span>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>{{ __('package.receiver_Information') }}</h3>
+                    <div class="info-item">
+                        <span class="info-label">{{ __('package.receiver_name') }}:</span>
+                        <span>{{ $package->receiver_full_name ?? __('package.not_specified') }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">{{ __('package.receiver_phone') }}:</span>
+                        <span>{{ $package->receiver_phone ?? __('package.not_specified') }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">{{ __('package.receiver_address') }}:</span>
+                        <span>{{ $package->receiver_address ?? __('package.not_specified') }}</span> <br>
                         <span>{{ $package->receiver_country }} - {{ $package->receiver_region }} - {{ $package->receiver_city }} - {{ $package->receiver_district }}  </span>
                     </div>
                 </div>
