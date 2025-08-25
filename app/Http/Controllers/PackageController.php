@@ -796,10 +796,10 @@ class PackageController extends Controller
 
     public function printPackage($id)
     {
+
         $package = Package::findOrFail($id);
 
        $pdf = PDF::loadView('admin.packages.print', compact('package'));
-
 
         return $pdf->download('package_'.$package->id.'.pdf');
     }
