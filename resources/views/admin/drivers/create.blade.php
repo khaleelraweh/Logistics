@@ -128,15 +128,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="mb-3">
-                                                <label class="form-label" for="driver_image">{{ __('driver.driver_image') }}</label>
-                                                <input type="file" class="form-control" name="driver_image" value="{{ old('driver_image') }}" id="driver_image">
-                                                @error('driver_image')<span class="text-danger">{{ $message }}</span> @enderror
-                                            </div>
-                                        </div>
-                                    </div>
+
 
                                     <div class="mb-5"></div>
 
@@ -310,7 +302,15 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="driver_image">{{ __('driver.driver_image') }}</label>
+                                                    <input type="file" class="form-control" name="driver_image" value="{{ old('driver_image') }}" id="driver_image">
+                                                    @error('driver_image')<span class="text-danger">{{ $message }}</span> @enderror
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- step4: Hire and Supervision -->
