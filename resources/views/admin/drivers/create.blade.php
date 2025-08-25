@@ -214,53 +214,63 @@
                             <!-- step2: Vehicle Information -->
                             <div class="tab-pane" id="vehicle-information">
                                 <div>
-                                <form>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label" for="progress-basicpill-pancard-input">PAN Card</label>
-                                                <input type="text" class="form-control" id="progress-basicpill-pancard-input">
+                                                <label class="form-label" for="vehicle_type">{{ __('driver.vehicle_type') }}</label>
+                                                <input type="text" class="form-control" name="vehicle_type" value="{{ old('vehicle_type') }}" placeholder="{{ __('driver.vehicle_type') }}" id="vehicle_type">
+                                                @error('vehicle_type')<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
-
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label" for="progress-basicpill-vatno-input">VAT/TIN No.</label>
-                                                <input type="text" class="form-control" id="progress-basicpill-vatno-input">
+                                                <label class="form-label" for="vehicle_model">{{ __('driver.vehicle_model') }}</label>
+                                                <input type="text" class="form-control" name="vehicle_model" value="{{ old('vehicle_model') }}" placeholder="{{ __('driver.vehicle_model') }}" id="vehicle_model">
+                                                @error('vehicle_model')<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label" for="progress-basicpill-cstno-input">CST No.</label>
-                                                <input type="text" class="form-control" id="progress-basicpill-cstno-input">
+                                                <label class="form-label" for="vehicle_number">{{ __('driver.vehicle_number') }}</label>
+                                                <input type="text" class="form-control" name="vehicle_number" value="{{ old('vehicle_number') }}" placeholder="{{ __('driver.vehicle_number') }}" id="vehicle_number">
+                                                @error('vehicle_number')<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
-
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label" for="progress-basicpill-servicetax-input">Service Tax No.</label>
-                                                <input type="text" class="form-control" id="progress-basicpill-servicetax-input">
+                                                <label class="form-label" for="vehicle_color">{{ __('driver.vehicle_color') }}</label>
+                                                <input type="text" class="form-control" name="vehicle_color" value="{{ old('vehicle_color') }}" placeholder="{{ __('driver.vehicle_color') }}" id="vehicle_color">
+                                                @error('vehicle_color')<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label" for="progress-basicpill-companyuin-input">Company UIN</label>
-                                                <input type="text" class="form-control" id="progress-basicpill-companyuin-input">
+                                                <label class="form-label" for="vehicle_capacity_weight">{{ __('driver.vehicle_capacity_weight') }}</label>
+                                                <input type="text" class="form-control" name="vehicle_capacity_weight" value="{{ old('vehicle_capacity_weight') }}" placeholder="{{ __('driver.vehicle_capacity_weight') }}" id="vehicle_capacity_weight">
+                                                @error('vehicle_capacity_weight')<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
-
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label class="form-label" for="progress-basicpill-declaration-input">Declaration</label>
-                                                <input type="text" class="form-control" id="progress-basicpill-declaration-input">
+                                                <label class="form-label" for="vehicle_capacity_volume">{{ __('driver.vehicle_capacity_volume') }}</label>
+                                                <input type="text" class="form-control" name="vehicle_capacity_volume" value="{{ old('vehicle_capacity_volume') }}" placeholder="{{ __('driver.vehicle_capacity_volume') }}" id="vehicle_capacity_volume">
+                                                @error('vehicle_capacity_volume')<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="vehicle_image">{{ __('driver.vehicle_image') }}</label>
+                                                <input type="file" class="form-control" name="vehicle_image" value="{{ old('vehicle_image') }}" placeholder="{{ __('driver.vehicle_image') }}" id="vehicle_image">
+                                                @error('vehicle_image')<span class="text-danger">{{ $message }}</span>@enderror
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- step3: License and Documentation -->
@@ -398,70 +408,7 @@
     @csrf
 
     <div class="row">
-        <!-- بيانات السائق -->
-        <div class="col-md-6">
-            <div class="card p-3 mb-4">
-                <h5 class="mb-3">{{ __('driver.driver_info') }}</h5>
 
-                @foreach (config('locales.languages') as $key => $val)
-                    <div class="row mb-3">
-
-                        <div class="col-sm-12">
-                            <label for="name">
-                                {{ __('driver.name') }}
-                                <span class="language-type">
-                                    <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
-                                        title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
-                                    {{ __('language.' . $key) }}
-                                </span>
-                            </label>
-                            <input name="name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('name.' . $key) }}">
-                            @error('name.' . $key)
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                @endforeach
-
-                <div class="mb-3">
-                    <label for="phone">{{ __('driver.phone') }}</label>
-                    <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone') }}">
-                    @error('phone')<span class="text-danger">{{ $message }}</span> @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="email">{{ __('driver.email') }}</label>
-                    <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
-                    @error('email')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="username">{{ __('driver.username') }}</label>
-                    <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}">
-                    @error('username')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="password">{{ __('driver.password') }}</label>
-                    <input type="password" name="password" id="password" class="form-control">
-                    @error('password')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="driver_image">{{ __('driver.driver_image') }}</label>
-                    <input type="file" name="driver_image" id="driver_image" value="{{ old('driver_image') }}" class="file-input-overview ">
-                    @error('driver_image')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-            </div>
-        </div>
 
         <!-- بيانات المركبة -->
         <div class="col-md-6">
