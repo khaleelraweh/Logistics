@@ -39,14 +39,20 @@
 
                             <li class="nav-item">
                                 <a href="#progress-bank-detail" class="nav-link" data-toggle="tab">
-                                    <span class="step-number">03</span>
-                                    <span class="step-title">Bank Details</span>
+                                    <span class="step-number"><i class="mdi mdi-license" style="font-size: 1.4rem;"></i></span>
+                                    <span class="step-title">{{ __('driver.license_and_documentation') }}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#progress-bank-detail" class="nav-link" data-toggle="tab">
+                                    <span class="step-number"><i class="mdi mdi-account-supervisor" style="font-size: 1.4rem;"></i></span>
+                                    <span class="step-title">{{ __('driver.hire_and_supervision') }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#progress-confirm-detail" class="nav-link" data-toggle="tab">
-                                    <span class="step-number">04</span>
-                                    <span class="step-title">Confirm Detail</span>
+                                    <span class="step-number"><i class="fas fa-check-circle" ></i></span>
+                                    <span class="step-title">{{ __('driver.confirm_detail') }}</span>
                                 </a>
                             </li>
                         </ul>
