@@ -335,11 +335,10 @@
                                                     <option value="suspended">{{ __('driver.status_suspended') }}</option>
                                                     <option value="terminated">{{ __('driver.status_terminated') }}</option>
                                                 </select>
-    `                                          @error('availability_status')<span class="text-danger">{{ $message }}</span>@enderror
+                                                @error('availability_status')<span class="text-danger">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <!-- step5: Confirm Details -->
