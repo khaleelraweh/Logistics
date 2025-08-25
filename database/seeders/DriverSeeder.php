@@ -11,7 +11,9 @@ class DriverSeeder extends Seeder
     public function run()
     {
         Driver::create([
-            'name' => ['ar' => 'خالد أحمد', 'en' => 'Khaled Ahmed'],
+            'first_name' => ['ar' => 'خالد', 'en' => 'Khaled'],
+            'middle_name' => ['ar' => 'احمد', 'en' => 'Ahmed'],
+            'last_name' => ['ar' => 'حمود', 'en' => 'Hammoud'],
             'phone' => '777123456',
             'username' => 'driver_khaled',
             'email' => 'khaled@example.com',
