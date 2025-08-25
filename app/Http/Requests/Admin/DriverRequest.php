@@ -46,9 +46,9 @@ class DriverRequest extends FormRequest
                     'longitude'                 => 'nullable|numeric|between:-180,180',
 
 
-                    'vehicle_type'              => 'nullable|string|max:100',
-                    'vehicle_number'            => 'nullable|string|max:100',
-                    'vehicle_model'             => 'nullable|string|max:100',
+                    'vehicle_type'              => 'required|string|max:100',
+                    'vehicle_number'            => 'required|string|max:100',
+                    'vehicle_model'             => 'required|string|max:100',
                     'vehicle_color'             => 'nullable|string|max:50',
 
                     'vehicle_capacity_weight'   => 'nullable|numeric|min:0',
