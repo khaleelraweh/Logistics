@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Admin\DriverRequest;
 use App\Models\Driver as DriverModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\File;
@@ -49,7 +50,10 @@ class DriverController extends Controller
             return redirect('admin/index');
         }
 
-        return view('admin.drivers.create');
+        $supervisors = User::WhereHasRoles('supervisor')->active()->get(['id', 'first_name', 'last_name' , 'email']);
+
+
+        return view('admin.drivers.create' , compact('supervisors'));
     }
 
     /**

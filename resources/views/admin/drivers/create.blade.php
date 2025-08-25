@@ -278,7 +278,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="vehicle_type">{{ __('driver.vehicle_type') }}</label>
-                                                    <select class="form-control" name="vehicle_type" id="vehicle_type">
+                                                    <select class="form-select select2" name="vehicle_type" id="vehicle_type">
                                                         <option value="">{{ __('general.select') }}</option>
                                                         <option value="car" {{ old('vehicle_type') == 'car' ? 'selected' : '' }}>{{ __('driver.vehicle_type_car') }}</option>
                                                         <option value="van" {{ old('vehicle_type') == 'van' ? 'selected' : '' }}>{{ __('driver.vehicle_type_van') }}</option>
@@ -295,7 +295,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="vehicle_model">{{ __('driver.vehicle_model') }}</label>
-                                                    <select class="form-control" name="vehicle_model" id="vehicle_model">
+                                                    <select class="form-select select2" name="vehicle_model" id="vehicle_model">
                                                         <option value="">{{ __('general.select') }}</option>
                                                         <option value="toyota" {{ old('vehicle_model') == 'toyota' ? 'selected' : '' }}>{{ __('driver.vehicle_model_toyota') }}</option>
                                                         <option value="nissan" {{ old('vehicle_model') == 'nissan' ? 'selected' : '' }}>{{ __('driver.vehicle_model_nissan') }}</option>
@@ -322,7 +322,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="vehicle_color">{{ __('driver.vehicle_color') }}</label>
-                                                    <select class="form-control" name="vehicle_color" id="vehicle_color">
+                                                    <select class="form-select select2" name="vehicle_color" id="vehicle_color">
                                                         <option value="">{{ __('general.select') }}</option>
                                                         <option value="white" {{ old('vehicle_color') == 'white' ? 'selected' : '' }}>{{ __('driver.vehicle_color_white') }}</option>
                                                         <option value="black" {{ old('vehicle_color') == 'black' ? 'selected' : '' }}>{{ __('driver.vehicle_color_black') }}</option>
@@ -343,7 +343,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="vehicle_capacity_weight">{{ __('driver.vehicle_capacity_weight') }}</label>
-                                                    <select class="form-control" name="vehicle_capacity_weight" id="vehicle_capacity_weight">
+                                                    <select class="form-select select2" name="vehicle_capacity_weight" id="vehicle_capacity_weight">
                                                         <option value="">{{ __('general.select') }}</option>
                                                         <option value="lt1" {{ old('vehicle_capacity_weight') == 'lt1' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_weight_lt1') }}</option>
                                                         <option value="1to3" {{ old('vehicle_capacity_weight') == '1to3' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_weight_1to3') }}</option>
@@ -358,7 +358,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="vehicle_capacity_volume">{{ __('driver.vehicle_capacity_volume') }}</label>
-                                                    <select class="form-control" name="vehicle_capacity_volume" id="vehicle_capacity_volume">
+                                                    <select class="form-select select2" name="vehicle_capacity_volume" id="vehicle_capacity_volume">
                                                         <option value="">{{ __('general.select') }}</option>
                                                         <option value="small" {{ old('vehicle_capacity_volume') == 'small' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_volume_small') }}</option>
                                                         <option value="medium" {{ old('vehicle_capacity_volume') == 'medium' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_volume_medium') }}</option>
@@ -462,7 +462,14 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="supervisor_id">{{ __('driver.supervisor_id') }}</label>
-                                                    <input type="text" class="form-control" name="supervisor_id" value="{{ old('supervisor_id') }}" placeholder="{{ __('driver.supervisor_id') }}" id="supervisor_id">
+                                                       <select name="supervisor_id[]" class="form-select select2">
+                                                        @forelse ($supervisors as $supervisor)
+                                                            <option value="{{ $supervisor->id }}"
+                                                                {{ in_array($supervisor->id, old('supervisor_id', [])) ? 'selected' : null }}>
+                                                                {{ $supervisor->first_name }} {{ $supervisor->last_name }}</option>
+                                                        @empty
+                                                        @endforelse
+                                                    </select>
                                                     @error('supervisor_id')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
@@ -472,7 +479,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="availability_status">{{ __('driver.availability_status') }}</label>
-                                                    <select name="availability_status" class="form-select" required>
+                                                    <select name="availability_status" class="form-select select2" required>
                                                         <option value="available">{{ __('driver.available') }}</option>
                                                         <option value="busy">{{ __('driver.busy') }}</option>
                                                         <option value="offline">{{ __('driver.offline') }}</option>
@@ -483,7 +490,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="status">{{ __('driver.status') }}</label>
-                                                    <select name="status" class="form-select" required>
+                                                    <select name="status" class="form-select select2" required>
                                                         <option value="active">{{ __('driver.status_active') }}</option>
                                                         <option value="inactive">{{ __('driver.status_inactive') }}</option>
                                                         <option value="suspended">{{ __('driver.status_suspended') }}</option>
