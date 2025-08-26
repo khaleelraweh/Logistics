@@ -72,5 +72,6 @@ return [
     'assigned_at'              => 'Assigned At',
     'note'                     => 'Notes',
     'assign'                   => 'Assign',
+    'view_delivery'            => 'View Delivery',
 
 ];

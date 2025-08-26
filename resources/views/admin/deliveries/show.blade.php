@@ -3,18 +3,28 @@
 @section('content')
 
 <div class="container-fluid py-4">
-    <div class="row">
+
+
+    <!-- Page Header -->
+    <div class="row ">
         <div class="col-12">
-            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h3 class="mb-sm-0">{{ __('delivery.delivery_details') }} #{{ $delivery->id }}</h3>
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('delivery.view_delivery') }}</h4>
+
                 <div class="page-title-right">
-                    <a href="{{ url()->previous() }}" class="btn btn-secondary">
-                        <i class="mdi mdi-arrow-left me-1"></i> {{ __('general.back') }}
-                    </a>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.deliveries.index') }}">{{ __('delivery.manage_deliveries') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('delivery.view_delivery') }}</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
+
+
 
     <div class="row mt-4">
         <!-- معلومات التوصيلة -->
@@ -175,18 +185,4 @@
 
 @endsection
 
-{{-- @php
-function getStatusColor($status) {
-    return match($status) {
-        'delivered'        => 'success',
-        'out_for_delivery' => 'info',
-        'in_warehouse'     => 'primary',
-        'returned'         => 'danger',
-        'pending'          => 'warning',
-        'cancelled'        => 'dark',
-        'delivery_failed'  => 'danger',
-        default            => 'secondary',
-    };
-}
-@endphp --}}
 
