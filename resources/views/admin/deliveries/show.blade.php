@@ -61,7 +61,7 @@
                             </span>
                         </div>
                         <div class="flex-grow-1">
-                            <h5 class="mb-1">{{ $delivery->driver->name }}</h5>
+                            <h5 class="mb-1">{{ $delivery->driver->driver_full_name }} </h5>
                         </div>
                     </div>
                     <div class="table-responsive">
