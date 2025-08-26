@@ -186,8 +186,6 @@ class DeliveryController extends Controller
         // إذا الحالة أصبحت delivered أضف delivered_at
         if ($input['status'] === 'delivered' && !$delivery->delivered_at) {
             $input['delivered_at'] = now();
-        } else {
-            $input['delivered_at'] = $request->delivered_at ?? $delivery->delivered_at;
         }
 
         $delivery->update($input);
