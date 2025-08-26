@@ -119,81 +119,50 @@
 
                                 <td>{{ $driver->created_at ? $driver->created_at->diffForHumans() : '-' }}</td>
 
-                                {{-- <td>
-                                    <div class="btn-group me-2 mb-2 mb-sm-0">
-                                        <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {{ __('general.operations') }} <i class="mdi mdi-dots-vertical ms-2"></i>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-cog"></i>
                                         </button>
-                                        <div class="dropdown-menu">
+                                        <ul class="dropdown-menu dropdown-menu-end">
                                             @ability('admin', 'show_drivers')
-                                                <a class="dropdown-item" href="{{ route('admin.drivers.show', $driver->id) }}">{{ __('general.show') }}</a>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('admin.drivers.show', $driver->id) }}">
+                                                    <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
+                                                </a>
+                                            </li>
                                             @endability
 
                                             @ability('admin', 'update_drivers')
-                                                <a class="dropdown-item" href="{{ route('admin.drivers.edit', $driver->id) }}">{{ __('general.edit') }}</a>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('admin.drivers.edit', $driver->id) }}">
+                                                    <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
+                                                </a>
+                                            </li>
                                             @endability
 
                                             @ability('admin', 'delete_drivers')
-                                                <a class="dropdown-item" href="javascript:void(0)"
-                                                    onclick="confirmDelete('delete-driver-{{ $driver->id }}',
-                                                        '{{ __('panel.confirm_delete_message') }}',
-                                                        '{{ __('panel.yes_delete') }}',
-                                                        '{{ __('panel.cancel') }}')">
-                                                    {{ __('general.delete') }}
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>
+                                                <a class="dropdown-item text-danger" href="#"
+                                                onclick="confirmDelete('delete-driver-{{ $driver->id }}',
+                                                                        '{{ __('panel.confirm_delete_message') }}',
+                                                                        '{{ __('panel.yes_delete') }}',
+                                                                        '{{ __('panel.cancel') }}')">
+                                                    <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
                                                 </a>
-                                                <form action="{{ route('admin.drivers.destroy', $driver->id) }}" method="post" class="d-none" id="delete-driver-{{ $driver->id }}">
+                                                <form id="delete-driver-{{ $driver->id }}"
+                                                    action="{{ route('admin.drivers.destroy', $driver->id) }}"
+                                                    method="POST" class="d-none">
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
+                                            </li>
                                             @endability
-                                        </div>
+                                        </ul>
                                     </div>
-                                </td> --}}
-
-                                <td>
-    <div class="dropdown">
-        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-cog"></i>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end">
-            @ability('admin', 'show_drivers')
-            <li>
-                <a class="dropdown-item" href="{{ route('admin.drivers.show', $driver->id) }}">
-                    <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
-                </a>
-            </li>
-            @endability
-
-            @ability('admin', 'update_drivers')
-            <li>
-                <a class="dropdown-item" href="{{ route('admin.drivers.edit', $driver->id) }}">
-                    <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
-                </a>
-            </li>
-            @endability
-
-            @ability('admin', 'delete_drivers')
-            <li><hr class="dropdown-divider"></li>
-            <li>
-                <a class="dropdown-item text-danger" href="#"
-                   onclick="confirmDelete('delete-driver-{{ $driver->id }}',
-                                           '{{ __('panel.confirm_delete_message') }}',
-                                           '{{ __('panel.yes_delete') }}',
-                                           '{{ __('panel.cancel') }}')">
-                    <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
-                </a>
-                <form id="delete-driver-{{ $driver->id }}"
-                      action="{{ route('admin.drivers.destroy', $driver->id) }}"
-                      method="POST" class="d-none">
-                    @csrf
-                    @method('DELETE')
-                </form>
-            </li>
-            @endability
-        </ul>
-    </div>
-</td>
+                                </td>
 
                             </tr>
                         @empty
