@@ -79,20 +79,6 @@ class DeliveryController extends Controller
             // إنشاء عملية التوصيل
             $delivery = Delivery::create($input);
 
-
-            // if ($delivery) {
-            //     // تحديث حالة الطرد مباشرة
-            //     $delivery->package->update(['status' => $input['status']]);
-
-            //     // إضافة سجل في السجل الزمني
-            //     $delivery->package->addLog(
-            //         'Delivery assigned to driver: ' . ($delivery->driver->name ?? ''),
-            //         $delivery->driver_id
-            //     );
-
-
-            // }
-
             if ($delivery) {
                 // تحديث حالة الطرد مباشرة
                 $delivery->package->update(['status' => $input['status']]);
