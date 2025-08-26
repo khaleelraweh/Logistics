@@ -36,7 +36,7 @@
                     </div>
                     <div class="button-items">
                         <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.drivers.create') }}">
-                            {{ __('driver.add_new_driver') }} <i class="ri-user-add-line align-middle ms-2"></i>
+                           <i class="mdi mdi-account-tie me-2"></i> {{ __('driver.add_new_driver') }}
                         </a>
                     </div>
                 </div>
