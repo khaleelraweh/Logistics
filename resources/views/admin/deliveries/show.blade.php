@@ -196,7 +196,8 @@
         }
 
         .timeline-item:nth-child(even) .timeline-content {
-            text-align: left;
+            /* text-align: left; */
+            text-align: right;
             border-left: 3px solid;
         }
 
@@ -332,7 +333,8 @@
 
         @media (max-width: 768px) {
             .timeline-container::before {
-                right: 31px;
+                /* right: 31px; */
+                right: 16px;
                 transform: none;
             }
 
@@ -343,7 +345,9 @@
 
             .timeline-content {
                 width: calc(100% - 70px);
-                margin-right: 70px !important;
+                /* margin-right: 70px !important; */
+                /* margin-right: 5em !important; */
+                margin-right: 3em !important;
                 margin-left: 0 !important;
                 text-align: right !important;
                 border-left: 3px solid !important;
@@ -356,10 +360,12 @@
                 left: 100%;
                 border: 7px solid transparent;
                 border-left: 7px solid white;
+                border-right: none;
             }
 
             .timeline-dot {
-                right: 31px;
+                /* right: 31px; */
+                right: 2px;
                 transform: none;
             }
 
@@ -392,11 +398,11 @@
 
         @media (max-width: 568px) {
             .timeline-content{
-                border-left: none !important;
+                /* border-left: none !important; */
             }
 
             .timeline-content::before {
-                display: none !important;
+                /* display: none !important; */
             }
         }
     </style>
