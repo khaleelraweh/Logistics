@@ -13,6 +13,17 @@ class Driver extends Model
     protected $guarded = [];
     public $translatable = ['first_name', 'middle_name', 'last_name'];
 
+    // to get full name as property instead of first_name and last_name
+    protected $appends = ['driver_full_name'];
+
+
+    // ucfirst : get first alphabet as bigger alpha
+    public function getDriverFullNameAttribute(): string
+    {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->middle_name) . ' ' . ucfirst($this->last_name);
+    }
+
+
     public function deliveries()
     {
         return $this->hasMany(Delivery::class);
