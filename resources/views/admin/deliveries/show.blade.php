@@ -132,13 +132,204 @@
             font-weight: 600 !important;
         }
 
-        /* ألوان الحالات */
-        .bg-delivered { background-color: #38b2ac; color: white; }
-        .bg-pending { background-color: #ed8936; color: white; }
-        .bg-processing { background-color: #4299e1; color: white; }
-        .bg-canceled { background-color: #f56565; color: white; }
+        /* تنسيقات الخط الزمني المحسنة */
+        .timeline-card {
+            border: none;
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            margin-top: 2rem;
+        }
 
-        @media (max-width: 992px) {
+        .timeline-header {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+            padding: 16px 20px;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 50%;
+            transform: translateX(50%);
+            height: 100%;
+            width: 4px;
+            background: #e9ecef;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            display: flex;
+            width: 100%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            justify-content: flex-start;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-end;
+        }
+
+        .timeline-content {
+            position: relative;
+            width: calc(50% - 40px);
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border-left: 3px solid;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 40px;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 40px;
+            text-align: left;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 100%;
+            height: 0;
+            width: 0;
+            border: 7px solid transparent;
+            border-left: 7px solid white;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            right: 100%;
+            height: 0;
+            width: 0;
+            border: 7px solid transparent;
+            border-right: 7px solid white;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 20px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+            z-index: 2;
+        }
+
+        .timeline-content h3 {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .timeline-content p {
+            margin-bottom: 0.5em;
+        }
+
+        .timeline-date {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #6c757d;
+            background: #f8f9fa;
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin-top: 0.5rem;
+        }
+
+        .driver-link {
+            color: #4361ee;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .driver-link:hover {
+            text-decoration: underline;
+            color: #3a0ca3;
+        }
+
+        /* ألوان الحالات */
+        .bg-delivered { background-color: #38b2ac; }
+        .bg-pending { background-color: #ed8936; }
+        .bg-processing { background-color: #4299e1; }
+        .bg-canceled { background-color: #f56565; }
+        .bg-out_for_delivery { background-color: #9c27b0; }
+        .bg-in_warehouse { background-color: #673ab7; }
+        .bg-returned { background-color: #f44336; }
+        .bg-cancelled { background-color: #607d8b; }
+        .bg-delivery_failed { background-color: #ff5722; }
+
+        .border-delivered { border-left-color: #38b2ac; }
+        .border-pending { border-left-color: #ed8936; }
+        .border-processing { border-left-color: #4299e1; }
+        .border-canceled { border-left-color: #f56565; }
+        .border-out_for_delivery { border-left-color: #9c27b0; }
+        .border-in_warehouse { border-left-color: #673ab7; }
+        .border-returned { border-left-color: #f44336; }
+        .border-cancelled { border-left-color: #607d8b; }
+        .border-delivery_failed { border-left-color: #ff5722; }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-container::before {
+                right: 31px;
+                transform: none;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                justify-content: flex-start;
+            }
+
+            .timeline-content {
+                width: calc(100% - 70px);
+                margin-right: 70px !important;
+                margin-left: 0 !important;
+                text-align: right !important;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content::before,
+            .timeline-item:nth-child(even) .timeline-content::before {
+                right: auto;
+                left: 100%;
+                border: 7px solid transparent;
+                border-left: 7px solid white;
+            }
+
+            .timeline-dot {
+                right: 31px;
+                transform: none;
+            }
+
             .col-lg-4 {
                 margin-bottom: 24px;
             }
@@ -147,11 +338,8 @@
 @endsection
 
 @section('content')
-
-
-
     <!-- Page Header -->
-    <div class="row ">
+    <div class="row">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
                 <h4 class="mb-0 font-size-18">{{ __('delivery.view_delivery') }}</h4>
@@ -181,10 +369,9 @@
                     <div class="card-body-custom">
                         <div class="info-item">
                             <div class="d-flex align-items-center">
-                                <i class="mdi mdi-circle-medium info-icon"></i>
+                                <span class="status-indicator bg-{{ getStatusColor($delivery->status) }}"></span>
                                 <span>{{ __('delivery.status') }}</span>
                             </div>
-
                             <span class="status-badge bg-{{ getStatusColor($delivery->status) }}">{{ __('package.status_' . $delivery->status) }}</span>
                         </div>
 
@@ -225,12 +412,14 @@
                     <div class="card-body-custom">
                         @if($delivery->driver)
                             <div class="d-flex align-items-center mb-4">
-                                <div class="driver-avatar">
+                                <div class="driver-avatar bg-{{ getStatusColor($delivery->status) }}">
                                     <i class="mdi mdi-account-outline"></i>
                                 </div>
                                 <div class="driver-info">
                                     <h6 class="mb-1">{{ $delivery->driver->driver_full_name }}</h6>
-                                    <div class="driver-details">سائق معتمد</div>
+                                    <div class="driver-details">
+                                        <span class="status-badge bg-{{ getStatusColor($delivery->status) }}">سائق {{ __('package.status_' . $delivery->status) }}</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -244,6 +433,12 @@
                                         <tr>
                                             <th scope="row"><i class="mdi mdi-email-outline me-1 text-muted"></i> {{ __('driver.email') }}</th>
                                             <td>{{ $delivery->driver->email ?? '-' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><i class="mdi mdi-clock-outline me-1 text-muted"></i> حالة التسليم</th>
+                                            <td>
+                                                <span class="status-badge bg-{{ getStatusColor($delivery->status) }}">{{ __('package.status_' . $delivery->status) }}</span>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -267,23 +462,44 @@
                     <div class="card-body-custom">
                         @if($delivery->package)
                             <div class="info-item">
-                                <span>{{ __('package.tracking_number') }}</span>
+                                <div class="d-flex align-items-center">
+                                    <i class="mdi mdi-barcode-scan info-icon"></i>
+                                    <span>{{ __('package.tracking_number') }}</span>
+                                </div>
                                 <span class="fw-bold">{{ $delivery->package->tracking_number ?? '-' }}</span>
                             </div>
 
                             <div class="info-item">
-                                <span>{{ __('package.status') }}</span>
+                                <div class="d-flex align-items-center">
+                                    <span class="status-indicator bg-{{ getStatusColor($delivery->package->status) }}"></span>
+                                    <span>{{ __('package.status') }}</span>
+                                </div>
                                 <span class="status-badge bg-{{ getStatusColor($delivery->package->status) }}">{{ __('package.status_' . $delivery->package->status) }}</span>
                             </div>
 
                             <div class="info-item">
-                                <span>{{ __('delivery.receiver') }}</span>
+                                <div class="d-flex align-items-center">
+                                    <i class="mdi mdi-account-box-outline info-icon"></i>
+                                    <span>{{ __('delivery.receiver') }}</span>
+                                </div>
                                 <span class="fw-bold">{{ $delivery->package->receiver_first_name }} {{ $delivery->package->receiver_last_name }}</span>
                             </div>
 
                             <div class="info-item">
-                                <span>{{ __('package.total_fee') }}</span>
-                                <span class="fw-bold text-success">{{ $delivery->package->total_fee ?? '-' }}</span>
+                                <div class="d-flex align-items-center">
+                                    <i class="mdi mdi-cash-multiple info-icon"></i>
+                                    <span>{{ __('package.total_fee') }}</span>
+                                </div>
+                                <span class="fw-bold text-success">{{ $delivery->package->total_fee ?? '-' }} ر.س</span>
+                            </div>
+
+                            <!-- حالة التوصيل مع التلوين الموحد -->
+                            <div class="info-item">
+                                <div class="d-flex align-items-center">
+                                    <i class="mdi mdi-truck-delivery-outline info-icon"></i>
+                                    <span>حالة التوصيل</span>
+                                </div>
+                                <span class="status-badge bg-{{ getStatusColor($delivery->status) }}">{{ __('package.status_' . $delivery->status) }}</span>
                             </div>
                         @else
                             <div class="alert alert-info alert-custom d-flex align-items-center mb-0">
@@ -296,57 +512,80 @@
         </div>
     </div>
 
-
-    <!-- الخط الزمني -->
-    <div class="row mt-2">
-        <div class="col-sm-12">
-            <div class="card mt-4">
-                <div class="card-header">{{ __('delivery.timeline_title') }}</div>
+    <!-- الخط الزمني المحسّن -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="timeline-card">
+                <div class="timeline-header d-flex align-items-center">
+                    <i class="mdi mdi-timeline-outline me-2 fs-5"></i>
+                    <h6 class="mb-0">{{ __('delivery.timeline_title') }}</h6>
+                </div>
                 <div class="card-body">
-                    <section id="cd-timeline" class="cd-container">
-                        @forelse($delivery->package?->packageLogs as $log)
+                    <div class="timeline-container">
+                        @forelse($delivery->package?->packageLogs->sortBy('logged_at') as $log)
                             @php
                                 $translatedStatus = __('package.status_' . $log->status);
                                 $color = match($log->status) {
-                                    'delivered'        => 'success',
-                                    'out_for_delivery' => 'info',
-                                    'in_warehouse'     => 'primary',
-                                    'returned'         => 'danger',
-                                    'pending'          => 'warning',
-                                    'cancelled'        => 'dark',
-                                    'delivery_failed'  => 'danger',
-                                    default            => 'secondary',
+                                    'delivered'        => 'delivered',
+                                    'out_for_delivery' => 'out_for_delivery',
+                                    'in_warehouse'     => 'in_warehouse',
+                                    'returned'         => 'returned',
+                                    'pending'          => 'pending',
+                                    'cancelled'        => 'cancelled',
+                                    'delivery_failed'  => 'delivery_failed',
+                                    default            => 'processing',
                                 };
                             @endphp
 
-                            <div class="cd-timeline-block">
-                                <div class="cd-timeline-img bg-{{ $color }} text-white">
+                            <div class="timeline-item">
+                                <div class="timeline-dot bg-{{ $color }} text-white">
                                     <i class="mdi mdi-adjust"></i>
                                 </div>
 
-                                <div class="cd-timeline-content">
-                                    <h3>{{ $translatedStatus }} </h3>
-                                    <p class="mb-0 text-muted font-14">
+                                <div class="timeline-content border-{{ $color }}">
+                                    <h3 class="d-flex align-items-center">
+                                        <span>{{ $translatedStatus }}</span>
+                                        <span class="status-badge bg-{{ $color }} ms-2">{{ $log->status }}</span>
+                                    </h3>
+                                    <p class="mb-2 text-muted">
                                         {{ $log->note ?? '-' }}
-                                        @if($log->driver_id)
-                                            <a href="{{ route('admin.drivers.show' , $log->driver_id) }}"  data-bs-toggle="tooltip"  data-bs-placement="top" title="{{ $log->driver->driver_full_name ?? '' }} , {{ $log->driver->phone ?? '' }} , {{ $log->driver->email ?? '' }}" >
+                                    </p>
+                                    @if($log->driver_id)
+                                        <p class="mb-2">
+                                            <i class="mdi mdi-account-outline me-1"></i>
+                                            السائق:
+                                            <a href="{{ route('admin.drivers.show', $log->driver_id) }}" class="driver-link" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $log->driver->driver_full_name ?? '' }} , {{ $log->driver->phone ?? '' }} , {{ $log->driver->email ?? '' }}">
                                                 {{ optional($log->driver)->driver_full_name }}
                                             </a>
-                                        @endif
-                                    </p>
-                                    <span class="cd-date">{{ $log->logged_at->format('Y-m-d h:i A') }}</span>
+                                        </p>
+                                    @endif
+                                    <div class="timeline-date">
+                                        <i class="mdi mdi-clock-outline me-1"></i>
+                                        {{ $log->logged_at->format('Y-m-d h:i A') }}
+                                    </div>
                                 </div>
                             </div>
                         @empty
-                            <p class="text-muted">{{ __('package.timeline_empty') }}</p>
+                            <div class="text-center py-4">
+                                <i class="mdi mdi-timeline-question-outline fs-1 text-muted"></i>
+                                <p class="text-muted mt-2">{{ __('package.timeline_empty') }}</p>
+                            </div>
                         @endforelse
-                    </section>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
 @endsection
 
-
+@section('script')
+    <script>
+        // تهيئة أدوات التلميح
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+        });
+    </script>
+@endsection
