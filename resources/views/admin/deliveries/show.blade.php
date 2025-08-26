@@ -2,7 +2,6 @@
 
 @section('content')
 
-<div class="container-fluid py-4">
 
 
     <!-- Page Header -->
@@ -192,7 +191,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 @endsection
 
