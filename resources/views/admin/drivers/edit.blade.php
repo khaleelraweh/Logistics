@@ -850,6 +850,7 @@
                 var initialLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
                 var initialLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
 
+
                 // إنشاء الخريطة
                 map = L.map('map').setView([initialLat, initialLng], 13);
 
