@@ -176,7 +176,6 @@
 @endsection
 
 {{-- @php
-came now from general helpers
 function getStatusColor($status) {
     return match($status) {
         'delivered'        => 'success',
@@ -190,3 +189,4 @@ function getStatusColor($status) {
     };
 }
 @endphp --}}
+
