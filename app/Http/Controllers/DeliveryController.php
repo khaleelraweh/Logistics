@@ -159,7 +159,7 @@ class DeliveryController extends Controller
                 'assigned_at' => $request->assigned_at ?? now(), // تعبئة تلقائية إذا لم يُحدد
                 'status'      => $request->status ?? 'assigned_to_driver', // default
                 'note'        => $request->note,
-                'created_by'  => auth()->user()->name,
+                'created_by'  => auth()->user()->full_name,
             ];
 
             // إنشاء عملية التوصيل
@@ -257,13 +257,13 @@ class DeliveryController extends Controller
                 'assigned_at' => $delivery->assigned_at, // الحفاظ على وقت الإسناد
                 'status'      => $request->status ?? $delivery->status,
                 'note'        => $request->note,
-                'updated_by'  => auth()->user()->name,
+                'updated_by'  => auth()->user()->full_name,
             ];
 
             // 1. التحقق إذا تغير السائق
             if ($delivery->driver_id != $request->driver_id) {
-                $oldDriver = $delivery->driver?->name ?? '-';
-                $newDriver = Driver::find($request->driver_id)?->name ?? '-';
+                $oldDriver = $delivery->driver?->driver_full_name ?? '-';
+                $newDriver = Driver::find($request->driver_id)?->driver_full_name ?? '-';
                 $input['driver_id'] = $request->driver_id;
 
                 // تسجيل تغيير السائق في السجل الزمني
@@ -291,7 +291,7 @@ class DeliveryController extends Controller
             $delivery->package->addLog(
                 __('delivery.delivery_updated_status', [
                     'status' => __('package.status_' . $delivery->status),
-                    'driver' => $delivery->driver?->name ?? '-'
+                    'driver' => $delivery->driver?->driver_full_name ?? '-'
                 ]),
                 $delivery->driver_id
             );
