@@ -50,6 +50,7 @@ return [
     'no_warehouse_rentals_found'    =>  'لم يتم الحصول على اي عقد ايجار',
     'no_packages_found'             =>  'لا يوجد اي طرد الى الان',
     'no_return_requests_found'      =>  'لا توجد اي طلبات ارجاع',
+    'view_merchant'                =>  'عرض التاجر',
 
 
 

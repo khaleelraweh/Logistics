@@ -1,20 +1,20 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="row mb-4">
+<!-- Page Header -->
+    <div class="row ">
         <div class="col-12">
-            <div class="d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <i class="bi bi-shop-window fs-3 me-2 text-primary"></i>
-                    <h4 class="mb-0">{{ __('merchant.merchant_details') }}</h4>
-                </div>
-                <div class="d-flex gap-2">
-                    <a href="{{ route('admin.merchants.edit', $merchant->id) }}" class="btn btn-primary btn-sm rounded-pill px-3">
-                        <i class="bi bi-pencil-square me-1"></i> {{ __('general.edit') }}
-                    </a>
-                    <a href="{{ route('admin.merchants.index') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
-                        <i class="bi bi-arrow-left me-1"></i> {{ __('general.back') }}
-                    </a>
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('merchant.view_merchant') }}</h4>
+
+                <div class="page-title-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.merchants.index') }}">{{ __('merchant.merchants') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('merchant.view_merchant') }}</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
