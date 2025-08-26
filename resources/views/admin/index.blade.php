@@ -96,6 +96,56 @@
         </div><!-- end col -->
     </div><!-- end row -->
 
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="mb-3">{{ __('drivers.available_on_map') }}</h4>
+                    <div id="driversMap" style="height: 500px; border-radius: 10px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+@endsection
+
+@section('script')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // إنشاء الخريطة في وسط الرياض
+        var map = L.map('driversMap').setView([24.7136, 46.6753], 6);
+
+        // إضافة خريطة OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // بيانات السائقين من الـ Laravel
+        var drivers = @json($drivers);
+
+        // إضافة السائقين كـ markers
+        drivers.forEach(function(driver) {
+            if(driver.latitude && driver.longitude) {
+                var marker = L.marker([driver.latitude, driver.longitude]).addTo(map);
+                marker.bindPopup(`
+                    <strong>${driver.first_name} ${driver.last_name}</strong><br>
+                    📞 ${driver.phone ?? '---'}
+                `);
+            }
+        });
+
+        // إذا في سائقين، نضبط العرض ليشمل كلهم
+        if(drivers.length > 0){
+            var bounds = L.latLngBounds(drivers.map(d => [d.latitude, d.longitude]));
+            map.fitBounds(bounds);
+        }
+    });
+</script>
 
 
 @endsection

@@ -61,10 +61,21 @@ class AdminController extends Controller
         return view('admin.admin-recoverpw');
     }
 
+    // public function index()
+    // {
+    //     return view('admin.index');
+    // }
+
     public function index()
-    {
-        return view('admin.index');
-    }
+{
+    // جلب السائقين المتاحين فقط مع الإحداثيات
+    $drivers = \App\Models\Driver::where('availability_status', 'available')
+                ->whereNotNull('latitude')
+                ->whereNotNull('longitude')
+                ->get(['id', 'first_name', 'last_name', 'latitude', 'longitude', 'phone']);
+
+    return view('admin.index', compact('drivers'));
+}
 
 
 }
