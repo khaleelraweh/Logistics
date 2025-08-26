@@ -150,8 +150,8 @@
                                             <i class="fas fa-car text-dark opacity-10"></i>
                                         </div>
                                         <div>
-                                            <span class="text-sm">{{ $driver->vehicle_type }}</span>
-                                            <h6 class="mb-0">{{ $driver->vehicle_model }}</h6>
+                                            <span class="text-sm"> {{ __('driver.vehicle_type_' . $driver->vehicle_type ) }} </span>
+                                            <h6 class="mb-0"> {{ __('driver.vehicle_model_' . $driver->vehicle_model ) }}</h6>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -163,19 +163,19 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="border-radius-lg p-2 bg-gray-100 text-center mb-2">
-                                                <h6 class="mb-0 text-sm">{{ $driver->vehicle_color }}</h6>
+                                                <h6 class="mb-0 text-sm"> {{ __('driver.vehicle_color_' . $driver->vehicle_color ) }} </h6>
                                                 <span class="text-xs">{{ __('driver.vehicle_color') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="border-radius-lg p-2 bg-gray-100 text-center">
-                                                <h6 class="mb-0 text-sm">{{ $driver->vehicle_capacity_weight }}</h6>
+                                                <h6 class="mb-0 text-sm">{{ __('driver.vehicle_capacity_weight_' . $driver->vehicle_capacity_weight ) }} </h6>
                                                 <span class="text-xs">{{ __('driver.weight_capacity') }}</span>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="border-radius-lg p-2 bg-gray-100 text-center">
-                                                <h6 class="mb-0 text-sm">{{ $driver->vehicle_capacity_volume }}</h6>
+                                                <h6 class="mb-0 text-sm"> {{ __('driver.vehicle_capacity_volume_' . $driver->vehicle_capacity_volume ) }} </h6>
                                                 <span class="text-xs">{{ __('driver.volume_capacity') }}</span>
                                             </div>
                                         </div>
