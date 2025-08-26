@@ -426,14 +426,14 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="username">{{ __('driver.username') }}</label>
-                                                    <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="{{ __('driver.username') }}" id="username">
+                                                    <input type="text" class="form-control" name="username" value="{{ old('username' , $driver->username) }}" placeholder="{{ __('driver.username') }}" id="username">
                                                     @error('username')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="password">{{ __('driver.password') }}</label>
-                                                    <input type="text" class="form-control" name="password" value="{{ old('password') }}" placeholder="{{ __('driver.password') }}" id="password">
+                                                    <input type="password" class="form-control" name="password" value="{{ old('password',$driver->password) }}" placeholder="{{ __('driver.password') }}" id="password">
                                                     @error('password')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
@@ -443,7 +443,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="hired_date">{{ __('driver.hired_date') }}</label>
-                                                    <input type="date" class="form-control" name="hired_date" value="{{ old('hired_date') }}" placeholder="{{ __('driver.hired_date') }}" id="hired_date">
+                                                    <input type="date" class="form-control" name="hired_date" value="{{ old('hired_date',$driver->hired_date) }}" placeholder="{{ __('driver.hired_date') }}" id="hired_date">
                                                     @error('hired_date')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
@@ -454,7 +454,7 @@
                                                         <option value="">{{ __('general.select') }}</option>
                                                         @forelse ($supervisors as $supervisor)
                                                             <option value="{{ $supervisor->id }}"
-                                                                {{ old('supervisor_id') == $supervisor->id ? 'selected' : '' }}>
+                                                                {{ old('supervisor_id',$driver->supervisor_id) == $supervisor->id ? 'selected' : '' }}>
                                                                 {{ $supervisor->first_name }} {{ $supervisor->last_name }}  {{ $supervisor->email }}
                                                             </option>
                                                         @empty
