@@ -1,5 +1,21 @@
 @extends('layouts.admin')
 
+@section('style')
+    <style>
+        #driversMap {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+        }
+        .custom-car-icon i{
+            background: transparent;
+            border: none;
+            color: red !important;
+        }
+    </style>
+
+@endsection
+
 @section('content')
 
 
@@ -109,7 +125,7 @@
 
 @endsection
 
-@section('script')
+{{-- @section('script')
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
@@ -155,9 +171,61 @@
             }
         });
     </script>
+@endsection --}}
+
+
+@section('script')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // إنشاء الخريطة في وسط الرياض
+        var map = L.map('driversMap').setView([24.7136, 46.6753], 6);
+
+        // إضافة خريطة OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // أيقونة سيارة باستخدام Font Awesome
+        var carIcon = L.divIcon({
+            html: '<i class="fas fa-car" style="font-size:24px; color:#007bff;"></i>',
+            className: 'custom-car-icon', // لتفادي كلاس افتراضي
+            iconSize: [30, 30],
+            iconAnchor: [15, 15],
+            popupAnchor: [0, -15]
+        });
+
+        // بيانات السائقين من الـ Laravel
+        var drivers = @json($drivers);
+        var locale = "{{ app()->getLocale() }}";
+
+        drivers.forEach(function(driver) {
+            if(driver.latitude && driver.longitude) {
+                var firstName = driver.first_name[locale] ?? '';
+                var lastName  = driver.last_name[locale] ?? '';
+
+                var marker = L.marker([driver.latitude, driver.longitude], { icon: carIcon }).addTo(map);
+                marker.bindPopup(`
+                    <strong>${firstName} ${lastName}</strong><br>
+                    📞 ${driver.phone ?? '---'}
+                `);
+            }
+        });
+
+        // إذا في سائقين، نضبط العرض ليشمل كلهم
+        if(drivers.length > 0){
+            var bounds = L.latLngBounds(drivers.map(d => [d.latitude, d.longitude]));
+            map.fitBounds(bounds, {
+                padding: [50, 50]  // إضافة مساحة فارغة حول الـ markers
+            });
+        }
+    });
+</script>
 @endsection
-
-
 
 
 
