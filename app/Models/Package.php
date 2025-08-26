@@ -172,6 +172,7 @@ class Package extends Model
         ],
         'joins' => [
             'merchants' => ['merchants.id', 'packages.merchant_id'],
+            'receiver_merchants' => ['merchants.id', 'packages.receiver_merchant_id'],
         ],
     ];
 
