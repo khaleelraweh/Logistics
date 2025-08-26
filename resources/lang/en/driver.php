@@ -102,6 +102,7 @@ return [
     // vehicle types
     'vehicle_type_car' => '🚗 Small Car',
     'vehicle_type_van' => '🚐 Van',
+    'vehicle_type_Van' => '🚐 Van',
     'vehicle_type_small_truck' => '🚚 Small Truck',
     'vehicle_type_big_truck' => '🚛 Big Truck',
     'vehicle_type_motorcycle' => '🛵 Motorcycle',

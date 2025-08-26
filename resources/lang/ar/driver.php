@@ -103,6 +103,7 @@ return [
     // vehicle types
     'vehicle_type_car' => '🚗 سيارة صغيرة',
     'vehicle_type_van' => '🚐 فان',
+    'vehicle_type_Van' => '🚐 فان',
     'vehicle_type_small_truck' => '🚚 شاحنة صغيرة',
     'vehicle_type_big_truck' => '🚛 شاحنة كبيرة',
     'vehicle_type_motorcycle' => '🛵 دراجة نارية',
