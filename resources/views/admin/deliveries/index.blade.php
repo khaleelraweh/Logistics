@@ -43,6 +43,10 @@
                         </div>
                     </div>
 
+                    <!-- Filters Section -->
+                        @include('admin.deliveries.filter.filter')
+                    <!-- End Filters Section -->
+
                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="width: 100%;">
                         <thead>
                             <tr>
