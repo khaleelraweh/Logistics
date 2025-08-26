@@ -20,7 +20,7 @@ class DriverSeeder extends Seeder
             'password' => Hash::make('password123'),
 
             'license_number' => 'LIC-123456',
-            'vehicle_type' => 'Van',
+            'vehicle_type' => 'van',
             'vehicle_number' => 'ABC-9876',
             'vehicle_model' => 'Hyundai H1',
             'vehicle_color' => 'White',
