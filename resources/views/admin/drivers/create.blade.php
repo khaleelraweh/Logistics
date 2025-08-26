@@ -1,47 +1,46 @@
 @extends('layouts.admin')
 
 @section('style')
-<style>
-.alert-danger {
-    border-left: 4px solid #dc3545;
-    border-radius: 0.375rem;
-}
+    <style>
+        .alert-danger {
+            border-left: 4px solid #dc3545;
+            border-radius: 0.375rem;
+        }
 
-.alert-danger .alert-heading {
-    color: #721c24;
-    font-weight: 600;
-}
+        .alert-danger .alert-heading {
+            color: #721c24;
+            font-weight: 600;
+        }
 
-.alert-danger ul {
-    padding-left: 1.5rem;
-}
+        .alert-danger ul {
+            padding-left: 1.5rem;
+        }
 
-.alert-danger li {
-    margin-bottom: 0.25rem;
-}
+        .alert-danger li {
+            margin-bottom: 0.25rem;
+        }
 
-.alert-danger .btn-close {
-    padding: 0.75rem;
-}
+        .alert-danger .btn-close {
+            padding: 0.75rem;
+        }
 
-/* تأثيرات انتقالية للاختفاء */
-.alert {
-    transition: opacity 0.5s ease-in-out;
-}
+        /* تأثيرات انتقالية للاختفاء */
+        .alert {
+            transition: opacity 0.5s ease-in-out;
+        }
 
-/* تنسيق للحقول التي تحتوي على أخطاء */
-.is-invalid {
-    border-color: #dc3545 !important;
-    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
-}
+        /* تنسيق للحقول التي تحتوي على أخطاء */
+        .is-invalid {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+        }
 
-/* تنسيق للحقول التي تم تصحيحها */
-.is-valid {
-    border-color: #198754 !important;
-    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25) !important;
-}
-</style>
-
+        /* تنسيق للحقول التي تم تصحيحها */
+        .is-valid {
+            border-color: #198754 !important;
+            box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25) !important;
+        }
+    </style>
 @endsection
 
 @section('content')
