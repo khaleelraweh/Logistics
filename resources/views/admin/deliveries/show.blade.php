@@ -1,5 +1,151 @@
 @extends('layouts.admin')
 
+@section('style')
+    <style>
+        .delivery-cards-container {
+            --primary-gradient: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            --success-gradient: linear-gradient(135deg, #4cc9f0 0%, #4895ef 100%);
+            --info-gradient: linear-gradient(135deg, #7209b7 0%, #560bad 100%);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --card-radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        .delivery-card {
+            border: none;
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            overflow: hidden;
+            height: 100%;
+            background: #fff;
+        }
+
+        .delivery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header-custom {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 16px 20px;
+            font-weight: 600;
+            background: var(--primary-gradient);
+        }
+
+        .card-header-success {
+            background: var(--success-gradient);
+        }
+
+        .card-header-info {
+            background: var(--info-gradient);
+        }
+
+        .card-body-custom {
+            padding: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            transition: var(--transition);
+        }
+
+        .info-item:hover {
+            background-color: #f9fafc;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            color: #4361ee;
+            margin-left: 10px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .driver-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--success-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-left: 15px;
+            flex-shrink: 0;
+        }
+
+        .driver-info h6 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .driver-details {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .alert-custom {
+            border-radius: 12px;
+            padding: 16px;
+            border: none;
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+
+        .table-custom {
+            border-radius: 10px;
+        }
+
+        .table-custom th {
+            font-weight: 500;
+            color: #6c757d;
+            padding: 8px 5px;
+        }
+
+        .table-custom td {
+            padding: 8px 5px;
+        }
+
+        .text-success {
+            color: #38b2ac !important;
+            font-weight: 600;
+        }
+
+        .fw-bold {
+            font-weight: 600 !important;
+        }
+
+        /* ألوان الحالات */
+        .bg-delivered { background-color: #38b2ac; color: white; }
+        .bg-pending { background-color: #ed8936; color: white; }
+        .bg-processing { background-color: #4299e1; color: white; }
+        .bg-canceled { background-color: #f56565; color: white; }
+
+        @media (max-width: 992px) {
+            .col-lg-4 {
+                margin-bottom: 24px;
+            }
+        }
+    </style>
+@endsection
+
 @section('content')
 
 
@@ -140,149 +286,7 @@
     </div> --}}
 
 
-    <style>
-    .delivery-cards-container {
-        --primary-gradient: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
-        --success-gradient: linear-gradient(135deg, #4cc9f0 0%, #4895ef 100%);
-        --info-gradient: linear-gradient(135deg, #7209b7 0%, #560bad 100%);
-        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        --card-radius: 16px;
-        --transition: all 0.3s ease;
-    }
 
-    .delivery-card {
-        border: none;
-        border-radius: var(--card-radius);
-        box-shadow: var(--card-shadow);
-        transition: var(--transition);
-        overflow: hidden;
-        height: 100%;
-        background: #fff;
-    }
-
-    .delivery-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-header-custom {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-        padding: 16px 20px;
-        font-weight: 600;
-        background: var(--primary-gradient);
-    }
-
-    .card-header-success {
-        background: var(--success-gradient);
-    }
-
-    .card-header-info {
-        background: var(--info-gradient);
-    }
-
-    .card-body-custom {
-        padding: 20px;
-    }
-
-    .info-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 14px 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-        transition: var(--transition);
-    }
-
-    .info-item:hover {
-        background-color: #f9fafc;
-    }
-
-    .info-item:last-child {
-        border-bottom: none;
-    }
-
-    .info-icon {
-        color: #4361ee;
-        margin-left: 10px;
-        font-size: 18px;
-        width: 24px;
-        text-align: center;
-    }
-
-    .status-badge {
-        padding: 6px 12px;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 500;
-    }
-
-    .driver-avatar {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: var(--success-gradient);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 24px;
-        margin-left: 15px;
-        flex-shrink: 0;
-    }
-
-    .driver-info h6 {
-        font-weight: 600;
-        margin-bottom: 4px;
-    }
-
-    .driver-details {
-        color: #6c757d;
-        font-size: 0.9rem;
-    }
-
-    .alert-custom {
-        border-radius: 12px;
-        padding: 16px;
-        border: none;
-        background-color: #f8f9fa;
-        color: #6c757d;
-    }
-
-    .table-custom {
-        border-radius: 10px;
-    }
-
-    .table-custom th {
-        font-weight: 500;
-        color: #6c757d;
-        padding: 8px 5px;
-    }
-
-    .table-custom td {
-        padding: 8px 5px;
-    }
-
-    .text-success {
-        color: #38b2ac !important;
-        font-weight: 600;
-    }
-
-    .fw-bold {
-        font-weight: 600 !important;
-    }
-
-    /* ألوان الحالات */
-    .bg-delivered { background-color: #38b2ac; color: white; }
-    .bg-pending { background-color: #ed8936; color: white; }
-    .bg-processing { background-color: #4299e1; color: white; }
-    .bg-canceled { background-color: #f56565; color: white; }
-
-    @media (max-width: 992px) {
-        .col-lg-4 {
-            margin-bottom: 24px;
-        }
-    }
-</style>
 
 <div class="delivery-cards-container">
     <div class="row mt-4 g-3">
@@ -299,6 +303,7 @@
                             <i class="mdi mdi-circle-medium info-icon"></i>
                             <span>{{ __('delivery.status') }}</span>
                         </div>
+
                         <span class="status-badge bg-{{ getStatusColor($delivery->status) }}">{{ __('package.status_' . $delivery->status) }}</span>
                     </div>
 
