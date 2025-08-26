@@ -65,11 +65,18 @@
                                         <br>
                                         <small>{{ $delivery->package->receiver_first_name ?? '' }} {{ $delivery->package->receiver_last_name ?? '' }}</small>
                                     </td>
-                                    <td>
-                                        {{ $delivery->driver->name ?? '-' }}
-                                        <br>
-                                        <small>{{ $delivery->driver->phone ?? '-' }}</small>
+                                    <td data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $delivery->driver->driver_full_name ?? '' }} , {{ $delivery->driver->phone ?? '' }}">
+                                        @if($delivery->driver)
+                                            <a href="{{ route('admin.drivers.show', $delivery->driver->id) }}">
+                                                {{ Str::words($delivery->driver->driver_full_name, 2, '') }}
+                                            </a>
+                                        @else
+                                            -
+                                        @endif
                                     </td>
+
+
+
                                  <td>
                                     @php
                                         $color = match($delivery->status) {
