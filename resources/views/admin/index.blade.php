@@ -125,53 +125,6 @@
 
 @endsection
 
-{{-- @section('script')
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // إنشاء الخريطة في وسط الرياض
-            var map = L.map('driversMap').setView([24.7136, 46.6753], 6);
-
-            // إضافة خريطة OpenStreetMap
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
-
-            // بيانات السائقين من الـ Laravel
-            var drivers = @json($drivers);
-
-            var locale = "{{ app()->getLocale() }}";
-
-            drivers.forEach(function(driver) {
-                if(driver.latitude && driver.longitude) {
-                    var firstName = driver.first_name[locale] ?? '';
-                    var lastName  = driver.last_name[locale] ?? '';
-
-                    var marker = L.marker([driver.latitude, driver.longitude]).addTo(map);
-                    marker.bindPopup(`
-                        <strong>${firstName} ${lastName}</strong><br>
-                        📞 ${driver.phone ?? '---'}
-                    `);
-                }
-            });
-
-            // إذا في سائقين، نضبط العرض ليشمل كلهم
-            // if(drivers.length > 0){
-            //     var bounds = L.latLngBounds(drivers.map(d => [d.latitude, d.longitude]));
-            //     map.fitBounds(bounds);
-            // }
-
-            if(drivers.length > 0){
-                var bounds = L.latLngBounds(drivers.map(d => [d.latitude, d.longitude]));
-                map.fitBounds(bounds, {
-                    padding: [50, 50]  // إضافة مساحة فارغة حول الـ markers
-                });
-            }
-        });
-    </script>
-@endsection --}}
 
 
 @section('script')
@@ -217,12 +170,19 @@
         });
 
         // إذا في سائقين، نضبط العرض ليشمل كلهم
+            // if(drivers.length > 0){
+            //     var bounds = L.latLngBounds(drivers.map(d => [d.latitude, d.longitude]));
+            //     map.fitBounds(bounds);
+            // }
+
+        // إذا في سائقين، نضبط العرض ليشمل كلهم
         if(drivers.length > 0){
             var bounds = L.latLngBounds(drivers.map(d => [d.latitude, d.longitude]));
             map.fitBounds(bounds, {
                 padding: [50, 50]  // إضافة مساحة فارغة حول الـ markers
             });
         }
+
     });
 </script>
 @endsection
