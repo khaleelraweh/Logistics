@@ -57,14 +57,14 @@
     <div class="row ">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="mb-0 font-size-18">{{ __('driver.add_driver') }}</h4>
+                <h4 class="mb-0 font-size-18">{{ __('driver.edit_driver') }}</h4>
 
                 <div class="page-title-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('admin.drivers.index') }}">{{ __('driver.manage_drivers') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('driver.add_driver') }}</li>
+                            <li class="breadcrumb-item active">{{ __('driver.edit_driver') }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -113,8 +113,9 @@
                             </li>
                         </ul>
 
-                        <form action="{{ route('admin.drivers.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.drivers.update',$driver->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PATCH')
                             <div id="bar" class="progress mt-4">
                                 <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"></div>
                             </div>
@@ -136,7 +137,7 @@
                                                     <label class="form-label" for="first_name">{{ __('driver.driver_first_name') }}
                                                         <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
                                                     </label>
-                                                    <input name="first_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('first_name.' . $key) }}">
+                                                    <input name="first_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('first_name.' . $key , $driver->getTranslation('first_name', $key)) }}">
                                                     @error('first_name.' . $key)<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
@@ -145,7 +146,7 @@
                                                     <label class="form-label" for="middle_name">{{ __('driver.driver_middle_name') }}
                                                         <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
                                                     </label>
-                                                    <input name="middle_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('middle_name.' . $key) }}">
+                                                    <input name="middle_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('middle_name.' . $key , $driver->getTranslation('middle_name', $key)) }}">
                                                     @error('middle_name.' . $key)<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
@@ -154,7 +155,7 @@
                                                     <label class="form-label" for="last_name">{{ __('driver.driver_last_name') }}
                                                         <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
                                                     </label>
-                                                    <input name="last_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('last_name.' . $key) }}">
+                                                    <input name="last_name[{{ $key }}]" class="form-control" id="name[{{ $key }}]" type="text" value="{{ old('last_name.' . $key , $driver->getTranslation('last_name', $key)) }}">
                                                     @error('last_name.' . $key)<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
@@ -166,14 +167,14 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label" for="phone">{{ __('driver.phone') }}</label>
-                                                <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" id="phone">
+                                                <input type="text" class="form-control" name="phone" value="{{ old('phone', $driver->phone) }}" id="phone">
                                                 @error('phone')<span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label" for="email">{{ __('driver.email') }}</label>
-                                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" id="email">
+                                                <input type="email" class="form-control" name="email" value="{{ old('email' , $driver->email) }}" id="email">
                                                 @error('email')<span class="text-danger">{{ $message }}</span> @enderror
 
                                             </div>
@@ -195,28 +196,28 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label class="form-label" for="country">{{ __('driver.country') }}</label>
-                                                <input type="text" class="form-control" name="country" value="{{ old('country') }}" id="country">
+                                                <input type="text" class="form-control" name="country" value="{{ old('country' , $driver->country) }}" id="country">
                                                 @error('country')<span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label class="form-label" for="region">{{ __('driver.region') }}</label>
-                                                <input type="text" class="form-control" name="region" value="{{ old('region') }}" id="region">
+                                                <input type="text" class="form-control" name="region" value="{{ old('region', $driver->region) }}" id="region">
                                                 @error('region')<span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label class="form-label" for="city">{{ __('driver.city') }}</label>
-                                                <input type="text" class="form-control" name="city" value="{{ old('city') }}" id="city">
+                                                <input type="text" class="form-control" name="city" value="{{ old('city' , $driver->city) }}" id="city">
                                                 @error('city')<span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label class="form-label" for="district">{{ __('driver.district') }}</label>
-                                                <input type="text" class="form-control" name="district" value="{{ old('district') }}" id="district">
+                                                <input type="text" class="form-control" name="district" value="{{ old('district' , $driver->district) }}" id="district">
                                                 @error('district')<span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
@@ -235,14 +236,14 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label" for="latitude">{{ __('driver.latitude') }}</label>
-                                                <input type="text" class="form-control" name="latitude" value="{{ old('latitude') }}" id="latitude">
+                                                <input type="text" class="form-control" name="latitude" value="{{ old('latitude' , $driver->latitude) }}" id="latitude">
                                                 @error('latitude')<span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label class="form-label" for="longitude">{{ __('driver.longitude') }}</label>
-                                                <input type="text" class="form-control" name="longitude" value="{{ old('longitude') }}" id="longitude">
+                                                <input type="text" class="form-control" name="longitude" value="{{ old('longitude' , $driver->longitude) }}" id="longitude">
                                                 @error('longitude')<span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
