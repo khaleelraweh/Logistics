@@ -126,12 +126,16 @@
         // بيانات السائقين من الـ Laravel
         var drivers = @json($drivers);
 
-        // إضافة السائقين كـ markers
+        var locale = "{{ app()->getLocale() }}";
+
         drivers.forEach(function(driver) {
             if(driver.latitude && driver.longitude) {
+                var firstName = driver.first_name[locale] ?? '';
+                var lastName  = driver.last_name[locale] ?? '';
+
                 var marker = L.marker([driver.latitude, driver.longitude]).addTo(map);
                 marker.bindPopup(`
-                    <strong>${driver.first_name} ${driver.last_name}</strong><br>
+                    <strong>${firstName} ${lastName}</strong><br>
                     📞 ${driver.phone ?? '---'}
                 `);
             }
