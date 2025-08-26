@@ -188,17 +188,14 @@
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            /* border-left: 3px solid; */
         }
 
         .timeline-item:nth-child(odd) .timeline-content {
-            /* margin-right: 40px; */
             text-align: right;
             border-right: 3px solid;
         }
 
         .timeline-item:nth-child(even) .timeline-content {
-            /* margin-left: 40px; */
             text-align: left;
             border-left: 3px solid;
         }
@@ -272,9 +269,7 @@
             color: #3a0ca3;
         }
 
-
-
-                /* ألوان الحدود للاتجاهين */
+        /* ألوان الحدود للاتجاهين */
         .timeline-item:nth-child(odd) .border-delivered { border-right-color: #38b2ac; }
         .timeline-item:nth-child(odd) .border-pending { border-right-color: #ed8936; }
         .timeline-item:nth-child(odd) .border-processing { border-right-color: #4299e1; }
@@ -316,7 +311,6 @@
         .timeline-item:nth-child(even) .border-cancelled::before { border-left-color: #607d8b !important; }
         .timeline-item:nth-child(even) .border-delivery_failed::before { border-left-color: #ff5722 !important; }
 
-
         /* ألوان الحالات */
         .bg-delivered { background-color: #38b2ac; }
         .bg-pending { background-color: #ed8936; }
@@ -327,8 +321,6 @@
         .bg-returned { background-color: #f44336; }
         .bg-cancelled { background-color: #607d8b; }
         .bg-delivery_failed { background-color: #ff5722; }
-
-
 
         .status-indicator {
             width: 12px;
@@ -354,8 +346,8 @@
                 margin-right: 70px !important;
                 margin-left: 0 !important;
                 text-align: right !important;
+                border-left: 3px solid !important;
                 border-right: none !important;
-                border-left: 3px solid;
             }
 
             .timeline-item:nth-child(odd) .timeline-content::before,
@@ -364,7 +356,6 @@
                 left: 100%;
                 border: 7px solid transparent;
                 border-left: 7px solid white;
-                border-right: none !important;
             }
 
             .timeline-dot {
@@ -375,11 +366,37 @@
             .col-lg-4 {
                 margin-bottom: 24px;
             }
+
+            /* ألوان الحدود للشاشات الصغيرة */
+            .timeline-content.border-delivered { border-left-color: #38b2ac !important; }
+            .timeline-content.border-pending { border-left-color: #ed8936 !important; }
+            .timeline-content.border-processing { border-left-color: #4299e1 !important; }
+            .timeline-content.border-canceled { border-left-color: #f56565 !important; }
+            .timeline-content.border-out_for_delivery { border-left-color: #9c27b0 !important; }
+            .timeline-content.border-in_warehouse { border-left-color: #673ab7 !important; }
+            .timeline-content.border-returned { border-left-color: #f44336 !important; }
+            .timeline-content.border-cancelled { border-left-color: #607d8b !important; }
+            .timeline-content.border-delivery_failed { border-left-color: #ff5722 !important; }
+
+            /* ألوان الأسهم للشاشات الصغيرة */
+            .timeline-content.border-delivered::before { border-left-color: #38b2ac !important; }
+            .timeline-content.border-pending::before { border-left-color: #ed8936 !important; }
+            .timeline-content.border-processing::before { border-left-color: #4299e1 !important; }
+            .timeline-content.border-canceled::before { border-left-color: #f56565 !important; }
+            .timeline-content.border-out_for_delivery::before { border-left-color: #9c27b0 !important; }
+            .timeline-content.border-in_warehouse::before { border-left-color: #673ab7 !important; }
+            .timeline-content.border-returned::before { border-left-color: #f44336 !important; }
+            .timeline-content.border-cancelled::before { border-left-color: #607d8b !important; }
+            .timeline-content.border-delivery_failed::before { border-left-color: #ff5722 !important; }
         }
 
         @media (max-width: 568px) {
             .timeline-content{
-                border-right: none !important;
+                border-left: none !important;
+            }
+
+            .timeline-content::before {
+                display: none !important;
             }
         }
     </style>
