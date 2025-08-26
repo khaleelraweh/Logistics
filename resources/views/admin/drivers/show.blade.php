@@ -130,7 +130,7 @@
                                         <li class="list-group-item border-0 ps-0 pb-0">
                                             <div class="d-flex">
                                                 <i class="fas fa-user-shield me-2 mt-1 text-info"></i>
-                                                {{-- <span class="text-sm">{{ $driver->supervisor_id ? $driver->supervisor->name : '-' }}</span> --}}
+                                                <span class="text-sm">{{ $driver->supervisor_id ? $driver->supervisor->full_name : '-' }}</span>
                                             </div>
                                         </li>
                                     </ul>
