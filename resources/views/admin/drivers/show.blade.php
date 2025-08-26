@@ -28,7 +28,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-8">
                             <h4 class="text-dark mb-0">{{ __('driver.driver_details') }}</h4>
-                            <h2 class="text-dark">{{ $driver->name }}</h2>
+                            <h2 class="text-dark">{{ $driver->driver_full_name }}  </h2>
                         </div>
                         <div class="col-md-4 text-end">
                             <a href="{{ route('admin.drivers.edit', $driver->id) }}" class="btn btn-dark btn-sm me-2">
@@ -78,7 +78,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body text-center">
-                                    <h5 class="mb-0">{{ $driver->name }}</h5>
+                                    <h5 class="mb-0">{{ $driver->driver_full_name }}</h5>
                                     <p class="text-sm text-muted mb-2">{{ $driver->username }}</p>
                                     <span class="badge bg-gradient-{{ $driver->status == 'active' ? 'success' : 'danger' }} mb-2">
                                         {{ $driver->status == 'active' ? __('driver.status_active') : __('driver.status_inactive') }}
