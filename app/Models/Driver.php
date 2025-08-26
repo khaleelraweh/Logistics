@@ -48,7 +48,7 @@ class Driver extends Model
             'users.first_name'             => 10,
             'users.last_name'             => 10,
             'users.email'             => 10,
-            'users.phone'             => 10,
+            'users.mobile'             => 10,
 
         ],
         'joins' => [

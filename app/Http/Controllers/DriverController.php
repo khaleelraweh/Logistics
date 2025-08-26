@@ -18,26 +18,69 @@ class DriverController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function index()
+    // {
+    //     if (!auth()->user()->ability('admin', 'manage_drivers , show_drivers')) {
+    //         return redirect('admin/index');
+    //     }
+
+    //     $drivers = DriverModel::query()
+    //         ->when(\request()->keyword != null, function ($query) {
+    //             $query->search(\request()->keyword);
+    //         })
+    //         ->when(\request()->status != null, function ($query) {
+    //             $query->where('status', \request()->status);
+    //         })
+    //         ->orderByRaw(request()->sort_by == 'published_on'
+    //             ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+    //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
+    //         ->paginate(\request()->limit_by ?? 100);
+
+    //     return view('admin.drivers.index', compact('drivers'));
+    // }
+
     public function index()
-    {
-        if (!auth()->user()->ability('admin', 'manage_drivers , show_drivers')) {
-            return redirect('admin/index');
-        }
-
-        $drivers = DriverModel::query()
-            ->when(\request()->keyword != null, function ($query) {
-                $query->search(\request()->keyword);
-            })
-            ->when(\request()->status != null, function ($query) {
-                $query->where('status', \request()->status);
-            })
-            ->orderByRaw(request()->sort_by == 'published_on'
-                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-            ->paginate(\request()->limit_by ?? 100);
-
-        return view('admin.drivers.index', compact('drivers'));
+{
+    if (!auth()->user()->ability('admin', 'manage_drivers , show_drivers')) {
+        return redirect('admin/index');
     }
+
+    // جلب المشرفين للفلتر
+    $supervisors = User::whereHas('roles', function($query) {
+        $query->where('name', 'supervisor');
+    })->get();
+
+    $drivers = DriverModel::query()
+        ->when(request()->keyword != null, function ($query) {
+            $query->search(request()->keyword);
+        })
+        ->when(request()->status != null, function ($query) {
+            $query->where('status', request()->status);
+        })
+        ->when(request()->availability_status != null, function ($query) {
+            $query->where('availability_status', request()->availability_status);
+        })
+        ->when(request()->vehicle_type != null, function ($query) {
+            $query->where('vehicle_type', request()->vehicle_type);
+        })
+        ->when(request()->supervisor_id != null, function ($query) {
+            $query->where('supervisor_id', request()->supervisor_id);
+        })
+        ->when(request()->city != null, function ($query) {
+            $query->where('city', 'like', '%' . request()->city . '%');
+        })
+        ->when(request()->region != null, function ($query) {
+            $query->where('region', 'like', '%' . request()->region . '%');
+        })
+        ->orderByRaw(
+            request()->sort_by == 'published_on'
+                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
+        )
+        ->paginate(request()->limit_by ?? 100);
+
+    return view('admin.drivers.index', compact('drivers', 'supervisors'));
+}
 
     /**
      * Show the form for creating a new resource.
