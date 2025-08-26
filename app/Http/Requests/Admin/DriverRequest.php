@@ -164,8 +164,8 @@ class DriverRequest extends FormRequest
         foreach (config('locales.languages') as $key => $val) {
             $attr += [
                 'first_name.' . $key => __('driver.first_name') . ' (' . __('panel.' . $val['lang']) . ')',
-                'first_middle_name.' . $key => __('driver.first_middle_name') . ' (' . __('panel.' . $val['lang']) . ')',
-                'first_last_name.' . $key => __('driver.first_last_name') . ' (' . __('panel.' . $val['lang']) . ')',
+                'middle_name.' . $key => __('driver.middle_name') . ' (' . __('panel.' . $val['lang']) . ')',
+                'last_name.' . $key => __('driver.last_name') . ' (' . __('panel.' . $val['lang']) . ')',
             ];
         }
 
