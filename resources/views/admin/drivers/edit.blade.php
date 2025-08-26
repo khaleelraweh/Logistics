@@ -790,45 +790,117 @@
 
     <!-- متعلق بحفظ الصور -->
     <script>
-        $(function() {
+         $(function() {
             $("#driver_image").fileinput({
                 theme: "fa5",
-                maxFileCount: 5,
+                maxFileCount: 1,
                 allowedFileTypes: ['image'],
                 showCancel: true,
                 showRemove: false,
                 showUpload: false,
-                overwriteInitial: false
+                overwriteInitial: false,
+                initialPreview: [
+                    @if ($driver->driver_image != '')
+                        "{{ asset('assets/drivers/' . $driver->driver_image) }}",
+                    @endif
+                ],
+                initialPreviewAsData: true,
+                initialPreviewFileType: 'image',
+                initialPreviewConfig: [
+                    @if ($driver->driver_image != '')
+                        {
+                            caption: "{{ $driver->driver_image }}",
+                            size: '1111',
+                            width: "120px",
+                            url: "{{ route('admin.drivers.remove_driver_image', ['driver_id' => $driver->id, '_token' => csrf_token()]) }}",
+                            key: {{ $driver->id }}
+                        }
+                    @endif
+                ]
             });
 
             $("#vehicle_image").fileinput({
                 theme: "fa5",
-                maxFileCount: 5,
+                maxFileCount: 1,
                 allowedFileTypes: ['image'],
                 showCancel: true,
                 showRemove: false,
                 showUpload: false,
-                overwriteInitial: false
+                overwriteInitial: false,
+                initialPreview: [
+                    @if ($driver->vehicle_image != '')
+                        "{{ asset('assets/drivers/' . $driver->vehicle_image) }}",
+                    @endif
+                ],
+                initialPreviewAsData: true,
+                initialPreviewFileType: 'image',
+                initialPreviewConfig: [
+                    @if ($driver->vehicle_image != '')
+                        {
+                            caption: "{{ $driver->vehicle_image }}",
+                            size: '1111',
+                            width: "120px",
+                            url: "{{ route('admin.drivers.remove_vehicle_image', ['driver_id' => $driver->id, '_token' => csrf_token()]) }}",
+                            key: {{ $driver->id }}
+                        }
+                    @endif
+                ]
             });
 
             $("#license_image").fileinput({
                 theme: "fa5",
-                maxFileCount: 5,
+                maxFileCount: 1,
                 allowedFileTypes: ['image'],
                 showCancel: true,
                 showRemove: false,
                 showUpload: false,
-                overwriteInitial: false
+                overwriteInitial: false,
+                initialPreview: [
+                    @if ($driver->license_image != '')
+                        "{{ asset('assets/drivers/' . $driver->license_image) }}",
+                    @endif
+                ],
+                initialPreviewAsData: true,
+                initialPreviewFileType: 'image',
+                initialPreviewConfig: [
+                    @if ($driver->license_image != '')
+                        {
+                            caption: "{{ $driver->license_image }}",
+                            size: '1111',
+                            width: "120px",
+                            url: "{{ route('admin.drivers.remove_license_image', ['driver_id' => $driver->id, '_token' => csrf_token()]) }}",
+                            key: {{ $driver->id }}
+                        }
+                    @endif
+                ]
             });
 
             $("#id_card_image").fileinput({
                 theme: "fa5",
-                maxFileCount: 5,
+                maxFileCount: 1,
                 allowedFileTypes: ['image'],
                 showCancel: true,
                 showRemove: false,
                 showUpload: false,
-                overwriteInitial: false
+                overwriteInitial: false,
+                initialPreview: [
+                    @if ($driver->id_card_image != '')
+                        "{{ asset('assets/drivers/' . $driver->id_card_image) }}",
+                    @endif
+                ],
+                initialPreviewAsData: true,
+                initialPreviewFileType: 'image',
+                initialPreviewConfig: [
+                    @if ($driver->id_card_image != '')
+                        {
+                            caption: "{{ $driver->id_card_image }}",
+                            size: '1111',
+                            width: "120px",
+                            url: "{{ route('admin.drivers.remove_id_card_image', ['driver_id' => $driver->id, '_token' => csrf_token()]) }}",
+                            key: {{ $driver->id }}
+                        }
+                    @endif
+                ]
             });
         });
     </script>
