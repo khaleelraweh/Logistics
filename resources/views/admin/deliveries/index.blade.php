@@ -53,7 +53,7 @@
                                 <th>{{ __('delivery.assigned_at') }}</th>
                                 <th>{{ __('delivery.delivered_at') }}</th>
                                 <th>{{ __('general.created_at') }}</th>
-                                <th>{{ __('general.the_actions') }}</th>
+                                <th>{{ __('general.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,37 +111,50 @@
                                     <td>{{ $delivery->delivered_at ? $delivery->delivered_at->diffForHumans() : '-' }}</td>
                                     <td>{{ $delivery->created_at->diffForHumans() }}</td>
                                     <td>
-                                        <div class="btn-group me-2 mb-2 mb-sm-0">
-                                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                {{ __('general.operations') }} <i class="mdi mdi-dots-vertical ms-2"></i>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-cog"></i> {{ __('general.operations') }}
                                             </button>
-                                            <div class="dropdown-menu">
+                                            <ul class="dropdown-menu dropdown-menu-end">
                                                 @ability('admin', 'show_deliveries')
-                                                    <a class="dropdown-item" href="{{ route('admin.deliveries.show', $delivery->id) }}">{{ __('general.show') }}</a>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('admin.deliveries.show', $delivery->id) }}">
+                                                        <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
+                                                    </a>
+                                                </li>
                                                 @endability
 
                                                 @ability('admin', 'update_deliveries')
-                                                    <a class="dropdown-item" href="{{ route('admin.deliveries.edit', $delivery->id) }}">{{ __('general.edit') }}</a>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('admin.deliveries.edit', $delivery->id) }}">
+                                                        <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
+                                                    </a>
+                                                </li>
                                                 @endability
 
                                                 @ability('admin', 'delete_deliveries')
-                                                    <a class="dropdown-item" href="javascript:void(0)"
-                                                        onclick="confirmDelete('delete-delivery-{{ $delivery->id }}',
-                                                            '{{ __('panel.confirm_delete_message') }}',
-                                                            '{{ __('panel.yes_delete') }}',
-                                                            '{{ __('panel.cancel') }}')">
-                                                        {{ __('general.delete') }}
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li>
+                                                    <a class="dropdown-item text-danger" href="javascript:void(0)"
+                                                    onclick="confirmDelete('delete-delivery-{{ $delivery->id }}',
+                                                                            '{{ __('panel.confirm_delete_message') }}',
+                                                                            '{{ __('panel.yes_delete') }}',
+                                                                            '{{ __('panel.cancel') }}')">
+                                                        <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
                                                     </a>
-                                                    <form action="{{ route('admin.deliveries.destroy', $delivery->id) }}"
-                                                          method="post" class="d-none"
-                                                          id="delete-delivery-{{ $delivery->id }}">
+                                                    <form id="delete-delivery-{{ $delivery->id }}"
+                                                        action="{{ route('admin.deliveries.destroy', $delivery->id) }}"
+                                                        method="POST" class="d-none">
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
+                                                </li>
                                                 @endability
-                                            </div>
+                                            </ul>
                                         </div>
                                     </td>
+
                                 </tr>
                             @empty
                                 <tr>
