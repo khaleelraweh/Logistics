@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Cache;
 
 function getParentShowOf($param)
 {
-    $route = str_replace('admin.', '', $param); // احذف كلمة admin. واستبدل بدالها بالفراغ من الراوت المرسل كبرامتر 
+    $route = str_replace('admin.', '', $param); // احذف كلمة admin. واستبدل بدالها بالفراغ من الراوت المرسل كبرامتر
     $permission = collect(Cache::get('admin_side_menu')->pluck('children')->flatten())->where('as', $route)->flatten()->first();
     return $permission ? $permission['parent_show'] : null;
 }
@@ -76,3 +76,16 @@ function formatPostDateDash($date)
 
     return "$hijriDate " . __('panel.calendar_hijri') . " " . "|" . " $gregorianDate " . __('panel.calendar_gregorian');
 }
+
+
+if (! function_exists('getStatusColor')) {
+    function getStatusColor($status) {
+        return match($status) {
+            'active'   => 'text-success',
+            'pending'  => 'text-warning',
+            'inactive' => 'text-danger',
+            default    => 'text-muted',
+        };
+    }
+}
+

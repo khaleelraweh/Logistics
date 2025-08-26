@@ -152,7 +152,14 @@
 
                                 <div class="cd-timeline-content">
                                     <h3>{{ $translatedStatus }} </h3>
-                                    <p class="mb-0 text-muted font-14">{{ $log->note ?? '-' }} </p>
+                                    <p class="mb-0 text-muted font-14">
+                                        {{ $log->note ?? '-' }}
+                                        @if($log->driver_id)
+                                            <a href="{{ route('admin.drivers.show' , $log->driver_id) }}">
+                                                {{ optional($log->driver)->driver_full_name }}
+                                            </a>
+                                        @endif
+                                    </p>
                                     <span class="cd-date">{{ $log->logged_at->format('Y-m-d h:i A') }}</span>
                                 </div>
                             </div>
@@ -168,7 +175,8 @@
 
 @endsection
 
-@php
+{{-- @php
+came now from general helpers
 function getStatusColor($status) {
     return match($status) {
         'delivered'        => 'success',
@@ -181,4 +189,4 @@ function getStatusColor($status) {
         default            => 'secondary',
     };
 }
-@endphp
+@endphp --}}
