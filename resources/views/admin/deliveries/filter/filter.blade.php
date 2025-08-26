@@ -44,9 +44,16 @@
                         </select>
                     </div>
 
+                    <div class="col-md-1">
+                        {{ __('general.from') }}
+                    </div>
                     <!-- Delivered From -->
                     <div class="col-md-3">
                         <input type="date" name="delivered_from" value="{{ request('delivered_from') }}" class="form-control" placeholder="{{ __('filter.delivered_from') }}">
+                    </div>
+
+                    <div class="col-md-1">
+                        {{ __('general.to') }}
                     </div>
 
                     <!-- Delivered To -->
