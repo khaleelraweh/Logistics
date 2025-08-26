@@ -142,9 +142,16 @@
         });
 
         // إذا في سائقين، نضبط العرض ليشمل كلهم
+        // if(drivers.length > 0){
+        //     var bounds = L.latLngBounds(drivers.map(d => [d.latitude, d.longitude]));
+        //     map.fitBounds(bounds);
+        // }
+
         if(drivers.length > 0){
             var bounds = L.latLngBounds(drivers.map(d => [d.latitude, d.longitude]));
-            map.fitBounds(bounds);
+            map.fitBounds(bounds, {
+                padding: [50, 50]  // إضافة مساحة فارغة حول الـ markers
+            });
         }
     });
 </script>
