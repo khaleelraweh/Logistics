@@ -172,7 +172,7 @@ class DeliveryController extends Controller
                 // إضافة سجل في السجل الزمني
                 $delivery->package->addLog(
                     __('delivery.delivery_assigned_status', [
-                        'driver' => $delivery->driver?->name ?? '-'
+                        'driver' => $delivery->driver?->driver_full_name ?? '-'
                     ]),
                     $delivery->driver_id
                 );
