@@ -140,5 +140,6 @@ return [
     'no_supervisor'        => 'No Supervisor',
     'view_driver'         => 'View Driver',
     'available_on_map'    => 'Available on Map',
+    'the_driver'           => 'Driver',
 
 ];

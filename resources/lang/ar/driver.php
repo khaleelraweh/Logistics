@@ -140,6 +140,7 @@ return [
     'no_supervisor'        => 'لا يوجد مشرف',
     'view_driver'         => 'عرض السائق',
     'available_on_map'    => 'متاح على الخريطة',
+    'the_driver'           => 'السائق',
 
 
 

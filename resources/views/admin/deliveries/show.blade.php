@@ -616,7 +616,7 @@
                                 <div class="timeline-content border-{{ $color }}">
                                     <h3 class="d-flex align-items-center">
                                         <span>{{ $translatedStatus }}</span>
-                                        <span class="status-badge bg-{{ $color }} ms-2">{{ $log->status }}</span>
+                                        <span class="status-badge bg-{{ $color }} ms-2">{{ __('delivery.status_'.$log->status) }}  </span>
                                     </h3>
                                     <p class="mb-2 text-muted">
                                         {{ $log->note ?? '-' }}
@@ -624,7 +624,7 @@
                                     @if($log->driver_id)
                                         <p class="mb-2">
                                             <i class="mdi mdi-account-outline me-1"></i>
-                                            السائق:
+                                            {{ __('driver.the_driver') }}:
                                             <a href="{{ route('admin.drivers.show', $log->driver_id) }}" class="driver-link" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $log->driver->driver_full_name ?? '' }} , {{ $log->driver->phone ?? '' }} , {{ $log->driver->email ?? '' }}">
                                                 {{ optional($log->driver)->driver_full_name }}
                                             </a>
