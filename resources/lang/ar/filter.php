@@ -82,4 +82,13 @@ return [
     'e_wallet' => 'محفظة إلكترونية',
     'credit_card' => 'بطاقة ائتمان',
     'mada' => 'مدى',
+
+
+        // driver
+    'all_availability_statuses' => 'كل حالات التوفر',
+    'all_vehicle_types' => 'كل أنواع المركبات',
+    'all_supervisors' => 'كل المشرفين',
+    'total_deliveries' => 'إجمالي التوصيلات',
+    'city' => 'المدينة',
+    'region' => 'المنطقة',
 ];

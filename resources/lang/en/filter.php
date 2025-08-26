@@ -80,5 +80,13 @@ return [
     'e_wallet' => 'E-Wallet',
     'credit_card' => 'Credit Card',
     'mada' => 'Mada',
+
+    // driver
+    'all_availability_statuses' => 'All Availability Statuses',
+    'all_vehicle_types' => 'All Vehicle Types',
+    'all_supervisors' => 'All Supervisors',
+    'total_deliveries' => 'Total Deliveries',
+    'city' => 'City',
+    'region' => 'Region',
 ];
 
