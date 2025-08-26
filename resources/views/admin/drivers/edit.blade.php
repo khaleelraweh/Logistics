@@ -470,9 +470,9 @@
                                                 <div class="mb-3">
                                                     <label class="form-label" for="availability_status">{{ __('driver.availability_status') }}</label>
                                                     <select name="availability_status" class="form-select select2" required>
-                                                        <option value="available">{{ __('driver.available') }}</option>
-                                                        <option value="busy">{{ __('driver.busy') }}</option>
-                                                        <option value="offline">{{ __('driver.offline') }}</option>
+                                                        <option value="available" {{ old('availability_status' , $driver->availability_status) == 'available' ? 'selected' : '' }}>{{ __('driver.available') }}</option>
+                                                        <option value="busy" {{ old('availability_status' , $driver->availability_status) == 'busy' ? 'selected' : '' }}>{{ __('driver.busy') }}</option>
+                                                        <option value="offline" {{ old('availability_status' , $driver->availability_status) == 'offline' ? 'selected' : '' }}>{{ __('driver.offline') }}</option>
                                                     </select>
                                                     @error('availability_status')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
@@ -481,12 +481,12 @@
                                                 <div class="mb-3">
                                                     <label class="form-label" for="status">{{ __('driver.status') }}</label>
                                                     <select name="status" class="form-select select2" required>
-                                                        <option value="active">{{ __('driver.status_active') }}</option>
-                                                        <option value="inactive">{{ __('driver.status_inactive') }}</option>
-                                                        <option value="suspended">{{ __('driver.status_suspended') }}</option>
-                                                        <option value="terminated">{{ __('driver.status_terminated') }}</option>
+                                                        <option value="active" {{ old('status' , $driver->status) == 'active' ? 'selected' : '' }}>{{ __('driver.status_active') }}</option>
+                                                        <option value="inactive" {{ old('status' , $driver->status) == 'inactive' ? 'selected' : '' }}>{{ __('driver.status_inactive') }}</option>
+                                                        <option value="suspended" {{ old('status' , $driver->status) == 'suspened' ? 'selected' : '' }}>{{ __('driver.status_suspended') }}</option>
+                                                        <option value="terminated" {{ old('status' , $driver->status) == 'terminated' ? 'selected' : '' }}>{{ __('driver.status_terminated') }}</option>
                                                     </select>
-                                                    @error('availability_status')<span class="text-danger">{{ $message }}</span>@enderror
+                                                    @error('status')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -495,7 +495,7 @@
                                             <div class="col-lg-12">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="reason">{{ __('driver.reason') }}</label>
-                                                    <textarea name="reason" id="tinymceExample" rows="10" class="form-control">{!! old('reason') !!}</textarea>
+                                                    <textarea name="reason" id="tinymceExample" rows="10" class="form-control">{!! old('reason' , $driver->reason) !!}</textarea>
                                                     @error('reason')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
@@ -755,11 +755,11 @@
 
                                     <!-- Submit Button -->
                                     <div class="text-end pt-3">
-                                        @ability('admin', 'create_driver')
+                                        @ability('admin', 'update_driver')
                                             <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
                                                 <i class="ri-save-3-line me-2"></i>
                                                 <i class="bi bi-save me-2"></i>
-                                                {{ __('driver.save_driver_data') }}
+                                                {{ __('driver.update_driver_data') }}
                                             </button>
                                         @endability
 
