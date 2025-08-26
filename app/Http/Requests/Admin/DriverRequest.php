@@ -35,7 +35,7 @@ class DriverRequest extends FormRequest
                     'email'                     => 'required|email|max:255|unique:drivers,email',
                     // 'password'                  => 'nullable|string|min:6|confirmed',
                     'password'                  => 'nullable|string|min:6',
-                    'driver_image'              =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
+                    'driver_image'              =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:50000',
 
                     // Location details
                     'country'                   => 'nullable|string|max:100',
@@ -51,15 +51,15 @@ class DriverRequest extends FormRequest
                     'vehicle_model'             => 'required|string|max:100',
                     'vehicle_color'             => 'nullable|string|max:50',
 
-                    'vehicle_capacity_weight'   => 'nullable|numeric|min:0',
-                    'vehicle_capacity_volume'   => 'nullable|numeric|min:0',
-                    'vehicle_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
+                    'vehicle_capacity_weight'   => 'nullable|string|max:100',
+                    'vehicle_capacity_volume'   => 'nullable|string|max:100',
+                    'vehicle_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:50000',
 
                     'license_number'            => 'required|string|max:100',
                     'license_expiry_date'       => 'required|date',
                     'hired_date'                => 'nullable|date',
-                    'license_image'             =>  'required|mimes:jpg,jpeg,png,svg,webp|max:20000',
-                    'id_card_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
+                    'license_image'             =>  'required|mimes:jpg,jpeg,png,svg,webp|max:50000',
+                    'id_card_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:50000',
 
                     // 'supervisor_id'             => 'nullable|integer|exists:users,id', // إذا كان المشرف من جدول users
                     'supervisor_id'             => 'nullable', // إذا كان المشرف من جدول users
@@ -86,7 +86,7 @@ class DriverRequest extends FormRequest
                     'email'                     => 'required|email|max:255|unique:drivers,email,' . $this->route('driver'),
                     // 'password'                  => 'nullable|string|min:6|confirmed',
                     'password'                  => 'nullable|string|min:6',
-                    'driver_image'              =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
+                    'driver_image'              =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:50000',
 
                     // Location details
                     'country'                   => 'nullable|string|max:100',
@@ -101,15 +101,15 @@ class DriverRequest extends FormRequest
                     'vehicle_model'             => 'required|string|max:100',
                     'vehicle_color'             => 'nullable|string|max:50',
 
-                    'vehicle_capacity_weight'   => 'nullable|numeric|min:0',
-                    'vehicle_capacity_volume'   => 'nullable|numeric|min:0',
-                    'vehicle_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
+                    'vehicle_capacity_weight'   => 'nullable|string|max:100',
+                    'vehicle_capacity_volume'   => 'nullable|string|max:100',
+                    'vehicle_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:50000',
 
                     'license_number'            => 'required|string|max:100',
                     'license_expiry_date'       => 'required|date',
                     'hired_date'                => 'nullable|date',
-                    'license_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
-                    'id_card_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:20000',
+                    'license_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:50000',
+                    'id_card_image'             =>  'nullable|mimes:jpg,jpeg,png,svg,webp|max:50000',
 
 
                     // 'supervisor_id'             => 'nullable|integer|exists:users,id',

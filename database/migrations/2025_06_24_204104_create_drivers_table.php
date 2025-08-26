@@ -42,8 +42,8 @@ return new class extends Migration
             $table->string('vehicle_model')->nullable();  // موديل المركبة
             $table->string('vehicle_color')->nullable();  // لون المركبة
 
-            $table->decimal('vehicle_capacity_weight', 8, 2)->nullable(); // الوزن الأقصى بالكيلو
-            $table->decimal('vehicle_capacity_volume', 8, 2)->nullable(); // الحجم الأقصى بالمتر المكعب
+            $table->string('vehicle_capacity_weight')->nullable(); // الوزن الأقصى بالكيلو
+            $table->string('vehicle_capacity_volume')->nullable(); // الحجم الأقصى بالمتر المكعب
             $table->string('vehicle_image')->nullable();
 
 

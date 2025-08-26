@@ -34,8 +34,8 @@ class DriverSeeder extends Seeder
             'total_deliveries' => 28,
             'rating' => 4.6,
 
-            'vehicle_capacity_weight' => 1000.00, // كيلوغرام
-            'vehicle_capacity_volume' => 12.50,   // متر مكعب
+            // 'vehicle_capacity_weight' => 1000.00, // كيلوغرام
+            // 'vehicle_capacity_volume' => 12.50,   // متر مكعب
 
             'availability_status' => 'available',
             'last_seen_at' => now(),
