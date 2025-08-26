@@ -30,28 +30,76 @@
                     <input type="text" class="form-control" name="receiver_postal_code" id="receiver_postal_code" wire:model="receiver_postal_code">
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-12">
                     <label class="form-label">{{ __('package.receiver_location') }}</label>
                     <div class="row mb-2">
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="receiver_latitude">{{ __('package.receiver_latitude') }}</label>
-                            <input type="text" class="form-control" name="receiver_latitude" id="receiver_latitude" wire:model="latitude" >
+                            <input type="text" class="form-control" name="receiver_latitude" id="receiver_latitude" wire:model="latitude">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="receiver_longitude">{{ __('package.receiver_longitude') }}</label>
-                            <input type="text" class="form-control" name="receiver_longitude" id="receiver_longitude" wire:model="longitude" >
+                            <input type="text" class="form-control" name="receiver_longitude" id="receiver_longitude" wire:model="longitude">
                         </div>
                     </div>
-                    <div id="receiver-map" wire:ignore style="width: 100%; height: 300px;"></div>
+                    <div id="receiver-map" wire:ignore style="width: 100%; height: 400px;"></div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- مكتبة Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
     <script>
         document.addEventListener('livewire:load', function () {
+            let receiverMap, receiverMarker;
+
+            function initReceiverMap() {
+                var mapDiv = document.getElementById('receiver-map');
+                if(!mapDiv) return;
+
+                var initialLat = parseFloat(@this.latitude) || @this.defaultLatitude || 24.7136;
+                var initialLng = parseFloat(@this.longitude) || @this.defaultLongitude || 46.6753;
+
+                // إنشاء الخريطة
+                receiverMap = L.map('receiver-map', {
+                    minZoom: 8,
+                    maxZoom: 18,
+                    zoomControl: true,
+                }).setView([initialLat, initialLng], 11);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors',
+                    subdomains: ['a','b','c'],
+                    tileSize: 256,
+                }).addTo(receiverMap);
+
+                receiverMarker = L.marker([initialLat, initialLng], {draggable:true}).addTo(receiverMap);
+
+                receiverMarker.on('dragend', function(e){
+                    var latlng = receiverMarker.getLatLng();
+                    @this.set('latitude', latlng.lat);
+                    @this.set('longitude', latlng.lng);
+                    updateFieldsFromLatLng(latlng.lat, latlng.lng);
+                });
+
+                receiverMap.on('click', function(e){
+                    receiverMarker.setLatLng(e.latlng);
+                    @this.set('latitude', e.latlng.lat);
+                    @this.set('longitude', e.latlng.lng);
+                    updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
+                });
+
+                // إعادة رسم الخريطة بعد التحميل
+                setTimeout(() => {
+                    if (receiverMap) {
+                        receiverMap.invalidateSize();
+                    }
+                }, 500);
+            }
 
             function updateFieldsFromLatLng(lat, lng){
                 fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
@@ -67,51 +115,48 @@
                     });
             }
 
-            var mapDiv = document.getElementById('receiver-map');
-            if(!mapDiv) return;
+            // تهيئة الخريطة لأول مرة
+            initReceiverMap();
 
-            var initialLat = parseFloat(@this.latitude) || @this.defaultLatitude;
-            var initialLng = parseFloat(@this.longitude) || @this.defaultLongitude;
-
-            var map = L.map('receiver-map', {
-                minZoom: 8,
-                maxZoom: 18,
-                zoomControl: true,
-            }).setView([initialLat, initialLng], 11);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors',
-                subdomains: ['a','b','c'],
-                tileSize: 256,
-            }).addTo(map);
-
-            var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
-
-            marker.on('dragend', function(e){
-                var latlng = marker.getLatLng();
-                @this.set('latitude', latlng.lat);
-                @this.set('longitude', latlng.lng);
-                updateFieldsFromLatLng(latlng.lat, latlng.lng);
+            // إعادة رسم الخريطة عند تحديث Livewire
+            Livewire.hook('message.processed', (message, component) => {
+                setTimeout(() => {
+                    if (receiverMap) {
+                        receiverMap.invalidateSize();
+                    }
+                }, 300);
             });
 
-            map.on('click', function(e){
-                marker.setLatLng(e.latlng);
-                @this.set('latitude', e.latlng.lat);
-                @this.set('longitude', e.latlng.lng);
-                updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
-            });
-
-            Livewire.on('refreshReceiverMap', () => {
-                var lat = parseFloat(@this.latitude);
-                var lng = parseFloat(@this.longitude);
-                if(!isNaN(lat) && !isNaN(lng)){
-                    marker.setLatLng([lat, lng]);
-                    map.setView([lat, lng], 11);
-                    map.invalidateSize();
+            // إعادة رسم الخريطة عند تغيير حجم النافذة
+            window.addEventListener('resize', function() {
+                if (receiverMap) {
+                    setTimeout(() => {
+                        receiverMap.invalidateSize();
+                    }, 300);
                 }
             });
 
-            setTimeout(() => map.invalidateSize(), 300);
+            // حدث خاص لتحديث الخريطة
+            Livewire.on('refreshReceiverMap', () => {
+                var lat = parseFloat(@this.latitude);
+                var lng = parseFloat(@this.longitude);
+                if(!isNaN(lat) && !isNaN(lng) && receiverMap && receiverMarker){
+                    receiverMarker.setLatLng([lat, lng]);
+                    receiverMap.setView([lat, lng], 11);
+                    setTimeout(() => {
+                        receiverMap.invalidateSize();
+                    }, 300);
+                }
+            });
+
+            // حدث لإعادة رسم الخريطة من Blade
+            window.addEventListener('mapInvalidateSize', () => {
+                if (receiverMap) {
+                    setTimeout(() => {
+                        receiverMap.invalidateSize();
+                    }, 300);
+                }
+            });
         });
     </script>
 </div>

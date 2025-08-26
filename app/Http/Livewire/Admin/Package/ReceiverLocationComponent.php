@@ -85,6 +85,13 @@ class ReceiverLocationComponent extends Component
         // مجرد مستمع لتحديث الخريطة
     }
 
+    // إعادة رسم الخريطة عند الطلب
+    public function refreshMap()
+    {
+        $this->emit('refreshReceiverMap');
+        $this->dispatchBrowserEvent('mapInvalidateSize');
+    }
+
     public function render()
     {
         return view('livewire.admin.package.receiver-location-component');
