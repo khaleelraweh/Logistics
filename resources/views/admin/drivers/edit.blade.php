@@ -334,10 +334,10 @@
                                                     <label class="form-label" for="vehicle_capacity_weight">{{ __('driver.vehicle_capacity_weight') }}</label>
                                                     <select class="form-select select2" name="vehicle_capacity_weight" id="vehicle_capacity_weight">
                                                         <option value="">{{ __('general.select') }}</option>
-                                                        <option value="lt1" {{ old('vehicle_capacity_weight') == 'lt1' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_weight_lt1') }}</option>
-                                                        <option value="1to3" {{ old('vehicle_capacity_weight') == '1to3' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_weight_1to3') }}</option>
-                                                        <option value="3to7" {{ old('vehicle_capacity_weight') == '3to7' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_weight_3to7') }}</option>
-                                                        <option value="gt7" {{ old('vehicle_capacity_weight') == 'gt7' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_weight_gt7') }}</option>
+                                                        <option value="lt1" {{ old('vehicle_capacity_weight' , $driver->vehicle_capacity_weight) == 'lt1' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_weight_lt1') }}</option>
+                                                        <option value="1to3" {{ old('vehicle_capacity_weight', $driver->vehicle_capacity_weight) == '1to3' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_weight_1to3') }}</option>
+                                                        <option value="3to7" {{ old('vehicle_capacity_weight', $driver->vehicle_capacity_weight) == '3to7' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_weight_3to7') }}</option>
+                                                        <option value="gt7" {{ old('vehicle_capacity_weight', $driver->vehicle_capacity_weight) == 'gt7' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_weight_gt7') }}</option>
                                                     </select>
                                                     @error('vehicle_capacity_weight')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
@@ -349,10 +349,10 @@
                                                     <label class="form-label" for="vehicle_capacity_volume">{{ __('driver.vehicle_capacity_volume') }}</label>
                                                     <select class="form-select select2" name="vehicle_capacity_volume" id="vehicle_capacity_volume">
                                                         <option value="">{{ __('general.select') }}</option>
-                                                        <option value="small" {{ old('vehicle_capacity_volume') == 'small' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_volume_small') }}</option>
-                                                        <option value="medium" {{ old('vehicle_capacity_volume') == 'medium' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_volume_medium') }}</option>
-                                                        <option value="large" {{ old('vehicle_capacity_volume') == 'large' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_volume_large') }}</option>
-                                                        <option value="huge" {{ old('vehicle_capacity_volume') == 'huge' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_volume_huge') }}</option>
+                                                        <option value="small" {{ old('vehicle_capacity_volume' , $driver->vehicle_capacity_volume) == 'small' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_volume_small') }}</option>
+                                                        <option value="medium" {{ old('vehicle_capacity_volume', $driver->vehicle_capacity_volume) == 'medium' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_volume_medium') }}</option>
+                                                        <option value="large" {{ old('vehicle_capacity_volume', $driver->vehicle_capacity_volume) == 'large' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_volume_large') }}</option>
+                                                        <option value="huge" {{ old('vehicle_capacity_volume', $driver->vehicle_capacity_volume) == 'huge' ? 'selected' : '' }}>{{ __('driver.vehicle_capacity_volume_huge') }}</option>
                                                     </select>
                                                     @error('vehicle_capacity_volume')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
@@ -371,14 +371,14 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="license_number">{{ __('driver.license_number') }}</label>
-                                                    <input type="text" class="form-control" name="license_number" value="{{ old('license_number') }}" placeholder="{{ __('driver.license_number') }}" id="license_number">
+                                                    <input type="text" class="form-control" name="license_number" value="{{ old('license_number' , $driver->license_number) }}" placeholder="{{ __('driver.license_number') }}" id="license_number">
                                                     @error('license_number')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="license_expiry_date">{{ __('driver.license_expiry_date') }}</label>
-                                                    <input type="date" class="form-control" name="license_expiry_date" value="{{ old('license_expiry_date') }}" placeholder="{{ __('driver.license_expiry_date') }}" id="license_expiry_date">
+                                                    <input type="date" class="form-control" name="license_expiry_date" value="{{ old('license_expiry_date' , $driver->license_expiry_date) }}" placeholder="{{ __('driver.license_expiry_date') }}" id="license_expiry_date">
                                                     @error('license_expiry_date')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
