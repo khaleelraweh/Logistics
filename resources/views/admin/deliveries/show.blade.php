@@ -272,6 +272,51 @@
             color: #3a0ca3;
         }
 
+
+
+                /* ألوان الحدود للاتجاهين */
+        .timeline-item:nth-child(odd) .border-delivered { border-right-color: #38b2ac; }
+        .timeline-item:nth-child(odd) .border-pending { border-right-color: #ed8936; }
+        .timeline-item:nth-child(odd) .border-processing { border-right-color: #4299e1; }
+        .timeline-item:nth-child(odd) .border-canceled { border-right-color: #f56565; }
+        .timeline-item:nth-child(odd) .border-out_for_delivery { border-right-color: #9c27b0; }
+        .timeline-item:nth-child(odd) .border-in_warehouse { border-right-color: #673ab7; }
+        .timeline-item:nth-child(odd) .border-returned { border-right-color: #f44336; }
+        .timeline-item:nth-child(odd) .border-cancelled { border-right-color: #607d8b; }
+        .timeline-item:nth-child(odd) .border-delivery_failed { border-right-color: #ff5722; }
+
+        .timeline-item:nth-child(even) .border-delivered { border-left-color: #38b2ac; }
+        .timeline-item:nth-child(even) .border-pending { border-left-color: #ed8936; }
+        .timeline-item:nth-child(even) .border-processing { border-left-color: #4299e1; }
+        .timeline-item:nth-child(even) .border-canceled { border-left-color: #f56565; }
+        .timeline-item:nth-child(even) .border-out_for_delivery { border-left-color: #9c27b0; }
+        .timeline-item:nth-child(even) .border-in_warehouse { border-left-color: #673ab7; }
+        .timeline-item:nth-child(even) .border-returned { border-left-color: #f44336; }
+        .timeline-item:nth-child(even) .border-cancelled { border-left-color: #607d8b; }
+        .timeline-item:nth-child(even) .border-delivery_failed { border-left-color: #ff5722; }
+
+        /* ألوان الخلفية للأسهم لتتناسب مع لون الحدود */
+        .timeline-item:nth-child(odd) .border-delivered::before { border-right-color: #38b2ac !important; }
+        .timeline-item:nth-child(odd) .border-pending::before { border-right-color: #ed8936 !important; }
+        .timeline-item:nth-child(odd) .border-processing::before { border-right-color: #4299e1 !important; }
+        .timeline-item:nth-child(odd) .border-canceled::before { border-right-color: #f56565 !important; }
+        .timeline-item:nth-child(odd) .border-out_for_delivery::before { border-right-color: #9c27b0 !important; }
+        .timeline-item:nth-child(odd) .border-in_warehouse::before { border-right-color: #673ab7 !important; }
+        .timeline-item:nth-child(odd) .border-returned::before { border-right-color: #f44336 !important; }
+        .timeline-item:nth-child(odd) .border-cancelled::before { border-right-color: #607d8b !important; }
+        .timeline-item:nth-child(odd) .border-delivery_failed::before { border-right-color: #ff5722 !important; }
+
+        .timeline-item:nth-child(even) .border-delivered::before { border-left-color: #38b2ac !important; }
+        .timeline-item:nth-child(even) .border-pending::before { border-left-color: #ed8936 !important; }
+        .timeline-item:nth-child(even) .border-processing::before { border-left-color: #4299e1 !important; }
+        .timeline-item:nth-child(even) .border-canceled::before { border-left-color: #f56565 !important; }
+        .timeline-item:nth-child(even) .border-out_for_delivery::before { border-left-color: #9c27b0 !important; }
+        .timeline-item:nth-child(even) .border-in_warehouse::before { border-left-color: #673ab7 !important; }
+        .timeline-item:nth-child(even) .border-returned::before { border-left-color: #f44336 !important; }
+        .timeline-item:nth-child(even) .border-cancelled::before { border-left-color: #607d8b !important; }
+        .timeline-item:nth-child(even) .border-delivery_failed::before { border-left-color: #ff5722 !important; }
+
+
         /* ألوان الحالات */
         .bg-delivered { background-color: #38b2ac; }
         .bg-pending { background-color: #ed8936; }
@@ -283,15 +328,7 @@
         .bg-cancelled { background-color: #607d8b; }
         .bg-delivery_failed { background-color: #ff5722; }
 
-        .border-delivered { border-left-color: #38b2ac; }
-        .border-pending { border-left-color: #ed8936; }
-        .border-processing { border-left-color: #4299e1; }
-        .border-canceled { border-left-color: #f56565; }
-        .border-out_for_delivery { border-left-color: #9c27b0; }
-        .border-in_warehouse { border-left-color: #673ab7; }
-        .border-returned { border-left-color: #f44336; }
-        .border-cancelled { border-left-color: #607d8b; }
-        .border-delivery_failed { border-left-color: #ff5722; }
+
 
         .status-indicator {
             width: 12px;
