@@ -155,7 +155,7 @@
                                     <p class="mb-0 text-muted font-14">
                                         {{ $log->note ?? '-' }}
                                         @if($log->driver_id)
-                                            <a href="{{ route('admin.drivers.show' , $log->driver_id) }}">
+                                            <a href="{{ route('admin.drivers.show' , $log->driver_id) }}"  data-bs-toggle="tooltip"  data-bs-placement="top" title="{{ $log->driver->driver_full_name ?? '' }} , {{ $log->driver->phone ?? '' }} , {{ $log->driver->email ?? '' }}" >
                                                 {{ optional($log->driver)->driver_full_name }}
                                             </a>
                                         @endif
