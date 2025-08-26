@@ -231,7 +231,8 @@ return [
     'other'    => 'Other',
     'not_set'  => 'Not Set',
     'file_uploaded' => 'File Uploaded Successfully',
-    'no_file'   =>  'No File'
+    'no_file'   =>  'No File',
+    'review_driver_info'    => 'Review Driver Information',
 
 
 ];
