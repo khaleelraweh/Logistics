@@ -21,74 +21,82 @@
     </div>
 </div>
 
-<!-- Delivery Form -->
+
 <div class="row">
     <div class="col-12">
-        <div class="card shadow-sm">
+        <div class="card">
             <div class="card-body">
-                <h4 class="card-title mb-4">
-                    <i class="mdi mdi-truck-delivery-outline me-1"></i> {{ __('delivery.delivery_info') }}
-                </h4>
+
+                <h4 class="card-title">{{ __('delivery.delivery_info') }}</h4>
 
                 <form action="{{ route('admin.deliveries.update', $delivery->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
-                    <!-- Driver Selection -->
-                    <div class="row mb-4">
-                        <label for="driver_id" class="col-sm-2 col-form-label">{{ __('driver.name') }}</label>
+                    {{-- Driver --}}
+                    <div class="row mb-3">
+                        <label for="driver_id" class="col-sm-2 col-form-label">{{ __('delivery.driver') }}</label>
                         <div class="col-sm-10">
-                            <select name="driver_id" id="driver_id" class="form-select select2">
-                                <option disabled selected>{{ __('delivery.select_driver') }}</option>
-                                @foreach ($drivers as $driver)
-                                    <option value="{{ $driver->id }}" {{ old('driver_id', $delivery->driver_id) == $driver->id ? 'selected' : '' }}>
-                                        {{ $driver->name }} - {{ $driver->phone }}
+                            <select name="driver_id" id="driver_id" class="form-control select2" required>
+                                <option value="" disabled>{{ __('delivery.select_driver') }}</option>
+                                @foreach($drivers as $driver)
+                                    <option value="{{ $driver->id }}"
+                                        {{ old('driver_id', $delivery->driver_id) == $driver->id ? 'selected' : '' }}>
+                                        {{ $driver->driver_full_name ?? __('driver.no_name') }}
+                                        - {{ $driver->phone ?? __('driver.no_phone') }}
+                                        - {{ $driver->vehicle_type ? __('driver.vehicle_type_' . $driver->vehicle_type) : __('driver.no_vehicle_type') }}
                                     </option>
                                 @endforeach
                             </select>
                             @error('driver_id')
-                                <small class="text-danger">{{ $message }}</small>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
 
-                    <!-- Package Selection -->
-                    <div class="row mb-4">
-                        <label for="package_id" class="col-sm-2 col-form-label">{{ __('delivery.package') }}</label>
+                    {{-- Package --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="package_id">{{ __('delivery.package') }}</label>
                         <div class="col-sm-10">
-                            <select name="package_id" id="package_id" class="form-select select2">
-                                <option disabled selected>{{ __('delivery.select_package') }}</option>
-                                @foreach ($packages as $package)
-                                    <option value="{{ $package->id }}" {{ old('package_id', $delivery->package_id) == $package->id ? 'selected' : '' }}>
-                                        {{  $package->tracking_number ?? __('package.package') . "#". $package->id }} - {{ $package->receiver_first_name }} {{ $package->receiver_last_name }}
+                            <select name="package_id" class="form-control select2">
+                                <option value="">{{ __('delivery.select_package') }}</option>
+                                @foreach($packages as $package)
+                                    @php
+                                        $locationParts = array_filter([
+                                            $package->receiver_country ?? null,
+                                            $package->receiver_region ?? null,
+                                            $package->receiver_city ?? null,
+                                            $package->receiver_district ?? null,
+                                            $package->receiver_postal_code ?? null,
+                                        ]);
+
+                                        $shortLocation = implode(' - ', array_slice($locationParts, 0, 2));
+                                        $fullLocation  = implode(' - ', $locationParts);
+                                    @endphp
+
+                                    <option value="{{ $package->id }}"
+                                            title="{{ $fullLocation }}"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            {{ old('package_id', $delivery->package_id) == $package->id ? 'selected' : '' }}>
+                                        {{ $package->tracking_number }} - {{ $package->receiver_first_name }} {{ $package->receiver_last_name }}
+                                        @if($shortLocation) ({{ $shortLocation }}) @endif
                                     </option>
                                 @endforeach
                             </select>
                             @error('package_id')
-                                <small class="text-danger">{{ $message }}</small>
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
 
-                    <!-- Assigned At Date -->
-                    <div class="row mb-4">
-                        <label for="assigned_at" class="col-sm-2 col-form-label">{{ __('delivery.assigned_at') }}</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="assigned_at" id="assigned_at" class="form-control"
-                                value="{{ old('assigned_at', optional($delivery->assigned_at)->format('Y-m-d')) }}">
-                            @error('assigned_at')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <!-- Status -->
-                    <div class="row mb-4">
-                        <label for="status1" class="col-sm-2 col-form-label">{{ __('general.status') }}</label>
+                    {{-- Status --}}
+                    <div class="row mb-3">
+                        <label class=" col-sm-2 col-form-label" for="status1">{{ __('package.status') }}</label>
                         <div class="col-sm-10">
                             <select name="status" id="status1" class="form-select">
-                                @foreach(\App\Models\Package::statuses() as $key => $label)
-                                    <option value="{{ $key }}" {{ old('status', $delivery->status) == $key ? 'selected' : '' }}>
+                                @foreach (\App\Models\Package::statuses() as $key => $label)
+                                    <option value="{{ $key }}" {{ old('status', $delivery->status ?? '') == $key ? 'selected' : '' }}>
                                         {{ $label }}
                                     </option>
                                 @endforeach
@@ -99,18 +107,16 @@
                         </div>
                     </div>
 
-                    <!-- Note -->
-                    <div class="row mb-4">
-                        <label for="note" class="col-sm-2 col-form-label">{{ __('delivery.note') }}</label>
+                    {{-- Note --}}
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="note">{{ __('general.note') }}</label>
                         <div class="col-sm-10">
-                            <textarea name="note" id="note" class="form-control">{{ old('note', $delivery->note) }}</textarea>
+                            <textarea name="note" class="form-control" rows="3">{{ old('note', $delivery->note) }}</textarea>
                             @error('note')
-                                <small class="text-danger">{{ $message }}</small>
+                                <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-
-
 
                     <!-- Submit Button -->
                     <div class="text-end pt-3">
@@ -129,6 +135,7 @@
                     </div>
 
                 </form>
+
             </div>
         </div>
     </div>
