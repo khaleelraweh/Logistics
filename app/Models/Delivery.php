@@ -18,6 +18,39 @@ class Delivery extends Model
         'published_on' => 'datetime',
     ];
 
+    protected $searchable = [
+        'columns' => [
+            // أعمدة جدول التوصيلات
+            'deliveries.id'          => 10,
+            'deliveries.status'      => 10,
+            'deliveries.note'        => 10,
+            'deliveries.assigned_at' => 10,
+            'deliveries.delivered_at'=> 10,
+
+            // أعمدة جدول الطرود المرتبطة
+            'packages.tracking_number'     => 10,
+            'packages.sender_first_name'   => 10,
+            'packages.sender_last_name'    => 10,
+            'packages.receiver_first_name' => 10,
+            'packages.receiver_last_name'  => 10,
+            'packages.package_content'     => 10,
+            'packages.package_note'        => 10,
+
+            // أعمدة جدول السائقين
+            'drivers.first_name'       => 10,
+            'drivers.middle_name'      => 10,
+            'drivers.last_name'        => 10,
+            'drivers.phone'            => 10,
+            'drivers.vehicle_number'   => 10,
+            'drivers.vehicle_type'     => 10,
+        ],
+        'joins' => [
+            'packages' => ['packages.id', 'deliveries.package_id'],
+            'drivers'  => ['drivers.id', 'deliveries.driver_id'],
+        ],
+    ];
+
+
     public function driver()
     {
         return $this->belongsTo(Driver::class);
