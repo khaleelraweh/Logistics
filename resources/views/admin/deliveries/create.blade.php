@@ -41,7 +41,7 @@
                                 <option value="">{{ __('delivery.select_driver') }}</option>
                                 @foreach($drivers as $driver)
                                     <option value="{{ $driver->id }}" {{ old('driver_id') == $driver->id ? 'selected' : '' }}>
-                                        {{ $driver->name }} - {{ $driver->phone }}
+                                        {{ $driver->driver_full_name }} - {{ $driver->phone }} - {{ $driver->vehicle_type }}
                                     </option>
                                 @endforeach
                             </select>
