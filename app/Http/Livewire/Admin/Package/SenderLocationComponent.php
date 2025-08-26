@@ -80,6 +80,13 @@ class SenderLocationComponent extends Component
         $this->emit('refreshMap'); // تحديث الخريطة بعد تغيير الموقع
     }
 
+    // إعادة رسم الخريطة عند الطلب
+    public function refreshMap()
+    {
+        $this->emit('refreshMap');
+        $this->dispatchBrowserEvent('mapInvalidateSize');
+    }
+
     public function render()
     {
         return view('livewire.admin.package.sender-location-component');

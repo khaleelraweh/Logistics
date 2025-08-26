@@ -1,10 +1,10 @@
+
 <div>
     <div class="card">
         <div class="card-header">
             <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>{{ __('package.sender_address') }}</h5>
         </div>
         <div class="card-body">
-
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <label class="form-label" for="sender_country">{{ __('package.sender_country') }}</label>
@@ -30,7 +30,6 @@
                     <input type="text" class="form-control" name="sender_postal_code" id="sender_postal_code" wire:model="sender_postal_code">
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-12">
                     <label class="form-label">{{ __('package.sender_location') }}</label>
@@ -44,7 +43,7 @@
                             <input type="text" class="form-control" name="sender_longitude" id="sender_longitude" wire:model="longitude" readonly>
                         </div>
                     </div>
-                    <div id="map" wire:ignore style="width: 100%; height: 300px;"></div>
+                    <div id="sender-map" wire:ignore style="width: 100%; height: 400px;"></div>
                 </div>
             </div>
         </div>
@@ -56,6 +55,51 @@
 
     <script>
         document.addEventListener('livewire:load', function () {
+            let senderMap, senderMarker;
+
+            function initSenderMap() {
+                var mapDiv = document.getElementById('sender-map');
+                if(!mapDiv) return;
+
+                var initialLat = parseFloat(@this.latitude) || @this.defaultLatitude || 24.7136;
+                var initialLng = parseFloat(@this.longitude) || @this.defaultLongitude || 46.6753;
+
+                // إنشاء الخريطة
+                senderMap = L.map('sender-map', {
+                    minZoom: 8,
+                    maxZoom: 18,
+                    zoomControl: true,
+                }).setView([initialLat, initialLng], 11);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors',
+                    subdomains: ['a','b','c'],
+                    tileSize: 256,
+                }).addTo(senderMap);
+
+                senderMarker = L.marker([initialLat, initialLng], {draggable:true}).addTo(senderMap);
+
+                senderMarker.on('dragend', function(e){
+                    var latlng = senderMarker.getLatLng();
+                    @this.set('latitude', latlng.lat);
+                    @this.set('longitude', latlng.lng);
+                    updateFieldsFromLatLng(latlng.lat, latlng.lng);
+                });
+
+                senderMap.on('click', function(e){
+                    senderMarker.setLatLng(e.latlng);
+                    @this.set('latitude', e.latlng.lat);
+                    @this.set('longitude', e.latlng.lng);
+                    updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
+                });
+
+                // إعادة رسم الخريطة بعد التحميل
+                setTimeout(() => {
+                    if (senderMap) {
+                        senderMap.invalidateSize();
+                    }
+                }, 500);
+            }
 
             function updateFieldsFromLatLng(lat, lng){
                 fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
@@ -71,51 +115,48 @@
                     });
             }
 
-            var mapDiv = document.getElementById('map');
-            if(!mapDiv) return;
+            // تهيئة الخريطة لأول مرة
+            initSenderMap();
 
-            var initialLat = parseFloat(@this.latitude) || @this.defaultLatitude;
-            var initialLng = parseFloat(@this.longitude) || @this.defaultLongitude;
-
-            var map = L.map('map', {
-                minZoom: 8,
-                maxZoom: 18,
-                zoomControl: true,
-            }).setView([initialLat, initialLng], 11);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors',
-                subdomains: ['a','b','c'],
-                tileSize: 256,
-            }).addTo(map);
-
-            var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
-
-            marker.on('dragend', function(e){
-                var latlng = marker.getLatLng();
-                @this.set('latitude', latlng.lat);
-                @this.set('longitude', latlng.lng);
-                updateFieldsFromLatLng(latlng.lat, latlng.lng);
+            // إعادة رسم الخريطة عند تحديث Livewire
+            Livewire.hook('message.processed', (message, component) => {
+                setTimeout(() => {
+                    if (senderMap) {
+                        senderMap.invalidateSize();
+                    }
+                }, 300);
             });
 
-            map.on('click', function(e){
-                marker.setLatLng(e.latlng);
-                @this.set('latitude', e.latlng.lat);
-                @this.set('longitude', e.latlng.lng);
-                updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
-            });
-
-            Livewire.on('refreshMap', () => {
-                var lat = parseFloat(@this.latitude);
-                var lng = parseFloat(@this.longitude);
-                if(!isNaN(lat) && !isNaN(lng)){
-                    marker.setLatLng([lat, lng]);
-                    map.setView([lat, lng], 11);
-                    map.invalidateSize();
+            // إعادة رسم الخريطة عند تغيير حجم النافذة
+            window.addEventListener('resize', function() {
+                if (senderMap) {
+                    setTimeout(() => {
+                        senderMap.invalidateSize();
+                    }, 300);
                 }
             });
 
-            setTimeout(() => map.invalidateSize(), 300);
+            // حدث خاص لتحديث الخريطة
+            Livewire.on('refreshMap', () => {
+                var lat = parseFloat(@this.latitude);
+                var lng = parseFloat(@this.longitude);
+                if(!isNaN(lat) && !isNaN(lng) && senderMap && senderMarker){
+                    senderMarker.setLatLng([lat, lng]);
+                    senderMap.setView([lat, lng], 11);
+                    setTimeout(() => {
+                        senderMap.invalidateSize();
+                    }, 300);
+                }
+            });
+
+            // حدث لإعادة رسم الخريطة من Blade
+            window.addEventListener('mapInvalidateSize', () => {
+                if (senderMap) {
+                    setTimeout(() => {
+                        senderMap.invalidateSize();
+                    }, 300);
+                }
+            });
         });
     </script>
 </div>
