@@ -169,253 +169,132 @@
         </div>
     </div>
 
+    <div class="delivery-cards-container">
+        <div class="row mt-4 g-3">
+            <!-- بطاقة التوصيلة -->
+            <div class="col-lg-4">
+                <div class="delivery-card">
+                    <div class="card-header-custom text-white d-flex align-items-center">
+                        <i class="mdi mdi-truck-fast-outline me-2 fs-5"></i>
+                        <h6 class="mb-0">{{ __('delivery.delivery_info') }}</h6>
+                    </div>
+                    <div class="card-body-custom">
+                        <div class="info-item">
+                            <div class="d-flex align-items-center">
+                                <i class="mdi mdi-circle-medium info-icon"></i>
+                                <span>{{ __('delivery.status') }}</span>
+                            </div>
 
+                            <span class="status-badge bg-{{ getStatusColor($delivery->status) }}">{{ __('package.status_' . $delivery->status) }}</span>
+                        </div>
 
-
-
-    {{-- <div class="row mt-4 g-3">
-
-        <!-- بطاقة التوصيلة -->
-        <div class="col-lg-4">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-header bg-primary text-white d-flex align-items-center">
-                    <i class="mdi mdi-truck-fast-outline me-2 fs-5"></i>
-                    <h6 class="mb-0">{{ __('delivery.delivery_info') }}</h6>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="mdi mdi-circle-medium me-2 text-muted"></i> {{ __('delivery.status') }}</span>
-                            <span class="badge bg-{{ getStatusColor($delivery->status) }}">{{ __('package.status_' . $delivery->status) }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="mdi mdi-calendar-clock me-2 text-muted"></i> {{ __('delivery.assigned_at') }}</span>
+                        <div class="info-item">
+                            <div class="d-flex align-items-center">
+                                <i class="mdi mdi-calendar-clock info-icon"></i>
+                                <span>{{ __('delivery.assigned_at') }}</span>
+                            </div>
                             <span class="fw-bold">{{ $delivery->assigned_at ? $delivery->assigned_at->format('Y-m-d h:i A') : '-' }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="mdi mdi-check-circle-outline me-2 text-muted"></i> {{ __('delivery.delivered_at') }}</span>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="d-flex align-items-center">
+                                <i class="mdi mdi-check-circle-outline info-icon"></i>
+                                <span>{{ __('delivery.delivered_at') }}</span>
+                            </div>
                             <span class="fw-bold">{{ $delivery->delivered_at ? $delivery->delivered_at->format('Y-m-d h:i A') : '-' }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><i class="mdi mdi-note-text-outline me-2 text-muted"></i> {{ __('delivery.note') }}</span>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="d-flex align-items-center">
+                                <i class="mdi mdi-note-text-outline info-icon"></i>
+                                <span>{{ __('delivery.note') }}</span>
+                            </div>
                             <span class="fw-bold">{{ $delivery->note ?? '-' }}</span>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- بطاقة السائق -->
-        <div class="col-lg-4">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-header bg-success text-white d-flex align-items-center">
-                    <i class="mdi mdi-account-tie me-2 fs-5"></i>
-                    <h6 class="mb-0">{{ __('delivery.driver_info') }}</h6>
-                </div>
-                <div class="card-body">
-                    @if($delivery->driver)
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="avatar-sm me-3">
-                                <span class="avatar-title bg-soft-success rounded-circle text-success fs-5">
+            <!-- بطاقة السائق -->
+            <div class="col-lg-4">
+                <div class="delivery-card">
+                    <div class="card-header-custom card-header-success text-white d-flex align-items-center">
+                        <i class="mdi mdi-account-tie me-2 fs-5"></i>
+                        <h6 class="mb-0">{{ __('delivery.driver_info') }}</h6>
+                    </div>
+                    <div class="card-body-custom">
+                        @if($delivery->driver)
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="driver-avatar">
                                     <i class="mdi mdi-account-outline"></i>
-                                </span>
+                                </div>
+                                <div class="driver-info">
+                                    <h6 class="mb-1">{{ $delivery->driver->driver_full_name }}</h6>
+                                    <div class="driver-details">سائق معتمد</div>
+                                </div>
                             </div>
-                            <div>
-                                <h6 class="mb-0">{{ $delivery->driver->driver_full_name }}</h6>
+
+                            <div class="table-responsive">
+                                <table class="table table-sm table-borderless table-custom">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" width="30%"><i class="mdi mdi-phone-outline me-1 text-muted"></i> {{ __('driver.phone') }}</th>
+                                            <td>{{ $delivery->driver->phone ?? '-' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><i class="mdi mdi-email-outline me-1 text-muted"></i> {{ __('driver.email') }}</th>
+                                            <td>{{ $delivery->driver->email ?? '-' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-sm table-borderless mb-0">
-                                <tbody>
-                                    <tr>
-                                        <th scope="row"><i class="mdi mdi-phone-outline me-1 text-muted"></i> {{ __('driver.phone') }}</th>
-                                        <td>{{ $delivery->driver->phone ?? '-' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><i class="mdi mdi-email-outline me-1 text-muted"></i> {{ __('driver.email') }}</th>
-                                        <td>{{ $delivery->driver->email ?? '-' }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    @else
-                        <div class="alert alert-info mb-0 d-flex align-items-center">
-                            <i class="mdi mdi-information-outline me-2"></i> {{ __('delivery.no_driver_assigned') }}
-                        </div>
-                    @endif
+                        @else
+                            <div class="alert alert-info alert-custom d-flex align-items-center mb-0">
+                                <i class="mdi mdi-information-outline me-2"></i> {{ __('delivery.no_driver_assigned') }}
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- بطاقة الطرد -->
-        <div class="col-lg-4">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-header bg-info text-white d-flex align-items-center">
-                    <i class="mdi mdi-package-variant-closed me-2 fs-5"></i>
-                    <h6 class="mb-0">{{ __('delivery.package_info') }}</h6>
-                </div>
-                <div class="card-body">
-                    @if($delivery->package)
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <!-- بطاقة الطرد -->
+            <div class="col-lg-4">
+                <div class="delivery-card">
+                    <div class="card-header-custom card-header-info text-white d-flex align-items-center">
+                        <i class="mdi mdi-package-variant-closed me-2 fs-5"></i>
+                        <h6 class="mb-0">{{ __('delivery.package_info') }}</h6>
+                    </div>
+                    <div class="card-body-custom">
+                        @if($delivery->package)
+                            <div class="info-item">
                                 <span>{{ __('package.tracking_number') }}</span>
                                 <span class="fw-bold">{{ $delivery->package->tracking_number ?? '-' }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            </div>
+
+                            <div class="info-item">
                                 <span>{{ __('package.status') }}</span>
-                                <span class="badge bg-{{ getStatusColor($delivery->package->status) }}">{{ __('package.status_' . $delivery->package->status) }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="status-badge bg-{{ getStatusColor($delivery->package->status) }}">{{ __('package.status_' . $delivery->package->status) }}</span>
+                            </div>
+
+                            <div class="info-item">
                                 <span>{{ __('delivery.receiver') }}</span>
                                 <span class="fw-bold">{{ $delivery->package->receiver_first_name }} {{ $delivery->package->receiver_last_name }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            </div>
+
+                            <div class="info-item">
                                 <span>{{ __('package.total_fee') }}</span>
                                 <span class="fw-bold text-success">{{ $delivery->package->total_fee ?? '-' }}</span>
-                            </li>
-                        </ul>
-                    @else
-                        <div class="alert alert-info mb-0 d-flex align-items-center">
-                            <i class="mdi mdi-information-outline me-2"></i> {{ __('delivery.no_package_assigned') }}
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-
-    </div> --}}
-
-
-
-
-<div class="delivery-cards-container">
-    <div class="row mt-4 g-3">
-        <!-- بطاقة التوصيلة -->
-        <div class="col-lg-4">
-            <div class="delivery-card">
-                <div class="card-header-custom text-white d-flex align-items-center">
-                    <i class="mdi mdi-truck-fast-outline me-2 fs-5"></i>
-                    <h6 class="mb-0">{{ __('delivery.delivery_info') }}</h6>
-                </div>
-                <div class="card-body-custom">
-                    <div class="info-item">
-                        <div class="d-flex align-items-center">
-                            <i class="mdi mdi-circle-medium info-icon"></i>
-                            <span>{{ __('delivery.status') }}</span>
-                        </div>
-
-                        <span class="status-badge bg-{{ getStatusColor($delivery->status) }}">{{ __('package.status_' . $delivery->status) }}</span>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="d-flex align-items-center">
-                            <i class="mdi mdi-calendar-clock info-icon"></i>
-                            <span>{{ __('delivery.assigned_at') }}</span>
-                        </div>
-                        <span class="fw-bold">{{ $delivery->assigned_at ? $delivery->assigned_at->format('Y-m-d h:i A') : '-' }}</span>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="d-flex align-items-center">
-                            <i class="mdi mdi-check-circle-outline info-icon"></i>
-                            <span>{{ __('delivery.delivered_at') }}</span>
-                        </div>
-                        <span class="fw-bold">{{ $delivery->delivered_at ? $delivery->delivered_at->format('Y-m-d h:i A') : '-' }}</span>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="d-flex align-items-center">
-                            <i class="mdi mdi-note-text-outline info-icon"></i>
-                            <span>{{ __('delivery.note') }}</span>
-                        </div>
-                        <span class="fw-bold">{{ $delivery->note ?? '-' }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- بطاقة السائق -->
-        <div class="col-lg-4">
-            <div class="delivery-card">
-                <div class="card-header-custom card-header-success text-white d-flex align-items-center">
-                    <i class="mdi mdi-account-tie me-2 fs-5"></i>
-                    <h6 class="mb-0">{{ __('delivery.driver_info') }}</h6>
-                </div>
-                <div class="card-body-custom">
-                    @if($delivery->driver)
-                        <div class="d-flex align-items-center mb-4">
-                            <div class="driver-avatar">
-                                <i class="mdi mdi-account-outline"></i>
                             </div>
-                            <div class="driver-info">
-                                <h6 class="mb-1">{{ $delivery->driver->driver_full_name }}</h6>
-                                <div class="driver-details">سائق معتمد</div>
+                        @else
+                            <div class="alert alert-info alert-custom d-flex align-items-center mb-0">
+                                <i class="mdi mdi-information-outline me-2"></i> {{ __('delivery.no_package_assigned') }}
                             </div>
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="table table-sm table-borderless table-custom">
-                                <tbody>
-                                    <tr>
-                                        <th scope="row" width="30%"><i class="mdi mdi-phone-outline me-1 text-muted"></i> {{ __('driver.phone') }}</th>
-                                        <td>{{ $delivery->driver->phone ?? '-' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><i class="mdi mdi-email-outline me-1 text-muted"></i> {{ __('driver.email') }}</th>
-                                        <td>{{ $delivery->driver->email ?? '-' }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    @else
-                        <div class="alert alert-info alert-custom d-flex align-items-center mb-0">
-                            <i class="mdi mdi-information-outline me-2"></i> {{ __('delivery.no_driver_assigned') }}
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-
-        <!-- بطاقة الطرد -->
-        <div class="col-lg-4">
-            <div class="delivery-card">
-                <div class="card-header-custom card-header-info text-white d-flex align-items-center">
-                    <i class="mdi mdi-package-variant-closed me-2 fs-5"></i>
-                    <h6 class="mb-0">{{ __('delivery.package_info') }}</h6>
-                </div>
-                <div class="card-body-custom">
-                    @if($delivery->package)
-                        <div class="info-item">
-                            <span>{{ __('package.tracking_number') }}</span>
-                            <span class="fw-bold">{{ $delivery->package->tracking_number ?? '-' }}</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span>{{ __('package.status') }}</span>
-                            <span class="status-badge bg-{{ getStatusColor($delivery->package->status) }}">{{ __('package.status_' . $delivery->package->status) }}</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span>{{ __('delivery.receiver') }}</span>
-                            <span class="fw-bold">{{ $delivery->package->receiver_first_name }} {{ $delivery->package->receiver_last_name }}</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span>{{ __('package.total_fee') }}</span>
-                            <span class="fw-bold text-success">{{ $delivery->package->total_fee ?? '-' }}</span>
-                        </div>
-                    @else
-                        <div class="alert alert-info alert-custom d-flex align-items-center mb-0">
-                            <i class="mdi mdi-information-outline me-2"></i> {{ __('delivery.no_package_assigned') }}
-                        </div>
-                    @endif
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-
 
 
     <!-- الخط الزمني -->
