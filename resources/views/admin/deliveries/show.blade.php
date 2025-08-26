@@ -192,27 +192,16 @@
         }
 
         .timeline-item:nth-child(odd) .timeline-content {
-            margin-right: 40px;
+            /* margin-right: 40px; */
             text-align: right;
         }
 
         .timeline-item:nth-child(even) .timeline-content {
-            margin-left: 40px;
+            /* margin-left: 40px; */
             text-align: left;
         }
 
         .timeline-item:nth-child(odd) .timeline-content::before {
-            content: '';
-            position: absolute;
-            top: 16px;
-            left: 100%;
-            height: 0;
-            width: 0;
-            border: 7px solid transparent;
-            border-left: 7px solid white;
-        }
-
-        .timeline-item:nth-child(even) .timeline-content::before {
             content: '';
             position: absolute;
             top: 16px;
@@ -221,6 +210,17 @@
             width: 0;
             border: 7px solid transparent;
             border-right: 7px solid white;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 100%;
+            height: 0;
+            width: 0;
+            border: 7px solid transparent;
+            border-left: 7px solid white;
         }
 
         .timeline-dot {
