@@ -91,4 +91,6 @@ return [
     'total_deliveries' => 'إجمالي التوصيلات',
     'city' => 'المدينة',
     'region' => 'المنطقة',
+    'all_drivers' => 'كل السائقين',
+    'all_vehicles' => 'كل المركبات',
 ];

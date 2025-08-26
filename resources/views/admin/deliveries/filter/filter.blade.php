@@ -44,7 +44,7 @@
                         </select>
                     </div>
 
-                    <div class="col-md-1">
+                    <div class="col-md-1 mb-2 d-md-block" style="width: fit-content;display:flex !important;justify-content: center;align-items: center;">
                         {{ __('general.from') }}
                     </div>
                     <!-- Delivered From -->
@@ -52,7 +52,7 @@
                         <input type="date" name="delivered_from" value="{{ request('delivered_from') }}" class="form-control" placeholder="{{ __('filter.delivered_from') }}">
                     </div>
 
-                    <div class="col-md-1">
+                    <div class="col-md-1 mb-2 d-md-block" style="width: fit-content;display:flex !important;justify-content: center;align-items: center;">
                         {{ __('general.to') }}
                     </div>
 

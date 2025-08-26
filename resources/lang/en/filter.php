@@ -88,5 +88,7 @@ return [
     'total_deliveries' => 'Total Deliveries',
     'city' => 'City',
     'region' => 'Region',
+    'all_drivers' => 'All Drivers',
+    'all_vehicles' => 'All Vehicles',
 ];
 
