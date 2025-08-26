@@ -134,4 +134,6 @@ return [
     'vehicle_capacity_volume_large' => 'كبيرة (7 – 15 م³)',
     'vehicle_capacity_volume_huge' => 'ضخمة (أكثر من 15 م³)',
 
+    'review_driver_info'    => 'مراجعة معلومات السائق'
+
 ];
