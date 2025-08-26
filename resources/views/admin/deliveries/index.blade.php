@@ -60,11 +60,23 @@
                             @forelse ($deliveries as $delivery)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>
+                                    {{-- <td>
                                         {{ $delivery->package->tracking_number ?? '-' }}
                                         <br>
                                         <small>{{ $delivery->package->receiver_first_name ?? '' }} {{ $delivery->package->receiver_last_name ?? '' }}</small>
+                                    </td> --}}
+                                    <td>
+                                        @if($delivery->package)
+                                            <a href="{{ route('admin.packages.show', $delivery->package->id) }}">
+                                                {{ $delivery->package->tracking_number ?? '-' }}
+                                                <br>
+                                                <small>{{ $delivery->package->receiver_first_name ?? '' }} {{ $delivery->package->receiver_last_name ?? '' }}</small>
+                                            </a>
+                                        @else
+                                            -
+                                        @endif
                                     </td>
+
                                     <td data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $delivery->driver->driver_full_name ?? '' }} , {{ $delivery->driver->phone ?? '' }}">
                                         @if($delivery->driver)
                                             <a href="{{ route('admin.drivers.show', $delivery->driver->id) }}">
