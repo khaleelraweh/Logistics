@@ -2,23 +2,26 @@
 
 @section('content')
 
-<!-- start page title -->
-<div class="row">
-    <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">{{ __('delivery.add_delivery') }}</h4>
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('admin.deliveries.index') }}">{{ __('delivery.manage_deliveries') }}</a>
-                    </li>
-                    <li class="breadcrumb-item active">{{ __('delivery.add_delivery') }}</li>
-                </ol>
+<!-- Page Header -->
+    <div class="row ">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('delivery.add_delivery') }}</h4>
+
+                <div class="page-title-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.deliveries.index') }}">{{ __('delivery.manage_deliveries') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('delivery.add_delivery') }}</li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- end page title -->
+
+
 
 <div class="row">
     <div class="col-12">
