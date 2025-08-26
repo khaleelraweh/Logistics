@@ -35,39 +35,25 @@
 
                     {{-- Driver --}}
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="driver_id">{{ __('delivery.driver') }}</label>
-                        <div class="col-sm-10">
-                            {{-- <select name="driver_id" class="form-control select2">
-                                <option value="">{{ __('delivery.select_driver') }}</option>
-                                @foreach($drivers as $driver)
-                                    <option value="{{ $driver->id }}" {{ old('driver_id') == $driver->id ? 'selected' : '' }}>
-                                        {{ $driver->driver_full_name }} - {{ $driver->phone }} - {{ __('driver.vehicle_type_' . $driver->vehicle_type) }}
-                                    </option>
-                                @endforeach
-                            </select> --}}
-                            <div class="form-group">
-                                <label for="driver_id" class="form-label">{{ __('delivery.select_driver') }}</label>
-                                    <select name="driver_id" id="driver_id" class="form-control select2" required>
-                                        <option value="" disabled selected>{{ __('delivery.select_driver') }}</option>
-                                        @foreach($drivers as $driver)
-                                            <option value="{{ $driver->id }}" @selected(old('driver_id') == $driver->id)>
-                                                {{ $driver->driver_full_name ?? __('driver.no_name') }}
-                                                - {{ $driver->phone ?? __('driver.no_phone') }}
-                                                - {{ $driver->vehicle_type ? __('driver.vehicle_type_' . $driver->vehicle_type) : __('driver.no_vehicle_type') }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                    <label for="driver_id" class="col-sm-2 col-form-label">{{ __('delivery.driver') }}</label>
+                    <div class="col-sm-10">
+                        <select name="driver_id" id="driver_id" class="form-control select2" required>
+                            <option value="" disabled selected>{{ __('delivery.select_driver') }}</option>
+                            @foreach($drivers as $driver)
+                                <option value="{{ $driver->id }}" @selected(old('driver_id') == $driver->id)>
+                                    {{ $driver->driver_full_name ?? __('driver.no_name') }}
+                                    - {{ $driver->phone ?? __('driver.no_phone') }}
+                                    - {{ $driver->vehicle_type ? __('driver.vehicle_type_' . $driver->vehicle_type) : __('driver.no_vehicle_type') }}
+                                </option>
+                            @endforeach
+                        </select>
 
-                                @error('driver_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            @error('driver_id')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
+                        @error('driver_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
+                </div>
+
 
 
                     <div class="row mb-3">
