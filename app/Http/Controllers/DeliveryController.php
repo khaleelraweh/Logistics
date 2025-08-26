@@ -69,12 +69,14 @@ class DeliveryController extends Controller
 
         try {
             // تجهيز البيانات
-            $input['driver_id']     = $request->driver_id;
-            $input['package_id']    = $request->package_id;
-            $input['assigned_at']   = $request->assigned_at; // نوعه date
-            $input['status']        = $request->status ?? 'assigned'; // default
-            $input['note']          = $request->note;
-            $input['created_by']    = auth()->user()->name;
+            $input = [
+                'driver_id'   => $request->driver_id,
+                'package_id'  => $request->package_id,
+                'assigned_at' => $request->assigned_at ?? now(), // تعبئة تلقائية إذا لم يُحدد
+                'status'      => $request->status ?? 'assigned_to_driver', // default
+                'note'        => $request->note,
+                'created_by'  => auth()->user()->name,
+            ];
 
             // إنشاء عملية التوصيل
             $delivery = Delivery::create($input);
@@ -83,7 +85,7 @@ class DeliveryController extends Controller
                 // تحديث حالة الطرد مباشرة
                 $delivery->package->update(['status' => $input['status']]);
 
-                // إضافة سجل في السجل الزمني باستخدام نص مترجم
+                // إضافة سجل في السجل الزمني
                 $delivery->package->addLog(
                     __('delivery.delivery_assigned_status', [
                         'driver' => $delivery->driver?->name ?? '-'
@@ -92,26 +94,19 @@ class DeliveryController extends Controller
                 );
             }
 
-
-
-            if ($delivery) {
-                return redirect()->route('admin.deliveries.index')->with([
-                    'message'     => __('messages.delivery_created'),
-                    'alert-type'  => 'success',
-                ]);
-            }
-
             return redirect()->route('admin.deliveries.index')->with([
-                'message'     => __('messages.something_went_wrong'),
-                'alert-type'  => 'danger',
+                'message'    => __('messages.delivery_created'),
+                'alert-type' => 'success',
             ]);
+
         } catch (\Exception $e) {
             return redirect()->route('admin.deliveries.index')->with([
-                'message'     => __('messages.something_went_wrong'),
-                'alert-type'  => 'danger',
+                'message'    => __('messages.something_went_wrong'),
+                'alert-type' => 'danger',
             ]);
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -168,52 +163,53 @@ class DeliveryController extends Controller
      */
     public function update(DeliveryRequest $request, Delivery $delivery)
     {
-        // التحقق من الصلاحيات
         if (!auth()->user()->ability('admin', 'update_deliveries')) {
             return redirect('admin/index');
         }
 
-      try {
-        $input = [
-            'driver_id'    => $request->driver_id,
-            'package_id'   => $request->package_id,
-            'assigned_at'  => $request->assigned_at,
-            'status'       => $request->status ?? $delivery->status,
-            'note'         => $request->note,
-            'updated_by'   => auth()->user()->name,
-        ];
+        try {
+            $input = [
+                'driver_id'   => $request->driver_id,
+                'package_id'  => $request->package_id,
+                'assigned_at' => $delivery->assigned_at, // الحفاظ على الوقت السابق
+                'status'      => $request->status ?? $delivery->status,
+                'note'        => $request->note,
+                'updated_by'  => auth()->user()->name,
+            ];
 
-        // إذا الحالة أصبحت delivered أضف delivered_at
-        if ($input['status'] === 'delivered' && !$delivery->delivered_at) {
-            $input['delivered_at'] = now();
-        }
+            // إذا تغيرت الحالة إلى delivered لأول مرة، نملأ delivered_at
+            if ($input['status'] === 'delivered' && !$delivery->delivered_at) {
+                $input['delivered_at'] = now();
+            }
 
-        $delivery->update($input);
+            // تحديث التوصيل
+            $delivery->update($input);
 
-        // تحديث حالة الطرد أيضًا
-        $delivery->package->update(['status' => $input['status']]);
+            // تحديث حالة الطرد
+            $delivery->package->update(['status' => $input['status']]);
 
-        // إضافة سجل في السجل الزمني
-        $delivery->package->addLog(
-            __('delivery.delivery_updated_status', [
-                'status' => __('package.status_' . $delivery->status),
-                'driver' => $delivery->driver->name ?? '-'
-            ]),
-            $delivery->driver_id
-        );
+            // إضافة سجل في السجل الزمني
+            $delivery->package->addLog(
+                __('delivery.delivery_updated_status', [
+                    'status' => __('package.status_' . $delivery->status),
+                    'driver' => $delivery->driver?->name ?? '-'
+                ]),
+                $delivery->driver_id
+            );
 
-        return redirect()->route('admin.deliveries.index')->with([
-            'message'    => __('messages.delivery_updated'),
-            'alert-type' => 'success',
-        ]);
+            return redirect()->route('admin.deliveries.index')->with([
+                'message'    => __('messages.delivery_updated'),
+                'alert-type' => 'success',
+            ]);
+
         } catch (\Exception $e) {
             return redirect()->route('admin.deliveries.index')->with([
                 'message'    => __('messages.something_went_wrong'),
                 'alert-type' => 'danger',
             ]);
         }
-
     }
+
 
     /**
      * Remove the specified resource from storage.
