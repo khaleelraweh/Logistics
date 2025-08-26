@@ -66,16 +66,40 @@ class AdminController extends Controller
     //     return view('admin.index');
     // }
 
-    public function index()
-    {
-        // جلب السائقين المتاحين فقط مع الإحداثيات
-        $drivers = \App\Models\Driver::where('availability_status', 'available')
-                    ->whereNotNull('latitude')
-                    ->whereNotNull('longitude')
-                    ->get(['id', 'first_name', 'last_name', 'latitude', 'longitude', 'phone']);
+    // public function index()
+    // {
+    //     // جلب السائقين المتاحين فقط مع الإحداثيات
+    //     $drivers = \App\Models\Driver::where('availability_status', 'available')
+    //                 ->whereNotNull('latitude')
+    //                 ->whereNotNull('longitude')
+    //                 ->get(['id', 'first_name', 'last_name', 'latitude', 'longitude', 'phone']);
 
-        return view('admin.index', compact('drivers'));
-    }
+    //     return view('admin.index', compact('drivers'));
+    // }
+
+    public function index()
+{
+    // جلب السائقين المتاحين فقط مع الإحداثيات
+    $drivers = \App\Models\Driver::where('availability_status', 'available')
+                ->whereNotNull('latitude')
+                ->whereNotNull('longitude')
+                ->get(['id', 'first_name', 'last_name', 'latitude', 'longitude', 'phone']);
+
+    // إحصائيات عامة
+    $stats = [
+        'drivers_total'    => \App\Models\Driver::count(),
+        'drivers_available'=> \App\Models\Driver::where('availability_status', 'available')->count(),
+        'drivers_busy'     => \App\Models\Driver::where('availability_status', 'busy')->count(),
+        'packages_total'   => \App\Models\Package::count(),
+        'packages_pending' => \App\Models\Package::where('status', 'pending')->count(),
+        'packages_delivered'=> \App\Models\Package::where('status', 'delivered')->count(),
+        'merchants_total'  => \App\Models\Merchant::count(),
+        'warehouses_total' => \App\Models\Warehouse::count(),
+    ];
+
+    return view('admin.index', compact('drivers', 'stats'));
+}
+
 
 
 }
