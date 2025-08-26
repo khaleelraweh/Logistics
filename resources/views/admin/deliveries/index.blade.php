@@ -38,7 +38,7 @@
 
                         <div class="button-items">
                             <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.deliveries.create') }}">
-                                {{ __('delivery.add_new_delivery') }} <i class="ri-truck-line align-middle ms-2"></i>
+                               <i class="ri-truck-line align-middle me-2"></i> {{ __('delivery.add_new_delivery') }}
                             </a>
                         </div>
                     </div>
