@@ -59,12 +59,8 @@
                         @forelse ($drivers as $driver)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-
-                                <td>{{ Str::limit($driver->driver_full_name ?? '', 20) }}</td>
-
+                                <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $driver->driver_full_name }}">{{ Str::words($driver->driver_full_name, 2, '') }}</td>
                                 <td>{{ $driver->phone ?? '-' }}</td>
-
-
                                 @php
                                     $locationParts = array_filter([
                                         $driver->country,
@@ -99,7 +95,11 @@
                                     </span>
                                 </td>
 
-                                <td>{{ $driver->supervisor_id ?? '-' }}</td>
+
+                                <td data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="{{ $driver->supervisor ? $driver->supervisor->full_name : __('messages.no_supervisor') }}">
+                                    {{ $driver->supervisor ? Str::words($driver->supervisor->full_name, 2, '') : __('driver.no_supervisor') }}
+                                </td>
 
                                 <td>
                                     @php

@@ -136,5 +136,6 @@ return [
 
     'review_driver_info'    => 'مراجعة معلومات السائق',
     'drivers'               => 'السائقين',
+    'no_supervisor'        => 'لا يوجد مشرف',
 
 ];

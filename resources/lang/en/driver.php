@@ -135,5 +135,6 @@ return [
 
     'review_driver_info'    => 'Review Driver Information',
     'drivers'               => 'Drivers',
+    'no_supervisor'        => 'No Supervisor',
 
 ];
