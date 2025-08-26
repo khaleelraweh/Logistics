@@ -69,15 +69,34 @@
                         </div>
                     </div>
 
-                    {{-- Package --}}
+
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="package_id">{{ __('delivery.package') }}</label>
                         <div class="col-sm-10">
                             <select name="package_id" class="form-control select2">
                                 <option value="">{{ __('delivery.select_package') }}</option>
                                 @foreach($packages as $package)
-                                    <option value="{{ $package->id }}" {{ old('package_id') == $package->id ? 'selected' : '' }}>
+                                    @php
+                                        // بناء العنوان من الحقول المتاحة
+                                        $locationParts = array_filter([
+                                            $package->receiver_country ?? null,
+                                            $package->receiver_region ?? null,
+                                            $package->receiver_city ?? null,
+                                            $package->receiver_district ?? null,
+                                            $package->receiver_postal_code ?? null,
+                                        ]);
+
+                                        $shortLocation = implode(' - ', array_slice($locationParts, 0, 2)); // أول قيمتين فقط
+                                        $fullLocation  = implode(' - ', $locationParts); // كامل العنوان
+                                    @endphp
+
+                                    <option value="{{ $package->id }}"
+                                            title="{{ $fullLocation }}"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            @selected(old('package_id') == $package->id)>
                                         {{ $package->tracking_number }} - {{ $package->receiver_first_name }} {{ $package->receiver_last_name }}
+                                        @if($shortLocation) ({{ $shortLocation }}) @endif
                                     </option>
                                 @endforeach
                             </select>
@@ -86,6 +105,7 @@
                             @enderror
                         </div>
                     </div>
+
 
                     {{-- Assigned At --}}
                     <div class="row mb-3">
