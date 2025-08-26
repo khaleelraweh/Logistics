@@ -1,5 +1,49 @@
 @extends('layouts.admin')
 
+@section('style')
+<style>
+.alert-danger {
+    border-left: 4px solid #dc3545;
+    border-radius: 0.375rem;
+}
+
+.alert-danger .alert-heading {
+    color: #721c24;
+    font-weight: 600;
+}
+
+.alert-danger ul {
+    padding-left: 1.5rem;
+}
+
+.alert-danger li {
+    margin-bottom: 0.25rem;
+}
+
+.alert-danger .btn-close {
+    padding: 0.75rem;
+}
+
+/* تأثيرات انتقالية للاختفاء */
+.alert {
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* تنسيق للحقول التي تحتوي على أخطاء */
+.is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+/* تنسيق للحقول التي تم تصحيحها */
+.is-valid {
+    border-color: #198754 !important;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25) !important;
+}
+</style>
+
+@endsection
+
 @section('content')
 
 
@@ -454,9 +498,8 @@
 
                                 <!-- step5: Confirm Details -->
                                 <div class="tab-pane" id="progress-confirm-detail">
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-lg-12">
-                                              {{-- erorrs show is exists --}}
                                             @if ($errors->any())
                                                 <div class="alert alert-danger">
                                                     <ul>
@@ -467,7 +510,28 @@
                                                 </div>
                                             @endif
                                         </div>
-                                    </div>
+                                    </div> --}}
+
+                                    <div class="row">
+    <div class="col-lg-12">
+        {{-- errors show if exists --}}
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="formErrorsAlert">
+                <h5 class="alert-heading">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    {{ __('general.form_errors_title') }}
+                </h5>
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    </div>
+</div>
+
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="card">
@@ -976,6 +1040,131 @@
         document.querySelector('a[href="#progress-confirm-detail"]').addEventListener('click', function() {
             updateReview();
         });
+    });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // إخفاء رسالة الخطأ عند تصحيح الحقول
+        function setupErrorAutoDismiss() {
+            // إخفاء رسالة الخطأ العامة عند النقر على زر الإغلاق
+            const closeButton = document.querySelector('#formErrorsAlert .btn-close');
+            if (closeButton) {
+                closeButton.addEventListener('click', function() {
+                    const alert = document.getElementById('formErrorsAlert');
+                    if (alert) {
+                        alert.style.display = 'none';
+                    }
+                });
+            }
+
+            // إخفاء رسالة الخطأ تلقائياً بعد 10 ثواني
+            const errorAlert = document.getElementById('formErrorsAlert');
+            if (errorAlert) {
+                setTimeout(() => {
+                    errorAlert.style.opacity = '0';
+                    setTimeout(() => {
+                        errorAlert.style.display = 'none';
+                    }, 500);
+                }, 10000);
+            }
+
+            // إخفاء رسالة الخطأ عند البدء في تصحيح أي حقل
+            const allInputs = document.querySelectorAll('input, select, textarea');
+            allInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    const fieldName = this.name;
+                    hideErrorForField(fieldName);
+
+                    // إخفاء رسالة الخطأ العامة إذا تم تصحيح جميع الحقول
+                    checkAndHideGeneralError();
+                });
+
+                input.addEventListener('change', function() {
+                    const fieldName = this.name;
+                    hideErrorForField(fieldName);
+                    checkAndHideGeneralError();
+                });
+            });
+        }
+
+        // إخفاء رسالة الخطأ الخاصة بحقل معين
+        function hideErrorForField(fieldName) {
+            const errorAlert = document.getElementById('formErrorsAlert');
+            if (!errorAlert) return;
+
+            const errorItems = errorAlert.querySelectorAll('li');
+            let hasVisibleErrors = false;
+
+            errorItems.forEach(item => {
+                // التحقق إذا كان عنصر الخطأ مرتبط بالحقل الحالي
+                if (isErrorRelatedToField(item.textContent, fieldName)) {
+                    item.style.display = 'none';
+                }
+
+                // التحقق إذا كان هناك أخطاء مرئية باقية
+                if (item.style.display !== 'none') {
+                    hasVisibleErrors = true;
+                }
+            });
+
+            // إخفاء التنبيه كاملاً إذا لم تعد هناك أخطاء مرئية
+            if (!hasVisibleErrors) {
+                errorAlert.style.opacity = '0';
+                setTimeout(() => {
+                    errorAlert.style.display = 'none';
+                }, 500);
+            }
+        }
+
+        // التحقق إذا كان الخطأ مرتبطاً بالحقل المحدد
+        function isErrorRelatedToField(errorMessage, fieldName) {
+            // تحويل أسماء الحقول للبحث عنها في رسائل الخطأ
+            const fieldPatterns = {
+                'first_name': ['first name', 'الاسم الأول'],
+                'middle_name': ['middle name', 'الاسم الأوسط'],
+                'last_name': ['last name', 'الاسم الأخير'],
+                'phone': ['phone', 'الهاتف'],
+                'email': ['email', 'البريد الإلكتروني'],
+                'vehicle_type': ['vehicle type', 'نوع المركبة'],
+                'vehicle_model': ['vehicle model', 'موديل المركبة'],
+                'vehicle_number': ['vehicle number', 'رقم المركبة'],
+                'license_number': ['license number', 'رقم الرخصة'],
+                'license_expiry_date': ['license expiry date', 'تاريخ انتهاء الرخصة'],
+                'username': ['username', 'اسم المستخدم'],
+                'password': ['password', 'كلمة المرور']
+            };
+
+            const lowerError = errorMessage.toLowerCase();
+
+            if (fieldPatterns[fieldName]) {
+                return fieldPatterns[fieldName].some(pattern =>
+                    lowerError.includes(pattern.toLowerCase())
+                );
+            }
+
+            return lowerError.includes(fieldName.toLowerCase());
+        }
+
+        // التحقق وإخفاء رسالة الخطأ العامة إذا لم تعد هناك أخطاء
+        function checkAndHideGeneralError() {
+            const errorAlert = document.getElementById('formErrorsAlert');
+            if (!errorAlert) return;
+
+            const visibleErrors = errorAlert.querySelectorAll('li:not([style*="display: none"])');
+            if (visibleErrors.length === 0) {
+                errorAlert.style.opacity = '0';
+                setTimeout(() => {
+                    errorAlert.style.display = 'none';
+                }, 500);
+            }
+        }
+
+        // تهيئة إخفاء الأخطاء التلقائي
+        setupErrorAutoDismiss();
+
+        // باقي الكود السابق...
     });
 </script>
 @endsection
