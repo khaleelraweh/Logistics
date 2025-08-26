@@ -76,7 +76,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-3">{{ __('drivers.available_on_map') }}</h4>
+                <h4 class="mb-3">{{ __('driver.available_on_map') }}</h4>
                 <div id="driversMap"></div>
             </div>
         </div>
