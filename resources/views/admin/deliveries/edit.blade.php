@@ -2,16 +2,20 @@
 
 @section('content')
 
-<!-- Page Title -->
-<div class="row mb-3">
+<!-- Page Header -->
+<div class="row ">
     <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">{{ __('delivery.edit_delivery') }}</h4>
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">{{ __('delivery.edit_delivery') }}</h4>
+
             <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.deliveries.index') }}">{{ __('delivery.manage_deliveries') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('delivery.edit_delivery') }}</li>
-                </ol>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.deliveries.index') }}">{{ __('delivery.manage_deliveries') }}</a></li>
+                        <li class="breadcrumb-item active">{{ __('delivery.edit_delivery') }}</li>
+                    </ol>
+                </nav>
             </div>
         </div>
     </div>
@@ -106,11 +110,22 @@
                         </div>
                     </div>
 
-                    <!-- Submit -->
-                    <div class="text-end mt-4">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="mdi mdi-content-save-outline me-1"></i> {{ __('delivery.update_delivery') }}
-                        </button>
+
+
+                    <!-- Submit Button -->
+                    <div class="text-end pt-3">
+                        @ability('admin', 'update_deliveries')
+                            <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
+                                <i class="ri-save-3-line me-2"></i>
+                                <i class="bi bi-save me-2"></i>
+                                {{ __('delivery.update_delivery') }}
+                            </button>
+                        @endability
+
+                        <a href="{{ route('admin.deliveries.index') }}" class="btn btn-outline-danger ms-2">
+                            <i class="ri-arrow-go-back-line me-1"></i>
+                            {{ __('panel.cancel') }}
+                        </a>
                     </div>
 
                 </form>
