@@ -354,6 +354,8 @@
                 margin-right: 70px !important;
                 margin-left: 0 !important;
                 text-align: right !important;
+                border-right: none !important;
+                border-left: 3px solid;
             }
 
             .timeline-item:nth-child(odd) .timeline-content::before,
@@ -362,6 +364,7 @@
                 left: 100%;
                 border: 7px solid transparent;
                 border-left: 7px solid white;
+                border-right: none !important;
             }
 
             .timeline-dot {
@@ -371,6 +374,12 @@
 
             .col-lg-4 {
                 margin-bottom: 24px;
+            }
+        }
+
+        @media (max-width: 568px) {
+            .timeline-content{
+                border-right: none !important;
             }
         }
     </style>
