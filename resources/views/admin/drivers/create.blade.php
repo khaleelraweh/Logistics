@@ -498,39 +498,27 @@
 
                                 <!-- step5: Confirm Details -->
                                 <div class="tab-pane" id="progress-confirm-detail">
-                                    {{-- <div class="row">
+
+
+                                    <div class="row">
                                         <div class="col-lg-12">
+                                            {{-- errors show if exists --}}
                                             @if ($errors->any())
-                                                <div class="alert alert-danger">
-                                                    <ul>
+                                                <div class="alert alert-danger alert-dismissible fade show" role="alert" id="formErrorsAlert">
+                                                    <h5 class="alert-heading">
+                                                        <i class="fas fa-exclamation-triangle me-2"></i>
+                                                        {{ __('general.form_errors_title') }}
+                                                    </h5>
+                                                    <ul class="mb-0">
                                                         @foreach ($errors->all() as $error)
                                                             <li>{{ $error }}</li>
                                                         @endforeach
                                                     </ul>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
                                             @endif
                                         </div>
-                                    </div> --}}
-
-                                    <div class="row">
-    <div class="col-lg-12">
-        {{-- errors show if exists --}}
-        @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" id="formErrorsAlert">
-                <h5 class="alert-heading">
-                    <i class="fas fa-exclamation-triangle me-2"></i>
-                    {{ __('general.form_errors_title') }}
-                </h5>
-                <ul class="mb-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-    </div>
-</div>
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-12">
@@ -793,6 +781,7 @@
 @section('script')
     {{-- Call select2 plugin --}}
 
+    <!-- متعلق بحفظ الصور -->
     <script>
         $(function() {
             $("#driver_image").fileinput({
@@ -837,336 +826,288 @@
         });
     </script>
 
+    <!-- متعلق بالخريطة  -->
+
     <!-- تضمين مكتبة Leaflet CSS و JS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
 
-        // دالة لتحديث الحقول من خط الطول والعرض
-        function updateFieldsFromLatLng(lat, lng){
-            fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
-                .then(response => response.json())
-                .then(data => {
-                    if(data.address){
-                        document.getElementById('country').value = data.address.country || '';
-                        document.getElementById('region').value = data.address.state || '';
-                        document.getElementById('city').value = data.address.city || data.address.town || data.address.village || '';
-                        document.getElementById('district').value = data.address.suburb || '';
-                        document.getElementById('postal_code').value = data.address.postcode || '';
-                    }
-                });
-        }
+            // دالة لتحديث الحقول من خط الطول والعرض
+            function updateFieldsFromLatLng(lat, lng){
+                fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.address){
+                            document.getElementById('country').value = data.address.country || '';
+                            document.getElementById('region').value = data.address.state || '';
+                            document.getElementById('city').value = data.address.city || data.address.town || data.address.village || '';
+                            document.getElementById('district').value = data.address.suburb || '';
+                            document.getElementById('postal_code').value = data.address.postcode || '';
+                        }
+                    });
+            }
 
-        // إحداثيات البداية: إذا موجودة من الـ old أو من التاجر، وإلا وسط الرياض
-        var initialLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
-        var initialLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
+            // إحداثيات البداية: إذا موجودة من الـ old أو من التاجر، وإلا وسط الرياض
+            var initialLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
+            var initialLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
 
-        // إنشاء الخريطة
-        var map = L.map('map').setView([initialLat, initialLng], 13);
+            // إنشاء الخريطة
+            var map = L.map('map').setView([initialLat, initialLng], 13);
 
-        // إضافة طبقة OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
+            // إضافة طبقة OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
 
-        // إنشاء العلامة القابلة للسحب
-        var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
+            // إنشاء العلامة القابلة للسحب
+            var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
 
-        // تحديث الحقول عند تحريك العلامة
-        marker.on('dragend', function(e) {
-            var latlng = marker.getLatLng();
-            document.getElementById('latitude').value = latlng.lat.toFixed(7);
-            document.getElementById('longitude').value = latlng.lng.toFixed(7);
-            updateFieldsFromLatLng(latlng.lat, latlng.lng);
+            // تحديث الحقول عند تحريك العلامة
+            marker.on('dragend', function(e) {
+                var latlng = marker.getLatLng();
+                document.getElementById('latitude').value = latlng.lat.toFixed(7);
+                document.getElementById('longitude').value = latlng.lng.toFixed(7);
+                updateFieldsFromLatLng(latlng.lat, latlng.lng);
+            });
+
+            // تحديث العلامة عند النقر على الخريطة
+            map.on('click', function(e) {
+                marker.setLatLng(e.latlng);
+                document.getElementById('latitude').value = e.latlng.lat.toFixed(7);
+                document.getElementById('longitude').value = e.latlng.lng.toFixed(7);
+                updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
+            });
+
+            // تعبئة الحقول لأول مرة عند التحميل إذا كانت الإحداثيات موجودة
+            if(initialLat && initialLng){
+                updateFieldsFromLatLng(initialLat, initialLng);
+            }
+
         });
+    </script>
 
-        // تحديث العلامة عند النقر على الخريطة
-        map.on('click', function(e) {
-            marker.setLatLng(e.latlng);
-            document.getElementById('latitude').value = e.latlng.lat.toFixed(7);
-            document.getElementById('longitude').value = e.latlng.lng.toFixed(7);
-            updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
+    <!-- متعلق بقسم المراجعة -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // دالة لتحديث معاينة البيانات
+            function updateReview() {
+                // معلومات السائق - جلب القيم الحالية من الحقول
+                document.getElementById('review_first_name_ar').textContent = document.querySelector('[name="first_name[ar]"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_middle_name_ar').textContent = document.querySelector('[name="middle_name[ar]"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_last_name_ar').textContent = document.querySelector('[name="last_name[ar]"]').value || '{{ __("general.not_set") }}';
+
+                document.getElementById('review_first_name_en').textContent = document.querySelector('[name="first_name[en]"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_middle_name_en').textContent = document.querySelector('[name="middle_name[en]"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_last_name_en').textContent = document.querySelector('[name="last_name[en]"]').value || '{{ __("general.not_set") }}';
+
+                document.getElementById('review_phone').textContent = document.querySelector('[name="phone"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_email').textContent = document.querySelector('[name="email"]').value || '{{ __("general.not_set") }}';
+
+                // العنوان
+                document.getElementById('review_country').textContent = document.querySelector('[name="country"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_region').textContent = document.querySelector('[name="region"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_city').textContent = document.querySelector('[name="city"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_district').textContent = document.querySelector('[name="district"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_latitude').textContent = document.querySelector('[name="latitude"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_longitude').textContent = document.querySelector('[name="longitude"]').value || '{{ __("general.not_set") }}';
+
+                // المركبة
+                document.getElementById('review_vehicle_type').textContent = document.querySelector('[name="vehicle_type"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_vehicle_model').textContent = document.querySelector('[name="vehicle_model"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_vehicle_number').textContent = document.querySelector('[name="vehicle_number"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_vehicle_color').textContent = document.querySelector('[name="vehicle_color"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_vehicle_capacity_weight').textContent = document.querySelector('[name="vehicle_capacity_weight"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_vehicle_capacity_volume').textContent = document.querySelector('[name="vehicle_capacity_volume"]').value || '{{ __("general.not_set") }}';
+
+                // الرخصة والمستندات
+                document.getElementById('review_license_number').textContent = document.querySelector('[name="license_number"]').value || '{{ __("general.not_set") }}';
+                document.getElementById('review_license_expiry_date').textContent = document.querySelector('[name="license_expiry_date"]').value || '{{ __("general.not_set") }}';
+
+                // معالجة خاصة لحقول SELECT للحصول على النص المعروض وليس القيمة
+                var vehicleTypeSelect = document.querySelector('[name="vehicle_type"]');
+                document.getElementById('review_vehicle_type').textContent = vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+                var vehicleModelSelect = document.querySelector('[name="vehicle_model"]');
+                document.getElementById('review_vehicle_model').textContent = vehicleModelSelect.options[vehicleModelSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+                var vehicleColorSelect = document.querySelector('[name="vehicle_color"]');
+                document.getElementById('review_vehicle_color').textContent = vehicleColorSelect.options[vehicleColorSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+                var capacityWeightSelect = document.querySelector('[name="vehicle_capacity_weight"]');
+                document.getElementById('review_vehicle_capacity_weight').textContent = capacityWeightSelect.options[capacityWeightSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+                var capacityVolumeSelect = document.querySelector('[name="vehicle_capacity_volume"]');
+                document.getElementById('review_vehicle_capacity_volume').textContent = capacityVolumeSelect.options[capacityVolumeSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+                // التوظيف
+                document.getElementById('review_username').textContent = document.querySelector('[name="username"]').value || '{{ __("general.not_set") }}';
+
+                // كلمة المرور - إظهار النجوم إذا كانت هناك قيمة
+                var passwordField = document.querySelector('[name="password"]');
+                document.getElementById('review_password').textContent = passwordField.value ? '••••••••' : '{{ __("general.not_set") }}';
+
+                document.getElementById('review_hired_date').textContent = document.querySelector('[name="hired_date"]').value || '{{ __("general.not_set") }}';
+
+                // المشرف - الحصول على النص المعروض
+                var supervisorSelect = document.querySelector('[name="supervisor_id"]');
+                document.getElementById('review_supervisor_id').textContent = supervisorSelect.options[supervisorSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+                var availabilitySelect = document.querySelector('[name="availability_status"]');
+                document.getElementById('review_availability_status').textContent = availabilitySelect.options[availabilitySelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+                var statusSelect = document.querySelector('[name="status"]');
+                document.getElementById('review_status').textContent = statusSelect.options[statusSelect.selectedIndex].text || '{{ __("general.not_set") }}';
+
+                document.getElementById('review_reason').innerHTML = document.querySelector('[name="reason"]').value ? nl2br(document.querySelector('[name="reason"]').value) : '{{ __("general.not_set") }}';
+
+                // الملفات - التحقق إذا تم اختيار ملف
+                var licenseImage = document.querySelector('[name="license_image"]');
+                document.getElementById('review_license_image').textContent = licenseImage.files.length > 0 ? '{{ __("general.file_uploaded") }}' : '{{ __("general.no_file") }}';
+
+                var idCardImage = document.querySelector('[name="id_card_image"]');
+                document.getElementById('review_id_card_image').textContent = idCardImage.files.length > 0 ? '{{ __("general.file_uploaded") }}' : '{{ __("general.no_file") }}';
+
+                var driverImage = document.querySelector('[name="driver_image"]');
+                document.getElementById('review_driver_image').textContent = driverImage.files.length > 0 ? '{{ __("general.file_uploaded") }}' : '{{ __("general.no_file") }}';
+
+                var vehicleImage = document.querySelector('[name="vehicle_image"]');
+                document.getElementById('review_vehicle_image').textContent = vehicleImage.files.length > 0 ? '{{ __("general.file_uploaded") }}' : '{{ __("general.no_file") }}';
+            }
+
+            // تحديث المعاينة عند الانتقال إلى الخطوة الخامسة
+            document.querySelector('a[href="#progress-confirm-detail"]').addEventListener('click', function() {
+                updateReview();
+            });
         });
+    </script>
 
-        // تعبئة الحقول لأول مرة عند التحميل إذا كانت الإحداثيات موجودة
-        if(initialLat && initialLng){
-            updateFieldsFromLatLng(initialLat, initialLng);
-        }
+    <!-- متعلق بلتحكم باظهار رسائل الاخطاء في القسم الخامس واخفائها بعد وقت -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // إخفاء رسالة الخطأ عند تصحيح الحقول
+            function setupErrorAutoDismiss() {
+                // إخفاء رسالة الخطأ العامة عند النقر على زر الإغلاق
+                const closeButton = document.querySelector('#formErrorsAlert .btn-close');
+                if (closeButton) {
+                    closeButton.addEventListener('click', function() {
+                        const alert = document.getElementById('formErrorsAlert');
+                        if (alert) {
+                            alert.style.display = 'none';
+                        }
+                    });
+                }
 
-    });
-</script>
+                // إخفاء رسالة الخطأ تلقائياً بعد 10 ثواني
+                const errorAlert = document.getElementById('formErrorsAlert');
+                if (errorAlert) {
+                    setTimeout(() => {
+                        errorAlert.style.opacity = '0';
+                        setTimeout(() => {
+                            errorAlert.style.display = 'none';
+                        }, 500);
+                    }, 10000);
+                }
 
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // دالة لتحديث معاينة البيانات
-        function updateReview() {
-            // معلومات السائق
-            document.getElementById('review_first_name_ar').textContent = document.querySelector('[name="first_name[ar]"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_middle_name_ar').textContent = document.querySelector('[name="middle_name[ar]"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_last_name_ar').textContent = document.querySelector('[name="last_name[ar]"]').value || '{{ __("general.not_set") }}';
+                // إخفاء رسالة الخطأ عند البدء في تصحيح أي حقل
+                const allInputs = document.querySelectorAll('input, select, textarea');
+                allInputs.forEach(input => {
+                    input.addEventListener('input', function() {
+                        const fieldName = this.name;
+                        hideErrorForField(fieldName);
 
-            document.getElementById('review_first_name_en').textContent = document.querySelector('[name="first_name[en]"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_middle_name_en').textContent = document.querySelector('[name="middle_name[en]"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_last_name_en').textContent = document.querySelector('[name="last_name[en]"]').value || '{{ __("general.not_set") }}';
+                        // إخفاء رسالة الخطأ العامة إذا تم تصحيح جميع الحقول
+                        checkAndHideGeneralError();
+                    });
 
-            document.getElementById('review_phone').textContent = document.querySelector('[name="phone"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_email').textContent = document.querySelector('[name="email"]').value || '{{ __("general.not_set") }}';
-
-            // العنوان
-            document.getElementById('review_country').textContent = document.querySelector('[name="country"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_region').textContent = document.querySelector('[name="region"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_city').textContent = document.querySelector('[name="city"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_district').textContent = document.querySelector('[name="district"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_latitude').textContent = document.querySelector('[name="latitude"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_longitude').textContent = document.querySelector('[name="longitude"]').value || '{{ __("general.not_set") }}';
-
-            // المركبة
-            document.getElementById('review_vehicle_type').textContent = document.querySelector('[name="vehicle_type"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_vehicle_model').textContent = document.querySelector('[name="vehicle_model"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_vehicle_number').textContent = document.querySelector('[name="vehicle_number"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_vehicle_color').textContent = document.querySelector('[name="vehicle_color"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_vehicle_capacity_weight').textContent = document.querySelector('[name="vehicle_capacity_weight"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_vehicle_capacity_volume').textContent = document.querySelector('[name="vehicle_capacity_volume"]').value || '{{ __("general.not_set") }}';
-
-            // الرخصة والمستندات
-            document.getElementById('review_license_number').textContent = document.querySelector('[name="license_number"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_license_expiry_date').textContent = document.querySelector('[name="license_expiry_date"]').value || '{{ __("general.not_set") }}';
-
-            // التوظيف
-            document.getElementById('review_username').textContent = document.querySelector('[name="username"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_hired_date').textContent = document.querySelector('[name="hired_date"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_availability_status').textContent = document.querySelector('[name="availability_status"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_status').textContent = document.querySelector('[name="status"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_reason').innerHTML = document.querySelector('[name="reason"]').value ? nl2br(document.querySelector('[name="reason"]').value) : '{{ __("general.not_set") }}';
-        }
-
-        // تحديث المعاينة عند الانتقال إلى الخطوة الخامسة
-        document.querySelector('a[href="#progress-confirm-detail"]').addEventListener('click', function() {
-            updateReview();
-        });
-    });
-</script> --}}
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // دالة لتحديث معاينة البيانات
-        function updateReview() {
-            // معلومات السائق - جلب القيم الحالية من الحقول
-            document.getElementById('review_first_name_ar').textContent = document.querySelector('[name="first_name[ar]"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_middle_name_ar').textContent = document.querySelector('[name="middle_name[ar]"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_last_name_ar').textContent = document.querySelector('[name="last_name[ar]"]').value || '{{ __("general.not_set") }}';
-
-            document.getElementById('review_first_name_en').textContent = document.querySelector('[name="first_name[en]"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_middle_name_en').textContent = document.querySelector('[name="middle_name[en]"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_last_name_en').textContent = document.querySelector('[name="last_name[en]"]').value || '{{ __("general.not_set") }}';
-
-            document.getElementById('review_phone').textContent = document.querySelector('[name="phone"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_email').textContent = document.querySelector('[name="email"]').value || '{{ __("general.not_set") }}';
-
-            // العنوان
-            document.getElementById('review_country').textContent = document.querySelector('[name="country"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_region').textContent = document.querySelector('[name="region"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_city').textContent = document.querySelector('[name="city"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_district').textContent = document.querySelector('[name="district"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_latitude').textContent = document.querySelector('[name="latitude"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_longitude').textContent = document.querySelector('[name="longitude"]').value || '{{ __("general.not_set") }}';
-
-            // المركبة
-            document.getElementById('review_vehicle_type').textContent = document.querySelector('[name="vehicle_type"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_vehicle_model').textContent = document.querySelector('[name="vehicle_model"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_vehicle_number').textContent = document.querySelector('[name="vehicle_number"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_vehicle_color').textContent = document.querySelector('[name="vehicle_color"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_vehicle_capacity_weight').textContent = document.querySelector('[name="vehicle_capacity_weight"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_vehicle_capacity_volume').textContent = document.querySelector('[name="vehicle_capacity_volume"]').value || '{{ __("general.not_set") }}';
-
-            // الرخصة والمستندات
-            document.getElementById('review_license_number').textContent = document.querySelector('[name="license_number"]').value || '{{ __("general.not_set") }}';
-            document.getElementById('review_license_expiry_date').textContent = document.querySelector('[name="license_expiry_date"]').value || '{{ __("general.not_set") }}';
-
-            // معالجة خاصة لحقول SELECT للحصول على النص المعروض وليس القيمة
-            var vehicleTypeSelect = document.querySelector('[name="vehicle_type"]');
-            document.getElementById('review_vehicle_type').textContent = vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex].text || '{{ __("general.not_set") }}';
-
-            var vehicleModelSelect = document.querySelector('[name="vehicle_model"]');
-            document.getElementById('review_vehicle_model').textContent = vehicleModelSelect.options[vehicleModelSelect.selectedIndex].text || '{{ __("general.not_set") }}';
-
-            var vehicleColorSelect = document.querySelector('[name="vehicle_color"]');
-            document.getElementById('review_vehicle_color').textContent = vehicleColorSelect.options[vehicleColorSelect.selectedIndex].text || '{{ __("general.not_set") }}';
-
-            var capacityWeightSelect = document.querySelector('[name="vehicle_capacity_weight"]');
-            document.getElementById('review_vehicle_capacity_weight').textContent = capacityWeightSelect.options[capacityWeightSelect.selectedIndex].text || '{{ __("general.not_set") }}';
-
-            var capacityVolumeSelect = document.querySelector('[name="vehicle_capacity_volume"]');
-            document.getElementById('review_vehicle_capacity_volume').textContent = capacityVolumeSelect.options[capacityVolumeSelect.selectedIndex].text || '{{ __("general.not_set") }}';
-
-            // التوظيف
-            document.getElementById('review_username').textContent = document.querySelector('[name="username"]').value || '{{ __("general.not_set") }}';
-
-            // كلمة المرور - إظهار النجوم إذا كانت هناك قيمة
-            var passwordField = document.querySelector('[name="password"]');
-            document.getElementById('review_password').textContent = passwordField.value ? '••••••••' : '{{ __("general.not_set") }}';
-
-            document.getElementById('review_hired_date').textContent = document.querySelector('[name="hired_date"]').value || '{{ __("general.not_set") }}';
-
-            // المشرف - الحصول على النص المعروض
-            var supervisorSelect = document.querySelector('[name="supervisor_id"]');
-            document.getElementById('review_supervisor_id').textContent = supervisorSelect.options[supervisorSelect.selectedIndex].text || '{{ __("general.not_set") }}';
-
-            var availabilitySelect = document.querySelector('[name="availability_status"]');
-            document.getElementById('review_availability_status').textContent = availabilitySelect.options[availabilitySelect.selectedIndex].text || '{{ __("general.not_set") }}';
-
-            var statusSelect = document.querySelector('[name="status"]');
-            document.getElementById('review_status').textContent = statusSelect.options[statusSelect.selectedIndex].text || '{{ __("general.not_set") }}';
-
-            document.getElementById('review_reason').innerHTML = document.querySelector('[name="reason"]').value ? nl2br(document.querySelector('[name="reason"]').value) : '{{ __("general.not_set") }}';
-
-            // الملفات - التحقق إذا تم اختيار ملف
-            var licenseImage = document.querySelector('[name="license_image"]');
-            document.getElementById('review_license_image').textContent = licenseImage.files.length > 0 ? '{{ __("general.file_uploaded") }}' : '{{ __("general.no_file") }}';
-
-            var idCardImage = document.querySelector('[name="id_card_image"]');
-            document.getElementById('review_id_card_image').textContent = idCardImage.files.length > 0 ? '{{ __("general.file_uploaded") }}' : '{{ __("general.no_file") }}';
-
-            var driverImage = document.querySelector('[name="driver_image"]');
-            document.getElementById('review_driver_image').textContent = driverImage.files.length > 0 ? '{{ __("general.file_uploaded") }}' : '{{ __("general.no_file") }}';
-
-            var vehicleImage = document.querySelector('[name="vehicle_image"]');
-            document.getElementById('review_vehicle_image').textContent = vehicleImage.files.length > 0 ? '{{ __("general.file_uploaded") }}' : '{{ __("general.no_file") }}';
-        }
-
-        // تحديث المعاينة عند الانتقال إلى الخطوة الخامسة
-        document.querySelector('a[href="#progress-confirm-detail"]').addEventListener('click', function() {
-            updateReview();
-        });
-    });
-</script>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // إخفاء رسالة الخطأ عند تصحيح الحقول
-        function setupErrorAutoDismiss() {
-            // إخفاء رسالة الخطأ العامة عند النقر على زر الإغلاق
-            const closeButton = document.querySelector('#formErrorsAlert .btn-close');
-            if (closeButton) {
-                closeButton.addEventListener('click', function() {
-                    const alert = document.getElementById('formErrorsAlert');
-                    if (alert) {
-                        alert.style.display = 'none';
-                    }
+                    input.addEventListener('change', function() {
+                        const fieldName = this.name;
+                        hideErrorForField(fieldName);
+                        checkAndHideGeneralError();
+                    });
                 });
             }
 
-            // إخفاء رسالة الخطأ تلقائياً بعد 10 ثواني
-            const errorAlert = document.getElementById('formErrorsAlert');
-            if (errorAlert) {
-                setTimeout(() => {
+            // إخفاء رسالة الخطأ الخاصة بحقل معين
+            function hideErrorForField(fieldName) {
+                const errorAlert = document.getElementById('formErrorsAlert');
+                if (!errorAlert) return;
+
+                const errorItems = errorAlert.querySelectorAll('li');
+                let hasVisibleErrors = false;
+
+                errorItems.forEach(item => {
+                    // التحقق إذا كان عنصر الخطأ مرتبط بالحقل الحالي
+                    if (isErrorRelatedToField(item.textContent, fieldName)) {
+                        item.style.display = 'none';
+                    }
+
+                    // التحقق إذا كان هناك أخطاء مرئية باقية
+                    if (item.style.display !== 'none') {
+                        hasVisibleErrors = true;
+                    }
+                });
+
+                // إخفاء التنبيه كاملاً إذا لم تعد هناك أخطاء مرئية
+                if (!hasVisibleErrors) {
                     errorAlert.style.opacity = '0';
                     setTimeout(() => {
                         errorAlert.style.display = 'none';
                     }, 500);
-                }, 10000);
+                }
             }
 
-            // إخفاء رسالة الخطأ عند البدء في تصحيح أي حقل
-            const allInputs = document.querySelectorAll('input, select, textarea');
-            allInputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    const fieldName = this.name;
-                    hideErrorForField(fieldName);
+            // التحقق إذا كان الخطأ مرتبطاً بالحقل المحدد
+            function isErrorRelatedToField(errorMessage, fieldName) {
+                // تحويل أسماء الحقول للبحث عنها في رسائل الخطأ
+                const fieldPatterns = {
+                    'first_name': ['first name', 'الاسم الأول'],
+                    'middle_name': ['middle name', 'الاسم الأوسط'],
+                    'last_name': ['last name', 'الاسم الأخير'],
+                    'phone': ['phone', 'الهاتف'],
+                    'email': ['email', 'البريد الإلكتروني'],
+                    'vehicle_type': ['vehicle type', 'نوع المركبة'],
+                    'vehicle_model': ['vehicle model', 'موديل المركبة'],
+                    'vehicle_number': ['vehicle number', 'رقم المركبة'],
+                    'license_number': ['license number', 'رقم الرخصة'],
+                    'license_expiry_date': ['license expiry date', 'تاريخ انتهاء الرخصة'],
+                    'username': ['username', 'اسم المستخدم'],
+                    'password': ['password', 'كلمة المرور']
+                };
 
-                    // إخفاء رسالة الخطأ العامة إذا تم تصحيح جميع الحقول
-                    checkAndHideGeneralError();
-                });
+                const lowerError = errorMessage.toLowerCase();
 
-                input.addEventListener('change', function() {
-                    const fieldName = this.name;
-                    hideErrorForField(fieldName);
-                    checkAndHideGeneralError();
-                });
-            });
-        }
-
-        // إخفاء رسالة الخطأ الخاصة بحقل معين
-        function hideErrorForField(fieldName) {
-            const errorAlert = document.getElementById('formErrorsAlert');
-            if (!errorAlert) return;
-
-            const errorItems = errorAlert.querySelectorAll('li');
-            let hasVisibleErrors = false;
-
-            errorItems.forEach(item => {
-                // التحقق إذا كان عنصر الخطأ مرتبط بالحقل الحالي
-                if (isErrorRelatedToField(item.textContent, fieldName)) {
-                    item.style.display = 'none';
+                if (fieldPatterns[fieldName]) {
+                    return fieldPatterns[fieldName].some(pattern =>
+                        lowerError.includes(pattern.toLowerCase())
+                    );
                 }
 
-                // التحقق إذا كان هناك أخطاء مرئية باقية
-                if (item.style.display !== 'none') {
-                    hasVisibleErrors = true;
+                return lowerError.includes(fieldName.toLowerCase());
+            }
+
+            // التحقق وإخفاء رسالة الخطأ العامة إذا لم تعد هناك أخطاء
+            function checkAndHideGeneralError() {
+                const errorAlert = document.getElementById('formErrorsAlert');
+                if (!errorAlert) return;
+
+                const visibleErrors = errorAlert.querySelectorAll('li:not([style*="display: none"])');
+                if (visibleErrors.length === 0) {
+                    errorAlert.style.opacity = '0';
+                    setTimeout(() => {
+                        errorAlert.style.display = 'none';
+                    }, 500);
                 }
-            });
-
-            // إخفاء التنبيه كاملاً إذا لم تعد هناك أخطاء مرئية
-            if (!hasVisibleErrors) {
-                errorAlert.style.opacity = '0';
-                setTimeout(() => {
-                    errorAlert.style.display = 'none';
-                }, 500);
-            }
-        }
-
-        // التحقق إذا كان الخطأ مرتبطاً بالحقل المحدد
-        function isErrorRelatedToField(errorMessage, fieldName) {
-            // تحويل أسماء الحقول للبحث عنها في رسائل الخطأ
-            const fieldPatterns = {
-                'first_name': ['first name', 'الاسم الأول'],
-                'middle_name': ['middle name', 'الاسم الأوسط'],
-                'last_name': ['last name', 'الاسم الأخير'],
-                'phone': ['phone', 'الهاتف'],
-                'email': ['email', 'البريد الإلكتروني'],
-                'vehicle_type': ['vehicle type', 'نوع المركبة'],
-                'vehicle_model': ['vehicle model', 'موديل المركبة'],
-                'vehicle_number': ['vehicle number', 'رقم المركبة'],
-                'license_number': ['license number', 'رقم الرخصة'],
-                'license_expiry_date': ['license expiry date', 'تاريخ انتهاء الرخصة'],
-                'username': ['username', 'اسم المستخدم'],
-                'password': ['password', 'كلمة المرور']
-            };
-
-            const lowerError = errorMessage.toLowerCase();
-
-            if (fieldPatterns[fieldName]) {
-                return fieldPatterns[fieldName].some(pattern =>
-                    lowerError.includes(pattern.toLowerCase())
-                );
             }
 
-            return lowerError.includes(fieldName.toLowerCase());
-        }
+            // تهيئة إخفاء الأخطاء التلقائي
+            setupErrorAutoDismiss();
 
-        // التحقق وإخفاء رسالة الخطأ العامة إذا لم تعد هناك أخطاء
-        function checkAndHideGeneralError() {
-            const errorAlert = document.getElementById('formErrorsAlert');
-            if (!errorAlert) return;
-
-            const visibleErrors = errorAlert.querySelectorAll('li:not([style*="display: none"])');
-            if (visibleErrors.length === 0) {
-                errorAlert.style.opacity = '0';
-                setTimeout(() => {
-                    errorAlert.style.display = 'none';
-                }, 500);
-            }
-        }
-
-        // تهيئة إخفاء الأخطاء التلقائي
-        setupErrorAutoDismiss();
-
-        // باقي الكود السابق...
-    });
-</script>
+            // باقي الكود السابق...
+        });
+    </script>
 @endsection
 
 
