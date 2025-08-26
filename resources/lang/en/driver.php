@@ -134,5 +134,6 @@ return [
     'vehicle_capacity_volume_huge' => 'Huge (More than 15 m³)',
 
     'review_driver_info'    => 'Review Driver Information',
+    'drivers'               => 'Drivers',
 
 ];
