@@ -33,15 +33,17 @@
         'actions'                 => 'الإجراءات',
 
         // الحالات
-
-        'status_delivered' => 'تم التسليم',
-        'status_on_route' => 'في الطريق',
-        'status_assigned' => 'تم الإسناد',
-        'status_assigned_to_driver' => 'تم إسناد السائق',
-        'status_pending' => 'قيد الانتظار',
-        'status_in_transit' => 'قيد النقل',
-        'status_cancelled' => 'ملغي',
-        'status_returned' => 'تم الإرجاع',
+        'status_pending'            => 'قيد الانتظار',
+        'status_assigned_to_driver' => 'تم التعيين للسائق',
+        'status_driver_picked_up'   => 'استلم السائق الطرد',
+        'status_in_transit'         => 'في الطريق',
+        'status_arrived_at_hub'     => 'وصل إلى المستودع',
+        'status_out_for_delivery'   => 'خارج للتسليم',
+        'status_delivered'          => 'تم التسليم',
+        'status_delivery_failed'    => 'فشل التسليم',
+        'status_returned'           => 'تم الإرجاع',
+        'status_cancelled'          => 'ملغي',
+        'status_in_warehouse'       => 'في المستودع',
 
 
         // العمليات

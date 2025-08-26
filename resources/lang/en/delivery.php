@@ -33,16 +33,18 @@ return [
     'actions'                  => 'Actions',
 
 
-    // Statuses
-    'status_delivered'           => 'Delivered',
-    'status_on_route'            => 'On route',
-    'status_assigned'           => 'Assigned',
-    'status_assigned_to_driver' => 'Assigned to driver',
-    'status_pending'             => 'Pending',
-    'status_in_transit'          => 'In transit',
-    'status_cancelled'           => 'Cancelled',
-    'status_returned'            => 'Returned',
-
+    // delivery statuses
+    'status_pending'            => 'Pending',
+    'status_assigned_to_driver' => 'Assigned to Driver',
+    'status_driver_picked_up'   => 'Driver Picked Up',
+    'status_in_transit'         => 'In Transit',
+    'status_arrived_at_hub'     => 'Arrived at Hub',
+    'status_out_for_delivery'   => 'Out for Delivery',
+    'status_delivered'          => 'Delivered',
+    'status_delivery_failed'    => 'Delivery Failed',
+    'status_returned'           => 'Returned',
+    'status_cancelled'          => 'Cancelled',
+    'status_in_warehouse'       => 'In Warehouse',
 
     // Operations
     'show'                     => 'Show',
