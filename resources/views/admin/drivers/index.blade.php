@@ -60,18 +60,28 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
 
-                                <td>{{ Str::limit($driver->name ?? '', 20) }}</td>
+                                <td>{{ Str::limit($driver->driver_full_name ?? '', 20) }}</td>
 
                                 <td>{{ $driver->phone ?? '-' }}</td>
 
-                                <td>
-                                    @if($driver->current_latitude && $driver->current_longitude)
-                                        <a href="https://maps.google.com/?q={{ $driver->current_latitude }},{{ $driver->current_longitude }}" target="_blank">
-                                            📍 {{ number_format($driver->current_latitude, 4) }}, {{ number_format($driver->current_longitude, 4) }}
-                                        </a>
-                                    @else
-                                        -
-                                    @endif
+
+                                @php
+                                    $locationParts = array_filter([
+                                        $driver->country,
+                                        $driver->region,
+                                        $driver->city,
+                                        $driver->district,
+                                        $driver->latitude,
+                                        $driver->longitude
+
+                                    ]); // إزالة القيم الفارغة
+
+                                    $shortLocation = implode(' - ', array_slice($locationParts, 0, 2)); // أول قيمتين فقط
+                                    $fullLocation = implode(' - ', $locationParts); // كامل النص
+                                @endphp
+
+                                <td title="{{ $fullLocation }}" data-bs-toggle="tooltip" data-bs-placement="top">
+                                    {{ $shortLocation }}
                                 </td>
 
                                 <td>
