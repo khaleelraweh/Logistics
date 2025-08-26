@@ -207,68 +207,6 @@
 
 
                                 </div>
-                                <!-- step2: Vehicle Information -->
-                                {{-- <div class="tab-pane" id="vehicle-information">
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="vehicle_type">{{ __('driver.vehicle_type') }}</label>
-                                                    <input type="text" class="form-control" name="vehicle_type" value="{{ old('vehicle_type') }}" placeholder="{{ __('driver.vehicle_type') }}" id="vehicle_type">
-                                                    @error('vehicle_type')<span class="text-danger">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="vehicle_model">{{ __('driver.vehicle_model') }}</label>
-                                                    <input type="text" class="form-control" name="vehicle_model" value="{{ old('vehicle_model') }}" placeholder="{{ __('driver.vehicle_model') }}" id="vehicle_model">
-                                                    @error('vehicle_model')<span class="text-danger">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="vehicle_number">{{ __('driver.vehicle_number') }}</label>
-                                                    <input type="text" class="form-control" name="vehicle_number" value="{{ old('vehicle_number') }}" placeholder="{{ __('driver.vehicle_number') }}" id="vehicle_number">
-                                                    @error('vehicle_number')<span class="text-danger">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="vehicle_color">{{ __('driver.vehicle_color') }}</label>
-                                                    <input type="text" class="form-control" name="vehicle_color" value="{{ old('vehicle_color') }}" placeholder="{{ __('driver.vehicle_color') }}" id="vehicle_color">
-                                                    @error('vehicle_color')<span class="text-danger">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="vehicle_capacity_weight">{{ __('driver.vehicle_capacity_weight') }}</label>
-                                                    <input type="text" class="form-control" name="vehicle_capacity_weight" value="{{ old('vehicle_capacity_weight') }}" placeholder="{{ __('driver.vehicle_capacity_weight') }}" id="vehicle_capacity_weight">
-                                                    @error('vehicle_capacity_weight')<span class="text-danger">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="vehicle_capacity_volume">{{ __('driver.vehicle_capacity_volume') }}</label>
-                                                    <input type="text" class="form-control" name="vehicle_capacity_volume" value="{{ old('vehicle_capacity_volume') }}" placeholder="{{ __('driver.vehicle_capacity_volume') }}" id="vehicle_capacity_volume">
-                                                    @error('vehicle_capacity_volume')<span class="text-danger">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="mb-3">
-                                                    <label class="form-label" for="vehicle_image">{{ __('driver.vehicle_image') }}</label>
-                                                    <input type="file" class="form-control" name="vehicle_image" value="{{ old('vehicle_image') }}" placeholder="{{ __('driver.vehicle_image') }}" id="vehicle_image">
-                                                    @error('vehicle_image')<span class="text-danger">{{ $message }}</span>@enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
 
                                 <!-- step2: Vehicle Information -->
                                 <div class="tab-pane" id="vehicle-information">
@@ -513,274 +451,251 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <!-- step5: Confirm Details -->
-                                {{-- <div class="tab-pane" id="progress-confirm-detail">
-                                    <div>
+                                <div class="tab-pane" id="progress-confirm-detail">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header bg-light">
+                                                    <h5 class="card-title mb-0"><i class="fas fa-check-circle text-success me-2"></i>{{ __('driver.review_driver_info') }}</h5>
+                                                </div>
+                                                <div class="card-body">
 
+                                                    <!-- Personal Information -->
+                                                    <div class="mb-4">
+                                                        <h6 class="border-bottom pb-2 text-primary">
+                                                            <i class="mdi mdi-account-tie me-1"></i> {{ __('driver.driver_info') }}
+                                                        </h6>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.driver_first_name') }} <i class="flag-icon flag-icon-sa"></i> :</strong> <span id="review_first_name_ar">{{ old('first_name.ar') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.driver_middle_name') }} <i class="flag-icon flag-icon-sa"></i>:</strong> <span id="review_middle_name_ar">{{ old('middle_name.ar') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.driver_last_name') }} <i class="flag-icon flag-icon-sa"></i> :</strong> <span id="review_last_name_ar">{{ old('last_name.ar') }}</span></p>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.driver_first_name') }} <i class="flag-icon flag-icon-us"></i> :</strong> <span id="review_first_name_en">{{ old('first_name.en') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.driver_middle_name') }} <i class="flag-icon flag-icon-us"></i>:</strong> <span id="review_middle_name_en">{{ old('middle_name.en') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.driver_last_name') }} <i class="flag-icon flag-icon-us"></i> :</strong> <span id="review_last_name_en">{{ old('last_name.en') }}</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.phone') }}:</strong> <span id="review_phone">{{ old('phone') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.email') }}:</strong> <span id="review_email">{{ old('email') }}</span></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                        <!-- Submit Button -->
-                                        <div class="text-end pt-3">
-                                            @ability('admin', 'create_driver')
-                                                <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
-                                                    <i class="ri-save-3-line me-2"></i>
-                                                    <i class="bi bi-save me-2"></i>
-                                                    {{ __('driver.save_driver_data') }}
-                                                </button>
-                                            @endability
+                                                    <!-- Address Information -->
+                                                    <div class="mb-4">
+                                                        <h6 class="border-bottom pb-2 text-primary">
+                                                            <i class="mdi mdi-map-marker me-1"></i> {{ __('general.address_details') }}
+                                                        </h6>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <p><strong>{{ __('driver.country') }}:</strong> <span id="review_country">{{ old('country') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <p><strong>{{ __('driver.region') }}:</strong> <span id="review_region">{{ old('region') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <p><strong>{{ __('driver.city') }}:</strong> <span id="review_city">{{ old('city') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <p><strong>{{ __('driver.district') }}:</strong> <span id="review_district">{{ old('district') }}</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.latitude') }}:</strong> <span id="review_latitude">{{ old('latitude') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.longitude') }}:</strong> <span id="review_longitude">{{ old('longitude') }}</span></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                            <a href="{{ route('admin.drivers.index') }}" class="btn btn-outline-danger ms-2">
-                                                <i class="ri-arrow-go-back-line me-1"></i>
-                                                {{ __('panel.cancel') }}
-                                            </a>
+                                                    <!-- Vehicle Information -->
+                                                    <div class="mb-4">
+                                                        <h6 class="border-bottom pb-2 text-primary">
+                                                            <i class="mdi mdi-car me-1"></i> {{ __('driver.vehicle_info') }}
+                                                        </h6>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.vehicle_type') }}:</strong> <span id="review_vehicle_type">{{ old('vehicle_type') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.vehicle_model') }}:</strong> <span id="review_vehicle_model">{{ old('vehicle_model') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.vehicle_number') }}:</strong> <span id="review_vehicle_number">{{ old('vehicle_number') }}</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.vehicle_color') }}:</strong> <span id="review_vehicle_color">{{ old('vehicle_color') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.vehicle_capacity_weight') }}:</strong> <span id="review_vehicle_capacity_weight">{{ old('vehicle_capacity_weight') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.vehicle_capacity_volume') }}:</strong> <span id="review_vehicle_capacity_volume">{{ old('vehicle_capacity_volume') }}</span></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- License and Documents -->
+                                                    <div class="mb-4">
+                                                        <h6 class="border-bottom pb-2 text-primary">
+                                                            <i class="mdi mdi-file-document me-1"></i> {{ __('driver.license_and_documentation') }}
+                                                        </h6>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.license_number') }}:</strong> <span id="review_license_number">{{ old('license_number') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.license_expiry_date') }}:</strong> <span id="review_license_expiry_date">{{ old('license_expiry_date') }}</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.license_image') }}:</strong>
+                                                                    <span id="review_license_image">
+                                                                        @if(old('license_image'))
+                                                                            {{ __('general.file_uploaded') }}
+                                                                        @else
+                                                                            {{ __('general.no_file') }}
+                                                                        @endif
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <p><strong>{{ __('driver.vehicle_image') }}:</strong>
+                                                                    <span id="review_vehicle_image">
+                                                                        @if(old('vehicle_image'))
+                                                                            {{ __('general.file_uploaded') }}
+                                                                        @else
+                                                                            {{ __('general.no_file') }}
+                                                                        @endif
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.driver_image') }}:</strong>
+                                                                    <span id="review_driver_image">
+                                                                        @if(old('driver_image'))
+                                                                            {{ __('general.file_uploaded') }}
+                                                                        @else
+                                                                            {{ __('general.no_file') }}
+                                                                        @endif
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.id_card_image') }}:</strong>
+                                                                    <span id="review_id_card_image">
+                                                                        @if(old('id_card_image'))
+                                                                            {{ __('general.file_uploaded') }}
+                                                                        @else
+                                                                            {{ __('general.no_file') }}
+                                                                        @endif
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Employment Information -->
+                                                    <div class="mb-4">
+                                                        <h6 class="border-bottom pb-2 text-primary">
+                                                            <i class="mdi mdi-briefcase me-1"></i> {{ __('driver.hire_and_supervision') }}
+                                                        </h6>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.username') }}:</strong> <span id="review_username">{{ old('username') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.password') }}:</strong>
+                                                                    <span id="review_password">
+                                                                        @if(old('password'))
+                                                                            ••••••••
+                                                                        @else
+                                                                            {{ __('general.not_set') }}
+                                                                        @endif
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.hired_date') }}:</strong> <span id="review_hired_date">{{ old('hired_date') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.supervisor_id') }}:</strong> <span id="review_supervisor_id">
+                                                                    @if(old('supervisor_id') && $supervisors->contains('id', old('supervisor_id')))
+                                                                        {{ $supervisors->find(old('supervisor_id'))->first_name }} {{ $supervisors->find(old('supervisor_id'))->last_name }}
+                                                                    @else
+                                                                        {{ __('general.not_set') }}
+                                                                    @endif
+                                                                </span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.availability_status') }}:</strong> <span id="review_availability_status">{{ old('availability_status') }}</span></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p><strong>{{ __('driver.status') }}:</strong> <span id="review_status">{{ old('status') }}</span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <p><strong>{{ __('driver.reason') }}:</strong></p>
+                                                                <div id="review_reason" class="border p-2 rounded bg-light">
+                                                                    {!! nl2br(old('reason')) !!}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div> --}}
 
-                                <!-- step5: Confirm Details -->
-<div class="tab-pane" id="progress-confirm-detail">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header bg-light">
-                    <h5 class="card-title mb-0"><i class="fas fa-check-circle text-success me-2"></i>{{ __('driver.review_driver_info') }}</h5>
-                </div>
-                <div class="card-body">
+                                    <!-- Submit Button -->
+                                    <div class="text-end pt-3">
+                                        @ability('admin', 'create_driver')
+                                            <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
+                                                <i class="ri-save-3-line me-2"></i>
+                                                <i class="bi bi-save me-2"></i>
+                                                {{ __('driver.save_driver_data') }}
+                                            </button>
+                                        @endability
 
-                    <!-- Personal Information -->
-                    <div class="mb-4">
-                        <h6 class="border-bottom pb-2 text-primary">
-                            <i class="mdi mdi-account-tie me-1"></i> {{ __('driver.driver_info') }}
-                        </h6>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.driver_first_name') }} <i class="flag-icon flag-icon-sa"></i> :</strong> <span id="review_first_name_ar">{{ old('first_name.ar') }}</span></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.driver_middle_name') }} <i class="flag-icon flag-icon-sa"></i>:</strong> <span id="review_middle_name_ar">{{ old('middle_name.ar') }}</span></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.driver_last_name') }} <i class="flag-icon flag-icon-sa"></i> :</strong> <span id="review_last_name_ar">{{ old('last_name.ar') }}</span></p>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.driver_first_name') }} <i class="flag-icon flag-icon-us"></i> :</strong> <span id="review_first_name_en">{{ old('first_name.en') }}</span></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.driver_middle_name') }} <i class="flag-icon flag-icon-us"></i>:</strong> <span id="review_middle_name_en">{{ old('middle_name.en') }}</span></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.driver_last_name') }} <i class="flag-icon flag-icon-us"></i> :</strong> <span id="review_last_name_en">{{ old('last_name.en') }}</span></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.phone') }}:</strong> <span id="review_phone">{{ old('phone') }}</span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.email') }}:</strong> <span id="review_email">{{ old('email') }}</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Address Information -->
-                    <div class="mb-4">
-                        <h6 class="border-bottom pb-2 text-primary">
-                            <i class="mdi mdi-map-marker me-1"></i> {{ __('general.address_details') }}
-                        </h6>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <p><strong>{{ __('driver.country') }}:</strong> <span id="review_country">{{ old('country') }}</span></p>
-                            </div>
-                            <div class="col-md-3">
-                                <p><strong>{{ __('driver.region') }}:</strong> <span id="review_region">{{ old('region') }}</span></p>
-                            </div>
-                            <div class="col-md-3">
-                                <p><strong>{{ __('driver.city') }}:</strong> <span id="review_city">{{ old('city') }}</span></p>
-                            </div>
-                            <div class="col-md-3">
-                                <p><strong>{{ __('driver.district') }}:</strong> <span id="review_district">{{ old('district') }}</span></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.latitude') }}:</strong> <span id="review_latitude">{{ old('latitude') }}</span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.longitude') }}:</strong> <span id="review_longitude">{{ old('longitude') }}</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Vehicle Information -->
-                    <div class="mb-4">
-                        <h6 class="border-bottom pb-2 text-primary">
-                            <i class="mdi mdi-car me-1"></i> {{ __('driver.vehicle_info') }}
-                        </h6>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.vehicle_type') }}:</strong> <span id="review_vehicle_type">{{ old('vehicle_type') }}</span></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.vehicle_model') }}:</strong> <span id="review_vehicle_model">{{ old('vehicle_model') }}</span></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.vehicle_number') }}:</strong> <span id="review_vehicle_number">{{ old('vehicle_number') }}</span></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.vehicle_color') }}:</strong> <span id="review_vehicle_color">{{ old('vehicle_color') }}</span></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.vehicle_capacity_weight') }}:</strong> <span id="review_vehicle_capacity_weight">{{ old('vehicle_capacity_weight') }}</span></p>
-                            </div>
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.vehicle_capacity_volume') }}:</strong> <span id="review_vehicle_capacity_volume">{{ old('vehicle_capacity_volume') }}</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- License and Documents -->
-                    <div class="mb-4">
-                        <h6 class="border-bottom pb-2 text-primary">
-                            <i class="mdi mdi-file-document me-1"></i> {{ __('driver.license_and_documentation') }}
-                        </h6>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.license_number') }}:</strong> <span id="review_license_number">{{ old('license_number') }}</span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.license_expiry_date') }}:</strong> <span id="review_license_expiry_date">{{ old('license_expiry_date') }}</span></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.license_image') }}:</strong>
-                                    <span id="review_license_image">
-                                        @if(old('license_image'))
-                                            {{ __('general.file_uploaded') }}
-                                        @else
-                                            {{ __('general.no_file') }}
-                                        @endif
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="col-md-4">
-                                <p><strong>{{ __('driver.vehicle_image') }}:</strong>
-                                    <span id="review_vehicle_image">
-                                        @if(old('vehicle_image'))
-                                            {{ __('general.file_uploaded') }}
-                                        @else
-                                            {{ __('general.no_file') }}
-                                        @endif
-                                    </span>
-                                </p>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.driver_image') }}:</strong>
-                                    <span id="review_driver_image">
-                                        @if(old('driver_image'))
-                                            {{ __('general.file_uploaded') }}
-                                        @else
-                                            {{ __('general.no_file') }}
-                                        @endif
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.id_card_image') }}:</strong>
-                                    <span id="review_id_card_image">
-                                        @if(old('id_card_image'))
-                                            {{ __('general.file_uploaded') }}
-                                        @else
-                                            {{ __('general.no_file') }}
-                                        @endif
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Employment Information -->
-                    <div class="mb-4">
-                        <h6 class="border-bottom pb-2 text-primary">
-                            <i class="mdi mdi-briefcase me-1"></i> {{ __('driver.hire_and_supervision') }}
-                        </h6>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.username') }}:</strong> <span id="review_username">{{ old('username') }}</span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.password') }}:</strong>
-                                    <span id="review_password">
-                                        @if(old('password'))
-                                            ••••••••
-                                        @else
-                                            {{ __('general.not_set') }}
-                                        @endif
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.hired_date') }}:</strong> <span id="review_hired_date">{{ old('hired_date') }}</span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.supervisor_id') }}:</strong> <span id="review_supervisor_id">
-                                    @if(old('supervisor_id') && $supervisors->contains('id', old('supervisor_id')))
-                                        {{ $supervisors->find(old('supervisor_id'))->first_name }} {{ $supervisors->find(old('supervisor_id'))->last_name }}
-                                    @else
-                                        {{ __('general.not_set') }}
-                                    @endif
-                                </span></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.availability_status') }}:</strong> <span id="review_availability_status">{{ old('availability_status') }}</span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><strong>{{ __('driver.status') }}:</strong> <span id="review_status">{{ old('status') }}</span></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <p><strong>{{ __('driver.reason') }}:</strong></p>
-                                <div id="review_reason" class="border p-2 rounded bg-light">
-                                    {!! nl2br(old('reason')) !!}
+                                        <a href="{{ route('admin.drivers.index') }}" class="btn btn-outline-danger ms-2">
+                                            <i class="ri-arrow-go-back-line me-1"></i>
+                                            {{ __('panel.cancel') }}
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Submit Button -->
-    <div class="text-end pt-3">
-        @ability('admin', 'create_driver')
-            <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
-                <i class="ri-save-3-line me-2"></i>
-                <i class="bi bi-save me-2"></i>
-                {{ __('driver.save_driver_data') }}
-            </button>
-        @endability
-
-        <a href="{{ route('admin.drivers.index') }}" class="btn btn-outline-danger ms-2">
-            <i class="ri-arrow-go-back-line me-1"></i>
-            {{ __('panel.cancel') }}
-        </a>
-    </div>
-</div>
 
 
                             </div>
