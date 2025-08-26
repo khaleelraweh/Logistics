@@ -151,8 +151,8 @@
                                 </div>
 
                                 <div class="cd-timeline-content">
-                                    <h3>{{ $translatedStatus }}</h3>
-                                    <p class="mb-0 text-muted font-14">{{ $log->note ?? '-' }}</p>
+                                    <h3>{{ $translatedStatus }} </h3>
+                                    <p class="mb-0 text-muted font-14">{{ $log->note ?? '-' }} </p>
                                     <span class="cd-date">{{ $log->logged_at->format('Y-m-d h:i A') }}</span>
                                 </div>
                             </div>
