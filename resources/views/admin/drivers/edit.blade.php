@@ -269,12 +269,12 @@
                                                     <label class="form-label" for="vehicle_type">{{ __('driver.vehicle_type') }}</label>
                                                     <select class="form-select select2" name="vehicle_type" id="vehicle_type">
                                                         <option value="">{{ __('general.select') }}</option>
-                                                        <option value="car" {{ old('vehicle_type') == 'car' ? 'selected' : '' }}>{{ __('driver.vehicle_type_car') }}</option>
-                                                        <option value="van" {{ old('vehicle_type') == 'van' ? 'selected' : '' }}>{{ __('driver.vehicle_type_van') }}</option>
-                                                        <option value="small_truck" {{ old('vehicle_type') == 'small_truck' ? 'selected' : '' }}>{{ __('driver.vehicle_type_small_truck') }}</option>
-                                                        <option value="big_truck" {{ old('vehicle_type') == 'big_truck' ? 'selected' : '' }}>{{ __('driver.vehicle_type_big_truck') }}</option>
-                                                        <option value="motorcycle" {{ old('vehicle_type') == 'motorcycle' ? 'selected' : '' }}>{{ __('driver.vehicle_type_motorcycle') }}</option>
-                                                        <option value="other" {{ old('vehicle_type') == 'other' ? 'selected' : '' }}>{{ __('general.other') }}</option>
+                                                        <option value="car" {{ old('vehicle_type' , $driver->vehicle_type) == 'car' ? 'selected' : '' }}>{{ __('driver.vehicle_type_car') }}</option>
+                                                        <option value="van" {{ old('vehicle_type', $driver->vehicle_type) == 'van' ? 'selected' : '' }}>{{ __('driver.vehicle_type_van') }}</option>
+                                                        <option value="small_truck" {{ old('vehicle_type', $driver->vehicle_type) == 'small_truck' ? 'selected' : '' }}>{{ __('driver.vehicle_type_small_truck') }}</option>
+                                                        <option value="big_truck" {{ old('vehicle_type', $driver->vehicle_type) == 'big_truck' ? 'selected' : '' }}>{{ __('driver.vehicle_type_big_truck') }}</option>
+                                                        <option value="motorcycle" {{ old('vehicle_type', $driver->vehicle_type) == 'motorcycle' ? 'selected' : '' }}>{{ __('driver.vehicle_type_motorcycle') }}</option>
+                                                        <option value="other" {{ old('vehicle_type', $driver->vehicle_type) == 'other' ? 'selected' : '' }}>{{ __('general.other') }}</option>
                                                     </select>
                                                     @error('vehicle_type')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
@@ -286,11 +286,11 @@
                                                     <label class="form-label" for="vehicle_model">{{ __('driver.vehicle_model') }}</label>
                                                     <select class="form-select select2" name="vehicle_model" id="vehicle_model">
                                                         <option value="">{{ __('general.select') }}</option>
-                                                        <option value="toyota" {{ old('vehicle_model') == 'toyota' ? 'selected' : '' }}>{{ __('driver.vehicle_model_toyota') }}</option>
-                                                        <option value="nissan" {{ old('vehicle_model') == 'nissan' ? 'selected' : '' }}>{{ __('driver.vehicle_model_nissan') }}</option>
-                                                        <option value="ford" {{ old('vehicle_model') == 'ford' ? 'selected' : '' }}>{{ __('driver.vehicle_model_ford') }}</option>
-                                                        <option value="mercedes" {{ old('vehicle_model') == 'mercedes' ? 'selected' : '' }}>{{ __('driver.vehicle_model_mercedes') }}</option>
-                                                        <option value="other" {{ old('vehicle_model') == 'other' ? 'selected' : '' }}>{{ __('general.other') }}</option>
+                                                        <option value="toyota" {{ old('vehicle_model' , $driver->vehicle_model) == 'toyota' ? 'selected' : '' }}>{{ __('driver.vehicle_model_toyota') }}</option>
+                                                        <option value="nissan" {{ old('vehicle_model', $driver->vehicle_model) == 'nissan' ? 'selected' : '' }}>{{ __('driver.vehicle_model_nissan') }}</option>
+                                                        <option value="ford" {{ old('vehicle_model', $driver->vehicle_model) == 'ford' ? 'selected' : '' }}>{{ __('driver.vehicle_model_ford') }}</option>
+                                                        <option value="mercedes" {{ old('vehicle_model', $driver->vehicle_model) == 'mercedes' ? 'selected' : '' }}>{{ __('driver.vehicle_model_mercedes') }}</option>
+                                                        <option value="other" {{ old('vehicle_model', $driver->vehicle_model) == 'other' ? 'selected' : '' }}>{{ __('general.other') }}</option>
                                                     </select>
                                                     @error('vehicle_model')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
@@ -302,7 +302,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="vehicle_number">{{ __('driver.vehicle_number') }}</label>
-                                                    <input type="text" class="form-control" name="vehicle_number" value="{{ old('vehicle_number') }}" placeholder="{{ __('driver.vehicle_number') }}" id="vehicle_number">
+                                                    <input type="text" class="form-control" name="vehicle_number" value="{{ old('vehicle_number' , $driver->vehicle_number) }}" placeholder="{{ __('driver.vehicle_number') }}" id="vehicle_number">
                                                     @error('vehicle_number')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
                                             </div>
@@ -313,14 +313,14 @@
                                                     <label class="form-label" for="vehicle_color">{{ __('driver.vehicle_color') }}</label>
                                                     <select class="form-select select2" name="vehicle_color" id="vehicle_color">
                                                         <option value="">{{ __('general.select') }}</option>
-                                                        <option value="white" {{ old('vehicle_color') == 'white' ? 'selected' : '' }}>{{ __('driver.vehicle_color_white') }}</option>
-                                                        <option value="black" {{ old('vehicle_color') == 'black' ? 'selected' : '' }}>{{ __('driver.vehicle_color_black') }}</option>
-                                                        <option value="silver" {{ old('vehicle_color') == 'silver' ? 'selected' : '' }}>{{ __('driver.vehicle_color_silver') }}</option>
-                                                        <option value="red" {{ old('vehicle_color') == 'red' ? 'selected' : '' }}>{{ __('driver.vehicle_color_red') }}</option>
-                                                        <option value="blue" {{ old('vehicle_color') == 'blue' ? 'selected' : '' }}>{{ __('driver.vehicle_color_blue') }}</option>
-                                                        <option value="green" {{ old('vehicle_color') == 'green' ? 'selected' : '' }}>{{ __('driver.vehicle_color_green') }}</option>
-                                                        <option value="gray" {{ old('vehicle_color') == 'gray' ? 'selected' : '' }}>{{ __('driver.vehicle_color_gray') }}</option>
-                                                        <option value="other" {{ old('vehicle_color') == 'other' ? 'selected' : '' }}>{{ __('general.other') }}</option>
+                                                        <option value="white" {{ old('vehicle_color' , $driver->vehicle_color) == 'white' ? 'selected' : '' }}>{{ __('driver.vehicle_color_white') }}</option>
+                                                        <option value="black" {{ old('vehicle_color', $driver->vehicle_color) == 'black' ? 'selected' : '' }}>{{ __('driver.vehicle_color_black') }}</option>
+                                                        <option value="silver" {{ old('vehicle_color', $driver->vehicle_color) == 'silver' ? 'selected' : '' }}>{{ __('driver.vehicle_color_silver') }}</option>
+                                                        <option value="red" {{ old('vehicle_color', $driver->vehicle_color) == 'red' ? 'selected' : '' }}>{{ __('driver.vehicle_color_red') }}</option>
+                                                        <option value="blue" {{ old('vehicle_color', $driver->vehicle_color) == 'blue' ? 'selected' : '' }}>{{ __('driver.vehicle_color_blue') }}</option>
+                                                        <option value="green" {{ old('vehicle_color', $driver->vehicle_color) == 'green' ? 'selected' : '' }}>{{ __('driver.vehicle_color_green') }}</option>
+                                                        <option value="gray" {{ old('vehicle_color', $driver->vehicle_color) == 'gray' ? 'selected' : '' }}>{{ __('driver.vehicle_color_gray') }}</option>
+                                                        <option value="other" {{ old('vehicle_color', $driver->vehicle_color) == 'other' ? 'selected' : '' }}>{{ __('general.other') }}</option>
                                                     </select>
                                                     @error('vehicle_color')<span class="text-danger">{{ $message }}</span>@enderror
                                                 </div>
