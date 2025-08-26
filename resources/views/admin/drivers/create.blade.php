@@ -40,6 +40,13 @@
             border-color: #198754 !important;
             box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25) !important;
         }
+
+        #map {
+            height: 400px;
+            width: 100%;
+            min-height: 300px;
+            z-index: 1;
+        }
     </style>
 @endsection
 
@@ -828,11 +835,52 @@
     <!-- متعلق بالخريطة  -->
 
     <!-- تضمين مكتبة Leaflet CSS و JS -->
+    <!-- متعلق بالخريطة  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            let map, marker;
+
+            // دالة لتهيئة الخريطة
+            function initMap() {
+                // إحداثيات البداية: إذا موجودة من الـ old أو من التاجر، وإلا وسط الرياض
+                var initialLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
+                var initialLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
+
+                // إنشاء الخريطة
+                map = L.map('map').setView([initialLat, initialLng], 13);
+
+                // إضافة طبقة OpenStreetMap
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
+
+                // إنشاء العلامة القابلة للسحب
+                marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
+
+                // تحديث الحقول عند تحريك العلامة
+                marker.on('dragend', function(e) {
+                    var latlng = marker.getLatLng();
+                    document.getElementById('latitude').value = latlng.lat.toFixed(7);
+                    document.getElementById('longitude').value = latlng.lng.toFixed(7);
+                    updateFieldsFromLatLng(latlng.lat, latlng.lng);
+                });
+
+                // تحديث العلامة عند النقر على الخريطة
+                map.on('click', function(e) {
+                    marker.setLatLng(e.latlng);
+                    document.getElementById('latitude').value = e.latlng.lat.toFixed(7);
+                    document.getElementById('longitude').value = e.latlng.lng.toFixed(7);
+                    updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
+                });
+
+                // تعبئة الحقول لأول مرة عند التحميل إذا كانت الإحداثيات موجودة
+                if(initialLat && initialLng){
+                    updateFieldsFromLatLng(initialLat, initialLng);
+                }
+            }
 
             // دالة لتحديث الحقول من خط الطول والعرض
             function updateFieldsFromLatLng(lat, lng){
@@ -844,47 +892,35 @@
                             document.getElementById('region').value = data.address.state || '';
                             document.getElementById('city').value = data.address.city || data.address.town || data.address.village || '';
                             document.getElementById('district').value = data.address.suburb || '';
-                            document.getElementById('postal_code').value = data.address.postcode || '';
                         }
                     });
             }
 
-            // إحداثيات البداية: إذا موجودة من الـ old أو من التاجر، وإلا وسط الرياض
-            var initialLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
-            var initialLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
+            // تهيئة الخريطة لأول مرة
+            initMap();
 
-            // إنشاء الخريطة
-            var map = L.map('map').setView([initialLat, initialLng], 13);
-
-            // إضافة طبقة OpenStreetMap
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
-
-            // إنشاء العلامة القابلة للسحب
-            var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
-
-            // تحديث الحقول عند تحريك العلامة
-            marker.on('dragend', function(e) {
-                var latlng = marker.getLatLng();
-                document.getElementById('latitude').value = latlng.lat.toFixed(7);
-                document.getElementById('longitude').value = latlng.lng.toFixed(7);
-                updateFieldsFromLatLng(latlng.lat, latlng.lng);
+            // إعادة رسم الخريطة عند التبديل بين التبويبات
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var target = $(e.target).attr("href");
+                if (target === '#driver-information') {
+                    setTimeout(function() {
+                        if (typeof map !== 'undefined') {
+                            map.invalidateSize();
+                            // إعادة المركز إلى الإحداثيات الحالية
+                            var currentLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
+                            var currentLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
+                            map.setView([currentLat, currentLng], 13);
+                        }
+                    }, 300);
+                }
             });
 
-            // تحديث العلامة عند النقر على الخريطة
-            map.on('click', function(e) {
-                marker.setLatLng(e.latlng);
-                document.getElementById('latitude').value = e.latlng.lat.toFixed(7);
-                document.getElementById('longitude').value = e.latlng.lng.toFixed(7);
-                updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
-            });
-
-            // تعبئة الحقول لأول مرة عند التحميل إذا كانت الإحداثيات موجودة
-            if(initialLat && initialLng){
-                updateFieldsFromLatLng(initialLat, initialLng);
-            }
-
+            // إعادة رسم الخريطة عند تحميل الصفحة بالكامل
+            setTimeout(function() {
+                if (typeof map !== 'undefined') {
+                    map.invalidateSize();
+                }
+            }, 1000);
         });
     </script>
 
@@ -1105,6 +1141,51 @@
             setupErrorAutoDismiss();
 
             // باقي الكود السابق...
+        });
+    </script>
+
+    <!-- متعلق بـ wizard وإعادة رسم الخريطة -->
+    <script>
+        $(document).ready(function() {
+            // إعادة رسم الخريطة عند التبديل بين خطوات الـ wizard
+            $('.twitter-bs-wizard-nav a').on('click', function() {
+                var target = $(this).attr('href');
+                if (target === '#driver-information') {
+                    setTimeout(function() {
+                        if (typeof map !== 'undefined') {
+                            map.invalidateSize();
+                            // تأكيد أن الخريطة تعيد حساب حجمها
+                            var currentLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
+                            var currentLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
+                            map.setView([currentLat, currentLng], 13);
+                        }
+                    }, 400);
+                }
+            });
+
+            // إعادة رسم الخريطة عند النقر على أزرار next/previous
+            $('.twitter-bs-wizard-pager-link a').on('click', function() {
+                setTimeout(function() {
+                    var activeTab = $('.twitter-bs-wizard-tab-content .tab-pane.active');
+                    if (activeTab.attr('id') === 'driver-information') {
+                        if (typeof map !== 'undefined') {
+                            map.invalidateSize();
+                            var currentLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
+                            var currentLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
+                            map.setView([currentLat, currentLng], 13);
+                        }
+                    }
+                }, 300);
+            });
+        });
+
+        // إعادة رسم الخريطة عند تغيير حجم النافذة
+        $(window).on('resize', function() {
+            if (typeof map !== 'undefined') {
+                setTimeout(function() {
+                    map.invalidateSize();
+                }, 300);
+            }
         });
     </script>
 @endsection
