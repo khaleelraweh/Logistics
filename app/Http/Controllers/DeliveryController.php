@@ -169,26 +169,41 @@ class DeliveryController extends Controller
 
         try {
             $input = [
-                'driver_id'   => $request->driver_id,
                 'package_id'  => $request->package_id,
-                'assigned_at' => $delivery->assigned_at, // الحفاظ على الوقت السابق
+                'assigned_at' => $delivery->assigned_at, // الحفاظ على وقت الإسناد
                 'status'      => $request->status ?? $delivery->status,
                 'note'        => $request->note,
                 'updated_by'  => auth()->user()->name,
             ];
 
-            // إذا تغيرت الحالة إلى delivered لأول مرة، نملأ delivered_at
+            // 1. التحقق إذا تغير السائق
+            if ($delivery->driver_id != $request->driver_id) {
+                $oldDriver = $delivery->driver?->name ?? '-';
+                $newDriver = Driver::find($request->driver_id)?->name ?? '-';
+                $input['driver_id'] = $request->driver_id;
+
+                // تسجيل تغيير السائق في السجل الزمني
+                $delivery->package->addLog(
+                    __('delivery.driver_changed', [
+                        'old_driver' => $oldDriver,
+                        'new_driver' => $newDriver,
+                    ]),
+                    $request->driver_id
+                );
+            }
+
+            // 2. إذا الحالة أصبحت delivered لأول مرة، نملأ delivered_at
             if ($input['status'] === 'delivered' && !$delivery->delivered_at) {
                 $input['delivered_at'] = now();
             }
 
-            // تحديث التوصيل
+            // 3. تحديث التوصيل
             $delivery->update($input);
 
-            // تحديث حالة الطرد
+            // 4. تحديث حالة الطرد
             $delivery->package->update(['status' => $input['status']]);
 
-            // إضافة سجل في السجل الزمني
+            // 5. تسجيل تحديث الحالة في السجل الزمني
             $delivery->package->addLog(
                 __('delivery.delivery_updated_status', [
                     'status' => __('package.status_' . $delivery->status),
@@ -209,6 +224,7 @@ class DeliveryController extends Controller
             ]);
         }
     }
+
 
 
     /**

@@ -94,7 +94,7 @@
 
 
                     {{-- Assigned At --}}
-                    <div class="row mb-3">
+                    {{-- <div class="row mb-3">
                         <label class="col-sm-2 col-form-label" for="assigned_at">{{ __('delivery.assigned_at') }}</label>
                         <div class="col-sm-10">
                             <input type="date" name="assigned_at" class="form-control" id="assigned_at" value="{{ old('assigned_at', now()->format('Y-m-d')) }}">
@@ -102,7 +102,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{-- Status --}}
                     <div class="row mb-3">
