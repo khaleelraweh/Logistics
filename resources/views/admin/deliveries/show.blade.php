@@ -188,17 +188,19 @@
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            border-left: 3px solid;
+            /* border-left: 3px solid; */
         }
 
         .timeline-item:nth-child(odd) .timeline-content {
             /* margin-right: 40px; */
             text-align: right;
+            border-right: 3px solid;
         }
 
         .timeline-item:nth-child(even) .timeline-content {
             /* margin-left: 40px; */
             text-align: left;
+            border-left: 3px solid;
         }
 
         .timeline-item:nth-child(odd) .timeline-content::before {
