@@ -196,9 +196,11 @@ class DriverController extends Controller
             return redirect('admin/index');
         }
 
+        $supervisors = User::WhereHasRoles('supervisor')->active()->get(['id', 'first_name', 'last_name' , 'email']);
+
         $driver = DriverModel::where('id', $driver)->first();
 
-        return view('admin.drivers.edit',compact('driver'));
+        return view('admin.drivers.edit',compact('driver' , 'supervisors'));
     }
 
     /**
