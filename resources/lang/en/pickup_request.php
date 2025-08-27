@@ -47,4 +47,5 @@ return [
     'completed_at'                   =>  'Completed At',
     'location_info'                 =>  'Location Information',
     'pickup_location'                 =>  'Pickup Location',
+    'merchant_location_available'   =>  'Merchant Location Available',
 ];

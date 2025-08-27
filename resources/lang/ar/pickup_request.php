@@ -47,4 +47,5 @@ return [
     'completed_at'                   =>  'تم الانجاز في',
     'location_info'                 =>  'معلومات الموقع',
     'pickup_location'                 =>  'موقع الاستلام',
+    'merchant_location_available'   =>  'موقع التاجر متاح',
 ];

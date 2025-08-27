@@ -286,82 +286,82 @@
 
             document.addEventListener('DOMContentLoaded', function () {
 
-    // إعداد الخريطة
-    var map = L.map('pickupMap').setView([24.7136, 46.6753], 6);
+            // إعداد الخريطة
+            var map = L.map('pickupMap').setView([24.7136, 46.6753], 6);
 
-    // إضافة خريطة OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+            // إضافة خريطة OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
 
-    // تعريف أيقونات
-    var pickupIcon = L.icon({
-        iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // أيقونة الطلب
-        iconSize: [35, 35]
-    });
+            // تعريف أيقونات
+            var pickupIcon = L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // أيقونة الطلب
+                iconSize: [35, 35]
+            });
 
-    var merchantIcon = L.icon({
-        iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149059.png', // أيقونة التاجر
-        iconSize: [30, 30]
-    });
+            var merchantIcon = L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149059.png', // أيقونة التاجر
+                iconSize: [30, 30]
+            });
 
-    var driverIcon = L.divIcon({
-        html: '<i class="fas fa-car" style="font-size:24px; color:#007bff;"></i>',
-        className: 'custom-car-icon',
-        iconSize: [30, 30],
-        iconAnchor: [15, 15],
-        popupAnchor: [0, -15]
-    });
+            var driverIcon = L.divIcon({
+                html: '<i class="fas fa-car" style="font-size:24px; color:#007bff;"></i>',
+                className: 'custom-car-icon',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15],
+                popupAnchor: [0, -15]
+            });
 
-    // مصفوفة لتخزين الماركرات
-    var markers = [];
+            // مصفوفة لتخزين الماركرات
+            var markers = [];
 
-    // لتجنب تداخل الإحداثيات: تخزين المواقع المكررة
-    var positions = {};
-    function getOffsetLatLng(lat, lng) {
-        var key = lat.toFixed(6) + ',' + lng.toFixed(6);
-        if (positions[key]) {
-            positions[key] += 0.0002; // إزاحة بسيطة على خط العرض
-        } else {
-            positions[key] = 0;
-        }
-        return [lat + positions[key], lng];
-    }
+            // لتجنب تداخل الإحداثيات: تخزين المواقع المكررة
+            var positions = {};
+            function getOffsetLatLng(lat, lng) {
+                var key = lat.toFixed(6) + ',' + lng.toFixed(6);
+                if (positions[key]) {
+                    positions[key] += 0.0002; // إزاحة بسيطة على خط العرض
+                } else {
+                    positions[key] = 0;
+                }
+                return [lat + positions[key], lng];
+            }
 
-    // دبوس الطلب
-    @if($pickupRequest->latitude && $pickupRequest->longitude)
-        var [lat, lng] = getOffsetLatLng({{ $pickupRequest->latitude }}, {{ $pickupRequest->longitude }});
-        var pickupMarker = L.marker([lat, lng], {icon: pickupIcon})
-            .addTo(map)
-            .bindPopup("{{ __('pickup_request.pickup_location') }}");
-        markers.push(pickupMarker);
-    @endif
+            // دبوس الطلب
+            @if($pickupRequest->latitude && $pickupRequest->longitude)
+                var [lat, lng] = getOffsetLatLng({{ $pickupRequest->latitude }}, {{ $pickupRequest->longitude }});
+                var pickupMarker = L.marker([lat, lng], {icon: pickupIcon})
+                    .addTo(map)
+                    .bindPopup("{{ __('pickup_request.pickup_location') }}");
+                markers.push(pickupMarker);
+            @endif
 
-    // دبوس التاجر
-    @if($pickupRequest->merchant && $pickupRequest->merchant->latitude && $pickupRequest->merchant->longitude)
-        var [lat, lng] = getOffsetLatLng({{ $pickupRequest->merchant->latitude }}, {{ $pickupRequest->merchant->longitude }});
-        var merchantMarker = L.marker([lat, lng], {icon: merchantIcon})
-            .addTo(map)
-            .bindPopup("{{ __('merchant.merchant_location') }}: {{ $pickupRequest->merchant->name }}");
-        markers.push(merchantMarker);
-    @endif
+            // دبوس التاجر
+            @if($pickupRequest->merchant && $pickupRequest->merchant->latitude && $pickupRequest->merchant->longitude)
+                var [lat, lng] = getOffsetLatLng({{ $pickupRequest->merchant->latitude }}, {{ $pickupRequest->merchant->longitude }});
+                var merchantMarker = L.marker([lat, lng], {icon: merchantIcon})
+                    .addTo(map)
+                    .bindPopup("{{ __('merchant.merchant_location') }}: {{ $pickupRequest->merchant->name }}");
+                markers.push(merchantMarker);
+            @endif
 
-    // دبوس السائق
-    @if($pickupRequest->driver && $pickupRequest->driver->latitude && $pickupRequest->driver->longitude)
-        var [lat, lng] = getOffsetLatLng({{ $pickupRequest->driver->latitude }}, {{ $pickupRequest->driver->longitude }});
-        var driverMarker = L.marker([lat, lng], {icon: driverIcon})
-            .addTo(map)
-            .bindPopup("{{ __('driver.driver_location') }}: {{ $pickupRequest->driver->first_name }}");
-        markers.push(driverMarker);
-    @endif
+            // دبوس السائق
+            @if($pickupRequest->driver && $pickupRequest->driver->latitude && $pickupRequest->driver->longitude)
+                var [lat, lng] = getOffsetLatLng({{ $pickupRequest->driver->latitude }}, {{ $pickupRequest->driver->longitude }});
+                var driverMarker = L.marker([lat, lng], {icon: driverIcon})
+                    .addTo(map)
+                    .bindPopup("{{ __('driver.driver_location') }}: {{ $pickupRequest->driver->first_name }}");
+                markers.push(driverMarker);
+            @endif
 
-    // ضبط حدود الخريطة لتشمل جميع الماركرات
-    if(markers.length > 0){
-        var group = new L.featureGroup(markers);
-        map.fitBounds(group.getBounds().pad(0.2));
-    }
+            // ضبط حدود الخريطة لتشمل جميع الماركرات
+            if(markers.length > 0){
+                var group = new L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.2));
+            }
 
-});
+        });
 
 
         </script>
