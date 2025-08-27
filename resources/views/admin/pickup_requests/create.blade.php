@@ -23,10 +23,18 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">{{ __('pickup_request.pickup_request_info') }}</h4>
 
                     <form action="{{ route('admin.pickup_requests.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+
+                         <!-- Address Section -->
+                        <div class="mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                    <i class="bi bi-geo-alt text-primary"></i>
+                                </div>
+                                <h5 class="mb-0">{{ __('pickup_request.pickup_request_info') }}</h5>
+                            </div>
 
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="merchant_id">{{ __('merchant.name') }}</label>
@@ -64,6 +72,8 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                        </div>
+
                         </div>
 
                         <!-- Address Section -->
@@ -123,15 +133,6 @@
                             </div>
 
 
-                            <div class="row mb-3">
-                                <label class="col-md-2 col-form-label" for="others">{{ __('general.additional_notes') }}</label>
-                                <div class="col-md-10">
-                                    <input name="others" class="form-control" id="others" type="text" value="{{ old('others') }}">
-                                    @error('others')
-                                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
                         </div>
 
                         <div class="row mb-3">
