@@ -142,5 +142,6 @@ return [
     'available_on_map'    => 'Available on Map',
     'the_driver'           => 'Driver',
     'driver'                =>  'Driver',
+    'driver_location'       => 'Driver Location',
 
 ];

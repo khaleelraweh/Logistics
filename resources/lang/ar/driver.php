@@ -142,6 +142,7 @@ return [
     'available_on_map'    => 'متاح على الخريطة',
     'the_driver'           => 'السائق',
     'driver'               => 'السائق',
+    'driver_location' => 'موقع السائق',
 
 
 
