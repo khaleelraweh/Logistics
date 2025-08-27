@@ -103,7 +103,7 @@
                                             ];
                                         @endphp
                                         <span class="{{ $statusClass[$request->status] ?? 'badge bg-secondary' }}">
-                                            {{ ucfirst($request->status) }}
+                                            {{ __('pickup_request.status_' . $request->status) }}
                                         </span>
                                     </td>
                                     <td>{{ $request->created_at->diffForHumans() }}</td>
