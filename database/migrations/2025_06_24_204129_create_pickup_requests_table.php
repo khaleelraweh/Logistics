@@ -37,6 +37,12 @@ return new class extends Migration
             // الوقت المجدول للاستلام من التاجر
             $table->dateTime('scheduled_at')->nullable();
 
+            // الوقت الفعلي لاستلام الطلب من التاجر
+            $table->dateTime('accepted_at')->nullable();
+
+            // الوقت الفعلي للاستلام من التاجر
+            $table->dateTime('completed_at')->nullable();
+
             // حالة الطلب: pending, accepted, completed
             $table->enum('status', ['pending', 'accepted', 'completed'])->default('pending');
 
