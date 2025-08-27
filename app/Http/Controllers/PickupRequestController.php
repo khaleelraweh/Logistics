@@ -33,44 +33,98 @@ class PickupRequestController extends Controller
     //     return view('admin.pickup_requests.index', compact('pickupRequests'));
     // }
 
+    // public function index()
+    // {
+    //     if (!auth()->user()->ability('admin', 'manage_pickup_requests, show_pickup_requests')) {
+    //         return redirect('admin/index');
+    //     }
+
+    //     // جلب السائقين والتجار للفلتر
+    //     $drivers   = \App\Models\Driver::all();
+    //     $merchants = \App\Models\Merchant::all();
+
+    //     $pickupRequests = \App\Models\PickupRequest::query()
+    //         ->when(request()->keyword != null, function ($query) {
+    //             $query->search(request()->keyword);
+    //         })
+    //         ->when(request()->status != null, function ($query) {
+    //             $query->where('status', request()->status);
+    //         })
+    //         ->when(request()->driver_id != null, function ($query) {
+    //             $query->where('driver_id', request()->driver_id);
+    //         })
+    //         ->when(request()->merchant_id != null, function ($query) {
+    //             $query->where('merchant_id', request()->merchant_id);
+    //         })
+    //         ->when(request()->scheduled_from != null, function ($query) {
+    //             $query->whereDate('scheduled_at', '>=', request()->scheduled_from);
+    //         })
+    //         ->when(request()->scheduled_to != null, function ($query) {
+    //             $query->whereDate('scheduled_at', '<=', request()->scheduled_to);
+    //         })
+    //         ->orderByRaw(
+    //             request()->sort_by == 'scheduled_at'
+    //                 ? 'scheduled_at IS NULL, scheduled_at ' . (request()->order_by ?? 'desc')
+    //                 : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
+    //         )
+    //         ->paginate(request()->limit_by ?? 20);
+
+    //     return view('admin.pickup_requests.index', compact('pickupRequests', 'drivers', 'merchants'));
+    // }
+
     public function index()
-{
-    if (!auth()->user()->ability('admin', 'manage_pickup_requests, show_pickup_requests')) {
-        return redirect('admin/index');
+    {
+        if (!auth()->user()->ability('admin', 'manage_pickup_requests, show_pickup_requests')) {
+            return redirect('admin/index');
+        }
+
+        // جلب السائقين والتجار للفلتر
+        $drivers   = \App\Models\Driver::all();
+        $merchants = \App\Models\Merchant::all();
+
+        $pickupRequests = \App\Models\PickupRequest::query()
+            ->when(request()->keyword != null, function ($query) {
+                $query->search(request()->keyword);
+            })
+            ->when(request()->status != null, function ($query) {
+                $query->where('status', request()->status);
+            })
+            ->when(request()->driver_id != null, function ($query) {
+                $query->where('driver_id', request()->driver_id);
+            })
+            ->when(request()->merchant_id != null, function ($query) {
+                $query->where('merchant_id', request()->merchant_id);
+            })
+
+            // فلترة حسب التواريخ
+            ->when(request()->date_type != null, function ($query) {
+                $dateType   = request()->date_type;   // نوع التاريخ (scheduled_at, appointment_date, acceptance_date, completion_date)
+                $fromDate   = request()->scheduled_from;
+                $toDate     = request()->scheduled_to;
+
+                if ($fromDate && $toDate) {
+                    // من تاريخ إلى تاريخ
+                    $query->whereBetween($dateType, [$fromDate, $toDate]);
+                } elseif ($fromDate && !$toDate) {
+                    // يوم محدد فقط
+                    $query->whereDate($dateType, '=', $fromDate);
+                } elseif (!$fromDate && $toDate) {
+                    // يوم محدد فقط
+                    $query->whereDate($dateType, '=', $toDate);
+                }
+            })
+
+            // ترتيب
+            ->orderByRaw(
+                request()->sort_by == 'scheduled_at'
+                    ? 'scheduled_at IS NULL, scheduled_at ' . (request()->order_by ?? 'desc')
+                    : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
+            )
+            ->paginate(request()->limit_by ?? 20);
+
+        return view('admin.pickup_requests.index', compact('pickupRequests', 'drivers', 'merchants'));
     }
 
-    // جلب السائقين والتجار للفلتر
-    $drivers   = \App\Models\Driver::all();
-    $merchants = \App\Models\Merchant::all();
-
-    $pickupRequests = \App\Models\PickupRequest::query()
-        ->when(request()->keyword != null, function ($query) {
-            $query->search(request()->keyword);
-        })
-        ->when(request()->status != null, function ($query) {
-            $query->where('status', request()->status);
-        })
-        ->when(request()->driver_id != null, function ($query) {
-            $query->where('driver_id', request()->driver_id);
-        })
-        ->when(request()->merchant_id != null, function ($query) {
-            $query->where('merchant_id', request()->merchant_id);
-        })
-        ->when(request()->scheduled_from != null, function ($query) {
-            $query->whereDate('scheduled_at', '>=', request()->scheduled_from);
-        })
-        ->when(request()->scheduled_to != null, function ($query) {
-            $query->whereDate('scheduled_at', '<=', request()->scheduled_to);
-        })
-        ->orderByRaw(
-            request()->sort_by == 'scheduled_at'
-                ? 'scheduled_at IS NULL, scheduled_at ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
-        )
-        ->paginate(request()->limit_by ?? 20);
-
-    return view('admin.pickup_requests.index', compact('pickupRequests', 'drivers', 'merchants'));
-}
 
 
     /**
