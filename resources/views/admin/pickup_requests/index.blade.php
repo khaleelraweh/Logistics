@@ -104,21 +104,21 @@
                                         @endphp
                                         <span class="{{ $statusClass[$request->status] ?? 'badge bg-secondary' }}">
                                             {{ __('pickup_request.status_' . $request->status) }}
-                                            @if ($request->status == 'completed')
+                                        </span>
+                                        <br>
+                                         @if ($request->status == 'completed')
+                                            <span class="badge bg-light text-dark ms-1">
+                                                {{ $request->completed_at->diffForHumans() }}
+                                            </span>
+                                        @else
+                                            @if ($request->status == 'accepted')
                                                 <span class="badge bg-light text-dark ms-1">
-                                                    {{ $request->completed_at->diffForHumans() }}
+                                                    {{ $request->accepted_at->diffForHumans() }}
                                                 </span>
                                             @else
-                                                @if ($request->status == 'accepted')
-                                                    <span class="badge bg-light text-dark ms-1">
-                                                        {{ $request->accepted_at->diffForHumans() }}
-                                                    </span>
-                                                @else
 
-                                                @endif
                                             @endif
-
-                                        </span>
+                                        @endif
                                     </td>
                                     <td>{{ $request->created_at->diffForHumans() }}</td>
                                     <td>
