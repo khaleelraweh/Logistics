@@ -211,14 +211,13 @@
     </style>
 @endsection
 @section('content')
-    <div class="container-fluid py-4">
         <!-- Page Header -->
         <div class="page-header">
             <div class="row align-items-center">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <h4 class="mb-0"><i class="fas fa-truck-loading me-2"></i>{{ __('pickup_request.view_pickup_request') }}</h4>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-md-end mb-0">
                             <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
@@ -479,7 +478,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
 @endsection
 @section('script')
     <!-- JavaScript -->
