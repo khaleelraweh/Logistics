@@ -96,7 +96,7 @@
                                     <td>{{ $request->scheduled_at ? $request->scheduled_at->format('Y-m-d') : '-' }}</td>
                                     @php
                                         $driverParts = array_filter([
-                                            $request->driver->full_name,
+                                            $request->driver->driver_full_name,
                                             $request->driver->phone,
                                             $request->driver->email,
 
@@ -105,7 +105,7 @@
                                         $shortDriver = implode(' - ', array_slice($locationParts, 0, 2)); // أول قيمتين فقط
                                         $fullDriver = implode(' - ', $driverParts); // كامل النص
                                     @endphp
-                                    <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $fullDriver }}">
+                                    <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('general.by') }} {{ $fullDriver }}">
                                         @php
                                             $statusClass = [
                                                 'pending' => 'badge bg-warning',
