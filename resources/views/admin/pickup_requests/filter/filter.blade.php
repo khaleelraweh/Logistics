@@ -16,7 +16,7 @@
                 <div class="row g-2">
 
                     <!-- Keyword -->
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <input type="text" name="keyword" value="{{ request('keyword') }}" class="form-control" placeholder="{{ __('filter.search_here') }}">
                     </div>
 
@@ -59,6 +59,10 @@
                     <!-- Scheduled From -->
                     <div class="col-md-2">
                         <input type="date" name="scheduled_from" value="{{ request('scheduled_from') }}" class="form-control" placeholder="{{ __('filter.scheduled_from') }}">
+                    </div>
+
+                    <div class="col-md-1 mb-2 d-md-block" style="display:flex !important;justify-content: center;align-items: center;">
+                        {{ __('general.to') }}
                     </div>
 
                     <!-- Scheduled To -->
