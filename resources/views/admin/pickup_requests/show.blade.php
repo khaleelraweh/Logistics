@@ -17,13 +17,23 @@
 
 <div class="container-fluid py-4">
 
+
     <!-- Page Header -->
-    <div class="row mb-3">
-        <div class="col-12 d-flex justify-content-between align-items-center">
-            <h4 class="mb-0">{{ __('pickup_request.details') }} #{{ $pickupRequest->id }}</h4>
-            <a href="{{ route('admin.pickup_requests.index') }}" class="btn btn-secondary">
-                <i class="mdi mdi-arrow-left"></i> {{ __('general.back') }}
-            </a>
+    <div class="row ">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('pickup_request.view_pickup_request') }}</h4>
+
+                <div class="page-title-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.pickup_requests.index') }}">{{ __('pickup_request.manage_pickup_requests') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('pickup_request.view_pickup_request') }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
 

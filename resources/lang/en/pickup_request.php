@@ -48,4 +48,5 @@ return [
     'location_info'                 =>  'Location Information',
     'pickup_location'                 =>  'Pickup Location',
     'merchant_location_available'   =>  'Merchant Location Available',
+    'view_pickup_request'       =>  'View Pickup Request',
 ];

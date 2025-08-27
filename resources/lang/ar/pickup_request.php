@@ -48,4 +48,5 @@ return [
     'location_info'                 =>  'معلومات الموقع',
     'pickup_location'                 =>  'موقع الاستلام',
     'merchant_location_available'   =>  'موقع التاجر متاح',
+    'view_pickup_request'   =>  'عرض طلب الاستلام',
 ];
