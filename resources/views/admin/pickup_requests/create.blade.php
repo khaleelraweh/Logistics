@@ -105,20 +105,19 @@
 
 
                             <div class="row mb-3">
-                                <label class="col-md-2 col-form-label" for="postal_code">{{ __('general.postal_code') }}</label>
-                                <div class="col-md-10">
-                                    <input name="postal_code" class="form-control" id="postal_code" type="text" value="{{ old('postal_code') }}">
-                                    @error('postal_code')
-                                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-md-2 col-form-label">{{ __('general.location') }}</label>
-                                <div class="col-md-10">
-                                    <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="Latitude" value="{{ old('latitude', $merchant->latitude ?? '') }}">
-                                    <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="Longitude" value="{{ old('longitude', $merchant->longitude ?? '') }}">
+                                <div class="col-md-12">
+                                    {{-- <label class="form-label">{{ __('general.location') }}</label> --}}
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="{{ __('general.latitude') }}" value="{{ old('latitude', $merchant->latitude ?? '') }}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="{{ __('general.longitude') }}" value="{{ old('longitude', $merchant->longitude ?? '') }}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input name="postal_code" class="form-control" id="postal_code" type="text" value="{{ old('postal_code') }}" placeholder="{{ __('general.postal_code') }}">
+                                        </div>
+                                    </div>
                                     <div id="map" style="width: 100%; height: 300px;"></div>
                                 </div>
                             </div>
