@@ -4,23 +4,13 @@
 
 <div class="container-fluid py-4">
 
-
-      <!-- Page Header -->
-    <div class="row ">
-        <div class="col-12">
-            <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="mb-0 font-size-18">{{ __('pickup_request.add_pickup_request') }}</h4>
-
-                <div class="page-title-right">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.pickup_requests.index') }}">{{ __('pickup_request.manage_pickup_requests') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('pickup_request.add_pickup_request') }}</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
+    <!-- Page Header -->
+    <div class="row mb-3">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">{{ __('pickup_request.details') }} #{{ $pickupRequest->id }}</h4>
+            <a href="{{ route('admin.pickup_requests.index') }}" class="btn btn-secondary">
+                <i class="mdi mdi-arrow-left"></i> {{ __('general.back') }}
+            </a>
         </div>
     </div>
 
@@ -40,9 +30,7 @@
                         <tr>
                             <th>{{ __('pickup_request.status') }}</th>
                             <td>
-                                @php
-                                    $status = $pickupRequest->status;
-                                @endphp
+                                @php $status = $pickupRequest->status; @endphp
                                 @if($status == 'pending')
                                     <span class="badge bg-warning">{{ __('pickup_request.status_pending') }}</span>
                                 @elseif($status == 'accepted')
@@ -83,14 +71,14 @@
             </div>
         </div>
 
-        <!-- بيانات الموقع -->
+        <!-- بيانات الموقع + الخريطة -->
         <div class="col-md-6 mb-3">
             <div class="card">
                 <div class="card-header bg-secondary text-white">
                     {{ __('pickup_request.location_info') }}
                 </div>
                 <div class="card-body">
-                    <table class="table table-borderless mb-0">
+                    <table class="table table-borderless mb-3">
                         <tr>
                             <th>{{ __('general.country') }}</th>
                             <td>{{ $pickupRequest->country ?? '-' }}</td>
@@ -120,13 +108,20 @@
                             <td>{{ $pickupRequest->longitude ?? '-' }}</td>
                         </tr>
                     </table>
+
+                    @if($pickupRequest->latitude && $pickupRequest->longitude)
+                    <div id="pickupMap" style="height: 400px;"></div>
+                    @else
+                    <p class="text-muted">{{ __('pickup_request.no_location_available') }}</p>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- التاجر المرتبط -->
+    <!-- التاجر والسائق -->
     <div class="row">
+        <!-- التاجر -->
         <div class="col-md-6 mb-3">
             <div class="card">
                 <div class="card-header bg-success text-white">
@@ -134,19 +129,24 @@
                 </div>
                 <div class="card-body">
                     @if($pickupRequest->merchant)
-                    <p><strong>{{ __('merchant.name') }}:</strong> {{ $pickupRequest->merchant->name }}</p>
-                    <p><strong>{{ __('merchant.phone') }}:</strong> {{ $pickupRequest->merchant->phone }}</p>
-                    <p><strong>{{ __('merchant.email') }}:</strong> {{ $pickupRequest->merchant->email }}</p>
-                    <p><strong>{{ __('merchant.contact_person') }}:</strong> {{ $pickupRequest->merchant->contact_person ?? '-' }}</p>
-                    <p><strong>{{ __('merchant.address') }}:</strong> {{ $pickupRequest->merchant->city ?? '-' }}, {{ $pickupRequest->merchant->region ?? '-' }}, {{ $pickupRequest->merchant->country ?? '-' }}</p>
+                        <p><strong>{{ __('merchant.name') }}:</strong> {{ $pickupRequest->merchant->name }}</p>
+                        <p><strong>{{ __('merchant.phone') }}:</strong> {{ $pickupRequest->merchant->phone }}</p>
+                        <p><strong>{{ __('merchant.email') }}:</strong> {{ $pickupRequest->merchant->email }}</p>
+                        <p><strong>{{ __('merchant.contact_person') }}:</strong> {{ $pickupRequest->merchant->contact_person ?? '-' }}</p>
+                        <p><strong>{{ __('merchant.address') }}:</strong>
+                            {{ $pickupRequest->merchant->city ?? '-' }}, {{ $pickupRequest->merchant->region ?? '-' }}, {{ $pickupRequest->merchant->country ?? '-' }}
+                        </p>
+                        @if($pickupRequest->merchant->latitude && $pickupRequest->merchant->longitude)
+                            <p class="text-success">{{ __('pickup_request.merchant_location_available') }}</p>
+                        @endif
                     @else
-                    <p class="text-muted">{{ __('pickup_request.no_merchant') }}</p>
+                        <p class="text-muted">{{ __('pickup_request.no_merchant') }}</p>
                     @endif
                 </div>
             </div>
         </div>
 
-        <!-- السائق المرتبط -->
+        <!-- السائق -->
         <div class="col-md-6 mb-3">
             <div class="card">
                 <div class="card-header bg-info text-white">
@@ -154,17 +154,17 @@
                 </div>
                 <div class="card-body">
                     @if($pickupRequest->driver)
-                    <p><strong>{{ __('driver.name') }}:</strong>
-                        {{ $pickupRequest->driver->first_name ?? '' }}
-                        {{ $pickupRequest->driver->middle_name ?? '' }}
-                        {{ $pickupRequest->driver->last_name ?? '' }}
-                    </p>
-                    <p><strong>{{ __('driver.phone') }}:</strong> {{ $pickupRequest->driver->phone ?? '-' }}</p>
-                    <p><strong>{{ __('driver.vehicle_number') }}:</strong> {{ $pickupRequest->driver->vehicle_number ?? '-' }}</p>
-                    <p><strong>{{ __('driver.vehicle_type') }}:</strong>  {{ $pickupRequest->driver->vehicle_type ? __('driver.vehicle_type_'. $pickupRequest->driver->vehicle_type ) : '-'}} </p>
-                    <p><strong>{{ __('driver.vehicle_color') }}:</strong>  {{ $pickupRequest->driver->vehicle_color ? __('driver.vehicle_color_'. $pickupRequest->driver->vehicle_color ) : '-'}} </p>
+                        <p><strong>{{ __('driver.name') }}:</strong>
+                            {{ $pickupRequest->driver->first_name ?? '' }}
+                            {{ $pickupRequest->driver->middle_name ?? '' }}
+                            {{ $pickupRequest->driver->last_name ?? '' }}
+                        </p>
+                        <p><strong>{{ __('driver.phone') }}:</strong> {{ $pickupRequest->driver->phone ?? '-' }}</p>
+                        <p><strong>{{ __('driver.vehicle_number') }}:</strong> {{ $pickupRequest->driver->vehicle_number ?? '-' }}</p>
+                        <p><strong>{{ __('driver.vehicle_type') }}:</strong> {{ $pickupRequest->driver->vehicle_type ?? '-' }}</p>
+                        <p><strong>{{ __('driver.vehicle_color') }}:</strong> {{ $pickupRequest->driver->vehicle_color ?? '-' }}</p>
                     @else
-                    <p class="text-muted">{{ __('pickup_request.no_driver_assigned') }}</p>
+                        <p class="text-muted">{{ __('pickup_request.no_driver_assigned') }}</p>
                     @endif
                 </div>
             </div>
@@ -173,4 +173,55 @@
 
 </div>
 
+@endsection
+
+@section('scripts')
+    @if($pickupRequest->latitude && $pickupRequest->longitude)
+    <!-- Leaflet CSS/JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // إحداثيات الموقع الرئيسي للطلب
+                var pickupLat = {{ $pickupRequest->latitude }};
+                var pickupLng = {{ $pickupRequest->longitude }};
+
+                var map = L.map('pickupMap').setView([pickupLat, pickupLng], 13);
+
+                // إضافة خريطة OpenStreetMap
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
+
+                // مصفوفة لتخزين جميع الماركرات
+                var markers = [];
+
+                // دبوس الطلب
+                var pickupMarker = L.marker([pickupLat, pickupLng]).addTo(map)
+                    .bindPopup("{{ __('pickup_request.pickup_location') }}");
+                markers.push(pickupMarker);
+
+                // دبوس التاجر إذا كانت لديه إحداثيات
+                @if($pickupRequest->merchant && $pickupRequest->merchant->latitude && $pickupRequest->merchant->longitude)
+                    var merchantMarker = L.marker([{{ $pickupRequest->merchant->latitude }}, {{ $pickupRequest->merchant->longitude }}], {icon: L.icon({iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149059.png', iconSize: [30, 30]})})
+                        .addTo(map)
+                        .bindPopup("{{ __('merchant.merchant_location') }}: {{ $pickupRequest->merchant->name }}");
+                    markers.push(merchantMarker);
+                @endif
+
+                // دبوس السائق إذا كانت لديه إحداثيات
+                @if($pickupRequest->driver && $pickupRequest->driver->latitude && $pickupRequest->driver->longitude)
+                    var driverMarker = L.marker([{{ $pickupRequest->driver->latitude }}, {{ $pickupRequest->driver->longitude }}], {icon: L.icon({iconUrl: 'https://cdn-icons-png.flaticon.com/512/61/61112.png', iconSize: [30, 30]})})
+                        .addTo(map)
+                        .bindPopup("{{ __('driver.driver_location') }}: {{ $pickupRequest->driver->first_name }}");
+                    markers.push(driverMarker);
+                @endif
+
+                // ضبط حدود الخريطة لتشمل جميع الماركرات
+                var group = new L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.2));
+            });
+        </script>
+    @endif
 @endsection
