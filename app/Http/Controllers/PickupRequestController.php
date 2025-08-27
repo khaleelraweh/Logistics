@@ -161,23 +161,38 @@ class PickupRequestController extends Controller
             'driver_id' => 'nullable|exists:drivers,id',
         ]);
 
-        $pickupRequest->update([
-            'merchant_id' => $request->merchant_id,
-            'driver_id' => $request->driver_id,
 
-            'country'        => $request->country,
-            'region'         => $request->region,
-            'city'           => $request->city,
-            'district'       => $request->district,
-            'postal_code'    => $request->postal_code,
-            'latitude'       => $request->latitude,
-            'longitude'      => $request->longitude,
 
-            'scheduled_at' => $request->scheduled_at,
-            'status' => $request->status,
-            'note' => $request->note,
 
-        ]);
+            $input['merchant_id'] =  $request->merchant_id ;
+            $input['driver_id'] =    $request->driver_id ;
+
+            $input['country']        =   $request->country ;
+            $input['region']         =   $request->region ;
+            $input['city']           =   $request->city ;
+            $input['district']       =   $request->district ;
+            $input['postal_code']    =   $request->postal_code ;
+            $input['latitude']       =   $request->latitude ;
+            $input['longitude']      =   $request->longitude ;
+
+            $input['scheduled_at'] =     $request->scheduled_at ;
+            $input['status'] =   $request->status ;
+            $input['note'] =     $request->note ;
+
+            // 2. إذا الحالة أصبحت accepted لأول مرة، نملأ accepted_at
+            if ($input['status'] === 'accepted' && !$pickupRequest->accepted_at) {
+                $input['accepted_at'] = now();
+            }
+            // 3. إذا الحالة أصبحت completed لأول مرة، نملأ completed_at
+            if ($input['status'] === 'completed' && !$pickupRequest->completed_at) {
+                $input['completed_at'] = now();
+            }
+
+            $pickupRequest->update($input);
+
+
+
+
 
         return redirect()->route('admin.pickup_requests.index')->with([
             'message' => __('messages.pickup_request_updated'),
