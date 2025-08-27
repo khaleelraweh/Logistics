@@ -46,5 +46,5 @@ return [
     'accepted_at'                   =>  'تم القبول في',
     'completed_at'                   =>  'تم الانجاز في',
     'location_info'                 =>  'معلومات الموقع',
-    'pickup_address'                 =>  'عنوان الاستلام',
+    'pickup_location'                 =>  'موقع الاستلام',
 ];
