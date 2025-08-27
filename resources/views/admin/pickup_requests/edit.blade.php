@@ -132,10 +132,10 @@
                                 <div class="col-md-10">
                                     <div class="row">
                                             <div class="col-md-4">
-                                            <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="{{ __('general.latitude') }}" value="{{ old('latitude', $pickupRequest->country->latitude ?? '') }}">
+                                            <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="{{ __('general.latitude') }}" value="{{ old('latitude', $pickupRequest->latitude ?? '') }}">
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="{{ __('general.longitude') }}" value="{{ old('longitude', $pickupRequest->country->longitude ?? '') }}">
+                                            <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="{{ __('general.longitude') }}" value="{{ old('longitude', $pickupRequest->longitude ?? '') }}">
                                         </div>
                                         <div class="col-md-4">
                                             <input name="postal_code" class="form-control" id="postal_code" type="text" value="{{ old('postal_code' , $pickupRequest->postal_code) }}" placeholder="{{ __('general.postal_code') }}">
