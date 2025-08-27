@@ -108,7 +108,16 @@
                                                 <span class="badge bg-light text-dark ms-1">
                                                     {{ $request->completed_at->diffForHumans() }}
                                                 </span>
+                                            @else
+                                                @if ($request->status == 'accepted')
+                                                    <span class="badge bg-light text-dark ms-1">
+                                                        {{ $request->accepted_at->diffForHumans() }}
+                                                    </span>
+                                                @else
+
+                                                @endif
                                             @endif
+
                                         </span>
                                     </td>
                                     <td>{{ $request->created_at->diffForHumans() }}</td>
