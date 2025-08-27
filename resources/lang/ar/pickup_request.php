@@ -43,7 +43,7 @@ return [
     'status_canceled'             => 'ملغي',
     'status_failed'               => 'فشل',
     'status_in_progress'          => 'قيد التنفيذ',
-    'accepted_at'                   =>  '',
-    'completed_at'                   =>  '',
-    'location_info'                 =>  '',
+    'accepted_at'                   =>  'تم القبول في',
+    'completed_at'                   =>  'تم الانجاز في',
+    'location_info'                 =>  'معلومات الموقع',
 ];
