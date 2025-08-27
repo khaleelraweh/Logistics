@@ -116,19 +116,28 @@
 
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    {{-- <label class="form-label">{{ __('general.location') }}</label> --}}
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="{{ __('general.latitude') }}" value="{{ old('latitude', $merchant->latitude ?? '') }}">
+                                        <label class="col-md-2 col-form-label">{{ __('general.geographical_location') }}</label>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                 <div class="col-md-4">
+                                                    <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="{{ __('general.latitude') }}" value="{{ old('latitude', $merchant->latitude ?? '') }}">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="{{ __('general.longitude') }}" value="{{ old('longitude', $merchant->longitude ?? '') }}">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input name="postal_code" class="form-control" id="postal_code" type="text" value="{{ old('postal_code') }}" placeholder="{{ __('general.postal_code') }}">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div id="map" style="width: 100%; height: 300px;"></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="{{ __('general.longitude') }}" value="{{ old('longitude', $merchant->longitude ?? '') }}">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input name="postal_code" class="form-control" id="postal_code" type="text" value="{{ old('postal_code') }}" placeholder="{{ __('general.postal_code') }}">
-                                        </div>
+
                                     </div>
-                                    <div id="map" style="width: 100%; height: 300px;"></div>
                                 </div>
                             </div>
 

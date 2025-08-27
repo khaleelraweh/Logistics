@@ -231,7 +231,9 @@ return [
     'not_set'  => 'غير محدد',
     'file_uploaded' => 'تم رفع الملف بنجاح',
     'no_file'   =>  'لا يوجد ملف',
-    'review_driver_info'    => 'مراجعة معلومات السائق'
+    'review_driver_info'    => 'مراجعة معلومات السائق',
+    'geographical_location' => 'الموقع الجغرافي',
+
 ];
 
 
