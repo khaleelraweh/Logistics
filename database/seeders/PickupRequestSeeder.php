@@ -21,7 +21,6 @@ class PickupRequestSeeder extends Seeder
         PickupRequest::create([
             'merchant_id'     => $merchant->id,
             'driver_id'       => null, // يمكن تعيين سائق هنا إذا أردت، أو تركه فارغًا
-            'pickup_address'  => 'التحرير - صنعاء', // نص بسيط لعنوان الاستلام
             'scheduled_at'    => now()->addDays(2), // وقت مجدول للاستلام بعد يومين من الآن
             'status'          => 'pending', // الحالة الافتراضية
             'status_visible'  => true,

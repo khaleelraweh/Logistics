@@ -24,8 +24,15 @@ return new class extends Migration
             // السائق المكلف (اختياري لأنه قد لا يعين مباشرة)
             $table->foreignId('driver_id')->nullable()->constrained()->onDelete('set null');
 
-            // عنوان الاستلام بصيغة JSON (قد يحتوي على تفاصيل متعددة)
-            $table->string('pickup_address');
+
+            // العنوان الهدف
+            $table->string('country')->nullable();
+            $table->string('region')->nullable();
+            $table->string('city')->nullable();
+            $table->string('district')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();  // خط العرض
+            $table->decimal('longitude', 10, 7)->nullable();
 
             // الوقت المجدول للاستلام من التاجر
             $table->dateTime('scheduled_at')->nullable();
