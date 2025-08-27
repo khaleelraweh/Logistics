@@ -234,6 +234,7 @@ return [
     'no_file'   =>  'No File',
     'review_driver_info'    => 'Review Driver Information',
     'geographical_location' => 'Geographical Location',
+    'schedule_event'               => 'Schedule',
 
 
 ];

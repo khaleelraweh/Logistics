@@ -233,6 +233,7 @@ return [
     'no_file'   =>  'لا يوجد ملف',
     'review_driver_info'    => 'مراجعة معلومات السائق',
     'geographical_location' => 'الموقع الجغرافي',
+    'schedule_event'              =>  'جدولة الحدث',
 
 ];
 

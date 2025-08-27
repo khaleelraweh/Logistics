@@ -147,42 +147,49 @@
 
                         </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="scheduled_at">{{ __('pickup_request.scheduled_at') }}</label>
-                            <div class="col-sm-10">
-                                <input name="scheduled_at" class="form-control" id="scheduled_at" type="date" value="{{ old('scheduled_at', now()->format('Y-m-d')) }}">
-                                @error('scheduled_at')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                          <div class="mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                    <i class="bi bi-geo-alt text-primary"></i>
+                                </div>
+                                <h5 class="mb-0">{{ __('general.schedule_event') }}</h5>
                             </div>
-                        </div>
-
-                        {{-- Note --}}
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="note">{{ __('general.note') }}</label>
-                            <div class="col-sm-10">
-                                <textarea name="note" class="form-control" rows="3">{{ old('note') }}</textarea>
-                                @error('note')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="scheduled_at">{{ __('pickup_request.scheduled_at') }}</label>
+                                <div class="col-sm-10">
+                                    <input name="scheduled_at" class="form-control" id="scheduled_at" type="date" value="{{ old('scheduled_at', now()->format('Y-m-d')) }}">
+                                    @error('scheduled_at')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
 
-                        <hr>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="status">{{ __('general.status') }}</label>
-                            <div class="col-sm-10">
-                                <select name="status" class="form-control">
-                                    <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>{{ __('pickup_request.status_pending') }}</option>
-                                    <option value="accepted" {{ old('status') == 'accepted' ? 'selected' : '' }}>{{ __('pickup_request.status_accepted') }}</option>
-                                    <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>{{ __('pickup_request.status_completed') }}</option>
-                                </select>
-                                @error('status')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                            {{-- Note --}}
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="note">{{ __('general.note') }}</label>
+                                <div class="col-sm-10">
+                                    <textarea name="note" class="form-control" rows="3">{{ old('note') }}</textarea>
+                                    @error('note')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="status">{{ __('general.status') }}</label>
+                                <div class="col-sm-10">
+                                    <select name="status" class="form-control">
+                                        <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>{{ __('pickup_request.status_pending') }}</option>
+                                        <option value="accepted" {{ old('status') == 'accepted' ? 'selected' : '' }}>{{ __('pickup_request.status_accepted') }}</option>
+                                        <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>{{ __('pickup_request.status_completed') }}</option>
+                                    </select>
+                                    @error('status')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                          </div>
 
                         @ability('admin', 'create_pickup_requests')
                             <div class="text-end">
