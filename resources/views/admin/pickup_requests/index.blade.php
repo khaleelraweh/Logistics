@@ -46,7 +46,7 @@
                                 <th>{{ __('pickup_request.scheduled_at') }}</th>
                                 <th>{{ __('pickup_request.status') }}</th>
                                 <th>{{ __('general.created_at') }}</th>
-                                <th>{{ __('general.the_actions') }}</th>
+                                <th>{{ __('general.actions') }}</th>
                             </tr>
                         </thead>
 
