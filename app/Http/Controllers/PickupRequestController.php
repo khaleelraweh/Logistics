@@ -126,8 +126,8 @@ class PickupRequestController extends Controller
         }
 
         $pickupRequest = PickupRequest::findOrFail($id);
-        $merchants = Merchant::whereStatus(1)->get(['id', 'name','email']);
-        $drivers = Driver::whereStatus(1)->get(['id', 'name']);
+        $merchants = Merchant::whereStatus(1)->get(['id', 'name','email' , 'contact_person' , 'phone']);
+        $drivers = Driver::whereStatus(1)->get();
 
         return view('admin.pickup_requests.edit', compact('pickupRequest', 'merchants', 'drivers'));
     }
