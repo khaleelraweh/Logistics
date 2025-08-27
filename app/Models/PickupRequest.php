@@ -48,7 +48,11 @@ class PickupRequest extends Model
         ],
     ];
 
-
+    protected $casts = [
+        'scheduled_at' => 'datetime',
+        'accepted_at' => 'datetime',
+        'completed_at' => 'datetime',
+    ];
 
     public function driver()
     {

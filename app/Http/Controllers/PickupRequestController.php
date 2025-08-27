@@ -12,26 +12,66 @@ class PickupRequestController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // public function index()
+    // {
+    //     if (!auth()->user()->ability('admin', 'manage_pickup_requests, show_pickup_requests')) {
+    //         return redirect('admin/index');
+    //     }
+
+    //     $pickupRequests = PickupRequest::query()
+    //         ->when(request()->keyword != null, function ($query) {
+    //             $query->where('pickup_address', 'like', '%' . request()->keyword . '%');
+    //         })
+    //         ->when(request()->status != null, function ($query) {
+    //             $query->where('status', request()->status);
+    //         })
+    //         ->orderByRaw(request()->sort_by == 'scheduled_at'
+    //             ? 'scheduled_at IS NULL, scheduled_at ' . (request()->order_by ?? 'desc')
+    //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
+    //         ->paginate(request()->limit_by ?? 20);
+
+    //     return view('admin.pickup_requests.index', compact('pickupRequests'));
+    // }
+
     public function index()
-    {
-        if (!auth()->user()->ability('admin', 'manage_pickup_requests, show_pickup_requests')) {
-            return redirect('admin/index');
-        }
-
-        $pickupRequests = PickupRequest::query()
-            ->when(request()->keyword != null, function ($query) {
-                $query->where('pickup_address', 'like', '%' . request()->keyword . '%');
-            })
-            ->when(request()->status != null, function ($query) {
-                $query->where('status', request()->status);
-            })
-            ->orderByRaw(request()->sort_by == 'scheduled_at'
-                ? 'scheduled_at IS NULL, scheduled_at ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-            ->paginate(request()->limit_by ?? 20);
-
-        return view('admin.pickup_requests.index', compact('pickupRequests'));
+{
+    if (!auth()->user()->ability('admin', 'manage_pickup_requests, show_pickup_requests')) {
+        return redirect('admin/index');
     }
+
+    // جلب السائقين والتجار للفلتر
+    $drivers   = \App\Models\Driver::all();
+    $merchants = \App\Models\Merchant::all();
+
+    $pickupRequests = \App\Models\PickupRequest::query()
+        ->when(request()->keyword != null, function ($query) {
+            $query->search(request()->keyword);
+        })
+        ->when(request()->status != null, function ($query) {
+            $query->where('status', request()->status);
+        })
+        ->when(request()->driver_id != null, function ($query) {
+            $query->where('driver_id', request()->driver_id);
+        })
+        ->when(request()->merchant_id != null, function ($query) {
+            $query->where('merchant_id', request()->merchant_id);
+        })
+        ->when(request()->scheduled_from != null, function ($query) {
+            $query->whereDate('scheduled_at', '>=', request()->scheduled_from);
+        })
+        ->when(request()->scheduled_to != null, function ($query) {
+            $query->whereDate('scheduled_at', '<=', request()->scheduled_to);
+        })
+        ->orderByRaw(
+            request()->sort_by == 'scheduled_at'
+                ? 'scheduled_at IS NULL, scheduled_at ' . (request()->order_by ?? 'desc')
+                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
+        )
+        ->paginate(request()->limit_by ?? 20);
+
+    return view('admin.pickup_requests.index', compact('pickupRequests', 'drivers', 'merchants'));
+}
+
 
     /**
      * Show the form for creating a new resource.
