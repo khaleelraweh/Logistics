@@ -52,6 +52,10 @@ return [
     'no_return_requests_found'      =>  'لا توجد اي طلبات ارجاع',
     'view_merchant'                =>  'عرض التاجر',
     'merchant'                      =>  'التاجر',
+    'phone'                          =>  'رقم الهاتف',
+    'email'                         =>  'البريد الالكتروني',
+    'address'                       =>  'العنوان',
+
 
 
 
