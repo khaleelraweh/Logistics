@@ -43,4 +43,7 @@ return [
     'status_canceled'             => 'Canceled',
     'status_failed'               => 'Failed',
     'status_in_progress'          => 'In Progress',
+    'accepted_at'                   =>  'Accepted At',
+    'completed_at_at'                   =>  'Completed_at At',
+    'location_info'                 =>  'Location Information',
 ];

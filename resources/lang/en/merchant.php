@@ -51,6 +51,10 @@ return [
     'no_packages_found'             =>  'No Packages Found',
     'no_return_requests_found'      =>  'No Return Requests Found',
     'view_merchant'                =>  'View Merchant',
+    'merchant'                     =>  'Merchant',
+    'phone'                         =>  'phone',
+    'email'                         =>  'email',
+    'address'                         =>  'address',
 
 
 

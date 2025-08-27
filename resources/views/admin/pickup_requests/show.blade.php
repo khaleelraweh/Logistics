@@ -24,8 +24,8 @@
                 <div class="card-body">
                     <table class="table table-borderless mb-0">
                         <tr>
-                            <th>{{ __('pickup_request.pickup_address') }}</th>
-                            <td>{{ $pickupRequest->pickup_address ?? '-' }}</td>
+                            <th>{{ __('merchant.merchant') }}</th>
+                            <td>{{ $pickupRequest->merchant->name ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th>{{ __('pickup_request.status') }}</th>
