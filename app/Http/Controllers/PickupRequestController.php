@@ -145,7 +145,15 @@ class PickupRequestController extends Controller
 
         $request->validate([
             'merchant_id' => 'required|exists:merchants,id',
-            'pickup_address' => 'required|string|max:255',
+
+            'country' => 'nullable|string|max:255',
+            'region' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'district' => 'nullable|string|max:255',
+            'postal_code' => 'nullable|string|max:255',
+            'latitude' => 'nullable|string|max:255',
+            'longitude' => 'nullable|string|max:255',
+
             'scheduled_at' => 'nullable|date',
             'status' => 'required|in:pending,accepted,completed',
             'note' => 'nullable|string|max:255',
