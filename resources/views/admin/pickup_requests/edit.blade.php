@@ -97,25 +97,25 @@
 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <input name="country" class="form-control" id="country" type="text" value="{{ old('country') }}" placeholder="{{ __('general.country') }}">
+                                            <input name="country" class="form-control" id="country" type="text" value="{{ old('country', $pickupRequest->country) }}" placeholder="{{ __('general.country') }}">
                                             @error('country')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-md-3">
-                                            <input name="region" class="form-control" id="region" type="text" value="{{ old('region') }}" placeholder="{{ __('general.region') }}">
+                                            <input name="region" class="form-control" id="region" type="text" value="{{ old('region' , $pickupRequest->region) }}" placeholder="{{ __('general.region') }}">
                                             @error('region')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-md-3">
-                                            <input name="city" class="form-control" id="city" type="text" value="{{ old('city') }}" placeholder="{{ __('general.city') }}">
+                                            <input name="city" class="form-control" id="city" type="text" value="{{ old('city' , $pickupRequest->city) }}" placeholder="{{ __('general.city') }}">
                                             @error('city')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="col-md-3">
-                                            <input name="district" class="form-control" id="district" type="text" value="{{ old('district') }}" placeholder="{{ __('general.district') }}">
+                                            <input name="district" class="form-control" id="district" type="text" value="{{ old('district' , $pickupRequest->district) }}" placeholder="{{ __('general.district') }}">
                                             @error('district')
                                                 <div class="invalid-feedback d-block">{{ $message }}</div>
                                             @enderror
@@ -132,13 +132,13 @@
                                 <div class="col-md-10">
                                     <div class="row">
                                             <div class="col-md-4">
-                                            <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="{{ __('general.latitude') }}" value="{{ old('latitude', $merchant->latitude ?? '') }}">
+                                            <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="{{ __('general.latitude') }}" value="{{ old('latitude', $pickupRequest->country->latitude ?? '') }}">
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="{{ __('general.longitude') }}" value="{{ old('longitude', $merchant->longitude ?? '') }}">
+                                            <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="{{ __('general.longitude') }}" value="{{ old('longitude', $pickupRequest->country->longitude ?? '') }}">
                                         </div>
                                         <div class="col-md-4">
-                                            <input name="postal_code" class="form-control" id="postal_code" type="text" value="{{ old('postal_code') }}" placeholder="{{ __('general.postal_code') }}">
+                                            <input name="postal_code" class="form-control" id="postal_code" type="text" value="{{ old('postal_code' , $pickupRequest->postal_code) }}" placeholder="{{ __('general.postal_code') }}">
                                         </div>
                                     </div>
                                     <div class="row">
