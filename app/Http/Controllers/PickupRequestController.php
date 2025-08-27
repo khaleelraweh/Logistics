@@ -42,8 +42,8 @@ class PickupRequestController extends Controller
             return redirect('admin/index');
         }
 
-        $merchants = Merchant::whereStatus(1)->get(['id', 'name','email']);
-        $drivers = Driver::whereStatus(1)->get(['id', 'name']); // جلب السائقين النشطين فقط
+        $merchants = Merchant::whereStatus(1)->get(['id', 'name','contact_person','email','phone']);
+        $drivers = Driver::whereStatus(1)->get(['id', 'first_name','middle_name','last_name','phone','email']); // جلب السائقين النشطين فقط
 
         return view('admin.pickup_requests.create', compact('merchants','drivers'));
     }
