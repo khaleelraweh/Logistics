@@ -199,46 +199,91 @@
             crossorigin=""></script>
 
         <script>
+            // document.addEventListener('DOMContentLoaded', function () {
+            //     // إحداثيات الموقع الرئيسي للطلب
+            //     var pickupLat = {{ $pickupRequest->latitude }};
+            //     var pickupLng = {{ $pickupRequest->longitude }};
+
+            //     var map = L.map('pickupMap').setView([pickupLat, pickupLng], 13);
+
+            //     // إضافة خريطة OpenStreetMap
+            //     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            //         attribution: '&copy; OpenStreetMap contributors'
+            //     }).addTo(map);
+
+            //     // مصفوفة لتخزين جميع الماركرات
+            //     var markers = [];
+
+            //     // دبوس الطلب
+            //     var pickupMarker = L.marker([pickupLat, pickupLng]).addTo(map)
+            //         .bindPopup("{{ __('pickup_request.pickup_location') }}");
+            //     markers.push(pickupMarker);
+
+            //     // دبوس التاجر إذا كانت لديه إحداثيات
+            //     @if($pickupRequest->merchant && $pickupRequest->merchant->latitude && $pickupRequest->merchant->longitude)
+            //         var merchantMarker = L.marker([{{ $pickupRequest->merchant->latitude }}, {{ $pickupRequest->merchant->longitude }}], {icon: L.icon({iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149059.png', iconSize: [30, 30]})})
+            //             .addTo(map)
+            //             .bindPopup("{{ __('merchant.merchant_location') }}: {{ $pickupRequest->merchant->name }}");
+            //         markers.push(merchantMarker);
+            //     @endif
+
+            //     // دبوس السائق إذا كانت لديه إحداثيات
+            //     @if($pickupRequest->driver && $pickupRequest->driver->latitude && $pickupRequest->driver->longitude)
+            //         var driverMarker = L.marker([{{ $pickupRequest->driver->latitude }}, {{ $pickupRequest->driver->longitude }}], {icon: L.icon({iconUrl: 'https://cdn-icons-png.flaticon.com/512/61/61112.png', iconSize: [30, 30]})})
+            //             .addTo(map)
+            //             .bindPopup("{{ __('driver.driver_location') }}: {{ $pickupRequest->driver->first_name }}");
+            //         markers.push(driverMarker);
+            //     @endif
+
+            //     // ضبط حدود الخريطة لتشمل جميع الماركرات
+            //     var group = new L.featureGroup(markers);
+            //     map.fitBounds(group.getBounds().pad(0.2));
+            // });
+
             document.addEventListener('DOMContentLoaded', function () {
-                // إحداثيات الموقع الرئيسي للطلب
-                var pickupLat = {{ $pickupRequest->latitude }};
-                var pickupLng = {{ $pickupRequest->longitude }};
+    var map = L.map('pickupMap').setView([24.7136, 46.6753], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-                var map = L.map('pickupMap').setView([pickupLat, pickupLng], 13);
+    // أيقونات مخصصة
+    var pickupIcon = L.divIcon({ html: '<i class="fas fa-box" style="font-size:24px; color:#ffc107;"></i>', className: '', iconSize:[30,30], iconAnchor:[15,15] });
+    var merchantIcon = L.divIcon({ html: '<i class="fas fa-store" style="font-size:24px; color:#28a745;"></i>', className: '', iconSize:[30,30], iconAnchor:[15,15] });
+    var driverIcon = L.divIcon({ html: '<i class="fas fa-car" style="font-size:24px; color:#007bff;"></i>', className: '', iconSize:[30,30], iconAnchor:[15,15] });
 
-                // إضافة خريطة OpenStreetMap
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; OpenStreetMap contributors'
-                }).addTo(map);
+    var markers = [];
 
-                // مصفوفة لتخزين جميع الماركرات
-                var markers = [];
+    // دبوس الطلب
+    @if($pickupRequest->latitude && $pickupRequest->longitude)
+        var pickupMarker = L.marker([{{ $pickupRequest->latitude }}, {{ $pickupRequest->longitude }}], {icon: pickupIcon})
+            .addTo(map)
+            .bindPopup("{{ __('pickup_request.pickup_location') }}");
+        markers.push(pickupMarker);
+    @endif
 
-                // دبوس الطلب
-                var pickupMarker = L.marker([pickupLat, pickupLng]).addTo(map)
-                    .bindPopup("{{ __('pickup_request.pickup_location') }}");
-                markers.push(pickupMarker);
+    // دبوس التاجر
+    @if($pickupRequest->merchant && $pickupRequest->merchant->latitude && $pickupRequest->merchant->longitude)
+        var merchantMarker = L.marker([{{ $pickupRequest->merchant->latitude }}, {{ $pickupRequest->merchant->longitude }}], {icon: merchantIcon})
+            .addTo(map)
+            .bindPopup("{{ __('merchant.merchant_location') }}: {{ $pickupRequest->merchant->name }}");
+        markers.push(merchantMarker);
+    @endif
 
-                // دبوس التاجر إذا كانت لديه إحداثيات
-                @if($pickupRequest->merchant && $pickupRequest->merchant->latitude && $pickupRequest->merchant->longitude)
-                    var merchantMarker = L.marker([{{ $pickupRequest->merchant->latitude }}, {{ $pickupRequest->merchant->longitude }}], {icon: L.icon({iconUrl: 'https://cdn-icons-png.flaticon.com/512/149/149059.png', iconSize: [30, 30]})})
-                        .addTo(map)
-                        .bindPopup("{{ __('merchant.merchant_location') }}: {{ $pickupRequest->merchant->name }}");
-                    markers.push(merchantMarker);
-                @endif
+    // دبوس السائق
+    @if($pickupRequest->driver && $pickupRequest->driver->latitude && $pickupRequest->driver->longitude)
+        var driverMarker = L.marker([{{ $pickupRequest->driver->latitude }}, {{ $pickupRequest->driver->longitude }}], {icon: driverIcon})
+            .addTo(map)
+            .bindPopup("{{ __('driver.driver_location') }}: {{ $pickupRequest->driver->first_name }}");
+        markers.push(driverMarker);
+    @endif
 
-                // دبوس السائق إذا كانت لديه إحداثيات
-                @if($pickupRequest->driver && $pickupRequest->driver->latitude && $pickupRequest->driver->longitude)
-                    var driverMarker = L.marker([{{ $pickupRequest->driver->latitude }}, {{ $pickupRequest->driver->longitude }}], {icon: L.icon({iconUrl: 'https://cdn-icons-png.flaticon.com/512/61/61112.png', iconSize: [30, 30]})})
-                        .addTo(map)
-                        .bindPopup("{{ __('driver.driver_location') }}: {{ $pickupRequest->driver->first_name }}");
-                    markers.push(driverMarker);
-                @endif
+    // ضبط حدود الخريطة لتشمل جميع الماركرات
+    if(markers.length > 0){
+        var group = L.featureGroup(markers);
+        map.fitBounds(group.getBounds().pad(0.2));
+    }
+});
 
-                // ضبط حدود الخريطة لتشمل جميع الماركرات
-                var group = new L.featureGroup(markers);
-                map.fitBounds(group.getBounds().pad(0.2));
-            });
         </script>
     @endif
 @endsection
