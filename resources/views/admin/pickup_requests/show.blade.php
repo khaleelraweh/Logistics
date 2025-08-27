@@ -482,9 +482,6 @@
     </div>
 @endsection
 @section('script')
-
-
-
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -492,128 +489,128 @@
             crossorigin=""></script>
 
     @if($pickupRequest->latitude && $pickupRequest->longitude)
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // إعداد الخريطة
-            var map = L.map('pickupMap').setView([{{ $pickupRequest->latitude }}, {{ $pickupRequest->longitude }}], 13);
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // إعداد الخريطة
+                var map = L.map('pickupMap').setView([{{ $pickupRequest->latitude }}, {{ $pickupRequest->longitude }}], 13);
 
-            // إضافة خريطة OpenStreetMap
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
+                // إضافة خريطة OpenStreetMap
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
 
-            // تعريف أيقونات مخصصة
-            var pickupIcon = L.divIcon({
-                html: '<div style="background-color: #4e73df; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"><i class="fas fa-box"></i></div>',
-                className: 'custom-marker',
-                iconSize: [30, 30],
-                iconAnchor: [15, 15]
-            });
+                // تعريف أيقونات مخصصة
+                var pickupIcon = L.divIcon({
+                    html: '<div style="background-color: #4e73df; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"><i class="fas fa-box"></i></div>',
+                    className: 'custom-marker',
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 15]
+                });
 
-            var merchantIcon = L.divIcon({
-                html: '<div style="background-color: #1cc88a; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"><i class="fas fa-store"></i></div>',
-                className: 'custom-marker',
-                iconSize: [30, 30],
-                iconAnchor: [15, 15]
-            });
+                var merchantIcon = L.divIcon({
+                    html: '<div style="background-color: #1cc88a; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"><i class="fas fa-store"></i></div>',
+                    className: 'custom-marker',
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 15]
+                });
 
-            var driverIcon = L.divIcon({
-                html: '<div style="background-color: #36b9cc; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"><i class="fas fa-car"></i></div>',
-                className: 'custom-marker',
-                iconSize: [30, 30],
-                iconAnchor: [15, 15]
-            });
+                var driverIcon = L.divIcon({
+                    html: '<div style="background-color: #36b9cc; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; border: 3px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"><i class="fas fa-car"></i></div>',
+                    className: 'custom-marker',
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 15]
+                });
 
-            // مصفوفة لتخزين الماركرات
-            var markers = [];
+                // مصفوفة لتخزين الماركرات
+                var markers = [];
 
-            // كائن لتخزين المراجع
-            var markerReferences = {};
+                // كائن لتخزين المراجع
+                var markerReferences = {};
 
-            // دبوس الطلب
-            var pickupMarker = L.marker([{{ $pickupRequest->latitude }}, {{ $pickupRequest->longitude }}], {icon: pickupIcon})
-                .addTo(map)
-                .bindPopup("<b>{{ __('pickup_request.pickup_location') }}</b><br>{{ $pickupRequest->city ?? '' }}, {{ $pickupRequest->region ?? '' }}");
-            markers.push(pickupMarker);
-            markerReferences['pickup'] = pickupMarker;
-
-            // دبوس التاجر إذا كانت لديه إحداثيات
-            @if($pickupRequest->merchant && $pickupRequest->merchant->latitude && $pickupRequest->merchant->longitude)
-                var merchantMarker = L.marker([{{ $pickupRequest->merchant->latitude }}, {{ $pickupRequest->merchant->longitude }}], {icon: merchantIcon})
+                // دبوس الطلب
+                var pickupMarker = L.marker([{{ $pickupRequest->latitude }}, {{ $pickupRequest->longitude }}], {icon: pickupIcon})
                     .addTo(map)
-                    .bindPopup("<b>{{ __('merchant.merchant_location') }}</b><br>{{ $pickupRequest->merchant->name }}");
-                markers.push(merchantMarker);
-                markerReferences['merchant'] = merchantMarker;
-            @endif
+                    .bindPopup("<b>{{ __('pickup_request.pickup_location') }}</b><br>{{ $pickupRequest->city ?? '' }}, {{ $pickupRequest->region ?? '' }}");
+                markers.push(pickupMarker);
+                markerReferences['pickup'] = pickupMarker;
 
-            // دبوس السائق إذا كانت لديه إحداثيات
-            @if($pickupRequest->driver && $pickupRequest->driver->latitude && $pickupRequest->driver->longitude)
-                var driverMarker = L.marker([{{ $pickupRequest->driver->latitude }}, {{ $pickupRequest->driver->longitude }}], {icon: driverIcon})
-                    .addTo(map)
-                    .bindPopup("<b>{{ __('driver.driver_location') }}</b><br>{{ $pickupRequest->driver->first_name }}");
-                markers.push(driverMarker);
-                markerReferences['driver'] = driverMarker;
-            @endif
-
-            // إضافة مقياس الخريطة
-            L.control.scale({metric: true, imperial: false}).addTo(map);
-
-            // إضافة دليل الخريطة مع إمكانية النقر
-            var legend = L.control({position: 'bottomright'});
-            legend.onAdd = function (map) {
-                var div = L.DomUtil.create('div', 'legend');
-
-                // HTML للأسطوانات القابلة للنقر
-                var html = '<h6>مفتاح الخريطة</h6>' +
-                    '<div class="legend-item" onclick="focusOnMarker(\'pickup\')">' +
-                    '<div class="legend-color" style="background-color: #4e73df"></div> <span>موقع الاستلام</span></div>';
-
+                // دبوس التاجر إذا كانت لديه إحداثيات
                 @if($pickupRequest->merchant && $pickupRequest->merchant->latitude && $pickupRequest->merchant->longitude)
-                    html += '<div class="legend-item" onclick="focusOnMarker(\'merchant\')">' +
-                    '<div class="legend-color" style="background-color: #1cc88a"></div> <span>التاجر</span></div>';
+                    var merchantMarker = L.marker([{{ $pickupRequest->merchant->latitude }}, {{ $pickupRequest->merchant->longitude }}], {icon: merchantIcon})
+                        .addTo(map)
+                        .bindPopup("<b>{{ __('merchant.merchant_location') }}</b><br>{{ $pickupRequest->merchant->name }}");
+                    markers.push(merchantMarker);
+                    markerReferences['merchant'] = merchantMarker;
                 @endif
 
+                // دبوس السائق إذا كانت لديه إحداثيات
                 @if($pickupRequest->driver && $pickupRequest->driver->latitude && $pickupRequest->driver->longitude)
-                    html += '<div class="legend-item" onclick="focusOnMarker(\'driver\')">' +
-                    '<div class="legend-color" style="background-color: #36b9cc"></div> <span>السائق</span></div>';
+                    var driverMarker = L.marker([{{ $pickupRequest->driver->latitude }}, {{ $pickupRequest->driver->longitude }}], {icon: driverIcon})
+                        .addTo(map)
+                        .bindPopup("<b>{{ __('driver.driver_location') }}</b><br>{{ $pickupRequest->driver->first_name }}");
+                    markers.push(driverMarker);
+                    markerReferences['driver'] = driverMarker;
                 @endif
 
-                div.innerHTML = html;
-                return div;
-            };
-            legend.addTo(map);
+                // إضافة مقياس الخريطة
+                L.control.scale({metric: true, imperial: false}).addTo(map);
 
-            // ضبط حدود الخريطة لتشمل جميع الماركرات
-            if(markers.length > 0) {
-                var group = new L.featureGroup(markers);
-                map.fitBounds(group.getBounds().pad(0.1));
-            }
+                // إضافة دليل الخريطة مع إمكانية النقر
+                var legend = L.control({position: 'bottomright'});
+                legend.onAdd = function (map) {
+                    var div = L.DomUtil.create('div', 'legend');
 
-            // دالة للتركيز على الماركر المحدد
-            window.focusOnMarker = function(markerType) {
-                if (markerReferences[markerType]) {
-                    // إزالة التأثير السابق من جميع الماركرات
-                    document.querySelectorAll('.custom-marker').forEach(function(el) {
-                        el.classList.remove('marker-highlight');
-                    });
+                    // HTML للأسطوانات القابلة للنقر
+                    var html = '<h6>مفتاح الخريطة</h6>' +
+                        '<div class="legend-item" onclick="focusOnMarker(\'pickup\')">' +
+                        '<div class="legend-color" style="background-color: #4e73df"></div> <span>موقع الاستلام</span></div>';
 
-                    // إضافة تأثير النبض للماركر المحدد
-                    var markerElement = markerReferences[markerType].getElement();
-                    if (markerElement) {
-                        markerElement.classList.add('marker-highlight');
+                    @if($pickupRequest->merchant && $pickupRequest->merchant->latitude && $pickupRequest->merchant->longitude)
+                        html += '<div class="legend-item" onclick="focusOnMarker(\'merchant\')">' +
+                        '<div class="legend-color" style="background-color: #1cc88a"></div> <span>التاجر</span></div>';
+                    @endif
 
-                        // إزالة التأثير بعد 3 ثوانٍ
-                        setTimeout(function() {
-                            markerElement.classList.remove('marker-highlight');
-                        }, 3000);
-                    }
+                    @if($pickupRequest->driver && $pickupRequest->driver->latitude && $pickupRequest->driver->longitude)
+                        html += '<div class="legend-item" onclick="focusOnMarker(\'driver\')">' +
+                        '<div class="legend-color" style="background-color: #36b9cc"></div> <span>السائق</span></div>';
+                    @endif
 
-                    // فتح البوب أب والتركيز على الماركر
-                    markerReferences[markerType].openPopup();
-                    map.setView(markerReferences[markerType].getLatLng(), 15);
+                    div.innerHTML = html;
+                    return div;
+                };
+                legend.addTo(map);
+
+                // ضبط حدود الخريطة لتشمل جميع الماركرات
+                if(markers.length > 0) {
+                    var group = new L.featureGroup(markers);
+                    map.fitBounds(group.getBounds().pad(0.1));
                 }
-            };
-        });
-    </script>
+
+                // دالة للتركيز على الماركر المحدد
+                window.focusOnMarker = function(markerType) {
+                    if (markerReferences[markerType]) {
+                        // إزالة التأثير السابق من جميع الماركرات
+                        document.querySelectorAll('.custom-marker').forEach(function(el) {
+                            el.classList.remove('marker-highlight');
+                        });
+
+                        // إضافة تأثير النبض للماركر المحدد
+                        var markerElement = markerReferences[markerType].getElement();
+                        if (markerElement) {
+                            markerElement.classList.add('marker-highlight');
+
+                            // إزالة التأثير بعد 3 ثوانٍ
+                            setTimeout(function() {
+                                markerElement.classList.remove('marker-highlight');
+                            }, 3000);
+                        }
+
+                        // فتح البوب أب والتركيز على الماركر
+                        markerReferences[markerType].openPopup();
+                        map.setView(markerReferences[markerType].getLatLng(), 15);
+                    }
+                };
+            });
+        </script>
     @endif
 @endsection
