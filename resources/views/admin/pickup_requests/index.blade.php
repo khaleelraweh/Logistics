@@ -110,6 +110,10 @@
                                             <span class="badge bg-light text-dark ms-1">
                                                 {{ $request->completed_at->diffForHumans() }}
                                             </span>
+                                            <br>
+                                            <span>
+                                                {{ $request->driver->driver_full_name }}
+                                            </span>
                                         @else
                                             @if ($request->status == 'accepted')
                                                 <span class="badge bg-light text-dark ms-1">
