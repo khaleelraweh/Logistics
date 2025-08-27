@@ -104,6 +104,11 @@
                                         @endphp
                                         <span class="{{ $statusClass[$request->status] ?? 'badge bg-secondary' }}">
                                             {{ __('pickup_request.status_' . $request->status) }}
+                                            @if ($request->status == 'completed')
+                                                <span class="badge bg-light text-dark ms-1">
+                                                    {{ $request->completed_at->diffForHumans() }}
+                                                </span>
+                                            @endif
                                         </span>
                                     </td>
                                     <td>{{ $request->created_at->diffForHumans() }}</td>
