@@ -94,6 +94,17 @@
                                     </td>
 
                                     <td>{{ $request->scheduled_at ? $request->scheduled_at->format('Y-m-d') : '-' }}</td>
+                                    @php
+                                        $driverParts = array_filter([
+                                            $request->driver->full_name,
+                                            $request->driver->phone,
+                                            $request->driver->email,
+
+                                        ]); // إزالة القيم الفارغة
+
+                                        $shortDriver = implode(' - ', array_slice($locationParts, 0, 2)); // أول قيمتين فقط
+                                        $fullDriver = implode(' - ', $driverParts); // كامل النص
+                                    @endphp
                                     <td>
                                         @php
                                             $statusClass = [
@@ -109,10 +120,6 @@
                                          @if ($request->status == 'completed')
                                             <span class="badge bg-light text-dark ms-1">
                                                 {{ $request->completed_at->diffForHumans() }}
-                                            </span>
-                                            <br>
-                                            <span>
-                                                {{ $request->driver->driver_full_name }}
                                             </span>
                                         @else
                                             @if ($request->status == 'accepted')
