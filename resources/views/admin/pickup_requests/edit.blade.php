@@ -227,4 +227,65 @@
             $('.select2').select2();
         });
     </script>
+
+        <!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // دالة لتحديث الحقول من خط الطول والعرض
+        function updateFieldsFromLatLng(lat, lng){
+            fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.address){
+                        document.getElementById('country').value = data.address.country || '';
+                        document.getElementById('region').value = data.address.state || '';
+                        document.getElementById('city').value = data.address.city || data.address.town || data.address.village || '';
+                        document.getElementById('district').value = data.address.suburb || '';
+                        document.getElementById('postal_code').value = data.address.postcode || '';
+                    }
+                });
+        }
+
+        // إحداثيات البداية: من قاعدة البيانات إذا موجودة، وإلا وسط الرياض
+        var initialLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
+        var initialLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
+
+        // إنشاء الخريطة
+        var map = L.map('map').setView([initialLat, initialLng], 13);
+
+        // إضافة طبقة OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // إنشاء Marker قابل للسحب
+        var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
+
+        // عند سحب Marker، يتم تحديث الحقول تلقائيًا
+        marker.on('dragend', function(e) {
+            var latlng = marker.getLatLng();
+            document.getElementById('latitude').value = latlng.lat.toFixed(7);
+            document.getElementById('longitude').value = latlng.lng.toFixed(7);
+            updateFieldsFromLatLng(latlng.lat, latlng.lng);
+        });
+
+        // عند النقر على الخريطة، نقل Marker وتحديث الحقول
+        map.on('click', function(e) {
+            marker.setLatLng(e.latlng);
+            document.getElementById('latitude').value = e.latlng.lat.toFixed(7);
+            document.getElementById('longitude').value = e.latlng.lng.toFixed(7);
+            updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
+        });
+
+        // تحديث الحقول لأول مرة عند التحميل إذا كانت الإحداثيات موجودة من DB
+        if(initialLat && initialLng){
+            updateFieldsFromLatLng(initialLat, initialLng);
+        }
+
+    });
+</script>
 @endsection
