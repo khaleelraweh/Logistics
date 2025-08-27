@@ -63,6 +63,7 @@
                                             $request->merchant->city,
                                         ]); // إزالة القيم الفارغة
 
+                                        $shortMerchant = implode(' - ', array_slice($merchantParts, 0, 2)); // أول قيمتين فقط
                                         $fullMerchant = implode(' - ', $merchantParts); // كامل النص
                                     @endphp
 
