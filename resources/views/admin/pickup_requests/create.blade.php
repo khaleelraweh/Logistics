@@ -196,11 +196,22 @@
                             </div>
                           </div>
 
-                        @ability('admin', 'create_pickup_requests')
-                            <div class="text-end">
-                                <button type="submit" class="btn btn-primary">{{ __('pickup_request.save_pickup_request') }}</button>
-                            </div>
-                        @endability
+
+                        <!-- Submit Button -->
+                        <div class="text-end pt-3">
+                            @ability('admin', 'create_pickup_requests')
+                                <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
+                                    <i class="ri-save-3-line me-2"></i>
+                                    <i class="bi bi-save me-2"></i>
+                                    {{ __('pickup_request.save_pickup_request') }}
+                                </button>
+                            @endability
+
+                            <a href="{{ route('admin.pickup_requests.index') }}" class="btn btn-outline-danger ms-2">
+                                <i class="ri-arrow-go-back-line me-1"></i>
+                                {{ __('panel.cancel') }}
+                            </a>
+                        </div>
 
                     </form>
 
