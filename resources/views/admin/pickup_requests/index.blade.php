@@ -61,7 +61,23 @@
                                             <small class="text-muted">{{ $request->merchant->email ?? '' }}</small>
                                         </a>
                                     </td>
-                                    <td>{{ \Illuminate\Support\Str::limit($request->pickup_address, 40) }}</td>
+                                    @php
+                                        $locationParts = array_filter([
+                                            $request->country,
+                                            $request->region,
+                                            $request->city,
+                                            $request->district,
+                                            $request->postal_code,
+                                        ]); // إزالة القيم الفارغة
+
+                                        $shortLocation = implode(' - ', array_slice($locationParts, 0, 2)); // أول قيمتين فقط
+                                        $fullLocation = implode(' - ', $locationParts); // كامل النص
+                                    @endphp
+
+                                    <td title="{{ $fullLocation }}" data-bs-toggle="tooltip" data-bs-placement="top">
+                                        {{ $shortLocation }}
+                                    </td>
+
                                     <td>{{ $request->scheduled_at ? $request->scheduled_at->format('Y-m-d H:i') : '-' }}</td>
                                     <td>
                                         @php
