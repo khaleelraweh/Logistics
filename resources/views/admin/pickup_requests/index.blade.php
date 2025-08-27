@@ -54,13 +54,28 @@
                             @forelse ($pickupRequests as $request)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>
+                                     @php
+                                        $merchantParts = array_filter([
+                                            $request->merchant->name,
+                                            $request->merchant->contact_person,
+                                            $request->merchant->phone,
+                                            $request->merchant->country,
+                                            $request->merchant->city,
+                                        ]); // إزالة القيم الفارغة
+
+                                        $fullMerchant = implode(' - ', $merchantParts); // كامل النص
+                                    @endphp
+
+                                    <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $fullMerchant }}">
                                         <a href="{{ route('admin.merchants.show', $request->merchant->id) }}">
-                                            {{ $request->merchant->name ?? '' }}
+                                            {{ Str::words($request->merchant->name, 2, '') }}
                                             <br>
                                             <small class="text-muted">{{ $request->merchant->email ?? '' }}</small>
+
                                         </a>
                                     </td>
+
+
                                     @php
                                         $locationParts = array_filter([
                                             $request->country,
