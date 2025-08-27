@@ -54,9 +54,12 @@
                             @forelse ($pickupRequests as $request)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $request->merchant->name ?? '' }}
-                                        <br>
-                                        <small class="text-muted">{{ $request->merchant->email ?? '' }}</small>
+                                    <td>
+                                        <a href="{{ route('admin.merchants.show', $request->merchant->id) }}">
+                                            {{ $request->merchant->name ?? '' }}
+                                            <br>
+                                            <small class="text-muted">{{ $request->merchant->email ?? '' }}</small>
+                                        </a>
                                     </td>
                                     <td>{{ \Illuminate\Support\Str::limit($request->pickup_address, 40) }}</td>
                                     <td>{{ $request->scheduled_at ? $request->scheduled_at->format('Y-m-d H:i') : '-' }}</td>
