@@ -23,7 +23,7 @@ class DriverSeeder extends Seeder
             'vehicle_type' => 'van',
             'vehicle_number' => 'ABC-9876',
             'vehicle_model' => 'Hyundai H1',
-            'vehicle_color' => 'White',
+            'vehicle_color' => 'white',
 
             'license_image' => 'licenses/khaled_license.jpg',
             'id_card_image' => 'id_cards/khaled_id.jpg',
