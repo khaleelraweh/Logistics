@@ -59,7 +59,15 @@ class PickupRequestController extends Controller
 
         $request->validate([
             'merchant_id' => 'required|exists:merchants,id',
-            'pickup_address' => 'required|string|max:255',
+
+            'country' => 'nullable|string|max:255',
+            'region' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'district' => 'nullable|string|max:255',
+            'postal_code' => 'nullable|string|max:255',
+            'latitude' => 'nullable|string|max:255',
+            'longitude' => 'nullable|string|max:255',
+
             'scheduled_at' => 'nullable|date',
             'status' => 'required|in:pending,accepted,completed',
             'note' => 'nullable|string|max:255',
@@ -68,11 +76,19 @@ class PickupRequestController extends Controller
 
         $pickupRequest = PickupRequest::create([
             'merchant_id' => $request->merchant_id,
-            'pickup_address' => $request->pickup_address,
+            'driver_id' => $request->driver_id,  // تعيين السائق هنا إذا موجود
+
+            'country'        => $request->country,
+            'region'         => $request->region,
+            'city'           => $request->city,
+            'district'       => $request->district,
+            'postal_code'    => $request->postal_code,
+            'latitude'       => $request->latitude,
+            'longitude'      => $request->longitude,
+
             'scheduled_at' => $request->scheduled_at,
             'status' => $request->status,
             'note' => $request->note,
-            'driver_id' => $request->driver_id,  // تعيين السائق هنا إذا موجود
         ]);
 
         if ($pickupRequest) {

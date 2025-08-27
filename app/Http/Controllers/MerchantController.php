@@ -127,6 +127,7 @@ class MerchantController extends Controller
         $input = [
             'name'           => $request->name,
             'contact_person' => $request->contact_person,
+
             'country'        => $request->country,
             'region'         => $request->region,
             'city'           => $request->city,
@@ -134,6 +135,7 @@ class MerchantController extends Controller
             'postal_code'    => $request->postal_code,
             'latitude'       => $request->latitude,
             'longitude'      => $request->longitude,
+
             'others'         => $request->others,
             'phone'          => $request->phone,
             'email'          => $request->email,
