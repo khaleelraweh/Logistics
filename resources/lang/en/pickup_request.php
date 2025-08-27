@@ -46,4 +46,5 @@ return [
     'accepted_at'                   =>  'Accepted At',
     'completed_at'                   =>  'Completed At',
     'location_info'                 =>  'Location Information',
+    'pickup_location'                 =>  'Pickup Location',
 ];
