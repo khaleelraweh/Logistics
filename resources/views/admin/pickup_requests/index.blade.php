@@ -93,7 +93,7 @@
                                         {{ $shortLocation }}
                                     </td>
 
-                                    <td>{{ $request->scheduled_at ? $request->scheduled_at->format('Y-m-d H:i') : '-' }}</td>
+                                    <td>{{ $request->scheduled_at ? $request->scheduled_at->format('Y-m-d') : '-' }}</td>
                                     <td>
                                         @php
                                             $statusClass = [
