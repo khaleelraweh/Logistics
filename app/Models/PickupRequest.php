@@ -14,7 +14,12 @@ class PickupRequest extends Model
     protected $casts = [
         'scheduled_at' => 'datetime',
         'published_on' => 'datetime',
+        'completed_at' => 'datetime',
+        'accepted_at'  => 'datetime',
+
+
     ];
+
 
 
 
