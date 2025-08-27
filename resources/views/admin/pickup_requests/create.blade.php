@@ -66,13 +66,72 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="pickup_address">{{ __('pickup_request.pickup_address') }}</label>
-                            <div class="col-sm-10">
-                                <input name="pickup_address" class="form-control" id="pickup_address" type="text" value="{{ old('pickup_address') }}">
-                                @error('pickup_address')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                        <!-- Address Section -->
+                        <div class="mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                    <i class="bi bi-geo-alt text-primary"></i>
+                                </div>
+                                <h5 class="mb-0">{{ __('general.address_details') }}</h5>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <input name="country" class="form-control" id="country" type="text" value="{{ old('country') }}" placeholder="{{ __('general.country') }}">
+                                    @error('country')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-3">
+                                    <input name="region" class="form-control" id="region" type="text" value="{{ old('region') }}" placeholder="{{ __('general.region') }}">
+                                    @error('region')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-3">
+                                    <input name="city" class="form-control" id="city" type="text" value="{{ old('city') }}" placeholder="{{ __('general.city') }}">
+                                    @error('city')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-3">
+                                    <input name="district" class="form-control" id="district" type="text" value="{{ old('district') }}" placeholder="{{ __('general.district') }}">
+                                    @error('district')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="postal_code">{{ __('general.postal_code') }}</label>
+                                <div class="col-md-10">
+                                    <input name="postal_code" class="form-control" id="postal_code" type="text" value="{{ old('postal_code') }}">
+                                    @error('postal_code')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label">{{ __('general.location') }}</label>
+                                <div class="col-md-10">
+                                    <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="Latitude" value="{{ old('latitude', $merchant->latitude ?? '') }}">
+                                    <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="Longitude" value="{{ old('longitude', $merchant->longitude ?? '') }}">
+                                    <div id="map" style="width: 100%; height: 300px;"></div>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label" for="others">{{ __('general.additional_notes') }}</label>
+                                <div class="col-md-10">
+                                    <input name="others" class="form-control" id="others" type="text" value="{{ old('others') }}">
+                                    @error('others')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 
