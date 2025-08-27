@@ -49,17 +49,19 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="driver_id">{{ __('pickup_request.assign_driver') }}</label>
                             <div class="col-sm-10">
-                                <select name="driver_id" class="form-control select2">
-                                    <option value="">{{ __('pickup_request.select_driver') }}</option>
-                                    @foreach ($drivers as $driver)
-                                        <option value="{{ $driver->id }}" {{ old('driver_id') == $driver->id ? 'selected' : '' }}>
-                                            {{ $driver->name }}
+                                <select name="driver_id" id="driver_id" class="form-control select2" required>
+                                    <option value="" disabled selected>{{ __('delivery.select_driver') }}</option>
+                                    @foreach($drivers as $driver)
+                                        <option value="{{ $driver->id }}" @selected(old('driver_id') == $driver->id)>
+                                            {{ $driver->driver_full_name ?? __('driver.no_name') }}
+                                            - {{ $driver->phone ?? __('driver.no_phone') }}
+                                            - {{ $driver->vehicle_type ? __('driver.vehicle_type_' . $driver->vehicle_type) : __('driver.no_vehicle_type') }}
                                         </option>
                                     @endforeach
                                 </select>
 
                                 @error('driver_id')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
