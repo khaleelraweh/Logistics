@@ -55,6 +55,7 @@ return [
     'phone'                         =>  'phone',
     'email'                         =>  'email',
     'address'                         =>  'address',
+    'merchant_location'             =>  'Merchant Location',
 
 
 

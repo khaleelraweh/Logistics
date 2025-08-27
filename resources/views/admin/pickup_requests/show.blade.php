@@ -1,5 +1,18 @@
 @extends('layouts.admin')
 
+@section('style')
+
+<style>
+    /* أضف هذا في CSS الخاص بك */
+#pickupMap {
+    height: 400px;
+    width: 100%;
+    z-index: 1;
+}
+</style>
+
+@endsection
+
 @section('content')
 
 <div class="container-fluid py-4">
@@ -175,11 +188,15 @@
 
 @endsection
 
-@section('scripts')
+@section('script')
     @if($pickupRequest->latitude && $pickupRequest->longitude)
-    <!-- Leaflet CSS/JS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- تأكد من أن الروابط صحيحة وغير محجوبة -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {

@@ -55,6 +55,7 @@ return [
     'phone'                          =>  'رقم الهاتف',
     'email'                         =>  'البريد الالكتروني',
     'address'                       =>  'العنوان',
+    'merchant_location'                =>  'موقع التاجر',
 
 
 
