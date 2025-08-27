@@ -488,9 +488,9 @@
                                 </div>
                                 <div class="driver-info">
                                     <h6 class="mb-1">{{ $delivery->driver->driver_full_name }}</h6>
-                                    <div class="driver-details">
-                                        <span class="status-badge bg-{{ getStatusColor($delivery->status) }}">سائق {{ __('package.status_' . $delivery->status) }}</span>
-                                    </div>
+                                    {{-- <div class="driver-details">
+                                        <span class="status-badge bg-{{ getStatusColor($delivery->status) }}"> {{ __('package.status_' . $delivery->status) }}</span>
+                                    </div> --}}
                                 </div>
                             </div>
 
