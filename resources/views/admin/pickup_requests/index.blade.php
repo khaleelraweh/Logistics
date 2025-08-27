@@ -105,7 +105,7 @@
                                         $shortDriver = implode(' - ', array_slice($locationParts, 0, 2)); // أول قيمتين فقط
                                         $fullDriver = implode(' - ', $driverParts); // كامل النص
                                     @endphp
-                                    <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('general.by') }} {{ $fullDriver }}">
+                                    <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ __('general.by') }} {{ __('driver.driver') }} {{ $fullDriver }}">
                                         @php
                                             $statusClass = [
                                                 'pending' => 'badge bg-warning',

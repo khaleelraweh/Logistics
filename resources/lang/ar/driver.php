@@ -141,6 +141,7 @@ return [
     'view_driver'         => 'عرض السائق',
     'available_on_map'    => 'متاح على الخريطة',
     'the_driver'           => 'السائق',
+    'driver'               => 'السائق',
 
 
 
