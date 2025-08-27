@@ -27,7 +27,6 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">{{ __('pickup_request.pickup_request_info') }}</h4>
 
                     <form action="{{ route('admin.pickup_requests.update', $pickupRequest->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -63,12 +62,15 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="driver_id">{{ __('pickup_request.assign_driver') }}</label>
                                 <div class="col-sm-10">
-                                    <select name="driver_id" class="form-control select2" id="driver_id">
-                                        <option value="">{{ __('pickup_request.select_driver') }}</option>
-                                        @foreach ($drivers as $driver)
+
+                                    <select name="driver_id" id="driver_id" class="form-control select2" required>
+                                        <option value="" disabled>{{ __('pickup_request.assign_driver') }}</option>
+                                        @foreach($drivers as $driver)
                                             <option value="{{ $driver->id }}"
                                                 {{ old('driver_id', $pickupRequest->driver_id) == $driver->id ? 'selected' : '' }}>
-                                                {{ $driver->name }}
+                                                {{ $driver->driver_full_name ?? __('driver.no_name') }}
+                                                - {{ $driver->phone ?? __('driver.no_phone') }}
+                                                - {{ $driver->vehicle_type ? __('driver.vehicle_type_' . $driver->vehicle_type) : __('driver.no_vehicle_type') }}
                                             </option>
                                         @endforeach
                                     </select>
