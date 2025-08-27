@@ -151,7 +151,8 @@
                     </p>
                     <p><strong>{{ __('driver.phone') }}:</strong> {{ $pickupRequest->driver->phone ?? '-' }}</p>
                     <p><strong>{{ __('driver.vehicle_number') }}:</strong> {{ $pickupRequest->driver->vehicle_number ?? '-' }}</p>
-                    <p><strong>{{ __('driver.vehicle_type') }}:</strong> {{ $pickupRequest->driver->vehicle_type ?? '-' }}</p>
+                    <p><strong>{{ __('driver.vehicle_type') }}:</strong>  {{ $pickupRequest->driver->vehicle_type ? __('driver.vehicle_type_'. $pickupRequest->driver->vehicle_type ) : '-'}} </p>
+                    <p><strong>{{ __('driver.vehicle_color') }}:</strong>  {{ $pickupRequest->driver->vehicle_color ? __('driver.vehicle_color_'. $pickupRequest->driver->vehicle_color ) : '-'}} </p>
                     @else
                     <p class="text-muted">{{ __('pickup_request.no_driver_assigned') }}</p>
                     @endif
