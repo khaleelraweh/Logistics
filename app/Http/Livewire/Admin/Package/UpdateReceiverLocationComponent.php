@@ -7,7 +7,7 @@ use App\Models\Merchant;
 
 class UpdateReceiverLocationComponent extends Component
 {
-    public $package; // إضافة لإحضار بيانات الباكيج عند التعديل
+    public $package;
     public $receiver_merchant_id = null;
 
     // بيانات الموقع للمستقبل
@@ -32,7 +32,6 @@ class UpdateReceiverLocationComponent extends Component
         $this->package = $package;
 
         if ($package) {
-            // تعبئة الحقول من قاعدة البيانات
             $this->receiver_merchant_id = $package->receiver_merchant_id ? (int)$package->receiver_merchant_id : null;
             $this->receiver_address = $package->receiver_address ?? '';
             $this->receiver_country = $package->receiver_country ?? '';
@@ -43,7 +42,6 @@ class UpdateReceiverLocationComponent extends Component
             $this->latitude = $package->receiver_latitude ?? '';
             $this->longitude = $package->receiver_longitude ?? '';
         } else {
-            // بدون باكيج (صفحة create)
             $this->latitude = '';
             $this->longitude = '';
         }
@@ -67,7 +65,6 @@ class UpdateReceiverLocationComponent extends Component
                 $this->longitude = $merchant->longitude ?? '';
             }
         } else {
-            // بدون تاجر
             $this->receiver_address = '';
             $this->receiver_country = '';
             $this->receiver_region = '';
@@ -81,7 +78,7 @@ class UpdateReceiverLocationComponent extends Component
         $this->emit('refreshReceiverMap');
     }
 
-    // لتحديد الموقع يدويًا (GPS أو زر "موقعي")
+    // لتحديد الموقع يدويًا
     public function setReceiverLocation($lat, $lng)
     {
         $this->latitude = $lat;
@@ -89,9 +86,11 @@ class UpdateReceiverLocationComponent extends Component
         $this->emit('refreshReceiverMap');
     }
 
+    // إعادة رسم الخريطة عند الطلب - أضف هذه الدالة
     public function refreshReceiverMap()
     {
-        // مجرد مستمع لتحديث الخريطة
+        $this->emit('refreshReceiverMap');
+        $this->dispatchBrowserEvent('mapInvalidateSize');
     }
 
     public function render()
@@ -99,4 +98,3 @@ class UpdateReceiverLocationComponent extends Component
         return view('livewire.admin.package.update-receiver-location-component');
     }
 }
-

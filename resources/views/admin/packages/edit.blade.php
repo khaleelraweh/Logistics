@@ -178,25 +178,45 @@
     </style>
 
     <style>
-    #map {
-        height: 300px;
-        width: 100%;
-        min-height: 300px;
-        z-index: 1;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-    }
+        #map {
+            height: 300px;
+            width: 100%;
+            min-height: 300px;
+            z-index: 1;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
 
-    /* تأكد من أن الخرائط مرئية عند التبديل */
-    .tab-pane.active #map {
-        visibility: visible !important;
-    }
+        /* تأكد من أن الخرائط مرئية عند التبديل */
+        .tab-pane.active #map {
+            visibility: visible !important;
+        }
 
-    /* إصلاح مشاكل التخطيط */
-    .leaflet-container {
-        background: #f8f9fa;
-    }
-</style>
+        /* إصلاح مشاكل التخطيط */
+        .leaflet-container {
+            background: #f8f9fa;
+        }
+    </style>
+
+    <style>
+        #receiver-map {
+            height: 300px;
+            width: 100%;
+            min-height: 300px;
+            z-index: 1;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        /* تأكد من أن الخرائط مرئية عند التبديل */
+        .tab-pane.active #receiver-map {
+            visibility: visible !important;
+        }
+
+        .leaflet-container {
+            background: #f8f9fa;
+        }
+    </style>
 
 @endsection
 
