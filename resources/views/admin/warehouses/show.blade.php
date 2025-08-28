@@ -143,7 +143,7 @@
                                     </div>
                                 </div>
 
-                                <div class="info-item">
+                                {{-- <div class="info-item">
                                     <div class="info-icon text-warning">
                                         <i class="fas fa-map-marker-alt"></i>
                                     </div>
@@ -158,7 +158,97 @@
                                             <p class="text-muted mb-0">{{ $warehouse->location ?? __('general.no_location_data') }}</p>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
+
+
+                                <div class="info-item location-item">
+    <div class="info-icon text-warning">
+        <i class="fas fa-map-marker-alt"></i>
+    </div>
+    <div class="info-content">
+        <h6>{{ __('general.location') }}</h6>
+        @if($warehouse->latitude && $warehouse->longitude)
+            <div class="location-details">
+                <div class="coordinates mb-2">
+                    <small class="text-muted">
+                        <i class="fas fa-globe me-1"></i>
+                        {{ $warehouse->latitude }}, {{ $warehouse->longitude }}
+                    </small>
+                </div>
+                <div class="map-container">
+                    <div id="miniMap"></div>
+                    <div class="map-overlay">
+                        <button class="btn btn-sm btn-primary map-fullscreen-btn" onclick="openMapModal()">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="map-actions mt-2">
+                    <button class="btn btn-sm btn-outline-primary" onclick="copyCoordinates()">
+                        <i class="fas fa-copy me-1"></i>
+                        {{ __('general.copy_coordinates') }}
+                    </button>
+                    <a href="https://www.google.com/maps?q={{ $warehouse->latitude }},{{ $warehouse->longitude }}"
+                       target="_blank" class="btn btn-sm btn-outline-success">
+                        <i class="fas fa-external-link-alt me-1"></i>
+                        {{ __('general.open_in_gmaps') }}
+                    </a>
+                </div>
+            </div>
+        @else
+            <div class="no-location-data">
+                <i class="fas fa-map-marked-alt fa-2x text-muted mb-2"></i>
+                <p class="text-muted mb-0">{{ $warehouse->location ?? __('general.no_location_data') }}</p>
+                @if(!$warehouse->location)
+                <small class="text-info">
+                    <i class="fas fa-info-circle me-1"></i>
+                    {{ __('general.add_location_in_edit') }}
+                </small>
+                @endif
+            </div>
+        @endif
+    </div>
+</div>
+
+<!-- Modal for Fullscreen Map -->
+<div class="modal fade" id="mapModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-map-marker-alt me-2"></i>
+                    {{ $warehouse->name }} - {{ __('general.location') }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div id="fullscreenMap" style="height: 100%; width: 100%;"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="coordinates-info">
+                    <strong>{{ __('general.coordinates') }}:</strong>
+                    <span class="text-muted">{{ $warehouse->latitude }}, {{ $warehouse->longitude }}</span>
+                </div>
+                <div class="map-actions">
+                    <button class="btn btn-sm btn-outline-primary" onclick="copyCoordinates()">
+                        <i class="fas fa-copy me-1"></i>
+                        {{ __('general.copy') }}
+                    </button>
+                    <a href="https://www.google.com/maps?q={{ $warehouse->latitude }},{{ $warehouse->longitude }}"
+                       target="_blank" class="btn btn-sm btn-success">
+                        <i class="fas fa-external-link-alt me-1"></i>
+                        Google Maps
+                    </a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {{ __('general.close') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
                             </div>
                         </div>
 
@@ -613,15 +703,256 @@
         margin-bottom: 0.5rem;
     }
 }
+
+.location-item {
+    position: relative;
+}
+
+.location-details {
+    margin-top: 0.5rem;
+}
+
+.map-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 0.5rem 0;
+}
+
+#miniMap {
+    height: 250px;
+    width: 100%;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.map-container:hover #miniMap {
+    transform: scale(1.02);
+}
+
+.map-overlay {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+.map-fullscreen-btn {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.map-fullscreen-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.map-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.map-actions .btn {
+    border-radius: 20px;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+.no-location-data {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #dee2e6;
+}
+
+.coordinates {
+    background: #f8f9fa;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.coordinates small {
+    font-family: 'Courier New', monospace;
+    font-weight: 500;
+}
+
+/* Modal Styles */
+#mapModal .modal-content {
+    border-radius: 0;
+    border: none;
+}
+
+#mapModal .modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+}
+
+#fullscreenMap {
+    min-height: 400px;
+}
+
+.modal-footer {
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+.coordinates-info {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #miniMap {
+        height: 200px;
+    }
+
+    .map-actions {
+        flex-direction: column;
+    }
+
+    .map-actions .btn {
+        width: 100%;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .coordinates-info {
+        text-align: center;
+    }
+}
+
+/* Animation for map loading */
+@keyframes mapFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#miniMap, #fullscreenMap {
+    animation: mapFadeIn 0.6s ease-out;
+}
+
 </style>
 @endsection
 
 @section('script')
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
+    $(document).ready(function() {
+        @if($warehouse->latitude && $warehouse->longitude)
+        // Initialize mini map
+        var miniMap = L.map('miniMap').setView([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}], 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(miniMap);
+
+        // Add custom icon
+        var warehouseIcon = L.icon({
+            iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34]
+        });
+
+        L.marker([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}], {icon: warehouseIcon})
+            .addTo(miniMap)
+            .bindPopup('<strong>{{ $warehouse->name }}</strong><br>{{ $warehouse->code }}')
+            .openPopup();
+        @endif
+
+        // Initialize tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+
+        // Smooth scrolling for anchor links
+        $('a[href^="#"]').on('click', function(e) {
+            e.preventDefault();
+            $('html, body').animate({
+                scrollTop: $($(this).attr('href')).offset().top - 100
+            }, 500);
+        });
+    });
+</script>
+<script>
+function openMapModal() {
+    var modal = new bootstrap.Modal(document.getElementById('mapModal'));
+    modal.show();
+
+    // Initialize fullscreen map when modal is shown
+    $('#mapModal').on('shown.bs.modal', function () {
+        initFullscreenMap();
+    });
+}
+
+function initFullscreenMap() {
+    if (typeof fullscreenMap === 'undefined') {
+        fullscreenMap = L.map('fullscreenMap').setView([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}], 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(fullscreenMap);
+
+        // Add custom icon
+        var warehouseIcon = L.icon({
+            iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34]
+        });
+
+        L.marker([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}], {icon: warehouseIcon})
+            .addTo(fullscreenMap)
+            .bindPopup('<strong>{{ $warehouse->name }}</strong><br>{{ $warehouse->code }}')
+            .openPopup();
+    } else {
+        fullscreenMap.invalidateSize();
+    }
+}
+
+function copyCoordinates() {
+    const coordinates = '{{ $warehouse->latitude }}, {{ $warehouse->longitude }}';
+    navigator.clipboard.writeText(coordinates).then(() => {
+        // Show success message
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        });
+
+        Toast.fire({
+            icon: 'success',
+            title: '{{ __("general.coordinates_copied") }}'
+        });
+    }).catch(err => {
+        console.error('Failed to copy coordinates: ', err);
+    });
+}
+
+// Initialize mini map
 $(document).ready(function() {
     @if($warehouse->latitude && $warehouse->longitude)
-    // Initialize mini map
     var miniMap = L.map('miniMap').setView([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}], 15);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -641,17 +972,6 @@ $(document).ready(function() {
         .bindPopup('<strong>{{ $warehouse->name }}</strong><br>{{ $warehouse->code }}')
         .openPopup();
     @endif
-
-    // Initialize tooltips
-    $('[data-toggle="tooltip"]').tooltip();
-
-    // Smooth scrolling for anchor links
-    $('a[href^="#"]').on('click', function(e) {
-        e.preventDefault();
-        $('html, body').animate({
-            scrollTop: $($(this).attr('href')).offset().top - 100
-        }, 500);
-    });
 });
 </script>
 @endsection
