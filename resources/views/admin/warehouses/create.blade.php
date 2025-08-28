@@ -189,72 +189,77 @@
 
 
 
-                        <!-- Warehouse Management Section -->
-                        <div class="section-block mt-4">
-                            <h6 class="section-title">{{ __('warehouse.warehouse_management') }}</h6>
-                            <p class="section-description">{{ __('warehouse.fill_management_info') }}</p>
-                        </div>
 
-                        <!-- Multilingual Manager Fields -->
-                        @foreach (config('locales.languages') as $key => $val)
+
+                        <div class="mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                    <i class="bi bi-geo-alt text-primary"></i>
+                                </div>
+                                <h5 class="mb-0">{{ __('warehouse.warehouse_management') }}</h5>
+                            </div>
+
+                            <!-- Multilingual Manager Fields -->
+                            @foreach (config('locales.languages') as $key => $val)
+                                <div class="mb-3 row">
+                                    <label for="manager[{{ $key }}]" class="col-md-3 col-form-label">
+                                        {{ __('warehouse.manager') }}
+                                        <span class="language-badge bg-{{ $key == 'ar' ? 'primary' : 'info' }}">
+                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }}"></i>
+                                            {{ __('language.' . $key) }}
+                                        </span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="manager[{{ $key }}]"
+                                            name="manager[{{ $key }}]" value="{{ old('manager.' . $key) }}"
+                                            placeholder="{{ __('warehouse.enter_manager_name') }}">
+                                        @error('manager.' . $key)
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endforeach
+
+                            <!-- Contact Information -->
                             <div class="mb-3 row">
-                                <label for="manager[{{ $key }}]" class="col-md-3 col-form-label">
-                                    {{ __('warehouse.manager') }}
-                                    <span class="language-badge bg-{{ $key == 'ar' ? 'primary' : 'info' }}">
-                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }}"></i>
-                                        {{ __('language.' . $key) }}
-                                    </span>
-                                </label>
+                                <label for="phone" class="col-md-3 col-form-label">{{ __('warehouse.phone') }}</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="manager[{{ $key }}]"
-                                           name="manager[{{ $key }}]" value="{{ old('manager.' . $key) }}"
-                                           placeholder="{{ __('warehouse.enter_manager_name') }}">
-                                    @error('manager.' . $key)
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                        <input type="text" class="form-control" id="phone" name="phone"
+                                            value="{{ old('phone') }}" placeholder="+966500000000">
+                                    </div>
+                                    @error('phone')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-                        @endforeach
 
-                        <!-- Contact Information -->
-                        <div class="mb-3 row">
-                            <label for="phone" class="col-md-3 col-form-label">{{ __('warehouse.phone') }}</label>
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                    <input type="text" class="form-control" id="phone" name="phone"
-                                           value="{{ old('phone') }}" placeholder="+966500000000">
+                            <div class="mb-3 row">
+                                <label for="email" class="col-md-3 col-form-label">{{ __('warehouse.email') }}</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            value="{{ old('email') }}" placeholder="manager@example.com">
+                                    </div>
+                                    @error('email')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('phone')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @enderror
                             </div>
-                        </div>
 
-                        <div class="mb-3 row">
-                            <label for="email" class="col-md-3 col-form-label">{{ __('warehouse.email') }}</label>
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="email" class="form-control" id="email" name="email"
-                                           value="{{ old('email') }}" placeholder="manager@example.com">
-                                </div>
-                                @error('email')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <!-- Status Toggle -->
-                        <div class="mb-3 row">
-                            <label class="col-md-3 col-form-label" for="status1">{{ __('general.status') }}</label>
-                            <div class="col-md-9">
-                                <div class="form-check form-switch">
-                                    <input type="checkbox" class="form-check-input" id="status1"
-                                           name="status" {{ old('status', true) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="status">
-                                        {{ __('warehouse.active_warehouse') }}
-                                    </label>
+                            <!-- Status Toggle -->
+                            <div class="mb-3 row">
+                                <label class="col-md-3 col-form-label" for="status1">{{ __('general.status') }}</label>
+                                <div class="col-md-9">
+                                    <div class="form-check form-switch">
+                                        <input type="checkbox" class="form-check-input" id="status1"
+                                            name="status" {{ old('status', true) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="status">
+                                            {{ __('warehouse.active_warehouse') }}
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
