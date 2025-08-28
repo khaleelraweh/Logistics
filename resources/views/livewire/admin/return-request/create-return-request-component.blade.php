@@ -60,7 +60,7 @@
             <select wire:model="driver_id" class="form-select">
                 <option value="">{{ __('return_request.select_driver') }}</option>
                 @foreach($drivers as $driver)
-                    <option value="{{ $driver->id }}">{{ $driver->name }} - {{ $driver->phone }}</option>
+                    <option value="{{ $driver->id }}">{{ $driver->driver_full_name }} - {{ $driver->phone }} - {{ __('driver.vehicle_type_'. $driver->vehicle_type) }}</option>
                 @endforeach
             </select>
             @error('driver_id') <span class="text-danger">{{ $message }}</span> @enderror
