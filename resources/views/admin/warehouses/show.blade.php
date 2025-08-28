@@ -376,7 +376,7 @@
                             <i class="fas fa-warehouse fa-3x text-white"></i>
                         </div>
                         <div>
-                            <h3 class="card-title mb-1 text-white">{{ $warehouse->name }}</h3>
+                            <h1 class="card-title mb-1 text-white">{{ $warehouse->name }}</h1>
                             <p class="card-subtitle mb-0 text-white-50">
                                 <span class="badge bg-light text-dark me-2">{{ $warehouse->code }}</span>
                                 <span class="badge bg-{{ $warehouse->status ? 'success' : 'secondary' }}">
@@ -493,7 +493,7 @@
                                     <div class="info-icon text-warning">
                                         <i class="fas fa-map-marker-alt"></i>
                                     </div>
-                                    <div class="info-content">
+                                    <div class="info-content" style="width: 100%;">
                                         <h6>{{ __('general.location') }}</h6>
                                         @if($warehouse->latitude && $warehouse->longitude)
                                             <div class="location-details">
