@@ -51,7 +51,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 1rem;
+            /* margin-right: 1rem; */
+            margin-left: 0.5em;
             color: white;
             font-size: 1.5rem;
         }
@@ -146,7 +147,7 @@
         .nav-pills .nav-link {
             border-radius: 8px;
             padding: 1rem 1.5rem;
-            color: #718096;
+            color: #000;
             font-weight: 500;
             transition: all 0.3s ease;
         }
@@ -187,6 +188,7 @@
 
             .stats-icon {
                 margin-right: 0;
+                margin-left: 0;
                 margin-bottom: 1rem;
             }
 
