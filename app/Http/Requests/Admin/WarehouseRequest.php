@@ -34,6 +34,14 @@ class WarehouseRequest extends FormRequest
                         'email'                             =>  'required|email|max:255|unique:warehouses',
 
 
+                        'country'       => 'required|string|max:255',
+                        'region'        => 'required|string|max:255',
+                        'city'          => 'required|string|max:255',
+                        'district'      => 'required|string|max:255',
+                        'latitude'      => 'required|numeric|between:-90,90',
+                        'longitude'     => 'required|numeric|between:-180,180',
+
+
                         'status'                            =>  'nullable',
                         'created_by'                        =>  'nullable',
                         'updated_by'                        =>  'nullable',
@@ -49,6 +57,14 @@ class WarehouseRequest extends FormRequest
                         'code'                              =>  'required|string|max:20|unique:warehouses,code,'.$this->route()->warehouse,
                         'phone'                             =>  'required|string|max:20',
                         'email'                             =>  'required|email|max:255|unique:warehouses,email,'.$this->route()->warehouse,
+
+
+                        'country'       => 'required|string|max:255',
+                        'region'        => 'required|string|max:255',
+                        'city'          => 'required|string|max:255',
+                        'district'      => 'required|string|max:255',
+                        'latitude'      => 'required|numeric|between:-90,90',
+                        'longitude'     => 'required|numeric|between:-180,180',
 
 
                         'status'                            =>  'nullable',
@@ -69,6 +85,14 @@ class WarehouseRequest extends FormRequest
             'code'         => '( ' . __('warehouse.code') . ' )',
             'phone'         => '( ' . __('warehouse.phone') . ' )',
             'email'       => '( ' . __('warehouse.email') . ' )',
+
+            'country'   => "( " . __('warehouse.country') . " )",
+            'region'    => "( " . __('warehouse.region') . " )",
+            'city'      => "( " . __('warehouse.city') . " )",
+            'district'  => "( " . __('warehouse.district') . " )",
+            'latitude'  => "( " . __('warehouse.latitude') . " )",
+            'longitude' => "( " . __('warehouse.longitude') . " )",
+
         ];
 
         foreach (config('locales.languages') as $key => $val) {
