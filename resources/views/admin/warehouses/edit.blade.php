@@ -38,67 +38,127 @@
                             <p class="section-description">{{ __('warehouse.update_basic_info') }}</p>
                         </div>
 
-                        <!-- Multilingual Name Fields -->
-                        @foreach (config('locales.languages') as $key => $val)
+                        <div class="mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                    <i class="bi bi-geo-alt text-primary"></i>
+                                </div>
+                                <h5 class="mb-0">{{ __('warehouse.warehouse_info') }}</h5>
+                            </div>
+
+                            <!-- Multilingual Name Fields -->
+                            @foreach (config('locales.languages') as $key => $val)
+                                <div class="mb-3 row">
+                                    <label for="name[{{ $key }}]" class="col-md-3 col-form-label">
+                                        {{ __('warehouse.name') }}
+                                        <span class="language-badge bg-{{ $key == 'ar' ? 'primary' : 'info' }}">
+                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }}"></i>
+                                            {{ __('language.' . $key) }}
+                                        </span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="name[{{ $key }}]"
+                                            name="name[{{ $key }}]"
+                                            value="{{ old('name.' . $key, $warehouse->getTranslation('name', $key)) }}"
+                                            placeholder="{{ __('warehouse.enter_name') }}">
+                                        @error('name.' . $key)
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endforeach
+
+                            <!-- Warehouse Code -->
                             <div class="mb-3 row">
-                                <label for="name[{{ $key }}]" class="col-md-3 col-form-label">
-                                    {{ __('warehouse.name') }}
-                                    <span class="language-badge bg-{{ $key == 'ar' ? 'primary' : 'info' }}">
-                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }}"></i>
-                                        {{ __('language.' . $key) }}
-                                    </span>
-                                </label>
+                                <label for="code" class="col-md-3 col-form-label">{{ __('warehouse.code') }}</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="name[{{ $key }}]"
-                                           name="name[{{ $key }}]"
-                                           value="{{ old('name.' . $key, $warehouse->getTranslation('name', $key)) }}"
-                                           placeholder="{{ __('warehouse.enter_name') }}">
-                                    @error('name.' . $key)
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-barcode"></i></span>
+                                        <input type="text" class="form-control" id="code" name="code"
+                                            value="{{ old('code', $warehouse->code) }}"
+                                            placeholder="WH-001" readonly>
+                                        <span class="input-group-text bg-light">
+                                            <small class="text-muted">{{ __('warehouse.unique_identifier') }}</small>
+                                        </span>
+                                    </div>
+                                    @error('code')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-                        @endforeach
 
-                        <!-- Multilingual Location Fields -->
-                        @foreach (config('locales.languages') as $key => $val)
-                            <div class="mb-3 row">
-                                <label for="location[{{ $key }}]" class="col-md-3 col-form-label">
-                                    {{ __('warehouse.location') }}
-                                    <span class="language-badge bg-{{ $key == 'ar' ? 'primary' : 'info' }}">
-                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }}"></i>
-                                        {{ __('language.' . $key) }}
-                                    </span>
-                                </label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" id="location[{{ $key }}]"
-                                           name="location[{{ $key }}]"
-                                           value="{{ old('location.' . $key, $warehouse->getTranslation('location', $key)) }}"
-                                           placeholder="{{ __('warehouse.enter_location') }}">
-                                    @error('location.' . $key)
-                                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                                    @enderror
+                        </div>
+
+
+                        <!-- Address Section -->
+                        <div class="mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                    <i class="bi bi-geo-alt text-primary"></i>
+                                </div>
+                                <h5 class="mb-0">{{ __('general.address_details') }}</h5>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label">{{ __('general.address') }}</label>
+                                <div class="col-md-10">
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <input name="country" class="form-control" id="country" type="text" value="{{ old('country', $warehouse->country) }}" placeholder="{{ __('general.country') }}">
+                                            @error('country')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="region" class="form-control" id="region" type="text" value="{{ old('region' , $warehouse->region) }}" placeholder="{{ __('general.region') }}">
+                                            @error('region')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="city" class="form-control" id="city" type="text" value="{{ old('city' , $warehouse->city) }}" placeholder="{{ __('general.city') }}">
+                                            @error('city')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="district" class="form-control" id="district" type="text" value="{{ old('district' , $warehouse->district) }}" placeholder="{{ __('general.district') }}">
+                                            @error('district')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                        @endforeach
 
-                        <!-- Warehouse Code -->
-                        <div class="mb-3 row">
-                            <label for="code" class="col-md-3 col-form-label">{{ __('warehouse.code') }}</label>
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fas fa-barcode"></i></span>
-                                    <input type="text" class="form-control" id="code" name="code"
-                                           value="{{ old('code', $warehouse->code) }}"
-                                           placeholder="WH-001" readonly>
-                                    <span class="input-group-text bg-light">
-                                        <small class="text-muted">{{ __('warehouse.unique_identifier') }}</small>
-                                    </span>
+
+
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">{{ __('general.geographical_location') }}</label>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                            <div class="col-md-4">
+                                            <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="{{ __('general.latitude') }}" value="{{ old('latitude', $warehouse->latitude ?? '') }}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="{{ __('general.longitude') }}" value="{{ old('longitude', $warehouse->longitude ?? '') }}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input name="postal_code" class="form-control" id="postal_code" type="text" value="{{ old('postal_code' , $warehouse->postal_code) }}" placeholder="{{ __('general.postal_code') }}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="map" style="width: 100%; height: 300px;"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                @error('code')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @enderror
+
                             </div>
+
+
                         </div>
 
                         <!-- Warehouse Management Section -->
