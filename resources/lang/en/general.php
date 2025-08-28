@@ -244,6 +244,8 @@ return [
     'coordinates_copied' => 'Coordinates copied to clipboard!',
     'add_location_in_edit' => 'Add location in edit mode',
     'last_updated'      =>  'Last Updated',
+    'no_location_data'  =>  'No Location Data',
+    'capacity'          =>  'Capacity',
 
 
 ];
