@@ -109,9 +109,14 @@
                                     </td>
 
                                     <td>
-                                        {{ $return_request->driver->name ?? '-' }}
-                                        <br>
-                                        <small>{{ $return_request->driver->phone ?? '-' }}</small>
+                                        @if ($return_request->driver)
+                                            <a href="{{ route('admin.drivers.show',$return_request->driver->id) }}">
+                                                {{ $return_request->driver->driver_full_name ?? '-' }}
+                                                <br>
+                                                <small>{{ $return_request->driver->phone ?? '-' }}</small>
+                                            </a>
+                                        @endif
+
                                     </td>
                                     <td>
                                         @switch($return_request->status)
