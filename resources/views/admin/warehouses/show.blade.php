@@ -48,7 +48,16 @@
                                 <div class="card-body text-center">
                                     <i class="fas fa-map-marker-alt fa-2x text-primary mb-3"></i>
                                     <h5 class="text-muted mb-2">{{ __('warehouse.location') }}</h5>
-                                    <p class="fs-5 fw-semibold">{{ $warehouse->location }}</p>
+
+                                       @if($warehouse->latitude && $warehouse->longitude)
+                                            <div id="miniMap" style="height: 150px; border-radius: 8px; margin-top: 10px;"></div>
+                                            <small class="text-muted mt-2 d-block">
+                                                {{ $warehouse->latitude }}, {{ $warehouse->longitude }}
+                                            </small>
+                                        @else
+                                            <p class="text-muted">{{ $warehouse->location ?? __('general.no_location_data') }}</p>
+                                        @endif
+
                                 </div>
                             </div>
                         </div>
@@ -296,80 +305,121 @@
     </div>
 @endsection
 
-@push('styles')
-<style>
-    .card {
-        transition: all 0.3s ease;
-        border: none;
-        overflow: hidden;
-    }
+@section('style')
+    <style>
+        .card {
+            transition: all 0.3s ease;
+            border: none;
+            overflow: hidden;
+        }
 
-    .card:hover {
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        transform: translateY(-2px);
-    }
+        .card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
 
-    .bg-gradient-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
 
-    .bg-primary-light {
-        background-color: rgba(102, 126, 234, 0.1);
-    }
+        .bg-primary-light {
+            background-color: rgba(102, 126, 234, 0.1);
+        }
 
-    .bg-success-light {
-        background-color: rgba(40, 167, 69, 0.1);
-    }
+        .bg-success-light {
+            background-color: rgba(40, 167, 69, 0.1);
+        }
 
-    .bg-info-light {
-        background-color: rgba(23, 162, 184, 0.1);
-    }
+        .bg-info-light {
+            background-color: rgba(23, 162, 184, 0.1);
+        }
 
-    .bg-warning-light {
-        background-color: rgba(255, 193, 7, 0.1);
-    }
+        .bg-warning-light {
+            background-color: rgba(255, 193, 7, 0.1);
+        }
 
-    .timeline {
-        position: relative;
-        padding-left: 20px;
-    }
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+        }
 
-    .timeline li {
-        position: relative;
-        padding-left: 20px;
-    }
+        .timeline li {
+            position: relative;
+            padding-left: 20px;
+        }
 
-    .timeline li:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 5px;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: #667eea;
-    }
+        .timeline li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #667eea;
+        }
 
-    .nav-tabs .nav-link {
-        border: none;
-        padding: 12px 20px;
-        color: #495057;
-        font-weight: 500;
-    }
+        .nav-tabs .nav-link {
+            border: none;
+            padding: 12px 20px;
+            color: #495057;
+            font-weight: 500;
+        }
 
-    .nav-tabs .nav-link.active {
-        color: #667eea;
-        background-color: transparent;
-        border-bottom: 3px solid #667eea;
-    }
-</style>
-@endpush
+        .nav-tabs .nav-link.active {
+            color: #667eea;
+            background-color: transparent;
+            border-bottom: 3px solid #667eea;
+        }
+    </style>
 
-@push('scripts')
-<script>
-    // Initialize tooltips
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
-@endpush
+    <style>
+        #miniMap {
+            width: 100%;
+            min-height: 150px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+        }
+
+        /* تحسين مظهر الخريطة المصغرة */
+        .leaflet-container {
+            border-radius: 8px;
+        }
+    </style>
+
+@endsection
+
+@section('script')
+    <script>
+        // Initialize tooltips
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            @if($warehouse->latitude && $warehouse->longitude)
+                // تهيئة الخريطة المصغرة
+                var miniMap = L.map('miniMap').setView([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}], 15);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(miniMap);
+
+                // إضافة علامة للمستودع
+                L.marker([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}])
+                    .addTo(miniMap)
+                    .bindPopup('{{ $warehouse->name }}')
+                    .openPopup();
+            @endif
+        });
+    </script>
+
+@endsection
