@@ -237,6 +237,13 @@ return [
     'schedule_event'               => 'Schedule',
     'by'                    =>  'By',
 
+    'copy_coordinates' => 'Copy Coordinates',
+    'open_in_gmaps' => 'Open in Google Maps',
+    'coordinates' => 'Coordinates',
+    'copy' => 'Copy',
+    'coordinates_copied' => 'Coordinates copied to clipboard!',
+    'add_location_in_edit' => 'Add location in edit mode',
+
 
 ];
 

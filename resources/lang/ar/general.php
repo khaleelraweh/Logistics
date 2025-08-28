@@ -236,6 +236,13 @@ return [
     'schedule_event'              =>  'جدولة الحدث',
     'by'                    => 'بواسطة',
 
+    'copy_coordinates' => 'نسخ التفاصيل الجغرافية',
+    'open_in_gmaps' => 'فتح في جوجل ماب',
+    'coordinates' => 'التفاصيل الجغرافية',
+    'copy' => 'نسخ',
+    'coordinates_copied' => 'تم نسخ التفاصيل الجغرافية',
+    'add_location_in_edit' => 'إضافة موقع في التحرير',
+
 ];
 
 
