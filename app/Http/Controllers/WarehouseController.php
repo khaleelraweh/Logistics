@@ -67,8 +67,16 @@ class WarehouseController extends Controller
         // dd($request);
 
         $input['name']              =   $request->name;
-        $input['location']          =   $request->location;
         $input['code']              =   $request->code;
+
+        $input['country']           =   $request->country;
+        $input['region']            =   $request->region;
+        $input['city']              =   $request->city;
+        $input['district']          =   $request->district;
+        $input['postal_code']       =   $request->postal_code;
+        $input['latitude']          =   $request->latitude;
+        $input['longitude']         =   $request->longitude;
+
         $input['manager']           =   $request->manager;
         $input['phone']             =   $request->phone;
         $input['email']             =   $request->email;
