@@ -27,6 +27,7 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>{{ __('return_request.type') }}</th>
                             <th>{{ __('return_request.product') }}</th>
                             <th>{{ __('return_request.shipped_qty') }}</th>
                             <th>{{ __('return_request.return_qty') }}</th>
@@ -35,6 +36,7 @@
                     <tbody>
                         @foreach($packageProducts as $product)
                             <tr>
+                                <td>{{ $product['type'] ?? 'Product #' . $product['id'] }}</td>
                                 <td>{{ $product['custom_name'] ?? 'Product #' . $product['id'] }}</td>
                                 <td>{{ $product['quantity'] }}</td>
                                 <td>
