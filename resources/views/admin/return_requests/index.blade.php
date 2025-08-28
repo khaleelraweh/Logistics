@@ -150,38 +150,53 @@
                                     <td>{{ $return_request->requested_at ? $return_request->requested_at->diffForHumans() : '-' }}</td>
                                     <td>{{ $return_request->received_at ? $return_request->received_at->diffForHumans() : '-' }}</td>
                                     <td>{{ $return_request->created_at->diffForHumans() }}</td>
-                                    <td>
-                                        <div class="btn-group me-2 mb-2 mb-sm-0">
-                                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                {{ __('general.operations') }} <i class="mdi mdi-dots-vertical ms-2"></i>
+                                     <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-cog"></i>
                                             </button>
-                                            <div class="dropdown-menu">
+                                            <ul class="dropdown-menu dropdown-menu-end">
                                                 @ability('admin', 'show_return_requests')
-                                                    <a class="dropdown-item" href="{{ route('admin.return_requests.show', $return_request->id) }}">{{ __('general.show') }}</a>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('admin.return_requests.show', $return_request->id) }}">
+                                                        <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
+                                                    </a>
+                                                </li>
                                                 @endability
 
                                                 @ability('admin', 'update_return_requests')
-                                                    <a class="dropdown-item" href="{{ route('admin.return_requests.edit', $return_request->id) }}">{{ __('general.edit') }}</a>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('admin.return_requests.edit', $return_request->id) }}">
+                                                        <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
+                                                    </a>
+                                                </li>
                                                 @endability
 
                                                 @ability('admin', 'delete_return_requests')
-                                                    <a class="dropdown-item" href="javascript:void(0)"
-                                                        onclick="confirmDelete('delete-return-request-{{ $return_request->id }}',
-                                                            '{{ __('panel.confirm_delete_message') }}',
-                                                            '{{ __('panel.yes_delete') }}',
-                                                            '{{ __('panel.cancel') }}')">
-                                                        {{ __('general.delete') }}
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li>
+                                                    <a class="dropdown-item text-danger" href="#"
+
+                                                    onclick="confirmDelete('delete-return_request-{{ $return_request->id }}',
+                                                                                    '{{ __('panel.confirm_delete_message') }}',
+                                                                                    '{{ __('panel.yes_delete') }}',
+                                                                                    '{{ __('panel.cancel') }}')"
+                                                            >
+                                                        <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
                                                     </a>
-                                                    <form action="{{ route('admin.return_requests.destroy', $return_request->id) }}"
-                                                          method="post" class="d-none"
-                                                          id="delete-return-request-{{ $return_request->id }}">
+                                                    <form id="delete-return_request-{{ $return_request->id }}"
+                                                        action="{{ route('admin.return_requests.destroy', $return_request->id) }}"
+                                                        method="POST" class="d-none">
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
+                                                </li>
                                                 @endability
-                                            </div>
+                                            </ul>
                                         </div>
                                     </td>
+
                                 </tr>
                             @empty
                                 <tr>
