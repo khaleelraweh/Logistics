@@ -27,7 +27,6 @@ class WarehouseRequest extends FormRequest
             case 'POST': {
                     return [
                         'name.ar'                           =>  'required|string|max:255',
-                        'location.ar'                       =>  'required|string|max:255',
                         'manager.ar'                        =>  'required|string|max:255',
 
                         'code'                              =>  'required|string|max:20|unique:warehouses',
@@ -45,7 +44,6 @@ class WarehouseRequest extends FormRequest
             case 'PATCH': {
                     return [
                         'name.ar'                           =>  'required|string|max:255',
-                        'location.ar'                       =>  'required|string|max:255',
                         'manager.ar'                        =>  'required|string|max:255',
 
                         'code'                              =>  'required|string|max:20|unique:warehouses,code,'.$this->route()->warehouse,

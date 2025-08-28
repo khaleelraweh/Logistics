@@ -18,7 +18,6 @@ class WarehouseSeeder extends Seeder
          // Warehouses
         $warehouse = Warehouse::create([
             'name' => ['ar' =>  'المستودع الرئيسي', 'en'    =>  "Main Warehouse"],
-            'location' => ['ar' =>   'المنطقة الصناعية - صنعاء', 'en'   =>  'Sanaa - Factorail Area'],
             'manager' => ['ar' =>   'محمد احمد صالح', 'en'   =>  'Mohamed Ahmed Saleh'],
             'code'  =>  'wa-1',
         ]);

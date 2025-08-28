@@ -17,7 +17,16 @@ return new class extends Migration
         Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
             $table->json('name');
-            $table->json('location');
+
+            $table->string('country')->nullable();
+            $table->string('region')->nullable();
+            $table->string('city')->nullable();
+            $table->string('district')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();  // خط العرض
+            $table->decimal('longitude', 10, 7)->nullable();
+
+
             $table->json('manager');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
