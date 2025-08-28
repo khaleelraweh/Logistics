@@ -144,11 +144,23 @@
         </div>
     </div>
 
-    {{-- Submit --}}
-    @ability('admin', 'create_return_requests')
-        <div class="text-end">
-            <button type="submit" class="btn btn-primary">{{ __('return_request.save_return_request') }}</button>
-        </div>
-    @endability
+
+
+     <!-- Submit Button -->
+    <div class="text-end pt-3">
+        @ability('admin', 'update_return_requests')
+            <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
+                <i class="ri-save-3-line me-2"></i>
+                <i class="bi bi-save me-2"></i>
+                {{ __('return_request.update_return_request') }}
+            </button>
+        @endability
+
+        <a href="{{ route('admin.return_requests.index') }}" class="btn btn-outline-danger ms-2">
+            <i class="ri-arrow-go-back-line me-1"></i>
+            {{ __('panel.cancel') }}
+        </a>
+    </div>
+
 
 </form>
