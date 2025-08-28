@@ -66,6 +66,7 @@ return [
     'no_warehouses_found'       =>  'No warehouses found',
 
     'no_active_rentals'         =>  'No active rentals',
+    'total_rentals'             =>  'Total Rentals',
 
 
 
