@@ -54,7 +54,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <script>
+    {{-- <script>
         document.addEventListener('livewire:load', function () {
 
             function updateFieldsFromLatLng(lat, lng){
@@ -118,5 +118,112 @@
 
             setTimeout(() => map.invalidateSize(), 300);
         });
-    </script>
+    </script> --}}
+
+    <script>
+    document.addEventListener('livewire:load', function () {
+        let map, marker;
+
+        function initMap() {
+            var mapDiv = document.getElementById('map');
+            if(!mapDiv) return;
+
+            var initialLat = parseFloat(@this.latitude) || parseFloat(@this.defaultLatitude) || 24.7136;
+            var initialLng = parseFloat(@this.longitude) || parseFloat(@this.defaultLongitude) || 46.6753;
+
+            // إنشاء الخريطة
+            map = L.map('map', {
+                minZoom: 8,
+                maxZoom: 18,
+                zoomControl: true,
+            }).setView([initialLat, initialLng], 11);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors',
+                subdomains: ['a','b','c'],
+                tileSize: 256,
+            }).addTo(map);
+
+            marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
+
+            marker.on('dragend', function(e){
+                var latlng = marker.getLatLng();
+                @this.set('latitude', latlng.lat);
+                @this.set('longitude', latlng.lng);
+                updateFieldsFromLatLng(latlng.lat, latlng.lng);
+            });
+
+            map.on('click', function(e){
+                marker.setLatLng(e.latlng);
+                @this.set('latitude', e.latlng.lat);
+                @this.set('longitude', e.latlng.lng);
+                updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
+            });
+
+            // إعادة رسم الخريطة بعد التحميل
+            setTimeout(() => {
+                if (map) {
+                    map.invalidateSize();
+                }
+            }, 500);
+        }
+
+        function updateFieldsFromLatLng(lat, lng){
+            fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.address){
+                        @this.set('sender_country', data.address.country || '');
+                        @this.set('sender_city', data.address.city || data.address.town || data.address.village || '');
+                        @this.set('sender_region', data.address.state || '');
+                        @this.set('sender_district', data.address.suburb || '');
+                        @this.set('sender_postal_code', data.address.postcode || '');
+                    }
+                });
+        }
+
+        // تهيئة الخريطة لأول مرة
+        initMap();
+
+        // إعادة رسم الخريطة عند تحديث Livewire
+        Livewire.hook('message.processed', (message, component) => {
+            setTimeout(() => {
+                if (map) {
+                    map.invalidateSize();
+                }
+            }, 300);
+        });
+
+        // إعادة رسم الخريطة عند تغيير حجم النافذة
+        window.addEventListener('resize', function() {
+            if (map) {
+                setTimeout(() => {
+                    map.invalidateSize();
+                }, 300);
+            }
+        });
+
+        // حدث خاص لتحديث الخريطة
+        Livewire.on('refreshMap', () => {
+            var lat = parseFloat(@this.latitude);
+            var lng = parseFloat(@this.longitude);
+            if(!isNaN(lat) && !isNaN(lng) && map && marker){
+                marker.setLatLng([lat, lng]);
+                map.setView([lat, lng], 11);
+                setTimeout(() => {
+                    map.invalidateSize();
+                }, 300);
+            }
+        });
+
+        // حدث لإعادة رسم الخريطة من Blade
+        window.addEventListener('mapInvalidateSize', () => {
+            if (map) {
+                setTimeout(() => {
+                    map.invalidateSize();
+                }, 300);
+            }
+        });
+    });
+</script>
 </div>

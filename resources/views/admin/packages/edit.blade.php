@@ -177,6 +177,27 @@
         }
     </style>
 
+    <style>
+    #map {
+        height: 300px;
+        width: 100%;
+        min-height: 300px;
+        z-index: 1;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+
+    /* تأكد من أن الخرائط مرئية عند التبديل */
+    .tab-pane.active #map {
+        visibility: visible !important;
+    }
+
+    /* إصلاح مشاكل التخطيط */
+    .leaflet-container {
+        background: #f8f9fa;
+    }
+</style>
+
 @endsection
 
 @section('content')
@@ -1163,4 +1184,43 @@
 
         });
     </script>
+
+    <script>
+    // حل مشكلة الخريطة في التبويبات - للتعديل
+    $(document).ready(function() {
+        // إعادة رسم الخرائط عند التبديل بين التبويبات
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+                if (typeof Livewire !== 'undefined') {
+                    Livewire.emit('refreshMap');
+                    Livewire.emit('refreshReceiverMap');
+                }
+            }, 400);
+        });
+
+        // إعادة رسم الخرائط عند النقر على أزرار next/previous
+        $('.twitter-bs-wizard-pager-link a').on('click', function() {
+            setTimeout(() => {
+                window.dispatchEvent(new Event('resize'));
+                if (typeof Livewire !== 'undefined') {
+                    Livewire.emit('refreshMap');
+                    Livewire.emit('refreshReceiverMap');
+                }
+            }, 500);
+        });
+
+        // دالة عالمية لإعادة رسم جميع الخرائط
+        function refreshAllMaps() {
+            window.dispatchEvent(new Event('resize'));
+            if (typeof Livewire !== 'undefined') {
+                Livewire.emit('refreshMap');
+                Livewire.emit('refreshReceiverMap');
+            }
+        }
+
+        // جعل الدالة متاحة globally
+        window.refreshAllMaps = refreshAllMaps;
+    });
+</script>
 @endsection
