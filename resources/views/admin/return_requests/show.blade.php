@@ -62,9 +62,9 @@
                                     <td>
                                         @if($return_request->package)
                                             <span class="d-flex align-items-center">
-                                                @if($return_request->merchant)
+                                                @if($return_request->package->merchant)
                                                     <i class="mdi mdi-store-outline me-2"></i>
-                                                    {{ $return_request->merchant->name }} - {{ $return_request->merchant->contact_person }}
+                                                    {{ $return_request->package->merchant->name }} - {{ $return_request->package->merchant->contact_person }}
                                                 @else
                                                     <i class="mdi mdi-user-outline me-2"></i>
                                                     {{ $return_request->package->sender_full_name }}
@@ -80,9 +80,9 @@
                                     <td>
                                         @if($return_request->package)
                                             <span class="d-flex align-items-center">
-                                                @if($return_request->receiver_merchant)
+                                                @if($return_request->package->receiverMerchant)
                                                     <i class="mdi mdi-store-outline me-2"></i>
-                                                    {{ $return_request->merchant->name }} - {{ $return_request->merchant->contact_person }}
+                                                    {{ $return_request->package->receiverMerchant->name }} - {{ $return_request->package->receiverMerchant->contact_person }}
                                                 @else
                                                     <i class="mdi mdi-user-outline me-2"></i>
                                                     {{ $return_request->package->receiver_full_name }}
