@@ -56,39 +56,56 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
 
-                                      @php
-                                            $packageParts = array_filter([
-                                                $$return_request->package->tracking_number,
-                                                $$return_request->package->sender_region,
-                                                $$return_request->package->sender_city,
-                                                $$return_request->package->sender_district,
-                                            ]); // إزالة القيم الفارغة
+                                    @php
+                                        $packageParts = array_filter([
+                                            $return_request->package->tracking_number,
+                                            $return_request->package->sender_region,
+                                            $return_request->package->sender_city,
+                                            $return_request->package->sender_district,
+                                        ]);
+                                        $fullPackageInfo = implode(' - ', $packageParts);
 
-                                            $shortSenderInfo = implode(' - ', array_slice($packageParts, 0, 2)); // أول قيمتين فقط
-                                            $fullSenderInfo = implode(' - ', $packageParts); // كامل النص
-                                        @endphp
+                                        $senderParts = array_filter([
+                                            $return_request->package->sender_full_name,
+                                            $return_request->package->sender_country,
+                                            $return_request->package->sender_region,
+                                            $return_request->package->sender_city,
+                                            $return_request->package->sender_district,
+                                        ]);
+                                        $fullSenderInfo = implode(' - ', $senderParts);
 
-                                        @php
-                                            $senderParts = array_filter([
-                                                $$return_request->package->sender_country,
-                                                $$return_request->package->sender_region,
-                                                $$return_request->package->sender_city,
-                                                $$return_request->package->sender_district,
-                                            ]); // إزالة القيم الفارغة
+                                        $receiverParts = array_filter([
+                                            $return_request->package->receiver_full_name,
+                                            $return_request->package->receiver_country,
+                                            $return_request->package->receiver_region,
+                                            $return_request->package->receiver_city,
+                                            $return_request->package->receiver_district,
+                                        ]);
+                                        $fullReceiverInfo = implode(' - ', $receiverParts);
+                                    @endphp
 
-                                            $shortSenderInfo = implode(' - ', array_slice($senderParts, 0, 2)); // أول قيمتين فقط
-                                            $fullSenderInfo = implode(' - ', $senderParts); // كامل النص
-                                        @endphp
-
-                                    {{-- <td title="{{ $fullLocation }}" data-bs-toggle="tooltip" data-bs-placement="top">
-                                        {{ $shortLocation }}
-                                    </td> --}}
-
-                                    <td>
+                                    <td data-bs-toggle="tooltip" data-bs-placement="top"
+                                        title="
+                                            <div>
+                                                <strong>{{ __('return_request.package') }}</strong><br>
+                                                {{ $fullPackageInfo }}
+                                            </div>
+                                            <hr>
+                                            <div>
+                                                <strong>{{ __('return_request.sender') }}</strong><br>
+                                                {{ $fullSenderInfo }}
+                                            </div>
+                                            <hr>
+                                            <div>
+                                                <strong>{{ __('return_request.receiver') }}</strong><br>
+                                                {{ $fullReceiverInfo }}
+                                            </div>
+                                        ">
                                         {{ $return_request->package->tracking_number ?? '-' }}
                                         <br>
                                         <small>{{ $return_request->package->receiver_first_name ?? '' }} {{ $return_request->package->receiver_last_name ?? '' }}</small>
                                     </td>
+
                                     <td>
                                         {{ $return_request->driver->name ?? '-' }}
                                         <br>
@@ -99,27 +116,21 @@
                                             @case('requested')
                                                 <span class="badge bg-success">{{ __('return_request.status_requested') }}</span>
                                                 @break
-
                                             @case('cancelled')
                                                 <span class="badge bg-danger">{{ __('return_request.status_cancelled') }}</span>
                                                 @break
-
                                             @case('in_transit')
                                                 <span class="badge bg-warning">{{ __('return_request.status_in_transit') }}</span>
                                                 @break
-
                                             @case('rejected')
                                                 <span class="badge bg-danger">{{ __('return_request.status_rejected') }}</span>
                                                 @break
-
                                             @case('received')
                                                 <span class="badge bg-primary">{{ __('return_request.status_received') }}</span>
                                                 @break
-
                                             @case('partially_received')
                                                 <span class="badge bg-info">{{ __('return_request.status_partially_received') }}</span>
                                                 @break
-
                                             @default
                                                 <span class="badge bg-secondary">{{ __('return_request.status_unknown') }}</span>
                                         @endswitch
@@ -173,4 +184,16 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+    // تفعيل التولتيب مع دعم HTML
+    document.addEventListener("DOMContentLoaded", function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+            new bootstrap.Tooltip(tooltipTriggerEl, { html: true })
+        })
+    });
+</script>
 @endsection

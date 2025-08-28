@@ -79,5 +79,7 @@ return [
     'assign_to_driver'        => 'إسناد لسائق',
     'assigned_at'             => 'تاريخ التعيين',
     'assign'                  => 'إسناد',
+    'sender'                =>  'المرسل',
+    'receiver'                => 'المستلم',
 
 ];

@@ -79,5 +79,7 @@ return [
     'assign_to_driver'        => 'Assign to Driver',
     'assigned_at'             => 'Assigned At',
     'assign'                  => 'Assign',
+    'sender'                =>  'Sender',
+    'receiver'              =>  'Receiver',
 
 ];
