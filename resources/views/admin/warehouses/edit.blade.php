@@ -166,8 +166,8 @@
 
 
                             <div class="row">
-                                <label class="col-md-2 col-form-label">{{ __('general.geographical_location') }}</label>
-                                <div class="col-md-10">
+                                <label class="col-md-3 col-form-label">{{ __('general.geographical_location') }}</label>
+                                <div class="col-md-9">
                                     <div class="row">
                                             <div class="col-md-4">
                                             <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="{{ __('general.latitude') }}" value="{{ old('latitude', $warehouse->latitude ?? '') }}">
