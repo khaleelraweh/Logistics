@@ -328,16 +328,20 @@
 
 
 @php
-function getStatusColor($status) {
-    return match($status) {
-        'delivered'        => 'success',
-        'out_for_delivery' => 'info',
-        'in_warehouse'     => 'primary',
-        'returned'         => 'danger',
-        'pending'          => 'warning',
-        'cancelled'        => 'dark',
-        'delivery_failed'  => 'danger',
-        default            => 'secondary',
-    };
-}
+ function getStatusColor($status) {
+        return match($status) {
+            'pending'           => 'warning',
+            'assigned_to_driver'=> 'primary',
+            'driver_picked_up'  => 'info',
+            'in_transit'        => 'info',
+            'arrived_at_hub'    => 'secondary',
+            'out_for_delivery'  => 'primary',
+            'delivered'         => 'success',
+            'delivery_failed'   => 'danger',
+            'returned'          => 'secondary',
+            'cancelled'         => 'danger',
+            'in_warehouse'      => 'secondary',
+            default              => 'secondary',
+        };
+    }
 @endphp
