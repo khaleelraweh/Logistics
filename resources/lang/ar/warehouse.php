@@ -62,6 +62,7 @@ return [
 
     //Message
     'no_warehouses_found'       =>  'لم يتم العثور على مستودعات',
+    'no_active_rentals'         =>  'لا يوجد عقود نشطة',
 
 
 

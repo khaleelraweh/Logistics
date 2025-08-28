@@ -74,6 +74,10 @@ return [
     'shelf_note1' => 'If no start and end date is selected for the shelf rental, the dates from above will be used.',
     'shelf_note2' => 'If the shelf is not priced, it will be given its default price.',
 
+    'add_shelves_to_warehouse'      =>  'Add Shelves to Warehouse',
+    'total_shelves'                  =>  'Total Shelves',
+    'total_rentals'                  =>  'Total Rentals',
+
 
 
 

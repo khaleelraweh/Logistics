@@ -242,6 +242,7 @@ return [
     'copy' => 'نسخ',
     'coordinates_copied' => 'تم نسخ التفاصيل الجغرافية',
     'add_location_in_edit' => 'إضافة موقع في التحرير',
+    'last_updated'  =>  'آخر تحديث',
 
 ];
 
