@@ -101,9 +101,11 @@
                                                 {{ $fullReceiverInfo }}
                                             </div>
                                         ">
-                                        {{ $return_request->package->tracking_number ?? '-' }}
-                                        <br>
-                                        <small>{{ $return_request->package->receiver_first_name ?? '' }} {{ $return_request->package->receiver_last_name ?? '' }}</small>
+                                        <a href="{{ route('admin.packages.show', $return_request->package_id) }}">
+                                            {{ $return_request->package->tracking_number ?? '-' }}
+                                            <br>
+                                            <small>{{ $return_request->package->receiver_first_name ?? '' }} {{ $return_request->package->receiver_last_name ?? '' }}</small>
+                                        </a>
                                     </td>
 
                                     <td>
