@@ -59,26 +59,6 @@
                             </div>
                         @endforeach
 
-                        <!-- Multilingual Location Fields -->
-                        @foreach (config('locales.languages') as $key => $val)
-                            <div class="mb-3 row">
-                                <label for="location[{{ $key }}]" class="col-md-3 col-form-label">
-                                    {{ __('warehouse.location') }}
-                                    <span class="language-badge bg-{{ $key == 'ar' ? 'primary' : 'info' }}">
-                                        <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }}"></i>
-                                        {{ __('language.' . $key) }}
-                                    </span>
-                                </label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" id="location[{{ $key }}]"
-                                           name="location[{{ $key }}]" value="{{ old('location.' . $key) }}"
-                                           placeholder="{{ __('warehouse.enter_location') }}">
-                                    @error('location.' . $key)
-                                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endforeach
 
                         <!-- Warehouse Code -->
                         <div class="mb-3 row">
@@ -97,6 +77,80 @@
                                 @enderror
                             </div>
                         </div>
+
+
+                        <!-- Address Section -->
+                        <div class="mb-5">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                    <i class="bi bi-geo-alt text-primary"></i>
+                                </div>
+                                <h5 class="mb-0">{{ __('general.address_details') }}</h5>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label">{{ __('general.address') }}</label>
+                                <div class="col-md-10">
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <input name="country" class="form-control" id="country" type="text" value="{{ old('country') }}" placeholder="{{ __('general.country') }}">
+                                            @error('country')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="region" class="form-control" id="region" type="text" value="{{ old('region') }}" placeholder="{{ __('general.region') }}">
+                                            @error('region')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="city" class="form-control" id="city" type="text" value="{{ old('city') }}" placeholder="{{ __('general.city') }}">
+                                            @error('city')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input name="district" class="form-control" id="district" type="text" value="{{ old('district') }}" placeholder="{{ __('general.district') }}">
+                                            @error('district')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">{{ __('general.geographical_location') }}</label>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                            <div class="col-md-4">
+                                            <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="{{ __('general.latitude') }}" value="{{ old('latitude', $merchant->latitude ?? '') }}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="{{ __('general.longitude') }}" value="{{ old('longitude', $merchant->longitude ?? '') }}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input name="postal_code" class="form-control" id="postal_code" type="text" value="{{ old('postal_code') }}" placeholder="{{ __('general.postal_code') }}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="map" style="width: 100%; height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
 
                         <!-- Warehouse Management Section -->
                         <div class="section-block mt-4">

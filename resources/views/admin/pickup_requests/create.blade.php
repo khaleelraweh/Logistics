@@ -32,7 +32,6 @@
                     <form action="{{ route('admin.pickup_requests.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                         <!-- Address Section -->
                         <div class="mb-5">
                             <div class="d-flex align-items-center mb-4">
                                 <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
