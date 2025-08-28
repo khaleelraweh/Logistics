@@ -190,12 +190,12 @@ class Package extends Model
         return $this->hasMany(PackageProduct::class);
     }
 
-    public function products()
-    {
-        return $this->belongsToMany(Product::class, 'package_products')
-            ->withPivot(['quantity', 'weight', 'price_per_unit', 'total_price'])
-            ->using(PackageProduct::class);
-    }
+    // public function products()
+    // {
+    //     return $this->belongsToMany(Product::class, 'package_products')
+    //         ->withPivot(['quantity', 'weight', 'price_per_unit', 'total_price'])
+    //         ->using(PackageProduct::class);
+    // }
 
     public function stockItems()
     {
