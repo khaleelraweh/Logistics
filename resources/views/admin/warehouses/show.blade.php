@@ -770,7 +770,7 @@
                         <small>{{ __('general.last_updated') }}: {{ $warehouse->updated_at->diffForHumans() }}</small>
                     </div>
                     <div>
-                        @ability('admin', 'delete_warehouses')
+                        {{-- @ability('admin', 'delete_warehouses')
                         <button class="btn btn-danger" onclick="confirmDelete('delete-warehouse-{{ $warehouse->id }}',
                             '{{ __('panel.confirm_delete_message') }}',
                             '{{ __('panel.yes_delete') }}',
@@ -783,7 +783,7 @@
                             @csrf
                             @method('DELETE')
                         </form>
-                        @endability
+                        @endability --}}
                     </div>
                 </div>
             </div>
