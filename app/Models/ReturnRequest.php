@@ -70,10 +70,12 @@ class ReturnRequest extends Model
     public function statusLabel()
     {
         return match ($this->status) {
-            'requested' => __('return_request.status_requested'),
-            'in_transit' => __('return_request.status_in_transit'),
-            'received' => __('return_request.status_received'),
-            'rejected' => __('return_request.status_rejected'),
+            'requested' =>  __('return_request.status_requested'),
+            'in_transit'    =>  __('return_request.status_in_transit'),
+            'received'  =>  __('return_request.status_received'),
+            'rejected'  =>  __('return_request.status_rejected'),
+            'partially_received'    =>  __('return_request.status_partially_received'),
+            'status_cancelled'  =>  __('return_request.status_status_cancelled'),
             default => __('return_request.unknown'),
         };
     }
