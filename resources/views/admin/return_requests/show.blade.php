@@ -49,20 +49,44 @@
                                 <tr>
                                     <td class="fw-bold text-muted">{{ __('return_request.package') }}</td>
                                     <td>
+
                                         @if($return_request->package)
-                                            <span class="badge bg-light text-dark">{{ $return_request->package->package_number }}</span>
+                                            <span class="badge bg-light text-dark">{{ $return_request->package->tracking_number }}</span>
                                         @else
                                             -
                                         @endif
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="fw-bold text-muted">{{ __('return_request.merchant') }}</td>
+                                    <td class="fw-bold text-muted">{{ __('return_request.sender') }}</td>
                                     <td>
-                                        @if($return_request->merchant)
+                                        @if($return_request->package)
                                             <span class="d-flex align-items-center">
-                                                <i class="mdi mdi-store-outline me-2"></i>
-                                                {{ $return_request->merchant->name }}
+                                                @if($return_request->merchant)
+                                                    <i class="mdi mdi-store-outline me-2"></i>
+                                                    {{ $return_request->merchant->name }} - {{ $return_request->merchant->contact_person }}
+                                                @else
+                                                    <i class="mdi mdi-user-outline me-2"></i>
+                                                    {{ $return_request->package->sender_full_name }}
+                                                @endif
+                                            </span>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold text-muted">{{ __('return_request.receiver') }}</td>
+                                    <td>
+                                        @if($return_request->package)
+                                            <span class="d-flex align-items-center">
+                                                @if($return_request->receiver_merchant)
+                                                    <i class="mdi mdi-store-outline me-2"></i>
+                                                    {{ $return_request->merchant->name }} - {{ $return_request->merchant->contact_person }}
+                                                @else
+                                                    <i class="mdi mdi-user-outline me-2"></i>
+                                                    {{ $return_request->package->receiver_full_name }}
+                                                @endif
                                             </span>
                                         @else
                                             -
@@ -75,7 +99,7 @@
                                         @if($return_request->driver)
                                             <span class="d-flex align-items-center">
                                                 <i class="mdi mdi-account-tie-outline me-2"></i>
-                                                {{ $return_request->driver->name }}
+                                                {{ $return_request->driver->driver_full_name }}
                                             </span>
                                         @else
                                             -
