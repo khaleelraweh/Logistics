@@ -12,7 +12,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('admin.merchants.index') }}">{{ __('merchant.merchants') }}</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.merchants.index') }}">{{ __('merchant.manage_merchants') }}</a></li>
                             </ol>
                         </nav>
                     </div>

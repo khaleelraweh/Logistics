@@ -2,20 +2,24 @@
 
 @section('content')
 
-    <!-- start page title -->
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">{{ __('return_request.manage_return_requests') }}</h4>
-                <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">{{ __('return_request.view_return_requests') }}</a></li>
-                        <li class="breadcrumb-item active">{{ __('return_request.manage_return_requests') }}</li>
-                    </ol>
+       <!-- Page Header -->
+        <div class="row ">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0 font-size-18">{{ __('return_request.manage_return_requests') }}</h4>
+
+                    <div class="page-title-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.return_requests.index') }}">{{ __('return_request.manage_return_requests') }}</a></li>
+                            </ol>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- /Page Header -->
 
     <!-- return_requests table -->
     <div class="row">
