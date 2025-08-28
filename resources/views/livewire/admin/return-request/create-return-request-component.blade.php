@@ -36,7 +36,7 @@
                     <tbody>
                         @foreach($packageProducts as $product)
                             <tr>
-                                <td>{{ $product['type'] ?? 'Product #' . $product['id'] }}</td>
+                                <td> {{ __('product.'.$product['type'] ?? 'not_set') }}</td>
                                 <td>{{ $product['custom_name'] ?? 'Product #' . $product['id'] }}</td>
                                 <td>{{ $product['quantity'] }}</td>
                                 <td>
