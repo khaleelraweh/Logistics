@@ -55,6 +55,35 @@
                             @forelse ($return_requests as $return_request)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+
+                                      @php
+                                            $packageParts = array_filter([
+                                                $$return_request->package->tracking_number,
+                                                $$return_request->package->sender_region,
+                                                $$return_request->package->sender_city,
+                                                $$return_request->package->sender_district,
+                                            ]); // إزالة القيم الفارغة
+
+                                            $shortSenderInfo = implode(' - ', array_slice($packageParts, 0, 2)); // أول قيمتين فقط
+                                            $fullSenderInfo = implode(' - ', $packageParts); // كامل النص
+                                        @endphp
+
+                                        @php
+                                            $senderParts = array_filter([
+                                                $$return_request->package->sender_country,
+                                                $$return_request->package->sender_region,
+                                                $$return_request->package->sender_city,
+                                                $$return_request->package->sender_district,
+                                            ]); // إزالة القيم الفارغة
+
+                                            $shortSenderInfo = implode(' - ', array_slice($senderParts, 0, 2)); // أول قيمتين فقط
+                                            $fullSenderInfo = implode(' - ', $senderParts); // كامل النص
+                                        @endphp
+
+                                    {{-- <td title="{{ $fullLocation }}" data-bs-toggle="tooltip" data-bs-placement="top">
+                                        {{ $shortLocation }}
+                                    </td> --}}
+
                                     <td>
                                         {{ $return_request->package->tracking_number ?? '-' }}
                                         <br>
