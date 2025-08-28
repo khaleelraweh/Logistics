@@ -143,112 +143,54 @@
                                     </div>
                                 </div>
 
-                                {{-- <div class="info-item">
+                                <div class="info-item location-item">
                                     <div class="info-icon text-warning">
                                         <i class="fas fa-map-marker-alt"></i>
                                     </div>
                                     <div class="info-content">
                                         <h6>{{ __('general.location') }}</h6>
                                         @if($warehouse->latitude && $warehouse->longitude)
-                                            <div id="miniMap" class="mt-2"></div>
-                                            <small class="text-muted mt-1 d-block">
-                                                {{ $warehouse->latitude }}, {{ $warehouse->longitude }}
-                                            </small>
+                                            <div class="location-details">
+                                                <div class="coordinates mb-2">
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-globe me-1"></i>
+                                                        {{ $warehouse->latitude }}, {{ $warehouse->longitude }}
+                                                    </small>
+                                                </div>
+                                                <div class="map-container">
+                                                    <div id="miniMap"></div>
+                                                    <div class="map-overlay">
+                                                        <button class="btn btn-sm btn-primary map-fullscreen-btn" onclick="openMapModal()">
+                                                            <i class="fas fa-expand"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="map-actions mt-2">
+                                                    <button class="btn btn-sm btn-outline-primary" onclick="copyCoordinates()">
+                                                        <i class="fas fa-copy me-1"></i>
+                                                        {{ __('general.copy_coordinates') }}
+                                                    </button>
+                                                    <a href="https://www.google.com/maps?q={{ $warehouse->latitude }},{{ $warehouse->longitude }}"
+                                                       target="_blank" class="btn btn-sm btn-outline-success">
+                                                        <i class="fas fa-external-link-alt me-1"></i>
+                                                        {{ __('general.open_in_gmaps') }}
+                                                    </a>
+                                                </div>
+                                            </div>
                                         @else
-                                            <p class="text-muted mb-0">{{ $warehouse->location ?? __('general.no_location_data') }}</p>
+                                            <div class="no-location-data">
+                                                <i class="fas fa-map-marked-alt fa-2x text-muted mb-2"></i>
+                                                <p class="text-muted mb-0">{{ $warehouse->location ?? __('general.no_location_data') }}</p>
+                                                @if(!$warehouse->location)
+                                                <small class="text-info">
+                                                    <i class="fas fa-info-circle me-1"></i>
+                                                    {{ __('general.add_location_in_edit') }}
+                                                </small>
+                                                @endif
+                                            </div>
                                         @endif
                                     </div>
-                                </div> --}}
-
-
-                                <div class="info-item location-item">
-    <div class="info-icon text-warning">
-        <i class="fas fa-map-marker-alt"></i>
-    </div>
-    <div class="info-content">
-        <h6>{{ __('general.location') }}</h6>
-        @if($warehouse->latitude && $warehouse->longitude)
-            <div class="location-details">
-                <div class="coordinates mb-2">
-                    <small class="text-muted">
-                        <i class="fas fa-globe me-1"></i>
-                        {{ $warehouse->latitude }}, {{ $warehouse->longitude }}
-                    </small>
-                </div>
-                <div class="map-container">
-                    <div id="miniMap"></div>
-                    <div class="map-overlay">
-                        <button class="btn btn-sm btn-primary map-fullscreen-btn" onclick="openMapModal()">
-                            <i class="fas fa-expand"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="map-actions mt-2">
-                    <button class="btn btn-sm btn-outline-primary" onclick="copyCoordinates()">
-                        <i class="fas fa-copy me-1"></i>
-                        {{ __('general.copy_coordinates') }}
-                    </button>
-                    <a href="https://www.google.com/maps?q={{ $warehouse->latitude }},{{ $warehouse->longitude }}"
-                       target="_blank" class="btn btn-sm btn-outline-success">
-                        <i class="fas fa-external-link-alt me-1"></i>
-                        {{ __('general.open_in_gmaps') }}
-                    </a>
-                </div>
-            </div>
-        @else
-            <div class="no-location-data">
-                <i class="fas fa-map-marked-alt fa-2x text-muted mb-2"></i>
-                <p class="text-muted mb-0">{{ $warehouse->location ?? __('general.no_location_data') }}</p>
-                @if(!$warehouse->location)
-                <small class="text-info">
-                    <i class="fas fa-info-circle me-1"></i>
-                    {{ __('general.add_location_in_edit') }}
-                </small>
-                @endif
-            </div>
-        @endif
-    </div>
-</div>
-
-<!-- Modal for Fullscreen Map -->
-<div class="modal fade" id="mapModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    <i class="fas fa-map-marker-alt me-2"></i>
-                    {{ $warehouse->name }} - {{ __('general.location') }}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-0">
-                <div id="fullscreenMap" style="height: 100%; width: 100%;"></div>
-            </div>
-            <div class="modal-footer">
-                <div class="coordinates-info">
-                    <strong>{{ __('general.coordinates') }}:</strong>
-                    <span class="text-muted">{{ $warehouse->latitude }}, {{ $warehouse->longitude }}</span>
-                </div>
-                <div class="map-actions">
-                    <button class="btn btn-sm btn-outline-primary" onclick="copyCoordinates()">
-                        <i class="fas fa-copy me-1"></i>
-                        {{ __('general.copy') }}
-                    </button>
-                    <a href="https://www.google.com/maps?q={{ $warehouse->latitude }},{{ $warehouse->longitude }}"
-                       target="_blank" class="btn btn-sm btn-success">
-                        <i class="fas fa-external-link-alt me-1"></i>
-                        Google Maps
-                    </a>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        {{ __('general.close') }}
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+                                </div>
                             </div>
                         </div>
 
@@ -502,6 +444,44 @@
         </div>
     </div>
 </div>
+
+<!-- Modal for Fullscreen Map -->
+<div class="modal fade" id="mapModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-map-marker-alt me-2"></i>
+                    {{ $warehouse->name }} - {{ __('general.location') }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div id="fullscreenMap" style="height: 100%; width: 100%;"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="coordinates-info">
+                    <strong>{{ __('general.coordinates') }}:</strong>
+                    <span class="text-muted">{{ $warehouse->latitude }}, {{ $warehouse->longitude }}</span>
+                </div>
+                <div class="map-actions">
+                    <button class="btn btn-sm btn-outline-primary" onclick="copyCoordinates()">
+                        <i class="fas fa-copy me-1"></i>
+                        {{ __('general.copy') }}
+                    </button>
+                    <a href="https://www.google.com/maps?q={{ $warehouse->latitude }},{{ $warehouse->longitude }}"
+                       target="_blank" class="btn btn-sm btn-success">
+                        <i class="fas fa-external-link-alt me-1"></i>
+                        Google Maps
+                    </a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {{ __('general.close') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('style')
@@ -662,8 +642,9 @@
 }
 
 #miniMap {
-    height: 200px;
-    border-radius: 8px;
+    height: 250px;
+    width: 100%;
+    border-radius: 12px;
     border: 1px solid #e2e8f0;
 }
 
@@ -718,13 +699,6 @@
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     margin: 0.5rem 0;
-}
-
-#miniMap {
-    height: 250px;
-    width: 100%;
-    border-radius: 12px;
-    transition: all 0.3s ease;
 }
 
 .map-container:hover #miniMap {
@@ -851,17 +825,42 @@
 #miniMap, #fullscreenMap {
     animation: mapFadeIn 0.6s ease-out;
 }
-
 </style>
 @endsection
 
 @section('script')
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-    $(document).ready(function() {
-        @if($warehouse->latitude && $warehouse->longitude)
-        // Initialize mini map
-        var miniMap = L.map('miniMap').setView([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}], 15);
+// المتغيرات العامة للخرائط
+var miniMap, fullscreenMap;
+
+$(document).ready(function() {
+    @if($warehouse->latitude && $warehouse->longitude)
+    // تهيئة الخريطة المصغرة مرة واحدة فقط
+    initMiniMap();
+    @endif
+
+    // Initialize tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
+    // تهيئة المودال عند فتحه
+    $('#mapModal').on('shown.bs.modal', function () {
+        initFullscreenMap();
+    });
+
+    // إعادة ضبط حجم الخريطة عند إغلاق المودال
+    $('#mapModal').on('hidden.bs.modal', function () {
+        if (fullscreenMap) {
+            setTimeout(function() {
+                fullscreenMap.invalidateSize();
+            }, 100);
+        }
+    });
+});
+
+function initMiniMap() {
+    if (!miniMap) {
+        miniMap = L.map('miniMap').setView([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}], 15);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
@@ -879,33 +878,16 @@
             .addTo(miniMap)
             .bindPopup('<strong>{{ $warehouse->name }}</strong><br>{{ $warehouse->code }}')
             .openPopup();
-        @endif
+    }
+}
 
-        // Initialize tooltips
-        $('[data-toggle="tooltip"]').tooltip();
-
-        // Smooth scrolling for anchor links
-        $('a[href^="#"]').on('click', function(e) {
-            e.preventDefault();
-            $('html, body').animate({
-                scrollTop: $($(this).attr('href')).offset().top - 100
-            }, 500);
-        });
-    });
-</script>
-<script>
 function openMapModal() {
     var modal = new bootstrap.Modal(document.getElementById('mapModal'));
     modal.show();
-
-    // Initialize fullscreen map when modal is shown
-    $('#mapModal').on('shown.bs.modal', function () {
-        initFullscreenMap();
-    });
 }
 
 function initFullscreenMap() {
-    if (typeof fullscreenMap === 'undefined') {
+    if (!fullscreenMap) {
         fullscreenMap = L.map('fullscreenMap').setView([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}], 15);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -925,53 +907,54 @@ function initFullscreenMap() {
             .bindPopup('<strong>{{ $warehouse->name }}</strong><br>{{ $warehouse->code }}')
             .openPopup();
     } else {
-        fullscreenMap.invalidateSize();
+        // إعادة ضبط الحجم للتأكد من ظهور الخريطة بشكل صحيح
+        setTimeout(function() {
+            fullscreenMap.invalidateSize();
+            fullscreenMap.setView([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}], 15);
+        }, 100);
     }
 }
 
 function copyCoordinates() {
     const coordinates = '{{ $warehouse->latitude }}, {{ $warehouse->longitude }}';
     navigator.clipboard.writeText(coordinates).then(() => {
-        // Show success message
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-        });
+        // استخدام SweetAlert إذا كان متاحاً، أو alert عادي
+        if (typeof Swal !== 'undefined') {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            });
 
-        Toast.fire({
-            icon: 'success',
-            title: '{{ __("general.coordinates_copied") }}'
-        });
+            Toast.fire({
+                icon: 'success',
+                title: '{{ __("general.coordinates_copied") }}'
+            });
+        } else {
+            alert('{{ __("general.coordinates_copied") }}');
+        }
     }).catch(err => {
         console.error('Failed to copy coordinates: ', err);
+        // طريقة بديلة للنسخ
+        const tempTextArea = document.createElement('textarea');
+        tempTextArea.value = coordinates;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextArea);
+
+        if (typeof Swal !== 'undefined') {
+            Swal.fire({
+                icon: 'success',
+                title: '{{ __("general.coordinates_copied") }}',
+                timer: 2000
+            });
+        } else {
+            alert('{{ __("general.coordinates_copied") }}');
+        }
     });
 }
-
-// Initialize mini map
-$(document).ready(function() {
-    @if($warehouse->latitude && $warehouse->longitude)
-    var miniMap = L.map('miniMap').setView([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}], 15);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(miniMap);
-
-    // Add custom icon
-    var warehouseIcon = L.icon({
-        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34]
-    });
-
-    L.marker([{{ $warehouse->latitude }}, {{ $warehouse->longitude }}], {icon: warehouseIcon})
-        .addTo(miniMap)
-        .bindPopup('<strong>{{ $warehouse->name }}</strong><br>{{ $warehouse->code }}')
-        .openPopup();
-    @endif
-});
 </script>
 @endsection
