@@ -100,12 +100,11 @@
 
                                     <td>{{ $request->scheduled_at ? $request->scheduled_at->format('Y-m-d') : '-' }}</td>
                                     @php
-                                        $driverParts = array_filter([
-                                            $request->driver->driver_full_name,
-                                            $request->driver->phone,
-                                            $request->driver->email,
-
-                                        ]); // إزالة القيم الفارغة
+                                       $driverParts = array_filter([
+                                            optional($request->driver)->driver_full_name,
+                                            optional($request->driver)->phone,
+                                            optional($request->driver)->email,
+                                        ]);
 
                                         $shortDriver = implode(' - ', array_slice($locationParts, 0, 2)); // أول قيمتين فقط
                                         $fullDriver = implode(' - ', $driverParts); // كامل النص
