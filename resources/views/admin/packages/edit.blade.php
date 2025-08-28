@@ -1206,41 +1206,41 @@
     </script>
 
     <script>
-    // حل مشكلة الخريطة في التبويبات - للتعديل
-    $(document).ready(function() {
-        // إعادة رسم الخرائط عند التبديل بين التبويبات
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            setTimeout(() => {
+        // حل مشكلة الخريطة في التبويبات - للتعديل
+        $(document).ready(function() {
+            // إعادة رسم الخرائط عند التبديل بين التبويبات
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                    if (typeof Livewire !== 'undefined') {
+                        Livewire.emit('refreshMap');
+                        Livewire.emit('refreshReceiverMap');
+                    }
+                }, 400);
+            });
+
+            // إعادة رسم الخرائط عند النقر على أزرار next/previous
+            $('.twitter-bs-wizard-pager-link a').on('click', function() {
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                    if (typeof Livewire !== 'undefined') {
+                        Livewire.emit('refreshMap');
+                        Livewire.emit('refreshReceiverMap');
+                    }
+                }, 500);
+            });
+
+            // دالة عالمية لإعادة رسم جميع الخرائط
+            function refreshAllMaps() {
                 window.dispatchEvent(new Event('resize'));
                 if (typeof Livewire !== 'undefined') {
                     Livewire.emit('refreshMap');
                     Livewire.emit('refreshReceiverMap');
                 }
-            }, 400);
-        });
-
-        // إعادة رسم الخرائط عند النقر على أزرار next/previous
-        $('.twitter-bs-wizard-pager-link a').on('click', function() {
-            setTimeout(() => {
-                window.dispatchEvent(new Event('resize'));
-                if (typeof Livewire !== 'undefined') {
-                    Livewire.emit('refreshMap');
-                    Livewire.emit('refreshReceiverMap');
-                }
-            }, 500);
-        });
-
-        // دالة عالمية لإعادة رسم جميع الخرائط
-        function refreshAllMaps() {
-            window.dispatchEvent(new Event('resize'));
-            if (typeof Livewire !== 'undefined') {
-                Livewire.emit('refreshMap');
-                Livewire.emit('refreshReceiverMap');
             }
-        }
 
-        // جعل الدالة متاحة globally
-        window.refreshAllMaps = refreshAllMaps;
-    });
-</script>
+            // جعل الدالة متاحة globally
+            window.refreshAllMaps = refreshAllMaps;
+        });
+    </script>
 @endsection
