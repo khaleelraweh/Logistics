@@ -83,5 +83,8 @@ return [
     'receiver'                => 'المستلم',
     'return_request_information'    =>  'معلومات طلب الإرجاع',
 
+    'delivery_information'    =>  'معلومات التسليم',
+    'reason_message'  => 'أدخل سبب الإرجاع (إن وجد)',
+
 
 ];

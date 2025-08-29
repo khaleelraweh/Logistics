@@ -83,4 +83,7 @@ return [
     'receiver'              =>  'Receiver',
     'return_request_information' => 'Return Request Information',
 
+    'delivery_information'  =>  'Delivery Information',
+    'reason_message'  => 'Enter the reason for return (if any)',
+
 ];

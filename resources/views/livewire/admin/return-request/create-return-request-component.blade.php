@@ -204,78 +204,91 @@
 
 
                             <!-- Driver Selection -->
-                            <h5 class="section-title">معلومات التسليم</h5>
+                            <h5 class="section-title">{{ __('return_request.delivery_information') }}</h5>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label required-field">السائق</label>
+                                <label class="col-sm-2 col-form-label required-field">{{ __('driver.driver') }}</label>
                                 <div class="col-sm-10">
                                     <select class="form-select">
-                                        <option value="">اختر السائق</option>
-                                        <option value="1">علي أحمد - سيارة</option>
-                                        <option value="2">خالد سعيد - دراجة نارية</option>
+                                        <option value=""> {{ __('driver.select_driver') }} </option>
+                                        @foreach($drivers as $driver)
+                                            <option value="{{ $driver->id }}">{{ $driver->driver_full_name }}  -  {{ __('driver.vehicle_type_'. $driver->vehicle_type) }} - {{ $driver->phone }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
 
                             <!-- Return Type -->
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label required-field">نوع الإرجاع</label>
+                                <label class="col-sm-2 col-form-label required-field"> {{ __('return_request.return_type') }}</label>
                                 <div class="col-sm-10">
                                     <select class="form-select">
-                                        <option value="to_warehouse">إلى المستودع</option>
-                                        <option value="to_merchant">إلى التاجر</option>
-                                        <option value="to_both">إلى المستودع والتاجر</option>
+                                        <option value="to_warehouse">{{ __('return_request.type_to_warehouse') }}</option>
+                                        <option value="to_merchant">{{ __('return_request.type_to_merchant') }}</option>
+                                        <option value="to_both">{{ __('return_request.type_to_both') }}</option>
                                     </select>
                                 </div>
                             </div>
 
                             <!-- Target Address -->
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">عنوان الوجهة</label>
+                                <label class="col-sm-2 col-form-label"> {{ __('return_request.target_address') }}</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="أدخل عنوان الوجهة">
+                                    <input type="text" wire:model="target_address" class="form-control">
+                                    @error('target_address') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
 
                             <!-- Dates -->
                             <div class="row mb-3">
                                 <div class="col-md-6">
-                                    <label class="col-form-label required-field">تاريخ الطلب</label>
-                                    <input type="date" class="form-control" value="2023-11-15">
+                                    <label class="col-form-label required-field"> {{ __('return_request.requested_at') }} </label>
+                                    <input type="date" wire:model="requested_at" class="form-control">
+                                    @error('requested_at') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="col-form-label">تاريخ الاستلام</label>
+                                    <label class="col-form-label">{{ __('return_request.received_at') }}</label>
                                     <input type="date" class="form-control" value="2023-11-20">
                                 </div>
                             </div>
 
                             <!-- Status -->
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label required-field">الحالة</label>
+                                <label class="col-sm-2 col-form-label required-field">{{ __('return_request.status') }}</label>
                                 <div class="col-sm-10">
                                     <select class="form-select">
-                                        <option value="requested">مطلوب</option>
-                                        <option value="in_transit">قيد النقل</option>
-                                        <option value="received">تم الاستلام</option>
-                                        <option value="rejected">مرفوض</option>
+                                         <option value="requested">{{ __('return_request.status_requested') }}</option>
+                                        <option value="cancelled">{{ __('return_request.status_cancelled') }}</option>
+                                        <option value="in_transit">{{ __('return_request.status_in_transit') }}</option>
+                                        <option value="rejected">{{ __('return_request.status_rejected') }}</option>
+                                        <option value="received">{{ __('return_request.status_received') }}</option>
+                                        <option value="partially_received">{{ __('return_request.status_partially_received') }}</option>
                                     </select>
+                                    @error('status') <span class="text-danger">{{ $message }}</span> @enderror
+
                                 </div>
                             </div>
 
                             <!-- Reason -->
                             <div class="row mb-4">
-                                <label class="col-sm-2 col-form-label">السبب</label>
+                                <label class="col-sm-2 col-form-label">{{ __('general.reason') }}</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" rows="3" placeholder="أدخل سبب الإرجاع (إن وجد)"></textarea>
+                                    <textarea class="form-control" rows="3" placeholder="{{ __('return_request.reason_message') }}"></textarea>
                                 </div>
                             </div>
 
-                            <!-- Buttons -->
-                            <div class="text-start pt-3">
-                                <button type="button" class="btn btn-primary px-4">
-                                    <i class="bi bi-save me-2"></i> حفظ طلب الإرجاع
-                                </button>
-                                <a href="#" class="btn btn-outline-secondary me-2">
-                                    <i class="bi bi-x-circle me-2"></i> إلغاء
+                            <!-- Submit Button -->
+                            <div class="text-end pt-3">
+                                @ability('admin', 'create_return_requests')
+                                    <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
+                                        <i class="ri-save-3-line me-2"></i>
+                                        <i class="bi bi-save me-2"></i>
+                                        {{ __('return_request.save_return_request') }}
+                                    </button>
+                                @endability
+
+                                <a href="{{ route('admin.return_requests.index') }}" class="btn btn-outline-danger ms-2">
+                                    <i class="ri-arrow-go-back-line me-1"></i>
+                                    {{ __('panel.cancel') }}
                                 </a>
                             </div>
                         </form>

@@ -143,6 +143,7 @@ return [
     'the_driver'           => 'السائق',
     'driver'               => 'السائق',
     'driver_location' => 'موقع السائق',
+    'select_driver' => 'اختر السائق',
 
 
 

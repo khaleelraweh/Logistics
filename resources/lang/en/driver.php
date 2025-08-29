@@ -143,5 +143,6 @@ return [
     'the_driver'           => 'Driver',
     'driver'                =>  'Driver',
     'driver_location'       => 'Driver Location',
+    'select_driver'        => 'Select Driver',
 
 ];
