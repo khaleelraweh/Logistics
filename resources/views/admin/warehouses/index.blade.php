@@ -78,10 +78,23 @@
         </td>
 
         {{-- الموقع مع Tooltip --}}
-        <td data-bs-toggle="tooltip" data-bs-placement="top"
-            title="{{ $warehouse->location }}">
-            {{ \Illuminate\Support\Str::words($warehouse->location, 3, '') }}
+        @php
+            $locationParts = array_filter([
+                $warehouse->country,
+                $warehouse->region,
+                $warehouse->city,
+                $warehouse->district,
+                $warehouse->postal_code,
+            ]); // إزالة القيم الفارغة
+
+            $shortLocation = implode(' ، ', array_slice($locationParts, 0, 2)); // أول قيمتين فقط
+            $fullLocation = implode(' ، ', $locationParts); // كامل النص
+        @endphp
+
+        <td title="{{ $fullLocation }}" data-bs-toggle="tooltip" data-bs-placement="top">
+            {{ $shortLocation }}
         </td>
+
 
         {{-- المدير مع Tooltip --}}
         <td data-bs-toggle="tooltip" data-bs-placement="top"
