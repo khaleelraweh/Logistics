@@ -81,5 +81,6 @@ return [
     'assign'                  => 'Assign',
     'sender'                =>  'Sender',
     'receiver'              =>  'Receiver',
+    'return_request_information' => 'Return Request Information',
 
 ];

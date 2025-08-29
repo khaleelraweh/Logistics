@@ -81,5 +81,7 @@ return [
     'assign'                  => 'إسناد',
     'sender'                =>  'المرسل',
     'receiver'                => 'المستلم',
+    'return_request_information'    =>  'معلومات طلب الإرجاع',
+
 
 ];

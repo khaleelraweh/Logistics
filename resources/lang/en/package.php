@@ -301,4 +301,9 @@ return [
     'items_info' => 'Items Info',
     'no_products_in_package' => 'No products added to this package.',
 
+    'package' => 'Package',
+    'select_package' => 'Select Package',
+    'select_package_message'    => 'Select the package for which you want to create a return request.'
+
+
 ];

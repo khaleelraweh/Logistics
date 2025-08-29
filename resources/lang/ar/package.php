@@ -299,4 +299,10 @@ return [
     'items_info' => 'معلومات المنتجات',
     'no_products_in_package' => 'لا توجد منتجات في الطرد',
 
+
+
+    'package' => 'الطرد',
+    'select_package' => 'اختر الطرد',
+    'select_package_message'    => 'اختر الطرد الذي تريد إنشاء طلب إرجاع له.',
+
 ];
