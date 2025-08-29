@@ -307,4 +307,6 @@ return [
     'sender_location_map' => 'خريطة موقع المرسل',
     'receiver_location_map' => 'خريطة موقع المستلم',
 
+    'package_items' => 'عناصر الطرد',
+
 ];

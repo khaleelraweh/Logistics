@@ -168,48 +168,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="card receiver-info" id="receiverInfo2" style="display: none;">
-                                                <div class="card-header bg-success py-2">
-                                                    <i class="bi bi-person me-2"></i> معلومات المستلم - الطرد #987654321
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <div class="info-label">الاسم الكامل</div>
-                                                            <div class="info-value">سعيد عبدالله</div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="info-label">رقم الهاتف</div>
-                                                            <div class="info-value">+966598765432</div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="info-label">العنوان</div>
-                                                            <div class="info-value">حي العليا، شارع العروبة، الرياض 67890</div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="info-label">المدينة</div>
-                                                            <div class="info-value">الرياض</div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="info-label">المنطقة</div>
-                                                            <div class="info-value">منطقة الرياض</div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="info-label">خط الطول</div>
-                                                            <div class="info-value coordinates">46.7343861</div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="info-label">خط العرض</div>
-                                                            <div class="info-value coordinates">24.7253899</div>
-                                                        </div>
-                                                        <div class="col-12 mt-3">
-                                                            <div class="map-container">
-                                                                <i class="bi bi-geo-alt me-2"></i> خريطة موقع المستلم
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
 
