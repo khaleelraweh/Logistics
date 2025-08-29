@@ -67,6 +67,9 @@ return [
 
     'no_active_rentals'         =>  'No active rentals',
     'total_rentals'             =>  'Total Rentals',
+    'warehouse_information'     =>  'Warehouse Information',
+    'warehouse_location_map'    =>  'Warehouse Location Map',
+    'products_to_return'       =>  'Products to Return',
 
 
 

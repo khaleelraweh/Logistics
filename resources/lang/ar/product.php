@@ -83,6 +83,9 @@ return [
     'quantity_shipped'  =>  'الكمية المشحونة',
     'quantity_to_be_returned'  =>  'الكمية المراد ارجاعها',
 
+    'shelf'                 =>  'الرف',
+    'notes'                 =>  'ملاحظات',
+
 
 
 

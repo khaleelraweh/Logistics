@@ -65,6 +65,10 @@ return [
     'no_active_rentals'         =>  'لا يوجد عقود نشطة',
     'total_rentals'           =>  'إجمالي العقود',
 
+    'warehouse_information'     =>  'معلومات المستودع',
+    'warehouse_location_map'     =>  'خريطة موقع المستودع',
+    'products_to_return'     =>  'المنتجات المرتجعة',
+
 
 
 ];

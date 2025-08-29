@@ -84,6 +84,9 @@ return [
     'product_name'      =>  'Product Name',
     'quantity_shipped'  =>  'Quantity Shipped',
     'Quantity to be returned'  =>  'Quantity to be Returned',
+    'shelf'                 =>  'Shelf',
+    'notes'                 =>  'Notes',
+
 
 
 
