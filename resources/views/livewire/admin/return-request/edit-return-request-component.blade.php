@@ -22,7 +22,7 @@
                         {{ __('return_request.return_request_information') }}
                     </div>
                     <div class="card-body">
-                        <form wire:submit.prevent="store">
+                        <form wire:submit.prevent="update">
                             <!-- Package Selection -->
                             <div class="row mb-4">
                                 <label class="col-sm-2 col-form-label required-field">{{ __('package.package') }}</label>
