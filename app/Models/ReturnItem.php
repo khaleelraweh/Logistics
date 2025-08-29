@@ -20,4 +20,9 @@ class ReturnItem extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+     public function stockItem()
+    {
+        return $this->belongsTo(\App\Models\StockItem::class, 'stock_item_id');
+    }
 }
