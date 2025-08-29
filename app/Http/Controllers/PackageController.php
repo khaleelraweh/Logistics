@@ -241,7 +241,7 @@ class PackageController extends Controller
             $package = Package::create($input);
 
             // =========================
-            // 2) المنتجات + المخزون
+             // 2) المنتجات + المخزون
             // =========================
             $totalQuantity = 0;
 
@@ -284,11 +284,9 @@ class PackageController extends Controller
             // =========================
             $currency = $request->currency ?? 'USD';
 
-            $invoice = Invoice::create([
+            $invoice= $package->invoice()->create([
                 'invoice_number' => 'INV-' . now()->format('Ymd') . '-' . strtoupper(Str::random(6)),
                 'merchant_id'    => $package->merchant_id,
-                'payable_type'   => Package::class,
-                'payable_id'     => $package->id,
                 'total_amount'   => $totalFee,
                 'currency'       => $currency,
                 'status'         => 'unpaid', // سيُحدّث بعد تسجيل أي دفعة
@@ -306,10 +304,10 @@ class PackageController extends Controller
             if ($paidNow > 0) {
                 $method = $this->mapPaymentMethod($request->collection_method ?? $request->payment_method);
 
-                Payment::create([
+                $invoice->payments()->create([
                     'merchant_id'       => $package->merchant_id,
                     'method'            => $method,
-                    'status'            => 'completed',
+                    'status'            => 'paid',
                     'paid_on'           => now(),
                     'amount'            => min($paidNow, $totalFee),
                     'currency'          => $currency,
@@ -319,20 +317,14 @@ class PackageController extends Controller
                     'driver_id'         => $request->driver_id,
                     'invoice_id'        => $invoice->id,
                 ]);
-
+                $invoice->updateStatus();
                 $paidSum = $paidNow;
                 $package->addLog('تم تسجيل دفعة أولية بقيمة: ' . number_format($paidNow, 2) . ' ' . $currency);
             }
 
-            // تحديث حالة الفاتورة حسب المدفوع
-            $invoice->refresh();
-            $paidTotal = (float) $invoice->payments()->sum('amount');
-            $invoice->status = $this->resolveInvoiceStatus($invoice->total_amount, $paidTotal);
-            $invoice->save();
 
-            // تحديث الطرد من ناحية المبالغ
-            if ($package->isFillable('paid_amount')) $package->paid_amount = $paidTotal;
-            if ($package->isFillable('due_amount'))  $package->due_amount  = max(0, $totalFee - $paidTotal);
+            $package->paid_amount = $invoice->paid_amount;
+            $package->due_amount  = $invoice->getRemainingAmountAttribute();
             $package->save();
 
             return $package->id;
@@ -572,6 +564,8 @@ class PackageController extends Controller
             // تحديث حالة الفاتورة
             $paidTotal = (float) $invoice->payments()->sum('amount');
             $invoice->status = $this->resolveInvoiceStatus($invoice->total_amount, $paidTotal);
+            $invoice->paid_amount = $paidTotal;
+
             $invoice->save();
 
             // تحديث الطرد مالياً
