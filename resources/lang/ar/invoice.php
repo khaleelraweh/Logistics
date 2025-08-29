@@ -26,8 +26,13 @@ return [
     'status_unpaid'  => 'غير مدفوع',
 
     'payable_id'    => 'رقم الفاتورة',
+
     'payable_type'   => 'نوع الدفع ',
-    'payable_type_package'   => 'فاتورة طرد',
+    'payable_type_Package'   => 'فاتورة طرد',
+    'payable_type_WarehouseRental'    =>  'فاتورة ايجار رفوف',
+
+
+
     'paid_amount'   => 'المبلغ المدفوع',
 
 

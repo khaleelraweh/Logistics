@@ -26,8 +26,13 @@ return [
     'status_unpaid'  => 'Unpaid',
 
     'payable_id'   => 'Payable ID',
+
     'payable_type' => 'Payable Type',
-    'payable_type_package'  =>  'Package Invoice',
+    'payable_type_Package'  =>  'Package Invoice',
+    'payable_type_WarehouseRental'    =>  'Shelves Invoice',
+
+
+
     'paid_amount'           =>  'Paid Amount',
 
 
