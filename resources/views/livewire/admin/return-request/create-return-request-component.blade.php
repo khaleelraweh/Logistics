@@ -66,8 +66,21 @@
                                                             <div class="info-value">+{{ $package->sender_phone }}</div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <div class="info-label">العنوان</div>
-                                                            <div class="info-value">حي الرياض، شارع الملك فهد، الرياض 12345</div>
+                                                            <div class="info-label">{{ __('general.address') }}</div>
+                                                             @php
+                                                                $addressParts = array_filter([
+                                                                    $package->sender_district,
+                                                                    $package->sender_city,
+                                                                    $package->sender_region,
+                                                                    $package->sender_country,
+                                                                    $package->sender_postal_code,
+                                                                ]); // إزالة القيم الفارغة
+
+                                                                $shortAddress = implode(' ، ', array_slice($addressParts, 0, 2)); // أول قيمتين فقط
+                                                                $fullAddress = implode(' ، ', $addressParts); // كامل النص
+                                                            @endphp
+
+                                                            <div class="info-value"> {{ $fullAddress }}   </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="info-label">المدينة</div>
