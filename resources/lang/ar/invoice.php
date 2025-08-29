@@ -34,6 +34,7 @@ return [
     'payable_id'    => 'رقم الفاتورة',
     'payable_type'   => 'نوع الدفع ',
     'payable_type_package'   => 'فاتورة طرد',
+    'paid_amount'   => 'المبلغ المدفوع',
 
 
     // المبالغ

@@ -33,6 +33,7 @@ return [
     'payable_id'   => 'Payable ID',
     'payable_type' => 'Payable Type',
     'payable_type_package'  =>  'Package Invoice',
+    'paid_amount'           =>  'Paid Amount',
 
 
 
