@@ -480,7 +480,8 @@
                                     </td>
                                     <td>
                                         <span class="badge bg-success">
-                                            {{ __('return_request.item_returned') }}
+                                            {{-- {{ __('return_request.item_returned') }} --}}
+                                            {!! $return_request->statusLabel() !!}
                                         </span>
                                     </td>
                                     <td class="pe-4">{{ $item->note ?? '-' }}</td>
