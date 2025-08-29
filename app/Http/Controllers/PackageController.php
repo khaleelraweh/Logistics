@@ -544,10 +544,10 @@ class PackageController extends Controller
                 $delta = $newPaidDesired - $alreadyPaid;
                 $method = $this->mapPaymentMethod($request->collection_method ?? $request->payment_method);
 
-                Payment::create([
+                $invoice->payments()->create([
                     'merchant_id'       => $package->merchant_id,
                     'method'            => $method,
-                    'status'            => 'completed',
+                    'status'            => 'paid',
                     'paid_on'           => now(),
                     'amount'            => min($delta, max(0, $invoice->total_amount - $alreadyPaid)),
                     'currency'          => $invoice->currency,
@@ -558,20 +558,15 @@ class PackageController extends Controller
                     'invoice_id'        => $invoice->id,
                 ]);
 
+                $invoice->updateStatus();
                 $package->addLog('تم تسجيل دفعة إضافية بقيمة: ' . number_format($delta, 2) . ' ' . $invoice->currency);
             }
 
-            // تحديث حالة الفاتورة
-            $paidTotal = (float) $invoice->payments()->sum('amount');
-            $invoice->status = $this->resolveInvoiceStatus($invoice->total_amount, $paidTotal);
-            $invoice->paid_amount = $paidTotal;
-
-            $invoice->save();
-
             // تحديث الطرد مالياً
-            if ($package->isFillable('paid_amount')) $package->paid_amount = $paidTotal;
-            if ($package->isFillable('due_amount'))  $package->due_amount  = max(0, $invoice->total_amount - $paidTotal);
+            $package->paid_amount = $invoice->paid_amount;
+            $package->due_amount  = $invoice->getRemainingAmountAttribute();
             $package->save();
+
         });
 
         return redirect()->route('admin.packages.index')->with([
