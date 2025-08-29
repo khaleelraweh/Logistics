@@ -19,11 +19,17 @@ return [
     'invoice_status' => 'حالة الفاتورة',
 
     // الحالات
-    'status' => [
-        'paid'    => 'مدفوعة',
-        'partial' => 'مدفوعة جزئياً',
-        'unpaid'  => 'غير مدفوعة',
-    ],
+    // 'status' => [
+    //     'paid'    => 'مدفوعة',
+    //     'partial' => 'مدفوعة جزئياً',
+    //     'unpaid'  => 'غير مدفوعة',
+    // ],
+
+
+    'status'    => 'الحالة',
+    'status_paid'    => 'مدفوع',
+    'status_partial' => 'مدفوع جزئياً',
+    'status_unpaid'  => '',
 
     // المبالغ
     'total_amount'     => 'المبلغ الإجمالي',
