@@ -14,31 +14,6 @@ use Barryvdh\DomPDF\Facade\Pdf; // مكتبة PDF
 
 class WarehouseRentalController extends Controller
 {
-    // public function index()
-    // {
-    //     if (!auth()->user()->ability('admin', 'manage_warehouse_rentals , show_warehouse_rentals')) {
-    //         return redirect('admin/index');
-    //     }
-
-    //     $warehouses = Warehouse::all(); // لجلب المستودعات للفلاتر
-    //     $merchants = Merchant::all(); // لجلب التجار للفلاتر
-
-
-    //     $warehouse_rentals = WarehouseRental::with(['shelves', 'merchant'])
-    //         ->when(request()->keyword != null, function ($query) {
-    //             $query->search(request()->keyword);
-    //         })
-    //         ->when(request()->status != null, function ($query) {
-    //             $query->where('status', request()->status);
-    //         })
-    //         ->orderByRaw(request()->sort_by == 'published_on'
-    //             ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-    //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-    //         ->paginate(request()->limit_by ?? 100);
-
-    //     return view('admin.warehouse_rentals.index', compact('warehouse_rentals' , 'warehouses', 'merchants'));
-    // }
-
 
     public function index()
     {
@@ -106,27 +81,6 @@ class WarehouseRentalController extends Controller
         // إرجاع الـ View مع البيانات
         return view('admin.warehouse_rentals.index', compact('warehouse_rentals', 'warehouses', 'merchants'));
     }
-
-
-
-
-
-    // هنا يعرض حتي المستودعات التي ليس فيها رفوف ويوضح بانه لا يوجه هناك رفوف فارغة
-    // public function create()
-    // {
-    //     $merchants = Merchant::all();
-    //     $warehouses = Warehouse::with(['shelves' => function ($query) {
-    //         $query->whereDoesntHave('rentals', function ($q) {
-    //             $q->where('status', 1)
-    //               ->where('rental_end', '>', Carbon::now());
-    //         });
-    //     }])->get();
-
-
-
-    //     return view('admin.warehouse_rentals.create', compact('warehouses', 'merchants'));
-    // }
-
 
     public function create()
     {
@@ -228,26 +182,6 @@ class WarehouseRentalController extends Controller
         $warehouseRental->load(['merchant', 'shelves.warehouse']);
         return view('admin.warehouse_rentals.show', compact('warehouseRental'));
     }
-
-    // هنا يعرض حتي المستودعات التي ليس فيها رفوف ويوضح بانه لا يوجد بها رفوف
-    // public function edit($id)
-    // {
-    //     $warehouseRental = WarehouseRental::with('shelves')->findOrFail($id);
-    //     $merchants = Merchant::all();
-
-    //     $warehouses = Warehouse::with(['shelves' => function ($query) use ($warehouseRental) {
-    //         $query->where(function ($q) use ($warehouseRental) {
-    //             $q->whereDoesntHave('rentals', function ($rentalQ) use ($warehouseRental) {
-    //                 $rentalQ->where('status', 1)
-    //                     ->where('rental_end', '>', now());
-    //             })->orWhereHas('rentals', function ($rentalQ) use ($warehouseRental) {
-    //                 $rentalQ->where('warehouse_rental_id', $warehouseRental->id);
-    //             });
-    //         });
-    //     }])->get();
-
-    //     return view('admin.warehouse_rentals.edit', compact('warehouseRental', 'warehouses', 'merchants'));
-    // }
 
     public function edit($id)
     {
@@ -418,28 +352,18 @@ class WarehouseRentalController extends Controller
         return redirect()->back()->with('success', 'Payment recorded successfully.');
     }
 
-    //======= عرض تفاصيل العقد وطباعته =======//
-     // عرض العقد كوثيقة رسمية داخل المتصفح
-    // public function view($id)
-    // {
-    //     $contract = WarehouseRental::with(['merchant', 'shelves'])->findOrFail($id);
 
-    //     // $pdf = Pdf::loadView('contracts.document', compact('contract'));
-    //     $pdf = Pdf::loadView('admin.warehouse_rentals.document', compact('contract'));
-    //     // return $pdf->stream("contract_{$id}.pdf"); // عرض فقط
-    //     return $pdf->stream("contract_{$id}.pdf", ["Attachment" => false]);
-    // }
 
    public function view($id)
-{
-    $contract = WarehouseRental::with([
-        'merchant',
-        'shelves.warehouse',
-        'invoice.payments'
-    ])->findOrFail($id);
+    {
+        $contract = WarehouseRental::with([
+            'merchant',
+            'shelves.warehouse',
+            'invoice.payments'
+        ])->findOrFail($id);
 
-    return view('admin.warehouse_rentals.document', compact('contract'));
-}
+        return view('admin.warehouse_rentals.document', compact('contract'));
+    }
 
 
       // تنزيل العقد كوثيقة PDF
