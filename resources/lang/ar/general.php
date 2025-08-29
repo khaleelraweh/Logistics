@@ -245,6 +245,8 @@ return [
     'last_updated'  =>  'آخر تحديث',
     'no_location_data'      =>  'لا توجد بيانات موقع',
     'capacity'              =>  'السعة',
+    'note'                    => 'ملاحظة',
+    'notes'                 =>  'ملاحظات',
 
 ];
 

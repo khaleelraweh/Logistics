@@ -246,6 +246,8 @@ return [
     'last_updated'      =>  'Last Updated',
     'no_location_data'  =>  'No Location Data',
     'capacity'          =>  'Capacity',
+    'note'              =>  'Note',
+    'notes'              =>  'Notes',
 
 
 ];
