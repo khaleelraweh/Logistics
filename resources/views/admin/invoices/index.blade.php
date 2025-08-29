@@ -52,7 +52,7 @@
                             <th>{{ __('invoice.paid_amount') }}</th>
                             <th>{{ __('invoice.status') }}</th>
                             <th>{{ __('general.created_at') }}</th>
-                            <th>{{ __('general.the_actions') }}</th>
+                            <th>{{ __('general.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
