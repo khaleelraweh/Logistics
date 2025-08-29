@@ -52,7 +52,7 @@
                                 <th>{{ __('return_request.requested_at') }}</th>
                                 <th>{{ __('return_request.received_at') }}</th>
                                 <th>{{ __('general.created_at') }}</th>
-                                <th>{{ __('general.the_actions') }}</th>
+                                <th>{{ __('general.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
