@@ -80,6 +80,11 @@ return [
     'notify' => 'Notification',
     'products' => 'Products',
 
+    'product_type'      =>  'Product Type',
+    'product_name'      =>  'Product Name',
+    'quantity_shipped'  =>  'Quantity Shipped',
+    'Quantity to be returned'  =>  'Quantity to be Returned',
+
 
 
 

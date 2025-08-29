@@ -78,6 +78,11 @@ return [
     'notify' => 'تنبيه',
     'products' => 'المنتجات',
 
+    'product_type'      =>  'نوع المنتج',
+    'product_name'      =>  'اسم المنتج',
+    'quantity_shipped'  =>  'الكمية المشحونة',
+    'quantity_to_be_returned'  =>  'الكمية المراد ارجاعها',
+
 
 
 

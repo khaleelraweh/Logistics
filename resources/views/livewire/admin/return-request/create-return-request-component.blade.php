@@ -173,15 +173,15 @@
                                     </div>
 
                                     <!-- Package Products -->
-                                    <h5 class="section-title mt-4">منتجات الطرد</h5>
+                                    <h5 class="section-title mt-4">{{ __('package.package_items') }}</h5>
                                     <div class="table-responsive">
                                         <table class="table table-bordered product-table">
                                             <thead>
                                                 <tr>
-                                                    <th>نوع المنتج</th>
-                                                    <th>اسم المنتج</th>
-                                                    <th>الكمية المشحونة</th>
-                                                    <th>الكمية المراد إرجاعها</th>
+                                                    <th>{{ __('product.product_type') }}</th>
+                                                    <th>{{ __('product.product_name') }}</th>
+                                                    <th>{{ __('product.quantity_shipped') }}</th>
+                                                    <th> {{ __('product.quantity_to_be_returned') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
