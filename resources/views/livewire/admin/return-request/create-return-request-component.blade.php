@@ -99,9 +99,21 @@
                                                             <div class="info-label">{{ __('general.longitude') }}</div>
                                                             <div class="info-value coordinates">{{ $package->sender_longitude }}</div>
                                                         </div>
-                                                        <div class="col-12 mt-3">
+                                                        {{-- <div class="col-12 mt-3">
                                                             <div class="map-container">
                                                                 <i class="bi bi-geo-alt me-2"></i> {{ __('package.sender_location_map') }}
+                                                            </div>
+                                                        </div> --}}
+
+                                                        <div class="col-12 mt-3">
+                                                            <div class="info-label">{{ __('package.sender_location_map') }}</div>
+                                                            <div id="sender-map-{{ $package->id }}" class="map-container"
+                                                                data-lat="{{ $package->sender_latitude }}"
+                                                                data-lng="{{ $package->sender_longitude }}">
+                                                                <div class="map-placeholder">
+                                                                    <i class="bi bi-geo-alt me-2"></i>
+                                                                    {{ __('package.loading_map') }}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
