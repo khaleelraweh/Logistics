@@ -248,15 +248,32 @@
                                     <tbody>
                                         @foreach($invoice->payments as $payment)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $payment->payment_date?->format('Y-m-d') ?? '-' }}</td>
-                                                <td>{{ $payment->payment_method ?? '-' }}</td>
-                                                <td>{{ $payment->collection_method ?? '-' }}</td>
-                                                <td>{{ $payment->amount ?? 0 }}</td>
+                                                <td class="fw-bold">{{ number_format($payment->amount, 2) }} {{ $payment->currency }}</td>
                                                 <td>
-                                                    <span class="badge bg-{{ $payment->status == 'paid' ? 'success' : 'warning' }}">
-                                                        {{ ucfirst($payment->status) }}
+                                                    <span class="badge bg-info">
+                                                        {{ __('invoice.methods.'.$payment->method) }}
                                                     </span>
+                                                </td>
+                                                <td>{{ $payment->paid_on?->format('d/m/Y H:i') ?? '-' }}</td>
+                                                <td>{{ $payment->reference_note ?: '-' }}</td>
+                                                <td>
+                                                    <div class="d-flex gap-2">
+                                                        <a href="{{ route('admin.payments.edit', $payment->id) }}"
+                                                        class="btn btn-sm btn-outline-primary"
+                                                        title="{{ __('invoice.edit') }}">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <form action="{{ route('admin.payments.destroy', $payment->id) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                    class="btn btn-sm btn-outline-danger"
+                                                                    onclick="return confirm('{{ __('invoice.confirm_delete') }}')"
+                                                                    title="{{ __('invoice.delete') }}">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach
