@@ -61,7 +61,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $invoice->invoice_number }}</td>
                                 <td>{{ $invoice->merchant->name ?? '-' }}</td>
-                                <td>{{ class_basename($invoice->payable) ?? '-' }}</td>
+                                {{-- <td>{{ class_basename($invoice->payable) ?? '-' }}</td> --}}
+                                <td>{{ __('invoice.payable_type_'.class_basename($invoice->payable)) ?? '-' }}</td>
                                 <td>{{ number_format($invoice->total_amount, 2) }} {{ $invoice->currency }}</td>
                                 <td>{{ number_format($invoice->paid_amount, 2) }} {{ $invoice->currency }}</td>
                                 <td>
