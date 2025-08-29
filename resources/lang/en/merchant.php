@@ -56,6 +56,7 @@ return [
     'email'                         =>  'email',
     'address'                         =>  'address',
     'merchant_location'             =>  'Merchant Location',
+    'no_stock_items_found'          =>  'No Stock Items Found',
 
 
 

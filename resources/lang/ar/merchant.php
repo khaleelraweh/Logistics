@@ -56,6 +56,8 @@ return [
     'email'                         =>  'البريد الالكتروني',
     'address'                       =>  'العنوان',
     'merchant_location'                =>  'موقع التاجر',
+    'no_stock_items_found'          =>  'لا يوجد اي اصناف مخزنة ',
+
 
 
 
