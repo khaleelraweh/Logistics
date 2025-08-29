@@ -529,6 +529,7 @@ class PackageController extends Controller
                 $invoice->issued_at      = now();
             }
 
+            $invoice->total_amount  = $package->total_fee; ////////////////////////////////////////
             $invoice->merchant_id  = $package->merchant_id;
             $invoice->total_amount = $totalFee;
             $invoice->currency     = $invoice->currency ?: ($request->currency ?? 'USD');
