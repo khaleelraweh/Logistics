@@ -307,36 +307,3 @@
         </div>
     </div>
 
-    {{-- <script>
-        // دالة لعرض تفاصيل الطرد عند الاختيار
-        function showPackageDetails() {
-            const packageSelect = document.getElementById('packageSelect');
-            const packageDetails = document.getElementById('packageDetails');
-            const selectedValue = packageSelect.value;
-
-            // إخفاء جميع معلومات المرسلين والمستلمين
-            document.querySelectorAll('.sender-info, .receiver-info').forEach(el => {
-                el.style.display = 'none';
-            });
-
-            if (selectedValue) {
-                // إظهار تفاصيل الطرد
-                packageDetails.style.display = 'block';
-
-                // إظهار المعلومات المناسبة للطرد المحدد
-                document.getElementById('senderInfo' + selectedValue).style.display = 'block';
-                document.getElementById('receiverInfo' + selectedValue).style.display = 'block';
-            } else {
-                // إخفاء تفاصيل الطرد إذا لم يتم اختيار أي طرد
-                packageDetails.style.display = 'none';
-            }
-        }
-
-        // تهيئة أولية لإظهار بيانات افتراضية إذا كان هناك قيمة محددة مسبقاً
-        document.addEventListener('DOMContentLoaded', function() {
-            // يمكنك هنا تهيئة القيم إذا كانت هناك قيمة محددة مسبقاً
-            // document.getElementById('packageSelect').value = '1';
-            // showPackageDetails();
-        });
-    </script> --}}
-
