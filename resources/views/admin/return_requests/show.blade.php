@@ -439,61 +439,61 @@
 
     <!-- Return Items Section -->
     @if($return_request->returnItems && $return_request->returnItems->count())
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-primary text-white py-3">
-                    <h5 class="mb-0 fw-semibold">
-                        <i class="mdi mdi-package-variant-closed me-2"></i>
-                        {{ __('return_request.return_items') }}
-                    </h5>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th class="ps-4">#</th>
-                                    <th>{{ __('product.product_type') }}</th>
-                                    <th>{{ __('product.product_name') }}</th>
-                                    <th>{{ __('product.quantity') }}</th>
-                                    <th>{{ __('general.status') }}</th>
-                                    <th class="pe-4">{{ __('general.notes') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($return_request->returnItems as $index => $item)
-                                {{-- {{ dd($return_request->returnItems) }} --}}
-                                <tr>
-                                    <td class="ps-4 fw-semibold">{{ $index + 1 }}</td>
-                                    <td>
-                                        <span class="badge bg-{{ $item->type == 'stock' ? 'success' : 'info' }}">
-                                            {{ __('product.' . $item->type) }}
-                                        </span>
-                                    </td>
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-primary text-white py-3">
+                        <h5 class="mb-0 fw-semibold">
+                            <i class="mdi mdi-package-variant-closed me-2"></i>
+                            {{ __('return_request.return_items') }}
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="ps-4">#</th>
+                                        <th>{{ __('product.product_type') }}</th>
+                                        <th>{{ __('product.product_name') }}</th>
+                                        <th>{{ __('product.quantity') }}</th>
+                                        <th>{{ __('general.status') }}</th>
+                                        <th class="pe-4">{{ __('general.notes') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($return_request->returnItems as $index => $item)
+                                    {{-- {{ dd($return_request->returnItems) }} --}}
+                                    <tr>
+                                        <td class="ps-4 fw-semibold">{{ $index + 1 }}</td>
+                                        <td>
+                                            <span class="badge bg-{{ $item->type == 'stock' ? 'success' : 'info' }}">
+                                                {{ __('product.' . $item->type) }}
+                                            </span>
+                                        </td>
 
-                                    <td>{{ $item->custom_name ?? ($item->stockItem->product->name ?? 'N/A') }}</td>
-                                    <td>
-                                        <span class="badge bg-primary">
-                                            {{ $item->quantity }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-success">
-                                            {{-- {{ __('return_request.item_returned') }} --}}
-                                            {!! $return_request->statusLabel() !!}
-                                        </span>
-                                    </td>
-                                    <td class="pe-4">{{ $item->note ?? '-' }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                        <td>{{ $item->custom_name ?? ($item->stockItem->product->name ?? 'N/A') }}</td>
+                                        <td>
+                                            <span class="badge bg-primary">
+                                                {{ $item->quantity }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success">
+                                                {{-- {{ __('return_request.item_returned') }} --}}
+                                                {!! $return_request->statusLabel() !!}
+                                            </span>
+                                        </td>
+                                        <td class="pe-4">{{ $item->note ?? '-' }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     @endif
 </div>
 @endsection
