@@ -463,6 +463,7 @@
                             </thead>
                             <tbody>
                                 @foreach($return_request->returnItems as $index => $item)
+                                {{-- {{ dd($return_request->returnItems) }} --}}
                                 <tr>
                                     <td class="ps-4 fw-semibold">{{ $index + 1 }}</td>
                                     <td>
@@ -470,6 +471,8 @@
                                             {{ __('product.' . $item->type) }}
                                         </span>
                                     </td>
+
+                                    {{-- {{ dd($item->stockItem) }} --}}
                                     <td>{{ $item->custom_name ?? ($item->stockItem->name ?? 'N/A') }}</td>
                                     <td>
                                         <span class="badge bg-primary">
