@@ -13,8 +13,8 @@
                 <div class="d-flex">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.merchants.index') }}">{{ __('merchant.manage_merchants') }}</a></li>
-                        <li class="breadcrumb-item active">{{ __('merchant.add_merchant') }}</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.return_requests.index') }}">{{ __('return_request.manage_return_requests') }}</a></li>
+                        <li class="breadcrumb-item active">{{ __('return_request.view_return_request') }}</li>
                     </ol>
                     {{-- <a href="{{ route('admin.return_requests.edit', $return_request->id) }}" class="btn btn-primary me-2">
                         <i class="mdi mdi-pencil-outline me-1"></i> {{ __('return_request.edit') }}
