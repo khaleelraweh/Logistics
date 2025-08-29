@@ -85,5 +85,6 @@ return [
 
     'delivery_information'  =>  'Delivery Information',
     'reason_message'  => 'Enter the reason for return (if any)',
+    'all_return_items'  => 'All Return Items',
 
 ];

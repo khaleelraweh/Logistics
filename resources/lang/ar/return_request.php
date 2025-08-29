@@ -85,6 +85,7 @@ return [
 
     'delivery_information'    =>  'معلومات التسليم',
     'reason_message'  => 'أدخل سبب الإرجاع (إن وجد)',
+    'all_return_items'    => 'جميع عناصر الطلب',
 
 
 ];

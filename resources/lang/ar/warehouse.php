@@ -68,6 +68,7 @@ return [
     'warehouse_information'     =>  'معلومات المستودع',
     'warehouse_location_map'     =>  'خريطة موقع المستودع',
     'products_to_return'     =>  'المنتجات المرتجعة',
+    'warehouse_details'     =>  'تفاصيل المستودع',
 
 
 

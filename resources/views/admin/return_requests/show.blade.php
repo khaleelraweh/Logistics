@@ -80,6 +80,68 @@
         background-color: #f1f4f9;
     }
 </style>
+
+<style>
+    /* تحسينات للتصميم الجديد */
+    .section-title {
+        border-bottom: 2px solid #4a6fdc;
+        padding-bottom: 8px;
+        margin: 20px 0 15px;
+        color: #4a6fdc;
+        font-size: 1.1rem;
+    }
+
+    .card-header.bg-light {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .table th {
+        font-weight: 600;
+        font-size: 0.9rem;
+        background: linear-gradient(135deg, #f1f4f9 0%, #e3e8f0 100%);
+    }
+
+    .badge.rounded-pill {
+        padding: 0.5em 0.8em;
+        font-weight: 500;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: #495057;
+        display: inline-block;
+        min-width: 80px;
+    }
+
+    .info-value {
+        color: #212529;
+        font-weight: 400;
+    }
+
+    /* تحسينات للجدول */
+    .table-hover tbody tr:hover {
+        background-color: rgba(74, 111, 220, 0.05);
+        transform: translateY(-1px);
+        transition: all 0.2s ease;
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+        padding: 0.75rem;
+    }
+
+    /* تحسينات للخرائط في التصميم الجديد */
+    .map-container {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .map-container:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transform: translateY(-2px);
+    }
+</style>
 @endsection
 
 @section('content')
@@ -466,46 +528,46 @@
                         {{ __('warehouse.warehouse_information') }}
                     </div>
                     <div class="card-body">
+                        <!-- عمودين جنباً إلى جنب -->
                         <div class="row">
-                            @foreach($warehouses as $warehouse)
-                            <div class="col-md-6 mb-4">
-                                <div class="card">
-                                    <div class="card-header bg-secondary text-white py-2">
-                                        <i class="mdi mdi-warehouse me-2"></i>
-                                        {{ $warehouse->name }} - {{ $warehouse->code }}
+                            <!-- العمود الأول: معلومات المستودعات -->
+                            <div class="col-lg-6 mb-4">
+                                <h6 class="section-title mb-3">
+                                    <i class="mdi mdi-information-outline me-2"></i>
+                                    {{ __('warehouse.warehouse_details') }}
+                                </h6>
+
+                                @foreach($warehouses as $warehouse)
+                                <div class="card mb-3">
+                                    <div class="card-header bg-light py-2">
+                                        <i class="mdi mdi-warehouse me-2 text-warning"></i>
+                                        <strong>{{ $warehouse->name }}</strong>
+                                        <small class="text-muted">({{ $warehouse->code }})</small>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-12">
-                                                <div class="info-label">{{ __('general.address') }}</div>
-                                                <div class="info-value">{{ $warehouse->address }}</div>
+                                            <div class="col-12 mb-2">
+                                                <span class="info-label">{{ __('general.address') }}:</span>
+                                                <span class="info-value">{{ $warehouse->address }}</span>
                                             </div>
-                                            <div class="col-6">
-                                                <div class="info-label">{{ __('general.city') }}</div>
-                                                <div class="info-value">{{ $warehouse->city }}</div>
+                                            <div class="col-6 mb-2">
+                                                <span class="info-label">{{ __('general.city') }}:</span>
+                                                <span class="info-value">{{ $warehouse->city }}</span>
                                             </div>
-                                            <div class="col-6">
-                                                <div class="info-label">{{ __('general.region') }}</div>
-                                                <div class="info-value">{{ $warehouse->region }}</div>
+                                            <div class="col-6 mb-2">
+                                                <span class="info-label">{{ __('general.region') }}:</span>
+                                                <span class="info-value">{{ $warehouse->region }}</span>
                                             </div>
-                                            <div class="col-6">
-                                                <div class="info-label">{{ __('general.country') }}</div>
-                                                <div class="info-value">{{ $warehouse->country }}</div>
+                                            <div class="col-6 mb-2">
+                                                <span class="info-label">{{ __('general.country') }}:</span>
+                                                <span class="info-value">{{ $warehouse->country }}</span>
                                             </div>
-                                            <div class="col-6">
-                                                <div class="info-label">{{ __('general.postal_code') }}</div>
-                                                <div class="info-value">{{ $warehouse->postal_code }}</div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="info-label">{{ __('general.latitude') }}</div>
-                                                <div class="info-value coordinates">{{ $warehouse->latitude }}</div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="info-label">{{ __('general.longitude') }}</div>
-                                                <div class="info-value coordinates">{{ $warehouse->longitude }}</div>
+                                            <div class="col-6 mb-2">
+                                                <span class="info-label">{{ __('general.postal_code') }}:</span>
+                                                <span class="info-value">{{ $warehouse->postal_code }}</span>
                                             </div>
                                             <div class="col-12 mt-3">
-                                                <div class="info-label">{{ __('warehouse.warehouse_location_map') }}</div>
+                                                <div class="info-label mb-2">{{ __('warehouse.warehouse_location_map') }}</div>
                                                 <div id="warehouse-map-{{ $warehouse->id }}" class="map-container"
                                                     data-lat="{{ $warehouse->latitude }}"
                                                     data-lng="{{ $warehouse->longitude }}">
@@ -518,54 +580,71 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
-                            @endforeach
-                        </div>
 
-                        <!-- Products to return to warehouses -->
-                        <div class="row mt-4">
-                            <div class="col-12">
-                                <h6 class="section-title">{{ __('warehouse.products_to_return') }}</h6>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>{{ __('warehouse.warehouse') }}</th>
-                                                <th>{{ __('product.product_name') }}</th>
-                                                <th>{{ __('product.quantity') }}</th>
-                                                <th>{{ __('product.shelf') }}</th>
-                                                <th>{{ __('product.notes') }}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($return_request->returnItems as $item)
-                                                @if($item->type == 'stock' &&
-                                                    $item->stockItem &&
-                                                    $item->stockItem->rentalShelf &&
-                                                    $item->stockItem->rentalShelf->shelf &&
-                                                    $item->stockItem->rentalShelf->shelf->warehouse)
-                                                <tr>
-                                                    <td>
-                                                        <strong>{{ $item->stockItem->rentalShelf->shelf->warehouse->name }}</strong>
-                                                        <br>
-                                                        <small class="text-muted">{{ $item->stockItem->rentalShelf->shelf->warehouse->code }}</small>
-                                                    </td>
-                                                    <td>{{ $item->stockItem->product->name ?? $item->custom_name }}</td>
-                                                    <td>{{ $item->quantity }}</td>
-                                                    <td>
-                                                        @if($item->stockItem->rentalShelf->shelf)
-                                                            {{ $item->stockItem->rentalShelf->shelf->name }}
-                                                            ({{ $item->stockItem->rentalShelf->shelf->code }})
-                                                        @else
-                                                            {{ __('general.not_specified') }}
+                            <!-- العمود الثاني: المنتجات المرتجعة -->
+                            <div class="col-lg-6">
+                                <h6 class="section-title mb-3">
+                                    <i class="mdi mdi-package-variant-closed me-2"></i>
+                                    {{ __('warehouse.products_to_return') }}
+                                </h6>
+
+                                <div class="card">
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered mb-0">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>{{ __('warehouse.warehouse') }}</th>
+                                                        <th>{{ __('product.product_name') }}</th>
+                                                        <th>{{ __('product.quantity') }}</th>
+                                                        <th>{{ __('product.shelf') }}</th>
+                                                        <th>{{ __('product.notes') }}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($return_request->returnItems as $item)
+                                                        @if($item->type == 'stock' &&
+                                                            $item->stockItem &&
+                                                            $item->stockItem->rentalShelf &&
+                                                            $item->stockItem->rentalShelf->shelf &&
+                                                            $item->stockItem->rentalShelf->shelf->warehouse)
+                                                        <tr>
+                                                            <td>
+                                                                <strong class="d-block">{{ $item->stockItem->rentalShelf->shelf->warehouse->name }}</strong>
+                                                                <small class="text-muted">{{ $item->stockItem->rentalShelf->shelf->warehouse->code }}</small>
+                                                            </td>
+                                                            <td>
+                                                                <strong>{{ $item->stockItem->product->name ?? $item->custom_name }}</strong>
+                                                            </td>
+                                                            <td>
+                                                                <span class="badge bg-primary rounded-pill">
+                                                                    {{ $item->quantity }}
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                @if($item->stockItem->rentalShelf->shelf)
+                                                                    <span class="badge bg-secondary">
+                                                                        {{ $item->stockItem->rentalShelf->shelf->name }}
+                                                                        ({{ $item->stockItem->rentalShelf->shelf->code }})
+                                                                    </span>
+                                                                @else
+                                                                    <span class="badge bg-light text-dark">
+                                                                        {{ __('general.not_specified') }}
+                                                                    </span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <small>{{ $item->note ?? '-' }}</small>
+                                                            </td>
+                                                        </tr>
                                                         @endif
-                                                    </td>
-                                                    <td>{{ $item->note ?? '-' }}</td>
-                                                </tr>
-                                                @endif
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -573,7 +652,7 @@
                 </div>
             </div>
         </div>
-        @else
+    @else
         <div class="alert alert-info mt-4">
             <i class="mdi mdi-information-outline me-2"></i>
             {{ __('warehouse.no_warehouse_data') }}
@@ -588,7 +667,7 @@
                     <div class="card-header bg-primary text-white py-3">
                         <h5 class="mb-0 fw-semibold">
                             <i class="mdi mdi-package-variant-closed me-2"></i>
-                            {{ __('return_request.return_items') }}
+                            {{ __('return_request.all_return_items') }}
                         </h5>
                     </div>
                     <div class="card-body p-0">
@@ -600,13 +679,13 @@
                                         <th>{{ __('product.product_type') }}</th>
                                         <th>{{ __('product.product_name') }}</th>
                                         <th>{{ __('product.quantity') }}</th>
+                                        <th>{{ __('warehouse.warehouse') }}</th>
                                         <th>{{ __('general.status') }}</th>
                                         <th class="pe-4">{{ __('general.notes') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($return_request->returnItems as $index => $item)
-                                    {{-- {{ dd($return_request->returnItems) }} --}}
                                     <tr>
                                         <td class="ps-4 fw-semibold">{{ $index + 1 }}</td>
                                         <td>
@@ -614,20 +693,39 @@
                                                 {{ __('product.' . $item->type) }}
                                             </span>
                                         </td>
-                                        {{-- {{ dd($item->stockItem->rentalShelf->shelf->warehouse->name) }} --}}
-                                        <td>{{ $item->custom_name ?? ($item->stockItem->product->name ?? 'N/A') }}</td>
                                         <td>
-                                            <span class="badge bg-primary">
+                                            <strong>{{ $item->custom_name ?? ($item->stockItem->product->name ?? 'N/A') }}</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-primary rounded-pill">
                                                 {{ $item->quantity }}
                                             </span>
                                         </td>
                                         <td>
+                                            @if($item->type == 'stock' &&
+                                                $item->stockItem &&
+                                                $item->stockItem->rentalShelf &&
+                                                $item->stockItem->rentalShelf->shelf &&
+                                                $item->stockItem->rentalShelf->shelf->warehouse)
+                                                <span class="d-block">
+                                                    <i class="mdi mdi-warehouse me-1 text-warning"></i>
+                                                    {{ $item->stockItem->rentalShelf->shelf->warehouse->name }}
+                                                </span>
+                                                <small class="text-muted">{{ $item->stockItem->rentalShelf->shelf->warehouse->code }}</small>
+                                            @else
+                                                <span class="badge bg-light text-dark">
+                                                    {{ __('general.not_applicable') }}
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td>
                                             <span class="badge bg-success">
-                                                {{-- {{ __('return_request.item_returned') }} --}}
                                                 {!! $return_request->statusLabel() !!}
                                             </span>
                                         </td>
-                                        <td class="pe-4">{{ $item->note ?? '-' }}</td>
+                                        <td class="pe-4">
+                                            <small>{{ $item->note ?? '-' }}</small>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
