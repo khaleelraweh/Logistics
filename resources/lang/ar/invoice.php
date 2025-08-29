@@ -23,7 +23,7 @@ return [
     'status'    => 'الحالة',
     'status_paid'    => 'مدفوع',
     'status_partial' => 'مدفوع جزئياً',
-    'status_unpaid'  => '',
+    'status_unpaid'  => 'غير مدفوع',
 
     'payable_id'    => 'رقم الفاتورة',
     'payable_type'   => 'نوع الدفع ',

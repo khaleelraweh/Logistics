@@ -66,11 +66,11 @@
                                 <td>{{ number_format($invoice->paid_amount, 2) }} {{ $invoice->currency }}</td>
                                 <td>
                                     @if($invoice->status == 'paid')
-                                        <span class="badge bg-success">مدفوع</span>
+                                        <span class="badge bg-success">{{ __('invoice.status_paid') }} </span>
                                     @elseif($invoice->status == 'partial')
-                                        <span class="badge bg-warning">جزئياً</span>
+                                        <span class="badge bg-warning">{{ __('invoice.status_partial') }} </span>
                                     @else
-                                        <span class="badge bg-danger">غير مدفوع</span>
+                                        <span class="badge bg-danger">{{ __('invoice.status_unpaid') }} </span>
                                     @endif
                                 </td>
                                 <td>{{ $invoice->created_at->diffForHumans() }}</td>
