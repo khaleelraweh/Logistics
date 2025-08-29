@@ -472,8 +472,7 @@
                                         </span>
                                     </td>
 
-                                    {{-- {{ dd($item->stockItem) }} --}}
-                                    <td>{{ $item->custom_name ?? ($item->stockItem->name ?? 'N/A') }}</td>
+                                    <td>{{ $item->custom_name ?? ($item->stockItem->product->name ?? 'N/A') }}</td>
                                     <td>
                                         <span class="badge bg-primary">
                                             {{ $item->quantity }}
