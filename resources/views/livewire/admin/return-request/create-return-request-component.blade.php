@@ -107,89 +107,61 @@
                                                 </div>
                                             </div>
 
-                                            <div class="card sender-info" id="senderInfo2" style="display: none;">
-                                                <div class="card-header bg-info py-2">
-                                                    <i class="bi bi-person me-2"></i> معلومات المرسل - الطرد #987654321
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <div class="info-label">الاسم الكامل</div>
-                                                            <div class="info-value">عبدالله السعدي</div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="info-label">رقم الهاتف</div>
-                                                            <div class="info-value">+966587654321</div>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <div class="info-label">العنوان</div>
-                                                            <div class="info-value">حي النور، شارع الأمير Sultan، جدة 23456</div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="info-label">المدينة</div>
-                                                            <div class="info-value">جدة</div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="info-label">المنطقة</div>
-                                                            <div class="info-value">منطقة مكة المكرمة</div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="info-label">خط الطول</div>
-                                                            <div class="info-value coordinates">39.1493614</div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="info-label">خط العرض</div>
-                                                            <div class="info-value coordinates">21.5434861</div>
-                                                        </div>
-                                                        <div class="col-12 mt-3">
-                                                            <div class="map-container">
-                                                                <i class="bi bi-geo-alt me-2"></i> خريطة موقع المرسل
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                         </div>
 
                                         <!-- Receiver Information -->
                                         <div class="col-md-6">
                                             <div class="card receiver-info" id="receiverInfo1">
                                                 <div class="card-header bg-success py-2">
-                                                    <i class="bi bi-person me-2"></i> معلومات المستلم - الطرد #123456789
+                                                    <i class="bi bi-person me-2"></i>  {{ __('package.receiver_info') }} - {{ __('package.package') }} #{{ $package->tracking_number }}
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-6">
-                                                            <div class="info-label">الاسم الكامل</div>
-                                                            <div class="info-value">أحمد محمد</div>
+                                                            <div class="info-label">{{ __('general.full_name') }}</div>
+                                                            <div class="info-value">{{ $package->receiver_full_name }}</div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="info-label">رقم الهاتف</div>
-                                                            <div class="info-value">+966512345679</div>
+                                                            <div class="info-label">{{ __('general.phone') }}</div>
+                                                            <div class="info-value">+{{ $package->phone }}</div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <div class="info-label">العنوان</div>
-                                                            <div class="info-value">حي النخيل، شارع التحلية، جدة 54321</div>
+                                                             @php
+                                                                $addressParts = array_filter([
+                                                                    $package->receiver_district,
+                                                                    $package->receiver_city,
+                                                                    $package->receiver_region,
+                                                                    $package->receiver_country,
+                                                                    $package->receiver_postal_code,
+                                                                ]); // إزالة القيم الفارغة
+
+                                                                $shortReceiverAddress = implode(' ، ', array_slice($addressParts, 0, 2)); // أول قيمتين فقط
+                                                                $fullReceiverAddress = implode(' ، ', $addressParts); // كامل النص
+                                                            @endphp
+
+                                                            <div class="info-label">{{ $package->address }}</div>
+                                                            <div class="info-value"> {{ $fullReceiverAddress }} </div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="info-label">المدينة</div>
-                                                            <div class="info-value">جدة</div>
+                                                            <div class="info-label">{{ __('general.city') }}</div>
+                                                            <div class="info-value">{{ $package->receiver_city }}</div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="info-label">المنطقة</div>
-                                                            <div class="info-value">منطقة مكة المكرمة</div>
+                                                            <div class="info-label">{{ __('general.region') }}</div>
+                                                            <div class="info-value"> {{ $package->receiver_region }} </div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="info-label">خط الطول</div>
-                                                            <div class="info-value coordinates">39.1722166</div>
+                                                            <div class="info-label">{{ __('general.latitude') }}</div>
+                                                            <div class="info-value coordinates">{{ $package->receiver_latitude }}</div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="info-label">خط العرض</div>
-                                                            <div class="info-value coordinates">21.4852866</div>
+                                                            <div class="info-label">{{ __('general.longitude') }}</div>
+                                                            <div class="info-value coordinates">{{ $package->receiver_longitude }}</div>
                                                         </div>
                                                         <div class="col-12 mt-3">
                                                             <div class="map-container">
-                                                                <i class="bi bi-geo-alt me-2"></i> خريطة موقع المستلم
+                                                                <i class="bi bi-geo-alt me-2"></i>  {{ __('package.receiver_location_map') }}
                                                             </div>
                                                         </div>
                                                     </div>
