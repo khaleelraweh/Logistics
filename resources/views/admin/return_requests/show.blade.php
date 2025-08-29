@@ -438,147 +438,147 @@
     @endif
 
     <!-- Warehouse Information Section -->
-@php
-    // جمع جميع مستودعات المنتجات المرتجعة من النوع stock
-    $warehouses = [];
+    @php
+        // جمع جميع مستودعات المنتجات المرتجعة من النوع stock
+        $warehouses = [];
 
-    if ($return_request->package) {
-        foreach ($return_request->package->packageProducts as $packageProduct) {
-            if ($packageProduct->type == 'stock' &&
-                $packageProduct->stockItem &&
-                $packageProduct->stockItem->rentalShelf &&
-                $packageProduct->stockItem->rentalShelf->shelf &&
-                $packageProduct->stockItem->rentalShelf->shelf->warehouse) {
+        if ($return_request->package) {
+            foreach ($return_request->package->packageProducts as $packageProduct) {
+                if ($packageProduct->type == 'stock' &&
+                    $packageProduct->stockItem &&
+                    $packageProduct->stockItem->rentalShelf &&
+                    $packageProduct->stockItem->rentalShelf->shelf &&
+                    $packageProduct->stockItem->rentalShelf->shelf->warehouse) {
 
-                $warehouse = $packageProduct->stockItem->rentalShelf->shelf->warehouse;
-                $warehouses[$warehouse->id] = $warehouse;
+                    $warehouse = $packageProduct->stockItem->rentalShelf->shelf->warehouse;
+                    $warehouses[$warehouse->id] = $warehouse;
+                }
             }
         }
-    }
-@endphp
+    @endphp
 
-@if(count($warehouses) > 0)
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header bg-warning text-white py-2">
-                <i class="mdi mdi-warehouse me-2"></i>
-                {{ __('warehouse.warehouse_information') }}
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    @foreach($warehouses as $warehouse)
-                    <div class="col-md-6 mb-4">
-                        <div class="card">
-                            <div class="card-header bg-secondary text-white py-2">
-                                <i class="mdi mdi-warehouse me-2"></i>
-                                {{ $warehouse->name }} - {{ $warehouse->code }}
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="info-label">{{ __('general.address') }}</div>
-                                        <div class="info-value">{{ $warehouse->address }}</div>
+    @if(count($warehouses) > 0)
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-warning text-white py-2">
+                        <i class="mdi mdi-warehouse me-2"></i>
+                        {{ __('warehouse.warehouse_information') }}
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach($warehouses as $warehouse)
+                            <div class="col-md-6 mb-4">
+                                <div class="card">
+                                    <div class="card-header bg-secondary text-white py-2">
+                                        <i class="mdi mdi-warehouse me-2"></i>
+                                        {{ $warehouse->name }} - {{ $warehouse->code }}
                                     </div>
-                                    <div class="col-6">
-                                        <div class="info-label">{{ __('general.city') }}</div>
-                                        <div class="info-value">{{ $warehouse->city }}</div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="info-label">{{ __('general.region') }}</div>
-                                        <div class="info-value">{{ $warehouse->region }}</div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="info-label">{{ __('general.country') }}</div>
-                                        <div class="info-value">{{ $warehouse->country }}</div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="info-label">{{ __('general.postal_code') }}</div>
-                                        <div class="info-value">{{ $warehouse->postal_code }}</div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="info-label">{{ __('general.latitude') }}</div>
-                                        <div class="info-value coordinates">{{ $warehouse->latitude }}</div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="info-label">{{ __('general.longitude') }}</div>
-                                        <div class="info-value coordinates">{{ $warehouse->longitude }}</div>
-                                    </div>
-                                    <div class="col-12 mt-3">
-                                        <div class="info-label">{{ __('warehouse.warehouse_location_map') }}</div>
-                                        <div id="warehouse-map-{{ $warehouse->id }}" class="map-container"
-                                             data-lat="{{ $warehouse->latitude }}"
-                                             data-lng="{{ $warehouse->longitude }}">
-                                            <div class="map-placeholder">
-                                                <i class="mdi mdi-map-marker-outline me-2"></i>
-                                                {{ __('package.loading_map') }}
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="info-label">{{ __('general.address') }}</div>
+                                                <div class="info-value">{{ $warehouse->address }}</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-label">{{ __('general.city') }}</div>
+                                                <div class="info-value">{{ $warehouse->city }}</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-label">{{ __('general.region') }}</div>
+                                                <div class="info-value">{{ $warehouse->region }}</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-label">{{ __('general.country') }}</div>
+                                                <div class="info-value">{{ $warehouse->country }}</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-label">{{ __('general.postal_code') }}</div>
+                                                <div class="info-value">{{ $warehouse->postal_code }}</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-label">{{ __('general.latitude') }}</div>
+                                                <div class="info-value coordinates">{{ $warehouse->latitude }}</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-label">{{ __('general.longitude') }}</div>
+                                                <div class="info-value coordinates">{{ $warehouse->longitude }}</div>
+                                            </div>
+                                            <div class="col-12 mt-3">
+                                                <div class="info-label">{{ __('warehouse.warehouse_location_map') }}</div>
+                                                <div id="warehouse-map-{{ $warehouse->id }}" class="map-container"
+                                                    data-lat="{{ $warehouse->latitude }}"
+                                                    data-lng="{{ $warehouse->longitude }}">
+                                                    <div class="map-placeholder">
+                                                        <i class="mdi mdi-map-marker-outline me-2"></i>
+                                                        {{ __('package.loading_map') }}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
-                    </div>
-                    @endforeach
-                </div>
 
-                <!-- Products to return to warehouses -->
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <h6 class="section-title">{{ __('warehouse.products_to_return') }}</h6>
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>{{ __('warehouse.warehouse') }}</th>
-                                        <th>{{ __('product.product_name') }}</th>
-                                        <th>{{ __('product.quantity') }}</th>
-                                        <th>{{ __('product.shelf') }}</th>
-                                        <th>{{ __('product.notes') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($return_request->returnItems as $item)
-                                        @if($item->type == 'stock' &&
-                                            $item->stockItem &&
-                                            $item->stockItem->rentalShelf &&
-                                            $item->stockItem->rentalShelf->shelf &&
-                                            $item->stockItem->rentalShelf->shelf->warehouse)
-                                        <tr>
-                                            <td>
-                                                <strong>{{ $item->stockItem->rentalShelf->shelf->warehouse->name }}</strong>
-                                                <br>
-                                                <small class="text-muted">{{ $item->stockItem->rentalShelf->shelf->warehouse->code }}</small>
-                                            </td>
-                                            <td>{{ $item->stockItem->product->name ?? $item->custom_name }}</td>
-                                            <td>{{ $item->quantity }}</td>
-                                            <td>
-                                                @if($item->stockItem->rentalShelf->shelf)
-                                                    {{ $item->stockItem->rentalShelf->shelf->name }}
-                                                    ({{ $item->stockItem->rentalShelf->shelf->code }})
-                                                @else
-                                                    {{ __('general.not_specified') }}
+                        <!-- Products to return to warehouses -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h6 class="section-title">{{ __('warehouse.products_to_return') }}</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>{{ __('warehouse.warehouse') }}</th>
+                                                <th>{{ __('product.product_name') }}</th>
+                                                <th>{{ __('product.quantity') }}</th>
+                                                <th>{{ __('product.shelf') }}</th>
+                                                <th>{{ __('product.notes') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($return_request->returnItems as $item)
+                                                @if($item->type == 'stock' &&
+                                                    $item->stockItem &&
+                                                    $item->stockItem->rentalShelf &&
+                                                    $item->stockItem->rentalShelf->shelf &&
+                                                    $item->stockItem->rentalShelf->shelf->warehouse)
+                                                <tr>
+                                                    <td>
+                                                        <strong>{{ $item->stockItem->rentalShelf->shelf->warehouse->name }}</strong>
+                                                        <br>
+                                                        <small class="text-muted">{{ $item->stockItem->rentalShelf->shelf->warehouse->code }}</small>
+                                                    </td>
+                                                    <td>{{ $item->stockItem->product->name ?? $item->custom_name }}</td>
+                                                    <td>{{ $item->quantity }}</td>
+                                                    <td>
+                                                        @if($item->stockItem->rentalShelf->shelf)
+                                                            {{ $item->stockItem->rentalShelf->shelf->name }}
+                                                            ({{ $item->stockItem->rentalShelf->shelf->code }})
+                                                        @else
+                                                            {{ __('general.not_specified') }}
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $item->note ?? '-' }}</td>
+                                                </tr>
                                                 @endif
-                                            </td>
-                                            <td>{{ $item->note ?? '-' }}</td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-@else
-<div class="alert alert-info mt-4">
-    <i class="mdi mdi-information-outline me-2"></i>
-    {{ __('warehouse.no_warehouse_data') }}
-</div>
-@endif
+        @else
+        <div class="alert alert-info mt-4">
+            <i class="mdi mdi-information-outline me-2"></i>
+            {{ __('warehouse.no_warehouse_data') }}
+        </div>
+    @endif
 
     <!-- Return Items Section -->
     @if($return_request->returnItems && $return_request->returnItems->count())
