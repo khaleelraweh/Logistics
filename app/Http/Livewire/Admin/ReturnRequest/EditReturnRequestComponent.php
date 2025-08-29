@@ -85,6 +85,41 @@ class EditReturnRequestComponent extends Component
         }
     }
 
+    // public function updatedPackageId($value)
+    // {
+    //     $package = Package::with('packageProducts')->find($value);
+
+    //     if ($package) {
+    //         $this->packageProducts = $package->packageProducts->toArray();
+
+    //         // جلب الطلب المرتجع الحالي
+    //         $returnRequest = ReturnRequest::with('returnItems')->find($this->returnRequestId);
+
+    //         foreach ($this->packageProducts as $product) {
+    //             $item = null;
+
+    //             if ($product['type'] === 'stock') {
+    //                 $item = $returnRequest->returnItems
+    //                     ->where('type', 'stock')
+    //                     ->where('stock_item_id', $product['stock_item_id'])
+    //                     ->first();
+    //             } elseif ($product['type'] === 'custom') {
+    //                 $item = $returnRequest->returnItems
+    //                     ->where('type', 'custom')
+    //                     ->where('custom_name', $product['custom_name'])
+    //                     ->first();
+    //             }
+
+    //             $this->returnQuantities[$product['id']] = $item ? $item->quantity : 0;
+    //         }
+
+    //     } else {
+    //         $this->packageProducts = [];
+    //         $this->returnQuantities = [];
+    //     }
+    // }
+
+    // في مكون EditReturnRequestComponent
     public function updatedPackageId($value)
     {
         $package = Package::with('packageProducts')->find($value);
@@ -117,6 +152,9 @@ class EditReturnRequestComponent extends Component
             $this->packageProducts = [];
             $this->returnQuantities = [];
         }
+
+        // إعادة تحميل الخرائط بعد تحديث البيانات
+        $this->dispatchBrowserEvent('refreshMaps');
     }
 
     public function update()

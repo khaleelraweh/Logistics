@@ -133,91 +133,96 @@
 
 
 @section('script')
-<!-- مكتبة Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""></script>
+    <!-- مكتبة Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
 
-<script>
-document.addEventListener('livewire:load', function () {
-    // دالة لتهيئة الخرائط
-    function initMaps() {
-        // البحث عن جميع عناصر الخرائط
-        const mapContainers = document.querySelectorAll('.map-container');
+    <script>
+        document.addEventListener('livewire:load', function () {
+            // دالة لتهيئة الخرائط
+            function initMaps() {
+                // البحث عن جميع عناصر الخرائط
+                const mapContainers = document.querySelectorAll('.map-container');
 
-        mapContainers.forEach(container => {
-            const lat = parseFloat(container.getAttribute('data-lat'));
-            const lng = parseFloat(container.getAttribute('data-lng'));
-            const mapId = container.id;
+                mapContainers.forEach(container => {
+                    const lat = parseFloat(container.getAttribute('data-lat'));
+                    const lng = parseFloat(container.getAttribute('data-lng'));
+                    const mapId = container.id;
 
-            // تأكد من أن الخريطة لم يتم تهيئتها من قبل
-            if (container.hasAttribute('data-initialized')) {
-                return;
+                    // تأكد من أن الخريطة لم يتم تهيئتها من قبل
+                    if (container.hasAttribute('data-initialized')) {
+                        return;
+                    }
+
+                    // تأكد من وجود إحداثيات صحيحة
+                    if (!isNaN(lat) && !isNaN(lng)) {
+                        // إزالة العنصر النائب
+                        container.innerHTML = '';
+
+                        // إنشاء الخريطة
+                        const map = L.map(mapId).setView([lat, lng], 13);
+
+                        // إضافة طبقة الخريطة
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        }).addTo(map);
+
+                        // إضافة علامة الموقع
+                        const marker = L.marker([lat, lng]).addTo(map);
+
+                        // تحديد نوع الخريطة بناءً على الـ ID
+                        if (mapId.includes('sender-map')) {
+                            marker.bindPopup('{{ __("package.sender_location") }}').openPopup();
+                        } else if (mapId.includes('receiver-map')) {
+                            marker.bindPopup('{{ __("package.receiver_location") }}').openPopup();
+                        }
+
+                        // وضع علامة أن الخريطة تم تهيئتها
+                        container.setAttribute('data-initialized', 'true');
+                    } else {
+                        // إذا لم تكن هناك إحداثيات صحيحة
+                        container.innerHTML = `
+                            <div class="map-placeholder">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                {{ __("package.no_location_data") }}
+                            </div>
+                        `;
+                        container.setAttribute('data-initialized', 'true');
+                    }
+                });
             }
 
-            // تأكد من وجود إحداثيات صحيحة
-            if (!isNaN(lat) && !isNaN(lng)) {
-                // إزالة العنصر النائب
-                container.innerHTML = '';
+            // تهيئة الخرائط عند التحميل الأول
+            setTimeout(initMaps, 500);
 
-                // إنشاء الخريطة
-                const map = L.map(mapId).setView([lat, lng], 13);
+            // إعادة تهيئة الخرائط عند تحديث Livewire
+            Livewire.hook('message.processed', () => {
+                setTimeout(initMaps, 300);
+            });
 
-                // إضافة طبقة الخريطة
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                }).addTo(map);
+            // إعادة تهيئة الخرائط عند تغيير حجم النافذة
+            window.addEventListener('resize', function() {
+                // إعادة رسم الخرائط الموجودة
+                document.querySelectorAll('.map-container[data-initialized="true"]').forEach(container => {
+                    const map = L.map(container.id);
+                    if (map) {
+                        setTimeout(() => {
+                            map.invalidateSize();
+                        }, 100);
+                    }
+                });
+            });
 
-                // إضافة علامة الموقع
-                const marker = L.marker([lat, lng]).addTo(map);
+            // دالة عالمية يمكن استدعاؤها من أي مكان
+            window.refreshMaps = function() {
+                initMaps();
+            };
 
-                // تحديد نوع الخريطة بناءً على الـ ID
-                if (mapId.includes('sender-map')) {
-                    marker.bindPopup('{{ __("package.sender_location") }}').openPopup();
-                } else if (mapId.includes('receiver-map')) {
-                    marker.bindPopup('{{ __("package.receiver_location") }}').openPopup();
-                }
-
-                // وضع علامة أن الخريطة تم تهيئتها
-                container.setAttribute('data-initialized', 'true');
-            } else {
-                // إذا لم تكن هناك إحداثيات صحيحة
-                container.innerHTML = `
-                    <div class="map-placeholder">
-                        <i class="bi bi-exclamation-triangle me-2"></i>
-                        {{ __("package.no_location_data") }}
-                    </div>
-                `;
-                container.setAttribute('data-initialized', 'true');
-            }
+            // في الـ script
+            Livewire.on('refreshMaps', () => {
+                setTimeout(initMaps, 200);
+            });
         });
-    }
-
-    // تهيئة الخرائط عند التحميل الأول
-    setTimeout(initMaps, 500);
-
-    // إعادة تهيئة الخرائط عند تحديث Livewire
-    Livewire.hook('message.processed', () => {
-        setTimeout(initMaps, 300);
-    });
-
-    // إعادة تهيئة الخرائط عند تغيير حجم النافذة
-    window.addEventListener('resize', function() {
-        // إعادة رسم الخرائط الموجودة
-        document.querySelectorAll('.map-container[data-initialized="true"]').forEach(container => {
-            const map = L.map(container.id);
-            if (map) {
-                setTimeout(() => {
-                    map.invalidateSize();
-                }, 100);
-            }
-        });
-    });
-
-    // دالة عالمية يمكن استدعاؤها من أي مكان
-    window.refreshMaps = function() {
-        initMaps();
-    };
-});
-</script>
+    </script>
 @endsection
