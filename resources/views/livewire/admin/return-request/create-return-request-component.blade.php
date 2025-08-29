@@ -172,11 +172,24 @@
                                                             <div class="info-label">{{ __('general.longitude') }}</div>
                                                             <div class="info-value coordinates">{{ $package->receiver_longitude }}</div>
                                                         </div>
-                                                        <div class="col-12 mt-3">
+                                                        {{-- <div class="col-12 mt-3">
                                                             <div class="map-container">
                                                                 <i class="bi bi-geo-alt me-2"></i>  {{ __('package.receiver_location_map') }}
                                                             </div>
+                                                        </div> --}}
+                                                        <!-- في قسم المستلم -->
+                                                        <div class="col-12 mt-3">
+                                                            <div class="info-label">{{ __('package.receiver_location_map') }}</div>
+                                                            <div id="receiver-map-{{ $package->id }}" class="map-container"
+                                                                data-lat="{{ $package->receiver_latitude }}"
+                                                                data-lng="{{ $package->receiver_longitude }}">
+                                                                <div class="map-placeholder">
+                                                                    <i class="bi bi-geo-alt me-2"></i>
+                                                                    {{ __('package.loading_map') }}
+                                                                </div>
+                                                            </div>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
