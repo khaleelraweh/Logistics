@@ -35,8 +35,9 @@
                                                 {{ $package->tracking_number }} - {{ $package->receiver_full_name }} ({{ $package->receiver_city }})
                                             </option>
                                         @endforeach
-
                                     </select>
+                                    @error('package_id') <span class="text-danger">{{ $message }}</span> @enderror
+
                                     <div class="form-text">{{ __('package.select_package_message') }}</div>
                                 </div>
                             </div>
@@ -208,12 +209,14 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required-field">{{ __('driver.driver') }}</label>
                                 <div class="col-sm-10">
-                                    <select class="form-select">
+                                    <select wire:model="driver_id" class="form-select">
                                         <option value=""> {{ __('driver.select_driver') }} </option>
                                         @foreach($drivers as $driver)
                                             <option value="{{ $driver->id }}">{{ $driver->driver_full_name }}  -  {{ __('driver.vehicle_type_'. $driver->vehicle_type) }} - {{ $driver->phone }}</option>
                                         @endforeach
                                     </select>
+                                    @error('driver_id') <span class="text-danger">{{ $message }}</span> @enderror
+
                                 </div>
                             </div>
 
@@ -221,11 +224,13 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required-field"> {{ __('return_request.return_type') }}</label>
                                 <div class="col-sm-10">
-                                    <select class="form-select">
+                                    <select class="form-select" wire:model="return_type">
                                         <option value="to_warehouse">{{ __('return_request.type_to_warehouse') }}</option>
                                         <option value="to_merchant">{{ __('return_request.type_to_merchant') }}</option>
                                         <option value="to_both">{{ __('return_request.type_to_both') }}</option>
                                     </select>
+                                    @error('return_type') <span class="text-danger">{{ $message }}</span> @enderror
+
                                 </div>
                             </div>
 
@@ -247,7 +252,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="col-form-label">{{ __('return_request.received_at') }}</label>
-                                    <input type="date" class="form-control" value="2023-11-20">
+                                        <input type="date" wire:model="received_at" class="form-control">
+                                        @error('received_at') <span class="text-danger">{{ $message }}</span> @enderror
+
                                 </div>
                             </div>
 
@@ -255,7 +262,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required-field">{{ __('return_request.status') }}</label>
                                 <div class="col-sm-10">
-                                    <select class="form-select">
+                                    <select wire:model="status" class="form-select">
                                          <option value="requested">{{ __('return_request.status_requested') }}</option>
                                         <option value="cancelled">{{ __('return_request.status_cancelled') }}</option>
                                         <option value="in_transit">{{ __('return_request.status_in_transit') }}</option>
@@ -272,7 +279,9 @@
                             <div class="row mb-4">
                                 <label class="col-sm-2 col-form-label">{{ __('general.reason') }}</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" rows="3" placeholder="{{ __('return_request.reason_message') }}"></textarea>
+                                    <textarea wire:model="reason" class="form-control" rows="3"></textarea>
+                                    @error('reason') <span class="text-danger">{{ $message }}</span> @enderror
+
                                 </div>
                             </div>
 
