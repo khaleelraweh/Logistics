@@ -303,7 +303,9 @@ return [
 
     'package' => 'Package',
     'select_package' => 'Select Package',
-    'select_package_message'    => 'Select the package for which you want to create a return request.'
+    'select_package_message'    => 'Select the package for which you want to create a return request.',
+    'sender_location_map'   =>  'Sender Location Map',
+    'receiver_location_map' => 'Receiver Location Map',
 
 
 ];

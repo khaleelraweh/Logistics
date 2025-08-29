@@ -83,24 +83,24 @@
                                                             <div class="info-value"> {{ $fullAddress }}   </div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="info-label">المدينة</div>
-                                                            <div class="info-value">الرياض</div>
+                                                            <div class="info-label">{{ __('general.city') }}</div>
+                                                            <div class="info-value">{{ $package->sender_city }}</div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="info-label">المنطقة</div>
-                                                            <div class="info-value">منطقة الرياض</div>
+                                                            <div class="info-label">{{ __('general.region') }}</div>
+                                                            <div class="info-value">{{ $package->sender_region }}</div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="info-label">خط الطول</div>
-                                                            <div class="info-value coordinates">46.6752957</div>
+                                                            <div class="info-label">{{ __('general.latitude') }}</div>
+                                                            <div class="info-value coordinates">{{ $package->sender_latitude }}</div>
                                                         </div>
                                                         <div class="col-6">
-                                                            <div class="info-label">خط العرض</div>
-                                                            <div class="info-value coordinates">24.7135517</div>
+                                                            <div class="info-label">{{ __('general.longitude') }}</div>
+                                                            <div class="info-value coordinates">{{ $package->sender_longitude }}</div>
                                                         </div>
                                                         <div class="col-12 mt-3">
                                                             <div class="map-container">
-                                                                <i class="bi bi-geo-alt me-2"></i> خريطة موقع المرسل
+                                                                <i class="bi bi-geo-alt me-2"></i> {{ __('package.sender_location_map') }}
                                                             </div>
                                                         </div>
                                                     </div>

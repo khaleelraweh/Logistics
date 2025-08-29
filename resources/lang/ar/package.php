@@ -304,5 +304,7 @@ return [
     'package' => 'الطرد',
     'select_package' => 'اختر الطرد',
     'select_package_message'    => 'اختر الطرد الذي تريد إنشاء طلب إرجاع له.',
+    'sender_location_map' => 'خريطة موقع المرسل',
+    'receiver_location_map' => 'خريطة موقع المستلم',
 
 ];
