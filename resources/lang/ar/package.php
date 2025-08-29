@@ -308,5 +308,6 @@ return [
     'receiver_location_map' => 'خريطة موقع المستلم',
 
     'package_items' => 'عناصر الطرد',
+    'loading_map'   =>  'تحميل الخريطة',
 
 ];

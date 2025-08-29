@@ -307,6 +307,7 @@ return [
     'sender_location_map'   =>  'Sender Location Map',
     'receiver_location_map' => 'Receiver Location Map',
     'package_items'     =>  'Package Items',
+    'loading_map'       =>  'Loading Map',
 
 
 ];
