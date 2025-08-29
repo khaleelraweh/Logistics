@@ -14,6 +14,7 @@ return [
     'notes'             => 'Notes',
     'no_notes'          => 'No notes available',
     'actions'           => 'Actions',
+    'manage_invoice'    => 'Manage Invoices',
 
     // Status
     'invoice_status' => 'Invoice Status',

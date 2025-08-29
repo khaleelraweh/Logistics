@@ -14,6 +14,7 @@ return [
     'notes'             => 'ملاحظات',
     'no_notes'          => 'لا توجد ملاحظات',
     'actions'           => 'إجراءات',
+    'manage_invoices' => 'إدارة الفواتير',
 
     // الحالات
     'invoice_status' => 'حالة الفاتورة',
