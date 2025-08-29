@@ -18,13 +18,6 @@ return [
     // Status
     'invoice_status' => 'Invoice Status',
 
-    // Status
-    // 'status' => [
-    //     'paid'    => 'Paid',
-    //     'partial' => 'Partially Paid',
-    //     'unpaid'  => 'Unpaid',
-    // ],
-
     'status'    => 'Status',
     'status_paid'    => 'Paid',
     'status_partial' => 'Partially Paid',
