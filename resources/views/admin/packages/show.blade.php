@@ -237,12 +237,11 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>{{ __('package.payment_date') }}</th>
-                                            <th>{{ __('package.payment_method') }}</th>
-                                            <th>{{ __('package.collection_method') }}</th>
-                                            <th>{{ __('package.amount') }}</th>
-                                            <th>{{ __('package.status') }}</th>
+                                            <th width="15%">{{ __('invoice.amount') }}</th>
+                                            <th width="15%">{{ __('invoice.method') }}</th>
+                                            <th width="15%">{{ __('invoice.paid_on') }}</th>
+                                            <th width="35%">{{ __('invoice.notes') }}</th>
+                                            <th width="20%">{{ __('invoice.actions') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
