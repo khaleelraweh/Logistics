@@ -127,6 +127,9 @@ return new class extends Migration
             $table->decimal('paid_amount', 10, 2)->default(0);
             // المبلغ المدفوع حتى الآن
 
+            $table->decimal('overpayment', 10, 2)->default(0);
+            // المبلغ الزائد المدفوع الآن
+
             $table->decimal('due_amount', 10, 2)->default(0);
             // // المبلغ المتبقي للدفع
 
