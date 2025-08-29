@@ -4,6 +4,7 @@ return [
 
     // العناوين العامة
     'invoice_details'   => 'تفاصيل الفاتورة',
+    'invoice_description'   =>  'يمكنك استعراض تفاصيل الفواتير في الاسفل',
     'invoice_info'      => 'معلومات الفاتورة',
     'invoice_number'    => 'رقم الفاتورة',
     'invoice_status'    => 'حالة الفاتورة',

@@ -4,6 +4,7 @@ return [
 
     // General titles
     'invoice_details'   => 'Invoice Details',
+    'invoice_description'   =>  'You can view the invoice details below.',
     'invoice_info'      => 'Invoice Information',
     'invoice_number'    => 'Invoice Number',
     'invoice_status'    => 'Invoice Status',

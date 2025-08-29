@@ -30,7 +30,7 @@
 
                 <div class="card-head d-flex justify-content-between">
                     <div class="head">
-                        <h4 class="card-title"><i class="fas fa-file-invoice-dollar"></i> {{ __('invoice.invoice_data') }}</h4>
+                        <h4 class="card-title"><i class="fas fa-file-invoice-dollar"></i> {{ __('invoice.invoice_details') }}</h4>
                         <p class="card-title-desc">{{ __('invoice.invoice_description') }}</p>
                     </div>
                     <div class="button-items">
