@@ -16,7 +16,7 @@ return [
     'no_notes'          => 'لا توجد ملاحظات',
     'actions'           => 'إجراءات',
     'manage_invoices' => 'إدارة الفواتير',
-    'payment_history'   =>  'تاريخ الدفع',
+    'payment_history'   =>  'سجل المدفوعات',
 
     // الحالات
     'invoice_status' => 'حالة الفاتورة',
