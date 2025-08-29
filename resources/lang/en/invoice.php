@@ -30,6 +30,10 @@ return [
     'status_partial' => 'Partially Paid',
     'status_unpaid'  => 'Unpaid',
 
+    'payable_id'   => 'Payable ID',
+    'payable_type' => 'Payable Type',
+    'payable_type_package'  =>  'Package Invoice',
+
 
 
     // Amounts

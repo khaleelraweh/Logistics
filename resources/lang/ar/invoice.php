@@ -31,6 +31,11 @@ return [
     'status_partial' => 'مدفوع جزئياً',
     'status_unpaid'  => '',
 
+    'payable_id'    => 'رقم الفاتورة',
+    'payable_type'   => 'نوع الدفع ',
+    'payable_type_package'   => 'فاتورة طرد',
+
+
     // المبالغ
     'total_amount'     => 'المبلغ الإجمالي',
     'amount_paid'      => 'المبلغ المدفوع',
