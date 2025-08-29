@@ -52,7 +52,7 @@
                             <th>{{ __('invoice.paid_amount') }}</th>
                             <th>{{ __('invoice.status') }}</th>
                             <th>{{ __('general.created_at') }}</th>
-                            <th>{{ __('general.actions') }}</th>
+                            <th><i class="fas fa-cog"></i></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,7 +74,7 @@
                                     @endif
                                 </td>
                                 <td>{{ $invoice->created_at->diffForHumans() }}</td>
-                                <td>
+                                {{-- <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
                                             {{ __('general.operations') }}
@@ -102,6 +102,53 @@
                                                 </form>
                                             @endability
                                         </div>
+                                    </div>
+                                </td> --}}
+
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-cog"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            @ability('admin', 'show_invoices')
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('admin.invoices.show', $invoice->id) }}">
+                                                    <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
+                                                </a>
+                                            </li>
+                                            @endability
+
+                                            @ability('admin', 'update_invoices')
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('admin.invoices.edit', $invoice->id) }}">
+                                                    <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
+                                                </a>
+                                            </li>
+                                            @endability
+
+                                            @ability('admin', 'delete_invoices')
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>
+                                                <a class="dropdown-item text-danger" href="#"
+
+                                                onclick="confirmDelete('delete-invoice-{{ $invoice->id }}',
+                                                                                '{{ __('panel.confirm_delete_message') }}',
+                                                                                '{{ __('panel.yes_delete') }}',
+                                                                                '{{ __('panel.cancel') }}')"
+                                                        >
+                                                    <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
+                                                </a>
+                                                <form id="delete-invoice-{{ $invoice->id }}"
+                                                    action="{{ route('admin.invoices.destroy', $invoice->id) }}"
+                                                    method="POST" class="d-none">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </li>
+                                            @endability
+                                        </ul>
                                     </div>
                                 </td>
                             </tr>
