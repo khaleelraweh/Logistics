@@ -82,7 +82,6 @@
                                 <td>{{ number_format($package->total_fee, 2) }}</td>
                                 <td>
                                     {{ number_format($package->paid_amount, 2) }}
-                                    {{ number_format($package->overpayment,2) }}
 
                                 </td>
                                 <td>{{ number_format($package->remainingAmount(), 2) }}</td>
