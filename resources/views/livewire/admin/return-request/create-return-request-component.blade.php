@@ -185,30 +185,17 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>منتج مخزون</td>
-                                                    <td>هاتف ذكي - Samsung Galaxy S22</td>
-                                                    <td>2</td>
-                                                    <td>
-                                                        <input type="number" class="form-control form-control-sm" min="0" max="2" value="0">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>منتج مخصص</td>
-                                                    <td>حقيبة جلدية</td>
-                                                    <td>1</td>
-                                                    <td>
-                                                        <input type="number" class="form-control form-control-sm" min="0" max="1" value="0">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>منتج مخزون</td>
-                                                    <td>سماعات لاسلكية - Sony WH-1000XM4</td>
-                                                    <td>3</td>
-                                                    <td>
-                                                        <input type="number" class="form-control form-control-sm" min="0" max="3" value="0">
-                                                    </td>
-                                                </tr>
+                                                 @foreach($packageProducts as $product)
+                                                    <tr>
+                                                        <td> {{ __('product.'.$product['type'] ?? 'not_set') }}</td>
+                                                        <td>{{ $product['custom_name'] ?? 'Product #' . $product['id'] }}</td>
+                                                        <td>{{ $product['quantity'] }}</td>
+                                                        <td>
+                                                            <input type="number" wire:model="returnQuantities.{{ $product['id'] }}" min="0" max="{{ $product['quantity'] }}" class="form-control" />
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+
                                             </tbody>
                                         </table>
                                     </div>
