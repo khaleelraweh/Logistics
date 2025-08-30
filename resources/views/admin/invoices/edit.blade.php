@@ -430,7 +430,7 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="status" class="form-label">حالة الفاتورة <span class="text-danger">*</span></label>
-                                        <select name="status" id="status" class="form-select">
+                                        <select name="status" id="status1" class="form-select">
                                             <option value="unpaid" {{ $invoice->status == 'unpaid' ? 'selected' : '' }}>غير مدفوعة</option>
                                             <option value="partial" {{ $invoice->status == 'partial' ? 'selected' : '' }}>مدفوعة جزئياً</option>
                                             <option value="paid" {{ $invoice->status == 'paid' ? 'selected' : '' }}>مدفوعة</option>
