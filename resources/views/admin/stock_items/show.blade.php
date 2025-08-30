@@ -120,6 +120,25 @@
 @endsection
 
 @section('content')
+ <!-- Page Header -->
+    <div class="row ">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('stock-item.view_stock_items') }}</h4>
+
+                <div class="page-title-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.stock_items.index') }}">{{ __('stock-item.manage_stock_items') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('stock-item.view_stock_items') }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row justify-content-center">
             <div class="col-lg-12 col-xl-12">
                 <div class="card shadow-lg">
@@ -159,8 +178,8 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="p-3 bg-light rounded detail-card hover-lift">
-                                    <div class="info-label">{{ __('general.published_on') }}</div>
-                                    <div class="info-value">{{ $stockItem->published_on?->format('Y-m-d') ?? '-' }}</div>
+                                    <div class="info-label">{{ __('general.created_at') }}</div>
+                                    <div class="info-value">{{ $stockItem->created_at?->format('Y-m-d') ?? '-' }}</div>
                                 </div>
                             </div>
                         </div>

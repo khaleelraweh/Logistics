@@ -11,6 +11,7 @@ return [
     'stock_item'                       =>   'Stock Items',
 
 
+
     // create page
     'stock_item_info'                 =>  "Stock Item Information",
     'add_stock-item'                  =>  'Add Stock Item',
