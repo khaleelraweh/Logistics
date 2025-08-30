@@ -170,7 +170,7 @@
                                         {{ __('invoice.invoice_details') }}
                                     </h5>
                                     <span class="badge bg-{{ $warehouseRental->invoice->status === 'paid' ? 'success' : ($warehouseRental->invoice->status === 'partial' ? 'warning' : 'danger') }}">
-                                        {{ __('invoice.status.' . $warehouseRental->invoice->status) }}
+                                        {{ __('invoice.status_' . $warehouseRental->invoice->status) }}
                                     </span>
                                 </div>
 
