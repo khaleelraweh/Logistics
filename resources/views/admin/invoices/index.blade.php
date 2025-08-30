@@ -41,6 +41,10 @@
                     </div>
                 </div>
 
+                <!-- Filters Section -->
+                    @include('admin.invoices.filter.filter')
+                <!-- End Filters Section -->
+
                 <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
