@@ -305,33 +305,33 @@
         <div class="row mb-4">
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="amount-card">
-                    <div class="amount-title">المبلغ الإجمالي</div>
+                    <div class="amount-title"> {{ __('invoice.total_amount') }}</div>
                     <div class="amount-value" id="total-amount-display">{{ number_format($invoice->total_amount, 2) }} <small>{{ $invoice->currency }}</small></div>
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="amount-card">
-                    <div class="amount-title">المبلغ المدفوع</div>
+                    <div class="amount-title"> {{ __('invoice.paid_amount') }} </div>
                     <div class="amount-value amount-paid" id="paid-amount-display">{{ number_format($invoice->paid_amount, 2) }} <small>{{ $invoice->currency }}</small></div>
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="amount-card">
-                    <div class="amount-title">المبلغ المتبقي</div>
+                    <div class="amount-title">{{ __('invoice.remaining_amount') }}</div>
                     <div class="amount-value amount-due" id="due-amount-display">{{ number_format($invoice->total_amount - $invoice->paid_amount, 2) }} <small>{{ $invoice->currency }}</small></div>
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="invoice-status">
                     <div>
-                        <div class="amount-title">حالة الفاتورة</div>
+                        <div class="amount-title">{{ __('invoice.invoice_status') }}</div>
                         <div class="status-indicator status-{{ $invoice->status }}" id="status-display">
                             @if($invoice->status == 'unpaid')
-                                غير مدفوعة
+                                 {{ __('invoice.status_unpaid') }}
                             @elseif($invoice->status == 'partial')
-                                مدفوعة جزئياً
+                                 {{ __('invoice.status_partial') }}
                             @else
-                                مدفوعة
+                                {{ __('invoice.paid') }}
                             @endif
                         </div>
                         <div class="progress mt-3">
@@ -351,7 +351,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="m-0 text-white"><i class="bi bi-pencil-square me-2"></i>معلومات الفاتورة</h5>
+                        <h5 class="m-0 text-white"><i class="bi bi-pencil-square me-2"></i>{{ ('invoice.invoice_info') }}</h5>
                     </div>
                     <div class="card-body">
                         <!-- نموذج الفاتورة الرئيسي -->
@@ -363,11 +363,11 @@
                             <div class="form-section">
                                 <h5 class="section-title">
                                     <i class="bi bi-person-badge"></i>
-                                    معلومات التاجر
+                                     {{ __('merchant.merchant_info') }}
                                 </h5>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">اسم التاجر</label>
+                                        <label class="form-label"> {{ __('merchant.name') }}</label>
                                         <div class="merchant-info">
                                             <div class="merchant-name">{{ $invoice->merchant->name }}</div>
                                             <div class="merchant-details">
@@ -378,7 +378,7 @@
                                         <small class="text-muted">لا يمكن تعديل التاجر بعد إنشاء الفاتورة</small>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="invoice_number" class="form-label">رقم الفاتورة</label>
+                                        <label for="invoice_number" class="form-label">{{ __('invoice.invoice_number') }}</label>
                                         <input type="text" class="form-control readonly-field" id="invoice_number" value="{{ $invoice->invoice_number }}" disabled>
                                         <small class="text-muted">رقم الفاتورة لا يمكن تعديله</small>
                                     </div>
@@ -404,7 +404,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <label class="form-label">المبلغ المدفوع</label>
+                                        <label class="form-label"> {{ __('invoice.paid_amount') }}</label>
                                         <div class="currency-input">
                                             <span class="currency-symbol">{{ $invoice->currency == 'USD' ? '$' : ($invoice->currency == 'EUR' ? '€' : 'ر.س') }}</span>
                                             <input type="text" class="form-control readonly-field" value="{{ number_format($invoice->paid_amount, 2) }}" disabled>
@@ -412,7 +412,7 @@
                                         <small class="text-muted">يتم حسابه تلقائياً من المدفوعات</small>
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <label class="form-label">المبلغ المتبقي</label>
+                                        <label class="form-label">{{ __('invoice.remaining_amount') }}</label>
                                         <div class="currency-input">
                                             <span class="currency-symbol">{{ $invoice->currency == 'USD' ? '$' : ($invoice->currency == 'EUR' ? '€' : 'ر.س') }}</span>
                                             <input type="text" class="form-control readonly-field" value="{{ number_format($invoice->total_amount - $invoice->paid_amount, 2) }}" disabled>
@@ -421,26 +421,26 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="currency" class="form-label">العملة <span class="text-danger">*</span></label>
+                                        <label for="currency" class="form-label">{{ __('invoice.currency') }} <span class="text-danger">*</span></label>
                                         <select name="currency" id="currency" class="form-select">
-                                            <option value="USD" {{ $invoice->currency == 'USD' ? 'selected' : '' }}>دولار أمريكي (USD)</option>
-                                            <option value="EUR" {{ $invoice->currency == 'EUR' ? 'selected' : '' }}>يورو (EUR)</option>
-                                            <option value="SAR" {{ $invoice->currency == 'SAR' ? 'selected' : '' }}>ريال سعودي (SAR)</option>
+                                            <option value="USD" {{ $invoice->currency == 'USD' ? 'selected' : '' }}>{{ __('invoice.currency_usd') }}</option>
+                                            <option value="EUR" {{ $invoice->currency == 'EUR' ? 'selected' : '' }}>{{ __('invoice.currency_eur') }}</option>
+                                            <option value="SAR" {{ $invoice->currency == 'SAR' ? 'selected' : '' }}>{{ __('invoice.currency_sar') }}</option>
                                         </select>
                                         @error('currency')
                                         <div class="text-danger small mt-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label">حالة الفاتورة</label>
+                                        <label class="form-label">{{ __('invoice.invoice_status') }}</label>
                                         <div class="status-info">
                                             <div class="status-indicator status-{{ $invoice->status }}" id="status-display">
                                                 @if($invoice->status == 'unpaid')
-                                                    غير مدفوعة
+                                                     {{ __('invoice.status_unpaid') }}
                                                 @elseif($invoice->status == 'partial')
-                                                    مدفوعة جزئياً
+                                                     {{ __('invoice.status_partial') }}
                                                 @else
-                                                    مدفوعة
+                                                    {{ __('invoice.status_paid') }}
                                                 @endif
                                             </div>
                                             <div class="status-message text-muted">
@@ -466,7 +466,7 @@
                                 </h5>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="issued_at" class="form-label">تاريخ الإصدار</label>
+                                        <label for="issued_at" class="form-label">{{ __('invoice.issued_at') }}</label>
                                         <input type="datetime-local" name="issued_at" id="issued_at" class="form-control"
                                                value="{{ old('issued_at', $invoice->issued_at ? $invoice->issued_at->format('Y-m-d\TH:i') : '') }}">
                                         @error('issued_at')
@@ -474,7 +474,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="due_date" class="form-label">تاريخ الاستحقاق</label>
+                                        <label for="due_date" class="form-label">{{ __('invoice.due_date') }}</label>
                                         <input type="datetime-local" name="due_date" id="due_date" class="form-control"
                                                value="{{ old('due_date', $invoice->due_date ? $invoice->due_date->format('Y-m-d\TH:i') : '') }}">
                                         @error('due_date')
@@ -488,7 +488,7 @@
                             <div class="form-section">
                                 <h5 class="section-title">
                                     <i class="bi bi-chat-left-text"></i>
-                                    ملاحظات إضافية
+                                     {{ __('invoice.notes') }}
                                 </h5>
                                 <div class="mb-3">
                                     <textarea name="notes" id="notes" class="form-control" rows="4">{{ old('notes', $invoice->notes) }}</textarea>

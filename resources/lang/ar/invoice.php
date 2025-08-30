@@ -12,6 +12,9 @@ return [
     'issued_at'         => 'تاريخ الإصدار',
     'due_date'          => 'تاريخ الاستحقاق',
     'currency'          => 'العملة',
+    'currency_usd'  =>  'دولا امريكي (USD)',
+    'currency_eur'  =>  'يورو (EUR)',
+    'currency_sar'  =>  'ريال سعودي (SAR)',
     'notes'             => 'ملاحظات',
     'no_notes'          => 'لا توجد ملاحظات',
     'actions'           => 'إجراءات',
@@ -19,6 +22,7 @@ return [
     'payment_history'   =>  'سجل المدفوعات',
     'edit_invoice'      =>  'تعديل الفاتورة',
     'manage_invoices'   =>  'إدارة الفواتير',
+    'update_invoice'    =>  'تعديل الفاتورة',
 
     // الحالات
     'invoice_status' => 'حالة الفاتورة',

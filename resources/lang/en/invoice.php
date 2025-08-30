@@ -19,6 +19,7 @@ return [
     'payment_history'   =>  'Payment History',
     'edit_invoice'      => 'Edit Invoice',
     'manage_invoices'   =>  'Manage Invoices',
+    'update_inovice'    =>  'Update Inovice',
 
     // Status
     'invoice_status' => 'Invoice Status',
@@ -90,6 +91,9 @@ return [
     'no_notes' => 'No Notes',
     'due_date' => 'Due Date',
     'currency' => 'Currency',
+    'currency_usd'  =>  'US Dollar (USD)',
+    'currency_eur'  =>  'YORO (EUR)',
+    'currency_sar'  =>  'Saidua Arabic Ryal (SAR)',
     'total' => 'Total Amount',
     'paid' => 'Paid Amount',
     'remaining' => 'Remaining Amount',
