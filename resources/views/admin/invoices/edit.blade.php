@@ -385,7 +385,7 @@
                                     المبالغ والعملة
                                 </h5>
                                 <div class="row">
-                                    <div class="col-md-4 mb-3">
+                                    <div class="col-md-12 mb-3">
                                         <label for="total_amount" class="form-label">المبلغ الإجمالي <span class="text-danger">*</span></label>
                                         <div class="currency-input">
 
@@ -396,25 +396,7 @@
                                         <div class="text-danger small mt-1">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="paid_amount" class="form-label">المبلغ المدفوع <span class="text-danger">*</span></label>
-                                        <div class="currency-input">
 
-                                            <input type="number" name="paid_amount" id="paid_amount" class="form-control "
-                                                   value="{{ old('paid_amount', $invoice->paid_amount) }}" step="0.01" min="0" required>
-                                        </div>
-                                        @error('paid_amount')
-                                        <div class="text-danger small mt-1">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="remaining_amount" class="form-label">المبلغ المتبقي</label>
-                                        <div class="currency-input">
-
-                                            <input type="number" class="form-control " id="remaining_amount"
-                                                   value="{{ $invoice->total_amount - $invoice->paid_amount }}" step="0.01" min="0" disabled>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
