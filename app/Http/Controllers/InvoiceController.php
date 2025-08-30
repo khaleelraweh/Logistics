@@ -37,19 +37,35 @@ class InvoiceController extends Controller
 
     $merchants = Merchant::all(); // لجعلها متاحة في الفلتر
 
+    // $invoices = Invoice::with(['merchant', 'payable'])
+    //     ->when(request('keyword'), function ($query) {
+    //         $keyword = request('keyword');
+    //         $query->where('invoice_number', 'like', "%{$keyword}%")
+    //               ->orWhereHas('merchant', fn($q) => $q->where('name', 'like', "%{$keyword}%"));
+    //     })
+    //     ->when(request('status'), fn($query) => $query->where('status', request('status')))
+    //     ->when(request('merchant_id'), fn($query) => $query->where('merchant_id', request('merchant_id')))
+    //     ->when(request('issued_from'), fn($query) => $query->whereDate('issued_at', '>=', request('issued_from')))
+    //     ->when(request('issued_to'), fn($query) => $query->whereDate('issued_at', '<=', request('issued_to')))
+    //     ->orderBy(request('sort_by') ?? 'created_at', request('order_by') ?? 'desc')
+    //     ->paginate(request('limit_by') ?? 50)
+    //     ->withQueryString(); // للحفاظ على جميع الفلاتر أثناء التنقل بين الصفحات
+
     $invoices = Invoice::with(['merchant', 'payable'])
-        ->when(request('keyword'), function ($query) {
-            $keyword = request('keyword');
-            $query->where('invoice_number', 'like', "%{$keyword}%")
-                  ->orWhereHas('merchant', fn($q) => $q->where('name', 'like', "%{$keyword}%"));
-        })
-        ->when(request('status'), fn($query) => $query->where('status', request('status')))
-        ->when(request('merchant_id'), fn($query) => $query->where('merchant_id', request('merchant_id')))
-        ->when(request('issued_from'), fn($query) => $query->whereDate('issued_at', '>=', request('issued_from')))
-        ->when(request('issued_to'), fn($query) => $query->whereDate('issued_at', '<=', request('issued_to')))
-        ->orderBy(request('sort_by') ?? 'created_at', request('order_by') ?? 'desc')
-        ->paginate(request('limit_by') ?? 50)
-        ->withQueryString(); // للحفاظ على جميع الفلاتر أثناء التنقل بين الصفحات
+    ->when(request('keyword'), function ($query) {
+        $keyword = request('keyword');
+        $query->where('invoice_number', 'like', "%{$keyword}%")
+              ->orWhereHas('merchant', fn($q) => $q->where('name', 'like', "%{$keyword}%"));
+    })
+    ->when(request('status'), fn($query) => $query->where('status', request('status')))
+    ->when(request('merchant_id'), fn($query) => $query->where('merchant_id', request('merchant_id')))
+    ->when(request('payable_type'), fn($query) => $query->where('payable_type', request('payable_type'))) // <-- هنا
+    ->when(request('issued_from'), fn($query) => $query->whereDate('issued_at', '>=', request('issued_from')))
+    ->when(request('issued_to'), fn($query) => $query->whereDate('issued_at', '<=', request('issued_to')))
+    ->orderBy(request('sort_by') ?? 'created_at', request('order_by') ?? 'desc')
+    ->paginate(request('limit_by') ?? 50)
+    ->withQueryString();
+
 
     return view('admin.invoices.index', compact('invoices', 'merchants'));
 }

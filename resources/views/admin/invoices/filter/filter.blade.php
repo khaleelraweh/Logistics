@@ -44,6 +44,20 @@
                         </select>
                     </div>
 
+                    <!-- Classification (Polymorphic) -->
+                    <div class="col-md-3">
+                        <select name="payable_type" class="form-select select2">
+                            <option value="">{{ __('filter.all_types') }}</option>
+                            <option value="App\Models\Package" {{ request('payable_type') == 'App\Models\Package' ? 'selected' : '' }}>
+                                {{ __('package.package') }}
+                            </option>
+                            <option value="App\Models\WarehouseRental" {{ request('payable_type') == 'App\Models\WarehouseRental' ? 'selected' : '' }}>
+                                {{ __('warehouse_rental.warehouse_rental') }}
+                            </option>
+                        </select>
+                    </div>
+
+
                     <!-- Issued From / To -->
                     <div class="col-md-1 d-flex align-items-center justify-content-center">{{ __('general.from') }}</div>
                     <div class="col-md-2">
