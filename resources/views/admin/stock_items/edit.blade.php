@@ -1,21 +1,26 @@
 @extends('layouts.admin')
 
 @section('content')
-    <!-- start page title -->
-    <div class="row">
+
+
+     <!-- Page Header -->
+    <div class="row ">
         <div class="col-12">
-            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">{{ __('stock-item.edit_stock_item') }}</h4>
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('stock-item.edit_stock_item') }}</h4>
+
                 <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.stock_items.index') }}">{{ __('stock-item.manage_stock_items') }}</a></li>
-                        <li class="breadcrumb-item active">{{ __('stock-item.edit_stock_item') }}</li>
-                    </ol>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.stock_items.index') }}">{{ __('stock-item.manage_stock_items') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('stock-item.edit_stock_item') }}</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end page title -->
 
     <div class="row">
         <div class="col-12">
@@ -96,13 +101,21 @@
                                 @error('status') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
+                        <div class="text-end pt-3">
+                            @ability('admin', 'update_stock_items')
+                                <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
+                                    <i class="ri-save-3-line me-2"></i>
+                                    <i class="bi bi-save me-2"></i>
+                                    {{ __('stock-item.update_stock_item') }}
+                                </button>
+                            @endability
 
-                        {{-- Submit --}}
-                        @ability('admin', 'update_stock_items')
-                            <div class="text-end">
-                                <button type="submit" class="btn btn-success">{{ __('stock-item.update_stock_item') }}</button>
-                            </div>
-                        @endability
+                            <a href="{{ route('admin.stock_items.index') }}" class="btn btn-outline-danger ms-2">
+                                <i class="ri-arrow-go-back-line me-1"></i>
+                                {{ __('panel.cancel') }}
+                            </a>
+                        </div>
+
                     </form>
 
                 </div>
