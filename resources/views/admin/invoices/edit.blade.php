@@ -465,9 +465,6 @@
                             </div>
 
 
-
-
-
                             <!-- سجل المدفوعات -->
                             <div class="form-section">
                                 <h5 class="section-title">
