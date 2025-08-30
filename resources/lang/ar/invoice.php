@@ -7,8 +7,11 @@ return [
     'invoice_description'   =>  'يمكنك استعراض تفاصيل الفواتير في الاسفل',
     'invoice_info'      => 'معلومات الفاتورة',
     'invoice_number'    => 'رقم الفاتورة',
+    'inovice_number_message'    =>  'رقم الفاتورة لا يمكن تعديله',
+
     'invoice_status'    => 'حالة الفاتورة',
     'merchant'          => 'التاجر',
+    'merchant_message'  =>  'لا يمكن تعديل التاجر بعد إنشاء الفاتورة',
     'issued_at'         => 'تاريخ الإصدار',
     'due_date'          => 'تاريخ الاستحقاق',
     'currency'          => 'العملة',

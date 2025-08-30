@@ -380,7 +380,7 @@
                                     <div class="col-md-6 mb-3">
                                         <label for="invoice_number" class="form-label">{{ __('invoice.invoice_number') }}</label>
                                         <input type="text" class="form-control readonly-field" id="invoice_number" value="{{ $invoice->invoice_number }}" disabled>
-                                        <small class="text-muted">رقم الفاتورة لا يمكن تعديله</small>
+                                        <small class="text-muted">{{ __('invoice.inovice_number_message') }}</small>
                                     </div>
                                 </div>
                             </div>
