@@ -1,6 +1,14 @@
-@extends('layouts.admin')
-@section('style')
-    <style>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة الفواتير - تعديل الفاتورة</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+     <style>
         :root {
             --primary-color: #4e73df;
             --secondary-color: #6f42c1;
@@ -277,9 +285,8 @@
             }
         }
     </style>
-@endsection
-
-@section('content')
+</head>
+<body>
     <div class="container-fluid py-4">
         <!-- رأس الصفحة -->
         <div class="page-header">
@@ -354,7 +361,8 @@
                         <h5 class="m-0 text-white"><i class="bi bi-pencil-square me-2"></i>معلومات الفاتورة</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.invoices.update', $invoice->id) }}" method="POST">
+                        <!-- نموذج الفاتورة الرئيسي -->
+                        <form id="invoice-form" action="{{ route('admin.invoices.update', $invoice->id) }}" method="POST">
                             @csrf
                             @method('PUT')
 
@@ -457,104 +465,6 @@
                                 </div>
                             </div>
 
-                            <!-- فوق سجل المدفوعات: زر إضافة دفعة -->
-                            <div class="mb-3 d-flex justify-content-end">
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPaymentModal">
-                                    <i class="bi bi-plus-circle me-1"></i> إضافة دفعة جديدة
-                                </button>
-                            </div>
-
-
-                            <!-- سجل المدفوعات -->
-                            <div class="form-section">
-                                <h5 class="section-title">
-                                    <i class="bi bi-clock-history"></i>
-                                    سجل المدفوعات
-                                </h5>
-                                <div class="payment-history">
-                                    @if($invoice->payments && $invoice->payments->count() > 0)
-                                        @foreach($invoice->payments as $payment)
-                                            <div class="payment-item d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <strong>{{ number_format($payment->amount, 2) }} {{ $invoice->currency }}</strong>
-                                                    @if($payment->paid_on)
-                                                        <div class="payment-date">{{ $payment->paid_on->format('Y-m-d H:i') }}</div>
-                                                    @endif
-
-                                                </div>
-                                                <div class="d-flex gap-2">
-                                                    <span class="badge bg-success" style="display: flex; align-items: center;">{{ $payment->method }}</span>
-                                                    <!-- زر تعديل -->
-                                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editPaymentModal{{ $payment->id }}">
-                                                        <i class=" fas fa-edit "></i>
-                                                    </button>
-                                                    <!-- زر حذف -->
-                                                    <form action="{{ route('admin.payments.destroy', $payment->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من حذف هذه الدفعة؟');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger"><i class=" fas fa-trash-alt "></i></button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <!-- Modal تعديل الدفعة -->
-                                            <div class="modal fade" id="editPaymentModal{{ $payment->id }}" tabindex="-1" aria-labelledby="editPaymentModalLabel{{ $payment->id }}" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <form action="{{ route('admin.payments.update', $payment->id) }}" method="POST">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="editPaymentModalLabel{{ $payment->id }}">تعديل دفعة</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">المبلغ</label>
-                                                                    <input type="number" name="amount" class="form-control" value="{{ $payment->amount }}" step="0.01" min="0.01" required>
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">طريقة الدفع</label>
-                                                                    <select name="method" class="form-select" required>
-                                                                        <option value="cash" {{ $payment->method == 'cash' ? 'selected' : '' }}>نقداً</option>
-                                                                        <option value="credit_card" {{ $payment->method == 'credit_card' ? 'selected' : '' }}>بطاقة ائتمان</option>
-                                                                        <option value="bank_transfer" {{ $payment->method == 'bank_transfer' ? 'selected' : '' }}>تحويل بنكي</option>
-                                                                        <option value="wallet" {{ $payment->method == 'wallet' ? 'selected' : '' }}>محفظة</option>
-                                                                        <option value="cod" {{ $payment->method == 'cod' ? 'selected' : '' }}>الدفع عند الاستلام</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">الملاحظات</label>
-                                                                    <input type="text" name="reference_note" class="form-control" value="{{ $payment->reference_note }}">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">مرجع الدفع</label>
-                                                                    <input type="text" name="payment_reference" class="form-control" value="{{ $payment->payment_reference }}">
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">تاريخ الدفع</label>
-                                                                    <input type="datetime-local" name="paid_on" class="form-control" value="{{ $payment->paid_on ? $payment->paid_on->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i') }}">
-                                                                </div>
-                                                                <input type="hidden" name="merchant_id" value="{{ $invoice->merchant_id }}">
-                                                                <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                                                                <button type="submit" class="btn btn-success">حفظ التعديلات</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        <div class="text-center py-3 text-muted">
-                                            <i class="bi bi-receipt-cutoff display-4"></i>
-                                            <p>لا توجد مدفوعات مسجلة لهذه الفاتورة</p>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-
                             <!-- التواريخ -->
                             <div class="form-section">
                                 <h5 class="section-title">
@@ -610,13 +520,116 @@
                                 </div>
                             </div>
                         </form>
+
+                        <!-- قسم المدفوعات (منفصل عن نموذج الفاتورة) -->
+                        <div class="form-section mt-5">
+                            <h5 class="section-title">
+                                <i class="bi bi-clock-history"></i>
+                                إدارة المدفوعات
+                            </h5>
+
+                            <!-- زر إضافة دفعة جديدة -->
+                            <div class="mb-3 d-flex justify-content-end">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPaymentModal">
+                                    <i class="bi bi-plus-circle me-1"></i> إضافة دفعة جديدة
+                                </button>
+                            </div>
+
+                            <!-- سجل المدفوعات -->
+                            <div class="payment-history">
+                                @if($invoice->payments && $invoice->payments->count() > 0)
+                                    @foreach($invoice->payments as $payment)
+                                        <div class="payment-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>{{ number_format($payment->amount, 2) }} {{ $invoice->currency }}</strong>
+                                                @if($payment->paid_on)
+                                                    <div class="payment-date">{{ $payment->paid_on->format('Y-m-d H:i') }}</div>
+                                                @endif
+                                            </div>
+                                            <div class="d-flex gap-2">
+                                                <span class="badge bg-success" style="display: flex; align-items: center;">
+                                                    @if($payment->method == 'cash') نقداً
+                                                    @elseif($payment->method == 'credit_card') بطاقة ائتمان
+                                                    @elseif($payment->method == 'bank_transfer') تحويل بنكي
+                                                    @elseif($payment->method == 'wallet') محفظة
+                                                    @elseif($payment->method == 'cod') الدفع عند الاستلام
+                                                    @endif
+                                                </span>
+                                                <!-- زر تعديل -->
+                                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editPaymentModal{{ $payment->id }}">
+                                                    <i class="bi bi-pencil"></i>
+                                                </button>
+                                                <!-- زر حذف -->
+                                                <form action="{{ route('admin.payments.destroy', $payment->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من حذف هذه الدفعة؟');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal تعديل الدفعة -->
+                                        <div class="modal fade" id="editPaymentModal{{ $payment->id }}" tabindex="-1" aria-labelledby="editPaymentModalLabel{{ $payment->id }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form action="{{ route('admin.payments.update', $payment->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editPaymentModalLabel{{ $payment->id }}">تعديل دفعة</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">المبلغ</label>
+                                                                <input type="number" name="amount" class="form-control" value="{{ $payment->amount }}" step="0.01" min="0.01" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">طريقة الدفع</label>
+                                                                <select name="method" class="form-select" required>
+                                                                    <option value="cash" {{ $payment->method == 'cash' ? 'selected' : '' }}>نقداً</option>
+                                                                    <option value="credit_card" {{ $payment->method == 'credit_card' ? 'selected' : '' }}>بطاقة ائتمان</option>
+                                                                    <option value="bank_transfer" {{ $payment->method == 'bank_transfer' ? 'selected' : '' }}>تحويل بنكي</option>
+                                                                    <option value="wallet" {{ $payment->method == 'wallet' ? 'selected' : '' }}>محفظة</option>
+                                                                    <option value="cod" {{ $payment->method == 'cod' ? 'selected' : '' }}>الدفع عند الاستلام</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">الملاحظات</label>
+                                                                <input type="text" name="reference_note" class="form-control" value="{{ $payment->reference_note }}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">مرجع الدفع</label>
+                                                                <input type="text" name="payment_reference" class="form-control" value="{{ $payment->payment_reference }}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">تاريخ الدفع</label>
+                                                                <input type="datetime-local" name="paid_on" class="form-control" value="{{ $payment->paid_on ? $payment->paid_on->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i') }}">
+                                                            </div>
+                                                            <input type="hidden" name="merchant_id" value="{{ $invoice->merchant_id }}">
+                                                            <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                                                            <button type="submit" class="btn btn-success">حفظ التعديلات</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="text-center py-3 text-muted">
+                                        <i class="bi bi-receipt-cutoff display-4"></i>
+                                        <p>لا توجد مدفوعات مسجلة لهذه الفاتورة</p>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
 
         <!-- Modal إضافة دفعة جديدة -->
         <div class="modal fade" id="addPaymentModal" tabindex="-1" aria-labelledby="addPaymentModalLabel" aria-hidden="true">
@@ -630,9 +643,9 @@
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
-
                                 <label class="form-label">المبلغ</label>
-                                <input type="number" name="amount" class="form-control" step="0.01" min="0.01" required>
+                                <input type="number" name="amount" class="form-control" step="0.01" min="0.01" max="{{ $invoice->total_amount - $invoice->paid_amount }}" required>
+                                <small class="text-muted">أقصى مبلغ يمكن دفعه: {{ number_format($invoice->total_amount - $invoice->paid_amount, 2) }}</small>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">طريقة الدفع</label>
@@ -667,12 +680,8 @@
                 </div>
             </div>
         </div>
-
-
     </div>
-@endsection
 
-@section('script')
     <!-- Bootstrap & jQuery JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -738,4 +747,5 @@
             }
         });
     </script>
-@endsection
+</body>
+</html>
