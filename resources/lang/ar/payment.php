@@ -18,6 +18,8 @@ return [
     'paid' => 'مدفوع',
     'pending' => 'قيد الانتظار',
     'failed' => 'فشل الدفع',
+    'paid_on_date'  => 'تايخ الدفع',
+    'updated_save'  => 'حفظ التعديلات',
 
 
      // Form labels

@@ -19,6 +19,8 @@ return [
     'paid' => 'Paid',
     'pending' => 'Pending',
     'failed' => 'Failed',
+    'paid_on_date'  =>  'Paid On Date',
+    'updated_save'  =>  'Updated Save',
 
 
      // Form labels
