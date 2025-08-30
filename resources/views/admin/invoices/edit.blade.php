@@ -388,8 +388,8 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="total_amount" class="form-label">المبلغ الإجمالي <span class="text-danger">*</span></label>
                                         <div class="currency-input">
-                                            <span class="currency-symbol">$</span>
-                                            <input type="number" name="total_amount" id="total_amount" class="form-control ps-5"
+
+                                            <input type="number" name="total_amount" id="total_amount" class="form-control "
                                                    value="{{ old('total_amount', $invoice->total_amount) }}" step="0.01" min="0" required>
                                         </div>
                                         @error('total_amount')
@@ -399,8 +399,8 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="paid_amount" class="form-label">المبلغ المدفوع <span class="text-danger">*</span></label>
                                         <div class="currency-input">
-                                            <span class="currency-symbol">$</span>
-                                            <input type="number" name="paid_amount" id="paid_amount" class="form-control ps-5"
+
+                                            <input type="number" name="paid_amount" id="paid_amount" class="form-control "
                                                    value="{{ old('paid_amount', $invoice->paid_amount) }}" step="0.01" min="0" required>
                                         </div>
                                         @error('paid_amount')
@@ -410,8 +410,8 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="remaining_amount" class="form-label">المبلغ المتبقي</label>
                                         <div class="currency-input">
-                                            <span class="currency-symbol">$</span>
-                                            <input type="number" class="form-control ps-5" id="remaining_amount"
+
+                                            <input type="number" class="form-control " id="remaining_amount"
                                                    value="{{ $invoice->total_amount - $invoice->paid_amount }}" step="0.01" min="0" disabled>
                                         </div>
                                     </div>
