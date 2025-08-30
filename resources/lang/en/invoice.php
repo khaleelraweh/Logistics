@@ -17,6 +17,8 @@ return [
     'actions'           => 'Actions',
     'manage_invoice'    => 'Manage Invoices',
     'payment_history'   =>  'Payment History',
+    'edit_invoice'      => 'Edit Invoice',
+    'manage_invoices'   =>  'Manage Invoices',
 
     // Status
     'invoice_status' => 'Invoice Status',

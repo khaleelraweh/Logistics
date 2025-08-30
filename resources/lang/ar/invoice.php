@@ -17,6 +17,8 @@ return [
     'actions'           => 'إجراءات',
     'manage_invoices' => 'إدارة الفواتير',
     'payment_history'   =>  'سجل المدفوعات',
+    'edit_invoice'      =>  'تعديل الفاتورة',
+    'manage_invoices'   =>  'إدارة الفواتير',
 
     // الحالات
     'invoice_status' => 'حالة الفاتورة',

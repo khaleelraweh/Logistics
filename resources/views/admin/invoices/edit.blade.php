@@ -287,14 +287,14 @@
                 <div class="col-md-6">
                     <h2 class="mb-2 mb-md-0">
                         <i class="bi bi-receipt text-primary me-2"></i>
-                        تعديل الفاتورة #{{ $invoice->id }}
+                         {{ __('invoice.edit_invoice') }} #{{ $invoice->id }}
                     </h2>
                 </div>
                 <div class="col-md-6">
                     <nav aria-label="breadcrumb" class="justify-content-md-end d-flex">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.invoices.index') }}" class="text-decoration-none">الفواتير</a></li>
-                            <li class="breadcrumb-item active">تعديل الفاتورة</li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.invoices.index') }}" class="text-decoration-none">{{ __('invoice.manage_invoices') }}</a></li>
+                            <li class="breadcrumb-item active"> {{ __('invoice.edit_invoice') }}</li>
                         </ol>
                     </nav>
                 </div>
