@@ -22,6 +22,7 @@ return [
     'edit_invoice'      => 'Edit Invoice',
     'manage_invoices'   =>  'Manage Invoices',
     'update_invoice'    =>  'Update invoice',
+    'amounts_and_currency' => 'Amounts and Currency',
 
     // Status
     'invoice_status' => 'Invoice Status',
@@ -30,6 +31,11 @@ return [
     'status_paid'    => 'Paid',
     'status_partial' => 'Partially Paid',
     'status_unpaid'  => 'Unpaid',
+
+    'status_update_message' =>  'Status is updated automatically based on payments.',
+
+
+    'dates'         =>  'Dates',
 
     'payable_id'   => 'Payable ID',
 
@@ -46,7 +52,15 @@ return [
     // Amounts
     'total_amount'     => 'Total Amount',
     'amount_paid'      => 'Amount Paid',
+    'amount_paid_message'  =>  'It is automatically calculated from the payments.',
+    'no_amount_paid'    => 'No amount has been paid from the bill.',
+    'invoice_paid_full' => 'The Invoice has been paid in full',
     'remaining_amount' => 'Remaining Amount',
+    'paid_partial_message_part_one' => 'تم دفع',
+    'paid_partial_message_part_two' => 'من الفاتورة.',
+
+
+
 
     // Payments section
     'payments'        => 'Payments History',

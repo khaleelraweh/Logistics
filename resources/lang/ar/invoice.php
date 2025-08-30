@@ -26,6 +26,7 @@ return [
     'edit_invoice'      =>  'تعديل الفاتورة',
     'manage_invoices'   =>  'إدارة الفواتير',
     'update_invoice'    =>  'تعديل الفاتورة',
+    'amounts_and_currency'  =>  'المبالغ وعملة ',
 
 
     // الحالات
@@ -35,7 +36,10 @@ return [
     'status_paid'    => 'مدفوع',
     'status_partial' => 'مدفوع جزئياً',
     'status_unpaid'  => 'غير مدفوع',
+    'status_update_message' =>  'يتم تحديث الحالة تلقائيا بناء على المدفوعات.',
 
+
+    'dates'         =>  'التواريخ',
     'payable_id'    => 'رقم الفاتورة',
 
     'payable_type'   => 'نوع الدفع ',
@@ -50,7 +54,12 @@ return [
     // المبالغ
     'total_amount'     => 'المبلغ الإجمالي',
     'amount_paid'      => 'المبلغ المدفوع',
+    'amount_paid_message'  =>  'يتم حسابه تلقائيا من المدفوعات.',
+    'no_amount_paid'    => 'لم يتم دفع أي مبلغ من الفاتورة.',
+    'invoice_paid_full' => 'تم دفع الفاتورة كاملة.',
     'remaining_amount' => 'المبلغ المتبقي',
+    'paid_partial_message_part_one' => 'Paid',
+    'paid_partial_message_part_two' => 'of the invoice amount.',
 
     // قسم المدفوعات
     'payments'        => 'سجل المدفوعات',

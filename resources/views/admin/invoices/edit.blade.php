@@ -389,11 +389,11 @@
                             <div class="form-section">
                                 <h5 class="section-title">
                                     <i class="bi bi-currency-exchange"></i>
-                                    المبالغ والعملة
+                                     {{ __('invoice.amounts_and_currency') }}
                                 </h5>
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
-                                        <label for="total_amount" class="form-label">المبلغ الإجمالي <span class="text-danger">*</span></label>
+                                        <label for="total_amount" class="form-label"> {{ __('invoice.total_amount') }} <span class="text-danger">*</span></label>
                                         <div class="currency-input">
                                             <span class="currency-symbol">{{ $invoice->currency == 'USD' ? '$' : ($invoice->currency == 'EUR' ? '€' : 'ر.س') }}</span>
                                             <input type="number" name="total_amount" id="total_amount" class="form-control"
@@ -409,7 +409,7 @@
                                             <span class="currency-symbol">{{ $invoice->currency == 'USD' ? '$' : ($invoice->currency == 'EUR' ? '€' : 'ر.س') }}</span>
                                             <input type="text" class="form-control readonly-field" value="{{ number_format($invoice->paid_amount, 2) }}" disabled>
                                         </div>
-                                        <small class="text-muted">يتم حسابه تلقائياً من المدفوعات</small>
+                                        <small class="text-muted">{{ __('invoice.amount_paid_message') }}</small>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label class="form-label">{{ __('invoice.remaining_amount') }}</label>
@@ -445,15 +445,15 @@
                                             </div>
                                             <div class="status-message text-muted">
                                                 @if($invoice->status == 'unpaid')
-                                                    لم يتم دفع أي مبلغ من الفاتورة
+                                                   {{ __('invoice.no_amount_paid') }}
                                                 @elseif($invoice->status == 'partial')
-                                                    تم دفع {{ number_format(($invoice->paid_amount / $invoice->total_amount) * 100, 2) }}% من الفاتورة
+                                                    {{ __('invoice.paid_partial_message_part_one') }}  {{ number_format(($invoice->paid_amount / $invoice->total_amount) * 100, 2) }}%  {{ __('invoice.paid_partial_message_part_two') }}
                                                 @else
-                                                    تم دفع الفاتورة بالكامل
+                                                    {{ __('invoice.invoice_paid_full') }}
                                                 @endif
                                             </div>
                                         </div>
-                                        <small class="text-muted">يتم تحديث الحالة تلقائياً بناءً على المدفوعات</small>
+                                        <small class="text-muted">{{ __('invoice.status_update_message') }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -462,7 +462,7 @@
                             <div class="form-section">
                                 <h5 class="section-title">
                                     <i class="bi bi-calendar-event"></i>
-                                    التواريخ
+                                    {{ __('invoice.dates') }}
                                 </h5>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
