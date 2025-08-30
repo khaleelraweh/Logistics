@@ -15,26 +15,60 @@ class ReturnRequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function index()
+    // {
+    //     if (!auth()->user()->ability('admin', 'manage_return_requests , show_return_requests')) {
+    //         return redirect('admin/index');
+    //     }
+
+    //     $return_requests = ReturnRequest::query()
+    //         ->when(\request()->keyword != null, function ($query) {
+    //             $query->search(\request()->keyword);
+    //         })
+    //         ->when(\request()->status != null, function ($query) {
+    //             $query->where('status', \request()->status);
+    //         })
+    //         ->orderByRaw(request()->sort_by == 'published_on'
+    //             ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+    //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
+    //         ->paginate(\request()->limit_by ?? 100);
+
+    //     return view('admin.return_requests.index', compact('return_requests'));
+    // }
+
+
     public function index()
-    {
-        if (!auth()->user()->ability('admin', 'manage_return_requests , show_return_requests')) {
-            return redirect('admin/index');
-        }
-
-        $return_requests = ReturnRequest::query()
-            ->when(\request()->keyword != null, function ($query) {
-                $query->search(\request()->keyword);
-            })
-            ->when(\request()->status != null, function ($query) {
-                $query->where('status', \request()->status);
-            })
-            ->orderByRaw(request()->sort_by == 'published_on'
-                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-            ->paginate(\request()->limit_by ?? 100);
-
-        return view('admin.return_requests.index', compact('return_requests'));
+{
+    // صلاحية الوصول
+    if (!auth()->user()->ability('admin', 'manage_return_requests, show_return_requests')) {
+        return redirect('admin/index');
     }
+
+    // استعلام Return Requests
+    $return_requests = ReturnRequest::with([
+            'package.merchant', // بيانات الطرد والتاجر
+            'driver'            // بيانات السائق
+        ])
+        // البحث بالكلمة المفتاحية
+        ->when(request()->keyword, function ($query) {
+            $query->search(request()->keyword);
+        })
+        // الفلترة حسب الحالة
+        ->when(request()->status, function ($query) {
+            $query->where('status', request()->status);
+        })
+        // ترتيب ديناميكي
+        ->orderByRaw(
+            request()->sort_by == 'published_on'
+                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
+        )
+        // تحديد عدد النتائج لكل صفحة
+        ->paginate(request()->limit_by ?? 100)
+        ->withQueryString(); // للحفاظ على الـ filters في روابط الصفحات
+
+    return view('admin.return_requests.index', compact('return_requests'));
+}
 
     /**
      * Show the form for creating a new resource.
