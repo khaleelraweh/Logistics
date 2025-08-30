@@ -20,4 +20,21 @@ return [
     'quick_links' => 'روابط سريعة',
     'settings' => 'الإعدادات',
     'profile' => 'الملف الشخصي',
+
+    //Totals
+    'total_drivers'        => 'إجمالي السائقين',
+    'total_vehicles'       => 'إجمالي المركبات',
+    'drivers_available'    => 'متاح',
+    'drivers_busy'         => 'مشغول',
+
+    'total_packages'       => 'إجمالي الطرود',
+    'packages_pending'     => 'قيد الانتظار',
+    'packages_delivered'   => 'تم التوصيل',
+
+    'merchants_total'      => 'إجمالي التجار',
+    'warehouses_total'     => 'إجمالي المستودعات',
+
+    'packages_distribution' => 'توزيع الطرود',
+    'drivers_status'        => 'حالة السائقين',
+
 ];

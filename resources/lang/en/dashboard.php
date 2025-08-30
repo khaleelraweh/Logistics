@@ -22,4 +22,21 @@ return [
     'quick_links' => 'Quick Links',
     'settings' => 'Settings',
     'profile' => 'Profile',
+
+    //Totals
+    'total_drivers'     =>  'Total Drivers',
+    'total_vehicles'    =>  'Total Vehicles',
+    'drivers_available' =>  'Available',
+    'drivers_busy'         =>  'Busy',
+
+    'total_packages'    =>  'Total Packages',
+    'packages_pending'  =>  'Pending',
+    'packages_delivered'    =>  'Delivered',
+
+    'merchants_total'   =>  'Merchants Total',
+    'warehouses_total'  =>  'Warehouses Total',
+
+    'packages_distribution'  =>  'Packages Distribution',
+    'drivers_status'        =>  'Drivers Status',
+
 ];
