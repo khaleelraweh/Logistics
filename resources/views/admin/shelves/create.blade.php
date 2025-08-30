@@ -146,7 +146,7 @@
                                         <i class="fas fa-save me-2"></i>{{ __('shelf.save_shelf') }}
                                     </button>
                                 @endability
-                                 <a href="{{ route('admin.merchants.index') }}" class="btn btn-outline-danger ms-2">
+                                 <a href="{{ route('admin.shelves.index') }}" class="btn btn-outline-danger ms-2">
                                     <i class="ri-arrow-go-back-line me-1"></i>
                                     {{ __('panel.cancel') }}
                                 </a>
