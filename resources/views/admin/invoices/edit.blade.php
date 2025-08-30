@@ -237,6 +237,44 @@
             color: #858796;
         }
 
+        .readonly-field {
+            background-color: #f8f9fa !important;
+            color: #6c757d !important;
+            cursor: not-allowed !important;
+        }
+
+        .merchant-info {
+            background-color: #f8f9fc;
+            border-radius: 0.6rem;
+            padding: 1rem;
+            border: 1px solid #e3e6f0;
+        }
+
+        .merchant-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .merchant-details {
+            font-size: 0.9rem;
+            color: #858796;
+            margin-top: 0.5rem;
+        }
+
+        .status-info {
+            background-color: #f8f9fc;
+            border-radius: 0.6rem;
+            padding: 1rem;
+            border: 1px solid #e3e6f0;
+            text-align: center;
+        }
+
+        .status-message {
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
         @media (max-width: 768px) {
             .card-body {
                 padding: 1rem;
@@ -335,22 +373,19 @@
                                 </h5>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="merchant_id" class="form-label">اسم التاجر <span class="text-danger">*</span></label>
-                                        <select name="merchant_id" id="merchant_id" class="form-select">
-                                            <option value="">اختر التاجر</option>
-                                            @foreach($merchants as $merchant)
-                                                <option value="{{ $merchant->id }}" {{ $invoice->merchant_id == $merchant->id ? 'selected' : '' }}>
-                                                    {{ $merchant->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('merchant_id')
-                                        <div class="text-danger small mt-1">{{ $message }}</div>
-                                        @enderror
+                                        <label class="form-label">اسم التاجر</label>
+                                        <div class="merchant-info">
+                                            <div class="merchant-name">{{ $invoice->merchant->name }}</div>
+                                            <div class="merchant-details">
+                                                {{ $invoice->merchant->email }}<br>
+                                                {{ $invoice->merchant->phone }}
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">لا يمكن تعديل التاجر بعد إنشاء الفاتورة</small>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="invoice_number" class="form-label">رقم الفاتورة</label>
-                                        <input type="text" class="form-control" id="invoice_number" value="{{ $invoice->invoice_number }}" disabled>
+                                        <input type="text" class="form-control readonly-field" id="invoice_number" value="{{ $invoice->invoice_number }}" disabled>
                                         <small class="text-muted">رقم الفاتورة لا يمكن تعديله</small>
                                     </div>
                                 </div>
@@ -378,7 +413,7 @@
                                         <label class="form-label">المبلغ المدفوع</label>
                                         <div class="currency-input">
                                             <span class="currency-symbol">{{ $invoice->currency == 'USD' ? '$' : ($invoice->currency == 'EUR' ? '€' : 'ر.س') }}</span>
-                                            <input type="text" class="form-control" value="{{ number_format($invoice->paid_amount, 2) }}" disabled>
+                                            <input type="text" class="form-control readonly-field" value="{{ number_format($invoice->paid_amount, 2) }}" disabled>
                                         </div>
                                         <small class="text-muted">يتم حسابه تلقائياً من المدفوعات</small>
                                     </div>
@@ -386,7 +421,7 @@
                                         <label class="form-label">المبلغ المتبقي</label>
                                         <div class="currency-input">
                                             <span class="currency-symbol">{{ $invoice->currency == 'USD' ? '$' : ($invoice->currency == 'EUR' ? '€' : 'ر.س') }}</span>
-                                            <input type="text" class="form-control" value="{{ number_format($invoice->total_amount - $invoice->paid_amount, 2) }}" disabled>
+                                            <input type="text" class="form-control readonly-field" value="{{ number_format($invoice->total_amount - $invoice->paid_amount, 2) }}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -403,15 +438,28 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="status" class="form-label">حالة الفاتورة <span class="text-danger">*</span></label>
-                                        <select name="status" id="status" class="form-select">
-                                            <option value="unpaid" {{ $invoice->status == 'unpaid' ? 'selected' : '' }}>غير مدفوعة</option>
-                                            <option value="partial" {{ $invoice->status == 'partial' ? 'selected' : '' }}>مدفوعة جزئياً</option>
-                                            <option value="paid" {{ $invoice->status == 'paid' ? 'selected' : '' }}>مدفوعة</option>
-                                        </select>
-                                        @error('status')
-                                        <div class="text-danger small mt-1">{{ $message }}</div>
-                                        @enderror
+                                        <label class="form-label">حالة الفاتورة</label>
+                                        <div class="status-info">
+                                            <div class="status-indicator status-{{ $invoice->status }}" id="status-display">
+                                                @if($invoice->status == 'unpaid')
+                                                    غير مدفوعة
+                                                @elseif($invoice->status == 'partial')
+                                                    مدفوعة جزئياً
+                                                @else
+                                                    مدفوعة
+                                                @endif
+                                            </div>
+                                            <div class="status-message text-muted">
+                                                @if($invoice->status == 'unpaid')
+                                                    لم يتم دفع أي مبلغ من الفاتورة
+                                                @elseif($invoice->status == 'partial')
+                                                    تم دفع {{ number_format(($invoice->paid_amount / $invoice->total_amount) * 100, 2) }}% من الفاتورة
+                                                @else
+                                                    تم دفع الفاتورة بالكامل
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">يتم تحديث الحالة تلقائياً بناءً على المدفوعات</small>
                                     </div>
                                 </div>
                             </div>
@@ -526,6 +574,53 @@
 
                 $('.currency-symbol').text(symbol);
             });
+
+            // تحديث حالة الفاتورة عند تغيير المبلغ الإجمالي
+            $('#total_amount').on('input', function() {
+                updateInvoiceStatus();
+            });
+
+            // وظيفة تحديث حالة الفاتورة
+            function updateInvoiceStatus() {
+                let total = parseFloat($('#total_amount').val()) || 0;
+                let paid = parseFloat('{{ $invoice->paid_amount }}') || 0;
+                let remaining = total - paid;
+
+                // تحديث المبالغ المعروضة
+                $('#paid-amount-display').text(paid.toFixed(2) + ' {{ $invoice->currency }}');
+                $('#due-amount-display').text(remaining.toFixed(2) + ' {{ $invoice->currency }}');
+
+                // تحديث حالة الفاتورة
+                let status = 'unpaid';
+                let statusText = 'غير مدفوعة';
+                let statusMessage = 'لم يتم دفع أي مبلغ من الفاتورة';
+
+                if (paid <= 0) {
+                    status = 'unpaid';
+                    statusText = 'غير مدفوعة';
+                    statusMessage = 'لم يتم دفع أي مبلغ من الفاتورة';
+                } else if (paid >= total) {
+                    status = 'paid';
+                    statusText = 'مدفوعة';
+                    statusMessage = 'تم دفع الفاتورة بالكامل';
+                } else {
+                    status = 'partial';
+                    statusText = 'مدفوعة جزئياً';
+                    let percentage = (paid / total) * 100;
+                    statusMessage = 'تم دفع ' + percentage.toFixed(2) + '% من الفاتورة';
+                }
+
+                // تحديث العرض
+                $('#status-display').text(statusText)
+                    .removeClass('status-unpaid status-partial status-paid')
+                    .addClass('status-' + status);
+
+                $('.status-message').text(statusMessage);
+
+                // تحديث شريط التقدم
+                let progressWidth = total > 0 ? (paid / total) * 100 : 0;
+                $('.progress-bar').css('width', progressWidth + '%');
+            }
         });
     </script>
 </body>
