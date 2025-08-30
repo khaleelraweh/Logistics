@@ -10,6 +10,8 @@ return [
     'published_on' => 'تاريخ النشر',
     'contact_person'   =>  'مسؤول التواصل',
     'all_merchants' => 'جميع التجار',
+    'all_types'     =>  'جميع الأنواع',
+    'warehouse_rental'  =>  'عقد ايجار',
 
 
     // متحكمات

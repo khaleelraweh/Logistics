@@ -52,7 +52,7 @@
                                 {{ __('package.package') }}
                             </option>
                             <option value="App\Models\WarehouseRental" {{ request('payable_type') == 'App\Models\WarehouseRental' ? 'selected' : '' }}>
-                                {{ __('warehouse_rental.warehouse_rental') }}
+                                {{ __('filter.warehouse_rental') }}
                             </option>
                         </select>
                     </div>

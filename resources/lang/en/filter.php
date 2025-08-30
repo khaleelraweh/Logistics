@@ -9,6 +9,8 @@ return [
     'published_on' => 'Published On',
     'contact_person'   =>  'Contact Person',
     'all_merchants' => 'All Merchants',
+    'all_types'     =>  'All Types',
+    'warehouse_rental'  =>  'Warehouse Rental',
 
     // متحكمات
     'show_all'  =>  'Show All',
