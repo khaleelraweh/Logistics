@@ -19,6 +19,48 @@ class ReturnRequest extends Model
         'published_on' => 'datetime',
     ];
 
+
+    protected $searchable = [
+        'columns' => [
+            // ---- Return Requests ----
+            'return_requests.id'           => 10,
+            'return_requests.status'       => 10,
+            'return_requests.return_type'  => 10,
+            'return_requests.reason'       => 10,
+            'return_requests.requested_at' => 10,
+            'return_requests.received_at'  => 10,
+            'return_requests.target_address' => 10,
+
+            // ---- Packages ----
+            'packages.id'                  => 10,
+            'packages.tracking_number'     => 10,
+            'packages.package_content'     => 10,
+            'packages.package_note'        => 10,
+            'packages.receiver_first_name' => 10,
+            'packages.receiver_last_name'  => 10,
+            'packages.receiver_phone'      => 10,
+
+            // ---- Merchants ----
+            'merchants.id'                 => 10,
+            'merchants.name'               => 10,
+            'merchants.phone'              => 10,
+            'merchants.email'              => 10,
+
+            // ---- Drivers ----
+            'drivers.id'                   => 10,
+            'drivers.first_name'           => 10,
+            'drivers.last_name'            => 10,
+            'drivers.phone'                => 10,
+            'drivers.username'             => 10,
+        ],
+        'joins' => [
+            'packages'  => ['packages.id', 'return_requests.package_id'],
+            'merchants' => ['merchants.id', 'packages.merchant_id'],
+            'drivers'   => ['drivers.id', 'return_requests.driver_id'],
+        ],
+    ];
+
+
     function package()
     {
         return $this->belongsTo(Package::class);
@@ -29,18 +71,7 @@ class ReturnRequest extends Model
         return $this->belongsTo(Driver::class);
     }
 
-    // العلاقة مع التاجر عبر الطرد
-    // function merchant()
-    // {
-    //     return $this->hasOneThrough(
-    //         Merchant::class,
-    //         Package::class,
-    //         'id', // المفتاح الخارجي في جدول Packages
-    //         'id', // المفتاح الخارجي في جدول Merchants
-    //         'package_id', // المفتاح المحلي في هذا الجدول (ReturnRequests)
-    //         'merchant_id' // المفتاح المحلي في جدول Packages
-    //     );
-    // }
+
 
     function merchant()
     {
