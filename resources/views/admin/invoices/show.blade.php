@@ -122,13 +122,13 @@
                                                 <div class="d-flex gap-2">
                                                 <!-- زر تعديل -->
                                                 <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editPaymentModal{{ $payment->id }}">
-                                                    <i class="bi bi-pencil"></i>
+                                                    <i class="fas fa-pen-square "></i>
                                                 </button>
                                                 <!-- زر حذف -->
                                                 <form action="{{ route('admin.payments.destroy', $payment->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من حذف هذه الدفعة؟');">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash "></i></button>
                                                 </form>
                                                 </div>
                                             </td>
