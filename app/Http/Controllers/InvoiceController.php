@@ -81,30 +81,94 @@ class InvoiceController extends Controller
         return view('admin.invoices.edit', compact('invoice', 'merchants'));
     }
 
+    // public function update(Request $request, Invoice $invoice)
+    // {
+
+    //     dd($request);
+    //     $request->validate([
+    //         'merchant_id' => 'required|exists:merchants,id',
+    //         'total_amount' => 'required|numeric|min:1',
+    //         'currency' => 'required|string|max:3',
+    //         'status' => 'required|in:unpaid,partial,paid',
+    //         'notes' => 'nullable|string',
+    //     ]);
+
+    //     $invoice->update([
+    //         'merchant_id' => $request->merchant_id,
+    //         'total_amount' => $request->total_amount,
+    //         'currency' => $request->currency,
+    //         'status' => $request->status,
+    //         'due_date' => $request->due_date ?? $invoice->due_date,
+    //         'notes' => $request->notes,
+    //     ]);
+
+    //     return redirect()->route('admin.invoices.index')
+    //         ->with('success', 'Invoice updated successfully.');
+    // }
+
+
+    // public function update(Request $request, Invoice $invoice)
+    // {
+    //     $request->validate([
+    //         'merchant_id'    => 'required|exists:merchants,id',
+    //         'total_amount'   => 'required|numeric|min:1',
+    //         'paid_amount'    => 'required|numeric|min:0|lte:total_amount',
+    //         'currency'       => 'required|string|max:3',
+    //         'status'         => 'required|in:unpaid,partial,paid',
+    //         'issued_at'      => 'nullable|date',
+    //         'due_date'       => 'nullable|date|after_or_equal:issued_at',
+    //         'notes'          => 'nullable|string',
+    //     ]);
+
+    //     // حساب المبلغ المتبقي تلقائيًا
+    //     $remaining = $request->total_amount - $request->paid_amount;
+
+    //     $invoice->update([
+    //         'merchant_id'      => $request->merchant_id,
+    //         'total_amount'     => $request->total_amount,
+    //         'paid_amount'      => $request->paid_amount,
+    //         'currency'         => $request->currency,
+    //         'status'           => $request->status,
+    //         'issued_at'        => $request->issued_at,
+    //         'due_date'         => $request->due_date,
+    //         'notes'            => $request->notes,
+    //         'remaining_amount' => $remaining, // إذا عندك عمود في الجدول
+    //     ]);
+
+    //     return redirect()->route('admin.invoices.index')
+    //         ->with('success', 'تم تحديث الفاتورة بنجاح.');
+    // }
+
     public function update(Request $request, Invoice $invoice)
     {
-
-        dd($request);
         $request->validate([
-            'merchant_id' => 'required|exists:merchants,id',
+            'merchant_id'  => 'required|exists:merchants,id',
             'total_amount' => 'required|numeric|min:1',
-            'currency' => 'required|string|max:3',
-            'status' => 'required|in:unpaid,partial,paid',
-            'notes' => 'nullable|string',
+            'paid_amount'  => 'required|numeric|min:0|lte:total_amount',
+            'currency'     => 'required|string|max:10',
+            'status'       => 'required|in:unpaid,partial,paid',
+            'issued_at'    => 'nullable|date',
+            'due_date'     => 'nullable|date|after_or_equal:issued_at',
+            'notes'        => 'nullable|string',
         ]);
 
+
         $invoice->update([
-            'merchant_id' => $request->merchant_id,
+            'merchant_id'  => $request->merchant_id,
             'total_amount' => $request->total_amount,
-            'currency' => $request->currency,
-            'status' => $request->status,
-            'due_date' => $request->due_date ?? $invoice->due_date,
-            'notes' => $request->notes,
+            'paid_amount'  => $request->paid_amount,
+            'currency'     => $request->currency,
+            'status'       => $request->status,
+            'issued_at'    => $request->issued_at ?? $invoice->issued_at,
+            'due_date'     => $request->due_date,
+            'notes'        => $request->notes,
         ]);
 
         return redirect()->route('admin.invoices.index')
-            ->with('success', 'Invoice updated successfully.');
+            ->with('success', 'تم تحديث الفاتورة بنجاح.');
     }
+
+
 
     public function destroy(Invoice $invoice)
     {
