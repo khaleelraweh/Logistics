@@ -7,6 +7,7 @@ return [
     'method' => 'طريقة الدفع',
     'status' => 'حالة الدفع',
     'add_new_payment'   =>  'إضافة دفعة جديدة',
+    'manage_payments'   =>  'إدارة المدفوعات',
 
     'cash' => 'نقدا',
     'credit_card' => 'بطاقة ائتمانية',

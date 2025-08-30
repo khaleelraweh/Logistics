@@ -7,6 +7,7 @@ return [
     'method' => 'Payment Method',
     'status' => 'Payment Status',
     'add_new_payment'   =>  'Add New Payment',
+    'manage_payments'   =>  'Manage Payments',
 
 
     'cash' => 'Cash',
