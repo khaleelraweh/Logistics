@@ -98,6 +98,7 @@ class ProductController extends Controller
         $input['merchant_id']       =   $request->merchant_id;
         $input['description']       =   $request->description;
         $input['sku']               =   $request->sku;
+        $input['price']               =   $request->price;
         $input['status']            =   $request->status=='on' ? true : false;
 
         $product = Product::create($input);
@@ -199,6 +200,7 @@ class ProductController extends Controller
         $input['merchant_id']       =   $request->merchant_id;
         $input['description']       =   $request->description;
         $input['sku']               =   $request->sku;
+        $input['price']               =   $request->price;
         $input['status']            =   $request->status=='on' ? true : false;
 
         $product->update($input);
