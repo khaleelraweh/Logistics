@@ -7,7 +7,7 @@ return [
     'invoice_description'   =>  'يمكنك استعراض تفاصيل الفواتير في الاسفل',
     'invoice_info'      => 'معلومات الفاتورة',
     'invoice_number'    => 'رقم الفاتورة',
-    'inovice_number_message'    =>  'رقم الفاتورة لا يمكن تعديله',
+    'invoice_number_message'    =>  'رقم الفاتورة لا يمكن تعديله',
 
     'invoice_status'    => 'حالة الفاتورة',
     'merchant'          => 'التاجر',
@@ -25,7 +25,7 @@ return [
     'payment_history'   =>  'سجل المدفوعات',
     'edit_invoice'      =>  'تعديل الفاتورة',
     'manage_invoices'   =>  'إدارة الفواتير',
-    'update_inovice'    =>  'تعديل الفاتورة',
+    'update_invoice'    =>  'تعديل الفاتورة',
 
 
     // الحالات

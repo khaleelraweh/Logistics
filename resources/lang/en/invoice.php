@@ -7,10 +7,10 @@ return [
     'invoice_description'   =>  'You can view the invoice details below.',
     'invoice_info'      => 'Invoice Information',
     'invoice_number'    => 'Invoice Number',
-    'inovice_number_message'    =>  'Inovice number can not be change',
+    'invoice_number_message'    =>  'invoice number can not be change',
     'invoice_status'    => 'Invoice Status',
     'merchant'          => 'Merchant',
-    'merchant_message'  =>  'Merchant can not be change after createing the inovice',
+    'merchant_message'  =>  'Merchant can not be change after createing the invoice',
     'issued_at'         => 'Issued At',
     'due_date'          => 'Due Date',
     'currency'          => 'Currency',
@@ -21,7 +21,7 @@ return [
     'payment_history'   =>  'Payment History',
     'edit_invoice'      => 'Edit Invoice',
     'manage_invoices'   =>  'Manage Invoices',
-    'update_inovice'    =>  'Update Inovice',
+    'update_invoice'    =>  'Update invoice',
 
     // Status
     'invoice_status' => 'Invoice Status',

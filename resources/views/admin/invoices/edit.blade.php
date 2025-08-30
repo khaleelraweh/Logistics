@@ -375,12 +375,12 @@
                                                 {{ $invoice->merchant->phone }}
                                             </div>
                                         </div>
-                                        <small class="text-muted">لا يمكن تعديل التاجر بعد إنشاء الفاتورة</small>
+                                        <small class="text-muted">{{ __('invoice.merchant_message') }}</small>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="invoice_number" class="form-label">{{ __('invoice.invoice_number') }}</label>
                                         <input type="text" class="form-control readonly-field" id="invoice_number" value="{{ $invoice->invoice_number }}" disabled>
-                                        <small class="text-muted">{{ __('invoice.inovice_number_message') }}</small>
+                                        <small class="text-muted">{{ __('invoice.invoice_number_message') }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -508,7 +508,7 @@
                                         <i class="bi bi-x-circle me-1"></i> {{ __('general.cancel') }}
                                     </button>
                                     <button type="submit" class="btn btn-success">
-                                        <i class="bi bi-check2-circle me-1"></i>  {{ __('invoice.update_inovice') }}
+                                        <i class="bi bi-check2-circle me-1"></i>  {{ __('invoice.update_invoice') }}
                                     </button>
                                 </div>
                             </div>
