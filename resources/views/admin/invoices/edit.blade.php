@@ -486,16 +486,16 @@
 
                                                 </div>
                                                 <div class="d-flex gap-2">
-                                                    <span class="badge bg-success">{{ $payment->method }}</span>
+                                                    <span class="badge bg-success" style="display: flex; align-items: center;">{{ $payment->method }}</span>
                                                     <!-- زر تعديل -->
                                                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editPaymentModal{{ $payment->id }}">
-                                                        <i class="bi bi-pencil-square"></i>
+                                                        <i class=" fas fa-edit "></i>
                                                     </button>
                                                     <!-- زر حذف -->
                                                     <form action="{{ route('admin.payments.destroy', $payment->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من حذف هذه الدفعة؟');">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                                                        <button type="submit" class="btn btn-sm btn-danger"><i class=" fas fa-trash-alt "></i></button>
                                                     </form>
                                                 </div>
                                             </div>
