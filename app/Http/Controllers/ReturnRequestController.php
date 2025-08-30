@@ -44,6 +44,9 @@ class ReturnRequestController extends Controller
         return redirect('admin/index');
     }
 
+    $drivers = Driver::all();
+    $packages = Package::with('merchant')->get();
+
     // استعلام Return Requests
     $return_requests = ReturnRequest::with([
             'package.merchant', // بيانات الطرد والتاجر
@@ -67,7 +70,7 @@ class ReturnRequestController extends Controller
         ->paginate(request()->limit_by ?? 100)
         ->withQueryString(); // للحفاظ على الـ filters في روابط الصفحات
 
-    return view('admin.return_requests.index', compact('return_requests'));
+    return view('admin.return_requests.index', compact('return_requests', 'drivers' , 'packages'));
 }
 
     /**

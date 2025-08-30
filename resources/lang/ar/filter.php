@@ -12,6 +12,7 @@ return [
     'all_merchants' => 'جميع التجار',
     'all_types'     =>  'جميع الأنواع',
     'warehouse_rental'  =>  'عقد ايجار',
+    'all_packages' => 'جميع الطرود',
 
 
     // متحكمات

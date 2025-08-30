@@ -11,6 +11,7 @@ return [
     'all_merchants' => 'All Merchants',
     'all_types'     =>  'All Types',
     'warehouse_rental'  =>  'Warehouse Rental',
+    'all_packages'      =>  'All Packages',
 
     // متحكمات
     'show_all'  =>  'Show All',
