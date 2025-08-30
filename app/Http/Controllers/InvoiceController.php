@@ -139,34 +139,60 @@ class InvoiceController extends Controller
     //         ->with('success', 'تم تحديث الفاتورة بنجاح.');
     // }
 
+    // public function update(Request $request, Invoice $invoice)
+    // {
+    //     $request->validate([
+    //         'merchant_id'  => 'required|exists:merchants,id',
+    //         'total_amount' => 'required|numeric|min:1',
+    //         'paid_amount'  => 'required|numeric|min:0|lte:total_amount',
+    //         'currency'     => 'required|string|max:10',
+    //         'status'       => 'required|in:unpaid,partial,paid',
+    //         'issued_at'    => 'nullable|date',
+    //         'due_date'     => 'nullable|date|after_or_equal:issued_at',
+    //         'notes'        => 'nullable|string',
+    //     ]);
+
+
+    //     $invoice->update([
+    //         'merchant_id'  => $request->merchant_id,
+    //         'total_amount' => $request->total_amount,
+    //         'paid_amount'  => $request->paid_amount,
+    //         'currency'     => $request->currency,
+    //         'status'       => $request->status,
+    //         'issued_at'    => $request->issued_at ?? $invoice->issued_at,
+    //         'due_date'     => $request->due_date,
+    //         'notes'        => $request->notes,
+    //     ]);
+
+    //     return redirect()->route('admin.invoices.index')
+    //         ->with('success', 'تم تحديث الفاتورة بنجاح.');
+    // }
+
     public function update(Request $request, Invoice $invoice)
-    {
-        $request->validate([
-            'merchant_id'  => 'required|exists:merchants,id',
-            'total_amount' => 'required|numeric|min:1',
-            'paid_amount'  => 'required|numeric|min:0|lte:total_amount',
-            'currency'     => 'required|string|max:10',
-            'status'       => 'required|in:unpaid,partial,paid',
-            'issued_at'    => 'nullable|date',
-            'due_date'     => 'nullable|date|after_or_equal:issued_at',
-            'notes'        => 'nullable|string',
-        ]);
+{
+    $request->validate([
+        'total_amount' => 'required|numeric|min:1',
+        'currency'     => 'required|string|max:10',
+        'issued_at'    => 'nullable|date',
+        'due_date'     => 'nullable|date|after_or_equal:issued_at',
+        'notes'        => 'nullable|string',
+    ]);
 
+    $invoice->update([
+        'total_amount' => $request->total_amount,
+        'currency'     => $request->currency,
+        'issued_at'    => $request->issued_at ?? $invoice->issued_at,
+        'due_date'     => $request->due_date,
+        'notes'        => $request->notes,
+    ]);
 
-        $invoice->update([
-            'merchant_id'  => $request->merchant_id,
-            'total_amount' => $request->total_amount,
-            'paid_amount'  => $request->paid_amount,
-            'currency'     => $request->currency,
-            'status'       => $request->status,
-            'issued_at'    => $request->issued_at ?? $invoice->issued_at,
-            'due_date'     => $request->due_date,
-            'notes'        => $request->notes,
-        ]);
+    // بعد التحديث نحدّث الحالة أوتوماتيكياً
+    $invoice->updateStatus();
 
-        return redirect()->route('admin.invoices.index')
-            ->with('success', 'تم تحديث الفاتورة بنجاح.');
-    }
+    return redirect()->route('admin.invoices.index')
+        ->with('success', 'تم تحديث الفاتورة بنجاح.');
+}
+
 
 
 
