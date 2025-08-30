@@ -45,10 +45,15 @@ return [
     'payable_type'   => 'نوع الدفع ',
     'payable_type_Package'   => 'فاتورة طرد',
     'payable_type_WarehouseRental'    =>  'فاتورة ايجار رفوف',
+    'payment_notes_placeholder' =>  'ادخل ملاحظات الدفع هنا',
+
 
 
 
     'paid_amount'   => 'المبلغ المدفوع',
+    'choose_method'         =>  'اختر طريقة الدفع',
+    'max_limit'             =>  'الحد الأقصي',
+
 
 
     // المبالغ

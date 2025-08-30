@@ -257,7 +257,7 @@
                                             id="reference_note"
                                             class="form-control"
                                             rows="2"
-                                            placeholder="{{ __('invoice.payment_placeholder') }}">{{ old('reference_note') }}</textarea>
+                                            placeholder="{{ __('invoice.payment_notes_placeholder') }}">{{ old('reference_note') }}</textarea>
                                 </div>
 
                                 <div class="col-12">

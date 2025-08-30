@@ -46,6 +46,9 @@ return [
 
 
     'paid_amount'           =>  'Paid Amount',
+    'choose_method'         =>  'Choose method',
+    'max_limit'             =>  'Max limit',
+    'payment_notes_placeholder' =>  'Enter payment Notes',
 
 
 
