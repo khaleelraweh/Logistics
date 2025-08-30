@@ -4,62 +4,54 @@
         <h6 class="mb-0">
             <i class="fas fa-filter me-2 text-primary"></i>{{ __('general.filters') }}
         </h6>
-        <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#deliveriesFiltersCollapse" aria-expanded="false" aria-controls="deliveriesFiltersCollapse">
+        <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#invoicesFiltersCollapse" aria-expanded="false" aria-controls="invoicesFiltersCollapse">
             <i class="fas fa-sliders-h me-1"></i>{{ __('general.show_filters') }}
         </button>
     </div>
 
     <!-- Filter Body -->
-    <div id="deliveriesFiltersCollapse" class="collapse">
+    <div id="invoicesFiltersCollapse" class="collapse">
         <div class="card-body">
-            <form action="{{ route('admin.deliveries.index') }}" method="get">
+            <form action="{{ route('admin.invoices.index') }}" method="get">
                 <div class="row g-2">
 
                     <!-- Keyword -->
                     <div class="col-md-6">
-                        <input type="text" name="keyword" value="{{ request()->input('keyword') }}" class="form-control" placeholder="{{ __('filter.search_here') }}">
+                        <input type="text" name="keyword" value="{{ request('keyword') }}" class="form-control" placeholder="{{ __('filter.search_here') }}">
                     </div>
 
                     <!-- Status -->
                     <div class="col-md-3">
                         <select name="status" class="form-select select2">
                             <option value="">{{ __('filter.all_statuses') }}</option>
-                            @foreach(['pending','assigned_to_driver','driver_picked_up','in_transit','arrived_at_hub','out_for_delivery','delivered','delivery_failed','returned','cancelled','in_warehouse'] as $status)
+                            @foreach(['unpaid','partial','paid'] as $status)
                                 <option value="{{ $status }}" {{ request('status') == $status ? 'selected' : '' }}>
-                                    {{ __('delivery.status_' . $status) }}
+                                    {{ __('invoice.status_' . $status) }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
 
-                    <!-- Driver -->
+                    <!-- Merchant -->
                     <div class="col-md-3">
-                        <select name="driver_id" class="form-select select2">
-                            <option value="">{{ __('filter.all_drivers') }}</option>
-                            @foreach($drivers as $driver)
-                                <option value="{{ $driver->id }}" {{ request('driver_id') == $driver->id ? 'selected' : '' }}>
-                                    {{ $driver->driver_full_name ?? $driver->first_name . ' ' . $driver->last_name }}
+                        <select name="merchant_id" class="form-select select2">
+                            <option value="">{{ __('filter.all_merchants') }}</option>
+                            @foreach($merchants as $merchant)
+                                <option value="{{ $merchant->id }}" {{ request('merchant_id') == $merchant->id ? 'selected' : '' }}>
+                                    {{ $merchant->name }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
 
-                    <div class="col-md-1 mb-2 d-md-block" style="display:flex !important;justify-content: center;align-items: center;">
-                        {{ __('general.from') }}
-                    </div>
-
-                    <!-- Delivered From -->
+                    <!-- Issued From / To -->
+                    <div class="col-md-1 d-flex align-items-center justify-content-center">{{ __('general.from') }}</div>
                     <div class="col-md-2">
-                        <input type="date" name="delivered_from" value="{{ request('delivered_from') }}" class="form-control" placeholder="{{ __('filter.delivered_from') }}">
+                        <input type="date" name="issued_from" value="{{ request('issued_from') }}" class="form-control">
                     </div>
-
-                    <div class="col-md-1 mb-2 d-md-block" style="display:flex !important;justify-content: center;align-items: center;">
-                        {{ __('general.to') }}
-                    </div>
-
-                    <!-- Delivered To -->
+                    <div class="col-md-1 d-flex align-items-center justify-content-center">{{ __('general.to') }}</div>
                     <div class="col-md-2">
-                        <input type="date" name="delivered_to" value="{{ request('delivered_to') }}" class="form-control" placeholder="{{ __('filter.delivered_to') }}">
+                        <input type="date" name="issued_to" value="{{ request('issued_to') }}" class="form-control">
                     </div>
 
                     <!-- Sort By -->
@@ -67,10 +59,11 @@
                         <select name="sort_by" class="form-select select2">
                             <option value="">{{ __('filter.sort_by') }}</option>
                             <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>{{ __('filter.id') }}</option>
-                            <option value="status" {{ request('sort_by') == 'status' ? 'selected' : '' }}>{{ __('delivery.status') }}</option>
-                            <option value="delivered_at" {{ request('sort_by') == 'delivered_at' ? 'selected' : '' }}>{{ __('delivery.delivered_at') }}</option>
-                            <option value="assigned_at" {{ request('sort_by') == 'assigned_at' ? 'selected' : '' }}>{{ __('delivery.assigned_at') }}</option>
-                            <option value="created_at" {{ request('sort_by') == 'created_at' ? 'selected' : '' }}>{{ __('filter.created_at') }}</option>
+                            <option value="invoice_number" {{ request('sort_by') == 'invoice_number' ? 'selected' : '' }}>{{ __('invoice.invoice_number') }}</option>
+                            <option value="total_amount" {{ request('sort_by') == 'total_amount' ? 'selected' : '' }}>{{ __('invoice.total_amount') }}</option>
+                            <option value="paid_amount" {{ request('sort_by') == 'paid_amount' ? 'selected' : '' }}>{{ __('invoice.paid_amount') }}</option>
+                            <option value="status" {{ request('sort_by') == 'status' ? 'selected' : '' }}>{{ __('invoice.status') }}</option>
+                            <option value="issued_at" {{ request('sort_by') == 'issued_at' ? 'selected' : '' }}>{{ __('invoice.issued_at') }}</option>
                         </select>
                     </div>
 
@@ -85,10 +78,9 @@
                     <!-- Limit By -->
                     <div class="col-md-2">
                         <select name="limit_by" class="form-select select2">
-                            <option value="10" {{ request('limit_by') == '10' ? 'selected' : '' }}>10</option>
-                            <option value="20" {{ request('limit_by') == '20' ? 'selected' : '' }}>20</option>
-                            <option value="50" {{ request('limit_by') == '50' ? 'selected' : '' }}>50</option>
-                            <option value="100" {{ request('limit_by') == '100' ? 'selected' : '' }}>100</option>
+                            @foreach([10,20,50,100] as $limit)
+                                <option value="{{ $limit }}" {{ request('limit_by') == $limit ? 'selected' : '' }}>{{ $limit }}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -97,7 +89,7 @@
                         <button type="submit" class="btn btn-primary me-2 flex-grow-1">
                             <i class="fas fa-search me-1"></i>{{ __('general.filter') }}
                         </button>
-                        <a href="{{ route('admin.deliveries.index') }}" class="btn btn-outline-secondary flex-grow-1">
+                        <a href="{{ route('admin.invoices.index') }}" class="btn btn-outline-secondary flex-grow-1">
                             <i class="fas fa-undo me-1"></i>{{ __('general.reset') }}
                         </a>
                     </div>
