@@ -112,61 +112,61 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    // إنشاء الخريطة
-    var map = L.map('driversMap').setView([24.7136, 46.6753], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+    document.addEventListener("DOMContentLoaded", function () {
+        // إنشاء الخريطة
+        var map = L.map('driversMap').setView([24.7136, 46.6753], 6);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
 
-    var carIcon = L.divIcon({
-        html: '<i class="fas fa-truck" style="font-size:24px; color:#007bff;"></i>',
-        className: 'custom-car-icon',
-        iconSize: [30, 30],
-        iconAnchor: [15, 15],
-        popupAnchor: [0, -15]
-    });
+        var carIcon = L.divIcon({
+            html: '<i class="fas fa-truck" style="font-size:24px; color:#007bff;"></i>',
+            className: 'custom-car-icon',
+            iconSize: [30, 30],
+            iconAnchor: [15, 15],
+            popupAnchor: [0, -15]
+        });
 
-    var drivers = @json($drivers);
-    var locale = "{{ app()->getLocale() }}";
+        var drivers = @json($drivers);
+        var locale = "{{ app()->getLocale() }}";
 
-    drivers.forEach(function(driver) {
-        if(driver.latitude && driver.longitude) {
-            var marker = L.marker([driver.latitude, driver.longitude], { icon: carIcon }).addTo(map);
-            marker.bindPopup(`
-                <strong>${driver.first_name[locale] ?? ''} ${driver.last_name[locale] ?? ''}</strong><br>
-                📞 ${driver.phone ?? '---'}
-            `);
+        drivers.forEach(function(driver) {
+            if(driver.latitude && driver.longitude) {
+                var marker = L.marker([driver.latitude, driver.longitude], { icon: carIcon }).addTo(map);
+                marker.bindPopup(`
+                    <strong>${driver.first_name[locale] ?? ''} ${driver.last_name[locale] ?? ''}</strong><br>
+                    📞 ${driver.phone ?? '---'}
+                `);
+            }
+        });
+
+        if(drivers.length > 0){
+            var bounds = L.latLngBounds(drivers.map(d => [d.latitude, d.longitude]));
+            map.fitBounds(bounds, { padding: [50, 50] });
         }
-    });
 
-    if(drivers.length > 0){
-        var bounds = L.latLngBounds(drivers.map(d => [d.latitude, d.longitude]));
-        map.fitBounds(bounds, { padding: [50, 50] });
-    }
+        // Charts
+        new Chart(document.getElementById("packagesChart"), {
+            type: 'doughnut',
+            data: {
+                labels: ["{{ __('dashboard.packages_pending') }}", "{{ __('dashboard.packages_delivered') }}"],
+                datasets: [{
+                    data: [{{ $stats['packages_pending'] }}, {{ $stats['packages_delivered'] }}],
+                    backgroundColor: ["#ffc107", "#28a745"]
+                }]
+            }
+        });
 
-    // Charts
-    new Chart(document.getElementById("packagesChart"), {
-        type: 'doughnut',
-        data: {
-            labels: ["{{ __('dashboard.packages_pending') }}", "{{ __('dashboard.packages_delivered') }}"],
-            datasets: [{
-                data: [{{ $stats['packages_pending'] }}, {{ $stats['packages_delivered'] }}],
-                backgroundColor: ["#ffc107", "#28a745"]
-            }]
-        }
+        new Chart(document.getElementById("driversChart"), {
+            type: 'pie',
+            data: {
+                labels: ["{{ __('dashboard.drivers_available') }}", "{{ __('dashboard.drivers_busy') }}"],
+                datasets: [{
+                    data: [{{ $stats['drivers_available'] }}, {{ $stats['drivers_busy'] }}],
+                    backgroundColor: ["#007bff", "#dc3545"]
+                }]
+            }
+        });
     });
-
-    new Chart(document.getElementById("driversChart"), {
-        type: 'pie',
-        data: {
-            labels: ["{{ __('dashboard.drivers_available') }}", "{{ __('dashboard.drivers_busy') }}"],
-            datasets: [{
-                data: [{{ $stats['drivers_available'] }}, {{ $stats['drivers_busy'] }}],
-                backgroundColor: ["#007bff", "#dc3545"]
-            }]
-        }
-    });
-});
 </script>
 @endsection
