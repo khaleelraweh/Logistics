@@ -83,6 +83,8 @@ class InvoiceController extends Controller
 
     public function update(Request $request, Invoice $invoice)
     {
+
+        dd($request);
         $request->validate([
             'merchant_id' => 'required|exists:merchants,id',
             'total_amount' => 'required|numeric|min:1',
