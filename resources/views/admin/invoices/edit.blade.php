@@ -501,14 +501,14 @@
                             <!-- الأزرار -->
                             <div class="d-flex justify-content-between mt-4">
                                 <a href="{{ route('admin.invoices.index') }}" class="btn btn-secondary">
-                                    <i class="bi bi-arrow-left me-1"></i> رجوع
+                                    <i class="bi bi-arrow-left me-1"></i> {{ __('general.back') }}
                                 </a>
                                 <div>
                                     <button type="reset" class="btn btn-light me-2">
-                                        <i class="bi bi-x-circle me-1"></i> إلغاء
+                                        <i class="bi bi-x-circle me-1"></i> {{ __('general.cancel') }}
                                     </button>
                                     <button type="submit" class="btn btn-success">
-                                        <i class="bi bi-check2-circle me-1"></i> حفظ التعديلات
+                                        <i class="bi bi-check2-circle me-1"></i>  {{ __('invoice.update_inovice') }}
                                     </button>
                                 </div>
                             </div>
@@ -524,7 +524,7 @@
                             <!-- زر إضافة دفعة جديدة -->
                             <div class="mb-3 d-flex justify-content-end">
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPaymentModal">
-                                    <i class="bi bi-plus-circle me-1"></i> إضافة دفعة جديدة
+                                    <i class="bi bi-plus-circle me-1"></i>   {{ __('payment.add_new_payment') }}
                                 </button>
                             </div>
 

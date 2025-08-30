@@ -6,6 +6,7 @@ return [
     'amount' => 'المبلغ',
     'method' => 'طريقة الدفع',
     'status' => 'حالة الدفع',
+    'add_new_payment'   =>  'إضافة دفعة جديدة',
 
     'cash' => 'نقدا',
     'credit_card' => 'بطاقة ائتمانية',

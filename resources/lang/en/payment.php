@@ -6,6 +6,7 @@ return [
     'amount' => 'Payment Amount',
     'method' => 'Payment Method',
     'status' => 'Payment Status',
+    'add_new_payment'   =>  'Add New Payment',
 
 
     'cash' => 'Cash',
@@ -20,7 +21,7 @@ return [
 
 
      // Form labels
-    'add_payment' => 'Add Rental Payment',
+    'add_payment' => 'Add  Payment',
     'reference_note' => 'Reference Note',
     'payment_reference' => 'Payment Reference',
     'pay' => 'Pay',
