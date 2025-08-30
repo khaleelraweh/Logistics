@@ -38,7 +38,6 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
 
-        dd($request);
         $invoice = Invoice::findOrFail($request->invoice_id);
 
         $request->validate([
