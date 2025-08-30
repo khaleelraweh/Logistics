@@ -155,78 +155,78 @@
 
     <!-- Add Payment Form -->
     @if($invoice->remaining_amount > 0)
-    <div class="row mt-4">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header bg-success text-white">
-                    <h5 class="card-title mb-0">{{ __('invoice.add_payment') }}</h5>
-                </div>
-                <div class="card-body">
-                    <form action="{{ route('admin.invoices.pay', $invoice->id) }}" method="POST" class="needs-validation" novalidate>
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label for="amount" class="form-label">{{ __('invoice.amount') }} <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="number"
-                                           name="amount"
-                                           id="amount"
-                                           class="form-control"
-                                           step="0.01"
-                                           min="0.01"
-                                           max="{{ $invoice->remaining_amount }}"
-                                           value="{{ old('amount', min(1000, $invoice->remaining_amount)) }}"
-                                           required>
-                                    <span class="input-group-text">{{ $invoice->currency }}</span>
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">{{ __('invoice.add_payment') }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('admin.invoices.pay', $invoice->id) }}" method="POST" class="needs-validation" novalidate>
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="amount" class="form-label">{{ __('invoice.amount') }} <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="number"
+                                            name="amount"
+                                            id="amount"
+                                            class="form-control"
+                                            step="0.01"
+                                            min="0.01"
+                                            max="{{ $invoice->remaining_amount }}"
+                                            value="{{ old('amount', min(1000, $invoice->remaining_amount)) }}"
+                                            required>
+                                        <span class="input-group-text">{{ $invoice->currency }}</span>
+                                    </div>
+                                    <small class="text-muted">{{ __('invoice.max_limit') }}: {{ number_format($invoice->remaining_amount, 2) }}</small>
+                                    @error('amount')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                <small class="text-muted">{{ __('invoice.max_limit') }}: {{ number_format($invoice->remaining_amount, 2) }}</small>
-                                @error('amount')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @enderror
-                            </div>
 
-                            <div class="col-md-4 mb-3">
-                                <label for="method" class="form-label">{{ __('invoice.method') }} <span class="text-danger">*</span></label>
-                                <select name="method" id="method" class="form-select" required>
-                                    <option value="">{{ __('invoice.choose_method') }}</option>
-                                    @foreach(['cash' => __('invoice.methods.cash'), 'credit_card' => __('invoice.methods.credit_card'), 'bank_transfer' => __('invoice.methods.bank_transfer'), 'wallet' => __('invoice.methods.wallet'), 'cod' => __('invoice.methods.cod')] as $value => $label)
-                                        <option value="{{ $value }}" {{ old('method') == $value ? 'selected' : '' }}>{{ $label }}</option>
-                                    @endforeach
-                                </select>
-                                @error('method')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @enderror
-                            </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="method" class="form-label">{{ __('invoice.method') }} <span class="text-danger">*</span></label>
+                                    <select name="method" id="method" class="form-select" required>
+                                        <option value="">{{ __('invoice.choose_method') }}</option>
+                                        @foreach(['cash' => __('invoice.methods.cash'), 'credit_card' => __('invoice.methods.credit_card'), 'bank_transfer' => __('invoice.methods.bank_transfer'), 'wallet' => __('invoice.methods.wallet'), 'cod' => __('invoice.methods.cod')] as $value => $label)
+                                            <option value="{{ $value }}" {{ old('method') == $value ? 'selected' : '' }}>{{ $label }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('method')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                            <div class="col-md-4 mb-3">
-                                <label for="paid_on" class="form-label">{{ __('invoice.paid_on') }}</label>
-                                <input type="datetime-local"
-                                       name="paid_on"
-                                       id="paid_on"
-                                       class="form-control"
-                                       value="{{ old('paid_on', now()->format('Y-m-d\TH:i')) }}">
-                            </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="paid_on" class="form-label">{{ __('invoice.paid_on') }}</label>
+                                    <input type="datetime-local"
+                                        name="paid_on"
+                                        id="paid_on"
+                                        class="form-control"
+                                        value="{{ old('paid_on', now()->format('Y-m-d\TH:i')) }}">
+                                </div>
 
-                            <div class="col-12 mb-3">
-                                <label for="reference_note" class="form-label">{{ __('invoice.notes') }}</label>
-                                <textarea name="reference_note"
-                                          id="reference_note"
-                                          class="form-control"
-                                          rows="2"
-                                          placeholder="{{ __('invoice.payment_placeholder') }}">{{ old('reference_note') }}</textarea>
-                            </div>
+                                <div class="col-12 mb-3">
+                                    <label for="reference_note" class="form-label">{{ __('invoice.notes') }}</label>
+                                    <textarea name="reference_note"
+                                            id="reference_note"
+                                            class="form-control"
+                                            rows="2"
+                                            placeholder="{{ __('invoice.payment_placeholder') }}">{{ old('reference_note') }}</textarea>
+                                </div>
 
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-success px-4">
-                                    <i class="fas fa-money-bill-wave me-2"></i> {{ __('invoice.record_payment') }}
-                                </button>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-success px-4">
+                                        <i class="fas fa-money-bill-wave me-2"></i> {{ __('invoice.record_payment') }}
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     @endif
 </div>
 @endsection
