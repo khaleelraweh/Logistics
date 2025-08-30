@@ -18,6 +18,59 @@ class Invoice extends Model
 
     protected $guarded = [];
 
+
+
+    protected $searchable = [
+        'columns' => [
+            // ---- فواتير ----
+            'invoices.id'            => 10,
+            'invoices.invoice_number'=> 10,
+            'invoices.total_amount'  => 10,
+            'invoices.paid_amount'   => 10,
+            'invoices.currency'      => 10,
+            'invoices.status'        => 10,
+            'invoices.notes'         => 10,
+            'invoices.issued_at'     => 10,
+            'invoices.due_date'      => 10,
+
+            // ---- المدفوعات ----
+            'payments.id'             => 10,
+            'payments.amount'         => 10,
+            'payments.currency'       => 10,
+            'payments.method'         => 10,
+            'payments.status'         => 10,
+            'payments.paid_on'        => 10,
+            'payments.reference_note' => 10,
+            'payments.payment_reference' => 10,
+
+            // ---- المتاجر ----
+            'merchants.id'         => 10,
+            'merchants.name'       => 10,
+            'merchants.slug'       => 10,
+            'merchants.country'    => 10,
+            'merchants.region'     => 10,
+            'merchants.city'       => 10,
+            'merchants.district'   => 10,
+            'merchants.postal_code'=> 10,
+            'merchants.phone'      => 10,
+            'merchants.email'      => 10,
+            'merchants.website'    => 10,
+
+            // ---- إيجارات المستودعات ----
+            'warehouse_rentals.id'           => 10,
+            'warehouse_rentals.rental_start' => 10,
+            'warehouse_rentals.rental_end'   => 10,
+            'warehouse_rentals.price'        => 10,
+            'warehouse_rentals.status'       => 10,
+        ],
+        'joins' => [
+            'merchants'       => ['merchants.id', 'invoices.merchant_id'], // لجميع الجداول المرتبطة بالتاجر
+            'payments'        => ['payments.invoice_id', 'invoices.id'],   // ربط المدفوعات بالفواتير
+            'warehouse_rentals'=> ['warehouse_rentals.merchant_id', 'merchants.id'],
+        ],
+    ];
+
+
     // توليد رقم الفاتورة برقم فريد عند الإنشاء
     protected static function boot()
     {
