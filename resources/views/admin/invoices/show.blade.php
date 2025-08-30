@@ -141,42 +141,42 @@
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="editPaymentModalLabel{{ $payment->id }}">تعديل دفعة</h5>
+                                                            <h5 class="modal-title" id="editPaymentModalLabel{{ $payment->id }}">{{ __('payment.edit_payment') }}</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="mb-3">
-                                                                <label class="form-label">المبلغ</label>
+                                                                <label class="form-label">{{ __('payment.amount') }}</label>
                                                                 <input type="number" name="amount" class="form-control" value="{{ $payment->amount }}" step="0.01" min="0.01" required>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label class="form-label">طريقة الدفع</label>
+                                                                <label class="form-label">{{ __('payment.method') }} </label>
                                                                 <select name="method" class="form-select" required>
-                                                                    <option value="cash" {{ $payment->method == 'cash' ? 'selected' : '' }}>نقداً</option>
-                                                                    <option value="credit_card" {{ $payment->method == 'credit_card' ? 'selected' : '' }}>بطاقة ائتمان</option>
-                                                                    <option value="bank_transfer" {{ $payment->method == 'bank_transfer' ? 'selected' : '' }}>تحويل بنكي</option>
-                                                                    <option value="wallet" {{ $payment->method == 'wallet' ? 'selected' : '' }}>محفظة</option>
-                                                                    <option value="cod" {{ $payment->method == 'cod' ? 'selected' : '' }}>الدفع عند الاستلام</option>
+                                                                    <option value="cash" {{ $payment->method == 'cash' ? 'selected' : '' }}>{{ __('payment.cash') }}</option>
+                                                                    <option value="credit_card" {{ $payment->method == 'credit_card' ? 'selected' : '' }}>{{ __('payment.credit_card') }}</option>
+                                                                    <option value="bank_transfer" {{ $payment->method == 'bank_transfer' ? 'selected' : '' }}>{{ __('payment.bank_transfer') }}</option>
+                                                                    <option value="wallet" {{ $payment->method == 'wallet' ? 'selected' : '' }}>{{ __('payment.wallet') }}</option>
+                                                                    <option value="cod" {{ $payment->method == 'cod' ? 'selected' : '' }}>{{ __('payment.cod') }}</option>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label class="form-label">الملاحظات</label>
+                                                                <label class="form-label">{{ __('payment.reference_note') }}</label>
                                                                 <input type="text" name="reference_note" class="form-control" value="{{ $payment->reference_note }}">
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label class="form-label">مرجع الدفع</label>
+                                                                <label class="form-label"> {{ __('payment.payment_reference') }}</label>
                                                                 <input type="text" name="payment_reference" class="form-control" value="{{ $payment->payment_reference }}">
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label class="form-label">تاريخ الدفع</label>
+                                                                <label class="form-label">{{ __('payment.paid_on_date') }}</label>
                                                                 <input type="datetime-local" name="paid_on" class="form-control" value="{{ $payment->paid_on ? $payment->paid_on->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i') }}">
                                                             </div>
                                                             <input type="hidden" name="merchant_id" value="{{ $invoice->merchant_id }}">
                                                             <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                                                            <button type="submit" class="btn btn-success">حفظ التعديلات</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('general.cancel') }}</button>
+                                                            <button type="submit" class="btn btn-success"> {{ __('payment.updated_save') }}</button>
                                                         </div>
                                                     </form>
                                                 </div>

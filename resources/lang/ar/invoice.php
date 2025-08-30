@@ -58,8 +58,8 @@ return [
     'no_amount_paid'    => 'لم يتم دفع أي مبلغ من الفاتورة.',
     'invoice_paid_full' => 'تم دفع الفاتورة كاملة.',
     'remaining_amount' => 'المبلغ المتبقي',
-    'paid_partial_message_part_one' => 'Paid',
-    'paid_partial_message_part_two' => 'of the invoice amount.',
+    'paid_partial_message_part_one' => 'تم دفع',
+    'paid_partial_message_part_two' => 'من الفاتورة.',
 
     // قسم المدفوعات
     'payments'        => 'سجل المدفوعات',

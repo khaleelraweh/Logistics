@@ -56,8 +56,9 @@ return [
     'no_amount_paid'    => 'No amount has been paid from the bill.',
     'invoice_paid_full' => 'The Invoice has been paid in full',
     'remaining_amount' => 'Remaining Amount',
-    'paid_partial_message_part_one' => 'تم دفع',
-    'paid_partial_message_part_two' => 'من الفاتورة.',
+
+    'paid_partial_message_part_one' => 'Paid',
+    'paid_partial_message_part_two' => 'of the invoice amount.',
 
 
 
