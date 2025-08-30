@@ -351,7 +351,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="m-0 text-white"><i class="bi bi-pencil-square me-2"></i>{{ ('invoice.invoice_info') }}</h5>
+                        <h5 class="m-0 text-white"><i class="bi bi-pencil-square me-2"></i>{{ __('invoice.invoice_info') }}</h5>
                     </div>
                     <div class="card-body">
                         <!-- نموذج الفاتورة الرئيسي -->

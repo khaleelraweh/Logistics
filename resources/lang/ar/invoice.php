@@ -22,7 +22,8 @@ return [
     'payment_history'   =>  'سجل المدفوعات',
     'edit_invoice'      =>  'تعديل الفاتورة',
     'manage_invoices'   =>  'إدارة الفواتير',
-    'update_invoice'    =>  'تعديل الفاتورة',
+    'update_inovice'    =>  'تعديل الفاتورة',
+
 
     // الحالات
     'invoice_status' => 'حالة الفاتورة',
