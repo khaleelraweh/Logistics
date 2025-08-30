@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }).addTo(map);
 
     var carIcon = L.divIcon({
-        html: '<i class="fas fa-car" style="font-size:24px; color:#007bff;"></i>',
+        html: '<i class="fas fa-truck" style="font-size:24px; color:#007bff;"></i>',
         className: 'custom-car-icon',
         iconSize: [30, 30],
         iconAnchor: [15, 15],
