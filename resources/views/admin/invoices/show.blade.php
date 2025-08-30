@@ -9,7 +9,7 @@
                 <h4 class="mb-sm-0 font-size-18">{{ __('invoice.invoice_details') }} #{{ $invoice->invoice_number }}</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.invoices.index') }}">{{ __('invoice.invoices') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.invoices.index') }}">{{ __('invoice.manage_invoices') }}</a></li>
                         <li class="breadcrumb-item active">{{ __('invoice.invoice_details') }}</li>
                     </ol>
                 </div>
