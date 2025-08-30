@@ -33,30 +33,30 @@
 </div>
 <!-- end page title -->
 
-<!-- الإحصائيات فوق الخريطة -->
+<!-- Totals فوق الخريطة -->
 <div class="row">
     <div class="col-xl-3 col-md-6">
         <div class="card text-center">
             <div class="card-body">
-                <h5>إجمالي السائقين</h5>
+                <h5>{{ __('dashboard.total_drivers') }}</h5>
                 <h2>{{ $stats['drivers_total'] }}</h2>
-                <small>🟢 {{ $stats['drivers_available'] }} متاح | 🔴 {{ $stats['drivers_busy'] }} مشغول</small>
+                <small>🟢 {{ $stats['drivers_available'] }} {{ __('dashboard.drivers_available') }} | 🔴 {{ $stats['drivers_busy'] }} {{ __('dashboard.drivers_busy') }}</small>
             </div>
         </div>
     </div>
     <div class="col-xl-3 col-md-6">
         <div class="card text-center">
             <div class="card-body">
-                <h5>إجمالي الطرود</h5>
+                <h5>{{ __('dashboard.total_packages') }}</h5>
                 <h2>{{ $stats['packages_total'] }}</h2>
-                <small>📦 {{ $stats['packages_pending'] }} قيد الانتظار | ✅ {{ $stats['packages_delivered'] }} تم التوصيل</small>
+                <small>📦 {{ $stats['packages_pending'] }} {{ __('dashboard.packages_pending') }} | ✅ {{ $stats['packages_delivered'] }} {{ __('dashboard.packages_delivered') }}</small>
             </div>
         </div>
     </div>
     <div class="col-xl-3 col-md-6">
         <div class="card text-center">
             <div class="card-body">
-                <h5>عدد التجار</h5>
+                <h5>{{ __('dashboard.merchants_total') }}</h5>
                 <h2>{{ $stats['merchants_total'] }}</h2>
             </div>
         </div>
@@ -64,7 +64,7 @@
     <div class="col-xl-3 col-md-6">
         <div class="card text-center">
             <div class="card-body">
-                <h5>عدد المستودعات</h5>
+                <h5>{{ __('dashboard.warehouses_total') }}</h5>
                 <h2>{{ $stats['warehouses_total'] }}</h2>
             </div>
         </div>
@@ -88,7 +88,7 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-body">
-                <h5>توزيع الطرود</h5>
+                <h5>{{ __('dashboard.packages_distribution') }}</h5>
                 <canvas id="packagesChart"></canvas>
             </div>
         </div>
@@ -96,7 +96,7 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-body">
-                <h5>حالة السائقين</h5>
+                <h5>{{ __('dashboard.drivers_status') }}</h5>
                 <canvas id="driversChart"></canvas>
             </div>
         </div>
@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
     new Chart(document.getElementById("packagesChart"), {
         type: 'doughnut',
         data: {
-            labels: ["قيد الانتظار", "تم التوصيل"],
+            labels: ["{{ __('dashboard.packages_pending') }}", "{{ __('dashboard.packages_delivered') }}"],
             datasets: [{
                 data: [{{ $stats['packages_pending'] }}, {{ $stats['packages_delivered'] }}],
                 backgroundColor: ["#ffc107", "#28a745"]
@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
     new Chart(document.getElementById("driversChart"), {
         type: 'pie',
         data: {
-            labels: ["متاح", "مشغول"],
+            labels: ["{{ __('dashboard.drivers_available') }}", "{{ __('dashboard.drivers_busy') }}"],
             datasets: [{
                 data: [{{ $stats['drivers_available'] }}, {{ $stats['drivers_busy'] }}],
                 backgroundColor: ["#007bff", "#dc3545"]
