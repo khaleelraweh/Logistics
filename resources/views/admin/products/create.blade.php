@@ -81,6 +81,16 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="price">{{ __('product.price_per_item') }}</label>
+                            <div class="col-sm-10">
+                                <input name="price" class="form-control" id="price" type="number" value="{{ old('price') }}">
+                                @error('price')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
 
                         <hr>
                         <h4 class="card-title">{{ __('product.images') }}</h4>

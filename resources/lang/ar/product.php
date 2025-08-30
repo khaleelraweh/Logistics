@@ -77,6 +77,7 @@ return [
     'add_new' => 'إضافة منتج جديد',
     'notify' => 'تنبيه',
     'products' => 'المنتجات',
+    'price_per_item'    =>  'سعر الوحدة',
 
     'product_type'      =>  'نوع المنتج',
     'product_name'      =>  'اسم المنتج',

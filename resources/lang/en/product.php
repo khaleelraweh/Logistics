@@ -79,6 +79,7 @@ return [
     'add_new' => 'Add New Product',
     'notify' => 'Notification',
     'products' => 'Products',
+    'price_per_item'    =>  'Price per Item',
 
     'product_type'      =>  'Product Type',
     'product_name'      =>  'Product Name',
