@@ -596,7 +596,7 @@
                                                                 <input type="text" name="payment_reference" class="form-control" value="{{ $payment->payment_reference }}">
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label class="form-label">{{ __('payemnt.paid_on_date') }}</label>
+                                                                <label class="form-label">{{ __('payment.paid_on_date') }}</label>
                                                                 <input type="datetime-local" name="paid_on" class="form-control" value="{{ $payment->paid_on ? $payment->paid_on->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i') }}">
                                                             </div>
                                                             <input type="hidden" name="merchant_id" value="{{ $invoice->merchant_id }}">
@@ -614,7 +614,7 @@
                                 @else
                                     <div class="text-center py-3 text-muted">
                                         <i class="bi bi-receipt-cutoff display-4"></i>
-                                        <p>لا توجد مدفوعات مسجلة لهذه الفاتورة</p>
+                                        <p>{{ __('payment.no_payments_for_invoice') }}</p>
                                     </div>
                                 @endif
                             </div>
@@ -631,43 +631,43 @@
                     <form action="{{ route('admin.payments.store') }}" method="POST">
                         @csrf
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addPaymentModalLabel">إضافة دفعة جديدة</h5>
+                            <h5 class="modal-title" id="addPaymentModalLabel">{{ __('payment.add_new_payment') }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label class="form-label">المبلغ</label>
+                                <label class="form-label">{{ __('payment.amount') }}</label>
                                 <input type="number" name="amount" class="form-control" step="0.01" min="0.01" max="{{ $invoice->total_amount - $invoice->paid_amount }}" required>
-                                <small class="text-muted">أقصى مبلغ يمكن دفعه: {{ number_format($invoice->total_amount - $invoice->paid_amount, 2) }}</small>
+                                <small class="text-muted">   {{ __('payment.maximum_amount_paid') }}: {{ number_format($invoice->total_amount - $invoice->paid_amount, 2) }}</small>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">طريقة الدفع</label>
+                                <label class="form-label"> {{ __('payment.method') }}</label>
                                 <select name="method" class="form-select" required>
-                                    <option value="cash">نقداً</option>
-                                    <option value="credit_card">بطاقة ائتمان</option>
-                                    <option value="bank_transfer">تحويل بنكي</option>
-                                    <option value="wallet">محفظة</option>
-                                    <option value="cod">الدفع عند الاستلام</option>
+                                    <option value="cash">{{ __('payment.cash') }}</option>
+                                    <option value="credit_card">{{ __('payment.credit_card') }}</option>
+                                    <option value="bank_transfer">{{ __('payment.bank_transfer') }}</option>
+                                    <option value="wallet">{{ __('payment.wallet') }}</option>
+                                    <option value="cod">{{ __('payment.cod') }}</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">الملاحظات</label>
+                                <label class="form-label">{{ __('payment.reference_note') }}</label>
                                 <input type="text" name="reference_note" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">مرجع الدفع</label>
+                                <label class="form-label">{{ __('payment.payment_reference') }}</label>
                                 <input type="text" name="payment_reference" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">تاريخ الدفع</label>
+                                <label class="form-label">{{ __('payment.paid_on_date') }}</label>
                                 <input type="datetime-local" name="paid_on" class="form-control" value="{{ now()->format('Y-m-d\TH:i') }}">
                             </div>
                             <input type="hidden" name="merchant_id" value="{{ $invoice->merchant_id }}">
                             <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                            <button type="submit" class="btn btn-success">إضافة الدفعة</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('general.cancel') }}</button>
+                            <button type="submit" class="btn btn-success">{{__('payment.add_payment') }}</button>
                         </div>
                     </form>
                 </div>

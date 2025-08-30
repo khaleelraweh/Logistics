@@ -8,6 +8,8 @@ return [
     'status' => 'حالة الدفع',
     'add_new_payment'   =>  'إضافة دفعة جديدة',
     'manage_payments'   =>  'إدارة المدفوعات',
+    'no_payments_for_invoice'   =>  'لا توجد مدفوعات مسجلة لهذه الفاتورة',
+    'maximum_amount_paid'   =>  'اقصي مبلغ يمكن دفعه',
 
     'cash' => 'نقدا',
     'credit_card' => 'بطاقة ائتمانية',

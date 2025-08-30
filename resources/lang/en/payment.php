@@ -8,6 +8,9 @@ return [
     'status' => 'Payment Status',
     'add_new_payment'   =>  'Add New Payment',
     'manage_payments'   =>  'Manage Payments',
+    'no_payments_for_invoice'   =>  'There are no payments recorded for this invoice.',
+    'maximum_amount_paid'   =>  'Maximum amount that can be paid',
+
 
 
     'cash' => 'Cash',
