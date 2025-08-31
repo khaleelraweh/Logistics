@@ -151,7 +151,7 @@ class DriverController extends Controller
         if($driver){
             if ($image = $request->file('driver_image')) {
                 $manager = new ImageManager(new Driver());
-                $file_name = $driver->id.'_' . time() . '.' . $image->extension();
+                $file_name = $driver->id.'_driver_image_' . time() . '.' . $image->extension();
                 $img = $manager->read($request->file('driver_image'));
                 $img->toJpeg(80)->save(base_path('public/assets/drivers/' . $file_name));
 
@@ -162,7 +162,7 @@ class DriverController extends Controller
             }
             if ($image = $request->file('vehicle_image')) {
                 $manager = new ImageManager(new Driver());
-                $file_name = $driver->id.'_' . time() . '.' . $image->extension();
+                $file_name = $driver->id.'_vehicle_image_' . time() . '.' . $image->extension();
                 $img = $manager->read($request->file('vehicle_image'));
                 $img->toJpeg(80)->save(base_path('public/assets/drivers/' . $file_name));
 
@@ -173,7 +173,7 @@ class DriverController extends Controller
             }
             if ($image = $request->file('license_image')) {
                 $manager = new ImageManager(new Driver());
-                $file_name = $driver->id.'_' . time() . '.' . $image->extension();
+                $file_name = $driver->id.'_license_image_' . time() . '.' . $image->extension();
                 $img = $manager->read($request->file('license_image'));
                 $img->toJpeg(80)->save(base_path('public/assets/drivers/' . $file_name));
 
@@ -184,7 +184,7 @@ class DriverController extends Controller
             }
             if ($image = $request->file('id_card_image')) {
                 $manager = new ImageManager(new Driver());
-                $file_name = $driver->id.'_' . time() . '.' . $image->extension();
+                $file_name = $driver->id.'_id_card_image_' . time() . '.' . $image->extension();
                 $img = $manager->read($request->file('id_card_image'));
                 $img->toJpeg(80)->save(base_path('public/assets/drivers/' . $file_name));
 
@@ -309,7 +309,7 @@ class DriverController extends Controller
                 }
 
                 $manager = new ImageManager(new Driver());
-                $file_name = $driver->id.'_'. time() . '.' . $image->extension();
+                $file_name = $driver->id.'_driver_image_'. time() . '.' . $image->extension();
                 $img = $manager->read($request->file('driver_image'));
                 $img->toJpeg(80)->save(base_path('public/assets/drivers/' . $file_name));
 
@@ -328,7 +328,7 @@ class DriverController extends Controller
                 }
 
                 $manager = new ImageManager(new Driver());
-                $file_name = $driver->id.'_' . time() . '.' . $image->extension();
+                $file_name = $driver->id.'_vehicle_image_' . time() . '.' . $image->extension();
                 $img = $manager->read($request->file('vehicle_image'));
                 $img->toJpeg(80)->save(base_path('public/assets/drivers/' . $file_name));
 
@@ -347,7 +347,7 @@ class DriverController extends Controller
                 }
 
                 $manager = new ImageManager(new Driver());
-                $file_name = $driver->id.'_' . time() . '.' . $image->extension();
+                $file_name = $driver->id.'_license_image_' . time() . '.' . $image->extension();
                 $img = $manager->read($request->file('license_image'));
                 $img->toJpeg(80)->save(base_path('public/assets/drivers/' . $file_name));
 
@@ -366,7 +366,7 @@ class DriverController extends Controller
                 }
 
                 $manager = new ImageManager(new Driver());
-                $file_name = $driver->id.'_' . time() . '.' . $image->extension();
+                $file_name = $driver->id.'_id_card_image_' . time() . '.' . $image->extension();
                 $img = $manager->read($request->file('id_card_image'));
                 $img->toJpeg(80)->save(base_path('public/assets/drivers/' . $file_name));
 
