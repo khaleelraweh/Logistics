@@ -66,8 +66,8 @@
                                 <td data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $product->name }}">
                                     {{ Str::words($product->name ?? '', 2, '') }}
                                 </td>
-                                <td data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $product->description }}">
-                                    {!! Str::limit($product->description ?? '', 25) !!}
+                                <td data-bs-toggle="tooltip" data-bs-placement="top" title="{{ strip_tags($product->description) }}">
+                                    {{ Str::limit(strip_tags($product->description ?? ''), 25) }}
                                 </td>
                                 <td>{{ $product->sku }}</td>
                                 <td data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $product->merchant->name ?? '' }}">
