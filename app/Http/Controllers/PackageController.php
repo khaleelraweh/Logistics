@@ -778,269 +778,85 @@ class PackageController extends Controller
     //     ]);
     // }
 
-    // public function update(Request $request, $packageId)
-    // {
-    //     if (!auth()->user()->ability('admin', 'update_packages')) {
-    //         return redirect('admin/index');
-    //     }
-
-    //     DB::transaction(function () use ($request, $packageId) {
-
-    //         $package = Package::lockForUpdate()->findOrFail($packageId);
-
-    //         // =========================
-    //         // 1) تحديث بيانات الطرد
-    //         // =========================
-    //         $input = [
-    //             'sender_first_name'   => $request->sender_first_name,
-    //             'sender_middle_name'  => $request->sender_middle_name,
-    //             'sender_last_name'    => $request->sender_last_name,
-    //             'sender_email'        => $request->sender_email,
-    //             'sender_phone'        => $request->sender_phone,
-    //             'sender_country'      => $request->sender_country,
-    //             'sender_region'       => $request->sender_region,
-    //             'sender_city'         => $request->sender_city,
-    //             'sender_district'     => $request->sender_district,
-    //             'sender_postal_code'  => $request->sender_postal_code,
-    //             'sender_latitude'     => $request->sender_latitude,
-    //             'sender_longitude'    => $request->sender_longitude,
-    //             'sender_others'       => $request->sender_others,
-
-    //             'receiver_first_name'  => $request->receiver_first_name,
-    //             'receiver_middle_name' => $request->receiver_middle_name,
-    //             'receiver_last_name'   => $request->receiver_last_name,
-    //             'receiver_email'       => $request->receiver_email,
-    //             'receiver_phone'       => $request->receiver_phone,
-    //             'receiver_country'     => $request->receiver_country,
-    //             'receiver_region'      => $request->receiver_region,
-    //             'receiver_city'        => $request->receiver_city,
-    //             'receiver_district'    => $request->receiver_district,
-    //             'receiver_postal_code' => $request->receiver_postal_code,
-    //             'receiver_latitude'    => $request->receiver_latitude,
-    //             'receiver_longitude'   => $request->receiver_longitude,
-    //             'receiver_others'      => $request->receiver_others,
-
-    //             'package_type'   => $request->package_type,
-    //             'package_size'   => $request->package_size,
-    //             'weight'         => $request->weight,
-    //             'dimensions'     => [
-    //                 'length' => data_get($request->dimensions, 'length'),
-    //                 'width'  => data_get($request->dimensions, 'width'),
-    //                 'height' => data_get($request->dimensions, 'height'),
-    //             ],
-    //             'package_content' => $request->package_content,
-    //             'package_note'    => $request->package_note,
-
-    //             'delivery_speed'       => $request->delivery_speed,
-    //             'delivery_date'        => $request->delivery_date,
-    //             'status'               => $request->status,
-    //             'delivery_method'      => $request->delivery_method,
-    //             'origin_type'          => $request->origin_type,
-    //             'delivery_status_note' => $request->delivery_status_note,
-
-    //             'payment_responsibility' => $request->payment_responsibility,
-    //             'payment_method'         => $request->payment_method,
-    //             'collection_method'      => $request->collection_method,
-    //             'merchant_id'            => $request->merchant_id,
-    //         ];
-
-    //         // حساب الرسوم
-    //         $deliveryFee  = (float)($request->delivery_fee   ?? 0);
-    //         $insuranceFee = (float)($request->insurance_fee  ?? 0);
-    //         $serviceFee   = (float)($request->service_fee    ?? 0);
-    //         $totalFee     = $deliveryFee + $insuranceFee + $serviceFee;
-
-    //         $input['delivery_fee'] = $deliveryFee;
-    //         $input['insurance_fee'] = $insuranceFee;
-    //         $input['service_fee']   = $serviceFee;
-    //         $input['cod_amount']    = (float)($request->cod_amount ?? 0);
-    //         $input['total_fee']     = $totalFee;
-
-    //         // الخصائص
-    //         $input['attributes'] = [
-    //             'is_fragile'                   => $request->boolean('attributes.is_fragile'),
-    //             'is_returnable'                => $request->boolean('attributes.is_returnable'),
-    //             'is_confidential'              => $request->boolean('attributes.is_confidential'),
-    //             'is_express'                   => $request->boolean('attributes.is_express'),
-    //             'is_cod'                       => $request->boolean('attributes.is_cod'),
-    //             'is_gift'                      => $request->boolean('attributes.is_gift'),
-    //             'is_oversized'                 => $request->boolean('attributes.is_oversized'),
-    //             'is_hazardous_material'        => $request->boolean('attributes.is_hazardous_material'),
-    //             'is_temperature_controlled'    => $request->boolean('attributes.is_temperature_controlled'),
-    //             'is_perishable'                => $request->boolean('attributes.is_perishable'),
-    //             'is_signature_required'        => $request->boolean('attributes.is_signature_required'),
-    //             'is_inspection_required'       => $request->boolean('attributes.is_inspection_required'),
-    //             'is_special_handling_required' => $request->boolean('attributes.is_special_handling_required'),
-    //         ];
-
-    //         $package->update($input);
-
-    //         // =========================
-    //         // 2) إعادة المخزون للقديمة ثم حذف البنود
-    //         // =========================
-    //         foreach ($package->packageProducts as $item) {
-    //             if ($item->type === 'stock' && !empty($item->stock_item_id)) {
-    //                 $stockItem = StockItem::lockForUpdate()->find($item->stock_item_id);
-    //                 if ($stockItem) {
-    //                     $stockItem->quantity += (int)$item->quantity;
-    //                     $stockItem->save();
-    //                 }
-    //             }
-    //             $item->delete();
-    //         }
-
-    //         // =========================
-    //         // 3) إضافة البنود الجديدة + خصم المخزون
-    //         // =========================
-    //         $totalQuantity = 0;
-    //         if (is_array($request->products)) {
-    //             foreach ($request->products as $productData) {
-    //                 $qty = (int)($productData['quantity'] ?? 0);
-    //                 $totalQuantity += $qty;
-
-    //                 PackageProduct::create([
-    //                     'package_id'    => $package->id,
-    //                     'type'          => $productData['type'],
-    //                     'stock_item_id' => $productData['type'] === 'stock' ? ($productData['stock_item_id'] ?? null) : null,
-    //                     'custom_name'   => $productData['custom_name'] ?? null,
-    //                     'weight'        => $productData['weight'] ?? null,
-    //                     'quantity'      => $qty,
-    //                     'price_per_unit'=> (float)($productData['price_per_unit'] ?? 0),
-    //                     'total_price'   => (float)($productData['total_price'] ?? 0),
-    //                 ]);
-
-    //                 if ($productData['type'] === 'stock' && !empty($productData['stock_item_id'])) {
-    //                     $stockItem = StockItem::lockForUpdate()->find($productData['stock_item_id']);
-    //                     if ($stockItem) {
-    //                         $stockItem->quantity = max(0, $stockItem->quantity - $qty);
-    //                         $stockItem->save();
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         $package->quantity = $totalQuantity;
-    //         $package->save();
-
-    //         // =========================
-    //         // 4) تحديث/إنشاء الفاتورة
-    //         // =========================
-    //         $invoice = Invoice::firstOrNew([
-    //             'payable_type' => Package::class,
-    //             'payable_id'   => $package->id,
-    //         ]);
-
-    //         if (!$invoice->exists) {
-    //             $invoice->invoice_number = 'INV-' . now()->format('Ymd') . '-' . strtoupper(Str::random(6));
-    //             $invoice->issued_at      = now();
-    //         }
-
-    //         $invoice->merchant_id  = $package->merchant_id;
-    //         $invoice->total_amount = $totalFee;
-    //         $invoice->currency     = $invoice->currency ?: ($request->currency ?? 'USD');
-    //         $invoice->due_date     = $request->due_date ? Carbon::parse($request->due_date) : ($invoice->due_date ?? now()->addDays(15));
-    //         $invoice->notes        = 'فاتورة رسوم الطرد #' . $package->id;
-    //         $invoice->save();
-
-    //         // =========================
-    //         // 5) تسجيل دفعة إضافية إذا زاد paid_amount
-    //         // =========================
-    //         $alreadyPaid = (float) $invoice->payments()->sum('amount');
-    //         $newPaidDesired = (float) ($request->paid_amount ?? $alreadyPaid);
-
-    //         if ($newPaidDesired > $alreadyPaid) {
-    //             $delta = $newPaidDesired - $alreadyPaid;
-    //             $method = $this->mapPaymentMethod($request->collection_method ?? $request->payment_method);
-
-    //             $invoice->payments()->create([
-    //                 'merchant_id'       => $package->merchant_id,
-    //                 'method'            => $method,
-    //                 'status'            => 'paid',
-    //                 'paid_on'           => now(),
-    //                 'amount'            => min($delta, max(0, $invoice->total_amount - $alreadyPaid)),
-    //                 'currency'          => $invoice->currency,
-    //                 'for'               => 'combined',
-    //                 'reference_note'    => $request->reference_note,
-    //                 'payment_reference' => $request->payment_reference,
-    //                 'driver_id'         => $request->driver_id,
-    //                 'invoice_id'        => $invoice->id,
-    //             ]);
-
-    //             $invoice->updateStatus();
-    //             $package->addLog('تم تسجيل دفعة إضافية بقيمة: ' . number_format($delta, 2) . ' ' . $invoice->currency);
-    //         }
-
-    //         // =========================
-    //         // 6) تحديث الطرد مالياً
-    //         // =========================
-    //         $package->paid_amount = $invoice->paid_amount;
-    //         $package->due_amount  = max(0, $invoice->total_amount - $invoice->paid_amount);
-    //         $package->save();
-    //     });
-
-    //     return redirect()->route('admin.packages.index')->with([
-    //         'message' => __('messages.package_updated'),
-    //         'alert-type' => 'success'
-    //     ]);
-    // }
-
-
     public function update(Request $request, $packageId)
     {
         if (!auth()->user()->ability('admin', 'update_packages')) {
             return redirect('admin/index');
         }
 
-        DB::beginTransaction();
-        try {
+        DB::transaction(function () use ($request, $packageId) {
+
             $package = Package::lockForUpdate()->findOrFail($packageId);
 
             // =========================
-            // 1) حساب الرسوم
+            // 1) تحديث بيانات الطرد
             // =========================
+            $input = [
+                'sender_first_name'   => $request->sender_first_name,
+                'sender_middle_name'  => $request->sender_middle_name,
+                'sender_last_name'    => $request->sender_last_name,
+                'sender_email'        => $request->sender_email,
+                'sender_phone'        => $request->sender_phone,
+                'sender_country'      => $request->sender_country,
+                'sender_region'       => $request->sender_region,
+                'sender_city'         => $request->sender_city,
+                'sender_district'     => $request->sender_district,
+                'sender_postal_code'  => $request->sender_postal_code,
+                'sender_latitude'     => $request->sender_latitude,
+                'sender_longitude'    => $request->sender_longitude,
+                'sender_others'       => $request->sender_others,
+
+                'receiver_first_name'  => $request->receiver_first_name,
+                'receiver_middle_name' => $request->receiver_middle_name,
+                'receiver_last_name'   => $request->receiver_last_name,
+                'receiver_email'       => $request->receiver_email,
+                'receiver_phone'       => $request->receiver_phone,
+                'receiver_country'     => $request->receiver_country,
+                'receiver_region'      => $request->receiver_region,
+                'receiver_city'        => $request->receiver_city,
+                'receiver_district'    => $request->receiver_district,
+                'receiver_postal_code' => $request->receiver_postal_code,
+                'receiver_latitude'    => $request->receiver_latitude,
+                'receiver_longitude'   => $request->receiver_longitude,
+                'receiver_others'      => $request->receiver_others,
+
+                'package_type'   => $request->package_type,
+                'package_size'   => $request->package_size,
+                'weight'         => $request->weight,
+                'dimensions'     => [
+                    'length' => data_get($request->dimensions, 'length'),
+                    'width'  => data_get($request->dimensions, 'width'),
+                    'height' => data_get($request->dimensions, 'height'),
+                ],
+                'package_content' => $request->package_content,
+                'package_note'    => $request->package_note,
+
+                'delivery_speed'       => $request->delivery_speed,
+                'delivery_date'        => $request->delivery_date,
+                'status'               => $request->status,
+                'delivery_method'      => $request->delivery_method,
+                'origin_type'          => $request->origin_type,
+                'delivery_status_note' => $request->delivery_status_note,
+
+                'payment_responsibility' => $request->payment_responsibility,
+                'payment_method'         => $request->payment_method,
+                'collection_method'      => $request->collection_method,
+                'merchant_id'            => $request->merchant_id,
+            ];
+
+            // حساب الرسوم
             $deliveryFee  = (float)($request->delivery_fee   ?? 0);
             $insuranceFee = (float)($request->insurance_fee  ?? 0);
             $serviceFee   = (float)($request->service_fee    ?? 0);
             $totalFee     = $deliveryFee + $insuranceFee + $serviceFee;
 
-            // المبلغ الذي يريد المستخدم إدخاله كمدفوع
-            $newPaidDesired = (float) ($request->paid_amount ?? 0);
-
-            // تحقق أساسي: لا يمكن أن يتجاوز المبلغ المدفوع المبلغ المستحق
-            if ($newPaidDesired > $totalFee) {
-                DB::rollBack();
-                return redirect()->back()->withInput()->withErrors([
-                    'paid_amount' => 'المبلغ المدفوع لا يمكن أن يتجاوز المبلغ المستحق (' . number_format($totalFee, 2) . '). يرجى تعديل المبلغ أولاً.'
-                ]);
-            }
-
-            // =========================
-            // 2) تحديث بيانات الطرد
-            // =========================
-            $input = $request->only([
-                'sender_first_name','sender_middle_name','sender_last_name','sender_email','sender_phone',
-                'sender_country','sender_region','sender_city','sender_district','sender_postal_code',
-                'sender_latitude','sender_longitude','sender_others',
-
-                'receiver_first_name','receiver_middle_name','receiver_last_name','receiver_email','receiver_phone',
-                'receiver_country','receiver_region','receiver_city','receiver_district','receiver_postal_code',
-                'receiver_latitude','receiver_longitude','receiver_others',
-
-                'package_type','package_size','weight','package_content','package_note',
-                'delivery_speed','delivery_date','status','delivery_method','origin_type','delivery_status_note',
-                'payment_responsibility','payment_method','collection_method','merchant_id'
-            ]);
-
-            $input['dimensions'] = [
-                'length' => data_get($request->dimensions, 'length'),
-                'width'  => data_get($request->dimensions, 'width'),
-                'height' => data_get($request->dimensions, 'height'),
-            ];
-            $input['delivery_fee']  = $deliveryFee;
+            $input['delivery_fee'] = $deliveryFee;
             $input['insurance_fee'] = $insuranceFee;
             $input['service_fee']   = $serviceFee;
             $input['cod_amount']    = (float)($request->cod_amount ?? 0);
             $input['total_fee']     = $totalFee;
 
+            // الخصائص
             $input['attributes'] = [
                 'is_fragile'                   => $request->boolean('attributes.is_fragile'),
                 'is_returnable'                => $request->boolean('attributes.is_returnable'),
@@ -1060,7 +876,7 @@ class PackageController extends Controller
             $package->update($input);
 
             // =========================
-            // 3) إعادة المخزون للقديمة ثم حذف البنود
+            // 2) إعادة المخزون للقديمة ثم حذف البنود
             // =========================
             foreach ($package->packageProducts as $item) {
                 if ($item->type === 'stock' && !empty($item->stock_item_id)) {
@@ -1074,7 +890,7 @@ class PackageController extends Controller
             }
 
             // =========================
-            // 4) إضافة البنود الجديدة + خصم المخزون
+            // 3) إضافة البنود الجديدة + خصم المخزون
             // =========================
             $totalQuantity = 0;
             if (is_array($request->products)) {
@@ -1106,7 +922,7 @@ class PackageController extends Controller
             $package->save();
 
             // =========================
-            // 5) تحديث/إنشاء الفاتورة
+            // 4) تحديث/إنشاء الفاتورة
             // =========================
             $invoice = Invoice::firstOrNew([
                 'payable_type' => Package::class,
@@ -1126,28 +942,212 @@ class PackageController extends Controller
             $invoice->save();
 
             // =========================
-            // 6) تحديث الطرد مالياً
+            // 5) تسجيل دفعة إضافية إذا زاد paid_amount
             // =========================
             $alreadyPaid = (float) $invoice->payments()->sum('amount');
+            $newPaidDesired = (float) ($request->paid_amount ?? $alreadyPaid);
 
-            $package->paid_amount = min($alreadyPaid, $totalFee);
-            $package->due_amount  = max(0, $totalFee - $alreadyPaid);
+            if ($newPaidDesired > $alreadyPaid) {
+                $delta = $newPaidDesired - $alreadyPaid;
+                $method = $this->mapPaymentMethod($request->collection_method ?? $request->payment_method);
+
+                $invoice->payments()->create([
+                    'merchant_id'       => $package->merchant_id,
+                    'method'            => $method,
+                    'status'            => 'paid',
+                    'paid_on'           => now(),
+                    'amount'            => min($delta, max(0, $invoice->total_amount - $alreadyPaid)),
+                    'currency'          => $invoice->currency,
+                    'for'               => 'combined',
+                    'reference_note'    => $request->reference_note,
+                    'payment_reference' => $request->payment_reference,
+                    'driver_id'         => $request->driver_id,
+                    'invoice_id'        => $invoice->id,
+                ]);
+
+                $invoice->updateStatus();
+                $package->addLog('تم تسجيل دفعة إضافية بقيمة: ' . number_format($delta, 2) . ' ' . $invoice->currency);
+            }
+
+            // =========================
+            // 6) تحديث الطرد مالياً
+            // =========================
+            $package->paid_amount = $invoice->paid_amount;
+            $package->due_amount  = max(0, $invoice->total_amount - $invoice->paid_amount);
             $package->save();
+        });
 
-            DB::commit();
-
-            return redirect()->route('admin.packages.index')->with([
-                'message' => __('messages.package_updated'),
-                'alert-type' => 'success'
-            ]);
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->withInput()->withErrors([
-                'error' => 'حدث خطأ أثناء تحديث الطرد: ' . $e->getMessage()
-            ]);
-        }
+        return redirect()->route('admin.packages.index')->with([
+            'message' => __('messages.package_updated'),
+            'alert-type' => 'success'
+        ]);
     }
+
+
+    // public function update(Request $request, $packageId)
+    // {
+    //     if (!auth()->user()->ability('admin', 'update_packages')) {
+    //         return redirect('admin/index');
+    //     }
+
+    //     DB::beginTransaction();
+    //     try {
+    //         $package = Package::lockForUpdate()->findOrFail($packageId);
+
+    //         // =========================
+    //         // 1) حساب الرسوم
+    //         // =========================
+    //         $deliveryFee  = (float)($request->delivery_fee   ?? 0);
+    //         $insuranceFee = (float)($request->insurance_fee  ?? 0);
+    //         $serviceFee   = (float)($request->service_fee    ?? 0);
+    //         $totalFee     = $deliveryFee + $insuranceFee + $serviceFee;
+
+    //         // المبلغ الذي يريد المستخدم إدخاله كمدفوع
+    //         $newPaidDesired = (float) ($request->paid_amount ?? 0);
+
+    //         // تحقق أساسي: لا يمكن أن يتجاوز المبلغ المدفوع المبلغ المستحق
+    //         if ($newPaidDesired > $totalFee) {
+    //             DB::rollBack();
+    //             return redirect()->back()->withInput()->withErrors([
+    //                 'paid_amount' => 'المبلغ المدفوع لا يمكن أن يتجاوز المبلغ المستحق (' . number_format($totalFee, 2) . '). يرجى تعديل المبلغ أولاً.'
+    //             ]);
+    //         }
+
+    //         // =========================
+    //         // 2) تحديث بيانات الطرد
+    //         // =========================
+    //         $input = $request->only([
+    //             'sender_first_name','sender_middle_name','sender_last_name','sender_email','sender_phone',
+    //             'sender_country','sender_region','sender_city','sender_district','sender_postal_code',
+    //             'sender_latitude','sender_longitude','sender_others',
+
+    //             'receiver_first_name','receiver_middle_name','receiver_last_name','receiver_email','receiver_phone',
+    //             'receiver_country','receiver_region','receiver_city','receiver_district','receiver_postal_code',
+    //             'receiver_latitude','receiver_longitude','receiver_others',
+
+    //             'package_type','package_size','weight','package_content','package_note',
+    //             'delivery_speed','delivery_date','status','delivery_method','origin_type','delivery_status_note',
+    //             'payment_responsibility','payment_method','collection_method','merchant_id'
+    //         ]);
+
+    //         $input['dimensions'] = [
+    //             'length' => data_get($request->dimensions, 'length'),
+    //             'width'  => data_get($request->dimensions, 'width'),
+    //             'height' => data_get($request->dimensions, 'height'),
+    //         ];
+    //         $input['delivery_fee']  = $deliveryFee;
+    //         $input['insurance_fee'] = $insuranceFee;
+    //         $input['service_fee']   = $serviceFee;
+    //         $input['cod_amount']    = (float)($request->cod_amount ?? 0);
+    //         $input['total_fee']     = $totalFee;
+
+    //         $input['attributes'] = [
+    //             'is_fragile'                   => $request->boolean('attributes.is_fragile'),
+    //             'is_returnable'                => $request->boolean('attributes.is_returnable'),
+    //             'is_confidential'              => $request->boolean('attributes.is_confidential'),
+    //             'is_express'                   => $request->boolean('attributes.is_express'),
+    //             'is_cod'                       => $request->boolean('attributes.is_cod'),
+    //             'is_gift'                      => $request->boolean('attributes.is_gift'),
+    //             'is_oversized'                 => $request->boolean('attributes.is_oversized'),
+    //             'is_hazardous_material'        => $request->boolean('attributes.is_hazardous_material'),
+    //             'is_temperature_controlled'    => $request->boolean('attributes.is_temperature_controlled'),
+    //             'is_perishable'                => $request->boolean('attributes.is_perishable'),
+    //             'is_signature_required'        => $request->boolean('attributes.is_signature_required'),
+    //             'is_inspection_required'       => $request->boolean('attributes.is_inspection_required'),
+    //             'is_special_handling_required' => $request->boolean('attributes.is_special_handling_required'),
+    //         ];
+
+    //         $package->update($input);
+
+    //         // =========================
+    //         // 3) إعادة المخزون للقديمة ثم حذف البنود
+    //         // =========================
+    //         foreach ($package->packageProducts as $item) {
+    //             if ($item->type === 'stock' && !empty($item->stock_item_id)) {
+    //                 $stockItem = StockItem::lockForUpdate()->find($item->stock_item_id);
+    //                 if ($stockItem) {
+    //                     $stockItem->quantity += (int)$item->quantity;
+    //                     $stockItem->save();
+    //                 }
+    //             }
+    //             $item->delete();
+    //         }
+
+    //         // =========================
+    //         // 4) إضافة البنود الجديدة + خصم المخزون
+    //         // =========================
+    //         $totalQuantity = 0;
+    //         if (is_array($request->products)) {
+    //             foreach ($request->products as $productData) {
+    //                 $qty = (int)($productData['quantity'] ?? 0);
+    //                 $totalQuantity += $qty;
+
+    //                 PackageProduct::create([
+    //                     'package_id'    => $package->id,
+    //                     'type'          => $productData['type'],
+    //                     'stock_item_id' => $productData['type'] === 'stock' ? ($productData['stock_item_id'] ?? null) : null,
+    //                     'custom_name'   => $productData['custom_name'] ?? null,
+    //                     'weight'        => $productData['weight'] ?? null,
+    //                     'quantity'      => $qty,
+    //                     'price_per_unit'=> (float)($productData['price_per_unit'] ?? 0),
+    //                     'total_price'   => (float)($productData['total_price'] ?? 0),
+    //                 ]);
+
+    //                 if ($productData['type'] === 'stock' && !empty($productData['stock_item_id'])) {
+    //                     $stockItem = StockItem::lockForUpdate()->find($productData['stock_item_id']);
+    //                     if ($stockItem) {
+    //                         $stockItem->quantity = max(0, $stockItem->quantity - $qty);
+    //                         $stockItem->save();
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         $package->quantity = $totalQuantity;
+    //         $package->save();
+
+    //         // =========================
+    //         // 5) تحديث/إنشاء الفاتورة
+    //         // =========================
+    //         $invoice = Invoice::firstOrNew([
+    //             'payable_type' => Package::class,
+    //             'payable_id'   => $package->id,
+    //         ]);
+
+    //         if (!$invoice->exists) {
+    //             $invoice->invoice_number = 'INV-' . now()->format('Ymd') . '-' . strtoupper(Str::random(6));
+    //             $invoice->issued_at      = now();
+    //         }
+
+    //         $invoice->merchant_id  = $package->merchant_id;
+    //         $invoice->total_amount = $totalFee;
+    //         $invoice->currency     = $invoice->currency ?: ($request->currency ?? 'USD');
+    //         $invoice->due_date     = $request->due_date ? Carbon::parse($request->due_date) : ($invoice->due_date ?? now()->addDays(15));
+    //         $invoice->notes        = 'فاتورة رسوم الطرد #' . $package->id;
+    //         $invoice->save();
+
+    //         // =========================
+    //         // 6) تحديث الطرد مالياً
+    //         // =========================
+    //         $alreadyPaid = (float) $invoice->payments()->sum('amount');
+
+    //         $package->paid_amount = min($alreadyPaid, $totalFee);
+    //         $package->due_amount  = max(0, $totalFee - $alreadyPaid);
+    //         $package->save();
+
+    //         DB::commit();
+
+    //         return redirect()->route('admin.packages.index')->with([
+    //             'message' => __('messages.package_updated'),
+    //             'alert-type' => 'success'
+    //         ]);
+
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         return redirect()->back()->withInput()->withErrors([
+    //             'error' => 'حدث خطأ أثناء تحديث الطرد: ' . $e->getMessage()
+    //         ]);
+    //     }
+    // }
 
 
 
