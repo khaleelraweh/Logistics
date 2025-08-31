@@ -647,6 +647,13 @@ class PackageController extends Controller
                 $item->delete();
             }
 
+               // حذف الفاتورة المرتبطة بالطرد إذا وُجدت
+            if ($package->invoice) {
+                // أولاً حذف أي دفعات مرتبطة
+                $package->invoice->payments()->delete();
+                $package->invoice->delete();
+            }
+
             // حذف الطرد نفسه
             $package->delete();
         });
