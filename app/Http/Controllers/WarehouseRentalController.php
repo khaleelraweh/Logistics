@@ -273,6 +273,18 @@ class WarehouseRentalController extends Controller
                 'due_date'     => Carbon::now()->addDays(15),
                 'notes'        => 'فاتورة إيجار رفوف #' . $rental->id,
             ]);
+        }else{
+                // إنشاء فاتورة جديدة إذا لم تكن موجودة
+            $rental->invoice()->create([
+                'invoice_number' => 'INV-' . now()->format('Ymd') . '-' . strtoupper(Str::random(6)),
+                'merchant_id'    => $rental->merchant_id,
+                'total_amount'   => $totalPrice,
+                'currency'       => 'SAR',
+                'status'         => 'unpaid',
+                'due_date'       => Carbon::now()->addDays(15),
+                'issued_at'      => Carbon::now(),
+                'notes'          => 'فاتورة إيجار رفوف #' . $rental->id,
+            ]);
         }
 
         return redirect()->route('admin.warehouse_rentals.index')
