@@ -588,6 +588,24 @@ class PackageController extends Controller
             return redirect('admin/index');
         }
 
+
+             // =========================
+        // التحقق من المدفوع أكبر من المستحق
+        // =========================
+        $deliveryFee  = (float)($request->delivery_fee   ?? 0);
+        $insuranceFee = (float)($request->insurance_fee  ?? 0);
+        $serviceFee   = (float)($request->service_fee    ?? 0);
+        $totalFee     = $deliveryFee + $insuranceFee + $serviceFee;
+
+        $paidNow = (float)($request->paid_amount ?? 0);
+
+        if ($paidNow > $totalFee) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['paid_amount' => 'المبلغ المدفوع لا يمكن أن يكون أكبر من المبلغ المستحق. عدّل القيمة أولاً.']);
+        }
+
+
         DB::transaction(function () use ($request, $packageId) {
 
             $package = Package::lockForUpdate()->findOrFail($packageId);
