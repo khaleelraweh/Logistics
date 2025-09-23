@@ -193,6 +193,11 @@ Route::group(['prefix' => 'merchant', 'as' => 'merchant.'], function () {
     Route::get('/lock-screen', [MerchantDashboardController::class, 'lock_screen'])->name('lock-screen');
     Route::post('/unlock', [MerchantDashboardController::class, 'unlock'])->name('unlock');
 
+    // ==============   Products Tab   ==============  //
+    Route::post('products/update-products-status', [ProductController::class, 'updateProductstatus'])->name('products.update_merchants_status');
+    Route::post('product/remove-image', [ProductController::class, 'remove_image'])->name('products.remove_image');
+    Route::resource('products', ProductController::class);
+
     });
 
 });
