@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(EntrustSeeder::class);
+        $this->call(MerchantPermissionsSeeder::class);
         $this->call(TagSeeder::class);
         $this->call(PhotoSeeder::class);
 
