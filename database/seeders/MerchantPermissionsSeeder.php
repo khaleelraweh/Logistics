@@ -65,17 +65,7 @@ class MerchantPermissionsSeeder extends Seeder
                 'sidebar_link' => 0,
                 'appear' => 0,
             ],
-            [
-                'name' => 'merchant_manage_orders',
-                'display_name' => ['ar' => 'إدارة الطلبات', 'en' => 'Manage Orders'],
-                'route' => 'merchant.orders.index',
-                'module' => 'orders',
-                'as' => 'merchant.orders.index',
-                'icon' => 'fas fa-shopping-cart',
-                'parent' => 0,
-                'sidebar_link' => 1,
-                'appear' => 1,
-            ],
+
         ];
 
         // إنشاء الصلاحيات وربطها بدور التاجر
