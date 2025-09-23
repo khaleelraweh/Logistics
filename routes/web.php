@@ -184,4 +184,15 @@ Route::group(['prefix' => 'merchant', 'as' => 'merchant.'], function () {
         Route::get('/register', [MerchantDashboardController::class, 'register'])->name('register');
         Route::get('/recover-password', [MerchantDashboardController::class, 'recover_password'])->name('recover-password');
     });
+
+    //uthenticate to website
+    Route::group(['middleware' => ['roles', 'role:merchant']], function () {
+    Route::get('/', [MerchantDashboardController::class, 'index'])->name('index2');
+    Route::get('/index', [MerchantDashboardController::class, 'index'])->name('index');
+
+    Route::get('/lock-screen', [MerchantDashboardController::class, 'lock_screen'])->name('lock-screen');
+    Route::post('/unlock', [MerchantDashboardController::class, 'unlock'])->name('unlock');
+
+    });
+
 });
