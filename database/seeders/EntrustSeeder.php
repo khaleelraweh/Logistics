@@ -57,6 +57,14 @@ class EntrustSeeder extends Seeder
         $customerRole->allowed_route = null;
         $customerRole->save();
 
+        $merchantRole = Role::create([
+            'name' => 'merchant',
+            'display_name' => 'Merchant',
+            'description' => 'User is merchant and has his own dashboard',
+            'allowed_route' => 'merchant',
+        ]);
+
+
 
         //------------- 02- Users  ------------//
         // Create Admin
@@ -113,10 +121,28 @@ class EntrustSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
+        // Create customer
+        $merchantUser = User::create([
+            'first_name' => ['ar'   =>  'ديمو' , 'en'   => 'demo'],
+            'last_name' => ['ar'    => 'تاجر' , 'en'    =>  'merchant'],
+            'username' => 'demo',
+            'email' => 'demo@gmail.com',
+            'email_verified_at' => now(),
+            'mobile' => '00967772036144',
+            'password' => bcrypt('123123123'),
+            'user_image' => 'avator.svg',
+            'status' => 1,
+            'remember_token' => Str::random(10),
+        ]);
+
+
+
         //------------- 03- AttachRoles To  Users  ------------//
         $admin->attachRole($adminRole);
         $supervisor->attachRole($supervisorRole);
         $customer->attachRole($customerRole);
+        $merchantUser->attachRole($merchantRole);
+
 
 
         //------------- 04-  Create random customer and  AttachRole to customerRole  ------------//
