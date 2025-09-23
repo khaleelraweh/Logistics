@@ -23,43 +23,44 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title">Menu</li>
 
+                @if(isset($admin_side_menu))
+                    @foreach ($admin_side_menu as $menu)
 
-                @foreach ($admin_side_menu as $menu)
+                        <!-- عندما لا يكون ابناء في عنصر القائمة -->
+                        @if (count($menu->appearedChildren) == 0)
+                            <li>
+                                <a href="{{ route('admin.'.$menu->as) }}" class="waves-effect">
+                                    <i class="{{ $menu->icon }}"></i>
+                                    {{-- <span class="badge rounded-pill bg-success float-end">3</span> --}}
+                                    <span>
+                                        {{ \Illuminate\Support\Str::limit($menu->display_name, 25) }}
+                                    </span>
+                                </a>
+                            </li>
+                        @else
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="{{ $menu->icon }}"></i>
+                                    <span>
+                                        {{ \Illuminate\Support\Str::limit($menu->display_name, 25) }}
+                                    </span>
+                                </a>
+                                @if ($menu->appearedChildren !== null && count($menu->appearedChildren) > 0)
+                                    <ul class="sub-menu" aria-expanded="false">
+                                        @foreach ($menu->appearedChildren as $sub_menu)
+                                            <li>
+                                                <a href="{{ route('admin.' . $sub_menu->as) }}">
+                                                    {{ \Illuminate\Support\Str::limit($sub_menu->display_name, 25) }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        @endif
 
-                    <!-- عندما لا يكون ابناء في عنصر القائمة -->
-                    @if (count($menu->appearedChildren) == 0)
-                        <li>
-                            <a href="{{ route('admin.'.$menu->as) }}" class="waves-effect">
-                                <i class="{{ $menu->icon }}"></i>
-                                {{-- <span class="badge rounded-pill bg-success float-end">3</span> --}}
-                                <span>
-                                    {{ \Illuminate\Support\Str::limit($menu->display_name, 25) }}
-                                </span>
-                            </a>
-                        </li>
-                    @else
-                         <li>
-                            <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                <i class="{{ $menu->icon }}"></i>
-                                <span>
-                                    {{ \Illuminate\Support\Str::limit($menu->display_name, 25) }}
-                                </span>
-                            </a>
-                            @if ($menu->appearedChildren !== null && count($menu->appearedChildren) > 0)
-                                <ul class="sub-menu" aria-expanded="false">
-                                    @foreach ($menu->appearedChildren as $sub_menu)
-                                        <li>
-                                            <a href="{{ route('admin.' . $sub_menu->as) }}">
-                                                {{ \Illuminate\Support\Str::limit($sub_menu->display_name, 25) }}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @endif
-                        </li>
-                    @endif
-
-                @endforeach
+                    @endforeach
+                @endif
 
             </ul>
         </div>
