@@ -10,18 +10,18 @@ class MerchantController extends Controller
 
     public function login()
     {
-        return view('admin.admin-login');
+        return view('merchant.merchant-login');
     }
 
     public function register()
     {
-        return view('admin.admin-register');
+        return view('merchant.merchant-register');
     }
 
     public function lock_screen()
     {
         session(['locked' => true]);
-        return view('admin.admin-lock-screen');
+        return view('merchant.merchant-lock-screen');
     }
 
 
@@ -35,7 +35,7 @@ class MerchantController extends Controller
         $user = Auth::user();
 
         if (!$user) {
-            return redirect()->route('admin.login');
+            return redirect()->route('merchant.login');
         }
 
         if (!Hash::check($request->password, $user->password)) {
@@ -45,13 +45,13 @@ class MerchantController extends Controller
         session()->forget('locked');
 
         // return redirect()->route('admin.index');
-        return redirect('/admin/index');
+        return redirect('/merchant/index');
     }
 
 
     public function recover_password()
     {
-        return view('admin.admin-recoverpw');
+        return view('merchant.merchant-recoverpw');
     }
 
     public function index()
@@ -74,7 +74,7 @@ class MerchantController extends Controller
             'warehouses_total' => \App\Models\Warehouse::count(),
         ];
 
-        return view('admin.index', compact('drivers', 'stats'));
+        return view('merchant.index', compact('drivers', 'stats'));
     }
 
 
