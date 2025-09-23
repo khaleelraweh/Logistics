@@ -332,6 +332,5 @@ class EntrustSeeder extends Seeder
         // $deletePayments  =  Permission::create(['name' => 'delete_payments', 'display_name'  =>   ['ar'   =>  'حذف دفعة مالية',   'en'          =>  'Delete Payment'], 'route' => 'payments', 'module' => 'payments', 'as' => 'payments.destroy', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
 
 
-
     }
 }
