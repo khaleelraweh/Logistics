@@ -242,7 +242,8 @@
                                         <tr>
                                             <td>
                                                 <i class="fas fa-box me-2 text-primary"></i>
-                                                {{ $item->name }}
+                                                {{ $item->product->name}}
+                                                {{-- {{ $item->name }} --}}
                                             </td>
                                             <td class="text-center">
                                                 <span class="badge bg-primary rounded-pill">{{ $item->quantity }}</span>
