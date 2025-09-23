@@ -177,5 +177,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 //merchant
 //Admin
 Route::group(['prefix' => 'merchant', 'as' => 'merchant.'], function () {
-
+    //guest to website
+    Route::group(['middleware' => 'guest'], function () {
+        Route::get('/login', [MerchantController::class, 'login'])->name('login');
+        Route::get('/register', [MerchantController::class, 'register'])->name('register');
+        Route::get('/recover-password', [MerchantController::class, 'recover_password'])->name('recover-password');
+    });
 });
