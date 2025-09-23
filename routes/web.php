@@ -10,6 +10,7 @@ use App\Http\Controllers\ExternalShipmentController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\Merchant\MerchantController as MerchantDashboardController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PickupRequestController;
@@ -179,8 +180,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 Route::group(['prefix' => 'merchant', 'as' => 'merchant.'], function () {
     //guest to website
     Route::group(['middleware' => 'guest'], function () {
-        Route::get('/login', [MerchantController::class, 'login'])->name('login');
-        Route::get('/register', [MerchantController::class, 'register'])->name('register');
-        Route::get('/recover-password', [MerchantController::class, 'recover_password'])->name('recover-password');
+        Route::get('/login', [MerchantDashboardController::class, 'login'])->name('login');
+        Route::get('/register', [MerchantDashboardController::class, 'register'])->name('register');
+        Route::get('/recover-password', [MerchantDashboardController::class, 'recover_password'])->name('recover-password');
     });
 });
