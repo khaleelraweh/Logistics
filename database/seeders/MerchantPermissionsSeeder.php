@@ -19,14 +19,16 @@ class MerchantPermissionsSeeder extends Seeder
             ]
         );
 
+
+
         // مصفوفة صلاحيات التاجر
         $permissions = [
             [
                 'name' => 'merchant_show_products',
                 'display_name' => ['ar' => 'عرض المنتجات', 'en' => 'Show Products'],
-                'route' => 'merchant.products.index',
+                'route' => 'products',
                 'module' => 'products',
-                'as' => 'merchant.products.index',
+                'as' => 'products.index',
                 'icon' => 'fas fa-box',
                 'parent' => 0,
                 'sidebar_link' => 1,
@@ -35,20 +37,20 @@ class MerchantPermissionsSeeder extends Seeder
             [
                 'name' => 'merchant_create_products',
                 'display_name' => ['ar' => 'إضافة منتج', 'en' => 'Create Product'],
-                'route' => 'merchant.products.create',
+                'route' => 'products',
                 'module' => 'products',
-                'as' => 'merchant.products.create',
+                'as' => 'products.create',
                 'icon' => 'fas fa-plus',
                 'parent' => 0,
-                'sidebar_link' => 1,
-                'appear' => 1,
+                'sidebar_link' => 0,
+                'appear' => 0,
             ],
             [
                 'name' => 'merchant_edit_products',
                 'display_name' => ['ar' => 'تعديل منتج', 'en' => 'Edit Product'],
-                'route' => 'merchant.products.edit',
+                'route' => 'products',
                 'module' => 'products',
-                'as' => 'merchant.products.edit',
+                'as' => 'products.edit',
                 'icon' => 'fas fa-edit',
                 'parent' => 0,
                 'sidebar_link' => 0,
@@ -57,9 +59,9 @@ class MerchantPermissionsSeeder extends Seeder
             [
                 'name' => 'merchant_delete_products',
                 'display_name' => ['ar' => 'حذف منتج', 'en' => 'Delete Product'],
-                'route' => 'merchant.products.destroy',
+                'route' => 'products',
                 'module' => 'products',
-                'as' => 'merchant.products.destroy',
+                'as' => 'products.destroy',
                 'icon' => null,
                 'parent' => 0,
                 'sidebar_link' => 0,

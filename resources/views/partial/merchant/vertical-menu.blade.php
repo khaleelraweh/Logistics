@@ -24,25 +24,41 @@
                 <li class="menu-title">Menu</li>
 
                 @if(isset($merchant_side_menu))
-                    @foreach($merchant_side_menu as $item)
-                        <li>
-                            <a href="{{ $item->route ? route($item->route) : '#' }}">
-                                @if($item->icon)<i class="{{ $item->icon }}"></i>@endif
-                                {{ $item->display_name }}
-                            </a>
+                    @foreach ($merchant_side_menu as $menu)
 
-                            @if($item->children->count())
-                                <ul>
-                                    @foreach($item->children as $child)
-                                        <li>
-                                            <a href="{{ $child->route ? route($child->route) : '#' }}">
-                                                {{ $child->display_name }}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @endif
-                        </li>
+                        <!-- عندما لا يكون ابناء في عنصر القائمة -->
+                        @if (count($menu->appearedChildren) == 0)
+                            <li>
+                                <a href="{{ route('merchant.'.$menu->as) }}" class="waves-effect">
+                                    <i class="{{ $menu->icon }}"></i>
+                                    {{-- <span class="badge rounded-pill bg-success float-end">3</span> --}}
+                                    <span>
+                                        {{ \Illuminate\Support\Str::limit($menu->display_name, 25) }}
+                                    </span>
+                                </a>
+                            </li>
+                        @else
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="{{ $menu->icon }}"></i>
+                                    <span>
+                                        {{ \Illuminate\Support\Str::limit($menu->display_name, 25) }}
+                                    </span>
+                                </a>
+                                @if ($menu->appearedChildren !== null && count($menu->appearedChildren) > 0)
+                                    <ul class="sub-menu" aria-expanded="false">
+                                        @foreach ($menu->appearedChildren as $sub_menu)
+                                            <li>
+                                                <a href="{{ route('merchant.' . $sub_menu->as) }}">
+                                                    {{ \Illuminate\Support\Str::limit($sub_menu->display_name, 25) }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        @endif
+
                     @endforeach
                 @endif
 
