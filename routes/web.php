@@ -173,3 +173,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     });
 });
+
+//merchant
+//Admin
+Route::group(['prefix' => 'merchant', 'as' => 'merchant.'], function () {
+
+});
