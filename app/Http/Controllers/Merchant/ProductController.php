@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Merchant;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Merchant;
 use App\Models\Product;
-use Illuminate\Http\Request;
-
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\File;
-
 
 class ProductController extends Controller
 {
@@ -19,34 +19,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     if (!auth()->user()->ability('admin', 'manage_products , show_products')) {
-    //         return redirect('admin/index');
-    //     }
-
-    //     $products = Product::query()
-    //         ->when(\request()->keyword != null, function ($query) {
-    //             $query->search(\request()->keyword);
-    //         })
-    //         ->when(\request()->status != null, function ($query) {
-    //             $query->where('status', \request()->status);
-    //         })
-    //         ->orderByRaw(request()->sort_by == 'published_on'
-    //             ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-    //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-    //     ->paginate(\request()->limit_by ?? 100);
-
-
-
-
-    //     return view('admin.products.index', compact('products'));
-    // }
 
     public function index()
     {
-        if (!auth()->user()->ability('admin', 'manage_products , show_products')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'manage_products , show_products')) {
+            return redirect('merchant/index');
         }
 
         $products = Product::query()
@@ -59,7 +36,7 @@ class ProductController extends Controller
 
         $merchants = \App\Models\Merchant::all(); // لملئ قائمة التاجر في الفلتر
 
-        return view('admin.products.index', compact('products', 'merchants'));
+        return view('merchant.products.index', compact('products', 'merchants'));
     }
 
 
