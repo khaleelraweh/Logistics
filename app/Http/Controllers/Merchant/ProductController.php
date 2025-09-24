@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Merchant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Http\Requests\Admin\ProductRequest;
+use App\Http\Requests\merchant\ProductRequest;
 use App\Models\Merchant;
 use App\Models\Product;
 use Intervention\Image\ImageManager;
@@ -47,13 +47,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-         if (!auth()->user()->ability('admin', 'create_products')) {
-            return redirect('admin/index');
+         if (!auth()->user()->ability('merchant', 'create_products')) {
+            return redirect('merchant/index');
         }
 
         $merchants = Merchant::whereStatus(1)->get(['id', 'name','email']);
 
-        return view('admin.products.create',compact('merchants'));
+        return view('merchant.products.create',compact('merchants'));
     }
 
     /**
@@ -65,8 +65,8 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
 
-        if (!auth()->user()->ability('admin', 'create_products')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'create_products')) {
+            return redirect('merchant/index');
         }
 
         // dd($request);
@@ -109,14 +109,14 @@ class ProductController extends Controller
         }
 
         if($product){
-            return redirect()->route('admin.products.index')->with([
+            return redirect()->route('merchant.products.index')->with([
                 'message' => __('messages.product_created'),
                 'alert-type' => 'success'
             ]);
 
         }
 
-        return redirect()->route('admin.products.index')->with([
+        return redirect()->route('merchant.products.index')->with([
             'message' => __('messages.something_went_wrong'),
             'alert-type' => 'danger'
         ]);
@@ -133,7 +133,7 @@ class ProductController extends Controller
     public function show($product)
     {
         $product = Product::where('id', $product)->first();
-        return view('admin.products.show',compact('product'));
+        return view('merchant.products.show',compact('product'));
     }
 
     /**
@@ -145,15 +145,15 @@ class ProductController extends Controller
     // public function edit(Product $product)
     public function edit($product)
     {
-        if (!auth()->user()->ability('admin', 'update_products')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'update_products')) {
+            return redirect('merchant/index');
         }
 
         $merchants = Merchant::whereStatus(1)->get(['id', 'name','email']);
 
         $product = Product::where('id', $product)->first();
 
-        return view('admin.products.edit',compact('product','merchants'));
+        return view('merchant.products.edit',compact('product','merchants'));
     }
 
     /**
@@ -165,8 +165,8 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $product)
     {
-        if (!auth()->user()->ability('admin', 'update_products')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'update_products')) {
+            return redirect('merchant/index');
         }
 
         $product = Product::where('id', $product)->first();
@@ -229,14 +229,14 @@ class ProductController extends Controller
 
 
         if($product){
-            return redirect()->route('admin.products.index')->with([
+            return redirect()->route('merchant.products.index')->with([
                 'message' => __('messages.product_updated'),
                 'alert-type' => 'success'
             ]);
 
         }
 
-        return redirect()->route('admin.products.index')->with([
+        return redirect()->route('merchant.products.index')->with([
             'message' => __('messages.something_went_wrong'),
             'alert-type' => 'danger'
         ]);
@@ -252,8 +252,8 @@ class ProductController extends Controller
 
     public function destroy($product)
     {
-        if (!auth()->user()->ability('admin', 'delete_products')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'delete_products')) {
+            return redirect('merchant/index');
         }
 
         $product = Product::where('id', $product)->first();
@@ -269,12 +269,12 @@ class ProductController extends Controller
         $product->delete();
 
         if ($product) {
-            return redirect()->route('admin.products.index')->with([
+            return redirect()->route('merchant.products.index')->with([
                 'message' => __('messages.product_deleted'),
                 'alert-type' => 'success'
             ]);
         }
-        return redirect()->route('admin.products.index')->with([
+        return redirect()->route('merchant.products.index')->with([
             'message' => __('messages.something_was_wrong'),
             'alert-type' => 'danger'
         ]);
@@ -285,8 +285,8 @@ class ProductController extends Controller
     // did not remove image from the folder
     public function remove_image(Request $request)
     {
-        if (!auth()->user()->ability('admin', 'delete_products')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'delete_products')) {
+            return redirect('merchant/index');
         }
         $product = Product::findOrFail($request->product_id);
 
