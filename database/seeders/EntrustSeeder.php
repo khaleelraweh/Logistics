@@ -131,6 +131,17 @@ class EntrustSeeder extends Seeder
             'mobile' => '00967772036144',
             'password' => bcrypt('123123123'),
             'user_image' => 'avator.svg',
+            'layout_preferences'    => json_encode([
+                                        "layout"    => "vertical",
+                                        "topbar"    => "dark",
+                                        "sidebar"   => "dark",
+                                        "sidebar_size"  => "default",
+                                        "layout_size"   => "fluid",
+                                        "preloader" => true,
+                                        "rtl"   => true,
+                                        "mode"  => "light",
+                                        "locale" => session('locale', config('locales.fallback_locale')),
+                                    ]),
             'status' => 1,
             'remember_token' => Str::random(10),
         ]);

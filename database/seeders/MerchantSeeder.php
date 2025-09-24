@@ -52,6 +52,17 @@ class MerchantSeeder extends Seeder
             'email' => $merchant->email,
             'mobile' => $merchant->phone,
             'password' => $merchant->password,
+            'layout_preferences'    => json_encode([
+                                        "layout"    => "vertical",
+                                        "topbar"    => "dark",
+                                        "sidebar"   => "dark",
+                                        "sidebar_size"  => "default",
+                                        "layout_size"   => "fluid",
+                                        "preloader" => true,
+                                        "rtl"   => true,
+                                        "mode"  => "light",
+                                        "locale" => session('locale', config('locales.fallback_locale')),
+                                    ]),
             'status' => 1,
             'created_by' => 'Seeder',
         ]);
