@@ -30,19 +30,7 @@ class MerchantPermissionsSeeder extends Seeder
 
         $editProducts = Permission::create(['name' => 'merchant_edit_products' , 'display_name' => ['ar' => 'تعديل منتج', 'en' => 'Edit Product'] , 'route' => 'products' , 'module' => 'products' , 'as' => 'products.edit' , 'icon' => 'fas fa-edit' , 'parent' => '0' , 'parent_original' => '0' , 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0',]);
 
-        $deleteProducts = Permission::create([
-            'name'            => 'merchant_delete_products',
-            'display_name'    => ['ar' => 'حذف منتج', 'en' => 'Delete Product'],
-            'route'           => 'products',
-            'module'          => 'products',
-            'as'              => 'products.destroy',
-            'icon'            => null,
-            'parent'          => '0',
-            'parent_original' => '0',
-            'parent_show'     => '0',
-            'sidebar_link'    => '0',
-            'appear'          => '0',
-        ]);
+        $deleteProducts = Permission::create(['name' => 'merchant_delete_products' , 'display_name' => ['ar' => 'حذف منتج', 'en' => 'Delete Product'] , 'route' => 'products' , 'module' => 'products' , 'as' => 'products.destroy' , 'icon' => null , 'parent' => '0' , 'parent_original' => '0','parent_show' => '0' , 'sidebar_link' => '0' , 'appear' => '0',]);
 
         // ربط الصلاحيات بدور التاجر
         $permissions = [
