@@ -77,27 +77,50 @@ class MerchantController extends Controller
     //     return view('merchant.index', compact('drivers', 'stats'));
     // }
 
-   public function index()
+//    public function index()
+//     {
+//         $merchant = auth()->user(); // التاجر الحالي
+
+//         // إحصائيات خاصة بالتاجر
+//         $stats = [
+//             'packages_total'      => \App\Models\Package::where('merchant_id', $merchant->id)->count(),
+//             'packages_pending'    => \App\Models\Package::where('merchant_id', $merchant->id)
+//                                         ->where('status', 'pending')
+//                                         ->count(),
+//             'packages_delivered'  => \App\Models\Package::where('merchant_id', $merchant->id)
+//                                         ->where('status', 'delivered')
+//                                         ->count(),
+
+//             // المستودعات عبر عقود التأجير
+//             'warehouses_total'    => \App\Models\WarehouseRental::where('merchant_id', $merchant->id)
+//                                         ->with('warehouse')
+//                                         ->count(),
+//         ];
+
+
+//         return view('merchant.index', compact('stats'));
+//     }
+
+
+public function index()
 {
     $merchant = auth()->user(); // التاجر الحالي
 
-    // إحصائيات خاصة بالتاجر
-    $stats = [
-        'packages_total'      => \App\Models\Package::where('merchant_id', $merchant->id)->count(),
-        'packages_pending'    => \App\Models\Package::where('merchant_id', $merchant->id)
-                                    ->where('status', 'pending')
-                                    ->count(),
-        'packages_delivered'  => \App\Models\Package::where('merchant_id', $merchant->id)
-                                    ->where('status', 'delivered')
-                                    ->count(),
+    // إحصائيات الطرود حسب الحالات كلها
+    $packageStats = [];
+    foreach (\App\Models\Package::STATUSES as $status) {
+        $packageStats[$status] = \App\Models\Package::where('merchant_id', $merchant->id)
+            ->where('status', $status)
+            ->count();
+    }
 
-        // المستودعات عبر عقود التأجير
-        'warehouses_total'    => \App\Models\WarehouseRental::where('merchant_id', $merchant->id)
-                                    ->with('warehouse')
-                                    ->count(),
+    // إحصائيات إضافية
+    $stats = [
+        'packages_total'   => \App\Models\Package::where('merchant_id', $merchant->id)->count(),
+        'warehouses_total' => \App\Models\WarehouseRental::where('merchant_id', $merchant->id)->count(),
     ];
 
-    return view('merchant.index', compact('stats'));
+    return view('merchant.index', compact('stats', 'packageStats'));
 }
 
 

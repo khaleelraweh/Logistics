@@ -33,7 +33,10 @@
             <div class="card-body">
                 <h5>{{ __('dashboard.total_packages') }}</h5>
                 <h2>{{ $stats['packages_total'] }}</h2>
-                <small>📦 {{ $stats['packages_pending'] }} {{ __('dashboard.packages_pending') }} | ✅ {{ $stats['packages_delivered'] }} {{ __('dashboard.packages_delivered') }}</small>
+                <small>
+                    📦 {{ $packageStats['pending'] ?? 0 }} {{ __('dashboard.packages_pending') }} |
+                    ✅ {{ $packageStats['delivered'] ?? 0 }} {{ __('dashboard.packages_delivered') }}
+                </small>
             </div>
         </div>
     </div>
@@ -66,14 +69,18 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Packages Chart
-        new Chart(document.getElementById("packagesChart"), {
+        const ctx = document.getElementById("packagesChart");
+
+        new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ["{{ __('dashboard.packages_pending') }}", "{{ __('dashboard.packages_delivered') }}"],
+                labels: {!! json_encode(array_values(\App\Models\Package::statuses())) !!},
                 datasets: [{
-                    data: [{{ $stats['packages_pending'] }}, {{ $stats['packages_delivered'] }}],
-                    backgroundColor: ["#ffc107", "#28a745"]
+                    data: {!! json_encode(array_values($packageStats)) !!},
+                    backgroundColor: [
+                        "#ffc107", "#28a745", "#17a2b8", "#007bff", "#6c757d",
+                        "#6610f2", "#e83e8c", "#20c997", "#fd7e14", "#dc3545", "#343a40"
+                    ]
                 }]
             }
         });

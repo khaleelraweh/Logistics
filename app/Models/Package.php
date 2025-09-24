@@ -384,6 +384,61 @@ class Package extends Model
     }
 
 
+    // status statistacs for dashboard
+    public static function statusStatistics()
+{
+    $stats = [];
+
+    foreach (self::STATUSES as $status) {
+        $stats[$status] = [
+            'count' => self::where('status', $status)->count(),
+            'label' => (new self)->statusLabelFor($status),
+            'color' => (new self)->statusColorFor($status),
+        ];
+    }
+
+    return $stats;
+}
+
+// تعيد اسم الحالة حسب المفتاح
+public function statusLabelFor($status)
+{
+    return match($status) {
+        'pending'              => 'قيد الانتظار',
+        'assigned_to_driver'   => 'أُسند إلى السائق',
+        'driver_picked_up'     => 'استلمه السائق',
+        'in_transit'           => 'في الطريق',
+        'arrived_at_hub'       => 'وصل إلى المركز',
+        'out_for_delivery'     => 'خارج للتسليم',
+        'delivered'            => 'تم التسليم',
+        'delivery_failed'      => 'فشل في التسليم',
+        'returned'             => 'تم الإرجاع',
+        'cancelled'            => 'أُلغي',
+        'in_warehouse'         => 'في المستودع',
+        default                => 'غير معروف',
+    };
+}
+
+// تعيد لون الحالة حسب المفتاح
+public function statusColorFor($status)
+{
+    return match($status) {
+        'pending'              => 'warning',
+        'assigned_to_driver'   => 'info',
+        'driver_picked_up'     => 'primary',
+        'in_transit'           => 'info',
+        'arrived_at_hub'       => 'secondary',
+        'out_for_delivery'     => 'info',
+        'delivered'            => 'success',
+        'delivery_failed'      => 'danger',
+        'returned'             => 'danger',
+        'cancelled'            => 'dark',
+        'in_warehouse'         => 'secondary',
+        default                => 'dark',
+    };
+}
+
+
 
 
 }
