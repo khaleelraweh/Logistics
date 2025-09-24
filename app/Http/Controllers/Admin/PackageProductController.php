@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\ReturnItem;
+use App\Http\Controllers\Controller;
+
+use App\Models\PackageProduct;
 use Illuminate\Http\Request;
 
-class ReturnItemController extends Controller
+class PackageProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +43,10 @@ class ReturnItemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ReturnItem  $returnItem
+     * @param  \App\Models\PackageProduct  $packageProduct
      * @return \Illuminate\Http\Response
      */
-    public function show(ReturnItem $returnItem)
+    public function show(PackageProduct $packageProduct)
     {
         //
     }
@@ -52,10 +54,10 @@ class ReturnItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ReturnItem  $returnItem
+     * @param  \App\Models\PackageProduct  $packageProduct
      * @return \Illuminate\Http\Response
      */
-    public function edit(ReturnItem $returnItem)
+    public function edit(PackageProduct $packageProduct)
     {
         //
     }
@@ -64,10 +66,10 @@ class ReturnItemController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ReturnItem  $returnItem
+     * @param  \App\Models\PackageProduct  $packageProduct
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ReturnItem $returnItem)
+    public function update(Request $request, PackageProduct $packageProduct)
     {
         //
     }
@@ -75,10 +77,10 @@ class ReturnItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ReturnItem  $returnItem
+     * @param  \App\Models\PackageProduct  $packageProduct
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ReturnItem $returnItem)
+    public function destroy(PackageProduct $packageProduct)
     {
         //
     }

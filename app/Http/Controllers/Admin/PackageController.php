@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Http\Requests\Admin\PackageRequest;
 use App\Models\Invoice;
@@ -16,7 +18,10 @@ use App\Models\WarehouseRental;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str; // في أعلى الكود
-use PDF; // إذا تستخدم barryvdh/laravel-dompdf أو أي مكتبة PDF
+// use PDF; // إذا تستخدم barryvdh/laravel-dompdf أو أي مكتبة PDF
+// use Barryvdh\DomPDF\Facade\Pdf; // لاحظ Pdf وليس PDF
+use PDF;
+
 
 
 class PackageController extends Controller
@@ -28,71 +33,69 @@ class PackageController extends Controller
      */
 
 
-    // public function index()
-    // {
-    //     if (!auth()->user()->ability('admin', 'manage_stock_items , show_stock_items')) {
-    //         return redirect('admin/index');
-    //     }
-
-    //     $packages = Package::with('merchant')
-    //         ->when(\request()->keyword != null, function ($query) {
-    //             $query->search(\request()->keyword);
-    //         })
-    //         ->when(\request()->status != null, function ($query) {
-    //             $query->where('status', \request()->status);
-    //         })
-    //         ->orderByRaw(request()->sort_by == 'published_on'
-    //             ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-    //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-    //         ->paginate(\request()->limit_by ?? 100);
-
-    //     return view('admin.packages.index', compact('packages'));
-    // }
-
-
     public function index()
-{
-    if (!auth()->user()->ability('admin', 'manage_stock_items , show_stock_items')) {
-        return redirect('admin/index');
+    {
+        if (!auth()->user()->ability('admin', 'manage_stock_items , show_stock_items')) {
+            return redirect('admin/index');
+        }
+
+        // جلب جميع التجار للفلاتر
+        $merchants = Merchant::all();
+         $statuses = Package::statuses();
+
+        $packages = Package::with('merchant')
+            ->when(request()->keyword != null, function ($query) {
+                $query->search(request()->keyword);
+            })
+            ->when(request()->status != null, function ($query) {
+                $query->where('status', request()->status);
+            })
+            ->when(request()->merchant_id != null, function ($query) {
+                $query->where('merchant_id', request()->merchant_id);
+            })
+            ->when(request()->delivery_method != null, function ($query) {
+                $query->where('delivery_method', request()->delivery_method);
+            })
+            ->when(request()->package_type != null, function ($query) {
+                $query->where('package_type', request()->package_type);
+            })
+            ->when(request()->package_size != null, function ($query) {
+                $query->where('package_size', request()->package_size);
+            })
+            ->when(request()->origin_type != null, function ($query) {
+                $query->where('origin_type', request()->origin_type);
+            })
+            ->when(request()->delivery_speed != null, function ($query) {
+                $query->where('delivery_speed', request()->delivery_speed);
+            })
+            ->when(request()->payment_responsibility != null, function ($query) {
+                $query->where('payment_responsibility', request()->payment_responsibility);
+            })
+            ->when(request()->payment_method != null, function ($query) {
+                $query->where('payment_method', request()->payment_method);
+            })
+            ->when(request()->collection_method != null, function ($query) {
+                $query->where('collection_method', request()->collection_method);
+            });
+
+
+        // الترتيب
+        if(request()->sort_by == 'merchant_name') {
+            $packages->join('merchants', 'packages.merchant_id', '=', 'merchants.id')
+                    ->select('packages.*')
+                    ->orderBy('merchants.name', request()->order_by ?? 'asc');
+        } else {
+            $packages->orderByRaw(
+                request()->sort_by == 'published_on'
+                    ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+                    : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
+            );
+        }
+
+        $packages = $packages->paginate(request()->limit_by ?? 100);
+
+        return view('admin.packages.index', compact('packages', 'merchants','statuses'));
     }
-
-    // جلب جميع التجار للفلاتر
-    $merchants = Merchant::all();
-
-    $packages = Package::with('merchant')
-        ->when(request()->keyword != null, function ($query) {
-            $query->search(request()->keyword);
-        })
-        ->when(request()->status != null, function ($query) {
-            $query->where('status', request()->status);
-        })
-        ->when(request()->merchant_id != null, function ($query) {
-            $query->where('merchant_id', request()->merchant_id);
-        });
-
-    // الترتيب
-    if(request()->sort_by == 'merchant_name') {
-        $packages->join('merchants', 'packages.merchant_id', '=', 'merchants.id')
-                 ->select('packages.*')
-                 ->orderBy('merchants.name', request()->order_by ?? 'asc');
-    } else {
-        $packages->orderByRaw(
-            request()->sort_by == 'published_on'
-                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
-        );
-    }
-
-    $packages = $packages->paginate(request()->limit_by ?? 100);
-
-    return view('admin.packages.index', compact('packages', 'merchants'));
-}
-
-
-
-
-
-
 
 
 
@@ -136,18 +139,33 @@ class PackageController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+
     public function store(Request $request)
     {
         if (!auth()->user()->ability('admin', 'create_packages')) {
             return redirect('admin/index');
         }
 
-        // نستخدم معاملة كاملة: إنشاء الطرد + المنتجات + تعديل المخزون + الفاتورة + الدفع
-        $result = DB::transaction(function () use ($request) {
+        // =========================
+        // التحقق من المدفوع أكبر من المستحق
+        // =========================
+        $deliveryFee  = (float)($request->delivery_fee   ?? 0);
+        $insuranceFee = (float)($request->insurance_fee  ?? 0);
+        $serviceFee   = (float)($request->service_fee    ?? 0);
+        $totalFee     = $deliveryFee + $insuranceFee + $serviceFee;
 
-            // =========================
-            // 1) بناء بيانات الطرد
-            // =========================
+        $paidNow = (float)($request->paid_amount ?? 0);
+
+        if ($paidNow > $totalFee) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['paid_amount' => 'المبلغ المدفوع لا يمكن أن يكون أكبر من المبلغ المستحق. عدّل القيمة أولاً.']);
+        }
+
+        // =========================
+        // نستخدم معاملة كاملة: إنشاء الطرد + المنتجات + تعديل المخزون + الفاتورة + الدفع
+        // =========================
+        $result = DB::transaction(function () use ($request, $deliveryFee, $insuranceFee, $serviceFee, $totalFee, $paidNow) {
 
             // Sender
             $input['merchant_id']         = $request->merchant_id; // (المرسل هو التاجر) اختياري
@@ -165,7 +183,8 @@ class PackageController extends Controller
             $input['sender_longitude']     = $request->sender_longitude;
             $input['sender_others']       = $request->sender_others;
 
-            // Receiver  (إصلاح typo: receiver_region)
+
+            // Receiver
             $input['receiver_merchant_id'] = $request->receiver_merchant_id; // (المستقبل هو التاجر) اختياري
             $input['receiver_first_name']  = $request->receiver_first_name;
             $input['receiver_middle_name'] = $request->receiver_middle_name;
@@ -181,6 +200,7 @@ class PackageController extends Controller
             $input['receiver_longitude']    = $request->receiver_longitude;
             $input['receiver_others']      = $request->receiver_others;
 
+
             // Package
             $input['package_type']   = $request->package_type;
             $input['package_size']   = $request->package_size;
@@ -193,6 +213,7 @@ class PackageController extends Controller
             $input['package_content'] = $request->package_content;
             $input['package_note']    = $request->package_note;
 
+
             // Delivery
             $input['delivery_speed']      = $request->delivery_speed;
             $input['delivery_date']       = $request->delivery_date;
@@ -201,15 +222,12 @@ class PackageController extends Controller
             $input['origin_type']         = $request->origin_type;
             $input['delivery_status_note']= $request->delivery_status_note;
 
+
             // Payment meta on package (ليست سجلات مالية فعلية)
             $input['payment_responsibility'] = $request->payment_responsibility; // (merchant/receiver)
             $input['payment_method']         = $request->payment_method;         // (prepaid/cod/...)
             $input['collection_method']      = $request->collection_method;      // (cash/bank/...)
 
-            $deliveryFee  = (float)($request->delivery_fee   ?? 0);
-            $insuranceFee = (float)($request->insurance_fee  ?? 0);
-            $serviceFee   = (float)($request->service_fee    ?? 0);
-            $totalFee     = $deliveryFee + $insuranceFee + $serviceFee;
 
             $input['delivery_fee'] = $deliveryFee;
             $input['insurance_fee']= $insuranceFee;
@@ -218,8 +236,7 @@ class PackageController extends Controller
             $input['total_fee']    = $totalFee;
 
 
-
-            // Attributes
+            //Attributes
             $input['attributes'] = [
                 'is_fragile'                   => $request->boolean('attributes.is_fragile'),
                 'is_returnable'                => $request->boolean('attributes.is_returnable'),
@@ -236,12 +253,11 @@ class PackageController extends Controller
                 'is_special_handling_required' => $request->boolean('attributes.is_special_handling_required'),
             ];
 
-            // 1.1 إنشاء الطرد
             $package = Package::create($input);
 
             // =========================
-            // 2) المنتجات + المخزون
-            // =========================
+            //          // 2) المنتجات + المخزون
+            //         // =========================
             $totalQuantity = 0;
 
             if ($package && is_array($request->products)) {
@@ -281,16 +297,12 @@ class PackageController extends Controller
             // =========================
             // 3) إنشاء الفاتورة
             // =========================
-            $currency = $request->currency ?? 'USD';
-
-            $invoice = Invoice::create([
+            $invoice= $package->invoice()->create([
                 'invoice_number' => 'INV-' . now()->format('Ymd') . '-' . strtoupper(Str::random(6)),
                 'merchant_id'    => $package->merchant_id,
-                'payable_type'   => Package::class,
-                'payable_id'     => $package->id,
                 'total_amount'   => $totalFee,
-                'currency'       => $currency,
-                'status'         => 'unpaid', // سيُحدّث بعد تسجيل أي دفعة
+                'currency'       => $request->currency ?? 'USD',
+                'status'         => 'unpaid',
                 'due_date'       => $request->due_date ? Carbon::parse($request->due_date) : now()->addDays(15),
                 'issued_at'      => now(),
                 'notes'          => 'فاتورة رسوم الطرد #' . $package->id,
@@ -299,46 +311,34 @@ class PackageController extends Controller
             // =========================
             // 4) إنشاء دفعة (إن وُجد مبلغ محصّل)
             // =========================
-            $paidNow = (float)($request->paid_amount ?? 0);
-            $paidSum = 0.0;
-
             if ($paidNow > 0) {
                 $method = $this->mapPaymentMethod($request->collection_method ?? $request->payment_method);
 
-                Payment::create([
+                $invoice->payments()->create([
                     'merchant_id'       => $package->merchant_id,
                     'method'            => $method,
-                    'status'            => 'completed',
+                    'status'            => 'paid',
                     'paid_on'           => now(),
-                    'amount'            => min($paidNow, $totalFee),
-                    'currency'          => $currency,
-                    'for'               => 'combined', // رسوم توصيل + خدمات
+                    'amount'            => $paidNow,
+                    'currency'          => $request->currency ?? 'USD',
+                    'for'               => 'combined',
                     'reference_note'    => $request->reference_note,
                     'payment_reference' => $request->payment_reference,
                     'driver_id'         => $request->driver_id,
                     'invoice_id'        => $invoice->id,
                 ]);
-
-                $paidSum = $paidNow;
-                $package->addLog('تم تسجيل دفعة أولية بقيمة: ' . number_format($paidNow, 2) . ' ' . $currency);
+                $invoice->updateStatus();
+                $package->addLog('تم تسجيل دفعة أولية بقيمة: ' . number_format($paidNow, 2) . ' ' . ($request->currency ?? 'USD'));
             }
 
-            // تحديث حالة الفاتورة حسب المدفوع
-            $invoice->refresh();
-            $paidTotal = (float) $invoice->payments()->sum('amount');
-            $invoice->status = $this->resolveInvoiceStatus($invoice->total_amount, $paidTotal);
-            $invoice->save();
-
-            // تحديث الطرد من ناحية المبالغ
-            if ($package->isFillable('paid_amount')) $package->paid_amount = $paidTotal;
-            if ($package->isFillable('due_amount'))  $package->due_amount  = max(0, $totalFee - $paidTotal);
+            $package->paid_amount = $invoice->paid_amount;
+            $package->due_amount  = $invoice->getRemainingAmountAttribute();
             $package->save();
 
             return $package->id;
         });
 
-        // بعد النجاح
-        return redirect()->route('admin.packages.print', $result)
+        return redirect()->route('admin.packages.index', $result)
             ->with(['message' => __('messages.package_created'), 'alert-type' => 'success']);
     }
 
@@ -349,16 +349,6 @@ class PackageController extends Controller
      * @param  \App\Models\Package  $package
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
-    // {
-    //     $package = Package::with([
-    //         'merchant',
-    //         'packageProducts.stockItem',       // لو فيه منتجات من المخزون
-    //         'packageProducts'                  // كل المنتجات
-    //     ])->findOrFail($id);
-
-    //     return view('admin.packages.show', compact('package'));
-    // }
 
     public function show($id)
     {
@@ -395,80 +385,104 @@ class PackageController extends Controller
      * @param  \App\Models\Package  $package
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $packageId)
     {
         if (!auth()->user()->ability('admin', 'update_packages')) {
             return redirect('admin/index');
         }
 
+
+             // =========================
+        // التحقق من المدفوع أكبر من المستحق
+        // =========================
+        $deliveryFee  = (float)($request->delivery_fee   ?? 0);
+        $insuranceFee = (float)($request->insurance_fee  ?? 0);
+        $serviceFee   = (float)($request->service_fee    ?? 0);
+        $totalFee     = $deliveryFee + $insuranceFee + $serviceFee;
+
+        $paidNow = (float)($request->paid_amount ?? 0);
+
+        if ($paidNow > $totalFee) {
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['paid_amount' => 'المبلغ المدفوع لا يمكن أن يكون أكبر من المبلغ المستحق. عدّل القيمة أولاً.']);
+        }
+
+
         DB::transaction(function () use ($request, $packageId) {
 
             $package = Package::lockForUpdate()->findOrFail($packageId);
 
-            // ========== 1) تحديث بيانات الطرد ==========
-            $input['sender_first_name']   = $request->sender_first_name;
-            $input['sender_middle_name']  = $request->sender_middle_name;
-            $input['sender_last_name']    = $request->sender_last_name;
-            $input['sender_email']        = $request->sender_email;
-            $input['sender_phone']        = $request->sender_phone;
-            $input['sender_country']      = $request->sender_country;
-            $input['sender_region']       = $request->sender_region;
-            $input['sender_city']         = $request->sender_city;
-            $input['sender_district']     = $request->sender_district;
-            $input['sender_postal_code']  = $request->sender_postal_code;
-            $input['sender_latitude']     = $request->sender_latitude;
-            $input['sender_longitude']     = $request->sender_longitude;
-            $input['sender_others']       = $request->sender_others;
+            // =========================
+            // 1) تحديث بيانات الطرد
+            // =========================
+            $input = [
+                'sender_first_name'   => $request->sender_first_name,
+                'sender_middle_name'  => $request->sender_middle_name,
+                'sender_last_name'    => $request->sender_last_name,
+                'sender_email'        => $request->sender_email,
+                'sender_phone'        => $request->sender_phone,
+                'sender_country'      => $request->sender_country,
+                'sender_region'       => $request->sender_region,
+                'sender_city'         => $request->sender_city,
+                'sender_district'     => $request->sender_district,
+                'sender_postal_code'  => $request->sender_postal_code,
+                'sender_latitude'     => $request->sender_latitude,
+                'sender_longitude'    => $request->sender_longitude,
+                'sender_others'       => $request->sender_others,
 
-            $input['receiver_first_name']  = $request->receiver_first_name;
-            $input['receiver_middle_name'] = $request->receiver_middle_name;
-            $input['receiver_last_name']   = $request->receiver_last_name;
-            $input['receiver_email']       = $request->receiver_email;
-            $input['receiver_phone']       = $request->receiver_phone;
-            $input['receiver_country']     = $request->receiver_country;
-            $input['receiver_region']      = $request->receiver_region; // fix
-            $input['receiver_city']        = $request->receiver_city;
-            $input['receiver_district']    = $request->receiver_district;
-            $input['receiver_postal_code'] = $request->receiver_postal_code;
-            $input['receiver_latitude']    = $request->receiver_latitude;
-            $input['receiver_longitude']    = $request->receiver_longitude;
-            $input['receiver_others']      = $request->receiver_others;
+                'receiver_first_name'  => $request->receiver_first_name,
+                'receiver_middle_name' => $request->receiver_middle_name,
+                'receiver_last_name'   => $request->receiver_last_name,
+                'receiver_email'       => $request->receiver_email,
+                'receiver_phone'       => $request->receiver_phone,
+                'receiver_country'     => $request->receiver_country,
+                'receiver_region'      => $request->receiver_region,
+                'receiver_city'        => $request->receiver_city,
+                'receiver_district'    => $request->receiver_district,
+                'receiver_postal_code' => $request->receiver_postal_code,
+                'receiver_latitude'    => $request->receiver_latitude,
+                'receiver_longitude'   => $request->receiver_longitude,
+                'receiver_others'      => $request->receiver_others,
 
-            $input['package_type']   = $request->package_type;
-            $input['package_size']   = $request->package_size;
-            $input['weight']         = $request->weight;
-            $input['dimensions']     = [
-                'length' => data_get($request->dimensions, 'length'),
-                'width'  => data_get($request->dimensions, 'width'),
-                'height' => data_get($request->dimensions, 'height'),
+                'package_type'   => $request->package_type,
+                'package_size'   => $request->package_size,
+                'weight'         => $request->weight,
+                'dimensions'     => [
+                    'length' => data_get($request->dimensions, 'length'),
+                    'width'  => data_get($request->dimensions, 'width'),
+                    'height' => data_get($request->dimensions, 'height'),
+                ],
+                'package_content' => $request->package_content,
+                'package_note'    => $request->package_note,
+
+                'delivery_speed'       => $request->delivery_speed,
+                'delivery_date'        => $request->delivery_date,
+                'status'               => $request->status,
+                'delivery_method'      => $request->delivery_method,
+                'origin_type'          => $request->origin_type,
+                'delivery_status_note' => $request->delivery_status_note,
+
+                'payment_responsibility' => $request->payment_responsibility,
+                'payment_method'         => $request->payment_method,
+                'collection_method'      => $request->collection_method,
+                'merchant_id'            => $request->merchant_id,
             ];
-            $input['package_content'] = $request->package_content;
-            $input['package_note']    = $request->package_note;
 
-            $input['delivery_speed']      = $request->delivery_speed;
-            $input['delivery_date']       = $request->delivery_date;
-            $input['status']              = $request->status;
-            $input['delivery_method']     = $request->delivery_method;
-            $input['origin_type']         = $request->origin_type;
-            $input['delivery_status_note']= $request->delivery_status_note;
-
-            $input['payment_responsibility'] = $request->payment_responsibility;
-            $input['payment_method']         = $request->payment_method;
-            $input['collection_method']      = $request->collection_method;
-
+            // حساب الرسوم
             $deliveryFee  = (float)($request->delivery_fee   ?? 0);
             $insuranceFee = (float)($request->insurance_fee  ?? 0);
             $serviceFee   = (float)($request->service_fee    ?? 0);
             $totalFee     = $deliveryFee + $insuranceFee + $serviceFee;
 
             $input['delivery_fee'] = $deliveryFee;
-            $input['insurance_fee']= $insuranceFee;
-            $input['service_fee']  = $serviceFee;
-            $input['cod_amount']   = (float)($request->cod_amount ?? 0);
-            $input['total_fee']    = $totalFee;
+            $input['insurance_fee'] = $insuranceFee;
+            $input['service_fee']   = $serviceFee;
+            $input['cod_amount']    = (float)($request->cod_amount ?? 0);
+            $input['total_fee']     = $totalFee;
 
-            $input['merchant_id']  = $request->merchant_id;
-
+            // الخصائص
             $input['attributes'] = [
                 'is_fragile'                   => $request->boolean('attributes.is_fragile'),
                 'is_returnable'                => $request->boolean('attributes.is_returnable'),
@@ -487,21 +501,24 @@ class PackageController extends Controller
 
             $package->update($input);
 
-            // ========== 2) إعادة المخزون للقديمة ثم حذف البنود ==========
+            // =========================
+            // 2) إعادة المخزون للقديمة ثم حذف البنود
+            // =========================
             foreach ($package->packageProducts as $item) {
                 if ($item->type === 'stock' && !empty($item->stock_item_id)) {
                     $stockItem = StockItem::lockForUpdate()->find($item->stock_item_id);
                     if ($stockItem) {
-                        $stockItem->quantity = max(0, $stockItem->quantity + (int)$item->quantity);
+                        $stockItem->quantity += (int)$item->quantity;
                         $stockItem->save();
                     }
                 }
                 $item->delete();
             }
 
-            // ========== 3) إضافة البنود الجديدة + خصم المخزون ==========
+            // =========================
+            // 3) إضافة البنود الجديدة + خصم المخزون
+            // =========================
             $totalQuantity = 0;
-
             if (is_array($request->products)) {
                 foreach ($request->products as $productData) {
                     $qty = (int)($productData['quantity'] ?? 0);
@@ -527,15 +544,12 @@ class PackageController extends Controller
                     }
                 }
             }
-
             $package->quantity = $totalQuantity;
             $package->save();
 
-            // لوج
-            $translatedStatus = __('package.status_' . $package->status);
-            $package->addLog(__('package.log_updated_with_status', ['status' => $translatedStatus]));
-
-            // ========== 4) الفاتورة: تحديث/إنشاء ==========
+            // =========================
+            // 4) تحديث/إنشاء الفاتورة
+            // =========================
             $invoice = Invoice::firstOrNew([
                 'payable_type' => Package::class,
                 'payable_id'   => $package->id,
@@ -553,7 +567,9 @@ class PackageController extends Controller
             $invoice->notes        = 'فاتورة رسوم الطرد #' . $package->id;
             $invoice->save();
 
-            // ========== 5) دفعة فرق إن زاد paid_amount ==========
+            // =========================
+            // 5) تسجيل دفعة إضافية إذا زاد paid_amount
+            // =========================
             $alreadyPaid = (float) $invoice->payments()->sum('amount');
             $newPaidDesired = (float) ($request->paid_amount ?? $alreadyPaid);
 
@@ -561,10 +577,10 @@ class PackageController extends Controller
                 $delta = $newPaidDesired - $alreadyPaid;
                 $method = $this->mapPaymentMethod($request->collection_method ?? $request->payment_method);
 
-                Payment::create([
+                $invoice->payments()->create([
                     'merchant_id'       => $package->merchant_id,
                     'method'            => $method,
-                    'status'            => 'completed',
+                    'status'            => 'paid',
                     'paid_on'           => now(),
                     'amount'            => min($delta, max(0, $invoice->total_amount - $alreadyPaid)),
                     'currency'          => $invoice->currency,
@@ -575,17 +591,15 @@ class PackageController extends Controller
                     'invoice_id'        => $invoice->id,
                 ]);
 
+                $invoice->updateStatus();
                 $package->addLog('تم تسجيل دفعة إضافية بقيمة: ' . number_format($delta, 2) . ' ' . $invoice->currency);
             }
 
-            // تحديث حالة الفاتورة
-            $paidTotal = (float) $invoice->payments()->sum('amount');
-            $invoice->status = $this->resolveInvoiceStatus($invoice->total_amount, $paidTotal);
-            $invoice->save();
-
-            // تحديث الطرد مالياً
-            if ($package->isFillable('paid_amount')) $package->paid_amount = $paidTotal;
-            if ($package->isFillable('due_amount'))  $package->due_amount  = max(0, $invoice->total_amount - $paidTotal);
+            // =========================
+            // 6) تحديث الطرد مالياً
+            // =========================
+            $package->paid_amount = $invoice->paid_amount;
+            $package->due_amount  = max(0, $invoice->total_amount - $invoice->paid_amount);
             $package->save();
         });
 
@@ -602,63 +616,93 @@ class PackageController extends Controller
      * @param  \App\Models\Package  $package
      * @return \Illuminate\Http\Response
      */
-      public function destroy($package)
+
+
+    public function destroy($packageId)
     {
         if (!auth()->user()->ability('admin', 'delete_packages')) {
             return redirect('admin/index');
         }
 
-        $package = Package::where('id', $package)->first();
+        $package = Package::where('id', $packageId)->first();
 
-        foreach($package->packageProducts as $item){
-            // إذا المنتج من المخزون، نقص الكمية من StockItem
-            if ($item->type === 'stock' && !empty($item->stock_item_id)) {
-                DB::transaction(function () use ($item) {
-                    $stockItem = StockItem::lockForUpdate()->find($item->stock_item_id);
-                    if ($stockItem) {
-                        $newQuantity = max(0, $stockItem->quantity + (int)$item->quantity);
-                        $stockItem->quantity = $newQuantity;
-                        $stockItem->save();
-                    }
-                });
-            }
-            $item->delete();
-        }
-
-
-        $package->delete();
-
-        if ($package) {
-            $package->addLog('تم حذف الطرد');
-        }
-
-        if ($package) {
+        if (!$package) {
             return redirect()->route('admin.packages.index')->with([
-                'message' => __('messages.package_deleted'),
-                'alert-type' => 'success'
+                'message' => __('messages.something_was_wrong'),
+                'alert-type' => 'danger'
             ]);
         }
+
+        DB::transaction(function () use ($package) {
+            // سجل لوج قبل الحذف
+            $package->addLog('تم حذف الطرد');
+
+            // تحديث المخزون وحذف المنتجات
+            foreach ($package->packageProducts as $item) {
+                if ($item->type === 'stock' && !empty($item->stock_item_id)) {
+                    $stockItem = StockItem::lockForUpdate()->find($item->stock_item_id);
+                    if ($stockItem) {
+                        $stockItem->quantity = max(0, $stockItem->quantity + (int)$item->quantity);
+                        $stockItem->save();
+                    }
+                }
+                $item->delete();
+            }
+
+               // حذف الفاتورة المرتبطة بالطرد إذا وُجدت
+            if ($package->invoice) {
+                // أولاً حذف أي دفعات مرتبطة
+                $package->invoice->payments()->delete();
+                $package->invoice->delete();
+            }
+
+            // حذف الطرد نفسه
+            $package->delete();
+        });
+
         return redirect()->route('admin.packages.index')->with([
-            'message' => __('messages.something_was_wrong'),
-            'alert-type' => 'danger'
+            'message' => __('messages.package_deleted'),
+            'alert-type' => 'success'
         ]);
     }
 
 
 
+
+    // public function printPackage($id)
+    // {
+    //     $package = Package::findOrFail($id);
+
+    //     // عرض صفحة الطباعة (HTML)
+    //     return view('admin.packages.print', compact('package'));
+
+    //     // أو لتحويله إلى PDF و تحميله:
+    //     /*
+    //     $pdf = PDF::loadView('admin.packages.print', compact('package'));
+    //     return $pdf->download('package_'.$package->id.'.pdf');
+    //     */
+    // }
+
+    // public function printPackage($id)
+    // {
+    //     $package = Package::findOrFail($id);
+
+    //     $pdf = PDF::loadView('admin.packages.print', compact('package'));
+
+    //     // تحميل الملف مباشرة
+    //     return $pdf->download('package_'.$package->id.'.pdf');
+    // }
+
     public function printPackage($id)
     {
+
         $package = Package::findOrFail($id);
 
-        // عرض صفحة الطباعة (HTML)
-        return view('admin.packages.print', compact('package'));
+       $pdf = PDF::loadView('admin.packages.print', compact('package'));
 
-        // أو لتحويله إلى PDF و تحميله:
-        /*
-        $pdf = PDF::loadView('admin.packages.print', compact('package'));
         return $pdf->download('package_'.$package->id.'.pdf');
-        */
     }
+
 
     /**
      * تحويل أي نص طريقة دفع إلى enum المدعوم بجدول payments.
