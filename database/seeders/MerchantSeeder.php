@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Merchant;
+use App\Models\User;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Database\Seeder;
@@ -13,7 +14,7 @@ class MerchantSeeder extends Seeder
 {
     public function run()
     {
-        // إنشاء التاجر
+        // إنشاء التاجر في جدول merchants
         $merchant = Merchant::create([
             'name' => ['ar' => 'متجر النجاح', 'en' => 'Al Nagah Store'],
             'slug' => ['ar' => 'متجر-النجاح', 'en' => 'al-nagah-store'],
@@ -39,6 +40,20 @@ class MerchantSeeder extends Seeder
             'status' => true,
             'published_on' => Carbon::now(),
             'created_by' => 'Seeder',
+            'username'      => 'alnagah',
+            'password'      => bcrypt('123123123'), // تغيير لاحقًا
+        ]);
+
+        // إنشاء نسخة في جدول users
+        $user = User::create([
+            'first_name' => $merchant->name,
+            'last_name' => $merchant->contact_person,
+            'username' => $merchant->username,
+            'email' => $merchant->email,
+            'mobile' => $merchant->phone,
+            'password' => $merchant->password,
+            'status' => 1,
+            'created_by' => 'Seeder',
         ]);
 
         // جلب أو إنشاء دور التاجر
@@ -50,68 +65,19 @@ class MerchantSeeder extends Seeder
             ]
         );
 
-        // ربط التاجر بالدور
-        if (!$merchant->hasRole($merchantRole->name)) {
-            $merchant->attachRole($merchantRole);
+        // ربط المستخدم بالدور
+        if (!$user->hasRole($merchantRole->name)) {
+            $user->attachRole($merchantRole);
         }
 
-        // صلاحيات التاجر
-        $permissions = [
-            [
-                'name' => 'merchant_show_products',
-                'display_name' => ['ar' => 'عرض المنتجات', 'en' => 'Show Products'],
-                'route' => 'products',
-                'module' => 'products',
-                'as' => 'products.index',
-                'icon' => 'fas fa-box',
-                'parent' => 0,
-                'sidebar_link' => 1,
-                'appear' => 1,
-            ],
-            [
-                'name' => 'merchant_create_products',
-                'display_name' => ['ar' => 'إضافة منتج', 'en' => 'Create Product'],
-                'route' => 'products',
-                'module' => 'products',
-                'as' => 'products.create',
-                'icon' => 'fas fa-plus',
-                'parent' => 0,
-                'sidebar_link' => 0,
-                'appear' => 0,
-            ],
-            [
-                'name' => 'merchant_edit_products',
-                'display_name' => ['ar' => 'تعديل منتج', 'en' => 'Edit Product'],
-                'route' => 'products',
-                'module' => 'products',
-                'as' => 'products.edit',
-                'icon' => 'fas fa-edit',
-                'parent' => 0,
-                'sidebar_link' => 0,
-                'appear' => 0,
-            ],
-            [
-                'name' => 'merchant_delete_products',
-                'display_name' => ['ar' => 'حذف منتج', 'en' => 'Delete Product'],
-                'route' => 'products',
-                'module' => 'products',
-                'as' => 'products.destroy',
-                'icon' => null,
-                'parent' => 0,
-                'sidebar_link' => 0,
-                'appear' => 0,
-            ],
-        ];
-
-        // إنشاء الصلاحيات وربطها بالدور
-        foreach ($permissions as $permData) {
-            $permission = Permission::firstOrCreate(['name' => $permData['name']], $permData);
-
+        // صلاحيات التاجر من جدول الصلاحيات (إذا كانت موجودة مسبقًا)
+        $permissions = Permission::where('name', 'like', 'merchant_%')->get();
+        foreach ($permissions as $permission) {
             if (!$merchantRole->hasPermission($permission->name)) {
                 $merchantRole->attachPermission($permission);
             }
         }
 
-        $this->command->info('تم إنشاء التاجر وربطه بالدور والصلاحيات بنجاح!');
+        $this->command->info('تم إنشاء التاجر وربطه بالدور والصلاحيات في جدول users بنجاح!');
     }
 }
