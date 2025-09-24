@@ -147,7 +147,7 @@
                                     </div>
 
                                     <!-- Assign Delivery Modal -->
-                                    <div class="modal fade" id="assignDeliveryModal{{ $package->id }}" tabindex="-1" aria-labelledby="assignDeliveryLabel{{ $package->id }}" aria-hidden="true">
+                                    {{-- <div class="modal fade" id="assignDeliveryModal{{ $package->id }}" tabindex="-1" aria-labelledby="assignDeliveryLabel{{ $package->id }}" aria-hidden="true">
                                       <div class="modal-dialog">
                                         <form action="{{ route('merchant.deliveries.store') }}" method="POST">
                                             @csrf
@@ -183,7 +183,7 @@
                                             </div>
                                         </form>
                                       </div>
-                                    </div>
+                                    </div> --}}
 
                                 </td>
                             </tr>
