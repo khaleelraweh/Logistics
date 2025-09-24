@@ -10,74 +10,98 @@ class MerchantPermissionsSeeder extends Seeder
 {
     public function run()
     {
-        // جلب دور التاجر أو إنشاءه إذا لم يكن موجود
+        // جلب دور التاجر أو إنشاؤه إذا لم يكن موجود
         $merchantRole = Role::firstOrCreate(
             ['name' => 'merchant'],
             [
-                'display_name' => 'تاجر', // اسم قابل للعرض
-                'description' => 'دور التاجر للوصول لصلاحياته فقط'
+                'display_name' => 'تاجر',
+                'description'  => 'دور التاجر للوصول لصلاحياته فقط'
             ]
         );
 
+        // ===== Products =====
+        $manageProducts = Permission::create([
+            'name'            => 'merchant_manage_products',
+            'display_name'    => ['ar' => 'إدارة المنتجات', 'en' => 'Manage Products'],
+            'route'           => 'products',
+            'module'          => 'products',
+            'as'              => 'products.index',
+            'icon'            => 'fab fa-product-hunt',
+            'parent'          => '0',
+            'parent_original' => '0',
+            'sidebar_link'    => '1',
+            'appear'          => '1',
+            'ordering'        => '10',
+        ]);
+        $manageProducts->parent_show = $manageProducts->id;
+        $manageProducts->save();
 
+        $showProducts = Permission::create([
+            'name'            => 'merchant_show_products',
+            'display_name'    => ['ar' => 'عرض المنتجات', 'en' => 'Show Products'],
+            'route'           => 'products',
+            'module'          => 'products',
+            'as'              => 'products.index',
+            'icon'            => 'fas fa-box',
+            'parent'          => '0',
+            'parent_original' => '0',
+            'parent_show'     => '0',
+            'sidebar_link'    => '0',
+            'appear'          => '0',
+        ]);
 
-        // مصفوفة صلاحيات التاجر
+        $createProducts = Permission::create([
+            'name'            => 'merchant_create_products',
+            'display_name'    => ['ar' => 'إضافة منتج', 'en' => 'Create Product'],
+            'route'           => 'products',
+            'module'          => 'products',
+            'as'              => 'products.create',
+            'icon'            => 'fas fa-plus',
+            'parent'          => '0',
+            'parent_original' => '0',
+            'parent_show'     => '0',
+            'sidebar_link'    => '0',
+            'appear'          => '0',
+        ]);
+
+        $editProducts = Permission::create([
+            'name'            => 'merchant_edit_products',
+            'display_name'    => ['ar' => 'تعديل منتج', 'en' => 'Edit Product'],
+            'route'           => 'products',
+            'module'          => 'products',
+            'as'              => 'products.edit',
+            'icon'            => 'fas fa-edit',
+            'parent'          => '0',
+            'parent_original' => '0',
+            'parent_show'     => '0',
+            'sidebar_link'    => '0',
+            'appear'          => '0',
+        ]);
+
+        $deleteProducts = Permission::create([
+            'name'            => 'merchant_delete_products',
+            'display_name'    => ['ar' => 'حذف منتج', 'en' => 'Delete Product'],
+            'route'           => 'products',
+            'module'          => 'products',
+            'as'              => 'products.destroy',
+            'icon'            => null,
+            'parent'          => '0',
+            'parent_original' => '0',
+            'parent_show'     => '0',
+            'sidebar_link'    => '0',
+            'appear'          => '0',
+        ]);
+
+        // ربط الصلاحيات بدور التاجر
         $permissions = [
-            [
-                'name' => 'merchant_show_products',
-                'display_name' => ['ar' => 'عرض المنتجات', 'en' => 'Show Products'],
-                'route' => 'products',
-                'module' => 'products',
-                'as' => 'products.index',
-                'icon' => 'fas fa-box',
-                'parent' => 0,
-                'sidebar_link' => 1,
-                'appear' => 1,
-            ],
-            [
-                'name' => 'merchant_create_products',
-                'display_name' => ['ar' => 'إضافة منتج', 'en' => 'Create Product'],
-                'route' => 'products',
-                'module' => 'products',
-                'as' => 'products.create',
-                'icon' => 'fas fa-plus',
-                'parent' => 0,
-                'sidebar_link' => 0,
-                'appear' => 0,
-            ],
-            [
-                'name' => 'merchant_edit_products',
-                'display_name' => ['ar' => 'تعديل منتج', 'en' => 'Edit Product'],
-                'route' => 'products',
-                'module' => 'products',
-                'as' => 'products.edit',
-                'icon' => 'fas fa-edit',
-                'parent' => 0,
-                'sidebar_link' => 0,
-                'appear' => 0,
-            ],
-            [
-                'name' => 'merchant_delete_products',
-                'display_name' => ['ar' => 'حذف منتج', 'en' => 'Delete Product'],
-                'route' => 'products',
-                'module' => 'products',
-                'as' => 'products.destroy',
-                'icon' => null,
-                'parent' => 0,
-                'sidebar_link' => 0,
-                'appear' => 0,
-            ],
-
+            $manageProducts,
+            $showProducts,
+            $createProducts,
+            $editProducts,
+            $deleteProducts,
         ];
 
-        // إنشاء الصلاحيات وربطها بدور التاجر
-        foreach ($permissions as $permData) {
-            $permission = Permission::firstOrCreate(
-                ['name' => $permData['name']],
-                $permData
-            );
-
-            // ربط الدور بالصلاحية إذا لم تكن مرتبطة مسبقاً
+        foreach ($permissions as $permission) {
             if (!$merchantRole->hasPermission($permission->name)) {
                 $merchantRole->attachPermission($permission);
             }
