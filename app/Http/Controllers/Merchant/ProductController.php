@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Merchant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Http\Requests\merchant\ProductRequest;
+use App\Http\Requests\Merchant\ProductRequest;
 use App\Models\Merchant;
 use App\Models\Product;
 use Intervention\Image\ImageManager;
