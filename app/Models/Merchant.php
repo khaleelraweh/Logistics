@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Helper\MySlugHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Mindscms\Entrust\Traits\EntrustUserTrait;
 use Nicolaslopezj\Searchable\SearchableTrait;
 use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -12,7 +13,7 @@ use Spatie\Translatable\HasTranslations;
 
 class Merchant extends Model
 {
-    use HasFactory, HasTranslations, HasTranslatableSlug, SearchableTrait;
+    use HasFactory, HasTranslations, HasTranslatableSlug, SearchableTrait ,  EntrustUserTrait;
 
     protected $guarded = [];
 
