@@ -102,26 +102,26 @@ class MerchantController extends Controller
 //     }
 
 
-public function index()
-{
-    $merchant = auth()->user(); // التاجر الحالي
+    public function index()
+    {
+        $merchant = auth()->user(); // التاجر الحالي
 
-    // إحصائيات الطرود حسب الحالات كلها
-    $packageStats = [];
-    foreach (\App\Models\Package::STATUSES as $status) {
-        $packageStats[$status] = \App\Models\Package::where('merchant_id', $merchant->id)
-            ->where('status', $status)
-            ->count();
+        // إحصائيات الطرود حسب الحالات كلها
+        $packageStats = [];
+        foreach (\App\Models\Package::STATUSES as $status) {
+            $packageStats[$status] = \App\Models\Package::where('merchant_id', $merchant->id)
+                ->where('status', $status)
+                ->count();
+        }
+
+        // إحصائيات إضافية
+        $stats = [
+            'packages_total'   => \App\Models\Package::where('merchant_id', $merchant->id)->count(),
+            'warehouses_total' => \App\Models\WarehouseRental::where('merchant_id', $merchant->id)->count(),
+        ];
+
+        return view('merchant.index', compact('stats', 'packageStats'));
     }
-
-    // إحصائيات إضافية
-    $stats = [
-        'packages_total'   => \App\Models\Package::where('merchant_id', $merchant->id)->count(),
-        'warehouses_total' => \App\Models\WarehouseRental::where('merchant_id', $merchant->id)->count(),
-    ];
-
-    return view('merchant.index', compact('stats', 'packageStats'));
-}
 
 
 
