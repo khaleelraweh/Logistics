@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.merchant')
 
 @section('style')
 
@@ -232,8 +232,8 @@
                 <div class="page-title-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.packages.index') }}">{{ __('package.manage_packages') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('merchant.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('merchant.packages.index') }}">{{ __('package.manage_packages') }}</a></li>
                             <li class="breadcrumb-item active">{{ __('package.edit_package') }}</li>
                         </ol>
                     </nav>
@@ -295,7 +295,7 @@
 
 
                                 <!-- محتويات الويزرد -->
-                                <form action="{{ route('admin.packages.update' , $package->id) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('merchant.packages.update' , $package->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PATCH')
                                     <!-- المحتويات كخطوات -->
@@ -311,7 +311,7 @@
                                                             <span class="badge bg-primary">{{ __('general.required') }}</span>
                                                         </div>
                                                         <div class="card-body">
-                                                            @livewire('admin.package.update-select-merchant-component', ['package' => $package])
+                                                            @livewire('merchant.package.update-select-merchant-component', ['package' => $package])
                                                         </div>
                                                     </div>
                                                 </div>
@@ -323,7 +323,7 @@
                                                             <span class="badge bg-primary">{{ __('general.required') }}</span>
                                                         </div>
                                                         <div class="card-body">
-                                                            @livewire('admin.package.update-select-receiver-merchant-component', ['package' => $package])
+                                                            @livewire('merchant.package.update-select-receiver-merchant-component', ['package' => $package])
                                                         </div>
                                                     </div>
                                                 </div>
@@ -337,10 +337,10 @@
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-lg-6">
-                                                                @livewire('admin.package.update-sender-location-component', ['package' => $package])
+                                                                @livewire('merchant.package.update-sender-location-component', ['package' => $package])
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                @livewire('admin.package.update-receiver-location-component', ['package' => $package])
+                                                                @livewire('merchant.package.update-receiver-location-component', ['package' => $package])
 
                                                             </div>
 
@@ -450,7 +450,7 @@
                                                             <h5 class="mb-0"><i class="fas fa-cube me-2"></i>{{ __('package.package_specifications') }}</h5>
                                                         </div>
                                                         <div class="card-body">
-                                                            @livewire('admin.package.update-product-component', ['package_id' => $package->id])
+                                                            @livewire('merchant.package.update-product-component', ['package_id' => $package->id])
                                                         </div>
                                                     </div>
                                                 </div>
@@ -544,7 +544,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    @livewire('admin.package.update-package-collection-component', ['package_id' => $package->id])
+                                                    @livewire('merchant.package.update-package-collection-component', ['package_id' => $package->id])
 
                                                 </div>
                                             </div>
@@ -892,7 +892,7 @@
 
                                             <!-- Submit Button -->
                                             <div class="text-end pt-3">
-                                                @ability('admin', 'update_packages')
+                                                @ability('merchant', 'update_packages')
                                                     <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
                                                         <i class="ri-save-3-line me-2"></i>
                                                         <i class="bi bi-save me-2"></i>
@@ -900,7 +900,7 @@
                                                     </button>
                                                 @endability
 
-                                                <a href="{{ route('admin.packages.index') }}" class="btn btn-outline-danger ms-2">
+                                                <a href="{{ route('merchant.packages.index') }}" class="btn btn-outline-danger ms-2">
                                                     <i class="ri-arrow-go-back-line me-1"></i>
                                                     {{ __('panel.cancel') }}
                                                 </a>

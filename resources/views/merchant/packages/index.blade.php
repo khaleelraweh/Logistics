@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.merchant')
 
 @section('content')
 
@@ -11,8 +11,8 @@
             <div class="page-title-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.packages.index') }}">{{ __('package.packages') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('merchant.index') }}">{{ __('general.main') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('merchant.packages.index') }}">{{ __('package.packages') }}</a></li>
                     </ol>
                 </nav>
             </div>
@@ -33,9 +33,9 @@
                         <p class="card-title-desc">{{ __('package.package_description') }}</p>
                     </div>
 
-                    @ability('admin', 'create_packages')
+                    @ability('merchant', 'create_packages')
                         <div class="button-items">
-                            <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.packages.create') }}">
+                            <a class="btn btn-primary waves-effect waves-light" href="{{ route('merchant.packages.create') }}">
                                 <i class="mdi mdi-18px mdi-package-variant-closed me-2"></i>
                                 {{ __('package.add_new_package') }}
                             </a>
@@ -46,7 +46,7 @@
 
 
                 <!-- Filters Section -->
-                @include('admin.packages.filter.filter')
+                @include('merchant.packages.filter.filter')
                 <!-- End Filters Section -->
 
                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="width:100%;">
@@ -94,39 +94,39 @@
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
 
-                                            @ability('admin', 'show_packages')
+                                            @ability('merchant', 'show_packages')
                                                 <li>
-                                                    <a class="dropdown-item" href="{{ route('admin.packages.show', $package->id) }}">
+                                                    <a class="dropdown-item" href="{{ route('merchant.packages.show', $package->id) }}">
                                                         <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
                                                     </a>
                                                 </li>
                                             @endability
 
-                                            @ability('admin', 'update_packages')
+                                            @ability('merchant', 'update_packages')
                                                 <li>
-                                                    <a class="dropdown-item" href="{{ route('admin.packages.edit', $package->id) }}">
+                                                    <a class="dropdown-item" href="{{ route('merchant.packages.edit', $package->id) }}">
                                                         <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
                                                     </a>
                                                 </li>
                                             @endability
 
-                                            @ability('admin', 'create_deliveries')
+                                            @ability('merchant', 'create_deliveries')
                                                 <li>
                                                     <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#assignDeliveryModal{{ $package->id }}">
                                                        <i class="mdi mdi-1 8px mdi-truck-fast-outline me-2"></i> {{ __('delivery.assign_to_driver') }}
                                                     </a>
                                                 </li>
                                             @endability
-                                            @ability('admin', 'show_packages')
+                                            @ability('merchant', 'show_packages')
                                                 <li>
-                                                     <a class="dropdown-item" href="{{ route('admin.packages.print', $package->id) }}">
+                                                     <a class="dropdown-item" href="{{ route('merchant.packages.print', $package->id) }}">
                                                         <i class="fas fa-download me-2"></i> {{ __('package.download_waybill') }}
                                                     </a>
 
                                                 </li>
                                             @endability
 
-                                            @ability('admin', 'delete_packages')
+                                            @ability('merchant', 'delete_packages')
                                                 <li><hr class="dropdown-divider"></li>
                                                 <li>
                                                     <a class="dropdown-item text-danger" href="javascript:void(0)"
@@ -136,7 +136,7 @@
                                                        '{{ __('panel.cancel') }}')">
                                                         <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
                                                     </a>
-                                                    <form id="delete-package-{{ $package->id }}" action="{{ route('admin.packages.destroy', $package->id) }}" method="POST" class="d-none">
+                                                    <form id="delete-package-{{ $package->id }}" action="{{ route('merchant.packages.destroy', $package->id) }}" method="POST" class="d-none">
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
@@ -149,7 +149,7 @@
                                     <!-- Assign Delivery Modal -->
                                     <div class="modal fade" id="assignDeliveryModal{{ $package->id }}" tabindex="-1" aria-labelledby="assignDeliveryLabel{{ $package->id }}" aria-hidden="true">
                                       <div class="modal-dialog">
-                                        <form action="{{ route('admin.deliveries.store') }}" method="POST">
+                                        <form action="{{ route('merchant.deliveries.store') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="package_id" value="{{ $package->id }}">
                                             <div class="modal-content">

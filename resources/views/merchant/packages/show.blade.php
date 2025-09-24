@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.merchant')
 
 @section('content')
 
@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <a href="{{ route('admin.packages.print', $package->id) }}" target="_blank">
+    <a href="{{ route('merchant.packages.print', $package->id) }}" target="_blank">
         <i class="fas fa-download me-1"></i>
         {{ __('package.download_waybill') }}
     </a>
@@ -257,12 +257,12 @@
                                                 <td>{{ $payment->reference_note ?: '-' }}</td>
                                                 <td>
                                                     <div class="d-flex gap-2">
-                                                        <a href="{{ route('admin.payments.edit', $payment->id) }}"
+                                                        <a href="{{ route('merchant.payments.edit', $payment->id) }}"
                                                         class="btn btn-sm btn-outline-primary"
                                                         title="{{ __('invoice.edit') }}">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <form action="{{ route('admin.payments.destroy', $payment->id) }}" method="POST" class="d-inline">
+                                                        <form action="{{ route('merchant.payments.destroy', $payment->id) }}" method="POST" class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"

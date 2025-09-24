@@ -12,7 +12,7 @@
     <!-- Filter Body -->
     <div id="packagesFiltersCollapse" class="collapse">
         <div class="card-body">
-            <form action="{{ route('admin.packages.index') }}" method="get">
+            <form action="{{ route('merchant.packages.index') }}" method="get">
                 <div class="row g-2">
 
                     <!-- Keyword -->
@@ -156,7 +156,7 @@
                         <button type="submit" class="btn btn-primary me-2 flex-grow-1">
                             <i class="fas fa-search me-1"></i>{{ __('general.filter') }}
                         </button>
-                        <a href="{{ route('admin.packages.index') }}" class="btn btn-outline-secondary flex-grow-1">
+                        <a href="{{ route('merchant.packages.index') }}" class="btn btn-outline-secondary flex-grow-1">
                             <i class="fas fa-undo me-1"></i>{{ __('general.reset') }}
                         </a>
                     </div>
