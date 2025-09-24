@@ -14,58 +14,6 @@ class Package extends Model
 
     protected $guarded = [];
 
-    // protected $searchable = [
-    //     'columns' => [
-    //         'packages.merchant_id'          => 10,
-    //         'packages.sender_first_name'    => 10,
-    //         'packages.sender_middle_name'   => 10,
-    //         'packages.sender_last_name'     => 10,
-    //         'packages.sender_phone'         => 10,
-    //         'packages.sender_email'         => 10,
-
-    //         'packages.sender_country'       => 10,
-    //         'packages.sender_region'        => 10,
-    //         'packages.sender_city'          => 10,
-    //         'packages.sender_district'      => 10,
-    //         'packages.sender_postal_code'   => 10,
-    //         'packages.sender_others'        => 10,
-
-    //         'packages.receiver_first_name'  => 10,
-    //         'packages.receiver_middle_name' => 10,
-    //         'packages.receiver_last_name'   => 10,
-    //         'packages.receiver_phone'       => 10,
-    //         'packages.receiver_email'       => 10,
-    //         'packages.receiver_country'     => 10,
-    //         'packages.receiver_region'      => 10,
-    //         'packages.receiver_city'        => 10,
-    //         'packages.receiver_district'    => 10,
-    //         'packages.receiver_postal_code' => 10,
-    //         'packages.receiver_others'      => 10,
-
-    //         'packages.package_content'      => 10,
-    //         'packages.package_note'         => 10,
-    //         'packages.tracking_number'      => 10,
-    //         'packages.weight'               => 10,
-    //         'packages.dimensions'           => 10,
-    //         'packages.quantity'             => 10,
-    //         'packages.delivery_fee'         => 10,
-    //         'packages.insurance_fee'        => 10,
-    //         'packages.service_fee'          => 10,
-    //         'packages.total_fee'            => 10,
-    //         'packages.paid_amount'          => 10,
-    //         'packages.due_amount'           => 10,
-    //         'packages.cod_amount'           => 10,
-
-    //         'merchants.name'                => 10,
-    //         'merchants.contact_person'      => 10,
-    //         'merchants.email'               => 10,
-    //         'merchants.phone'               => 10,
-    //     ],
-    //     'joins' => [
-    //         'merchants' => ['merchants.id','packages.merchant_id'],
-    //     ],
-    // ];
-
 
 
     // to get full name as property instead of first_name and last_name
@@ -190,12 +138,6 @@ class Package extends Model
         return $this->hasMany(PackageProduct::class);
     }
 
-    // public function products()
-    // {
-    //     return $this->belongsToMany(Product::class, 'package_products')
-    //         ->withPivot(['quantity', 'weight', 'price_per_unit', 'total_price'])
-    //         ->using(PackageProduct::class);
-    // }
 
     public function stockItems()
     {
