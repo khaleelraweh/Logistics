@@ -20,63 +20,15 @@ class MerchantPermissionsSeeder extends Seeder
         );
 
         // ===== Products =====
-        $manageProducts = Permission::create([
-            'name'            => 'merchant_manage_products',
-            'display_name'    => ['ar' => 'إدارة المنتجات', 'en' => 'Manage Products'],
-            'route'           => 'products',
-            'module'          => 'products',
-            'as'              => 'products.index',
-            'icon'            => 'fab fa-product-hunt',
-            'parent'          => '0',
-            'parent_original' => '0',
-            'sidebar_link'    => '1',
-            'appear'          => '1',
-            'ordering'        => '10',
-        ]);
+        $manageProducts = Permission::create(['name' => 'merchant_manage_products',  'display_name' => ['ar' => 'إدارة المنتجات', 'en' => 'Manage Products'], 'route' => 'products', 'module' => 'products', 'as' => 'products.index', 'icon' => 'fab fa-product-hunt', 'parent' => '0', 'parent_original' => '0', 'sidebar_link'    => '1', 'appear' => '1', 'ordering' => '10',]);
         $manageProducts->parent_show = $manageProducts->id;
         $manageProducts->save();
 
-        $showProducts = Permission::create([
-            'name'            => 'merchant_show_products',
-            'display_name'    => ['ar' => 'عرض المنتجات', 'en' => 'Show Products'],
-            'route'           => 'products',
-            'module'          => 'products',
-            'as'              => 'products.index',
-            'icon'            => 'fas fa-box',
-            'parent'          => '0',
-            'parent_original' => '0',
-            'parent_show'     => '0',
-            'sidebar_link'    => '0',
-            'appear'          => '0',
-        ]);
+        $showProducts = Permission::create([ 'name' => 'merchant_show_products', 'display_name' => ['ar' => 'عرض المنتجات', 'en' => 'Show Products'], 'route' => 'products', 'module' => 'products', 'as' => 'products.index', 'icon' => 'fas fa-box', 'parent'  => '0' , 'parent_original' => '0' , 'parent_show' => '0', 'sidebar_link' => '0', 'appear'  => '0',]);
 
-        $createProducts = Permission::create([
-            'name'            => 'merchant_create_products',
-            'display_name'    => ['ar' => 'إضافة منتج', 'en' => 'Create Product'],
-            'route'           => 'products',
-            'module'          => 'products',
-            'as'              => 'products.create',
-            'icon'            => 'fas fa-plus',
-            'parent'          => '0',
-            'parent_original' => '0',
-            'parent_show'     => '0',
-            'sidebar_link'    => '0',
-            'appear'          => '0',
-        ]);
+        $createProducts = Permission::create(['name' => 'merchant_create_products', 'display_name' => ['ar' => 'إضافة منتج', 'en' => 'Create Product'], 'route' => 'products', 'module' => 'products', 'as' => 'products.create', 'icon' => 'fas fa-plus','parent' => '0' , 'parent_original' => '0' , 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0',]);
 
-        $editProducts = Permission::create([
-            'name'            => 'merchant_edit_products',
-            'display_name'    => ['ar' => 'تعديل منتج', 'en' => 'Edit Product'],
-            'route'           => 'products',
-            'module'          => 'products',
-            'as'              => 'products.edit',
-            'icon'            => 'fas fa-edit',
-            'parent'          => '0',
-            'parent_original' => '0',
-            'parent_show'     => '0',
-            'sidebar_link'    => '0',
-            'appear'          => '0',
-        ]);
+        $editProducts = Permission::create(['name' => 'merchant_edit_products' , 'display_name' => ['ar' => 'تعديل منتج', 'en' => 'Edit Product'] , 'route' => 'products' , 'module' => 'products' , 'as' => 'products.edit' , 'icon' => 'fas fa-edit' , 'parent' => '0' , 'parent_original' => '0' , 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0',]);
 
         $deleteProducts = Permission::create([
             'name'            => 'merchant_delete_products',
