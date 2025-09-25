@@ -22,7 +22,6 @@ class CreateSelectMerchantComponent extends Component
         if ($merchant) {
             $this->merchant_id = $merchant->id;
 
-            // تقسيم الاسم الكامل للمسؤول (contact_person_name)
             $names = explode(' ', $merchant->contact_person);
             $this->sender_first_name = $names[0] ?? '';
             $this->sender_last_name = end($names) ?? '';
