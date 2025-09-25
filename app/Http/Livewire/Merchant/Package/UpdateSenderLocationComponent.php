@@ -7,8 +7,6 @@ use App\Models\Merchant;
 
 class UpdateSenderLocationComponent extends Component
 {
-    public $package;
-
     public $merchant_id = null;
 
     // بيانات الموقع
@@ -28,24 +26,24 @@ class UpdateSenderLocationComponent extends Component
 
     protected $listeners = ['merchantSelected', 'refreshMapFromBlade', 'setMyLocation'];
 
-    public function mount($package = null)
+    public function mount()
     {
-        $this->package = $package;
+        // تعبئة البيانات تلقائيًا إذا كان التاجر مرتبط بالمستخدم
+        $merchant = auth()->user()->merchant;
 
-        if ($package) {
-            $this->merchant_id = $package->merchant_id ? (int) $package->merchant_id : null;
-
-            $this->sender_address = $package->sender_address;
-            $this->sender_country = $package->sender_country;
-            $this->sender_region = $package->sender_region;
-            $this->sender_city = $package->sender_city;
-            $this->sender_district = $package->sender_district;
-            $this->sender_postal_code = $package->sender_postal_code;
-            $this->latitude = $package->sender_latitude;
-            $this->longitude = $package->sender_longitude;
+        if ($merchant) {
+            $this->merchant_id = $merchant->id;
+            $this->sender_address = $merchant->address ?? '';
+            $this->sender_country = $merchant->country ?? '';
+            $this->sender_region = $merchant->region ?? '';
+            $this->sender_city = $merchant->city ?? '';
+            $this->sender_district = $merchant->district ?? '';
+            $this->sender_postal_code = $merchant->postal_code ?? '';
+            $this->latitude = $merchant->latitude ?? $this->defaultLatitude;
+            $this->longitude = $merchant->longitude ?? $this->defaultLongitude;
         } else {
-            $this->latitude = '';
-            $this->longitude = '';
+            $this->latitude = $this->defaultLatitude;
+            $this->longitude = $this->defaultLongitude;
         }
     }
 
@@ -64,10 +62,8 @@ class UpdateSenderLocationComponent extends Component
                 $this->sender_district = $merchant->district ?? '';
                 $this->sender_postal_code = $merchant->postal_code ?? '';
 
-                if ($merchant->latitude && $merchant->longitude) {
-                    $this->latitude = $merchant->latitude;
-                    $this->longitude = $merchant->longitude;
-                }
+                $this->latitude = $merchant->latitude ?? $this->defaultLatitude;
+                $this->longitude = $merchant->longitude ?? $this->defaultLongitude;
             }
         } else {
             $this->sender_address = '';
@@ -76,8 +72,8 @@ class UpdateSenderLocationComponent extends Component
             $this->sender_city = '';
             $this->sender_district = '';
             $this->sender_postal_code = '';
-            $this->latitude = '';
-            $this->longitude = '';
+            $this->latitude = $this->defaultLatitude;
+            $this->longitude = $this->defaultLongitude;
         }
 
         $this->emit('refreshMap'); // لتحديث الخريطة
@@ -98,7 +94,6 @@ class UpdateSenderLocationComponent extends Component
         $this->emit('refreshMap');
         $this->dispatchBrowserEvent('mapInvalidateSize');
     }
-
 
     public function render()
     {
