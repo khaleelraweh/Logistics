@@ -8,11 +8,12 @@
                 <strong>{{ __('merchant.name') }}:</strong>
                 <p class="mb-0">{{ $merchant_name }}</p>
                 <input type="hidden" name="merchant_id" value="{{ $merchant_id }}">
+                <input type="hidden" name="merchant_name" id="merchant_name" value="{{ $merchant_name }}">
             </div>
             <div class="mb-3">
                 <strong>{{ __('package.sender_name') }}:</strong>
                 <p class="mb-0">{{ $sender_full_name }}</p>
-                <input type="hidden" name="sender_full_name" value="{{ $sender_full_name }}">
+                <input type="hidden" name="sender_full_name" id="sender_full_name" value="{{ $sender_full_name }}">
 
                 <!-- إذا تريد تقسيم الاسم إلى أول ووسط وآخر -->
                 @php
@@ -21,9 +22,9 @@
                     $last_name  = end($names) ?? '';
                     $middle_name = count($names) > 2 ? implode(' ', array_slice($names, 1, count($names) - 2)) : '';
                 @endphp
-                <input type="hidden" name="sender_first_name" value="{{ $first_name }}">
-                <input type="hidden" name="sender_middle_name" value="{{ $middle_name }}">
-                <input type="hidden" name="sender_last_name" value="{{ $last_name }}">
+                <input type="hidden" name="sender_first_name" id="sender_first_name" value="{{ $first_name }}">
+                <input type="hidden" name="sender_middle_name" id="sender_middle_name" value="{{ $middle_name }}">
+                <input type="hidden" name="sender_last_name" id="sender_last_name" value="{{ $last_name }}">
             </div>
             <div class="mb-3">
                 <strong>{{ __('package.sender_email') }}:</strong>
