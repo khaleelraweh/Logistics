@@ -7,18 +7,33 @@
             <div class="mb-3">
                 <strong>{{ __('merchant.name') }}:</strong>
                 <p class="mb-0">{{ $merchant_name }}</p>
+                <input type="hidden" name="merchant_id" value="{{ $merchant_id }}">
             </div>
             <div class="mb-3">
                 <strong>{{ __('package.sender_name') }}:</strong>
                 <p class="mb-0">{{ $sender_full_name }}</p>
+                <input type="hidden" name="sender_full_name" value="{{ $sender_full_name }}">
+
+                <!-- إذا تريد تقسيم الاسم إلى أول ووسط وآخر -->
+                @php
+                    $names = explode(' ', $sender_full_name);
+                    $first_name = $names[0] ?? '';
+                    $last_name  = end($names) ?? '';
+                    $middle_name = count($names) > 2 ? implode(' ', array_slice($names, 1, count($names) - 2)) : '';
+                @endphp
+                <input type="hidden" name="sender_first_name" value="{{ $first_name }}">
+                <input type="hidden" name="sender_middle_name" value="{{ $middle_name }}">
+                <input type="hidden" name="sender_last_name" value="{{ $last_name }}">
             </div>
             <div class="mb-3">
                 <strong>{{ __('package.sender_email') }}:</strong>
                 <p class="mb-0">{{ $sender_email }}</p>
+                <input type="hidden" name="sender_email" value="{{ $sender_email }}">
             </div>
             <div class="mb-3">
                 <strong>{{ __('package.sender_phone') }}:</strong>
                 <p class="mb-0">{{ $sender_phone }}</p>
+                <input type="hidden" name="sender_phone" value="{{ $sender_phone }}">
             </div>
         </div>
     </div>
