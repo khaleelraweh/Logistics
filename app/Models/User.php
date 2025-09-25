@@ -80,6 +80,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Driver::class, 'supervisor_id');
     }
 
+    public function merchant()
+    {
+        return $this->hasOne(Merchant::class);
+    }
+
 
 
 }
