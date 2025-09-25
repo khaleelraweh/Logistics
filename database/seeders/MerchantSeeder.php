@@ -40,18 +40,17 @@ class MerchantSeeder extends Seeder
             'status' => true,
             'published_on' => Carbon::now(),
             'created_by' => 'Seeder',
-            'username'      => 'alnagah',
-            'password'      => bcrypt('123123123'), // تغيير لاحقًا
+
         ]);
 
         // إنشاء نسخة في جدول users
         $user = User::create([
             'first_name' => $merchant->name,
             'last_name' => $merchant->contact_person,
-            'username' => $merchant->username,
+            'username' => 'alnagah',
             'email' => $merchant->email,
             'mobile' => $merchant->phone,
-            'password' => $merchant->password,
+            'password'      => bcrypt('123123123'),
             'layout_preferences'    => json_encode([
                                         "layout"    => "vertical",
                                         "topbar"    => "dark",
@@ -66,6 +65,9 @@ class MerchantSeeder extends Seeder
             'status' => 1,
             'created_by' => 'Seeder',
         ]);
+
+        // ربط التاجر بالمستخدم
+        $merchant->update(['user_id' => $user->id]);
 
         // جلب أو إنشاء دور التاجر
         $merchantRole = Role::firstOrCreate(

@@ -42,11 +42,6 @@ return new class extends Migration
             $table->string('youtube')->nullable();
             $table->string('website')->nullable();
 
-
-            $table->string('username')->unique(); // will be use always
-            $table->string('password');
-
-
             // will be use always
             $table->boolean('status')->default(true);
             $table->dateTime('published_on')->nullable();
