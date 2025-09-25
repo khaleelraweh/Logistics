@@ -16,6 +16,7 @@ return new class extends Migration
         // جدول المتاجر
         Schema::create('merchants', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->json('name');
             $table->json('slug');
             // عنوان التاجر مفصل

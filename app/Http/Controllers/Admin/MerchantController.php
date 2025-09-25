@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\MerchantRequest;
 use App\Models\Merchant;
 use App\Models\Package;
 use App\Models\PackageProduct;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -103,6 +104,27 @@ class MerchantController extends Controller
 
             $merchant->update(['logo' => $file_name]);
         }
+
+            // ✨ إنشاء حساب مستخدم لهذا التاجر
+        if ($merchant) {
+            $names = explode(' ', $merchant->contact_person);
+
+            $user = User::create([
+                'first_name' => ['ar' => $names[0] ?? $merchant->name['ar'], 'en' => $names[0] ?? $merchant->name['en']],
+                'last_name'  => ['ar' => end($names) ?? $merchant->name['ar'], 'en' => end($names) ?? $merchant->name['en']],
+                'username'   => $merchant->username,
+                'email'      => $merchant->email,
+                'mobile'     => $merchant->phone,
+                'password'   => $merchant->password, // نفس كلمة مرور التاجر
+                'status'     => 1,
+            ]);
+
+            // ✨ إعطاء المستخدم دور "merchant"
+            $user->attachRole('merchant');
+        }
+
+        $merchant->update(['user_id' => $user->id]);
+
 
         if ($merchant) {
             return redirect()->route('admin.merchants.index')->with([

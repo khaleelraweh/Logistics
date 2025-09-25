@@ -80,15 +80,10 @@ class Merchant extends Model
         return $this->hasMany(Product::class);
     }
 
-    // public function warehouses()
-    // {
-    //     return $this->hasMany(Warehouse::class);
-    // }
-
-    // public function packages()
-    // {
-    //     return $this->hasMany(Package::class);
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function packages()
     {
