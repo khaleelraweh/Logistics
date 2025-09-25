@@ -12,49 +12,52 @@ class UpdateSelectMerchantComponent extends Component
     public $merchant_id = null;
     public $merchants = [];
 
-    // الحقول التي سيتم تعبئتها تلقائيًا
-    public $sender_first_name = '';
-    public $sender_middle_name = '';
-    public $sender_last_name = '';
+    // بيانات التاجر
+    public $sender_full_name = '';
     public $sender_email = '';
     public $sender_phone = '';
+    public $merchant_name = '';
 
     public function mount($package)
     {
         $this->package = $package;
-        $this->merchant_id = $package->merchant_id ? (int) $package->merchant_id : null;
-        $this->merchants = Merchant::all();
 
-        // تعبئة الحقول من قاعدة البيانات
-        $this->sender_first_name = $package->sender_first_name;
-        $this->sender_middle_name = $package->sender_middle_name;
-        $this->sender_last_name = $package->sender_last_name;
-        $this->sender_email = $package->sender_email;
-        $this->sender_phone = $package->sender_phone;
+        // إذا كان الطرد يحتوي على merchant_id استخدمه، وإلا استخدم التاجر المرتبط بالمستخدم الحالي
+        $merchant = $package->merchant ?? auth()->user()->merchant;
+
+        if ($merchant) {
+            $this->merchant_id = $merchant->id;
+
+            // الاسم الكامل
+            $this->sender_full_name = $merchant->contact_person ?? '';
+
+            // البريد والهاتف
+            $this->sender_email = $merchant->contact_person_email ?? $merchant->email;
+            $this->sender_phone = $merchant->contact_person_phone ?? $merchant->phone;
+
+            $this->merchant_name = $merchant->name ?? '';
+        }
+
+        // إذا كان الطرد يحتوي على بيانات قديمة للحقول، استخدمها كأولوية
+        $this->sender_full_name = $package->sender_full_name ?? $this->sender_full_name;
+        $this->sender_email = $package->sender_email ?? $this->sender_email;
+        $this->sender_phone = $package->sender_phone ?? $this->sender_phone;
+
+        $this->merchants = Merchant::all();
     }
 
+    // تحديث البيانات عند تغيير التاجر
     public function updatedMerchantId($value)
     {
         if ($value) {
             $merchant = Merchant::find($value);
             if ($merchant) {
-                $names = explode(' ', $merchant->contact_person);
-                $this->sender_first_name = $names[0] ?? '';
-                $this->sender_middle_name = count($names) > 2 ? implode(' ', array_slice($names, 1, count($names)-2)) : '';
-                $this->sender_last_name = end($names) ?? '';
-                $this->sender_email = $merchant->email;
-                $this->sender_phone = $merchant->phone;
+                $this->sender_full_name = $merchant->contact_person ?? '';
+                $this->sender_email = $merchant->email ?? '';
+                $this->sender_phone = $merchant->phone ?? '';
+                $this->merchant_name = $merchant->name ?? '';
             }
-        } else {
-            // إذا تم مسح الاختيار
-            $this->sender_first_name = '';
-            $this->sender_middle_name = '';
-            $this->sender_last_name = '';
-            $this->sender_email = '';
-            $this->sender_phone = '';
         }
-
-        $this->emit('merchantSelected', $this->merchant_id);
     }
 
     public function render()

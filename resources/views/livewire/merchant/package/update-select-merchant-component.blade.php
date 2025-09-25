@@ -1,46 +1,55 @@
 <div>
-    <div class="row mb-3">
-        <div class="col-12 mb-3">
-            <label for="merchant_id" class="form-label">{{ __('general.merchant') }} ({{ __('general.optional') }})</label>
-            <select class="form-select" wire:model="merchant_id" id="merchant_id" name="merchant_id">
-                <option value="">{{ __('general.select') }}</option>
-                @foreach($merchants as $merchant)
-                    <option value="{{ $merchant->id }}">{{ $merchant->name }}</option>
-                @endforeach
-            </select>
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-user me-2"></i>{{ __('package.sender_info') }}</h5>
         </div>
-    </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <strong>{{ __('merchant.name') }}:</strong>
+                <p class="mb-0">{{ $merchant_name }}</p>
+                <input type="hidden" name="merchant_id" value="{{ $merchant_id }}">
+            </div>
+            <div class="mb-3">
+                <strong>{{ __('package.sender_name') }}:</strong>
+                <p class="mb-0">{{ $sender_full_name }}</p>
+                <input type="hidden" name="sender_full_name" value="{{ $sender_full_name }}">
 
-    <div class="row">
-        <div class="col-md-4 mb-3">
-            <label class="form-label" for="sender_first_name">{{ __('package.sender_first_name') }} <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" wire:model="sender_first_name" name="sender_first_name" id="sender_first_name" required>
-            @error('sender_first_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
-        </div>
-
-        <div class="col-md-4 mb-3">
-            <label class="form-label" for="sender_middle_name">{{ __('package.sender_middle_name') }}</label>
-            <input type="text" class="form-control" wire:model="sender_middle_name" name="sender_middle_name" id="sender_middle_name">
-            @error('sender_middle_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
-        </div>
-
-        <div class="col-md-4 mb-3">
-            <label class="form-label" for="sender_last_name">{{ __('package.sender_last_name') }} <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" wire:model="sender_last_name" name="sender_last_name" id="sender_last_name" required>
-            @error('sender_last_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6 mb-3">
-            <label class="form-label" for="sender_email">{{ __('package.sender_email') }}</label>
-            <input type="email" class="form-control" wire:model="sender_email" name="sender_email" id="sender_email">
-            @error('sender_email') <div class="invalid-feedback">{{ $message }}</div> @enderror
-        </div>
-        <div class="col-md-6 mb-3">
-            <label class="form-label" for="sender_phone">{{ __('package.sender_phone') }} <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" wire:model="sender_phone" name="sender_phone" id="sender_phone" required>
-            @error('sender_phone') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                <!-- إذا تريد تقسيم الاسم إلى أول ووسط وآخر -->
+                @php
+                    $names = explode(' ', $sender_full_name);
+                    $first_name = $names[0] ?? '';
+                    $last_name  = end($names) ?? '';
+                    $middle_name = count($names) > 2 ? implode(' ', array_slice($names, 1, count($names) - 2)) : '';
+                @endphp
+                <input type="hidden" name="sender_first_name" value="{{ $first_name }}">
+                <input type="hidden" name="sender_middle_name" value="{{ $middle_name }}">
+                <input type="hidden" name="sender_last_name" value="{{ $last_name }}">
+            </div>
+            <div class="mb-3">
+                <strong>{{ __('package.sender_email') }}:</strong>
+                <p class="mb-0">{{ $sender_email }}</p>
+                <input type="hidden" name="sender_email" value="{{ $sender_email }}">
+            </div>
+            <div class="mb-3">
+                <strong>{{ __('package.sender_phone') }}:</strong>
+                <p class="mb-0">{{ $sender_phone }}</p>
+                <input type="hidden" name="sender_phone" value="{{ $sender_phone }}">
+            </div>
         </div>
     </div>
 </div>
+
+<style>
+    .card-body p {
+        background-color: #f8f9fa;
+        padding: 8px 12px;
+        border-radius: 5px;
+        margin-bottom: 0;
+        font-weight: 500;
+    }
+    .card-body strong {
+        display: block;
+        margin-bottom: 4px;
+        color: #495057;
+    }
+</style>
