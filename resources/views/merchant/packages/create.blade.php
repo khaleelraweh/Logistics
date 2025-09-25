@@ -1038,7 +1038,7 @@
             // ===============================
             function updateReviewPage() {
                 // معلومات المرسل
-                $('#review-sender-merchant').text($('#merchant_id option:selected').text());
+                $('#review-sender-merchant').text($('#merchant_name').val());
                 $('#review-sender-name').text(
                     $('#sender_first_name').val() + ' ' +
                     $('#sender_middle_name').val() + ' ' +
