@@ -28,9 +28,23 @@ class SenderLocationComponent extends Component
 
     public function mount()
     {
-        // الحقول تبقى فارغة عند عدم وجود بيانات مسبقة
-        $this->latitude = '';
-        $this->longitude = '';
+        // تعبئة البيانات تلقائيًا إذا كان التاجر مرتبط بالمستخدم
+        $merchant = auth()->user()->merchant;
+
+        if ($merchant) {
+            $this->merchant_id = $merchant->id;
+            $this->sender_address = $merchant->address ?? '';
+            $this->sender_country = $merchant->country ?? '';
+            $this->sender_region = $merchant->region ?? '';
+            $this->sender_city = $merchant->city ?? '';
+            $this->sender_district = $merchant->district ?? '';
+            $this->sender_postal_code = $merchant->postal_code ?? '';
+            $this->latitude = $merchant->latitude ?? $this->defaultLatitude;
+            $this->longitude = $merchant->longitude ?? $this->defaultLongitude;
+        } else {
+            $this->latitude = $this->defaultLatitude;
+            $this->longitude = $this->defaultLongitude;
+        }
     }
 
     // عند اختيار تاجر
@@ -48,24 +62,18 @@ class SenderLocationComponent extends Component
                 $this->sender_district = $merchant->district ?? '';
                 $this->sender_postal_code = $merchant->postal_code ?? '';
 
-                if ($merchant->latitude && $merchant->longitude) {
-                    $this->latitude = $merchant->latitude;
-                    $this->longitude = $merchant->longitude;
-                } else {
-                    $this->latitude = '';
-                    $this->longitude = '';
-                }
+                $this->latitude = $merchant->latitude ?? $this->defaultLatitude;
+                $this->longitude = $merchant->longitude ?? $this->defaultLongitude;
             }
         } else {
-            // بدون تاجر
             $this->sender_address = '';
             $this->sender_country = '';
             $this->sender_region = '';
             $this->sender_city = '';
             $this->sender_district = '';
             $this->sender_postal_code = '';
-            $this->latitude = '';
-            $this->longitude = '';
+            $this->latitude = $this->defaultLatitude;
+            $this->longitude = $this->defaultLongitude;
         }
 
         $this->emit('refreshMap'); // لتحديث الخريطة
