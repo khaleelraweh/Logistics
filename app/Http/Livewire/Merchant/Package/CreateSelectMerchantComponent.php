@@ -2,13 +2,11 @@
 
 namespace App\Http\Livewire\Merchant\Package;
 
-use App\Models\Merchant;
 use Livewire\Component;
 
 class CreateSelectMerchantComponent extends Component
 {
     public $merchant_id = null;
-    public $merchants = [];
 
     // الحقول التي سيتم تعبئتها تلقائيًا
     public $sender_first_name = '';
@@ -19,46 +17,25 @@ class CreateSelectMerchantComponent extends Component
 
     public function mount()
     {
-        $this->merchants = Merchant::all();
-    }
+        $merchant = auth()->user()->merchant;
 
-    // تحديث الحقول عند اختيار التاجر
-    public function updatedMerchantId($value)
-    {
-        if ($value) {
-            $merchant = Merchant::find($value);
+        if ($merchant) {
+            $this->merchant_id = $merchant->id;
 
-            if ($merchant) {
-                $names = explode(' ', $merchant->contact_person);
-                $this->sender_first_name = $names[0] ?? '';
-                // $this->sender_middle_name = $names[1] ?? '';
+            // تقسيم الاسم الكامل للمسؤول (contact_person_name)
+            $names = explode(' ', $merchant->contact_person);
+            $this->sender_first_name = $names[0] ?? '';
+            $this->sender_last_name = end($names) ?? '';
 
-                // $this->sender_last_name = $names[2] ?? '';
-                $this->sender_last_name = end($names) ?? '';
-
-                  // الاسم الأوسط هو كل العناصر بين الأول والأخير
-                if (count($names) > 2) {
-                    $middleNames = array_slice($names, 1, count($names) - 2);
-                    $this->sender_middle_name = implode(' ', $middleNames);
-                } else {
-                    $this->sender_middle_name = '';
-                }
-
-
-                $this->sender_email = $merchant->email;
-                $this->sender_phone = $merchant->phone;
+            if (count($names) > 2) {
+                $middleNames = array_slice($names, 1, count($names) - 2);
+                $this->sender_middle_name = implode(' ', $middleNames);
             }
-        } else {
-            // بدون تاجر
-            $this->sender_first_name = '';
-            $this->sender_middle_name = '';
-            $this->sender_last_name = '';
-            $this->sender_email = '';
-            $this->sender_phone = '';
-        }
 
-        // إرسال الحدث للكومبوننت الآخر إذا لزم الأمر
-        $this->emit('merchantSelected', $this->merchant_id);
+            // باقي البيانات
+            $this->sender_email = $merchant->contact_person_email ?? $merchant->email;
+            $this->sender_phone = $merchant->contact_person_phone ?? $merchant->phone;
+        }
     }
 
     public function render()
