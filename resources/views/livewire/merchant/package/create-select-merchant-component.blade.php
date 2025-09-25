@@ -7,7 +7,8 @@
             <div class="mb-3">
                 <strong>{{ __('merchant.name') }}:</strong>
                 <p class="mb-0">{{ $merchant_name }}</p>
-                <input type="hidden" id="merchant_id" name="merchant_id" value="{{ $merchant_id }}">
+                <input type="hidden"  name="merchant_id" value="{{ $merchant_id }}">
+                <input type="hidden" id="merchant_name" name="merchant_name" value="{{ $merchant_name }}">
             </div>
             <div class="mb-3">
                 <strong>{{ __('package.sender_name') }}:</strong>
