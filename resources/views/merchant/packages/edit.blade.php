@@ -305,15 +305,8 @@
                                         <div class="tab-pane" id="basic-informaion">
                                             <div class="row">
                                                 <div class="col-lg-6">
-                                                    <div class="card">
-                                                        <div class="card-header d-flex justify-content-between align-items-center">
-                                                            <h5 class="mb-0"><i class="fas fa-user me-2"></i>{{ __('package.sender_Information') }}</h5>
-                                                            <span class="badge bg-primary">{{ __('general.required') }}</span>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            @livewire('merchant.package.update-select-merchant-component', ['package' => $package])
-                                                        </div>
-                                                    </div>
+                                                    @livewire('merchant.package.update-select-merchant-component', ['package' => $package])
+
                                                 </div>
 
                                                 <div class="col-lg-6">
