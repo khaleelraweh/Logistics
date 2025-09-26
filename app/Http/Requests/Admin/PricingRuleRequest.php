@@ -22,10 +22,9 @@ class PricingRuleRequest extends FormRequest
         switch ($this->method()) {
             case 'POST': {
                 return [
-                    'name'          => 'required|array',
-                    'name.*'        => 'required|string|max:255',
+                    'name.ar'        => 'required|string|max:255',
                     'description'   => 'nullable|array',
-                    'description.*' => 'nullable|string|max:500',
+                    'description.ar' => 'nullable|string|max:500',
                     'type'          => 'required|in:delivery,storage,handling',
                     'zone'          => 'nullable|string|max:255',
                     'min_weight'    => 'required|integer|min:0',
@@ -47,10 +46,8 @@ class PricingRuleRequest extends FormRequest
             case 'PUT':
             case 'PATCH': {
                 return [
-                    'name'          => 'required|array',
-                    'name.*'        => 'required|string|max:255',
-                    'description'   => 'nullable|array',
-                    'description.*' => 'nullable|string|max:500',
+                    'name.ar'        => 'required|string|max:255',
+                    'description.ar' => 'nullable|string|max:500',
                     'type'          => 'required|in:delivery,storage,handling',
                     'zone'          => 'nullable|string|max:255',
                     'min_weight'    => 'required|integer|min:0',
