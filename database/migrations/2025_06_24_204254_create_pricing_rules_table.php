@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('pricing_rules', function (Blueprint $table) {
             $table->id();
             $table->json('name');
+            $table->json('slug');
             $table->json('description')->nullable();
             $table->enum('type', ['delivery', 'storage', 'handling'])->default('delivery');
             $table->string('zone')->nullable(); // المدينة أو المنطقة
