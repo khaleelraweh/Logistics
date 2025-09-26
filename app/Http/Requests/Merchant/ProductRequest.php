@@ -28,7 +28,6 @@ class ProductRequest extends FormRequest
                     return [
                         'name'                              =>  'required|string|max:255',
                         'description'                       =>  'nullable|string|max:255',
-                        'merchant_id'                       =>  'required',
                         'sku'                               =>  'required|string|max:255|unique:products',
 
                         'images'                            =>  'required',
@@ -45,7 +44,6 @@ class ProductRequest extends FormRequest
                     return [
                         'name'                              =>  'required|string|max:255',
                         'description'                       =>  'nullable|string|max:255',
-                        'merchant_id'                       =>  'required',
                         'sku'                               =>  'required|string|max:255|unique:products,sku,'. $this->route()->product,
 
                         'images'                            =>  'nullable',
