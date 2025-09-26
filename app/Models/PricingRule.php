@@ -15,7 +15,7 @@ class PricingRule extends Model
     use HasFactory , HasTranslations, HasTranslatableSlug , SearchableTrait;
 
     protected $guarded = [];
-    public $translatable = ['name','description'];
+    public $translatable = ['name', 'slug','description'];
 
        // Cast fields
     protected $casts = [
