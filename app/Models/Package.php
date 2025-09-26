@@ -443,33 +443,51 @@ class Package extends Model
     {
         $weight = $this->weight; // بالجرام
         $zone = $this->receiver_city; // أو أي تصنيف zone عندك
+        $length = data_get($this->dimensions,'length',0);
+        $width  = data_get($this->dimensions,'width',0);
+        $height = data_get($this->dimensions,'height',0);
+        $isExpress = $this->delivery_speed === 'express';
+        $isSameDay = $this->delivery_speed === 'same_day';
+        $attributes = $this->attributes ?? [];
 
-        $rule = \App\Models\PricingRule::where('type', 'delivery')
-            ->where('zone', $zone)
-            ->where('min_weight', '<=', $weight)
-            ->where(function ($q) use ($weight) {
-                $q->whereNull('max_weight')->orWhere('max_weight', '>=', $weight);
+        // قاعدة أساسية حسب الوزن والمنطقة
+        $rule = \App\Models\PricingRule::where('type','delivery')
+            ->where(function($q) use($zone){
+                $q->where('zone',$zone)->orWhere('zone','Any');
             })
+            ->where('min_weight','<=',$weight)
+            ->where(function($q) use($weight){
+                $q->whereNull('max_weight')->orWhere('max_weight','>=',$weight);
+            })
+            ->where('status',true)
             ->first();
 
-        if (!$rule) {
-            return 0; // fallback
-        }
+        if(!$rule) return 0;
 
-        // حساب السعر
         $price = $rule->base_price;
 
-        if ($weight > $rule->min_weight) {
-            $extraKg = ceil(($weight - $rule->min_weight) / 1000);
+        // رسوم الوزن الإضافي
+        if($weight > $rule->min_weight){
+            $extraKg = ceil(($weight - $rule->min_weight)/1000);
             $price += $extraKg * $rule->price_per_kg;
         }
 
-        if ($this->delivery_speed === 'express') {
+        // رسوم express / same day
+        if($isExpress && $rule->express) $price += $rule->extra_fee;
+        if($isSameDay && $rule->same_day) $price += $rule->extra_fee;
+
+        // رسوم الطرود الكبيرة جداً
+        if($length > ($rule->max_length ?? 9999) || $width > ($rule->max_width ?? 9999) || $height > ($rule->max_height ?? 9999)){
             $price += $rule->extra_fee;
         }
 
+        // خصائص خاصة
+        if(!empty($attributes['is_fragile']) && $rule->fragile) $price += $rule->extra_fee;
+        if(!empty($attributes['is_perishable']) && $rule->perishable) $price += $rule->extra_fee;
+
         return $price;
     }
+
 
 
 
