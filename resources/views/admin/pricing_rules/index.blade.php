@@ -6,13 +6,13 @@
     <div class="row ">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="mb-0 font-size-18">{{ __('pricing_rule.manage_pricing_rules') }}</h4>
+                <h4 class="mb-0 font-size-18">{{ __('pricing_rules.manage_pricing_rules') }}</h4>
 
                 <div class="page-title-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.pricing_rules.index') }}">{{ __('pricing_rule.pricing_rules') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.pricing_rules.index') }}">{{ __('pricing_rules.pricing_rules') }}</a></li>
                         </ol>
                     </nav>
                 </div>
@@ -28,14 +28,14 @@
 
                     <div class="card-head d-flex justify-content-between">
                         <div class="head">
-                            <h4 class="card-title"> <i class="fas fa-eye"></i> {{ __('pricing_rule.pricing_rule_data') }}</h4>
-                            <p class="card-title-desc">{{ __('pricing_rule.pricing_rule_description') }}</p>
+                            <h4 class="card-title"> <i class="fas fa-eye"></i> {{ __('pricing_rules.pricing_rule_data') }}</h4>
+                            <p class="card-title-desc">{{ __('pricing_rules.pricing_rule_description') }}</p>
                         </div>
 
                         @ability('admin', 'create_pricing_rules')
                             <div class="button-items">
                                 <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.pricing_rules.create') }}">
-                                    {{ __('pricing_rule.add_new_pricing_rule') }} <i class="fas fa-plus-circle align-middle ms-2"></i>
+                                    {{ __('pricing_rules.add_new_pricing_rule') }} <i class="fas fa-plus-circle align-middle ms-2"></i>
                                 </a>
                             </div>
                         @endability
@@ -48,11 +48,11 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{ __('pricing_rule.name') }}</th>
-                            <th>{{ __('pricing_rule.type') }}</th>
-                            <th>{{ __('pricing_rule.zone') }}</th>
-                            <th>{{ __('pricing_rule.base_price') }}</th>
-                            <th>{{ __('pricing_rule.price_per_kg') }}</th>
+                            <th>{{ __('pricing_rules.name') }}</th>
+                            <th>{{ __('pricing_rules.type') }}</th>
+                            <th>{{ __('pricing_rules.zone') }}</th>
+                            <th>{{ __('pricing_rules.base_price') }}</th>
+                            <th>{{ __('pricing_rules.price_per_kg') }}</th>
                             <th>{{ __('general.status') }}</th>
                             <th>{{ __('general.created_at') }}</th>
                             <th width="12%">{{ __('general.actions') }}</th>

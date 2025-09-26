@@ -2,6 +2,17 @@
 
 return [
     // Titles
+    'manage_pricing_rules'   => 'Manage Pricing Rules',
+    'view_pricing_rules'     => 'View Pricing Rules',
+    'view_pricing_rule'      => 'View Pricing Rule',
+    'pricing_rules_data'     => 'Pricing Rules Data',
+    'add_new_pricing_rule'   => 'Add New Pricing Rule',
+    'edit_pricing_rule'      => 'Edit Pricing Rule',
+    'pricing_rule_data'      => 'Pricing Rule Data',
+    'pricing_rule_description' => 'This page allows you to view pricing rules and perform various operations on them',
+
+
+
     'pricing_rules'          => 'Pricing Rules',
     'add_pricing_rule'       => 'Add Pricing Rule',
     'view_pricing_rule'      => 'View Pricing Rule',
@@ -35,4 +46,5 @@ return [
 
     // Buttons
     'save_pricing_rule'      => 'Save Pricing Rule',
+    'update_pricing_rule'    => 'Update Pricing Rule',
 ];
