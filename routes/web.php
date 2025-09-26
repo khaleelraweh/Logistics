@@ -15,6 +15,7 @@ use App\Http\Controllers\Merchant\ProductController as MerchantProductController
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PickupRequestController;
+use App\Http\Controllers\Admin\PricingRuleController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReturnRequestController;
 use App\Http\Controllers\Admin\ShelfController;
@@ -162,6 +163,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('invoices/{invoice}/pay', [InvoiceController::class, 'payInvoice'])->name('invoices.pay');
 
     Route::resource('invoices', InvoiceController::class);
+    Route::resource('pricing_rules', PricingRuleController::class);
 
     // ==============   Payments   ==============  //
     Route::resource('payments', PaymentController::class);
