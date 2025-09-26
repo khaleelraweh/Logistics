@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 
 class PricingRule extends Model
 {
-    use HasFactory , HasTranslations , SearchableTrait;
+    use HasFactory , HasTranslations, HasTranslatableSlug , SearchableTrait;
 
     protected $guarded = [];
-    public $translatable = ['name','description'];
+    public $translatable = ['name', 'slug','description'];
 
        // Cast fields
     protected $casts = [
