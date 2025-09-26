@@ -77,7 +77,7 @@ class ProductController extends Controller
         // dd($request);
 
         $input['name']              =   $request->name;
-        $input['merchant_id']       =   $request->merchant_id;
+        $input['merchant_id']       =   auth()->user()->merchant->id;
         $input['description']       =   $request->description;
         $input['sku']               =   $request->sku;
         $input['price']               =   $request->price;
@@ -179,7 +179,7 @@ class ProductController extends Controller
         // dd($request);
 
         $input['name']              =   $request->name;
-        $input['merchant_id']       =   $request->merchant_id;
+        $input['merchant_id']       =   auth()->user()->merchant->id;
         $input['description']       =   $request->description;
         $input['sku']               =   $request->sku;
         $input['price']               =   $request->price;
