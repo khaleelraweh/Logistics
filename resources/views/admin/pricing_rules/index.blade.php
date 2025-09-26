@@ -42,27 +42,7 @@
                     </div>
 
                     <!-- Filters Section -->
-                    <form method="GET" action="{{ route('admin.pricing_rules.index') }}" class="row g-2 mb-3">
-                        <div class="col-md-3">
-                            <select name="type" class="form-control">
-                                <option value="">{{ __('general.all_types') }}</option>
-                                <option value="delivery" {{ request('type') == 'delivery' ? 'selected' : '' }}>{{ __('pricing_rule.delivery') }}</option>
-                                <option value="storage" {{ request('type') == 'storage' ? 'selected' : '' }}>{{ __('pricing_rule.storage') }}</option>
-                                <option value="handling" {{ request('type') == 'handling' ? 'selected' : '' }}>{{ __('pricing_rule.handling') }}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select name="status" class="form-control">
-                                <option value="">{{ __('general.all_status') }}</option>
-                                <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>{{ __('general.active') }}</option>
-                                <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>{{ __('general.inactive') }}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-info">{{ __('general.filter') }}</button>
-                        </div>
-                    </form>
-                    <!-- End Filters Section -->
+                    @include('admin.pricing_rules.filter.filter')
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
