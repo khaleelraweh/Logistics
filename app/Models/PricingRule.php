@@ -15,7 +15,7 @@ class PricingRule extends Model
     use HasFactory , HasTranslations, HasTranslatableSlug , SearchableTrait;
 
     protected $guarded = [];
-    public $translatable = ['name', 'slug','description'];
+    public $translatable = ['display_name', 'slug','description'];
 
        // Cast fields
     protected $casts = [
@@ -27,6 +27,7 @@ class PricingRule extends Model
     protected $searchable = [
         'columns' => [
             'pricing_rules.name' => 10,
+            'pricing_rules.display_name' => 10,
             'pricing_rules.description' => 5,
             'pricing_rules.zone' => 3,
             'pricing_rules.type' => 2,
@@ -36,7 +37,7 @@ class PricingRule extends Model
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom('display_name')
             ->saveSlugsTo('slug');
     }
 
