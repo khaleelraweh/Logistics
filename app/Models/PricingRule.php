@@ -24,13 +24,27 @@ class PricingRule extends Model
         'published_on' => 'datetime',
     ];
 
-    protected $searchable = [
+
+      protected $searchable = [
         'columns' => [
             'pricing_rules.name' => 10,
-            'pricing_rules.description' => 5,
-            'pricing_rules.zone' => 3,
-            'pricing_rules.type' => 2,
-        ],
+            'pricing_rules.description' => 10,
+            'pricing_rules.type' => 10,
+            'pricing_rules.zone' => 10,
+            'pricing_rules.min_weight' => 10,
+            'pricing_rules.max_weight' => 10,
+            'pricing_rules.max_length' => 10,
+            'pricing_rules.max_width' => 10,
+            'pricing_rules.max_height' => 10,
+            'pricing_rules.base_price' => 10,
+            'pricing_rules.price_per_kg' => 10,
+            'pricing_rules.extra_fee' => 10,
+            'pricing_rules.oversized' => 10,
+            'pricing_rules.fragile' => 10,
+            'pricing_rules.perishable' => 10,
+            'pricing_rules.express' => 10,
+            'pricing_rules.same_day' => 10,
+        ]
     ];
 
     public function getSlugOptions(): SlugOptions
