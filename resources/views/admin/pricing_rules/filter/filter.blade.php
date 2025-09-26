@@ -26,9 +26,9 @@
                     <div class="col-md-2">
                         <select name="type" class="form-select">
                             <option value="">{{ __('filter.all_types') }}</option>
-                            <option value="delivery" {{ request('type') == 'delivery' ? 'selected' : '' }}>{{ __('pricing_rule.delivery') }}</option>
-                            <option value="storage" {{ request('type') == 'storage' ? 'selected' : '' }}>{{ __('pricing_rule.storage') }}</option>
-                            <option value="handling" {{ request('type') == 'handling' ? 'selected' : '' }}>{{ __('pricing_rule.handling') }}</option>
+                            <option value="delivery" {{ request('type') == 'delivery' ? 'selected' : '' }}>{{ __('pricing_rules.delivery') }}</option>
+                            <option value="storage" {{ request('type') == 'storage' ? 'selected' : '' }}>{{ __('pricing_rules.storage') }}</option>
+                            <option value="handling" {{ request('type') == 'handling' ? 'selected' : '' }}>{{ __('pricing_rules.handling') }}</option>
                         </select>
                     </div>
 
@@ -50,8 +50,8 @@
                     <div class="col-md-1">
                         <select name="sort_by" class="form-select">
                             <option value="created_at">{{ __('filter.price_type') }}</option>
-                            <option value="base_price" {{ request('sort_by') == 'base_price' ? 'selected' : '' }}>{{ __('pricing_rule.base_price') }}</option>
-                            <option value="price_per_kg" {{ request('sort_by') == 'price_per_kg' ? 'selected' : '' }}>{{ __('pricing_rule.price_per_kg') }}</option>
+                            <option value="base_price" {{ request('sort_by') == 'base_price' ? 'selected' : '' }}>{{ __('pricing_rules.base_price') }}</option>
+                            <option value="price_per_kg" {{ request('sort_by') == 'price_per_kg' ? 'selected' : '' }}>{{ __('pricing_rules.price_per_kg') }}</option>
                         </select>
                     </div>
 

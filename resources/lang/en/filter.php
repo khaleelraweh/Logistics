@@ -93,5 +93,12 @@ return [
     'region' => 'Region',
     'all_drivers' => 'All Drivers',
     'all_vehicles' => 'All Vehicles',
+
+    //pricing rules
+    'all_pricing_rule_types' => 'All Pricing Rule Types',
+    'search_name_zone' => 'Search by Name or Zone',
+    'zone' => 'Zone',
+    'all_status' => 'All Status',
+    'price_type' => 'Price Type',
 ];
 

@@ -168,8 +168,9 @@ class PricingRuleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PricingRule $pricingRule)
+    public function show($id)
     {
+        $pricingRule = PricingRule::findOrFail($id);
         return view('admin.pricing_rules.show', compact('pricingRule'));
     }
 
@@ -232,11 +233,13 @@ class PricingRuleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PricingRule $pricingRule)
+    public function destroy($id)
     {
         if (!auth()->user()->ability('admin', 'delete_pricing_rules')) {
             return redirect('admin/index');
         }
+
+        $pricingRule = PricingRule::findOrFail($id);
 
         $pricingRule->delete();
 

@@ -96,4 +96,11 @@ return [
     'region' => 'المنطقة',
     'all_drivers' => 'كل السائقين',
     'all_vehicles' => 'كل المركبات',
+
+    //pricing rules
+    'all_pricing_rule_types' => 'كل أنواع قواعد التسعير',
+    'search_name_zone' => 'البحث بالاسم أو المنطقة',
+    'zone' => 'المنطقة',
+    'all_status' => 'كل الحالات',
+    'price_type' => 'نوع السعر',
 ];
