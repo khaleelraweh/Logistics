@@ -14,32 +14,43 @@ return new class extends Migration
     public function up()
     {
         // جدول قواعد التسعير
-        Schema::create('pricing_rules', function (Blueprint $table) {
+       Schema::create('pricing_rules', function (Blueprint $table) {
             $table->id();
 
-              // Translatable fields
-            $table->json('name'); // Example: {"ar": "تسعيرة التوصيل", "en": "Delivery Pricing"}
+            // الاسم والوصف
+            $table->json('name');
             $table->json('description')->nullable();
 
-            // Type of pricing rule
+            // نوع القاعدة
             $table->enum('type', ['delivery', 'storage', 'handling'])->default('delivery');
 
-            // Condition (e.g., {"weight": {"from": 0, "to": 4}, "zone": "A"})
-            $table->json('condition');
+            // المنطقة أو المدينة (عشان داخل/خارج المدن الرئيسية)
+            $table->string('zone')->nullable(); // مثال: "Riyadh", "Jeddah", "Remote"
 
-            // Numeric fields
+            // الوزن (من - إلى)
+            $table->integer('min_weight')->default(0); // بالجرام
+            $table->integer('max_weight')->nullable(); // null يعني مفتوح
+
+            // الأبعاد (اختياري)
+            $table->integer('max_length')->nullable();
+            $table->integer('max_width')->nullable();
+            $table->integer('max_height')->nullable();
+
+            // سعر الأساس
             $table->decimal('base_price', 10, 2)->default(0);
+
+            // سعر لكل كيلوجرام إضافي بعد min_weight
             $table->decimal('price_per_kg', 10, 2)->default(0);
 
+            // تكلفة إضافية للـ (express, same_day, oversized...)
+            $table->decimal('extra_fee', 10, 2)->default(0);
+
+            // الحالة
             $table->boolean('status')->default(true);
 
-            $table->dateTime('published_on')->nullable();
-            $table->string('created_by')->nullable();
-            $table->string('updated_by')->nullable();
-            $table->string('deleted_by')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
+
 
     }
 
