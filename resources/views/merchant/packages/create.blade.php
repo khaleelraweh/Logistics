@@ -484,7 +484,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="row">
+                                                        {{-- <div class="row">
                                                             <div class="col-md-6 mb-3">
                                                                 <label for="status1" class="form-label">{{ __('package.status') }}</label>
                                                                 <select class="form-select {{ $errors->has('status') ? 'is-invalid' : '' }}" id="status1" name="status" required>
@@ -497,6 +497,16 @@
                                                                 @error('status')
                                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                                 @enderror
+                                                            </div>
+                                                        </div> --}}
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="status1" class="form-label">{{ __('package.status') }}</label>
+                                                                <p class="form-control-plaintext">
+                                                                    {{ \App\Models\Package::statuses()['pending'] }}
+                                                                </p>
+                                                                <input type="hidden" name="status" value="pending">
                                                             </div>
                                                         </div>
 
