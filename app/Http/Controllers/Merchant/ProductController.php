@@ -28,7 +28,12 @@ class ProductController extends Controller
 
         $products = Product::query()
             ->where('merchant_id', auth()->user()->merchant->id)
-            ->when(request('status') !== null, fn($q) => $q->where('status', request('status')))
+            ->when(\request()->keyword != null, function ($query) {
+                $query->search(\request()->keyword);
+            })
+            ->when(\request()->status != null, function ($query) {
+                $query->where('status', \request()->status);
+            })
             ->orderByRaw(request()->sort_by == 'published_on'
                 ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
                 : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
