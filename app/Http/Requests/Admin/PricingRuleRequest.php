@@ -39,7 +39,7 @@ class PricingRuleRequest extends FormRequest
                     'perishable'    => 'boolean',
                     'express'       => 'boolean',
                     'same_day'      => 'boolean',
-                    'status'        => 'required',
+                    'status'        => 'nullable',
                 ];
             }
             case 'PUT':
@@ -62,7 +62,7 @@ class PricingRuleRequest extends FormRequest
                     'perishable'    => 'boolean',
                     'express'       => 'boolean',
                     'same_day'      => 'boolean',
-                    'status'        => 'required',
+                    'status'        => 'nullable',
                 ];
             }
             default:

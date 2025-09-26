@@ -81,46 +81,89 @@ class PricingRuleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(PricingRuleRequest $request)
+    // {
+    //     if (!auth()->user()->ability('admin', 'create_pricing_rules')) {
+    //         return redirect('admin/index');
+    //     }
+
+    //     // الحقول المترجمة
+    //     $input['name'] = $request->name;
+    //     $input['description'] = $request->description;
+    //     $input['type'] = $request->type;
+    //     $input['zone'] = $request->zone;
+    //     $input['min_weight'] = $request->min_weight;
+    //     $input['max_weight'] = $request->max_weight;
+    //     $input['max_length'] = $request->max_length;
+    //     $input['max_width'] = $request->max_width;
+    //     $input['max_height'] = $request->max_height;
+    //     $input['base_price'] = $request->base_price;
+    //     $input['price_per_kg'] = $request->price_per_kg;
+    //     $input['extra_fee'] = $request->extra_fee;
+    //     $input['oversized'] = $request->oversized;
+    //     $input['fragile'] = $request->fragile;
+    //     $input['perishable'] = $request->perishable;
+    //     $input['express'] = $request->express;
+    //     $input['same_day'] = $request->same_day;
+    //     $input['status'] = $request->status;
+
+    //     $pricingRule = PricingRule::create($input);
+
+    //     if ($pricingRule) {
+    //         return redirect()->route('admin.pricing_rules.index')->with([
+    //             'message' => __('messages.pricing_rule_created'),
+    //             'alert-type' => 'success'
+    //         ]);
+    //     }
+
+    //     return redirect()->route('admin.pricing_rules.index')->with([
+    //         'message' => __('messages.something_went_wrong'),
+    //         'alert-type' => 'danger'
+    //     ]);
+    // }
+
     public function store(PricingRuleRequest $request)
-    {
-        if (!auth()->user()->ability('admin', 'create_pricing_rules')) {
-            return redirect('admin/index');
-        }
+{
+    if (!auth()->user()->ability('admin', 'create_pricing_rules')) {
+        return redirect('admin/index');
+    }
 
-        // الحقول المترجمة
-        $input['name'] = $request->name;
-        $input['description'] = $request->description;
-        $input['type'] = $request->type;
-        $input['zone'] = $request->zone;
-        $input['min_weight'] = $request->min_weight;
-        $input['max_weight'] = $request->max_weight;
-        $input['max_length'] = $request->max_length;
-        $input['max_width'] = $request->max_width;
-        $input['max_height'] = $request->max_height;
-        $input['base_price'] = $request->base_price;
-        $input['price_per_kg'] = $request->price_per_kg;
-        $input['extra_fee'] = $request->extra_fee;
-        $input['oversized'] = $request->oversized;
-        $input['fragile'] = $request->fragile;
-        $input['perishable'] = $request->perishable;
-        $input['express'] = $request->express;
-        $input['same_day'] = $request->same_day;
-        $input['status'] = $request->status;
+    $input['name']        = $request->name;
+    $input['description'] = $request->description;
+    $input['type']        = $request->type;
+    $input['zone']        = $request->zone;
+    $input['min_weight']  = $request->min_weight;
+    $input['max_weight']  = $request->max_weight;
+    $input['max_length']  = $request->max_length;
+    $input['max_width']   = $request->max_width;
+    $input['max_height']  = $request->max_height;
+    $input['base_price']  = $request->base_price;
+    $input['price_per_kg']= $request->price_per_kg;
+    $input['extra_fee']   = $request->extra_fee;
 
-        $pricingRule = PricingRule::create($input);
+    // Handle checkboxes
+    $input['oversized']   = $request->has('oversized') ? 1 : 0;
+    $input['fragile']     = $request->has('fragile') ? 1 : 0;
+    $input['perishable']  = $request->has('perishable') ? 1 : 0;
+    $input['express']     = $request->has('express') ? 1 : 0;
+    $input['same_day']    = $request->has('same_day') ? 1 : 0;
+    $input['status']      = $request->has('status') ? 1 : 0;
 
-        if ($pricingRule) {
-            return redirect()->route('admin.pricing_rules.index')->with([
-                'message' => __('messages.pricing_rule_created'),
-                'alert-type' => 'success'
-            ]);
-        }
+    $pricingRule = PricingRule::create($input);
 
+    if ($pricingRule) {
         return redirect()->route('admin.pricing_rules.index')->with([
-            'message' => __('messages.something_went_wrong'),
-            'alert-type' => 'danger'
+            'message' => __('messages.pricing_rule_created'),
+            'alert-type' => 'success'
         ]);
     }
+
+    return redirect()->route('admin.pricing_rules.index')->with([
+        'message' => __('messages.something_went_wrong'),
+        'alert-type' => 'danger'
+    ]);
+}
+
 
     /**
      * Display the specified resource.
