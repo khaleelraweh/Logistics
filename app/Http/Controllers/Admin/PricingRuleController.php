@@ -87,15 +87,26 @@ class PricingRuleController extends Controller
             return redirect('admin/index');
         }
 
-        $input = $request->only([
-            'type', 'zone', 'min_weight', 'max_weight', 'max_length', 'max_width', 'max_height',
-            'base_price', 'price_per_kg', 'extra_fee', 'oversized', 'fragile', 'perishable',
-            'express', 'same_day', 'status'
-        ]);
-
+        dd($request->all());
         // الحقول المترجمة
         $input['name'] = $request->name;
         $input['description'] = $request->description;
+        $input['type'] = $request->type;
+        $input['zone'] = $request->zone;
+        $input['min_weight'] = $request->min_weight;
+        $input['max_weight'] = $request->max_weight;
+        $input['max_length'] = $request->max_length;
+        $input['max_width'] = $request->max_width;
+        $input['max_height'] = $request->max_height;
+        $input['base_price'] = $request->base_price;
+        $input['price_per_kg'] = $request->price_per_kg;
+        $input['extra_fee'] = $request->extra_fee;
+        $input['oversized'] = $request->oversized;
+        $input['fragile'] = $request->fragile;
+        $input['perishable'] = $request->perishable;
+        $input['express'] = $request->express;
+        $input['same_day'] = $request->same_day;
+        $input['status'] = $request->status;
 
         $pricingRule = PricingRule::create($input);
 
