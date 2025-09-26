@@ -42,7 +42,8 @@
             <div class="row">
                 <div class="col-sm-4 mb-3">
                     <label class="col-form-label">{{ __('package.delivery_fee') }}</label>
-                    <input wire:model="delivery_fee" name="delivery_fee" id="delivery_fee" type="number" step="0.01" class="form-control">
+                    <p class="mb-0">{{ $delivery_fee }}</p>
+                    <input wire:model="delivery_fee" name="delivery_fee" id="delivery_fee" type="hidden" step="0.01" class="form-control">
                 </div>
 
                 <div class="col-sm-4 mb-3">
@@ -84,3 +85,13 @@
         </div>
     </div>
 </div>
+
+<style>
+    .card-body p {
+        background-color: #f8f9fa;
+        padding: 8px 12px;
+        border-radius: 5px;
+        margin-bottom: 0;
+        font-weight: 500;
+    }
+</style>

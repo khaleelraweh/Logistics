@@ -10,7 +10,7 @@ class CreatePackageCollectionComponent extends Component
     public $payment_method = 'prepaid';      // طريقة الدفع
     public $collection_method = 'cash';      // طريقة التحصيل
 
-    public $delivery_fee = 0;
+    public $delivery_fee = 30;
     public $insurance_fee = 0;
     public $service_fee = 0;
 

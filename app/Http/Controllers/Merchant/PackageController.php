@@ -24,66 +24,66 @@ class PackageController extends Controller
      */
 
 
-   public function index()
-{
-    if (!auth()->user()->ability('merchant', 'manage_packages , show_packages')) {
-        return redirect('merchant/index');
+    public function index()
+    {
+        if (!auth()->user()->ability('merchant', 'manage_packages , show_packages')) {
+            return redirect('merchant/index');
+        }
+
+        $statuses = Package::statuses();
+
+        $packages = Package::with('merchant')
+            // فلترة الطرود حسب التاجر الذي قام بتسجيل الدخول
+            ->where('merchant_id', auth()->user()->merchant->id)
+            // الفلاتر الأخرى المتاحة
+            ->when(request()->keyword != null, function ($query) {
+                $query->search(request()->keyword);
+            })
+            ->when(request()->status != null, function ($query) {
+                $query->where('status', request()->status);
+            })
+            ->when(request()->delivery_method != null, function ($query) {
+                $query->where('delivery_method', request()->delivery_method);
+            })
+            ->when(request()->package_type != null, function ($query) {
+                $query->where('package_type', request()->package_type);
+            })
+            ->when(request()->package_size != null, function ($query) {
+                $query->where('package_size', request()->package_size);
+            })
+            ->when(request()->origin_type != null, function ($query) {
+                $query->where('origin_type', request()->origin_type);
+            })
+            ->when(request()->delivery_speed != null, function ($query) {
+                $query->where('delivery_speed', request()->delivery_speed);
+            })
+            ->when(request()->payment_responsibility != null, function ($query) {
+                $query->where('payment_responsibility', request()->payment_responsibility);
+            })
+            ->when(request()->payment_method != null, function ($query) {
+                $query->where('payment_method', request()->payment_method);
+            })
+            ->when(request()->collection_method != null, function ($query) {
+                $query->where('collection_method', request()->collection_method);
+            });
+
+        // الترتيب
+        if(request()->sort_by == 'merchant_name') {
+            $packages->join('merchants', 'packages.merchant_id', '=', 'merchants.id')
+                    ->select('packages.*')
+                    ->orderBy('merchants.name', request()->order_by ?? 'asc');
+        } else {
+            $packages->orderByRaw(
+                request()->sort_by == 'published_on'
+                    ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+                    : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
+            );
+        }
+
+        $packages = $packages->paginate(request()->limit_by ?? 100);
+
+        return view('merchant.packages.index', compact('packages','statuses'));
     }
-
-    $statuses = Package::statuses();
-
-    $packages = Package::with('merchant')
-        // فلترة الطرود حسب التاجر الذي قام بتسجيل الدخول
-        ->where('merchant_id', auth()->user()->merchant->id)
-        // الفلاتر الأخرى المتاحة
-        ->when(request()->keyword != null, function ($query) {
-            $query->search(request()->keyword);
-        })
-        ->when(request()->status != null, function ($query) {
-            $query->where('status', request()->status);
-        })
-        ->when(request()->delivery_method != null, function ($query) {
-            $query->where('delivery_method', request()->delivery_method);
-        })
-        ->when(request()->package_type != null, function ($query) {
-            $query->where('package_type', request()->package_type);
-        })
-        ->when(request()->package_size != null, function ($query) {
-            $query->where('package_size', request()->package_size);
-        })
-        ->when(request()->origin_type != null, function ($query) {
-            $query->where('origin_type', request()->origin_type);
-        })
-        ->when(request()->delivery_speed != null, function ($query) {
-            $query->where('delivery_speed', request()->delivery_speed);
-        })
-        ->when(request()->payment_responsibility != null, function ($query) {
-            $query->where('payment_responsibility', request()->payment_responsibility);
-        })
-        ->when(request()->payment_method != null, function ($query) {
-            $query->where('payment_method', request()->payment_method);
-        })
-        ->when(request()->collection_method != null, function ($query) {
-            $query->where('collection_method', request()->collection_method);
-        });
-
-    // الترتيب
-    if(request()->sort_by == 'merchant_name') {
-        $packages->join('merchants', 'packages.merchant_id', '=', 'merchants.id')
-                 ->select('packages.*')
-                 ->orderBy('merchants.name', request()->order_by ?? 'asc');
-    } else {
-        $packages->orderByRaw(
-            request()->sort_by == 'published_on'
-                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
-        );
-    }
-
-    $packages = $packages->paginate(request()->limit_by ?? 100);
-
-    return view('merchant.packages.index', compact('packages','statuses'));
-}
 
 
 
