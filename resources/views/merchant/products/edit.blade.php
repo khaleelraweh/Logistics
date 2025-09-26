@@ -47,24 +47,6 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="merchant_id">{{ __('merchant.name') }}</label>
-                            <div class="col-sm-10">
-                                <select name="merchant_id" class="form-control select2">
-                                    <option>{{ __('product.select_merchant') }}</option>
-                                    @foreach ($merchants as $merchant)
-                                        <option value="{{ $merchant->id }}" {{ old('merchant_id' , $product->merchant_id) == $merchant->id ? 'selected' : null }}>{{ $merchant->name }} - {{ $merchant->email }}</option>
-                                    @endforeach
-                                </select>
-
-                                @error('merchant_id')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-
-
-                        <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="description">{{ __('product.description') }}</label>
                             <div class="col-sm-10">
                                 <textarea name="description" id="tinymceExample" rows="10" class="form-control">{!! old('description',$product->description) !!}</textarea>
