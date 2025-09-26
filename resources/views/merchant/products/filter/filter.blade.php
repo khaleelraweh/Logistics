@@ -17,30 +17,25 @@
             <form action="{{ route('merchant.products.index') }}" method="get">
                 <div class="row">
 
-                    <!-- Merchant -->
+                     <!-- Keyword Search -->
                     <div class="col-md-3 mb-2 d-md-block">
                         <div class="form-group">
-                            <select name="merchant_id" class="form-select select2">
-                                <option value="">{{ __('filter.all_merchants') }}</option>
-                                @foreach($merchants as $merchant)
-                                    <option value="{{ $merchant->id }}" {{ request('merchant_id') == $merchant->id ? 'selected' : '' }}>
-                                        {{ $merchant->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <input type="text" name="keyword" value="{{ request('keyword') }}" class="form-control" placeholder="{{ __('general.search') }}">
                         </div>
                     </div>
 
                     <!-- Status -->
                     <div class="col-md-2 mb-2 d-md-block">
                         <div class="form-group">
-                            <select name="status" class="form-select">
+                            <select name="status" class="form-select select2">
                                 <option value="">{{ __('filter.show_all') }}</option>
-                                <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>{{ __('filter.status_active') }}</option>
-                                <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>{{ __('filter.status_inactive') }}</option>
+                                <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>{{ __('filter.status_active') }}</option>
+                                <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>{{ __('filter.status_inactive') }}</option>
                             </select>
                         </div>
                     </div>
+
+
 
                     <!-- Sort By -->
                     <div class="col-md-2 mb-2 d-md-block">
