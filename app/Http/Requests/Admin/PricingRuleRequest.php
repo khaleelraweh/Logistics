@@ -23,7 +23,6 @@ class PricingRuleRequest extends FormRequest
             case 'POST': {
                 return [
                     'name.ar'        => 'required|string|max:255',
-                    'description'   => 'nullable|array',
                     'description.ar' => 'nullable|string|max:500',
                     'type'          => 'required|in:delivery,storage,handling',
                     'zone'          => 'nullable|string|max:255',
