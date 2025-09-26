@@ -198,15 +198,28 @@ class PricingRuleController extends Controller
 
         $pricingRule = PricingRule::findOrFail($id);
 
-        $input = $request->only([
-            'type', 'zone', 'min_weight', 'max_weight', 'max_length', 'max_width', 'max_height',
-            'base_price', 'price_per_kg', 'extra_fee', 'oversized', 'fragile', 'perishable',
-            'express', 'same_day', 'status'
-        ]);
 
-        // الحقول المترجمة
-        $input['name'] = $request->name;
+        $input['name']        = $request->name;
         $input['description'] = $request->description;
+        $input['type']        = $request->type;
+        $input['zone']        = $request->zone;
+        $input['min_weight']  = $request->min_weight;
+        $input['max_weight']  = $request->max_weight;
+        $input['max_length']  = $request->max_length;
+        $input['max_width']   = $request->max_width;
+        $input['max_height']  = $request->max_height;
+        $input['base_price']  = $request->base_price;
+        $input['price_per_kg']= $request->price_per_kg;
+        $input['extra_fee']   = $request->extra_fee;
+
+        // Handle checkboxes
+        $input['oversized']   = $request->has('oversized') ? 1 : 0;
+        $input['fragile']     = $request->has('fragile') ? 1 : 0;
+        $input['perishable']  = $request->has('perishable') ? 1 : 0;
+        $input['express']     = $request->has('express') ? 1 : 0;
+        $input['same_day']    = $request->has('same_day') ? 1 : 0;
+        $input['status']      = $request->has('status') ? 1 : 0;
+
 
         $pricingRule->update($input);
 
