@@ -67,6 +67,7 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const ctx = document.getElementById("packagesChart");
@@ -76,7 +77,7 @@
             data: {
                 labels: {!! json_encode(array_values(\App\Models\Package::statuses())) !!},
                 datasets: [{
-                    data: {!! json_encode(array_values($packageStats)) !!},
+                    data: {!! json_encode(array_map(fn($status) => $packageStats[$status] ?? 0, array_keys(\App\Models\Package::statuses()))) !!},
                     backgroundColor: [
                         "#ffc107", "#28a745", "#17a2b8", "#007bff", "#6c757d",
                         "#6610f2", "#e83e8c", "#20c997", "#fd7e14", "#dc3545", "#343a40"
@@ -86,4 +87,5 @@
         });
     });
 </script>
+
 @endsection

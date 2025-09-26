@@ -77,51 +77,50 @@ class MerchantController extends Controller
     //     return view('merchant.index', compact('drivers', 'stats'));
     // }
 
-//    public function index()
-//     {
-//         $merchant = auth()->user(); // التاجر الحالي
-
-//         // إحصائيات خاصة بالتاجر
-//         $stats = [
-//             'packages_total'      => \App\Models\Package::where('merchant_id', $merchant->id)->count(),
-//             'packages_pending'    => \App\Models\Package::where('merchant_id', $merchant->id)
-//                                         ->where('status', 'pending')
-//                                         ->count(),
-//             'packages_delivered'  => \App\Models\Package::where('merchant_id', $merchant->id)
-//                                         ->where('status', 'delivered')
-//                                         ->count(),
-
-//             // المستودعات عبر عقود التأجير
-//             'warehouses_total'    => \App\Models\WarehouseRental::where('merchant_id', $merchant->id)
-//                                         ->with('warehouse')
-//                                         ->count(),
-//         ];
 
 
-//         return view('merchant.index', compact('stats'));
-//     }
+    // public function index()
+    // {
+    //     $merchant = auth()->user(); // التاجر الحالي
 
+    //     // إحصائيات الطرود حسب الحالات كلها
+    //     $packageStats = [];
+    //     foreach (\App\Models\Package::STATUSES as $status) {
+    //         $packageStats[$status] = \App\Models\Package::where('merchant_id', $merchant->id)
+    //             ->where('status', $status)
+    //             ->count();
+    //     }
+
+    //     // إحصائيات إضافية
+    //     $stats = [
+    //         'packages_total'   => \App\Models\Package::where('merchant_id', $merchant->id)->count(),
+    //         'warehouses_total' => \App\Models\WarehouseRental::where('merchant_id', $merchant->id)->count(),
+    //     ];
+
+    //     return view('merchant.index', compact('stats', 'packageStats'));
+    // }
 
     public function index()
-    {
-        $merchant = auth()->user(); // التاجر الحالي
+{
+    $merchantId = auth()->user()->merchant->id;
 
-        // إحصائيات الطرود حسب الحالات كلها
-        $packageStats = [];
-        foreach (\App\Models\Package::STATUSES as $status) {
-            $packageStats[$status] = \App\Models\Package::where('merchant_id', $merchant->id)
-                ->where('status', $status)
-                ->count();
-        }
+    // إحصائيات الطرود الخاصة بهذا التاجر فقط
+    $packageStats = \App\Models\Package::where('merchant_id', $merchantId)
+        ->selectRaw('status, COUNT(*) as count')
+        ->groupBy('status')
+        ->pluck('count', 'status')
+        ->toArray();
 
-        // إحصائيات إضافية
-        $stats = [
-            'packages_total'   => \App\Models\Package::where('merchant_id', $merchant->id)->count(),
-            'warehouses_total' => \App\Models\WarehouseRental::where('merchant_id', $merchant->id)->count(),
-        ];
+    $stats = [
+        'packages_total'    => \App\Models\Package::where('merchant_id', $merchantId)->count(),
+        'packages_pending'  => \App\Models\Package::where('merchant_id', $merchantId)->where('status', 'pending')->count(),
+        'packages_delivered'=> \App\Models\Package::where('merchant_id', $merchantId)->where('status', 'delivered')->count(),
+        'warehouses_total'  => \App\Models\Warehouse::count(), // أو warehouses الخاصة به إن وجدت علاقة
+    ];
 
-        return view('merchant.index', compact('stats', 'packageStats'));
-    }
+    return view('merchant.index', compact('stats', 'packageStats'));
+}
+
 
 
 
