@@ -176,23 +176,27 @@ class PricingRuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PricingRule $pricingRule)
+    public function edit($id)
     {
         if (!auth()->user()->ability('admin', 'update_pricing_rules')) {
             return redirect('admin/index');
         }
 
+        $pricingRule = PricingRule::findOrFail($id);
         return view('admin.pricing_rules.edit', compact('pricingRule'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(PricingRuleRequest $request, PricingRule $pricingRule)
+    public function update(PricingRuleRequest $request, $id)
     {
         if (!auth()->user()->ability('admin', 'update_pricing_rules')) {
             return redirect('admin/index');
         }
+
+        $pricingRule = PricingRule::findOrFail($id);
 
         $input = $request->only([
             'type', 'zone', 'min_weight', 'max_weight', 'max_length', 'max_width', 'max_height',
