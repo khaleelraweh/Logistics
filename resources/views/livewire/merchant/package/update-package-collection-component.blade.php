@@ -42,16 +42,19 @@
             <div class="row">
                 <div class="col-sm-4 mb-3">
                     <label class="col-form-label">{{ __('package.delivery_fee') }}</label>
+                    <p class="mb-0">{{ $delivery_fee }}</p>
                     <input wire:model="delivery_fee" name="delivery_fee" id="delivery_fee" type="number" step="0.01" class="form-control">
                 </div>
 
                 <div class="col-sm-4 mb-3">
                     <label class="col-form-label">{{ __('package.insurance_fee') }}</label>
+                    <p class="mb-0">{{ $insurance_fee }}</p>
                     <input wire:model="insurance_fee" name="insurance_fee" id="insurance_fee" type="number" step="0.01" class="form-control">
                 </div>
 
                 <div class="col-sm-4 mb-3">
                     <label class="col-form-label">{{ __('package.service_fee') }}</label>
+                    <p class="mb-0">{{ $service_fee }}</p>
                     <input wire:model="service_fee" name="service_fee" id="service_fee" type="number" step="0.01" class="form-control">
                 </div>
             </div>
@@ -60,16 +63,19 @@
             <div class="row">
                 <div class="col-sm-4 mb-3">
                     <label class="col-form-label">{{ __('package.total_fee') }}</label>
+                    <p class="mb-0">{{ $this->totalFee  }}</p>
                     <input type="number" name="total_fee" id="total_fee" class="form-control" value="{{ $this->totalFee }}" readonly>
                 </div>
 
                 <div class="col-sm-4 mb-3">
                     <label class="col-form-label">{{ __('package.paid_amount') }}</label>
+                    <p class="mb-0">{{ $paid_amount  }}</p>
                     <input wire:model="paid_amount" name="paid_amount" id="paid_amount" type="number" step="0.01" class="form-control">
                 </div>
 
                 <div class="col-sm-4 mb-3">
                     <label class="col-form-label">{{ __('package.remaining_amount') }}</label>
+                    <p class="mb-0">{{ $this->remainingAmount  }}</p>
                     <input type="number" name="due_amount" id="due_amount" class="form-control" value="{{ $this->remainingAmount }}" readonly>
                 </div>
             </div>
@@ -84,3 +90,14 @@
         </div>
     </div>
 </div>
+
+
+<style>
+    .card-body p {
+        background-color: #f8f9fa;
+        padding: 8px 12px;
+        border-radius: 5px;
+        margin-bottom: 0;
+        font-weight: 500;
+    }
+</style>

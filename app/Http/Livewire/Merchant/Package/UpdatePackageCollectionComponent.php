@@ -14,7 +14,7 @@ class UpdatePackageCollectionComponent extends Component
     public $payment_method = 'prepaid';      // طريقة الدفع
     public $collection_method = 'cash';      // طريقة التحصيل
 
-    public $delivery_fee = 0;
+    public $delivery_fee = 30;
     public $insurance_fee = 0;
     public $service_fee = 0;
 
@@ -32,7 +32,7 @@ class UpdatePackageCollectionComponent extends Component
                 $this->payment_responsibility = $package->payment_responsibility ?? 'merchant';
                 $this->payment_method = $package->payment_method ?? 'prepaid';
                 $this->collection_method = $package->collection_method ?? 'cash';
-                $this->delivery_fee = $package->delivery_fee ?? 0;
+                $this->delivery_fee = $package->delivery_fee ?? 30;
                 $this->insurance_fee = $package->insurance_fee ?? 0;
                 $this->service_fee = $package->service_fee ?? 0;
                 $this->paid_amount = $package->paid_amount ?? 0;
