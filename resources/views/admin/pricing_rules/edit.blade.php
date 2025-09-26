@@ -2,20 +2,18 @@
 
 @section('content')
 
-
-
     <!-- Page Header -->
     <div class="row ">
         <div class="col-12">
             <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="mb-0 font-size-18">{{ __('product.edit_product') }}</h4>
+                <h4 class="mb-0 font-size-18">{{ __('pricing_rules.edit_pricing_rule') }}</h4>
 
                 <div class="page-title-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">{{ __('product.products') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('product.edit_product') }}</li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.pricing_rules.index') }}">{{ __('pricing_rules.pricing_rules') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('pricing_rules.edit_pricing_rule') }}</li>
                         </ol>
                     </nav>
                 </div>
@@ -23,98 +21,157 @@
         </div>
     </div>
 
-
-
+    <!-- Form Card -->
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title">{{ __('product.product_info') }}</h4>
+                    <h4 class="card-title">{{ __('pricing_rules.pricing_rule_info') }}</h4>
 
-                    <form action="{{ route('admin.products.update' , $product->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.pricing_rules.update', $pricingRule->id) }}" method="POST">
                         @csrf
-                        @method('PATCH')
+                        @method('PUT')
 
+                        <!-- Name -->
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="name">{{ __('product.name') }}</label>
+                            <label class="col-sm-2 col-form-label" for="name">{{ __('pricing_rules.name') }}</label>
                             <div class="col-sm-10">
-                                <input name="name" class="form-control" id="name" type="text" value="{{ old('name',$product->name) }}">
+                                <input name="name" class="form-control" id="name" type="text" value="{{ old('name', $pricingRule->name) }}">
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
+                        <!-- Description -->
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="merchant_id">{{ __('merchant.name') }}</label>
+                            <label class="col-sm-2 col-form-label" for="description">{{ __('pricing_rules.description') }}</label>
                             <div class="col-sm-10">
-                                <select name="merchant_id" class="form-control select2">
-                                    <option>{{ __('product.select_merchant') }}</option>
-                                    @foreach ($merchants as $merchant)
-                                        <option value="{{ $merchant->id }}" {{ old('merchant_id' , $product->merchant_id) == $merchant->id ? 'selected' : null }}>{{ $merchant->name }} - {{ $merchant->email }}</option>
-                                    @endforeach
-                                </select>
-
-                                @error('merchant_id')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="description">{{ __('product.description') }}</label>
-                            <div class="col-sm-10">
-                                <textarea name="description" id="tinymceExample" rows="10" class="form-control">{!! old('description',$product->description) !!}</textarea>
+                                <textarea name="description" id="description" rows="5" class="form-control">{{ old('description', $pricingRule->description) }}</textarea>
                                 @error('description')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
+                        <!-- Type -->
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="sku">{{ __('product.sku_code') }}</label>
+                            <label class="col-sm-2 col-form-label" for="type">{{ __('pricing_rules.type') }}</label>
                             <div class="col-sm-10">
-                                <input name="sku" class="form-control" id="sku" type="text" value="{{ old('sku',$product->sku) }}">
-                                @error('sku')
+                                <select name="type" id="type" class="form-select">
+                                    <option value="delivery" {{ old('type', $pricingRule->type) == 'delivery' ? 'selected' : '' }}>{{ __('pricing_rules.delivery') }}</option>
+                                    <option value="storage" {{ old('type', $pricingRule->type) == 'storage' ? 'selected' : '' }}>{{ __('pricing_rules.storage') }}</option>
+                                    <option value="handling" {{ old('type', $pricingRule->type) == 'handling' ? 'selected' : '' }}>{{ __('pricing_rules.handling') }}</option>
+                                </select>
+                                @error('type')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Zone -->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="zone">{{ __('pricing_rules.zone') }}</label>
+                            <div class="col-sm-10">
+                                <input name="zone" class="form-control" id="zone" type="text" value="{{ old('zone', $pricingRule->zone) }}">
+                                @error('zone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Weight -->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">{{ __('pricing_rules.min_weight') }} / {{ __('pricing_rules.max_weight') }} (g)</label>
+                            <div class="col-sm-5">
+                                <input name="min_weight" class="form-control" type="number" value="{{ old('min_weight', $pricingRule->min_weight) }}" placeholder="{{ __('pricing_rules.min_weight') }}">
+                                @error('min_weight')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-sm-5">
+                                <input name="max_weight" class="form-control" type="number" value="{{ old('max_weight', $pricingRule->max_weight) }}" placeholder="{{ __('pricing_rules.max_weight') }}">
+                                @error('max_weight')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Dimensions -->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">{{ __('pricing_rules.dimensions') }} (cm)</label>
+                            <div class="col-sm-4">
+                                <input name="max_length" class="form-control" type="number" value="{{ old('max_length', $pricingRule->max_length) }}" placeholder="{{ __('pricing_rules.max_length') }}">
+                                @error('max_length')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-sm-4">
+                                <input name="max_width" class="form-control" type="number" value="{{ old('max_width', $pricingRule->max_width) }}" placeholder="{{ __('pricing_rules.max_width') }}">
+                                @error('max_width')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-sm-2">
+                                <input name="max_height" class="form-control" type="number" value="{{ old('max_height', $pricingRule->max_height) }}" placeholder="{{ __('pricing_rules.max_height') }}">
+                                @error('max_height')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <!-- Prices -->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">{{ __('pricing_rules.base_price') }}</label>
+                            <div class="col-sm-4">
+                                <input name="base_price" class="form-control" type="number" step="0.01" value="{{ old('base_price', $pricingRule->base_price) }}">
+                                @error('base_price')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <label class="col-sm-2 col-form-label">{{ __('pricing_rules.price_per_kg') }}</label>
+                            <div class="col-sm-4">
+                                <input name="price_per_kg" class="form-control" type="number" step="0.01" value="{{ old('price_per_kg', $pricingRule->price_per_kg) }}">
+                                @error('price_per_kg')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="price">{{ __('product.price_per_item') }}</label>
-                            <div class="col-sm-10">
-                                <input name="price" class="form-control" id="price" type="number" value="{{ old('price' , $product->price) }}">
-                                @error('price')
+                            <label class="col-sm-2 col-form-label">{{ __('pricing_rules.extra_fee') }}</label>
+                            <div class="col-sm-4">
+                                <input name="extra_fee" class="form-control" type="number" step="0.01" value="{{ old('extra_fee', $pricingRule->extra_fee) }}">
+                                @error('extra_fee')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
-
-                        <hr>
-                        <h4 class="card-title">{{ __('product.images') }}</h4>
+                        <!-- Flags -->
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="product_images">{{ __('product.images') }}</label>
+                            <label class="col-sm-2 col-form-label">{{ __('pricing_rules.flags') }}</label>
                             <div class="col-sm-10">
-                                <input type="file" name="images[]" id="product_images" class="file-input-overview " multiple>
-                                @error('images')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                @php
+                                    $flags = ['oversized', 'fragile', 'perishable', 'express', 'same_day'];
+                                @endphp
+                                @foreach ($flags as $flag)
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="{{ $flag }}" id="{{ $flag }}" value="1" {{ old($flag, $pricingRule->$flag) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="{{ $flag }}">{{ __('pricing_rules.' . $flag) }}</label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
 
-                        <hr>
-
+                        <!-- Status -->
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="status">{{ __('general.status') }}</label>
                             <div class="col-sm-10">
-                                <div class="form-check form-switch" >
-                                    <input type="checkbox" class="form-check-input" name="status"  id="customSwitch1"  {{ old('status', '1') == '1' ? 'checked' : '' }} >
-                                    <label class="form-check-label" for="customSwitch1">{{ __('product.choose_product_status') }}</label>
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" name="status" id="status" {{ old('status', $pricingRule->status) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="status">{{ __('pricing_rules.active_status') }}</label>
                                 </div>
                                 @error('status')
                                     <span class="text-danger">{{ $message }}</span>
@@ -122,26 +179,18 @@
                             </div>
                         </div>
 
-
-
-
-                            <!-- submit button -->
-
-                            <div class="text-end pt-3">
-                                @ability('admin', 'update_products')
-                                    <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
-                                        <i class="ri-save-3-line me-2"></i>
-                                        <i class="bi bi-save me-2"></i>
-                                        {{ __('product.update_product_data') }}
-                                    </button>
-                                @endability
-
-                                <a href="{{ route('admin.merchants.index') }}" class="btn btn-outline-danger ms-2">
-                                    <i class="ri-arrow-go-back-line me-1"></i>
-                                    {{ __('panel.cancel') }}
-                                </a>
-                            </div>
-
+                        <!-- Submit -->
+                        <div class="text-end pt-3">
+                            @ability('admin', 'update_pricing_rules')
+                                <button type="submit" class="btn btn-primary px-3">
+                                    <i class="ri-save-3-line me-2"></i>
+                                    {{ __('pricing_rules.update_pricing_rule') }}
+                                </button>
+                            @endability
+                            <a href="{{ route('admin.pricing_rules.index') }}" class="btn btn-outline-danger ms-2">
+                                <i class="ri-arrow-go-back-line me-1"></i>{{ __('panel.cancel') }}
+                            </a>
+                        </div>
 
                     </form>
 
@@ -150,48 +199,4 @@
         </div>
     </div>
 
-@endsection
-
-
-@section('script')
-    {{-- Call select2 plugin --}}
-
-    <script>
-        $(function() {
-            $("#product_images").fileinput({
-                    theme: "fa5",
-                    maxFileCount: 5,
-                    allowedFileTypes: ['image'],
-                    showCancel: true,
-                    showRemove: false,
-                    showUpload: false,
-                    overwriteInitial: false,
-                    initialPreview: [
-                        @if ($product->photos()->count() > 0)
-                            @foreach ($product->photos as $media)
-                                "{{ asset('assets/products/' . $media->file_name) }}",
-                            @endforeach
-                        @endif
-                    ],
-                    initialPreviewAsData: true,
-                    initialPreviewFileType: 'image',
-                    initialPreviewConfig: [
-                        @if ($product->photos()->count() > 0)
-                            @foreach ($product->photos as $media)
-                                {
-                                    caption: "{{ $media->file_name }}",
-                                    size: '{{ $media->file_size }}',
-                                    width: "120px",
-                                    url: "{{ route('admin.products.remove_image', ['image_id' => $media->id, 'product_id' => $product->id, '_token' => csrf_token()]) }}",
-                                    key: {{ $media->id }}
-                                },
-                            @endforeach
-                        @endif
-
-                    ]
-                }).on('filesorted', function(event, params) {
-                    console.log(params.previewId, params.oldIndex, params.newIndex, params.stack);
-                });
-        });
-    </script>
 @endsection
