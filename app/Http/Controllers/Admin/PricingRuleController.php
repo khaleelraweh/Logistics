@@ -27,48 +27,27 @@ class PricingRuleController extends Controller
     //     return view('admin.pricing_rules.index', compact('pricingRules'));
     // }
 
-  public function index()
-{
-    if (!auth()->user()->ability('admin', 'manage_pricing_rules, show_pricing_rules')) {
-        return redirect('admin/index');
+    public function index()
+    {
+        if (!auth()->user()->ability('admin', 'manage_pricing_rules , show_pricing_rules')) {
+            return redirect('admin/index');
+        }
+
+        $pricingRules = PricingRule::query()
+            ->when(\request()->keyword != null, function ($query) {
+                $query->search(\request()->keyword);
+            })
+            ->when(\request()->status != null, function ($query) {
+                $query->where('status', \request()->status);
+            })
+            ->orderByRaw(request()->sort_by == 'published_on'
+                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
+            ->paginate(\request()->limit_by ?? 100);
+
+        return view('admin.pricing_rules.index', compact('pricingRules'));
     }
 
-    $query = PricingRule::query();
-
-    // بحث باستخدام SearchableTrait
-    if ($search = request('keyword')) {
-        $query->search($search);
-    }
-
-    // فلترة type
-    if ($type = request('type')) {
-        $query->where('type', $type);
-    }
-
-    // فلترة zone
-    if ($zone = request('zone')) {
-        $query->where('zone', 'like', "%{$zone}%");
-    }
-
-    // فلترة status
-    if (request()->has('status') && request('status') !== '') {
-        $query->where('status', request('status') == '1');
-    }
-
-    // ترتيب النتائج
-    $sortBy = request('sort_by') ?? 'created_at';
-    $orderBy = request('order_by') ?? 'desc';
-    $query->orderByRaw(
-        $sortBy == 'published_on'
-            ? 'published_on IS NULL, published_on ' . $orderBy
-            : $sortBy . ' ' . $orderBy
-    );
-
-    // Pagination
-    $pricingRules = $query->paginate(request('limit_by') ?? 50)->withQueryString();
-
-    return view('admin.pricing_rules.index', compact('pricingRules'));
-}
 
 
 
