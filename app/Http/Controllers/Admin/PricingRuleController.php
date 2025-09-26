@@ -12,20 +12,6 @@ class PricingRuleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index()
-    // {
-    //     if (!auth()->user()->ability('admin', 'manage_pricing_rules, show_pricing_rules')) {
-    //         return redirect('admin/index');
-    //     }
-
-    //     $pricingRules = PricingRule::query()
-    //         ->when(request('type'), fn($q) => $q->where('type', request('type')))
-    //         ->when(request('zone'), fn($q) => $q->where('zone', 'like', '%' . request('zone') . '%'))
-    //         ->orderBy(request('sort_by') ?? 'created_at', request('order_by') ?? 'desc')
-    //         ->paginate(request('limit_by') ?? 50);
-
-    //     return view('admin.pricing_rules.index', compact('pricingRules'));
-    // }
 
     public function index()
     {
