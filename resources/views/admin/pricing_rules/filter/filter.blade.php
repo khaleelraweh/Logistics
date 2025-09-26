@@ -19,7 +19,7 @@
 
                     <!-- Search -->
                     <div class="col-md-2">
-                        <input type="text" name="search" class="form-control" placeholder="{{ __('filter.search_name_zone') }}" value="{{ request('search') }}">
+                        <input type="text" name="keyword" class="form-control" placeholder="{{ __('filter.search_name_zone') }}" value="{{ request('search') }}">
                     </div>
 
                     <!-- Type -->
