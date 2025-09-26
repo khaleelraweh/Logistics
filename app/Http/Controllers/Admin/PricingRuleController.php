@@ -87,7 +87,6 @@ class PricingRuleController extends Controller
             return redirect('admin/index');
         }
 
-        dd($request->all());
         // الحقول المترجمة
         $input['name'] = $request->name;
         $input['description'] = $request->description;
