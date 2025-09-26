@@ -55,6 +55,10 @@ return [
     'pickup_request_updated'             => 'Pickup Request updated successfully.',
     'pickup_request_deleted'             => 'Pickup Request Deleted successfully.',
 
+    'pricing_rule_created'             => 'Pricing Rule created successfully.',
+    'pricing_rule_updated'             => 'Pricing Rule updated successfully.',
+    'pricing_rule_deleted'             => 'Pricing Rule Deleted successfully.',
+
     'settings_updated'          => 'Settings updated successfully.',
     'image_uploaded'            => 'Image uploaded successfully.',
     'image_removed'             => 'Image removed successfully.',

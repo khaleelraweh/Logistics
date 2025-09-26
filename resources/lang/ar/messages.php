@@ -55,6 +55,10 @@ return [
     'pickup_request_updated'           => 'تم تحديث طلب استلام بنجاح.',
     'pickup_request_deleted'           => 'تم حذف طلب استلام بنجاح.',
 
+    'pricing_rule_created'           => 'تم اضافة قاعدة تسعير بنجاح.',
+    'pricing_rule_updated'           => 'تم تحديث قاعدة تسعير بنجاح.',
+    'pricing_rule_deleted'           => 'تم حذف قاعدة تسعير بنجاح.',
+
     'settings_updated'          => 'تم تحديث الإعدادات بنجاح.',
     'image_uploaded'            => 'تم رفع الصورة بنجاح.',
     'image_removed'             => 'تم حذف الصورة بنجاح.',
