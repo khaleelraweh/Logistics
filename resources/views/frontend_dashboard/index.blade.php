@@ -1,11 +1,11 @@
-@extends('layouts.driver')
+@extends('layouts.frontend-dashboard')
 
 
 
 @section('content')
 
 
-    we are in driver page
+    we are in frontend dashboard page
 @endsection
 
 
