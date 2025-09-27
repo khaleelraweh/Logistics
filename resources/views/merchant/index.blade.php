@@ -422,21 +422,23 @@
 
     @foreach(\App\Models\Package::statuses() as $key => $label)
     <div class="col-xl-2 col-md-3 col-sm-4 col-6 mb-3">
-        <div class="metric-card h-100">
-            <div class="text-center d-flex flex-column h-100">
-                <small class="text-muted d-block mb-2">{{ $label }}</small>
-                <div class="metric-value text-primary flex-grow-1 d-flex align-items-center justify-content-center">
-                    {{ $packageStats[$key] ?? 0 }}
+        <a href="{{ route('merchant.packages.index', ['status' => $key]) }}" class="text-decoration-none">
+            <div class="metric-card h-100">
+                <div class="text-center d-flex flex-column h-100">
+                    <small class="text-muted d-block mb-2">{{ $label }}</small>
+                    <div class="metric-value text-primary flex-grow-1 d-flex align-items-center justify-content-center">
+                        {{ $packageStats[$key] ?? 0 }}
+                    </div>
+                    @php
+                        $percentage = $stats['packages_total'] > 0 ? (($packageStats[$key] ?? 0) / $stats['packages_total']) * 100 : 0;
+                    @endphp
+                    <div class="progress mt-2" style="height: 6px;">
+                        <div class="progress-bar bg-primary" style="width: {{ $percentage }}%"></div>
+                    </div>
+                    <small class="text-muted mt-1">{{ number_format($percentage, 1) }}%</small>
                 </div>
-                @php
-                    $percentage = $stats['packages_total'] > 0 ? (($packageStats[$key] ?? 0) / $stats['packages_total']) * 100 : 0;
-                @endphp
-                <div class="progress mt-2" style="height: 6px;">
-                    <div class="progress-bar bg-primary" style="width: {{ $percentage }}%"></div>
-                </div>
-                <small class="text-muted mt-1">{{ number_format($percentage, 1) }}%</small>
             </div>
-        </div>
+        </a>
     </div>
     @endforeach
 </div>
