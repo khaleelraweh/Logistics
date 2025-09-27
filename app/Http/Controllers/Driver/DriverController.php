@@ -59,7 +59,6 @@ class DriverController extends Controller
 
     public function index()
     {
-        $driverId = auth()->user()->driver->id;
         return view('driver.index');
 
     }
