@@ -28,7 +28,7 @@ class FrontendPermissionsSeeder extends Seeder
         );
 
          //===== Dashboard =====
-        $manageMain = Permission::create(['name' => 'merchant_main', 'display_name' => ['ar' => 'الرئيسية', 'en'    => 'Main'], 'route' => 'index', 'module' => 'index', 'as' => 'index', 'icon' => 'fa fa-home', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '1']);
+        $manageMain = Permission::create(['name' => 'frontend_main', 'display_name' => ['ar' => 'الرئيسية', 'en'    => 'Main'], 'route' => 'index', 'module' => 'index', 'as' => 'index', 'icon' => 'fa fa-home', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '1']);
         $manageMain->parent_show = $manageMain->id;
         $manageMain->save();
 
@@ -40,8 +40,8 @@ class FrontendPermissionsSeeder extends Seeder
         ];
 
         foreach ($permissions as $permission) {
-            if (!$merchantRole->hasPermission($permission->name)) {
-                $merchantRole->attachPermission($permission);
+            if (!$frontendRole->hasPermission($permission->name)) {
+                $frontendRole->attachPermission($permission);
             }
         }
 

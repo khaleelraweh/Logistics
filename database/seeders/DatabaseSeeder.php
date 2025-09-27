@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(EntrustSeeder::class);
         $this->call(MerchantPermissionsSeeder::class);
+        $this->call(FrontendPermissionsSeeder::class);
         $this->call(TagSeeder::class);
         $this->call(PhotoSeeder::class);
 
