@@ -183,103 +183,6 @@
 <!-- end page title -->
 
 <!-- البطاقات الإحصائية الرئيسية -->
-{{-- <div class="row">
-    <!-- إجمالي الطرود -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <h6 class="text-muted fw-semibold mb-1">{{ __('dashboard.total_packages') }}</h6>
-                        <h2 class="mb-0 fw-bold">{{ $stats['packages_total'] }}</h2>
-                        <div class="mt-2">
-                            <span class="trend-indicator trend-up">
-                                <i class="mdi mdi-trending-up me-1"></i>
-                                هذا الشهر: {{ $financialReports['current_month']['packages'] }}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0">
-                        <div class="stat-icon text-primary">
-                            <i class="mdi mdi-package-variant"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- الطرود المسلمة -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card success">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <h6 class="text-muted fw-semibold mb-1">{{ __('dashboard.delivered_packages') }}</h6>
-                        <h2 class="mb-0 fw-bold">{{ $stats['packages_delivered'] }}</h2>
-                        <div class="mt-2">
-                            <span class="trend-indicator trend-up">
-                                هذا الشهر: {{ $financialReports['current_month']['delivered'] }}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0">
-                        <div class="stat-icon text-success">
-                            <i class="mdi mdi-check-circle"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- إجمالي الإيرادات -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card info">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <h6 class="text-muted fw-semibold mb-1">{{ __('dashboard.total_revenue') }}</h6>
-                        <h2 class="mb-0 fw-bold">{{ number_format($financialReports['total_revenue'], 2) }} <small class="fs-6">ر.س</small></h2>
-                        <div class="mt-2">
-                            <span class="trend-indicator trend-up">
-                                هذا الشهر: {{ number_format($financialReports['current_month']['revenue'], 2) }} ر.س
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0">
-                        <div class="stat-icon text-info">
-                            <i class="mdi mdi-currency-usd"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- المستودعات -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card stat-card warning">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <div class="flex-grow-1">
-                        <h6 class="text-muted fw-semibold mb-1">{{ __('dashboard.warehouses_total') }}</h6>
-                        <h2 class="mb-0 fw-bold">{{ $stats['warehouses_total'] }}</h2>
-                        <div class="mt-2">
-                            <span class="text-warning fw-semibold">متاح للتخزين</span>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0">
-                        <div class="stat-icon text-warning">
-                            <i class="mdi mdi-warehouse"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
 <div class="row">
     <!-- إجمالي الطرود -->
     <div class="col-xl-3 col-md-6 mb-4">
@@ -404,47 +307,94 @@
     </div>
 
     <div class="col-lg-4 mb-4">
-        <div class="card financial-card">
-            <div class="card-body position-relative">
-                <h5 class="text-white mb-4">الوضع المالي</h5>
-                <div class="d-flex justify-content-between text-white mb-3 align-items-center">
-                    <span>المقبوض:</span>
-                    <span class="fw-bold">{{ number_format($financialReports['total_paid'], 2) }} ر.س</span>
-                </div>
-                <div class="d-flex justify-content-between text-white mb-3 align-items-center">
-                    <span>المستحق:</span>
-                    <span class="fw-bold">{{ number_format($financialReports['total_due'], 2) }} ر.س</span>
-                </div>
-                <div class="d-flex justify-content-between text-white mb-4 align-items-center">
-                    <span>COD:</span>
-                    <span class="fw-bold">{{ number_format($financialReports['total_cod'], 2) }} ر.س</span>
-                </div>
-                <div class="progress-container">
-                    <div class="progress" style="height: 8px;">
-                        <div class="progress-bar bg-success" style="width: {{ $financialReports['total_revenue'] > 0 ? ($financialReports['total_paid'] / $financialReports['total_revenue']) * 100 : 0 }}%"></div>
+        <div class="card financial-card h-100">
+            <div class="card-body position-relative d-flex flex-column">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h5 class="text-white mb-0">الوضع المالي</h5>
+                    <div class="financial-icon">
+                        <i class="mdi mdi-chart-pie"></i>
                     </div>
                 </div>
-                <small class="text-white-50 mt-2 d-block">نسبة التحصيل: {{ $financialReports['total_revenue'] > 0 ? number_format(($financialReports['total_paid'] / $financialReports['total_revenue']) * 100, 1) : 0 }}%</small>
+
+                <div class="flex-grow-1">
+                    <div class="financial-item mb-3">
+                        <div class="d-flex justify-content-between align-items-center text-white">
+                            <span class="financial-label">المقبوض:</span>
+                            <span class="financial-value fw-bold">{{ number_format($financialReports['total_paid'], 2) }} ر.س</span>
+                        </div>
+                    </div>
+
+                    <div class="financial-item mb-3">
+                        <div class="d-flex justify-content-between align-items-center text-white">
+                            <span class="financial-label">المستحق:</span>
+                            <span class="financial-value fw-bold">{{ number_format($financialReports['total_due'], 2) }} ر.س</span>
+                        </div>
+                    </div>
+
+                    <div class="financial-item mb-4">
+                        <div class="d-flex justify-content-between align-items-center text-white">
+                            <span class="financial-label">COD:</span>
+                            <span class="financial-value fw-bold">{{ number_format($financialReports['total_cod'], 2) }} ر.س</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-auto">
+                    <div class="progress-container mb-2">
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar bg-success" style="width: {{ $financialReports['total_revenue'] > 0 ? ($financialReports['total_paid'] / $financialReports['total_revenue']) * 100 : 0 }}%"></div>
+                        </div>
+                    </div>
+                    <small class="text-white-50 d-block text-center">
+                        نسبة التحصيل: {{ $financialReports['total_revenue'] > 0 ? number_format(($financialReports['total_paid'] / $financialReports['total_revenue']) * 100, 1) : 0 }}%
+                    </small>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <h5 class="card-title mb-4">طرود قيد التسليم</h5>
-                <div class="text-center py-3">
-                    <h1 class="text-primary fw-bold display-6">{{ $financialReports['in_transit_packages'] }}</h1>
-                    <p class="text-muted">طرود في الطريق</p>
-                </div>
-                <div class="mt-4">
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="text-muted">قيمة الطرود:</span>
-                        <span class="fw-semibold">{{ number_format($financialReports['in_transit_value'], 2) }} ر.س</span>
+        <div class="card h-100 transit-card">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h5 class="card-title mb-0">طرود قيد التسليم</h5>
+                    <div class="transit-icon">
+                        <i class="mdi mdi-truck-delivery"></i>
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <span class="text-muted">COD متوقع:</span>
-                        <span class="fw-semibold">{{ number_format($financialReports['in_transit_cod'], 2) }} ر.س</span>
+                </div>
+
+                <div class="text-center py-3 flex-grow-1 d-flex flex-column justify-content-center">
+                    <div class="transit-number mb-2">
+                        <h1 class="text-primary fw-bold display-4">{{ $financialReports['in_transit_packages'] }}</h1>
+                    </div>
+                    <p class="text-muted mb-4">طرود في الطريق</p>
+
+                    <div class="transit-details">
+                        <div class="detail-item mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">قيمة الطرود:</span>
+                                <span class="fw-semibold text-primary">{{ number_format($financialReports['in_transit_value'], 2) }} ر.س</span>
+                            </div>
+                            <div class="progress mt-1" style="height: 4px;">
+                                @php
+                                    $valuePercentage = $financialReports['total_revenue'] > 0 ? ($financialReports['in_transit_value'] / $financialReports['total_revenue']) * 100 : 0;
+                                @endphp
+                                <div class="progress-bar bg-primary" style="width: {{ $valuePercentage }}%"></div>
+                            </div>
+                        </div>
+
+                        <div class="detail-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">COD متوقع:</span>
+                                <span class="fw-semibold text-info">{{ number_format($financialReports['in_transit_cod'], 2) }} ر.س</span>
+                            </div>
+                            <div class="progress mt-1" style="height: 4px;">
+                                @php
+                                    $codPercentage = $financialReports['total_cod'] > 0 ? ($financialReports['in_transit_cod'] / $financialReports['total_cod']) * 100 : 0;
+                                @endphp
+                                <div class="progress-bar bg-info" style="width: {{ $codPercentage }}%"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -452,31 +402,177 @@
     </div>
 
     <div class="col-lg-4 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <h5 class="card-title mb-4">التحصيل مع الناقل</h5>
-                <div class="text-center py-3">
-                    <h1 class="text-success fw-bold display-6">{{ number_format($financialReports['collected_by_carrier'], 2) }}</h1>
-                    <p class="text-muted">ريال محصل</p>
-                </div>
-                <div class="mt-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-muted">المستحق التحصيل:</span>
-                        <span class="fw-semibold text-danger">{{ number_format($financialReports['pending_collection'], 2) }} ر.س</span>
+        <div class="card h-100 collection-card">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h5 class="card-title mb-0">التحصيل مع الناقل</h5>
+                    <div class="collection-icon">
+                        <i class="mdi mdi-cash-multiple"></i>
                     </div>
-                    <div class="progress mt-2" style="height: 6px;">
-                        @php
-                            $collectionPercentage = ($financialReports['collected_by_carrier'] + $financialReports['pending_collection']) > 0
-                                ? ($financialReports['collected_by_carrier'] / ($financialReports['collected_by_carrier'] + $financialReports['pending_collection'])) * 100
-                                : 0;
-                        @endphp
-                        <div class="progress-bar bg-success" style="width: {{ $collectionPercentage }}%"></div>
+                </div>
+
+                <div class="text-center py-3 flex-grow-1 d-flex flex-column justify-content-center">
+                    <div class="collection-number mb-2">
+                        <h1 class="text-success fw-bold display-4">{{ number_format($financialReports['collected_by_carrier'], 2) }}</h1>
+                    </div>
+                    <p class="text-muted mb-4">ريال محصل</p>
+
+                    <div class="collection-stats">
+                        <div class="stat-item mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted">المستحق التحصيل:</span>
+                                <span class="fw-semibold text-danger">{{ number_format($financialReports['pending_collection'], 2) }} ر.س</span>
+                            </div>
+                            <div class="progress mt-2" style="height: 8px;">
+                                @php
+                                    $totalCollection = $financialReports['collected_by_carrier'] + $financialReports['pending_collection'];
+                                    $collectionPercentage = $totalCollection > 0 ? ($financialReports['collected_by_carrier'] / $totalCollection) * 100 : 0;
+                                @endphp
+                                <div class="progress-bar bg-success" style="width: {{ $collectionPercentage }}%"></div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-3">
+                            <small class="text-success">محصل: {{ number_format($collectionPercentage, 1) }}%</small>
+                            <small class="text-danger">مستحق: {{ number_format(100 - $collectionPercentage, 1) }}%</small>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+.financial-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+}
+
+.financial-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+}
+
+.financial-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+.financial-item {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.financial-item:last-child {
+    border-bottom: none;
+}
+
+.financial-label {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.financial-value {
+    font-size: 15px;
+}
+
+.transit-card, .collection-card {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.transit-card:hover, .collection-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.transit-icon, .collection-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.transit-icon {
+    background: rgba(67, 97, 238, 0.1);
+    color: #4361ee;
+}
+
+.collection-icon {
+    background: rgba(76, 201, 240, 0.1);
+    color: #4cc9f0;
+}
+
+.transit-number h1, .collection-number h1 {
+    font-size: 3.5rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.detail-item, .stat-item {
+    padding: 10px 0;
+}
+
+.progress-container {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.progress {
+    border-radius: 10px;
+    background: rgba(255,255,255,0.3);
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+
+/* تأكد من تساوي الارتفاعات */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+.card.h-100 {
+    min-height: 320px;
+}
+
+@media (max-width: 992px) {
+    .transit-number h1, .collection-number h1 {
+        font-size: 2.5rem;
+    }
+
+    .card.h-100 {
+        min-height: 280px;
+    }
+}
+</style>
 
 <!-- المخططات -->
 <div class="row mt-4">
