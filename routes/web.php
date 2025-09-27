@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\StockItemController;
 use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Admin\WarehouseRentalController;
 use App\Http\Controllers\Driver\DriverDashboardController ;
+use App\Http\Controllers\FrontendDashboard\FrontendDashboardController;
 use App\Http\Controllers\Merchant\PackageController as MerchantPackageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -231,6 +232,27 @@ Route::group(['prefix' => 'driver', 'as' => 'driver.'], function () {
 
     Route::get('/lock-screen', [DriverDashboardController::class, 'lock_screen'])->name('lock-screen');
     Route::post('/unlock', [DriverDashboardController::class, 'unlock'])->name('unlock');
+
+    });
+
+});
+
+//frontend_dashboard
+Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.'], function () {
+    //guest to website
+    Route::group(['middleware' => 'guest'], function () {
+        Route::get('/login', [FrontendDashboardController::class, 'login'])->name('login');
+        Route::get('/register', [FrontendDashboardController::class, 'register'])->name('register');
+        Route::get('/recover-password', [FrontendDashboardController::class, 'recover_password'])->name('recover-password');
+    });
+
+    //uthenticate to website
+    Route::group(['middleware' => ['roles', 'role:driver']], function () {
+    Route::get('/', [FrontendDashboardController::class, 'index'])->name('index2');
+    Route::get('/index', [FrontendDashboardController::class, 'index'])->name('index');
+
+    Route::get('/lock-screen', [FrontendDashboardController::class, 'lock_screen'])->name('lock-screen');
+    Route::post('/unlock', [FrontendDashboardController::class, 'unlock'])->name('unlock');
 
     });
 
