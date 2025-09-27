@@ -39,4 +39,13 @@ return [
     'packages_distribution'  =>  'Packages Distribution',
     'drivers_status'        =>  'Drivers Status',
 
+    // New additions
+    'delivered_packages' => 'Delivered Packages',
+    'total_revenue' => 'Total Revenue',
+    'packages_by_status' => 'Packages by Status',
+    'financial_reports' => 'Financial Reports',
+    'in_transit_packages' => 'Packages in Transit',
+    'collected_amount' => 'Collected Amount',
+    'pending_collection' => 'Pending Collection',
+
 ];

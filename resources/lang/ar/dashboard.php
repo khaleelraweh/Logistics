@@ -37,4 +37,13 @@ return [
     'packages_distribution' => 'توزيع الطرود',
     'drivers_status'        => 'حالة السائقين',
 
+        // ... الإعدادات الحالية
+    'delivered_packages' => 'الطرود المسلمة',
+    'total_revenue' => 'إجمالي الإيرادات',
+    'packages_by_status' => 'الطرود حسب الحالة',
+    'financial_reports' => 'التقارير المالية',
+    'in_transit_packages' => 'طرود قيد التسليم',
+    'collected_amount' => 'المبلغ المحصل',
+    'pending_collection' => 'مستحق التحصيل',
+
 ];
