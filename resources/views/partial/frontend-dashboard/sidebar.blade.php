@@ -13,7 +13,7 @@
         <ul class="nav">
             <li class="nav-item nav-category">{{ __('panel.menu') }}</li>
 
-            @foreach ($admin_side_menu as $menu)
+            @foreach ($frontend_dashboard_side_menu as $menu)
                 @if (count($menu->appearedChildren) == 0)
                     <li class="nav-item">
                         <a href="{{ route('admin.' . $menu->as) }}" class="nav-link">

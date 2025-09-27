@@ -247,7 +247,7 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.'], 
     });
 
     //uthenticate to website
-    Route::group(['middleware' => ['roles', 'role:driver']], function () {
+    Route::group(['middleware' => ['roles', 'role:frontend_dashboard']], function () {
     Route::get('/', [FrontendDashboardController::class, 'index'])->name('index2');
     Route::get('/index', [FrontendDashboardController::class, 'index'])->name('index');
 

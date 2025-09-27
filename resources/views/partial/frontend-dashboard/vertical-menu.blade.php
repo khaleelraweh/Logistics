@@ -23,8 +23,8 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title">Menu</li>
 
-                @if(isset($driver_side_menu))
-                    @foreach ($driver_side_menu as $menu)
+                @if(isset($frontend_dashboard_side_menu))
+                    @foreach ($frontend_dashboard_side_menu as $menu)
 
                         <!-- عندما لا يكون ابناء في عنصر القائمة -->
                         @if (count($menu->appearedChildren) == 0)
