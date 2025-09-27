@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class DriverController extends Controller
+class DriverDashboardController extends Controller
 {
 
     public function login()

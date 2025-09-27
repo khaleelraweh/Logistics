@@ -23,7 +23,7 @@ use App\Http\Controllers\Admin\ShippingPartnerController;
 use App\Http\Controllers\Admin\StockItemController;
 use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Admin\WarehouseRentalController;
-use App\Http\Controllers\Driver\DriverController as DriverDashboardController;
+use App\Http\Controllers\Driver\DriverDashboardController ;
 use App\Http\Controllers\Merchant\PackageController as MerchantPackageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
