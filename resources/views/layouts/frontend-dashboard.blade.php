@@ -2,7 +2,7 @@
 <html id="html-root" lang="{{ app()->getLocale() }}" dir="{{ (is_array(auth()->user()->layout_preferences) ? auth()->user()->layout_preferences['rtl'] ?? false : false) ? 'rtl' : 'ltr' }}">
 
 <head>
-    @include('partial.driver.head')
+    @include('partial.frontend-dashboard.head')
 </head>
 
 @php
@@ -53,26 +53,26 @@
 
     <div id="layout-wrapper">
         <header id="page-topbar">
-            @include('partial.driver.navbar-header')
+            @include('partial.frontend-dashboard.navbar-header')
         </header>
 
         <div id="vertical-menu" style="{{ $prefs['layout'] === 'horizontal' ? 'display:none;' : '' }}">
-            @include('partial.driver.vertical-menu')
+            @include('partial.frontend-dashboard.vertical-menu')
         </div>
 
         <div id="horizontal-menu" style="{{ $prefs['layout'] === 'horizontal' ? '' : 'display:none;' }}">
-            @include('partial.driver.horizontal-menu')
+            @include('partial.frontend-dashboard.horizontal-menu')
         </div>
 
         <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid">
-                    @include('partial.driver.alert')
+                    @include('partial.frontend-dashboard.alert')
                     @yield('content')
                 </div>
             </div>
 
-            @include('partial.driver.footer')
+            @include('partial.frontend-dashboard.footer')
         </div>
     </div>
 
@@ -83,8 +83,8 @@
         window.layoutPrefsSaveUrl = "{{ route('admin.profile.updateModeFromRightBar') }}";
     </script>
 
-    @include('partial.driver.right-bar')
-    @include('partial.driver.script')
+    @include('partial.frontend-dashboard.right-bar')
+    @include('partial.frontend-dashboard.script')
 
 </div>
 </body>
