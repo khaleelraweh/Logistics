@@ -1,3 +1,4 @@
+```blade
 @extends('layouts.merchant')
 
 @section('style')
@@ -50,6 +51,20 @@
     </div>
 </div>
 
+<!-- Cards for each status -->
+<div class="row mt-4">
+    @foreach(\App\Models\Package::statuses() as $key => $label)
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h6>{{ $label }}</h6>
+                    <h3>{{ $packageStats[$key] ?? 0 }}</h3>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+
 <!-- Charts -->
 <div class="row mt-4">
     <div class="col-md-12">
@@ -67,7 +82,6 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const ctx = document.getElementById("packagesChart");
@@ -79,13 +93,13 @@
                 datasets: [{
                     data: {!! json_encode(array_map(fn($status) => $packageStats[$status] ?? 0, array_keys(\App\Models\Package::statuses()))) !!},
                     backgroundColor: [
-                        "#ffc107", "#28a745", "#17a2b8", "#007bff", "#6c757d",
-                        "#6610f2", "#e83e8c", "#20c997", "#fd7e14", "#dc3545", "#343a40"
+                        "#ffc107", "#28a745", "#dc3545", "#6c757d",
+                        "#17a2b8", "#007bff", "#6610f2", "#e83e8c"
                     ]
                 }]
             }
         });
     });
 </script>
-
 @endsection
+```
