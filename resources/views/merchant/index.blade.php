@@ -131,6 +131,20 @@
     </div>
 </div>
 
+<!-- Cards for each status -->
+<div class="row mt-4">
+    @foreach(\App\Models\Package::statuses() as $key => $label)
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h6>{{ $label }}</h6>
+                    <h3>{{ $packageStats[$key] ?? 0 }}</h3>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+
 <!-- التقارير المالية -->
 <div class="row mt-4">
     <div class="col-lg-4">
