@@ -21,6 +21,9 @@
         overflow: hidden;
         position: relative;
         background: white;
+        min-height: 140px;
+        display: flex;
+        flex-direction: column;
     }
 
     .stat-card:hover {
@@ -43,15 +46,16 @@
     .stat-card.warning::before { background: linear-gradient(90deg, var(--warning), #ff006e); }
 
     .stat-icon {
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 28px;
+        font-size: 24px;
         background: linear-gradient(135deg, currentColor, transparent);
         opacity: 0.9;
+        flex-shrink: 0;
     }
 
     .financial-card {
@@ -60,6 +64,7 @@
         border-radius: 15px;
         overflow: hidden;
         position: relative;
+        min-height: 320px;
     }
 
     .financial-card::before {
@@ -72,16 +77,38 @@
         background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
     }
 
+    .financial-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+    .financial-item {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .financial-item:last-child {
+        border-bottom: none;
+    }
+
     .progress-container {
         background: rgba(255,255,255,0.2);
         border-radius: 10px;
-        overflow: hidden;
+        padding: 5px;
     }
 
     .chart-container {
         position: relative;
-        height: 280px;
-        margin: 10px 0;
+        height: 300px;
+        margin: 15px 0;
     }
 
     .status-badge {
@@ -92,11 +119,12 @@
     }
 
     .section-title {
-        font-size: 1.25rem;
+        font-size: 1.3rem;
         font-weight: 600;
         margin-bottom: 1.5rem;
         position: relative;
         padding-left: 15px;
+        color: var(--dark);
     }
 
     .section-title::before {
@@ -106,9 +134,75 @@
         top: 50%;
         transform: translateY(-50%);
         width: 4px;
-        height: 20px;
+        height: 24px;
         background: linear-gradient(180deg, var(--primary), var(--secondary));
         border-radius: 2px;
+    }
+
+    .metric-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 12px;
+        padding: 20px;
+        height: 100%;
+        border-left: 4px solid var(--primary);
+        min-height: 120px;
+        transition: transform 0.3s ease;
+    }
+
+    .metric-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .metric-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 8px 0;
+        line-height: 1.2;
+    }
+
+    .trend-indicator {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        background: rgba(76, 201, 240, 0.15);
+        color: #4cc9f0;
+    }
+
+    .transit-card, .collection-card {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        min-height: 320px;
+    }
+
+    .transit-card:hover, .collection-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .transit-icon, .collection-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+    .transit-icon {
+        background: rgba(67, 97, 238, 0.1);
+        color: #4361ee;
+    }
+
+    .collection-icon {
+        background: rgba(76, 201, 240, 0.1);
+        color: #4cc9f0;
     }
 
     .table-hover tbody tr {
@@ -120,32 +214,34 @@
         transform: scale(1.01);
     }
 
-    .metric-card {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        border-radius: 12px;
-        padding: 20px;
-        height: 100%;
-        border-left: 4px solid var(--primary);
+    /* تحسينات الارتفاع والتنسيق */
+    .card.h-100 {
+        height: 100% !important;
+        display: flex;
+        flex-direction: column;
     }
 
-    .metric-value {
-        font-size: 2rem;
-        font-weight: 700;
-        margin: 10px 0;
+    .card-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
     }
 
-    .trend-indicator {
-        display: inline-flex;
-        align-items: center;
-        padding: 4px 8px;
-        border-radius: 12px;
-        font-size: 12px;
-        font-weight: 600;
+    .flex-grow-1 {
+        flex: 1;
     }
 
-    .trend-up { background: rgba(76, 201, 240, 0.2); color: #4cc9f0; }
-    .trend-down { background: rgba(230, 57, 70, 0.2); color: #e63946; }
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
 
+    .row > [class*='col-'] {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* تحسينات للشاشات الصغيرة */
     @media (max-width: 768px) {
         .chart-container {
             height: 250px;
@@ -156,10 +252,57 @@
         }
 
         .stat-icon {
-            width: 50px;
-            height: 50px;
-            font-size: 22px;
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
         }
+
+        .financial-card,
+        .transit-card,
+        .collection-card {
+            min-height: 280px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .stat-card {
+            min-height: 120px;
+        }
+
+        .metric-card {
+            min-height: 100px;
+            padding: 15px;
+        }
+
+        .metric-value {
+            font-size: 1.3rem;
+        }
+    }
+
+    /* تحسينات التقدم */
+    .progress {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        border-radius: 10px;
+        transition: width 0.6s ease;
+    }
+
+    /* تحسينات النص */
+    .financial-label {
+        font-size: 14px;
+        opacity: 0.9;
+    }
+
+    .financial-value {
+        font-size: 15px;
+        font-weight: 600;
     }
 </style>
 @endsection
@@ -184,7 +327,6 @@
 
 <!-- البطاقات الإحصائية الرئيسية -->
 <div class="row">
-    <!-- إجمالي الطرود -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card stat-card h-100">
             <div class="card-body d-flex flex-column">
@@ -207,7 +349,6 @@
         </div>
     </div>
 
-    <!-- الطرود المسلمة -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card stat-card success h-100">
             <div class="card-body d-flex flex-column">
@@ -229,7 +370,6 @@
         </div>
     </div>
 
-    <!-- إجمالي الإيرادات -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card stat-card info h-100">
             <div class="card-body d-flex flex-column">
@@ -254,7 +394,6 @@
         </div>
     </div>
 
-    <!-- المستودعات -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card stat-card warning h-100">
             <div class="card-body d-flex flex-column">
@@ -276,24 +415,26 @@
 </div>
 
 <!-- توزيع الطرود حسب الحالة -->
-<div class="row mt-2">
+<div class="row mt-4">
     <div class="col-12">
         <h5 class="section-title">توزيع الطرود حسب الحالة</h5>
     </div>
 
     @foreach(\App\Models\Package::statuses() as $key => $label)
     <div class="col-xl-2 col-md-3 col-sm-4 col-6 mb-3">
-        <div class="metric-card">
-            <div class="text-center">
-                <small class="text-muted d-block mb-1">{{ $label }}</small>
-                <div class="metric-value text-primary">{{ $packageStats[$key] ?? 0 }}</div>
+        <div class="metric-card h-100">
+            <div class="text-center d-flex flex-column h-100">
+                <small class="text-muted d-block mb-2">{{ $label }}</small>
+                <div class="metric-value text-primary flex-grow-1 d-flex align-items-center justify-content-center">
+                    {{ $packageStats[$key] ?? 0 }}
+                </div>
                 @php
                     $percentage = $stats['packages_total'] > 0 ? (($packageStats[$key] ?? 0) / $stats['packages_total']) * 100 : 0;
                 @endphp
                 <div class="progress mt-2" style="height: 6px;">
                     <div class="progress-bar bg-primary" style="width: {{ $percentage }}%"></div>
                 </div>
-                <small class="text-muted">{{ number_format($percentage, 1) }}%</small>
+                <small class="text-muted mt-1">{{ number_format($percentage, 1) }}%</small>
             </div>
         </div>
     </div>
@@ -443,144 +584,13 @@
     </div>
 </div>
 
-<style>
-.financial-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative;
-}
-
-.financial-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-}
-
-.financial-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 20px;
-}
-
-.financial-item {
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.financial-item:last-child {
-    border-bottom: none;
-}
-
-.financial-label {
-    font-size: 14px;
-    opacity: 0.9;
-}
-
-.financial-value {
-    font-size: 15px;
-}
-
-.transit-card, .collection-card {
-    border-radius: 15px;
-    border: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-}
-
-.transit-card:hover, .collection-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
-
-.transit-icon, .collection-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-}
-
-.transit-icon {
-    background: rgba(67, 97, 238, 0.1);
-    color: #4361ee;
-}
-
-.collection-icon {
-    background: rgba(76, 201, 240, 0.1);
-    color: #4cc9f0;
-}
-
-.transit-number h1, .collection-number h1 {
-    font-size: 3.5rem;
-    line-height: 1;
-    margin-bottom: 0.5rem;
-}
-
-.detail-item, .stat-item {
-    padding: 10px 0;
-}
-
-.progress-container {
-    background: rgba(255,255,255,0.2);
-    border-radius: 10px;
-    padding: 5px;
-}
-
-.progress {
-    border-radius: 10px;
-    background: rgba(255,255,255,0.3);
-}
-
-.progress-bar {
-    border-radius: 10px;
-}
-
-/* تأكد من تساوي الارتفاعات */
-.row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.row > [class*='col-'] {
-    display: flex;
-    flex-direction: column;
-}
-
-.card.h-100 {
-    min-height: 320px;
-}
-
-@media (max-width: 992px) {
-    .transit-number h1, .collection-number h1 {
-        font-size: 2.5rem;
-    }
-
-    .card.h-100 {
-        min-height: 280px;
-    }
-}
-</style>
-
 <!-- المخططات -->
 <div class="row mt-4">
     <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-body">
+        <div class="card h-100">
+            <div class="card-body d-flex flex-column">
                 <h5 class="section-title mb-4">{{ __('dashboard.packages_by_status') }}</h5>
-                <div class="chart-container">
+                <div class="chart-container flex-grow-1">
                     <canvas id="statusChart"></canvas>
                 </div>
             </div>
@@ -588,10 +598,10 @@
     </div>
 
     <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-body">
+        <div class="card h-100">
+            <div class="card-body d-flex flex-column">
                 <h5 class="section-title mb-4">طرود حسب طريقة الدفع</h5>
-                <div class="chart-container">
+                <div class="chart-container flex-grow-1">
                     <canvas id="paymentMethodChart"></canvas>
                 </div>
             </div>
@@ -600,12 +610,12 @@
 </div>
 
 <!-- الطرود الأخيرة -->
-<div class="row mt-2">
+<div class="row mt-4">
     <div class="col-12">
-        <div class="card">
-            <div class="card-body">
+        <div class="card h-100">
+            <div class="card-body d-flex flex-column">
                 <h5 class="section-title mb-4">أحدث الطرود</h5>
-                <div class="table-responsive">
+                <div class="table-responsive flex-grow-1">
                     <table class="table table-hover">
                         <thead class="table-light">
                             <tr>
