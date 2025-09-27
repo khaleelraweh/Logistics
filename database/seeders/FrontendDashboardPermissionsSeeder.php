@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Role;
 use App\Models\Permission;
 
-class FrontendPermissionsSeeder extends Seeder
+class FrontendDashboardPermissionsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
