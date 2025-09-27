@@ -213,3 +213,38 @@ Route::group(['prefix' => 'merchant', 'as' => 'merchant.'], function () {
     });
 
 });
+
+//driver
+Route::group(['prefix' => 'driver', 'as' => 'driver.'], function () {
+    //guest to website
+    Route::group(['middleware' => 'guest'], function () {
+        Route::get('/login', [MerchantDashboardController::class, 'login'])->name('login');
+        Route::get('/register', [MerchantDashboardController::class, 'register'])->name('register');
+        Route::get('/recover-password', [MerchantDashboardController::class, 'recover_password'])->name('recover-password');
+    });
+
+    //uthenticate to website
+    Route::group(['middleware' => ['roles', 'role:merchant']], function () {
+    Route::get('/', [MerchantDashboardController::class, 'index'])->name('index2');
+    Route::get('/index', [MerchantDashboardController::class, 'index'])->name('index');
+
+    Route::get('/lock-screen', [MerchantDashboardController::class, 'lock_screen'])->name('lock-screen');
+    Route::post('/unlock', [MerchantDashboardController::class, 'unlock'])->name('unlock');
+
+
+    // ==============   Packages Tab   ==============  //
+    Route::get('packages/create_for_good', [MerchantPackageController::class, 'create_for_good'])->name('packages.create_for_good');
+
+    Route::post('packages/update-packages-status', [MerchantPackageController::class, 'updatePackageStatus'])->name('packages.update_packages_status');
+    Route::post('package/remove-image', [MerchantPackageController::class, 'remove_image'])->name('packages.remove_image');
+    Route::get('admin/packages/{id}/print', [MerchantPackageController::class, 'printPackage'])->name('packages.print');
+    Route::resource('packages', MerchantPackageController::class);
+
+    // ==============   Products Tab   ==============  //
+    Route::post('products/update-products-status', [MerchantProductController::class, 'updateProductstatus'])->name('products.update_merchants_status');
+    Route::post('product/remove-image', [MerchantProductController::class, 'remove_image'])->name('products.remove_image');
+    Route::resource('products', MerchantProductController::class);
+
+    });
+
+});
