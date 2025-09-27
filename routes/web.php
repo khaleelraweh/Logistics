@@ -225,7 +225,7 @@ Route::group(['prefix' => 'driver', 'as' => 'driver.'], function () {
     });
 
     //uthenticate to website
-    Route::group(['middleware' => ['roles', 'role:merchant']], function () {
+    Route::group(['middleware' => ['roles', 'role:driver']], function () {
     Route::get('/', [DriverDashboardController::class, 'index'])->name('index2');
     Route::get('/index', [DriverDashboardController::class, 'index'])->name('index');
 
