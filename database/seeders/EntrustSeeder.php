@@ -64,6 +64,13 @@ class EntrustSeeder extends Seeder
             'allowed_route' => 'merchant',
         ]);
 
+        $driverRole = Role::create([
+            'name' => 'driver',
+            'display_name' => 'Driver',
+            'description' => 'User is Driver and has his own dashboard',
+            'allowed_route' => 'driver',
+        ]);
+
 
 
         //------------- 02- Users  ------------//
@@ -121,12 +128,12 @@ class EntrustSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        // Create customer
+        // Create merchant
         $merchantUser = User::create([
-            'first_name' => ['ar'   =>  'ديمو' , 'en'   => 'demo'],
+            'first_name' => ['ar'   =>  'تاجر' , 'en'   => 'merchant'],
             'last_name' => ['ar'    => 'تاجر' , 'en'    =>  'merchant'],
-            'username' => 'demo',
-            'email' => 'demo@gmail.com',
+            'username' => 'merchant',
+            'email' => 'merchant@gmail.com',
             'email_verified_at' => now(),
             'mobile' => '00967772036144',
             'password' => bcrypt('123123123'),
@@ -146,6 +153,30 @@ class EntrustSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
+        // Create driver
+        $driverUser = User::create([
+            'first_name' => ['ar'   =>  'سائق' , 'en'   => 'driver'],
+            'last_name' => ['ar'    => 'سائق' , 'en'    =>  'driver'],
+            'username' => 'driver',
+            'email' => 'driver@gmail.com',
+            'email_verified_at' => now(),
+            'mobile' => '00967772036155',
+            'password' => bcrypt('123123123'),
+            'user_image' => 'avator.svg',
+            'layout_preferences'    => json_encode([
+                                        "layout"    => "vertical",
+                                        "topbar"    => "dark",
+                                        "sidebar"   => "dark",
+                                        "sidebar_size"  => "default",
+                                        "layout_size"   => "fluid",
+                                        "preloader" => true,
+                                        "rtl"   => true,
+                                        "mode"  => "light",
+                                        "locale" => session('locale', config('locales.fallback_locale')),
+                                    ]),
+            'status' => 1,
+            'remember_token' => Str::random(10),
+        ]);
 
 
         //------------- 03- AttachRoles To  Users  ------------//
@@ -153,6 +184,7 @@ class EntrustSeeder extends Seeder
         $supervisor->attachRole($supervisorRole);
         $customer->attachRole($customerRole);
         $merchantUser->attachRole($merchantRole);
+        $driverUser->attachRole($driverRole);
 
 
 
