@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\ExternalShipmentController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\MerchantController;
-use App\Http\Controllers\Merchant\MerchantController as MerchantDashboardController;
+use App\Http\Controllers\Merchant\MerchantDashboardController;
 use App\Http\Controllers\Merchant\ProductController as MerchantProductController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PaymentController;
