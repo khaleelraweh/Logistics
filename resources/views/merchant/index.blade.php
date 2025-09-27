@@ -183,7 +183,7 @@
 <!-- end page title -->
 
 <!-- البطاقات الإحصائية الرئيسية -->
-<div class="row">
+{{-- <div class="row">
     <!-- إجمالي الطرود -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card stat-card">
@@ -273,6 +273,98 @@
                         <div class="stat-icon text-warning">
                             <i class="mdi mdi-warehouse"></i>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+<div class="row">
+    <!-- إجمالي الطرود -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h6 class="text-muted fw-semibold mb-0">{{ __('dashboard.total_packages') }}</h6>
+                    <div class="stat-icon text-primary">
+                        <i class="mdi mdi-package-variant"></i>
+                    </div>
+                </div>
+                <div class="flex-grow-1 d-flex flex-column justify-content-center">
+                    <h2 class="mb-2 fw-bold text-primary">{{ $stats['packages_total'] }}</h2>
+                    <div class="mt-auto">
+                        <span class="trend-indicator trend-up">
+                            <i class="mdi mdi-trending-up me-1"></i>
+                            هذا الشهر: {{ $financialReports['current_month']['packages'] }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الطرود المسلمة -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card success h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h6 class="text-muted fw-semibold mb-0">{{ __('dashboard.delivered_packages') }}</h6>
+                    <div class="stat-icon text-success">
+                        <i class="mdi mdi-check-circle"></i>
+                    </div>
+                </div>
+                <div class="flex-grow-1 d-flex flex-column justify-content-center">
+                    <h2 class="mb-2 fw-bold text-success">{{ $stats['packages_delivered'] }}</h2>
+                    <div class="mt-auto">
+                        <span class="trend-indicator trend-up">
+                            هذا الشهر: {{ $financialReports['current_month']['delivered'] }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- إجمالي الإيرادات -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card info h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h6 class="text-muted fw-semibold mb-0">{{ __('dashboard.total_revenue') }}</h6>
+                    <div class="stat-icon text-info">
+                        <i class="mdi mdi-currency-usd"></i>
+                    </div>
+                </div>
+                <div class="flex-grow-1 d-flex flex-column justify-content-center">
+                    <h2 class="mb-2 fw-bold text-info">
+                        {{ number_format($financialReports['total_revenue'], 2) }}
+                        <small class="fs-6">ر.س</small>
+                    </h2>
+                    <div class="mt-auto">
+                        <span class="trend-indicator trend-up">
+                            هذا الشهر: {{ number_format($financialReports['current_month']['revenue'], 2) }} ر.س
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- المستودعات -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card stat-card warning h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h6 class="text-muted fw-semibold mb-0">{{ __('dashboard.warehouses_total') }}</h6>
+                    <div class="stat-icon text-warning">
+                        <i class="mdi mdi-warehouse"></i>
+                    </div>
+                </div>
+                <div class="flex-grow-1 d-flex flex-column justify-content-center">
+                    <h2 class="mb-2 fw-bold text-warning">{{ $stats['warehouses_total'] }}</h2>
+                    <div class="mt-auto">
+                        <span class="text-warning fw-semibold">متاح للتخزين</span>
                     </div>
                 </div>
             </div>
