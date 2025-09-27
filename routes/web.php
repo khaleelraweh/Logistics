@@ -254,6 +254,20 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.'], 
     Route::get('/lock-screen', [FrontendDashboardController::class, 'lock_screen'])->name('lock-screen');
     Route::post('/unlock', [FrontendDashboardController::class, 'unlock'])->name('unlock');
 
+    // ==============   Layout preferances customize by page    ==============  //
+    Route::get('layout-customizer', [ProfileController::class, 'layoutCustomizer'])->name('profile.layout-customizer');
+    // ==============   Layout preferances customize by rightbar panel   ==============  //
+    Route::post('/user/layout-preferences', [ProfileController::class, 'updateModeFromRightBar'])->name('profile.updateModeFromRightBar');
+    // ==============   Language customize by topbar panel   ==============  //
+    Route::post('/update-language-preference', [ProfileController::class, 'updateLanguagePreference'])->name('profile.updatelanguagepreference')->middleware(['auth']);
+
+
+    // ==============   Admin Profile Tab   ==============  //
+    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::post('admin/profile/remove-image', [ProfileController::class, 'remove_image'])->name('profile.remove_image');
+    Route::patch('/profile', [ProfileController::class, 'update_profile'])->name('profile.update');
+
+
     });
 
 });
