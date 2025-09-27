@@ -2,7 +2,7 @@
 <html id="html-root" lang="{{ app()->getLocale() }}" dir="{{ (is_array(auth()->user()->layout_preferences) ? auth()->user()->layout_preferences['rtl'] ?? false : false) ? 'rtl' : 'ltr' }}">
 
 <head>
-    @include('partial.merchant.head')
+    @include('partial.driver.head')
 </head>
 
 @php
@@ -53,26 +53,26 @@
 
     <div id="layout-wrapper">
         <header id="page-topbar">
-            @include('partial.merchant.navbar-header')
+            @include('partial.driver.navbar-header')
         </header>
 
         <div id="vertical-menu" style="{{ $prefs['layout'] === 'horizontal' ? 'display:none;' : '' }}">
-            @include('partial.merchant.vertical-menu')
+            @include('partial.driver.vertical-menu')
         </div>
 
         <div id="horizontal-menu" style="{{ $prefs['layout'] === 'horizontal' ? '' : 'display:none;' }}">
-            @include('partial.merchant.horizontal-menu')
+            @include('partial.driver.horizontal-menu')
         </div>
 
         <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid">
-                    @include('partial.merchant.alert')
+                    @include('partial.driver.alert')
                     @yield('content')
                 </div>
             </div>
 
-            @include('partial.merchant.footer')
+            @include('partial.driver.footer')
         </div>
     </div>
 
@@ -83,8 +83,8 @@
         window.layoutPrefsSaveUrl = "{{ route('admin.profile.updateModeFromRightBar') }}";
     </script>
 
-    @include('partial.merchant.right-bar')
-    @include('partial.merchant.script')
+    @include('partial.driver.right-bar')
+    @include('partial.driver.script')
 
 </div>
 </body>

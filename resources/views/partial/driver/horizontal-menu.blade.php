@@ -4,7 +4,7 @@
             <div class="collapse navbar-collapse" id="topnav-menu-content">
                 <ul class="navbar-nav">
 
-                    @foreach ($merchant_side_menu as $menu)
+                    @foreach ($driver_side_menu as $menu)
                         @if (count($menu->appearedChildren) == 0)
                             <!-- عنصر بدون أبناء -->
                             <li class="nav-item">
