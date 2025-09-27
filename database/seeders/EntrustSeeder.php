@@ -71,6 +71,13 @@ class EntrustSeeder extends Seeder
             'allowed_route' => 'driver',
         ]);
 
+        $frontendRole = Role::create([
+            'name' => 'frontend_dashboard',
+            'display_name' => 'Frontend Dashboard',
+            'description' => 'User is Frontend designer and has his own dashboard',
+            'allowed_route' => 'frontend_dashboard',
+        ]);
+
 
 
         //------------- 02- Users  ------------//
@@ -177,6 +184,30 @@ class EntrustSeeder extends Seeder
             'status' => 1,
             'remember_token' => Str::random(10),
         ]);
+        // Create Frontend Designer
+        $frontendDesignerUser = User::create([
+            'first_name' => ['ar'   =>  'واجهة امامية' , 'en'   => 'Frontend'],
+            'last_name' => ['ar'    => 'مصمم' , 'en'    =>  'Designer'],
+            'username' => 'frontend_designer',
+            'email' => 'frontend_designer@gmail.com',
+            'email_verified_at' => now(),
+            'mobile' => '00967772036166',
+            'password' => bcrypt('123123123'),
+            'user_image' => 'avator.svg',
+            'layout_preferences'    => json_encode([
+                                        "layout"    => "vertical",
+                                        "topbar"    => "dark",
+                                        "sidebar"   => "dark",
+                                        "sidebar_size"  => "default",
+                                        "layout_size"   => "fluid",
+                                        "preloader" => true,
+                                        "rtl"   => true,
+                                        "mode"  => "light",
+                                        "locale" => session('locale', config('locales.fallback_locale')),
+                                    ]),
+            'status' => 1,
+            'remember_token' => Str::random(10),
+        ]);
 
 
         //------------- 03- AttachRoles To  Users  ------------//
@@ -185,6 +216,7 @@ class EntrustSeeder extends Seeder
         $customer->attachRole($customerRole);
         $merchantUser->attachRole($merchantRole);
         $driverUser->attachRole($driverRole);
+        $frontendDesignerUser->attachRole($frontendRole);
 
 
 
