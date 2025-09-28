@@ -21,7 +21,7 @@ class DriverDashboardPermissionsSeeder extends Seeder
         $driverRole = Role::firstOrCreate(
             ['name' => 'driver'],
             [
-                'display_name' => 'driver',
+                'display_name' => 'Driver',
                 'description' => 'User is driver and has his own dashboard',
                 'allowed_route' => 'driver',
             ]
