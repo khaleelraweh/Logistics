@@ -233,6 +233,9 @@ Route::group(['prefix' => 'driver', 'as' => 'driver.'], function () {
     Route::get('/lock-screen', [DriverDashboardController::class, 'lock_screen'])->name('lock-screen');
     Route::post('/unlock', [DriverDashboardController::class, 'unlock'])->name('unlock');
 
+    // ==============   Deliveries Tab   ==============  //
+    Route::resource('deliveries', DeliveryController::class);
+
     });
 
 });
