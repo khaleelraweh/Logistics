@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\ShippingPartnerController;
 use App\Http\Controllers\Admin\StockItemController;
 use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Admin\WarehouseRentalController;
+use App\Http\Controllers\Driver\DeliveryController as DriverDeliveryController;
 use App\Http\Controllers\Driver\DriverDashboardController ;
 use App\Http\Controllers\FrontendDashboard\FrontendDashboardController;
 use App\Http\Controllers\Merchant\PackageController as MerchantPackageController;
@@ -234,7 +235,7 @@ Route::group(['prefix' => 'driver', 'as' => 'driver.'], function () {
     Route::post('/unlock', [DriverDashboardController::class, 'unlock'])->name('unlock');
 
     // ==============   Deliveries Tab   ==============  //
-    Route::resource('deliveries', DeliveryController::class);
+    Route::resource('deliveries', DriverDeliveryController::class);
 
     });
 
