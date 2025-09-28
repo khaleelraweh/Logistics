@@ -184,7 +184,7 @@
                                     @endif
 
                                     <!-- Special Attributes -->
-                                    @php
+                                    {{-- @php
                                         $defaultAttributes = [
                                             "is_fragile" => false, "is_returnable" => false, "is_confidential" => false,
                                             "is_express" => false, "is_cod" => false, "is_gift" => false,
@@ -221,6 +221,58 @@
                                                         'is_gift' => 'pink',
                                                         'is_oversized' => 'teal'
                                                     ][$key] ?? 'secondary' }}">
+                                                        {{ __('package.' . $key) }}
+                                                    </span>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    @endif --}}
+
+                                    <!-- Special Attributes -->
+                                    @php
+                                        $defaultAttributes = [
+                                            "is_fragile" => false, "is_returnable" => false, "is_confidential" => false,
+                                            "is_express" => false, "is_cod" => false, "is_gift" => false,
+                                            "is_oversized" => false, "is_hazardous_material" => false,
+                                            "is_temperature_controlled" => false, "is_perishable" => false,
+                                            "is_signature_required" => false, "is_inspection_required" => false,
+                                            "is_special_handling_required" => false,
+                                        ];
+
+                                        $packageAttributes = is_array($delivery->package->attributes)
+                                            ? $delivery->package->attributes
+                                            : json_decode($delivery->package->attributes ?? '{}', true);
+
+                                        $attrs = array_merge($defaultAttributes, $packageAttributes ?? []);
+                                        $activeAttributes = array_filter($attrs, function($value) { return $value === true; });
+
+                                        // تعريف الألوان مع تحسين التباين
+
+                                        $attributeColors = [
+                                            'is_fragile' => 'warning text-dark',
+                                            'is_hazardous_material' => 'danger',
+                                            'is_confidential' => 'dark',
+                                            'is_temperature_controlled' => 'primary',
+                                            'is_perishable' => 'success',
+                                            'is_signature_required' => 'info text-dark',
+                                            'is_special_handling_required' => 'secondary', // بدلاً من purple
+                                            'is_express' => 'warning text-dark', // بدلاً من orange
+                                            'is_cod' => 'primary', // بدلاً من indigo
+                                            'is_gift' => 'info text-dark', // بدلاً من pink
+                                            'is_oversized' => 'success' // بدلاً من teal
+                                        ];
+
+
+                                    @endphp
+
+                                    @if(count($activeAttributes) > 0)
+                                    <div class="mt-3">
+                                        <h6 class="text-muted mb-2">{{ __('delivery.special_instructions') }}:</h6>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            @foreach($activeAttributes as $key => $value)
+                                                @if($value === true)
+                                                    <span class="badge bg-{{ $attributeColors[$key] ?? 'secondary' }}">
                                                         {{ __('package.' . $key) }}
                                                     </span>
                                                 @endif
