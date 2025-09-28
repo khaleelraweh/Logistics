@@ -3,11 +3,10 @@
 @section('content')
 
 <!-- Page Header -->
-<div class="row ">
+<div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
             <h4 class="mb-0 font-size-18">{{ __('delivery.edit_delivery') }}</h4>
-
             <div class="page-title-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb m-0">
@@ -25,78 +24,97 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-
-                <h4 class="card-title">{{ __('delivery.delivery_info') }}</h4>
+                <!-- Header Section -->
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <h4 class="card-title mb-1">{{ __('delivery.delivery_info') }}</h4>
+                        <p class="text-muted mb-0">{{ __('delivery.update_delivery_status') }}</p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <span class="badge bg-{{ $delivery->status_color }} fs-6">
+                            {{ __('package.status_' . $delivery->status) }}
+                        </span>
+                    </div>
+                </div>
 
                 <form action="{{ route('driver.deliveries.update', $delivery->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 
-                    <!-- معلومات الطرد الأساسية -->
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <div class="card bg-light">
-                                <div class="card-header">
-                                    <h5 class="card-title mb-0">{{ __('package.receiver_info') }}</h5>
+                    <!-- Delivery Information Cards -->
+                    <div class="row">
+                        <!-- Receiver Information -->
+                        <div class="col-lg-4">
+                            <div class="card border-primary mb-4">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title mb-0">
+                                        <i class="ri-user-3-line me-2"></i>
+                                        {{ __('package.receiver_info') }}
+                                    </h5>
                                 </div>
                                 <div class="card-body">
-                                    {{-- معلومات المستلم --}}
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.receiver_name') }}:</strong>
-                                        {{ $delivery->package->receiver_first_name ?? '' }}
-                                        {{ $delivery->package->receiver_middle_name ?? '' }}
-                                        {{ $delivery->package->receiver_last_name ?? '' }}
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="flex-shrink-0">
+                                            <i class="ri-user-line text-primary fs-4"></i>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-0">{{ $delivery->package->receiver_first_name ?? '' }} {{ $delivery->package->receiver_last_name ?? '' }}</h6>
+                                            <small class="text-muted">{{ __('package.receiver_name') }}</small>
+                                        </div>
                                     </div>
 
-                                    {{-- هاتف المستلم --}}
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.receiver_phone') }}:</strong>
-                                        <a href="tel:{{ $delivery->package->receiver_phone ?? '' }}" class="text-primary">
-                                            {{ $delivery->package->receiver_phone ?? '' }}
-                                        </a>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="flex-shrink-0">
+                                            <i class="ri-phone-line text-success fs-4"></i>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-0">
+                                                <a href="tel:{{ $delivery->package->receiver_phone ?? '' }}" class="text-decoration-none">
+                                                    {{ $delivery->package->receiver_phone ?? '' }}
+                                                </a>
+                                            </h6>
+                                            <small class="text-muted">{{ __('package.receiver_phone') }}</small>
+                                        </div>
                                     </div>
 
-                                    {{-- ايميل المستلم --}}
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.receiver_email') }}:</strong>
-                                        <a href="mailto:{{ $delivery->package->receiver_email ?? '' }}" class="text-primary">
-                                            {{ $delivery->package->receiver_email ?? '' }}
-                                        </a>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="flex-shrink-0">
+                                            <i class="ri-mail-line text-info fs-4"></i>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-0">
+                                                <a href="mailto:{{ $delivery->package->receiver_email ?? '' }}" class="text-decoration-none">
+                                                    {{ $delivery->package->receiver_email ?? '' }}
+                                                </a>
+                                            </h6>
+                                            <small class="text-muted">{{ __('package.receiver_email') }}</small>
+                                        </div>
                                     </div>
 
-                                    {{-- عنوان المستلم --}}
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.receiver_address') }}:</strong>
-                                        {{ $delivery->package->receiver_country ?? '' }},
-                                        {{ $delivery->package->receiver_region ?? '' }},
-                                        {{ $delivery->package->receiver_city ?? '' }},
-                                        {{ $delivery->package->receiver_district ?? '' }}
+                                    <div class="d-flex align-items-start mb-3">
+                                        <div class="flex-shrink-0">
+                                            <i class="ri-map-pin-line text-danger fs-4"></i>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1">{{ $delivery->package->receiver_district ?? '' }}, {{ $delivery->package->receiver_city ?? '' }}</h6>
+                                            <small class="text-muted">
+                                                {{ $delivery->package->receiver_region ?? '' }}, {{ $delivery->package->receiver_country ?? '' }}
+                                            </small>
+                                            @if($delivery->package->receiver_postal_code)
+                                            <div class="mt-1">
+                                                <small class="text-muted">{{ __('package.postal_code') }}: {{ $delivery->package->receiver_postal_code }}</small>
+                                            </div>
+                                            @endif
+                                        </div>
                                     </div>
 
-                                    {{-- الرمز البريدي --}}
-                                    @if($delivery->package->receiver_postal_code)
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.postal_code') }}:</strong>
-                                        {{ $delivery->package->receiver_postal_code }}
-                                    </div>
-                                    @endif
-
-                                    {{-- معلومات إضافية --}}
-                                    @if($delivery->package->receiver_others)
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.additional_info') }}:</strong>
-                                        {{ $delivery->package->receiver_others }}
-                                    </div>
-                                    @endif
-
-                                    {{-- رابط الموقع --}}
                                     @if($delivery->package->receiver_latitude && $delivery->package->receiver_longitude)
-                                    <div class="mt-3">
+                                    <div class="text-center mt-3">
                                         <a href="https://maps.google.com/?q={{ $delivery->package->receiver_latitude }},{{ $delivery->package->receiver_longitude }}"
                                            target="_blank"
-                                           class="btn btn-sm btn-outline-primary">
+                                           class="btn btn-outline-primary btn-sm w-100">
                                             <i class="ri-map-pin-line me-1"></i>
-                                            {{ __('package.view_on_map') }}
+                                            {{ __('delivery.view_on_map') }}
                                         </a>
                                     </div>
                                     @endif
@@ -104,213 +122,286 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="card bg-light">
-                                <div class="card-header">
-                                    <h5 class="card-title mb-0">{{ __('package.sender_info') }}</h5>
+                        <!-- Package Information -->
+                        <div class="col-lg-4">
+                            <div class="card border-success mb-4">
+                                <div class="card-header bg-success text-white">
+                                    <h5 class="card-title mb-0">
+                                        <i class="ri-package-line me-2"></i>
+                                        {{ __('package.package_details') }}
+                                    </h5>
                                 </div>
                                 <div class="card-body">
-                                    {{-- معلومات المرسل --}}
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.sender_name') }}:</strong>
-                                        {{ $delivery->package->sender_first_name ?? '' }}
-                                        {{ $delivery->package->sender_middle_name ?? '' }}
-                                        {{ $delivery->package->sender_last_name ?? '' }}
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="flex-shrink-0">
+                                            <i class="ri-barcode-line text-success fs-4"></i>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-0">{{ $delivery->package->tracking_number ?? '' }}</h6>
+                                            <small class="text-muted">{{ __('package.tracking_number') }}</small>
+                                        </div>
                                     </div>
 
-                                    {{-- هاتف المرسل --}}
-                                    @if($delivery->package->sender_phone)
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.sender_phone') }}:</strong>
-                                        <a href="tel:{{ $delivery->package->sender_phone }}" class="text-primary">
-                                            {{ $delivery->package->sender_phone }}
-                                        </a>
-                                    </div>
-                                    @endif
-
-                                    {{-- عنوان المرسل --}}
-                                    @if($delivery->package->sender_city)
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.sender_address') }}:</strong>
-                                        {{ $delivery->package->sender_city ?? '' }},
-                                        {{ $delivery->package->sender_district ?? '' }}
-                                    </div>
-                                    @endif
-                                </div>
-                            </div>
-
-                            {{-- معلومات الطرد --}}
-                            <div class="card bg-light mt-3">
-                                <div class="card-header">
-                                    <h5 class="card-title mb-0">{{ __('package.package_details') }}</h5>
-                                </div>
-                                <div class="card-body">
-                                    {{-- رقم التتبع --}}
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.tracking_number') }}:</strong>
-                                        {{ $delivery->package->tracking_number ?? '' }}
-                                    </div>
-
-                                    {{-- محتويات الطرد --}}
                                     @if($delivery->package->package_content)
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.content') }}:</strong>
-                                        {{ $delivery->package->package_content }}
+                                    <div class="d-flex align-items-start mb-3">
+                                        <div class="flex-shrink-0">
+                                            <i class="ri-file-list-line text-info fs-4"></i>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <h6 class="mb-1">{{ $delivery->package->package_content }}</h6>
+                                            <small class="text-muted">{{ __('package.content') }}</small>
+                                        </div>
                                     </div>
                                     @endif
 
-                                    {{-- ملاحظات --}}
-                                    @if($delivery->package->package_note)
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.notes') }}:</strong>
-                                        {{ $delivery->package->package_note }}
-                                    </div>
-                                    @endif
-
-                                    {{-- الوزن والأبعاد --}}
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.weight') }}:</strong>
-                                        {{ $delivery->package->weight ? $delivery->package->weight . ' جرام' : 'غير محدد' }}
-                                    </div>
-
-                                    {{-- نوع الطرد --}}
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.package_type') }}:</strong>
-                                        {{ __('package.type_' . $delivery->package->package_type) }}
+                                    <div class="row text-center mb-3">
+                                        <div class="col-6">
+                                            <div class="border rounded p-2">
+                                                <i class="ri-weight-line text-primary fs-4 d-block"></i>
+                                                <small class="text-muted d-block">{{ __('package.weight') }}</small>
+                                                <strong>{{ $delivery->package->weight ? $delivery->package->weight . ' جرام' : 'غير محدد' }}</strong>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="border rounded p-2">
+                                                <i class="ri-coupon-line text-warning fs-4 d-block"></i>
+                                                <small class="text-muted d-block">{{ __('package.package_type') }}</small>
+                                                <strong>{{ __('package.type_' . $delivery->package->package_type) }}</strong>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    {{-- حجم الطرد --}}
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.package_size') }}:</strong>
-                                        {{ __('package.size_' . $delivery->package->package_size) }}
-                                    </div>
-
-                                    {{-- طريقة الدفع --}}
-                                    <div class="mb-2">
-                                        <strong>{{ __('package.payment_method') }}:</strong>
-                                        {{ __('package.' . $delivery->package->payment_method) }}
-                                    </div>
-
-                                    {{-- مبلغ COD --}}
                                     @if($delivery->package->cod_amount > 0)
-                                    <div class="mb-2 text-danger">
-                                        <strong>{{ __('package.cod_amount') }}:</strong>
-                                        {{ number_format($delivery->package->cod_amount, 2) }} ر.س
+                                    <div class="alert alert-warning mb-3 py-2">
+                                        <div class="d-flex align-items-center">
+                                            <i class="ri-money-dollar-circle-line me-2 fs-5"></i>
+                                            <div>
+                                                <strong class="d-block">{{ __('package.cod_amount') }}</strong>
+                                                <span class="fs-5">{{ number_format($delivery->package->cod_amount, 2) }} ر.س</span>
+                                            </div>
+                                        </div>
                                     </div>
                                     @endif
 
-                                    {{-- خصائص خاصة --}}
+                                    <!-- Special Attributes -->
                                     @php
-                                        // التصحيح: الحقل attributes يتم تحويله تلقائياً إلى array في لارافيل
-                                        $attributes = is_array($delivery->package->attributes)
+                                        $defaultAttributes = [
+                                            "is_fragile" => false, "is_returnable" => false, "is_confidential" => false,
+                                            "is_express" => false, "is_cod" => false, "is_gift" => false,
+                                            "is_oversized" => false, "is_hazardous_material" => false,
+                                            "is_temperature_controlled" => false, "is_perishable" => false,
+                                            "is_signature_required" => false, "is_inspection_required" => false,
+                                            "is_special_handling_required" => false,
+                                        ];
+
+                                        $packageAttributes = is_array($delivery->package->attributes)
                                             ? $delivery->package->attributes
                                             : json_decode($delivery->package->attributes ?? '{}', true);
 
-                                        $specialAttributes = array_filter($attributes ?? [], function($value) {
-                                            return $value === true;
-                                        });
+                                        $attrs = array_merge($defaultAttributes, $packageAttributes ?? []);
+                                        $activeAttributes = array_filter($attrs, function($value) { return $value === true; });
                                     @endphp
 
-                                    @if(count($specialAttributes) > 0)
-                                    <div class="mt-2">
-                                        <strong>{{ __('package.special_instructions') }}:</strong>
-                                        <div class="mt-1">
-                                            @if($attributes['is_fragile'] ?? false)
-                                                <span class="badge bg-warning me-1">{{ __('package.is_fragile') }}</span>
-                                            @endif
-                                            @if($attributes['is_signature_required'] ?? false)
-                                                <span class="badge bg-info me-1">{{ __('package.is_signature_required') }}</span>
-                                            @endif
-                                            @if($attributes['is_special_handling_required'] ?? false)
-                                                <span class="badge bg-danger me-1">{{ __('package.is_special_handling_required') }}</span>
-                                            @endif
-                                            @if($attributes['is_perishable'] ?? false)
-                                                <span class="badge bg-success me-1">{{ __('package.is_perishable') }}</span>
-                                            @endif
-                                            @if($attributes['is_confidential'] ?? false)
-                                                <span class="badge bg-dark me-1">{{ __('package.is_confidential') }}</span>
-                                            @endif
-                                            @if($attributes['is_temperature_controlled'] ?? false)
-                                                <span class="badge bg-primary me-1">{{ __('package.is_temperature_controlled') }}</span>
-                                            @endif
+                                    @if(count($activeAttributes) > 0)
+                                    <div class="mt-3">
+                                        <h6 class="text-muted mb-2">{{ __('delivery.special_instructions') }}:</h6>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            @foreach($activeAttributes as $key => $value)
+                                                @if($value === true)
+                                                    <span class="badge bg-{{ [
+                                                        'is_fragile' => 'warning',
+                                                        'is_hazardous_material' => 'danger',
+                                                        'is_confidential' => 'dark',
+                                                        'is_temperature_controlled' => 'primary',
+                                                        'is_perishable' => 'success',
+                                                        'is_signature_required' => 'info',
+                                                        'is_special_handling_required' => 'purple',
+                                                        'is_express' => 'orange',
+                                                        'is_cod' => 'indigo',
+                                                        'is_gift' => 'pink',
+                                                        'is_oversized' => 'teal'
+                                                    ][$key] ?? 'secondary' }}">
+                                                        {{ __('package.' . $key) }}
+                                                    </span>
+                                                @endif
+                                            @endforeach
                                         </div>
                                     </div>
                                     @endif
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    {{-- Driver (fixed, read-only) --}}
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">{{ __('delivery.driver') }}</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-plaintext">{{ $delivery->driver?->driver_full_name ?? __('driver.no_name') }}</p>
-                            <input type="hidden" name="driver_id" value="{{ $delivery->driver_id }}">
+                        <!-- Status Update Section -->
+                        <div class="col-lg-4">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning text-dark">
+                                    <h5 class="card-title mb-0">
+                                        <i class="ri-refresh-line me-2"></i>
+                                        {{ __('delivery.update_status') }}
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Current Driver -->
+                                    {{-- <div class="mb-4">
+                                        <label class="form-label text-muted small">{{ __('delivery.driver') }}</label>
+                                        <div class="d-flex align-items-center">
+                                            <i class="ri-user-line text-primary me-2"></i>
+                                            <span class="fw-semibold">{{ $delivery->driver?->driver_full_name ?? __('driver.no_name') }}</span>
+                                            <input type="hidden" name="driver_id" value="{{ $delivery->driver_id }}">
+                                        </div>
+                                    </div> --}}
+
+                                    <!-- Package Reference -->
+                                    <div class="mb-4">
+                                        <label class="form-label text-muted small">{{ __('delivery.package') }}</label>
+                                        <div class="d-flex align-items-center">
+                                            <i class="ri-package-line text-success me-2"></i>
+                                            <span class="fw-semibold">
+                                                {{ $delivery->package->tracking_number ?? '' }} -
+                                                {{ $delivery->package->receiver_first_name ?? '' }}
+                                            </span>
+                                            <input type="hidden" name="package_id" value="{{ $delivery->package_id }}">
+                                        </div>
+                                    </div>
+
+                                    <!-- Status Selection -->
+                                    <div class="mb-4">
+                                        <label for="status" class="form-label text-muted small">{{ __('package.status') }}</label>
+                                        <select name="status" id="statuss" class="form-select form-select-lg">
+                                            @foreach($delivery->availableStatusesForDriver() as $status)
+                                                <option value="{{ $status }}" {{ old('status', $delivery->status) == $status ? 'selected' : '' }}>
+                                                    {{ __('package.status_' . $status) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('status')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <!-- Delivery Notes -->
+                                    <div class="mb-4">
+                                        <label for="note" class="form-label text-muted small">{{ __('general.note') }}</label>
+                                        <textarea name="note" class="form-control" rows="4"
+                                                  placeholder="{{ __('delivery.add_delivery_note_placeholder') }}">{{ old('note', $delivery->note) }}</textarea>
+                                        @error('note')
+                                            <span class="text-danger small">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <!-- Action Buttons -->
+                                    <div class="d-grid gap-2">
+                                        @ability('driver', 'update_deliveries')
+                                            <button type="submit" class="btn btn-warning btn-lg">
+                                                <i class="ri-save-3-line me-2"></i>
+                                                {{ __('delivery.update_delivery') }}
+                                            </button>
+                                        @endability
+
+                                        <a href="{{ route('driver.deliveries.index') }}" class="btn btn-outline-secondary">
+                                            <i class="ri-arrow-go-back-line me-1"></i>
+                                            {{ __('panel.cancel') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    {{-- Package (fixed, read-only) --}}
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">{{ __('delivery.package') }}</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-plaintext">
-                                {{ $delivery->package->tracking_number ?? '' }} -
-                                {{ $delivery->package->receiver_first_name ?? '' }} {{ $delivery->package->receiver_last_name ?? '' }}
-                            </p>
-                            <input type="hidden" name="package_id" value="{{ $delivery->package_id }}">
+                    <!-- Additional Information (Collapsible) -->
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="d-flex align-items-center text-decoration-none" data-bs-toggle="collapse" href="#additionalInfo">
+                                        <i class="ri-information-line me-2"></i>
+                                        {{ __('package.additional_information') }}
+                                        <i class="ri-arrow-down-s-line ms-auto"></i>
+                                    </a>
+                                </div>
+                                <div class="collapse" id="additionalInfo">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- Sender Information -->
+                                            <div class="col-md-6">
+                                                <h6 class="text-muted mb-3">{{ __('package.sender_info') }}</h6>
+                                                <div class="row">
+                                                    <div class="col-6 mb-2">
+                                                        <small class="text-muted d-block">{{ __('package.sender_name') }}</small>
+                                                        <strong>{{ $delivery->package->sender_first_name ?? '' }} {{ $delivery->package->sender_last_name ?? '' }}</strong>
+                                                    </div>
+                                                    @if($delivery->package->sender_phone)
+                                                    <div class="col-6 mb-2">
+                                                        <small class="text-muted d-block">{{ __('package.sender_phone') }}</small>
+                                                        <strong>
+                                                            <a href="tel:{{ $delivery->package->sender_phone }}" class="text-decoration-none">
+                                                                {{ $delivery->package->sender_phone }}
+                                                            </a>
+                                                        </strong>
+                                                    </div>
+                                                    @endif
+                                                    @if($delivery->package->sender_city)
+                                                    <div class="col-12 mb-2">
+                                                        <small class="text-muted d-block">{{ __('package.sender_address') }}</small>
+                                                        <strong>{{ $delivery->package->sender_city }}, {{ $delivery->package->sender_district }}</strong>
+                                                    </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+
+                                            <!-- Package Details -->
+                                            <div class="col-md-6">
+                                                <h6 class="text-muted mb-3">{{ __('package.package_specifications') }}</h6>
+                                                <div class="row">
+                                                    <div class="col-6 mb-2">
+                                                        <small class="text-muted d-block">{{ __('package.package_size') }}</small>
+                                                        <strong>{{ __('package.size_' . $delivery->package->package_size) }}</strong>
+                                                    </div>
+                                                    <div class="col-6 mb-2">
+                                                        <small class="text-muted d-block">{{ __('package.payment_method') }}</small>
+                                                        <strong>{{ __('package.' . $delivery->package->payment_method) }}</strong>
+                                                    </div>
+                                                    @if($delivery->package->package_note)
+                                                    <div class="col-12 mb-2">
+                                                        <small class="text-muted d-block">{{ __('package.notes') }}</small>
+                                                        <strong>{{ $delivery->package->package_note }}</strong>
+                                                    </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    {{-- Status --}}
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="status1">{{ __('package.status') }}</label>
-                        <div class="col-sm-10">
-                            <select name="status" id="status1" class="form-select">
-                                @foreach($delivery->availableStatusesForDriver() as $status)
-                                    <option value="{{ $status }}" {{ old('status', $delivery->status) == $status ? 'selected' : '' }}>
-                                        {{ __('package.status_' . $status) }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('status')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    {{-- Note --}}
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="note">{{ __('general.note') }}</label>
-                        <div class="col-sm-10">
-                            <textarea name="note" class="form-control" rows="3" placeholder="{{ __('delivery.add_delivery_note') }}">{{ old('note', $delivery->note) }}</textarea>
-                            @error('note')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="text-end pt-3">
-                        @ability('driver', 'update_deliveries')
-                            <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
-                                <i class="ri-save-3-line me-2"></i>
-                                <i class="bi bi-save me-2"></i>
-                                {{ __('delivery.update_delivery') }}
-                            </button>
-                        @endability
-
-                        <a href="{{ route('driver.deliveries.index') }}" class="btn btn-outline-danger ms-2">
-                            <i class="ri-arrow-go-back-line me-1"></i>
-                            {{ __('panel.cancel') }}
-                        </a>
-                    </div>
-
                 </form>
-
             </div>
         </div>
     </div>
 </div>
+
+<style>
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: 1px solid #e3e6f0;
+}
+.card-header {
+    border-bottom: 1px solid #e3e6f0;
+    font-weight: 600;
+}
+.badge {
+    font-size: 0.75em;
+}
+.form-select-lg {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+}
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+}
+</style>
 
 @endsection

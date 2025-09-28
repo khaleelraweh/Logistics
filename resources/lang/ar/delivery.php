@@ -11,6 +11,11 @@
         'delivery_description'    => 'يمكنك هنا إدارة ومتابعة عمليات التوصيل.',
         'delivery_info'           => 'معلومات التوصيل',
 
+        'update_status'         => 'تحديث الحالة',
+        'update_delivery_status' => 'تحديث حالة التوصيل',
+        'add_delivery_note_placeholder' => 'أضف ملاحظة حول حالة التوصيل...',
+        'special_instructions' => 'تعليمات خاصة',
+
         'delivery_details'        => 'تفاصيل التوصيل',
         'driver_info'             => 'معلومات السائق',
         'package_info'            => 'معلومات الطرد',

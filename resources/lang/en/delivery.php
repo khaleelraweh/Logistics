@@ -12,6 +12,11 @@ return [
     'delivery_description'     => 'Here you can manage and track delivery operations.',
     'delivery_info'            => 'Delivery Information',
 
+    'update_status'          => 'Update Status',
+    'update_delivery_status' => 'Update Delivery Status',
+    'add_delivery_note_placeholder' => 'Add a note about the delivery status...',
+    'special_instructions' => 'Special Instructions',
+
     'delivery_details'         => 'Delivery Details',
     'driver_info'              => 'Driver Information',
     'package_info'             => 'Package Information',
