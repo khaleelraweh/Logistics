@@ -32,10 +32,29 @@ class DriverDashboardPermissionsSeeder extends Seeder
         $manageMain->parent_show = $manageMain->id;
         $manageMain->save();
 
+         //===== Deliveries / deliveries =====
+        $manageDeliveries = Permission::create(['name' => 'driver_manage_deliveries', 'display_name' => ['ar'  =>  'إدارة التوصيل',  'en'    =>  'Manage Deliveries'], 'route' => 'deliveries', 'module' => 'deliveries', 'as' => 'deliveries.index', 'icon' => ' mdi mdi-1 8px mdi-truck-delivery', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '45',]);
+        $manageDeliveries->parent_show = $manageDeliveries->id;
+        $manageDeliveries->save();
+        $showDeliveries    =  Permission::create(['name' => 'driver_show_deliveries',  'display_name' =>   ['ar'   =>  'التوصيل',   'en'        =>  'Deliveries'], 'route' => 'deliveries', 'module' => 'deliveries', 'as' => 'deliveries.index', 'icon' => ' mdi mdi-1 8px mdi-truck-delivery', 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $createDeliveries  =  Permission::create(['name' => 'driver_create_deliveries', 'display_name'  =>   ['ar'   =>  'إضافة عملية توصيل',   'en'       =>  'Add New Delivery'], 'route' => 'deliveries', 'module' => 'deliveries', 'as' => 'deliveries.create', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $displayDeliveries =  Permission::create(['name' => 'driver_display_deliveries', 'display_name'  =>   ['ar'   =>  'استعراض عملية توصيل',   'en'      =>  'Display Delivery'], 'route' => 'deliveries', 'module' => 'deliveries', 'as' => 'deliveries.show', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $updateDeliveries  =  Permission::create(['name' => 'driver_update_deliveries', 'display_name'  =>   ['ar'   =>  'تعديل عملية توصيل',   'en'        =>  'Update Delivery'], 'route' => 'deliveries', 'module' => 'deliveries', 'as' => 'deliveries.edit', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $deleteDeliveries  =  Permission::create(['name' => 'driver_delete_deliveries', 'display_name'  =>   ['ar'   =>  'حذف عملية توصيل',   'en'          =>  'Delete Delivery'], 'route' => 'deliveries', 'module' => 'deliveries', 'as' => 'deliveries.destroy', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+
+
         // ربط الصلاحيات بدور التاجر
         $permissions = [
             // Dashboard
             $manageMain,
+
+            // Deliveries
+            $manageDeliveries,
+            $showDeliveries,
+            $createDeliveries,
+            $displayDeliveries,
+            $updateDeliveries,
+            $deleteDeliveries,
 
         ];
 
