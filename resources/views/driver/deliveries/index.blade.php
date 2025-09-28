@@ -79,29 +79,29 @@
                                 </td>
 
                                 {{-- Address --}}
-<td>
-    @php
-        $addressParts = array_filter([
-            $delivery->package->receiver_country,
-            $delivery->package->receiver_region,
-            $delivery->package->receiver_city,
-            $delivery->package->receiver_district,
-            $delivery->package->receiver_postal_code,
-        ]);
-        $fullAddress = implode(' - ', $addressParts);
-        $mapsLink = $delivery->package->receiver_latitude && $delivery->package->receiver_longitude
-                    ? "https://www.google.com/maps?q={$delivery->package->receiver_latitude},{$delivery->package->receiver_longitude}"
-                    : "https://www.google.com/maps/search/" . urlencode($fullAddress);
-    @endphp
+                                <td>
+                                    @php
+                                        $addressParts = array_filter([
+                                            $delivery->package->receiver_country,
+                                            $delivery->package->receiver_region,
+                                            $delivery->package->receiver_city,
+                                            $delivery->package->receiver_district,
+                                            $delivery->package->receiver_postal_code,
+                                        ]);
+                                        $fullAddress = implode(' - ', $addressParts);
+                                        $mapsLink = $delivery->package->receiver_latitude && $delivery->package->receiver_longitude
+                                                    ? "https://www.google.com/maps?q={$delivery->package->receiver_latitude},{$delivery->package->receiver_longitude}"
+                                                    : "https://www.google.com/maps/search/" . urlencode($fullAddress);
+                                    @endphp
 
-    {{ $fullAddress ?: '-' }}
-    @if($fullAddress)
-        <br>
-        <a href="{{ $mapsLink }}" target="_blank" class="btn btn-sm btn-outline-primary mt-1">
-            <i class="fas fa-map-marker-alt"></i> {{ __('delivery.view_on_map') }}
-        </a>
-    @endif
-</td>
+                                    {{ $fullAddress ?: '-' }}
+                                    @if($fullAddress)
+                                        <br>
+                                        <a href="{{ $mapsLink }}" target="_blank" class="btn btn-sm btn-outline-primary mt-1">
+                                            <i class="fas fa-map-marker-alt"></i> {{ __('delivery.view_on_map') }}
+                                        </a>
+                                    @endif
+                                </td>
 
 
                                 {{-- COD Amount --}}

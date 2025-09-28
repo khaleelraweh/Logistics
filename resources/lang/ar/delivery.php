@@ -16,6 +16,9 @@
         'add_delivery_note_placeholder' => 'أضف ملاحظة حول حالة التوصيل...',
         'special_instructions' => 'تعليمات خاصة',
         'view_on_map' => 'عرض على الخريطة',
+        'recipient'       => 'المستلم',
+        'address'       => 'العنوان',
+        'cod_amount'       => 'الدفع عند الاستلام',
 
         'delivery_details'        => 'تفاصيل التوصيل',
         'driver_info'             => 'معلومات السائق',

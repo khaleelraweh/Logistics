@@ -17,6 +17,9 @@ return [
     'add_delivery_note_placeholder' => 'Add a note about the delivery status...',
     'special_instructions' => 'Special Instructions',
     'view_on_map' => 'View on Map',
+    'recipient'       => 'Recipient',
+    'address'       => 'Address',
+    'cod_amount'       => 'COD Amount',
 
     'delivery_details'         => 'Delivery Details',
     'driver_info'              => 'Driver Information',
