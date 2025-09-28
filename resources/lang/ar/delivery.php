@@ -15,6 +15,7 @@
         'update_delivery_status' => 'تحديث حالة التوصيل',
         'add_delivery_note_placeholder' => 'أضف ملاحظة حول حالة التوصيل...',
         'special_instructions' => 'تعليمات خاصة',
+        'view_on_map' => 'عرض على الخريطة',
 
         'delivery_details'        => 'تفاصيل التوصيل',
         'driver_info'             => 'معلومات السائق',
