@@ -19,8 +19,8 @@ class DeliveryController extends Controller
 
     public function index()
     {
-        if (!auth()->user()->ability('admin', 'driver_manage_deliveries, driver_show_deliveries')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('driver', 'driver_manage_deliveries, driver_show_deliveries')) {
+            return redirect('driver/index');
         }
 
         // جلب السائقين للفلتر
@@ -70,8 +70,8 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-         if (!auth()->user()->ability('admin', 'driver_create_deliveries')) {
-            return redirect('admin/index');
+         if (!auth()->user()->ability('driver', 'driver_create_deliveries')) {
+            return redirect('driver/index');
         }
 
         $drivers = Driver::all();
@@ -89,8 +89,8 @@ class DeliveryController extends Controller
      */
     public function store(DeliveryRequest $request)
     {
-        if (!auth()->user()->ability('admin', 'driver_create_deliveries')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('driver', 'driver_create_deliveries')) {
+            return redirect('driver/index');
         }
 
         try {
@@ -142,8 +142,8 @@ class DeliveryController extends Controller
      */
     public function show(Delivery $delivery)
     {
-        if (!auth()->user()->ability('admin', 'driver_show_deliveries')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('driver', 'driver_show_deliveries')) {
+            return redirect('driver/index');
         }
 
         // نحمل العلاقات المهمة مثل السائق والطرد
@@ -160,8 +160,8 @@ class DeliveryController extends Controller
      */
     public function edit($delivery)
     {
-        if (!auth()->user()->ability('admin', 'driver_update_deliveries')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('driver', 'driver_update_deliveries')) {
+            return redirect('driver/index');
         }
 
         // جلب بيانات عملية التوصيل الحالية
@@ -189,8 +189,8 @@ class DeliveryController extends Controller
      */
     public function update(DeliveryRequest $request, Delivery $delivery)
     {
-        if (!auth()->user()->ability('admin', 'driver_update_deliveries')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('driver', 'driver_update_deliveries')) {
+            return redirect('driver/index');
         }
 
         try {
@@ -262,8 +262,8 @@ class DeliveryController extends Controller
     public function destroy(Delivery $delivery)
     {
         // التحقق من الصلاحيات
-        if (!auth()->user()->ability('admin', 'driver_delete_deliveries')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('driver', 'driver_delete_deliveries')) {
+            return redirect('driver/index');
         }
 
         try {
