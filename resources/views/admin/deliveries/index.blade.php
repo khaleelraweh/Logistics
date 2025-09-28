@@ -64,11 +64,7 @@
                             @forelse ($deliveries as $delivery)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    {{-- <td>
-                                        {{ $delivery->package->tracking_number ?? '-' }}
-                                        <br>
-                                        <small>{{ $delivery->package->receiver_first_name ?? '' }} {{ $delivery->package->receiver_last_name ?? '' }}</small>
-                                    </td> --}}
+
                                     <td>
                                         @if($delivery->package)
                                             <a href="{{ route('admin.packages.show', $delivery->package->id) }}">
