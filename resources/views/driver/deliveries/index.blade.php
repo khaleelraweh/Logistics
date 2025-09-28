@@ -67,7 +67,8 @@
 
                                     <td>
                                         @if($delivery->package)
-                                            <a href="{{ route('driver.packages.show', $delivery->package->id) }}">
+                                            {{-- <a href="{{ route('driver.packages.show', $delivery->package->id) }}"> --}}
+                                            <a href="#">
                                                 {{ $delivery->package->tracking_number ?? '-' }}
                                                 <br>
                                                 <small>{{ $delivery->package->receiver_first_name ?? '' }} {{ $delivery->package->receiver_last_name ?? '' }}</small>
@@ -79,7 +80,8 @@
 
                                     <td data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $delivery->driver->driver_full_name ?? '' }} , {{ $delivery->driver->phone ?? '' }}">
                                         @if($delivery->driver)
-                                            <a href="{{ route('driver.drivers.show', $delivery->driver->id) }}">
+                                            {{-- <a href="{{ route('driver.drivers.show', $delivery->driver->id) }}"> --}}
+                                            <a href="#">
                                                 {{ Str::words($delivery->driver->driver_full_name, 2, '') }}
                                             </a>
                                         @else
