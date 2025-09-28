@@ -36,11 +36,11 @@
                             </p>
                         </div>
 
-                        <div class="button-items">
+                        {{-- <div class="button-items">
                             <a class="btn btn-primary waves-effect waves-light" href="{{ route('driver.deliveries.create') }}">
                                <i class="ri-truck-line align-middle me-2"></i> {{ __('delivery.add_new_delivery') }}
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <!-- Filters Section -->
