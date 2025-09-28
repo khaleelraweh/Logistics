@@ -8,6 +8,7 @@ use App\Http\Requests\Driver\DeliveryRequest;
 use App\Models\Delivery;
 use App\Models\Driver;
 use App\Models\Package;
+use Illuminate\Support\Facades\Log;
 
 class DeliveryController extends Controller
 {
@@ -206,17 +207,22 @@ class DeliveryController extends Controller
             // تحديث التوصيل
             $delivery->update($input);
 
-            // تحديث حالة الطرد
-            $delivery->package->update(['status' => $input['status']]);
+            // التأكد من وجود package قبل التحديث
+            if ($delivery->package) {
+                // تحديث حالة الطرد
+                $delivery->package->update(['status' => $input['status']]);
 
-            // تسجيل السجل الزمني للتحديث
-            $delivery->package->addLog(
-                __('delivery.delivery_updated_status', [
-                    'status' => __('package.status_' . $delivery->status),
-                    'driver' => $delivery->driver?->driver_full_name ?? '-'
-                ]),
-                $user->id
-            );
+                // تسجيل السجل الزمني للتحديث
+                $delivery->package->addLog(
+                    __('delivery.delivery_updated_status', [
+                        'status' => __('package.status_' . $delivery->status),
+                        'driver' => $delivery->driver?->driver_full_name ?? '-'
+                    ]),
+                    $user->id
+                );
+            } else {
+                \Log::warning("Delivery {$delivery->id} has no package associated.");
+            }
 
             return redirect()->route('driver.deliveries.index')->with([
                 'message'    => __('messages.delivery_updated'),
@@ -224,7 +230,11 @@ class DeliveryController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            \Log::error('Driver delivery update error: ' . $e->getMessage());
+            // تسجيل رسالة الخطأ الكاملة للتطوير
+            \Log::error('Driver delivery update error: ' . $e->getMessage(), [
+                'delivery_id' => $delivery->id,
+                'trace' => $e->getTraceAsString()
+            ]);
 
             return redirect()->route('driver.deliveries.index')->with([
                 'message'    => __('messages.something_went_wrong'),
@@ -232,6 +242,7 @@ class DeliveryController extends Controller
             ]);
         }
     }
+
 
 
 

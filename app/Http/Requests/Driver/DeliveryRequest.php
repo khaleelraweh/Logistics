@@ -29,7 +29,7 @@ class DeliveryRequest extends FormRequest
                     'driver_id'      => 'required|exists:drivers,id',
                     'package_id'     => 'required|exists:packages,id',
                     'assigned_at'    => 'nullable|date',
-                    'status' => 'required|in:pending,assigned_to_driver,driver_picked_up,in_transit,arrived_at_hub,out_for_delivery,delivered,delivery_failed,returned,cancelled,in_warehouse',
+                    'status'        => 'required|in:pending,assigned_to_driver,driver_picked_up,in_transit,arrived_at_hub,out_for_delivery,delivered,delivery_failed,returned,cancelled,in_warehouse',
                     'note'           => 'nullable|string|max:255',
                     'created_by'     => 'nullable|string|max:255',
                     'updated_by'     => 'nullable|string|max:255',
