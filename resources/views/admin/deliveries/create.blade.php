@@ -96,13 +96,6 @@
                     <div class="row mb-3">
                         <label class=" col-sm-2 col-form-label" for="status1">{{ __('package.status') }}</label>
                         <div class="col-sm-10">
-                            {{-- <select name="status" id="status1" class="form-select">
-                                @foreach (\App\Models\Package::statuses() as $key => $label)
-                                    <option value="{{ $key }}" {{ old('status', $package->status ?? '') == $key ? 'selected' : '' }}>
-                                        {{ $label }}
-                                    </option>
-                                @endforeach
-                            </select> --}}
 
                             <select name="status" id="status1" class="form-select">
                                 @foreach((new \App\Models\Delivery())->availableStatuses() as $status)
