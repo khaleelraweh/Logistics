@@ -182,61 +182,64 @@ class DeliveryController extends Controller
      * @param  \App\Models\Delivery  $delivery
      * @return \Illuminate\Http\Response
      */
-    public function update(DeliveryRequest $request, Delivery $delivery)
+     public function update(DeliveryRequest $request, Delivery $delivery)
     {
-        // التحقق من الصلاحية للسائق
         if (!auth()->user()->ability('driver', 'driver_update_deliveries')) {
             return redirect('driver/index');
         }
 
         try {
-            $user = auth()->user();
-
-            // السائق يمكنه تعديل الحالة والملاحظة فقط
             $input = [
-                'status' => $request->status ?? $delivery->status,
-                'note'   => $request->note,
-                'updated_by' => $user->full_name,
+                'package_id'  => $request->package_id,
+                'assigned_at' => $delivery->assigned_at, // الحفاظ على وقت الإسناد
+                'status'      => $request->status ?? $delivery->status,
+                'note'        => $request->note,
+                'updated_by'  => auth()->user()->full_name,
             ];
 
-            // إذا الحالة أصبحت delivered لأول مرة، نملأ delivered_at
+            // 1. التحقق إذا تغير السائق
+            if ($delivery->driver_id != $request->driver_id) {
+                $oldDriver = $delivery->driver?->driver_full_name ?? '-';
+                $newDriver = Driver::find($request->driver_id)?->driver_full_name ?? '-';
+                $input['driver_id'] = $request->driver_id;
+
+                // تسجيل تغيير السائق في السجل الزمني
+                $delivery->package->addLog(
+                    __('delivery.driver_changed', [
+                        'old_driver' => $oldDriver,
+                        'new_driver' => $newDriver,
+                    ]),
+                    $request->driver_id
+                );
+            }
+
+            // 2. إذا الحالة أصبحت delivered لأول مرة، نملأ delivered_at
             if ($input['status'] === 'delivered' && !$delivery->delivered_at) {
                 $input['delivered_at'] = now();
             }
 
-            // تحديث التوصيل
+            // 3. تحديث التوصيل
             $delivery->update($input);
 
-            // التأكد من وجود package قبل التحديث
-            if ($delivery->package) {
-                // تحديث حالة الطرد
-                $delivery->package->update(['status' => $input['status']]);
+            // 4. تحديث حالة الطرد
+            $delivery->package->update(['status' => $input['status']]);
 
-                // تسجيل السجل الزمني للتحديث
-                $delivery->package->addLog(
-                    __('delivery.delivery_updated_status', [
-                        'status' => __('package.status_' . $delivery->status),
-                        'driver' => $delivery->driver?->driver_full_name ?? '-'
-                    ]),
-                    $user->id
-                );
-            } else {
-                \Log::warning("Delivery {$delivery->id} has no package associated.");
-            }
+            // 5. تسجيل تحديث الحالة في السجل الزمني
+            $delivery->package->addLog(
+                __('delivery.delivery_updated_status', [
+                    'status' => __('package.status_' . $delivery->status),
+                    'driver' => $delivery->driver?->driver_full_name ?? '-'
+                ]),
+                $delivery->driver_id
+            );
 
-            return redirect()->route('driver.deliveries.index')->with([
+            return redirect()->route('admin.deliveries.index')->with([
                 'message'    => __('messages.delivery_updated'),
                 'alert-type' => 'success',
             ]);
 
         } catch (\Exception $e) {
-            // تسجيل رسالة الخطأ الكاملة للتطوير
-            \Log::error('Driver delivery update error: ' . $e->getMessage(), [
-                'delivery_id' => $delivery->id,
-                'trace' => $e->getTraceAsString()
-            ]);
-
-            return redirect()->route('driver.deliveries.index')->with([
+            return redirect()->route('admin.deliveries.index')->with([
                 'message'    => __('messages.something_went_wrong'),
                 'alert-type' => 'danger',
             ]);
