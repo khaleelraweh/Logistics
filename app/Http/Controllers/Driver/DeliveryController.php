@@ -233,13 +233,13 @@ class DeliveryController extends Controller
                 $delivery->driver_id
             );
 
-            return redirect()->route('admin.deliveries.index')->with([
+            return redirect()->route('driver.deliveries.index')->with([
                 'message'    => __('messages.delivery_updated'),
                 'alert-type' => 'success',
             ]);
 
         } catch (\Exception $e) {
-            return redirect()->route('admin.deliveries.index')->with([
+            return redirect()->route('driver.deliveries.index')->with([
                 'message'    => __('messages.something_went_wrong'),
                 'alert-type' => 'danger',
             ]);
