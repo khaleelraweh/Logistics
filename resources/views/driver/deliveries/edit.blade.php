@@ -216,22 +216,22 @@
                                         <strong>{{ __('package.special_instructions') }}:</strong>
                                         <div class="mt-1">
                                             @if($attributes['is_fragile'] ?? false)
-                                                <span class="badge bg-warning me-1">{{ __('package.fragile') }}</span>
+                                                <span class="badge bg-warning me-1">{{ __('package.is_fragile') }}</span>
                                             @endif
                                             @if($attributes['is_signature_required'] ?? false)
-                                                <span class="badge bg-info me-1">{{ __('package.signature_required') }}</span>
+                                                <span class="badge bg-info me-1">{{ __('package.is_signature_required') }}</span>
                                             @endif
                                             @if($attributes['is_special_handling_required'] ?? false)
-                                                <span class="badge bg-danger me-1">{{ __('package.special_handling') }}</span>
+                                                <span class="badge bg-danger me-1">{{ __('package.is_special_handling_required') }}</span>
                                             @endif
                                             @if($attributes['is_perishable'] ?? false)
-                                                <span class="badge bg-success me-1">{{ __('package.perishable') }}</span>
+                                                <span class="badge bg-success me-1">{{ __('package.is_perishable') }}</span>
                                             @endif
                                             @if($attributes['is_confidential'] ?? false)
-                                                <span class="badge bg-dark me-1">{{ __('package.confidential') }}</span>
+                                                <span class="badge bg-dark me-1">{{ __('package.is_confidential') }}</span>
                                             @endif
                                             @if($attributes['is_temperature_controlled'] ?? false)
-                                                <span class="badge bg-primary me-1">{{ __('package.temperature_controlled') }}</span>
+                                                <span class="badge bg-primary me-1">{{ __('package.is_temperature_controlled') }}</span>
                                             @endif
                                         </div>
                                     </div>
