@@ -33,16 +33,7 @@
                     </div>
 
                     <!-- Driver -->
-                    <div class="col-md-3">
-                        <select name="driver_id" class="form-select select2">
-                            <option value="">{{ __('filter.all_drivers') }}</option>
-                            @foreach($drivers as $driver)
-                                <option value="{{ $driver->id }}" {{ request('driver_id') == $driver->id ? 'selected' : '' }}>
-                                    {{ $driver->driver_full_name ?? $driver->first_name . ' ' . $driver->last_name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+
 
                     <div class="col-md-1 mb-2 d-md-block" style="display:flex !important;justify-content: center;align-items: center;">
                         {{ __('general.from') }}
