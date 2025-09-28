@@ -58,7 +58,7 @@ class DeliveryController extends Controller
             )
             ->paginate(request()->limit_by ?? 100);
 
-        return view('admin.deliveries.index', compact('deliveries', 'drivers'));
+        return view('driver.deliveries.index', compact('deliveries', 'drivers'));
     }
 
 
@@ -78,7 +78,7 @@ class DeliveryController extends Controller
         $packages = Package::whereDoesntHave('delivery')->get();
 
 
-        return view('admin.deliveries.create',compact('drivers', 'packages'));
+        return view('driver.deliveries.create',compact('drivers', 'packages'));
     }
 
     /**
@@ -120,13 +120,13 @@ class DeliveryController extends Controller
                 );
             }
 
-            return redirect()->route('admin.deliveries.index')->with([
+            return redirect()->route('driver.deliveries.index')->with([
                 'message'    => __('messages.delivery_created'),
                 'alert-type' => 'success',
             ]);
 
         } catch (\Exception $e) {
-            return redirect()->route('admin.deliveries.index')->with([
+            return redirect()->route('driver.deliveries.index')->with([
                 'message'    => __('messages.something_went_wrong'),
                 'alert-type' => 'danger',
             ]);
@@ -149,7 +149,7 @@ class DeliveryController extends Controller
         // نحمل العلاقات المهمة مثل السائق والطرد
         $delivery->load(['driver', 'package']);
 
-        return view('admin.deliveries.show', compact('delivery'));
+        return view('driver.deliveries.show', compact('delivery'));
     }
 
     /**
@@ -176,7 +176,7 @@ class DeliveryController extends Controller
                     ->orWhere('id', $delivery->package_id)
                     ->get();
 
-        return view('admin.deliveries.edit', compact('delivery', 'drivers', 'packages'));
+        return view('driver.deliveries.edit', compact('delivery', 'drivers', 'packages'));
     }
 
 
@@ -238,13 +238,13 @@ class DeliveryController extends Controller
                 $delivery->driver_id
             );
 
-            return redirect()->route('admin.deliveries.index')->with([
+            return redirect()->route('driver.deliveries.index')->with([
                 'message'    => __('messages.delivery_updated'),
                 'alert-type' => 'success',
             ]);
 
         } catch (\Exception $e) {
-            return redirect()->route('admin.deliveries.index')->with([
+            return redirect()->route('driver.deliveries.index')->with([
                 'message'    => __('messages.something_went_wrong'),
                 'alert-type' => 'danger',
             ]);
@@ -269,7 +269,7 @@ class DeliveryController extends Controller
         try {
             $delivery->delete();
 
-            return redirect()->route('admin.deliveries.index')->with([
+            return redirect()->route('driver.deliveries.index')->with([
                 'message'    => __('messages.delivery_deleted'),
                 'alert-type' => 'success',
             ]);
@@ -277,7 +277,7 @@ class DeliveryController extends Controller
         } catch (\Exception $e) {
             // يمكن تسجيل الخطأ لو حبيت: \Log::error($e->getMessage());
 
-            return redirect()->route('admin.deliveries.index')->with([
+            return redirect()->route('driver.deliveries.index')->with([
                 'message'    => __('messages.something_went_wrong'),
                 'alert-type' => 'danger',
             ]);
