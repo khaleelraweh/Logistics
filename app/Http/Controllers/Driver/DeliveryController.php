@@ -19,7 +19,7 @@ class DeliveryController extends Controller
 
     public function index()
     {
-        if (!auth()->user()->ability('admin', 'manage_deliveries, show_deliveries')) {
+        if (!auth()->user()->ability('admin', 'driver_manage_deliveries, driver_show_deliveries')) {
             return redirect('admin/index');
         }
 
@@ -70,7 +70,7 @@ class DeliveryController extends Controller
      */
     public function create()
     {
-         if (!auth()->user()->ability('admin', 'create_deliveries')) {
+         if (!auth()->user()->ability('admin', 'driver_create_deliveries')) {
             return redirect('admin/index');
         }
 
@@ -89,7 +89,7 @@ class DeliveryController extends Controller
      */
     public function store(DeliveryRequest $request)
     {
-        if (!auth()->user()->ability('admin', 'create_deliveries')) {
+        if (!auth()->user()->ability('admin', 'driver_create_deliveries')) {
             return redirect('admin/index');
         }
 
@@ -142,7 +142,7 @@ class DeliveryController extends Controller
      */
     public function show(Delivery $delivery)
     {
-        if (!auth()->user()->ability('admin', 'show_deliveries')) {
+        if (!auth()->user()->ability('admin', 'driver_show_deliveries')) {
             return redirect('admin/index');
         }
 
@@ -160,7 +160,7 @@ class DeliveryController extends Controller
      */
     public function edit($delivery)
     {
-        if (!auth()->user()->ability('admin', 'update_deliveries')) {
+        if (!auth()->user()->ability('admin', 'driver_update_deliveries')) {
             return redirect('admin/index');
         }
 
@@ -189,7 +189,7 @@ class DeliveryController extends Controller
      */
     public function update(DeliveryRequest $request, Delivery $delivery)
     {
-        if (!auth()->user()->ability('admin', 'update_deliveries')) {
+        if (!auth()->user()->ability('admin', 'driver_update_deliveries')) {
             return redirect('admin/index');
         }
 
@@ -262,7 +262,7 @@ class DeliveryController extends Controller
     public function destroy(Delivery $delivery)
     {
         // التحقق من الصلاحيات
-        if (!auth()->user()->ability('admin', 'delete_deliveries')) {
+        if (!auth()->user()->ability('admin', 'driver_delete_deliveries')) {
             return redirect('admin/index');
         }
 
