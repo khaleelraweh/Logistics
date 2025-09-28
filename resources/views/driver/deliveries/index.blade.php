@@ -21,87 +21,110 @@
 </div>
 <!-- /Page Header -->
 
+<!-- deliveries table -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
 
-    <!-- deliveries table -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-
-                    <div class="card-head d-flex justify-content-between">
-                        <div class="head">
-                            <h4 class="card-title"><i class="fas fa-shipping-fast"></i> {{ __('delivery.delivery_data') }}</h4>
-                            <p class="card-title-desc">
-                                {{ __('delivery.delivery_description') }}
-                            </p>
-                        </div>
-
-                        {{-- <div class="button-items">
-                            <a class="btn btn-primary waves-effect waves-light" href="{{ route('driver.deliveries.create') }}">
-                               <i class="ri-truck-line align-middle me-2"></i> {{ __('delivery.add_new_delivery') }}
-                            </a>
-                        </div> --}}
+                <div class="card-head d-flex justify-content-between">
+                    <div class="head">
+                        <h4 class="card-title"><i class="fas fa-shipping-fast"></i> {{ __('delivery.delivery_data') }}</h4>
+                        <p class="card-title-desc">
+                            {{ __('delivery.delivery_description') }}
+                        </p>
                     </div>
+                </div>
 
-                    <!-- Filters Section -->
-                        @include('driver.deliveries.filter.filter')
-                    <!-- End Filters Section -->
+                <!-- Filters Section -->
+                    @include('driver.deliveries.filter.filter')
+                <!-- End Filters Section -->
 
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap" style="width: 100%;">
-                        <thead>
+                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>{{ __('delivery.package') }}</th>
+                            <th>{{ __('delivery.recipient') }}</th>
+                            <th>{{ __('delivery.address') }}</th>
+                            <th>{{ __('delivery.cod_amount') }}</th>
+                            <th>{{ __('delivery.status') }}</th>
+                            <th>{{ __('delivery.assigned_at') }}</th>
+                            <th>{{ __('delivery.delivered_at') }}</th>
+                            <th>{{ __('general.created_at') }}</th>
+                            <th>{{ __('general.actions') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($deliveries as $delivery)
                             <tr>
-                                <th>#</th>
-                                <th>{{ __('delivery.package') }}</th>
-                                <th>{{ __('delivery.driver') }}</th>
-                                <th>{{ __('delivery.status') }}</th>
-                                <th>{{ __('delivery.assigned_at') }}</th>
-                                <th>{{ __('delivery.delivered_at') }}</th>
-                                <th>{{ __('general.created_at') }}</th>
-                                <th>{{ __('general.actions') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($deliveries as $delivery)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                <td>{{ $loop->iteration }}</td>
 
-                                    <td>
-                                        @if($delivery->package)
-                                            {{-- <a href="{{ route('driver.packages.show', $delivery->package->id) }}"> --}}
-                                            <a href="#">
-                                                {{ $delivery->package->tracking_number ?? '-' }}
-                                                <br>
-                                                <small>{{ $delivery->package->receiver_first_name ?? '' }} {{ $delivery->package->receiver_last_name ?? '' }}</small>
-                                            </a>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
+                                {{-- Package --}}
+                                <td>
+                                    @if($delivery->package)
+                                        <a href="#">
+                                            {{ $delivery->package->tracking_number ?? '-' }}
+                                        </a>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
 
-                                    <td data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $delivery->driver->driver_full_name ?? '' }} , {{ $delivery->driver->phone ?? '' }}">
-                                        @if($delivery->driver)
-                                            {{-- <a href="{{ route('driver.drivers.show', $delivery->driver->id) }}"> --}}
-                                            <a href="#">
-                                                {{ Str::words($delivery->driver->driver_full_name, 2, '') }}
-                                            </a>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
+                                {{-- Recipient --}}
+                                <td>
+                                    {{ $delivery->package->receiver_first_name ?? '' }} {{ $delivery->package->receiver_last_name ?? '' }}
+                                    <br>
+                                    <small>{{ $delivery->package->receiver_phone ?? '' }}</small>
+                                </td>
+
+                                {{-- Address --}}
+<td>
+    @php
+        $addressParts = array_filter([
+            $delivery->package->receiver_country,
+            $delivery->package->receiver_region,
+            $delivery->package->receiver_city,
+            $delivery->package->receiver_district,
+            $delivery->package->receiver_postal_code,
+        ]);
+        $fullAddress = implode(' - ', $addressParts);
+        $mapsLink = $delivery->package->receiver_latitude && $delivery->package->receiver_longitude
+                    ? "https://www.google.com/maps?q={$delivery->package->receiver_latitude},{$delivery->package->receiver_longitude}"
+                    : "https://www.google.com/maps/search/" . urlencode($fullAddress);
+    @endphp
+
+    {{ $fullAddress ?: '-' }}
+    @if($fullAddress)
+        <br>
+        <a href="{{ $mapsLink }}" target="_blank" class="btn btn-sm btn-outline-primary mt-1">
+            <i class="fas fa-map-marker-alt"></i> {{ __('delivery.view_on_map') }}
+        </a>
+    @endif
+</td>
 
 
+                                {{-- COD Amount --}}
+                                <td>
+                                    @if($delivery->package && $delivery->package->cod_amount > 0)
+                                        {{ number_format($delivery->package->cod_amount, 2) }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
 
-                                 <td>
+                                {{-- Status --}}
+                                <td>
                                     @php
                                         $color = match($delivery->status) {
-                                            'delivered'         => 'success',
-                                            'on_route'          => 'warning',
-                                            'assigned_to_driver'=> 'info',
-                                            'pending'           => 'secondary',
-                                            'in_transit'        => 'primary',
-                                            'cancelled'         => 'dark',
-                                            'returned'          => 'danger',
-                                            default             => 'secondary',
+                                            'delivered'          => 'success',
+                                            'on_route'           => 'warning',
+                                            'assigned_to_driver' => 'info',
+                                            'pending'            => 'secondary',
+                                            'in_transit'         => 'primary',
+                                            'cancelled'          => 'dark',
+                                            'returned'           => 'danger',
+                                            default              => 'secondary',
                                         };
                                     @endphp
                                     <span class="badge bg-{{ $color }}">
@@ -109,65 +132,51 @@
                                     </span>
                                 </td>
 
-                                    <td>{{ $delivery->assigned_at ? $delivery->assigned_at->diffForHumans() : '-' }}</td>
-                                    <td>{{ $delivery->delivered_at ? $delivery->delivered_at->diffForHumans() : '-' }}</td>
-                                    <td>{{ $delivery->created_at->diffForHumans() }}</td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fas fa-cog"></i> {{ __('general.operations') }}
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                @ability('driver', 'show_deliveries')
-                                                <li>
-                                                    <a class="dropdown-item" href="{{ route('driver.deliveries.show', $delivery->id) }}">
-                                                        <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
-                                                    </a>
-                                                </li>
-                                                @endability
+                                <td>{{ $delivery->assigned_at ? $delivery->assigned_at->diffForHumans() : '-' }}</td>
+                                <td>{{ $delivery->delivered_at ? $delivery->delivered_at->diffForHumans() : '-' }}</td>
+                                <td>{{ $delivery->created_at->diffForHumans() }}</td>
 
-                                                @ability('driver', 'update_deliveries')
-                                                <li>
-                                                    <a class="dropdown-item" href="{{ route('driver.deliveries.edit', $delivery->id) }}">
-                                                        <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
-                                                    </a>
-                                                </li>
-                                                @endability
+                                {{-- Actions --}}
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-cog"></i> {{ __('general.operations') }}
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            @ability('driver', 'show_deliveries')
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('driver.deliveries.show', $delivery->id) }}">
+                                                    <i class="fas fa-eye me-2"></i>{{ __('general.show') }}
+                                                </a>
+                                            </li>
+                                            @endability
 
-                                                @ability('driver', 'delete_deliveries')
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li>
-                                                    <a class="dropdown-item text-danger" href="javascript:void(0)"
-                                                    onclick="confirmDelete('delete-delivery-{{ $delivery->id }}',
-                                                                            '{{ __('panel.confirm_delete_message') }}',
-                                                                            '{{ __('panel.yes_delete') }}',
-                                                                            '{{ __('panel.cancel') }}')">
-                                                        <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
-                                                    </a>
-                                                    <form id="delete-delivery-{{ $delivery->id }}"
-                                                        action="{{ route('driver.deliveries.destroy', $delivery->id) }}"
-                                                        method="POST" class="d-none">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                </li>
-                                                @endability
-                                            </ul>
-                                        </div>
-                                    </td>
+                                            @ability('driver', 'update_deliveries')
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('driver.deliveries.edit', $delivery->id) }}">
+                                                    <i class="fas fa-edit me-2"></i>{{ __('general.edit') }}
+                                                </a>
+                                            </li>
+                                            @endability
 
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="8" class="text-center">{{ __('panel.no_found_item') }}</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                                            {{-- حذف معطل للسائق --}}
+                                        </ul>
+                                    </div>
+                                </td>
 
-                </div>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="10" class="text-center">{{ __('panel.no_found_item') }}</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>
+</div>
+
 @endsection
