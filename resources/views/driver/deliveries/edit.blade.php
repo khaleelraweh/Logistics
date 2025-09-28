@@ -243,14 +243,14 @@
                                 </div>
                                 <div class="card-body">
                                     <!-- Current Driver -->
-                                    {{-- <div class="mb-4">
+                                    <div class="mb-4">
                                         <label class="form-label text-muted small">{{ __('delivery.driver') }}</label>
                                         <div class="d-flex align-items-center">
                                             <i class="ri-user-line text-primary me-2"></i>
                                             <span class="fw-semibold">{{ $delivery->driver?->driver_full_name ?? __('driver.no_name') }}</span>
                                             <input type="hidden" name="driver_id" value="{{ $delivery->driver_id }}">
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                     <!-- Package Reference -->
                                     <div class="mb-4">
