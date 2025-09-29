@@ -18,24 +18,72 @@ class DeliveryController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    // public function index()
+    // {
+    //     if (!auth()->user()->ability('driver', 'driver_manage_deliveries, driver_show_deliveries')) {
+    //         return redirect('driver/index');
+    //     }
+
+    //     // جلب السائقين للفلتر
+    //     $drivers = Driver::all();
+
+    //     $deliveries = Delivery::query()
+    //         ->when(request()->keyword != null, function ($query) {
+    //             $query->search(request()->keyword);
+    //         })
+    //         ->when(request()->status != null, function ($query) {
+    //             $query->where('status', request()->status);
+    //         })
+    //         ->when(request()->driver_id != null, function ($query) {
+    //             $query->where('driver_id', request()->driver_id);
+    //         })
+    //         ->when(request()->package_id != null, function ($query) {
+    //             $query->where('package_id', request()->package_id);
+    //         })
+    //         ->when(request()->delivered_from != null, function ($query) {
+    //             $query->where(function ($q) {
+    //                 $q->whereDate('delivered_at', '>=', request()->delivered_from)
+    //                 ->orWhereDate('assigned_at', '>=', request()->delivered_from);
+    //             });
+    //         })
+    //         ->when(request()->delivered_to != null, function ($query) {
+    //             $query->where(function ($q) {
+    //                 $q->whereDate('delivered_at', '<=', request()->delivered_to)
+    //                 ->orWhereDate('assigned_at', '<=', request()->delivered_to);
+    //             });
+    //         })
+    //         ->orderByRaw(
+    //             request()->sort_by == 'published_on'
+    //                 ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+    //                 : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
+    //         )
+    //         ->paginate(request()->limit_by ?? 100);
+
+    //     return view('driver.deliveries.index', compact('deliveries', 'drivers'));
+    // }
+
+
     public function index()
     {
         if (!auth()->user()->ability('driver', 'driver_manage_deliveries, driver_show_deliveries')) {
             return redirect('driver/index');
         }
 
-        // جلب السائقين للفلتر
-        $drivers = Driver::all();
+        // جلب السائق الحالي
+        $driver = auth()->user()->driver;
+
+        // لو السائق غير مرتبط بسجل Driver
+        if (!$driver) {
+            return redirect()->back()->with('error', __('لا يوجد حساب سائق مرتبط'));
+        }
 
         $deliveries = Delivery::query()
+            ->where('driver_id', $driver->id) // 🔴 أهم شيء: قصر النتائج على هذا السائق فقط
             ->when(request()->keyword != null, function ($query) {
                 $query->search(request()->keyword);
             })
             ->when(request()->status != null, function ($query) {
                 $query->where('status', request()->status);
-            })
-            ->when(request()->driver_id != null, function ($query) {
-                $query->where('driver_id', request()->driver_id);
             })
             ->when(request()->package_id != null, function ($query) {
                 $query->where('package_id', request()->package_id);
@@ -59,9 +107,8 @@ class DeliveryController extends Controller
             )
             ->paginate(request()->limit_by ?? 100);
 
-        return view('driver.deliveries.index', compact('deliveries', 'drivers'));
+        return view('driver.deliveries.index', compact('deliveries'));
     }
-
 
 
     /**
