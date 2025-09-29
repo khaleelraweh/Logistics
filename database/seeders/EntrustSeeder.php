@@ -59,12 +59,7 @@ class EntrustSeeder extends Seeder
 
 
 
-        $frontendRole = Role::create([
-            'name' => 'frontend_dashboard',
-            'display_name' => 'Frontend Dashboard',
-            'description' => 'User is Frontend designer and has his own dashboard',
-            'allowed_route' => 'frontend_dashboard',
-        ]);
+
 
 
 
@@ -128,9 +123,9 @@ class EntrustSeeder extends Seeder
         // Create Frontend Designer
         $frontendDesignerUser = User::create([
             'first_name' => ['ar'   =>  'واجهة امامية' , 'en'   => 'Frontend'],
-            'last_name' => ['ar'    => 'مصمم' , 'en'    =>  'Designer'],
-            'username' => 'frontend_designer',
-            'email' => 'frontend_designer@gmail.com',
+            'last_name' => ['ar'    => 'مدير' , 'en'    =>  'Manager'],
+            'username' => 'frontend_manager',
+            'email' => 'frontend_manager@gmail.com',
             'email_verified_at' => now(),
             'mobile' => '00967772036166',
             'password' => bcrypt('123123123'),

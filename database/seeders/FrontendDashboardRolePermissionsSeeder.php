@@ -27,7 +27,7 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
 
         // 2- create frontend dashboard permissions
          //===== Dashboard =====
-        $manageMain = Permission::create(['name' => 'frontend_main', 'display_name' => ['ar' => 'الرئيسية', 'en'    => 'Main'], 'route' => 'index', 'module' => 'index', 'as' => 'index', 'icon' => 'fa fa-home', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '1']);
+        $manageMain = Permission::create(['name' => 'frontend_dashboard_main', 'display_name' => ['ar' => 'الرئيسية', 'en'    => 'Main'], 'route' => 'index', 'module' => 'index', 'as' => 'index', 'icon' => 'fa fa-home', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '1']);
         $manageMain->parent_show = $manageMain->id;
         $manageMain->save();
 
