@@ -78,9 +78,7 @@
                                     <small>{{ $delivery->package->receiver_phone ?? '' }}</small>
                                 </td>
 
-                                {{-- Address --}}
-                                <td>
-                                    @php
+                                  @php
                                         $addressParts = array_filter([
                                             $delivery->package->receiver_country,
                                             $delivery->package->receiver_region,
@@ -89,12 +87,18 @@
                                             $delivery->package->receiver_postal_code,
                                         ]);
                                         $fullAddress = implode(' - ', $addressParts);
+                                        $shortAddress = implode(' - ', array_slice($addressParts, 0, 2)); // أول قيمتين فقط
+
                                         $mapsLink = $delivery->package->receiver_latitude && $delivery->package->receiver_longitude
                                                     ? "https://www.google.com/maps?q={$delivery->package->receiver_latitude},{$delivery->package->receiver_longitude}"
                                                     : "https://www.google.com/maps/search/" . urlencode($fullAddress);
                                     @endphp
 
-                                    {{ $fullAddress ?: '-' }}
+                                {{-- Address --}}
+                                <td title="{{ $fullAddress }}" data-bs-toggle="tooltip" data-bs-placement="top">
+
+                                    {{ $shortAddress ?: '-' }}
+
                                     @if($fullAddress)
                                         <br>
                                         <a href="{{ $mapsLink }}" target="_blank" class="btn btn-sm btn-outline-primary mt-1">
