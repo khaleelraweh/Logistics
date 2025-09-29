@@ -120,37 +120,11 @@ class EntrustSeeder extends Seeder
 
 
 
-        // Create Frontend Designer
-        $frontendDesignerUser = User::create([
-            'first_name' => ['ar'   =>  'واجهة امامية' , 'en'   => 'Frontend'],
-            'last_name' => ['ar'    => 'مدير' , 'en'    =>  'Manager'],
-            'username' => 'frontend_manager',
-            'email' => 'frontend_manager@gmail.com',
-            'email_verified_at' => now(),
-            'mobile' => '00967772036166',
-            'password' => bcrypt('123123123'),
-            'user_image' => 'avator.svg',
-            'layout_preferences'    => json_encode([
-                                        "layout"    => "vertical",
-                                        "topbar"    => "dark",
-                                        "sidebar"   => "dark",
-                                        "sidebar_size"  => "default",
-                                        "layout_size"   => "fluid",
-                                        "preloader" => true,
-                                        "rtl"   => true,
-                                        "mode"  => "light",
-                                        "locale" => session('locale', config('locales.fallback_locale')),
-                                    ]),
-            'status' => 1,
-            'remember_token' => Str::random(10),
-        ]);
-
 
         //------------- 03- AttachRoles To  Users  ------------//
         $admin->attachRole($adminRole);
         $supervisor->attachRole($supervisorRole);
         $customer->attachRole($customerRole);
-        $frontendDesignerUser->attachRole($frontendRole);
 
 
 
