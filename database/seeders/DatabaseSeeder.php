@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(EntrustSeeder::class);
 
         $this->call(MerchantDashboardRolePermissionsSeeder::class);
-        $this->call(FrontendDashboardRolePermissionsSeeder::class);
         $this->call(DriverDashboardRolePermissionsSeeder::class);
+        $this->call(FrontendDashboardRolePermissionsSeeder::class);
 
         $this->call(TagSeeder::class);
         $this->call(PhotoSeeder::class);
