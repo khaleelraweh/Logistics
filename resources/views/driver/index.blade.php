@@ -7,42 +7,50 @@
     <div class="row">
         <!-- بطاقة الطرود المسندة -->
         <div class="col-md-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">📦 {{ __('الطرود المسندة') }}</h5>
-                    <p class="display-6">{{ $stats['assigned_packages'] }}</p>
+            <a href="{{ route('driver.deliveries.index', ['status' => 'assigned_to_driver']) }}" class="card text-center shadow-sm text-decoration-none text-dark">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">📦 {{ __('الطرود المسندة') }}</h5>
+                        <p class="display-6">{{ $stats['assigned_packages'] }}</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- بطاقة قيد التوصيل -->
         <div class="col-md-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">🚚 {{ __('قيد التوصيل') }}</h5>
-                    <p class="display-6">{{ $stats['in_progress'] }}</p>
+            <a href="{{ route('driver.deliveries.index', ['status' => 'in_transit']) }}" class="card text-center shadow-sm text-decoration-none text-dark">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">🚚 {{ __('قيد التوصيل') }}</h5>
+                        <p class="display-6">{{ $stats['in_progress'] }}</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- بطاقة الطرود المسلّمة -->
         <div class="col-md-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">✅ {{ __('المسلّمة') }}</h5>
-                    <p class="display-6">{{ $stats['delivered'] }}</p>
+            <a href="{{ route('driver.deliveries.index', ['status' => 'delivered']) }}" class="card text-center shadow-sm text-decoration-none text-dark">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">✅ {{ __('المسلّمة') }}</h5>
+                        <p class="display-6">{{ $stats['delivered'] }}</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- بطاقة الملغاة -->
         <div class="col-md-3">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">❌ {{ __('الملغاة') }}</h5>
-                    <p class="display-6">{{ $stats['canceled'] }}</p>
+            <a href="{{ route('driver.deliveries.index', ['status' => 'cancelled']) }}" class="card text-center shadow-sm text-decoration-none text-dark">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">❌ {{ __('الملغاة') }}</h5>
+                        <p class="display-6">{{ $stats['canceled'] }}</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 
