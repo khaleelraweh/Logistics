@@ -124,30 +124,7 @@ class EntrustSeeder extends Seeder
         ]);
 
 
-        // Create driver
-        $driverUser = User::create([
-            'first_name' => ['ar'   =>  'سائق' , 'en'   => 'driver'],
-            'last_name' => ['ar'    => 'سائق' , 'en'    =>  'driver'],
-            'username' => 'driver',
-            'email' => 'driver@gmail.com',
-            'email_verified_at' => now(),
-            'mobile' => '00967772036155',
-            'password' => bcrypt('123123123'),
-            'user_image' => 'avator.svg',
-            'layout_preferences'    => json_encode([
-                                        "layout"    => "vertical",
-                                        "topbar"    => "dark",
-                                        "sidebar"   => "dark",
-                                        "sidebar_size"  => "default",
-                                        "layout_size"   => "fluid",
-                                        "preloader" => true,
-                                        "rtl"   => true,
-                                        "mode"  => "light",
-                                        "locale" => session('locale', config('locales.fallback_locale')),
-                                    ]),
-            'status' => 1,
-            'remember_token' => Str::random(10),
-        ]);
+
         // Create Frontend Designer
         $frontendDesignerUser = User::create([
             'first_name' => ['ar'   =>  'واجهة امامية' , 'en'   => 'Frontend'],
@@ -178,7 +155,6 @@ class EntrustSeeder extends Seeder
         $admin->attachRole($adminRole);
         $supervisor->attachRole($supervisorRole);
         $customer->attachRole($customerRole);
-        $driverUser->attachRole($driverRole);
         $frontendDesignerUser->attachRole($frontendRole);
 
 
