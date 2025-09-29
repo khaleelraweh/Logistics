@@ -57,12 +57,7 @@ class EntrustSeeder extends Seeder
         $customerRole->allowed_route = null;
         $customerRole->save();
 
-        $merchantRole = Role::create([
-            'name' => 'merchant',
-            'display_name' => 'Merchant',
-            'description' => 'User is merchant and has his own dashboard',
-            'allowed_route' => 'merchant',
-        ]);
+
 
         $driverRole = Role::create([
             'name' => 'driver',
@@ -135,30 +130,6 @@ class EntrustSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        // Create merchant
-        $merchantUser = User::create([
-            'first_name' => ['ar'   =>  'تاجر' , 'en'   => 'merchant'],
-            'last_name' => ['ar'    => 'تاجر' , 'en'    =>  'merchant'],
-            'username' => 'merchant',
-            'email' => 'merchant@gmail.com',
-            'email_verified_at' => now(),
-            'mobile' => '00967772036144',
-            'password' => bcrypt('123123123'),
-            'user_image' => 'avator.svg',
-            'layout_preferences'    => json_encode([
-                                        "layout"    => "vertical",
-                                        "topbar"    => "dark",
-                                        "sidebar"   => "dark",
-                                        "sidebar_size"  => "default",
-                                        "layout_size"   => "fluid",
-                                        "preloader" => true,
-                                        "rtl"   => true,
-                                        "mode"  => "light",
-                                        "locale" => session('locale', config('locales.fallback_locale')),
-                                    ]),
-            'status' => 1,
-            'remember_token' => Str::random(10),
-        ]);
 
         // Create driver
         $driverUser = User::create([
@@ -214,7 +185,6 @@ class EntrustSeeder extends Seeder
         $admin->attachRole($adminRole);
         $supervisor->attachRole($supervisorRole);
         $customer->attachRole($customerRole);
-        $merchantUser->attachRole($merchantRole);
         $driverUser->attachRole($driverRole);
         $frontendDesignerUser->attachRole($frontendRole);
 

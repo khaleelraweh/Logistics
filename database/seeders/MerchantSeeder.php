@@ -44,7 +44,7 @@ class MerchantSeeder extends Seeder
         ]);
 
         // إنشاء نسخة في جدول users
-        $user = User::create([
+        $merchantUser = User::create([
             'first_name' => $merchant->name,
             'last_name' => $merchant->contact_person,
             'username' => 'alnagah',
@@ -67,20 +67,15 @@ class MerchantSeeder extends Seeder
         ]);
 
         // ربط التاجر بالمستخدم
-        $merchant->update(['user_id' => $user->id]);
+        $merchant->update(['user_id' => $merchantUser->id]);
 
-        // جلب أو إنشاء دور التاجر
-        $merchantRole = Role::firstOrCreate(
-            ['name' => 'merchant'],
-            [
-                'display_name' => 'تاجر',
-                'description' => 'دور التاجر للوصول لصلاحياته فقط'
-            ]
-        );
+
+        $merchantRole = Role::where('name', 'merchant')->first();
+
 
         // ربط المستخدم بالدور
-        if (!$user->hasRole($merchantRole->name)) {
-            $user->attachRole($merchantRole);
+        if (!$merchantUser->hasRole($merchantRole->name)) {
+            $merchantUser->attachRole($merchantRole);
         }
 
         // صلاحيات التاجر من جدول الصلاحيات (إذا كانت موجودة مسبقًا)
