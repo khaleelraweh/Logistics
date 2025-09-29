@@ -31,9 +31,7 @@
                         </div>
 
                         <div class="button-items">
-                            <a class="btn btn-primary waves-effect waves-light" href="{{ route('driver.pickup_requests.create') }}">
-                                {{ __('pickup_request.add_new_pickup_request') }} <i class="fas fa-plus-circle align-middle ms-2"></i>
-                            </a>
+
                         </div>
                     </div>
 
@@ -72,7 +70,8 @@
                                     @endphp
 
                                     <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $fullMerchant }}">
-                                        <a href="{{ route('driver.merchants.show', $request->merchant->id) }}">
+                                        {{-- <a href="{{ route('driver.merchants.show', $request->merchant->id) }}"> --}}
+                                        <a href="#">
                                             {{ Str::words($request->merchant->name, 2, '') }}
                                             <br>
                                             <small class="text-muted">{{ $request->merchant->email ?? '' }}</small>
