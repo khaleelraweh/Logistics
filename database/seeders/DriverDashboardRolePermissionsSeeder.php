@@ -41,14 +41,25 @@ class DriverDashboardRolePermissionsSeeder extends Seeder
         $updateDeliveries  =  Permission::create(['name' => 'driver_update_deliveries', 'display_name'  =>   ['ar'   =>  'تعديل عملية توصيل',   'en'        =>  'Update Delivery'], 'route' => 'deliveries', 'module' => 'deliveries', 'as' => 'deliveries.edit', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
         $deleteDeliveries  =  Permission::create(['name' => 'driver_delete_deliveries', 'display_name'  =>   ['ar'   =>  'حذف عملية توصيل',   'en'          =>  'Delete Delivery'], 'route' => 'deliveries', 'module' => 'deliveries', 'as' => 'deliveries.destroy', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
 
+        //PickupRequests / pickupRequests
+        $managePickupRequests = Permission::create(['name' => 'driver_manage_pickup_requests', 'display_name' => ['ar'  =>  'إدارة طلبات الاستلام',  'en'    =>  'Manage Pickup Requests'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.index', 'icon' => 'fas fa-truck-loading', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '50',]);
+        $managePickupRequests->parent_show = $managePickupRequests->id;
+        $managePickupRequests->save();
+        $showPickupRequests    =  Permission::create(['name' => 'driver_show_pickup_requests',  'display_name' =>   ['ar'   =>  'طلبات الاستلام',   'en'        =>  'Pickup Requests'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.index', 'icon' => 'fas fa-truck-loading', 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $createPickupRequests  =  Permission::create(['name' => 'driver_create_pickup_requests', 'display_name'  =>   ['ar'   =>  'إضافة عملية طلب استلام',   'en'       =>  'Add New Pickup Request'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.create', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $displayPickupRequests =  Permission::create(['name' => 'driver_display_pickup_requests', 'display_name'  =>   ['ar'   =>  'استعراض عملية طلب استلام',   'en'      =>  'Display Pickup Request'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.show', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $updatePickupRequests  =  Permission::create(['name' => 'driver_update_pickup_requests', 'display_name'  =>   ['ar'   =>  'تعديل عملية طلب استلام',   'en'        =>  'Update Pickup Request'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.edit', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $deletePickupRequests  =  Permission::create(['name' => 'driver_delete_pickup_requests', 'display_name'  =>   ['ar'   =>  'حذف عملية طلب استلام',   'en'          =>  'Delete Pickup Request'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.destroy', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+
 
         // 3- attatch role to Permissions
         $permissions = [
             // Dashboard
             $manageMain,
 
-            // Deliveries
+            // Resources
             $manageDeliveries,$showDeliveries,$createDeliveries,$displayDeliveries,$updateDeliveries,$deleteDeliveries,
+            $managePickupRequests,$showPickupRequests,$createPickupRequests,$displayPickupRequests,$updatePickupRequests,$deletePickupRequests,
 
         ];
 
