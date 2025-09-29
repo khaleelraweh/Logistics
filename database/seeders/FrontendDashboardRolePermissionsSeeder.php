@@ -17,22 +17,21 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
     public function run()
     {
 
-        // جلب دور المصمم الواجهات الامامية أو إنشاؤه إذا لم يكن موجود
-        $frontendRole = Role::firstOrCreate(
-            ['name' => 'frontend_dashboard'],
-            [
-                'display_name' => 'Frontend Dashboard',
-                'description' => 'User is Frontend designer and has his own dashboard',
-                'allowed_route' => 'frontend_dashboard',
-            ]
-        );
+        // 1- create frontend dashboard role
+       $frontendRole = Role::create([
+            'name' => 'frontend_dashboard',
+            'display_name' => 'Frontend Dashboard',
+            'description' => 'User is Frontend designer and has his own dashboard',
+            'allowed_route' => 'frontend_dashboard',
+        ]);
 
+        // 2- create frontend dashboard permissions
          //===== Dashboard =====
         $manageMain = Permission::create(['name' => 'frontend_main', 'display_name' => ['ar' => 'الرئيسية', 'en'    => 'Main'], 'route' => 'index', 'module' => 'index', 'as' => 'index', 'icon' => 'fa fa-home', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '1']);
         $manageMain->parent_show = $manageMain->id;
         $manageMain->save();
 
-        // ربط الصلاحيات بدور التاجر
+        // 3- attatch role to permssions
         $permissions = [
             // Dashboard
             $manageMain,
@@ -45,6 +44,6 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
             }
         }
 
-        $this->command->info('تم إنشاء صلاحيات التاجر وربطها بالدور بنجاح!');
+        $this->command->info('تم إنشاء صلاحيات واجهة التحكم frontend  وربطها بالدور بنجاح!');
     }
 }
