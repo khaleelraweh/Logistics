@@ -21,6 +21,6 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', '
 
     // Profile Management
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
-    Route::post('admin/profile/remove-image', [ProfileController::class, 'remove_image'])->name('profile.remove_image');
+    Route::post('frontend/profile/remove-image', [ProfileController::class, 'remove_image'])->name('profile.remove_image');
     Route::patch('/profile', [ProfileController::class, 'update_profile'])->name('profile.update');
 });

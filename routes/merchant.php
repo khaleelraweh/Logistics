@@ -15,6 +15,17 @@ Route::group(['prefix' => 'merchant', 'as' => 'merchant.', 'middleware' => ['rol
     Route::get('/lock-screen', [MerchantDashboardController::class, 'lock_screen'])->name('lock-screen');
     Route::post('/unlock', [MerchantDashboardController::class, 'unlock'])->name('unlock');
 
+     // Profile & Settings
+    Route::get('layout-customizer', [MerchantDashboardController::class, 'layoutCustomizer'])->name('profile.layout-customizer');
+    Route::post('/user/layout-preferences', [MerchantDashboardController::class, 'updateModeFromRightBar'])->name('profile.updateModeFromRightBar');
+    Route::post('/update-language-preference', [MerchantDashboardController::class, 'updateLanguagePreference'])->name('profile.updatelanguagepreference')->middleware(['auth']);
+
+    // Profile Management
+    Route::get('/profile', [MerchantDashboardController::class, 'profile'])->name('profile');
+    Route::post('driver/profile/remove-image', [MerchantDashboardController::class, 'remove_image'])->name('profile.remove_image');
+    Route::patch('/profile', [MerchantDashboardController::class, 'update_profile'])->name('profile.update');
+
+
     // Packages
     Route::get('packages/create_for_good', [MerchantPackageController::class, 'create_for_good'])->name('packages.create_for_good');
     Route::post('packages/update-packages-status', [MerchantPackageController::class, 'updatePackageStatus'])->name('packages.update_packages_status');
