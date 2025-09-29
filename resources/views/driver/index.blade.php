@@ -53,8 +53,7 @@
             <a href="{{ route('driver.deliveries.index') }}" class="btn btn-primary">
                 <i class="fas fa-list"></i> {{ __('قائمة التوصيلات') }}
             </a>
-            {{-- <a href="{{ route('driver.profile') }}" class="btn btn-secondary"> --}}
-            <a href="#" class="btn btn-secondary">
+            <a href="{{ route('driver.profile') }}" class="btn btn-secondary">
                 <i class="fas fa-user"></i> {{ __('الملف الشخصي') }}
             </a>
             {{-- <a href="{{ route('driver.map') }}" class="btn btn-success">
