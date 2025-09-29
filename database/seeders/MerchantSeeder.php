@@ -49,8 +49,10 @@ class MerchantSeeder extends Seeder
             'last_name' => $merchant->contact_person,
             'username' => 'alnagah',
             'email' => $merchant->email,
+            'email_verified_at' => now(),
             'mobile' => $merchant->phone,
             'password'      => bcrypt('123123123'),
+            'user_image' => 'avator.svg',
             'layout_preferences'    => json_encode([
                                         "layout"    => "vertical",
                                         "topbar"    => "dark",
@@ -63,6 +65,7 @@ class MerchantSeeder extends Seeder
                                         "locale" => session('locale', config('locales.fallback_locale')),
                                     ]),
             'status' => 1,
+            'remember_token' => Str::random(10),
             'created_by' => 'Seeder',
         ]);
 

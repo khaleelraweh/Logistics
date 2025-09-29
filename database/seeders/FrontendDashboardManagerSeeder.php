@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class FrontendDashboardManagerSeeder extends Seeder
 {
@@ -41,9 +42,8 @@ class FrontendDashboardManagerSeeder extends Seeder
                                     ]),
             'status' => 1,
             'remember_token' => Str::random(10),
+            'created_by' => 'Seeder',
         ]);
-
-
 
 
         // 4- connect user account of the frontend manager to the role frontend_dashboard

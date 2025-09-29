@@ -45,5 +45,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PaymentSeeder::class);
         $this->call(PricingRuleSeeder::class);
 
+        $this->call(FrontendDashboardManagerSeeder::class);
+
     }
 }

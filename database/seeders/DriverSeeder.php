@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DriverSeeder extends Seeder
 {
@@ -52,14 +53,18 @@ class DriverSeeder extends Seeder
         ]);
 
 
+
+
         // 2- add user account to driver
         $driverUser = User::create([
             'first_name' => $driver->name,
             'last_name' => $driver->contact_person,
             'username' => 'driver',
             'email' => $driver->email,
+            'email_verified_at' => now(),
             'mobile' => $driver->phone,
             'password'      => bcrypt('123123123'),
+            'user_image' => 'avator.svg',
             'layout_preferences'    => json_encode([
                                         "layout"    => "vertical",
                                         "topbar"    => "dark",
@@ -72,6 +77,7 @@ class DriverSeeder extends Seeder
                                         "locale" => session('locale', config('locales.fallback_locale')),
                                     ]),
             'status' => 1,
+            'remember_token' => Str::random(10),
             'created_by' => 'Seeder',
         ]);
 
