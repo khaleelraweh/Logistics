@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Driver;
+namespace App\Http\Controllers\Merchant;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Driver\ProfileSettingRequest;
+use App\Http\Requests\Merchant\ProfileSettingRequest;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -12,13 +12,13 @@ use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
-class DriverProfileController extends Controller
+class ProfileController extends Controller
 {
 
     //============================= driver Profile setting ==================//
       public function profile()
     {
-        return view('driver.profile.profile_settings');
+        return view('merchant.profile.profile_settings');
     }
 
     public function update_profile(ProfileSettingRequest $request)
@@ -61,14 +61,14 @@ class DriverProfileController extends Controller
 
 
         if($user){
-            return redirect()->route('driver.profile')->with([
+            return redirect()->route('merchant.profile')->with([
                 'message' => __('messages.profile_updated'),
                 'alert-type' => 'success'
             ]);
 
         }
 
-        return redirect()->route('driver.profile')->with([
+        return redirect()->route('merchant.profile')->with([
             'message' => __('messages.something_went_wrong'),
             'alert-type' => 'danger'
         ]);
@@ -97,7 +97,7 @@ class DriverProfileController extends Controller
     //using layout-customizer liveware
     public function layoutCustomizer()
     {
-        return view('driver.profile.layout-customizer');
+        return view('merchant.profile.layout-customizer');
     }
 
     // update mode from right bar using ajax

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Merchant\ProfileController;
 use App\Http\Controllers\Merchant\MerchantDashboardController;
 use App\Http\Controllers\Merchant\PackageController as MerchantPackageController;
 use App\Http\Controllers\Merchant\ProductController as MerchantProductController;
@@ -16,14 +17,14 @@ Route::group(['prefix' => 'merchant', 'as' => 'merchant.', 'middleware' => ['rol
     Route::post('/unlock', [MerchantDashboardController::class, 'unlock'])->name('unlock');
 
      // Profile & Settings
-    Route::get('layout-customizer', [MerchantDashboardController::class, 'layoutCustomizer'])->name('profile.layout-customizer');
-    Route::post('/user/layout-preferences', [MerchantDashboardController::class, 'updateModeFromRightBar'])->name('profile.updateModeFromRightBar');
-    Route::post('/update-language-preference', [MerchantDashboardController::class, 'updateLanguagePreference'])->name('profile.updatelanguagepreference')->middleware(['auth']);
+    Route::get('layout-customizer', [ProfileController::class, 'layoutCustomizer'])->name('profile.layout-customizer');
+    Route::post('/user/layout-preferences', [ProfileController::class, 'updateModeFromRightBar'])->name('profile.updateModeFromRightBar');
+    Route::post('/update-language-preference', [ProfileController::class, 'updateLanguagePreference'])->name('profile.updatelanguagepreference')->middleware(['auth']);
 
     // Profile Management
-    Route::get('/profile', [MerchantDashboardController::class, 'profile'])->name('profile');
-    Route::post('driver/profile/remove-image', [MerchantDashboardController::class, 'remove_image'])->name('profile.remove_image');
-    Route::patch('/profile', [MerchantDashboardController::class, 'update_profile'])->name('profile.update');
+    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::post('driver/profile/remove-image', [ProfileController::class, 'remove_image'])->name('profile.remove_image');
+    Route::patch('/profile', [ProfileController::class, 'update_profile'])->name('profile.update');
 
 
     // Packages
