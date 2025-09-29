@@ -12,7 +12,7 @@
     <!-- Filter Body -->
     <div id="deliveriesFiltersCollapse" class="collapse">
         <div class="card-body">
-            <form action="{{ route('admin.deliveries.index') }}" method="get">
+            <form action="{{ route('driver.deliveries.index') }}" method="get">
                 <div class="row g-2">
 
                     <!-- Keyword -->
@@ -88,7 +88,7 @@
                         <button type="submit" class="btn btn-primary me-2 flex-grow-1">
                             <i class="fas fa-search me-1"></i>{{ __('general.filter') }}
                         </button>
-                        <a href="{{ route('admin.deliveries.index') }}" class="btn btn-outline-secondary flex-grow-1">
+                        <a href="{{ route('driver.deliveries.index') }}" class="btn btn-outline-secondary flex-grow-1">
                             <i class="fas fa-undo me-1"></i>{{ __('general.reset') }}
                         </a>
                     </div>
