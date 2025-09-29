@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\FrontendDashboard\ReturnRequest;
+namespace App\Http\Livewire\Merchant\ReturnRequest;
 
 use App\Models\Driver;
 use App\Models\Package;
@@ -113,6 +113,6 @@ class CreateReturnRequestComponent extends Component
 
     public function render()
     {
-        return view('livewire.frontend-dashboard.return-request.create-return-request-component');
+        return view('livewire.merchant.return-request.create-return-request-component');
     }
 }

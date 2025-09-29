@@ -2,7 +2,7 @@
     <div class="d-flex">
         <!-- LOGO -->
         <div class="navbar-brand-box">
-            <a href="{{ route('admin.index') }}" class="logo logo-dark">
+            <a href="{{ route('driver.index') }}" class="logo logo-dark">
                 <span class="logo-sm">
                     {{-- <img src="{{asset('admin/assets/images/logo-sm.png')}}" alt="logo-sm" height="22"> --}}
                     <img src="{{asset('admin/assets/images/logo-sm.png')}}" alt="logo-sm" class="animate-bounce" style="height: 3.5em" >
@@ -13,7 +13,7 @@
                 </span>
             </a>
 
-            <a href="{{ route('admin.index') }}" class="logo logo-light">
+            <a href="{{ route('driver.index') }}" class="logo logo-light">
                 <span class="logo-sm">
                     {{-- <img src="{{asset('admin/assets/images/logo-sm.png')}}" alt="logo-sm-light" height="22"> --}}
                     <img src="{{asset('admin/assets/images/logo-sm.png')}}" alt="logo-sm-light" class="animate-bounce" style="height: 3.5em;">
@@ -192,7 +192,7 @@
             </div>
         </div>
 
-        @livewire('admin.profile.language-switcher-component')
+        @livewire('driver.profile.language-switcher-component')
 
 
         <div class="dropdown d-none d-lg-inline-block ms-1">
@@ -355,10 +355,10 @@
             </button>
             <div class="dropdown-menu dropdown-menu-end">
                 <!-- item-->
-                <a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="ri-user-line align-middle me-1"></i> {{ __('layout.profile') }}</a>
+                <a class="dropdown-item" href="{{ route('driver.profile') }}"><i class="ri-user-line align-middle me-1"></i> {{ __('layout.profile') }}</a>
                 <a class="dropdown-item" href="#"><i class="ri-wallet-2-line align-middle me-1"></i> {{ __('layout.wallet') }}</a>
-                <a class="dropdown-item d-block" href="{{ route('admin.profile.layout-customizer') }}"><span class="badge bg-success float-end mt-1">11</span><i class="ri-settings-2-line align-middle me-1"></i> {{ __('layout.settings') }}</a>
-                <a class="dropdown-item" href="{{ route('admin.lock-screen') }}"><i class="ri-lock-unlock-line align-middle me-1"></i> {{ __("layout.lock_screen") }}</a>
+                <a class="dropdown-item d-block" href="{{ route('driver.profile.layout-customizer') }}"><span class="badge bg-success float-end mt-1">11</span><i class="ri-settings-2-line align-middle me-1"></i> {{ __('layout.settings') }}</a>
+                <a class="dropdown-item" href="{{ route('driver.lock-screen') }}"><i class="ri-lock-unlock-line align-middle me-1"></i> {{ __("layout.lock_screen") }}</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item text-danger"
                     href="javascript:void(0)"

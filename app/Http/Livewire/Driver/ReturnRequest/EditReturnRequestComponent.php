@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\FrontendDashboard\ReturnRequest;
+namespace App\Http\Livewire\Merchant\ReturnRequest;
 
 use App\Models\Driver;
 use App\Models\Package;
@@ -217,7 +217,7 @@ class EditReturnRequestComponent extends Component
 
     public function render()
     {
-        return view('livewire.frontend-dashboard.return-request.edit-return-request-component', [
+        return view('livewire.merchant.return-request.edit-return-request-component', [
             'availableStatuses' => $this->availableStatuses,
         ]);
     }
