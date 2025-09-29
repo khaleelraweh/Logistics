@@ -56,7 +56,7 @@ class DriverSeeder extends Seeder
         $driverUser = User::create([
             'first_name' => $driver->name,
             'last_name' => $driver->contact_person,
-            'username' => 'alnagah',
+            'username' => 'driver',
             'email' => $driver->email,
             'mobile' => $driver->phone,
             'password'      => bcrypt('123123123'),
