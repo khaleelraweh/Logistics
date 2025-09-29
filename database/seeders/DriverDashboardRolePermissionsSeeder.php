@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Role;
 use App\Models\Permission;
 
-class DriverDashboardPermissionsSeeder extends Seeder
+class DriverDashboardRolePermissionsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,16 +17,15 @@ class DriverDashboardPermissionsSeeder extends Seeder
     public function run()
     {
 
-        // جلب دور المصمم الواجهات الامامية أو إنشاؤه إذا لم يكن موجود
-        $driverRole = Role::firstOrCreate(
-            ['name' => 'driver'],
-            [
-                'display_name' => 'Driver',
-                'description' => 'User is driver and has his own dashboard',
-                'allowed_route' => 'driver',
-            ]
-        );
+        // 1- Create Role
+        $driverRole = Role::create([
+            'name' => 'driver',
+            'display_name' => 'Driver',
+            'description' => 'User is Driver and has his own dashboard',
+            'allowed_route' => 'driver',
+        ]);
 
+        // 2- Create Permission
          //===== Dashboard =====
         $manageMain = Permission::create(['name' => 'driver_main', 'display_name' => ['ar' => 'الرئيسية', 'en'    => 'Main'], 'route' => 'index', 'module' => 'index', 'as' => 'index', 'icon' => 'fa fa-home', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '1']);
         $manageMain->parent_show = $manageMain->id;
@@ -43,18 +42,13 @@ class DriverDashboardPermissionsSeeder extends Seeder
         $deleteDeliveries  =  Permission::create(['name' => 'driver_delete_deliveries', 'display_name'  =>   ['ar'   =>  'حذف عملية توصيل',   'en'          =>  'Delete Delivery'], 'route' => 'deliveries', 'module' => 'deliveries', 'as' => 'deliveries.destroy', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
 
 
-        // ربط الصلاحيات بدور التاجر
+        // 3- attatch role to Permissions
         $permissions = [
             // Dashboard
             $manageMain,
 
             // Deliveries
-            $manageDeliveries,
-            $showDeliveries,
-            $createDeliveries,
-            $displayDeliveries,
-            $updateDeliveries,
-            $deleteDeliveries,
+            $manageDeliveries,$showDeliveries,$createDeliveries,$displayDeliveries,$updateDeliveries,$deleteDeliveries,
 
         ];
 

@@ -14,7 +14,7 @@ class MerchantSeeder extends Seeder
 {
     public function run()
     {
-        // إنشاء التاجر في جدول merchants
+        // 1- create Merchant account
         $merchant = Merchant::create([
             'name' => ['ar' => 'متجر النجاح', 'en' => 'Al Nagah Store'],
             'slug' => ['ar' => 'متجر-النجاح', 'en' => 'al-nagah-store'],
@@ -43,7 +43,7 @@ class MerchantSeeder extends Seeder
 
         ]);
 
-        // إنشاء نسخة في جدول users
+        // 2- add user account to merchant
         $merchantUser = User::create([
             'first_name' => $merchant->name,
             'last_name' => $merchant->contact_person,
@@ -66,19 +66,18 @@ class MerchantSeeder extends Seeder
             'created_by' => 'Seeder',
         ]);
 
-        // ربط التاجر بالمستخدم
+        // 3- connect merchant account to user account
         $merchant->update(['user_id' => $merchantUser->id]);
 
 
+        // 4- connect user account of the merchant to the role merchant
         $merchantRole = Role::where('name', 'merchant')->first();
 
-
-        // ربط المستخدم بالدور
         if (!$merchantUser->hasRole($merchantRole->name)) {
             $merchantUser->attachRole($merchantRole);
         }
 
-        // صلاحيات التاجر من جدول الصلاحيات (إذا كانت موجودة مسبقًا)
+        // 5- add merchant permission to the merchant user
         $permissions = Permission::where('name', 'like', 'merchant_%')->get();
         foreach ($permissions as $permission) {
             if (!$merchantRole->hasPermission($permission->name)) {
@@ -86,6 +85,7 @@ class MerchantSeeder extends Seeder
             }
         }
 
+        // 6- gave a message of successfull
         $this->command->info('تم إنشاء التاجر وربطه بالدور والصلاحيات في جدول users بنجاح!');
     }
 }

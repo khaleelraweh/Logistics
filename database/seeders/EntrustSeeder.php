@@ -59,13 +59,6 @@ class EntrustSeeder extends Seeder
 
 
 
-        $driverRole = Role::create([
-            'name' => 'driver',
-            'display_name' => 'Driver',
-            'description' => 'User is Driver and has his own dashboard',
-            'allowed_route' => 'driver',
-        ]);
-
         $frontendRole = Role::create([
             'name' => 'frontend_dashboard',
             'display_name' => 'Frontend Dashboard',
