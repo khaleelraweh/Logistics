@@ -103,5 +103,15 @@ class Driver extends Model
         return $this->belongsTo(User::class, 'supervisor_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id'); // نفس الشيء هنا
+    }
+
+    // public function deliveries()
+    // {
+    //     return $this->hasMany(Delivery::class, 'driver_id');
+    // }
+
 
 }

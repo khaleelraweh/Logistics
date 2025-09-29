@@ -59,9 +59,24 @@ class DriverDashboardController extends Controller
 
     public function index()
     {
-        return view('driver.index');
+        $user = Auth::user();
+        $driver = $user->driver;
 
+        // if (!$driver) {
+        //     return redirect()->route('driver.login')->withErrors(['message' => 'لا يوجد سائق مرتبط بهذا الحساب.']);
+        // }
+
+        dd($user);
+        $stats = [
+            'assigned_packages' => $driver->deliveries()->count(),
+            'in_progress'       => $driver->deliveries()->where('status', 'in_progress')->count(),
+            'delivered'         => $driver->deliveries()->where('status', 'delivered')->count(),
+            'canceled'          => $driver->deliveries()->where('status', 'canceled')->count(),
+        ];
+
+        return view('driver.index', compact('stats'));
     }
+
 
 
 

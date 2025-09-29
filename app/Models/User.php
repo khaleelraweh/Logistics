@@ -75,9 +75,14 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
-    public function drivers()
+    // public function drivers()
+    // {
+    //     return $this->hasMany(Driver::class, 'supervisor_id');
+    // }
+
+    public function driver()
     {
-        return $this->hasMany(Driver::class, 'supervisor_id');
+        return $this->hasOne(Driver::class, 'user_id'); // غير user_id لو المفتاح مختلف
     }
 
     public function merchant()

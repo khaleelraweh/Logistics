@@ -17,6 +17,7 @@ return new class extends Migration
         // جدول السائقين
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->json('first_name');
             $table->json('middle_name');
             $table->json('last_name');
