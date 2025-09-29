@@ -1,301 +1,309 @@
 @extends('layouts.driver')
 
 @section('content')
+<!-- Page Header -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+            <h4 class="mb-0 font-size-18">{{ __('pickup_request.view_pickup_request') }}</h4>
 
-      <!-- Page Header -->
-    <div class="row ">
-        <div class="col-12">
-            <div class="page-title-box d-flex align-items-center justify-content-between">
-                <h4 class="mb-0 font-size-18">{{ __('pickup_request.edit_pickup_request') }}</h4>
-
-                <div class="page-title-right">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="{{ route('driver.index') }}">{{ __('general.main') }}</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('driver.pickup_requests.index') }}">{{ __('pickup_request.manage_pickup_requests') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('pickup_request.edit_pickup_request') }}</li>
-                        </ol>
-                    </nav>
-                </div>
+            <div class="page-title-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="{{ route('driver.index') }}">{{ __('general.main') }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('driver.pickup_requests.index') }}">{{ __('pickup_request.manage_pickup_requests') }}</a></li>
+                        <li class="breadcrumb-item active">{{ __('pickup_request.view_pickup_request') }}</li>
+                    </ol>
+                </nav>
             </div>
         </div>
     </div>
+</div>
 
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{ route('driver.pickup_requests.update', $pickupRequest->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
+                    <!-- الحقول المخفية -->
+                    <input type="hidden" name="merchant_id" value="{{ $pickupRequest->merchant_id }}">
+                    <input type="hidden" name="driver_id" value="{{ $pickupRequest->driver_id }}">
+                    <input type="hidden" name="country" value="{{ $pickupRequest->country }}">
+                    <input type="hidden" name="region" value="{{ $pickupRequest->region }}">
+                    <input type="hidden" name="city" value="{{ $pickupRequest->city }}">
+                    <input type="hidden" name="district" value="{{ $pickupRequest->district }}">
+                    <input type="hidden" name="postal_code" value="{{ $pickupRequest->postal_code }}">
+                    <input type="hidden" name="latitude" value="{{ $pickupRequest->latitude }}">
+                    <input type="hidden" name="longitude" value="{{ $pickupRequest->longitude }}">
+                    <input type="hidden" name="scheduled_at" value="{{ $pickupRequest->scheduled_at }}">
+                    <input type="hidden" name="note" value="{{ $pickupRequest->note }}">
 
-
-                    <form action="{{ route('driver.pickup_requests.update', $pickupRequest->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-
-                        <!-- Address Section -->
-                        <div class="mb-5">
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
-                                    <i class="bi bi-geo-alt text-primary"></i>
-                                </div>
-                                <h5 class="mb-0">{{ __('pickup_request.pickup_request_info') }}</h5>
+                    <!-- Pickup Request Information Section -->
+                    <div class="mb-5">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                <i class="bi bi-info-circle text-primary"></i>
                             </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="merchant_id">{{ __('merchant.name') }}</label>
-                                <div class="col-sm-10">
-                                    <select name="merchant_id" class="form-control select2" id="merchant_id">
-                                        <option value="">{{ __('pickup_request.select_merchant') }}</option>
-                                        @foreach ($merchants as $merchant)
-                                            <option value="{{ $merchant->id }}"
-                                                {{ old('merchant_id', $pickupRequest->merchant_id) == $merchant->id ? 'selected' : '' }}>
-                                                {{ $merchant->name }} - {{ $merchant->email }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                            <h5 class="mb-0">{{ __('pickup_request.pickup_request_info') }}</h5>
+                        </div>
 
-                                    @error('merchant_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="driver_id">{{ __('pickup_request.assign_driver') }}</label>
-                                <div class="col-sm-10">
-
-                                    <select name="driver_id" id="driver_id" class="form-control select2" required>
-                                        <option value="" disabled>{{ __('pickup_request.assign_driver') }}</option>
-                                        @foreach($drivers as $driver)
-                                            <option value="{{ $driver->id }}"
-                                                {{ old('driver_id', $pickupRequest->driver_id) == $driver->id ? 'selected' : '' }}>
-                                                {{ $driver->driver_full_name ?? __('driver.no_name') }}
-                                                - {{ $driver->phone ?? __('driver.no_phone') }}
-                                                - {{ $driver->vehicle_type ? __('driver.vehicle_type_' . $driver->vehicle_type) : __('driver.no_vehicle_type') }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-
-                                    @error('driver_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                        <!-- Merchant Information -->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">{{ __('merchant.name') }}</label>
+                            <div class="col-sm-10">
+                                <div class="form-control bg-light">
+                                    <strong>{{ $pickupRequest->merchant->name ?? __('general.not_found') }}</strong>
+                                    @if($pickupRequest->merchant)
+                                        <br>
+                                        <small class="text-muted">{{ $pickupRequest->merchant->email }}</small>
+                                    @endif
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Address Section -->
-                        <div class="mb-5">
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
-                                    <i class="bi bi-geo-alt text-primary"></i>
+                        <!-- Driver Information -->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">{{ __('pickup_request.assigned_driver') }}</label>
+                            <div class="col-sm-10">
+                                <div class="form-control bg-light">
+                                    <strong>{{ $pickupRequest->driver->driver_full_name ?? __('driver.no_name') }}</strong>
+                                    @if($pickupRequest->driver)
+                                        <br>
+                                        <small class="text-muted">
+                                            {{ $pickupRequest->driver->phone ?? __('driver.no_phone') }} -
+                                            {{ $pickupRequest->driver->vehicle_type ? __('driver.vehicle_type_' . $pickupRequest->driver->vehicle_type) : __('driver.no_vehicle_type') }}
+                                        </small>
+                                    @endif
                                 </div>
-                                <h5 class="mb-0">{{ __('general.address_details') }}</h5>
                             </div>
+                        </div>
 
-                            <div class="row mb-3">
-                                <label class="col-md-2 col-form-label">{{ __('general.address') }}</label>
-                                <div class="col-md-10">
+                        <!-- Request Number -->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">{{ __('pickup_request.request_number') }}</label>
+                            <div class="col-sm-10">
+                                <div class="form-control bg-light">
+                                    <strong>#{{ $pickupRequest->id }}</strong>
+                                </div>
+                            </div>
+                        </div>
 
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <input name="country" class="form-control" id="country" type="text" value="{{ old('country', $pickupRequest->country) }}" placeholder="{{ __('general.country') }}">
-                                            @error('country')
-                                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input name="region" class="form-control" id="region" type="text" value="{{ old('region' , $pickupRequest->region) }}" placeholder="{{ __('general.region') }}">
-                                            @error('region')
-                                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input name="city" class="form-control" id="city" type="text" value="{{ old('city' , $pickupRequest->city) }}" placeholder="{{ __('general.city') }}">
-                                            @error('city')
-                                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input name="district" class="form-control" id="district" type="text" value="{{ old('district' , $pickupRequest->district) }}" placeholder="{{ __('general.district') }}">
-                                            @error('district')
-                                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                                            @enderror
+                        <!-- Created At -->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">{{ __('general.created_at') }}</label>
+                            <div class="col-sm-10">
+                                <div class="form-control bg-light">
+                                    {{ $pickupRequest->created_at->format('Y-m-d H:i') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Address Section -->
+                    <div class="mb-5">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                <i class="bi bi-geo-alt text-primary"></i>
+                            </div>
+                            <h5 class="mb-0">{{ __('general.address_details') }}</h5>
+                        </div>
+
+                        <!-- Address Details -->
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">{{ __('general.address') }}</label>
+                            <div class="col-md-10">
+                                <div class="form-control bg-light">
+                                    @if($pickupRequest->country || $pickupRequest->region || $pickupRequest->city || $pickupRequest->district)
+                                        {{ implode(', ', array_filter([$pickupRequest->district, $pickupRequest->city, $pickupRequest->region, $pickupRequest->country])) }}
+                                    @else
+                                        {{ __('general.no_address_provided') }}
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Postal Code -->
+                        @if($pickupRequest->postal_code)
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">{{ __('general.postal_code') }}</label>
+                            <div class="col-md-10">
+                                <div class="form-control bg-light">
+                                    {{ $pickupRequest->postal_code }}
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
+                        <!-- Geographical Location -->
+                        @if($pickupRequest->latitude && $pickupRequest->longitude)
+                        <div class="row mb-3">
+                            <label class="col-md-2 col-form-label">{{ __('general.geographical_location') }}</label>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-control bg-light mb-2">
+                                            <strong>{{ __('general.latitude') }}:</strong> {{ $pickupRequest->latitude }}
                                         </div>
                                     </div>
-
-                                </div>
-                            </div>
-
-
-
-                            <div class="row">
-                                <label class="col-md-2 col-form-label">{{ __('general.geographical_location') }}</label>
-                                <div class="col-md-10">
-                                    <div class="row">
-                                            <div class="col-md-4">
-                                            <input type="text" id="latitude" name="latitude" class="form-control mb-2" placeholder="{{ __('general.latitude') }}" value="{{ old('latitude', $pickupRequest->latitude ?? '') }}">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="text" id="longitude" name="longitude" class="form-control mb-2" placeholder="{{ __('general.longitude') }}" value="{{ old('longitude', $pickupRequest->longitude ?? '') }}">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input name="postal_code" class="form-control" id="postal_code" type="text" value="{{ old('postal_code' , $pickupRequest->postal_code) }}" placeholder="{{ __('general.postal_code') }}">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div id="map" style="width: 100%; height: 300px;"></div>
+                                    <div class="col-md-6">
+                                        <div class="form-control bg-light mb-2">
+                                            <strong>{{ __('general.longitude') }}:</strong> {{ $pickupRequest->longitude }}
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="map" style="width: 100%; height: 300px;"></div>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                        @endif
+                    </div>
 
-
+                    <!-- Schedule Section -->
+                    <div class="mb-5">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                <i class="bi bi-calendar-event text-primary"></i>
+                            </div>
+                            <h5 class="mb-0">{{ __('general.schedule_event') }}</h5>
                         </div>
 
-                        <div class="mb-5">
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
-                                    <i class="bi bi-geo-alt text-primary"></i>
-                                </div>
-                                <h5 class="mb-0">{{ __('general.schedule_event') }}</h5>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="scheduled_at">{{ __('pickup_request.scheduled_at') }}</label>
-                                <div class="col-sm-10">
-                                    <input name="scheduled_at" class="form-control" id="scheduled_at" type="date"
-                                    value="{{ old('scheduled_at', $pickupRequest->scheduled_at ? \Carbon\Carbon::parse($pickupRequest->scheduled_at)->toDateString() : '') }}">
-
-                                    @error('scheduled_at')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <!-- Note -->
-                            <div class="row mb-4">
-                                <label for="note" class="col-sm-2 col-form-label">{{ __('delivery.note') }}</label>
-                                <div class="col-sm-10">
-                                    <textarea name="note" id="note" class="form-control">{{ old('note', $pickupRequest->note) }}</textarea>
-                                    @error('note')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                            </div>
-
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="status1">{{ __('general.status') }}</label>
-                                <div class="col-sm-10">
-                                    <select name="status" class="form-control" id="status1">
-                                        <option value="pending" {{ old('status', $pickupRequest->status) == 'pending' ? 'selected' : '' }}>
-                                            {{ __('pickup_request.status_pending') }}
-                                        </option>
-                                        <option value="accepted" {{ old('status', $pickupRequest->status) == 'accepted' ? 'selected' : '' }}>
-                                            {{ __('pickup_request.status_accepted') }}
-                                        </option>
-                                        <option value="completed" {{ old('status', $pickupRequest->status) == 'completed' ? 'selected' : '' }}>
-                                            {{ __('pickup_request.status_completed') }}
-                                        </option>
-                                    </select>
-                                    @error('status')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                        <!-- Scheduled Date -->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">{{ __('pickup_request.scheduled_at') }}</label>
+                            <div class="col-sm-10">
+                                <div class="form-control bg-light">
+                                    @if($pickupRequest->scheduled_at)
+                                        {{ \Carbon\Carbon::parse($pickupRequest->scheduled_at)->format('Y-m-d') }}
+                                    @else
+                                        {{ __('general.not_scheduled') }}
+                                    @endif
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Submit Button -->
-                        <div class="text-end pt-3">
-                            @ability('driver', 'update_pickup_requests')
-                                <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
-                                    <i class="ri-save-3-line me-2"></i>
-                                    <i class="bi bi-save me-2"></i>
-                                    {{ __('pickup_request.update_pickup_request') }}
-                                </button>
-                            @endability
+                        <!-- Note -->
+                        @if($pickupRequest->note)
+                        <div class="row mb-4">
+                            <label class="col-sm-2 col-form-label">{{ __('delivery.note') }}</label>
+                            <div class="col-sm-10">
+                                <div class="form-control bg-light" style="min-height: 80px;">
+                                    {{ $pickupRequest->note }}
+                                </div>
+                            </div>
+                        </div>
+                        @endif
 
-                            <a href="{{ route('driver.pickup_requests.index') }}" class="btn btn-outline-danger ms-2">
-                                <i class="ri-arrow-go-back-line me-1"></i>
-                                {{ __('panel.cancel') }}
-                            </a>
+                        <!-- Current Status -->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">{{ __('general.current_status') }}</label>
+                            <div class="col-sm-10">
+                                <div class="form-control bg-light">
+                                    @switch($pickupRequest->status)
+                                        @case('pending')
+                                            <span class="badge bg-warning">{{ __('pickup_request.status_pending') }}</span>
+                                            @break
+                                        @case('accepted')
+                                            <span class="badge bg-info">{{ __('pickup_request.status_accepted') }}</span>
+                                            @break
+                                        @case('completed')
+                                            <span class="badge bg-success">{{ __('pickup_request.status_completed') }}</span>
+                                            @break
+                                        @case('cancelled')
+                                            <span class="badge bg-danger">{{ __('pickup_request.status_cancelled') }}</span>
+                                            @break
+                                    @endswitch
+                                </div>
+                            </div>
                         </div>
 
-                    </form>
+                        <!-- Status Update (هذا الحقل فقط يمكن التعديل عليه) -->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="status">
+                                <strong>{{ __('pickup_request.update_status') }}</strong>
+                            </label>
+                            <div class="col-sm-10">
+                                <select name="status" class="form-control @error('status') is-invalid @enderror" id="status" required>
+                                    <option value="pending" {{ old('status', $pickupRequest->status) == 'pending' ? 'selected' : '' }}>
+                                        {{ __('pickup_request.status_pending') }}
+                                    </option>
+                                    <option value="accepted" {{ old('status', $pickupRequest->status) == 'accepted' ? 'selected' : '' }}>
+                                        {{ __('pickup_request.status_accepted') }}
+                                    </option>
+                                    <option value="completed" {{ old('status', $pickupRequest->status) == 'completed' ? 'selected' : '' }}>
+                                        {{ __('pickup_request.status_completed') }}
+                                    </option>
+                                    <option value="cancelled" {{ old('status', $pickupRequest->status) == 'cancelled' ? 'selected' : '' }}>
+                                        {{ __('pickup_request.status_cancelled') }}
+                                    </option>
+                                </select>
+                                @error('status')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                <small class="text-muted mt-2 d-block">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    {{ __('pickup_request.status_change_note') }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
 
-                </div>
+                    <!-- Submit Button -->
+                    <div class="text-end pt-3">
+                        @ability('driver', 'update_pickup_requests')
+                            <button type="submit" class="btn btn-primary px-4 d-inline-flex align-items-center">
+                                <i class="bi bi-check-circle me-2"></i>
+                                {{ __('pickup_request.update_status') }}
+                            </button>
+                        @endability
+
+                        <a href="{{ route('driver.pickup_requests.index') }}" class="btn btn-outline-secondary ms-2">
+                            <i class="ri-arrow-go-back-line me-1"></i>
+                            {{ __('panel.back') }}
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
+</div>
 @endsection
 
 @section('script')
-    <script>
-        $(function() {
-            $('.select2').select2();
-        });
-    </script>
-
+@if($pickupRequest->latitude && $pickupRequest->longitude)
     <!-- Leaflet CSS & JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-
-            // دالة لتحديث الحقول من خط الطول والعرض
-            function updateFieldsFromLatLng(lat, lng){
-                fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if(data.address){
-                            document.getElementById('country').value = data.address.country || '';
-                            document.getElementById('region').value = data.address.state || '';
-                            document.getElementById('city').value = data.address.city || data.address.town || data.address.village || '';
-                            document.getElementById('district').value = data.address.suburb || '';
-                            document.getElementById('postal_code').value = data.address.postcode || '';
-                        }
-                    });
-            }
-
-            // إحداثيات البداية: من قاعدة البيانات إذا موجودة، وإلا وسط الرياض
-            var initialLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
-            var initialLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
+            // إحداثيات الموقع من قاعدة البيانات
+            var initialLat = parseFloat({{ $pickupRequest->latitude }});
+            var initialLng = parseFloat({{ $pickupRequest->longitude }});
 
             // إنشاء الخريطة
-            var map = L.map('map').setView([initialLat, initialLng], 13);
+            var map = L.map('map').setView([initialLat, initialLng], 15);
 
             // إضافة طبقة OpenStreetMap
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors'
             }).addTo(map);
 
-            // إنشاء Marker قابل للسحب
-            var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
+            // إضافة Marker ثابت (غير قابل للسحب)
+            var marker = L.marker([initialLat, initialLng]).addTo(map);
 
-            // عند سحب Marker، يتم تحديث الحقول تلقائيًا
-            marker.on('dragend', function(e) {
-                var latlng = marker.getLatLng();
-                document.getElementById('latitude').value = latlng.lat.toFixed(7);
-                document.getElementById('longitude').value = latlng.lng.toFixed(7);
-                updateFieldsFromLatLng(latlng.lat, latlng.lng);
-            });
-
-            // عند النقر على الخريطة، نقل Marker وتحديث الحقول
-            map.on('click', function(e) {
-                marker.setLatLng(e.latlng);
-                document.getElementById('latitude').value = e.latlng.lat.toFixed(7);
-                document.getElementById('longitude').value = e.latlng.lng.toFixed(7);
-                updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
-            });
-
-            // تحديث الحقول لأول مرة عند التحميل إذا كانت الإحداثيات موجودة من DB
-            if(initialLat && initialLng){
-                updateFieldsFromLatLng(initialLat, initialLng);
-            }
-
+            // إضافة Popup للمarker
+            marker.bindPopup(`
+                <strong>{{ __('pickup_request.pickup_location') }}</strong><br>
+                {{ $pickupRequest->merchant->name ?? __('general.unknown_merchant') }}<br>
+                {{ $pickupRequest->district ? $pickupRequest->district . ', ' : '' }}{{ $pickupRequest->city }}
+            `).openPopup();
         });
     </script>
+@endif
 @endsection
