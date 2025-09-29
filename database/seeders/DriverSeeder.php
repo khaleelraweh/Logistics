@@ -57,8 +57,8 @@ class DriverSeeder extends Seeder
 
         // 2- add user account to driver
         $driverUser = User::create([
-            'first_name' => $driver->frist_name,
-            'last_name' => $driver->last_name,
+            'first_name' => ['ar' => 'خالد', 'en' => 'Khaled'],
+            'last_name' => ['ar' => 'حمود', 'en' => 'Hammoud'],
             'username' => 'driver',
             'email' => $driver->email,
             'email_verified_at' => now(),
