@@ -104,4 +104,13 @@ return [
     'reason_message'  => 'Enter the reason for return (if any)',
     'all_return_items'  => 'All Return Items',
 
+    //show blade
+    'total_items'  => 'Total Items',
+    'stock_items'  => 'Stock Items',
+    'custom_items'  => 'Custom Items',
+    'total_quantity'  => 'Total Quantity',
+    'status_timeline' => 'Status Timeline',
+    'progress_overview' => 'Progress Overview',
+
+
 ];

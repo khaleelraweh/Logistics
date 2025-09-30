@@ -105,4 +105,12 @@ return [
     'all_return_items'    => 'جميع عناصر الطلب',
 
 
+    //show blade
+    'total_items'  => 'إجمالي العناصر',
+    'stock_items'  => 'عناصر المخزون',
+    'custom_items'  => 'عناصر مخصصة',
+    'total_quantity'  => 'إجمالي الكمية',
+    'status_timeline' => 'الجدول الزمني للحالة',
+    'progress_overview' => 'نظرة عامة على التقدم',
+
 ];

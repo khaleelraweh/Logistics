@@ -269,6 +269,11 @@ return [
     'contact_customer' => 'الاتصال بالعميل',
     'show_details' => 'إظهار التفاصيل',
     'edit_status' => 'تعديل الحالة',
+    'optimized_path' => 'المسار المحسن',
+    'share_location' => 'مشاركة الموقع',
+    'with_customer' => 'مع العميل',
+    'update_status' => 'تحديث الحالة',
+    'change_progress' => 'تقدم التغيير',
 
 
 ];

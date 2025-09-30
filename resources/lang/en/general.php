@@ -269,6 +269,11 @@ return [
     'contact_customer' => 'Contact Customer',
     'show_details' => 'Show Details',
     'edit_status' => 'Edit Status',
+    'optimized_path' => 'Optimized Path',
+    'share_location' => 'Share Location',
+    'with_customer' => 'With Customer',
+    'update_status' => 'Update Status',
+    'change_progress' => 'Change Progress',
 
 
 
