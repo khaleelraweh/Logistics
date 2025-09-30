@@ -161,26 +161,6 @@
                                                 </li>
                                                 @endability
 
-                                                @ability('driver', 'delete_return_requests')
-                                                <li><hr class="dropdown-divider"></li>
-                                                <li>
-                                                    <a class="dropdown-item text-danger" href="#"
-
-                                                    onclick="confirmDelete('delete-return_request-{{ $return_request->id }}',
-                                                                                    '{{ __('panel.confirm_delete_message') }}',
-                                                                                    '{{ __('panel.yes_delete') }}',
-                                                                                    '{{ __('panel.cancel') }}')"
-                                                            >
-                                                        <i class="fas fa-trash-alt me-2"></i>{{ __('general.delete') }}
-                                                    </a>
-                                                    <form id="delete-return_request-{{ $return_request->id }}"
-                                                        action="{{ route('driver.return_requests.destroy', $return_request->id) }}"
-                                                        method="POST" class="d-none">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                </li>
-                                                @endability
                                             </ul>
                                         </div>
                                     </td>
