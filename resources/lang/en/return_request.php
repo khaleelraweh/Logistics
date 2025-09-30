@@ -45,6 +45,8 @@ return [
 
     // Statuses
     'status_requested'        => 'Requested',
+    'status_assigned_to_driver' => 'Assigned to Driver',
+    'status_picked_up'        => 'Picked Up by Driver',
     'status_in_transit'      => 'In Transit',
     'status_received'        => 'Received',
     'status_rejected'        => 'Rejected',

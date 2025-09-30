@@ -45,6 +45,8 @@ return [
 
     // الحالات
     'status_requested'        => 'تم تقديم الطلب',
+    'status_assigned_to_driver' => 'تم الإسناد إلى سائق',
+    'status_picked_up'        => 'السائق استلم الطرد',
     'status_in_transit'       => 'قيد النقل',
     'status_received'        => 'تم الاستلام',
     'status_rejected'        => 'مرفوض',

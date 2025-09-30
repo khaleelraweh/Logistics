@@ -102,6 +102,8 @@ class ReturnRequest extends Model
     {
         return match ($this->status) {
             'requested' =>  __('return_request.status_requested'),
+            'assigned_to_driver'    =>  __('return_request.status_assigned_to_driver'),
+            'picked_up' =>  __('return_request.status_picked_up'),
             'in_transit'    =>  __('return_request.status_in_transit'),
             'received'  =>  __('return_request.status_received'),
             'rejected'  =>  __('return_request.status_rejected'),
