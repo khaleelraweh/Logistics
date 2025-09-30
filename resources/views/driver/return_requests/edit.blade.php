@@ -92,6 +92,13 @@
         color: #4a6fdc;
         font-size: 1.1rem;
     }
+    .location-card {
+        transition: all 0.3s ease;
+    }
+    .location-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
 </style>
 @endsection
 
@@ -143,9 +150,9 @@
                                     <i class="mdi mdi-status me-1 edit-icon"></i>
                                     {{ __('return_request.status') }} *
                                 </label>
-                               <select name="status" class="form-select" required>
+                                <select name="status" id="status1" class="form-select" required>
                                     @foreach($return_request->availableStatusesForCurrentUser() as $status)
-                                        <option value="{{ $status }}">
+                                        <option value="{{ $status }}" {{ old('status', $return_request->status) == $status ? 'selected' : '' }}>
                                             {{ __('return_request.status_' . $status) }}
                                         </option>
                                     @endforeach
@@ -164,7 +171,7 @@
                                     <i class="mdi mdi-comment-text-outline me-1 edit-icon"></i>
                                     {{ __('return_request.reason') }}
                                 </label>
-                                 <textarea name="reason" id="reason" placeholder="{{ __('return_request.reason_placeholder') }}" class="form-control @error('reason') is-invalid @enderror" rows="4">{{ old('reason', $return_request->reason) }}</textarea>
+                                <textarea name="reason" id="reason" placeholder="{{ __('return_request.reason_placeholder') }}" class="form-control @error('reason') is-invalid @enderror" rows="4">{{ old('reason', $return_request->reason) }}</textarea>
                                 @error('reason')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -309,7 +316,7 @@
                 </div>
             </div>
 
-            <!-- Package Information -->
+            <!-- Package Information with Maps -->
             @if($return_request->package)
             <div class="card border-0 shadow-sm">
                 <div class="card-header bg-info text-white py-3">
@@ -320,82 +327,174 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <!-- Sender Info -->
+                        <!-- Sender Information with Map -->
                         <div class="col-md-6 mb-4">
-                            <h6 class="section-title">
-                                <i class="mdi mdi-account-outline me-2"></i>
-                                {{ __('package.sender_info') }}
-                            </h6>
-                            <div class="info-label">{{ __('general.full_name') }}</div>
-                            <div class="info-value">{{ $return_request->package->sender_full_name }}</div>
-
-                            <div class="info-label">{{ __('general.phone') }}</div>
-                            <div class="info-value">+{{ $return_request->package->sender_phone }}</div>
-
-                            <div class="info-label">{{ __('general.address') }}</div>
-                            @php
-                                $senderAddressParts = array_filter([
-                                    $return_request->package->sender_district,
-                                    $return_request->package->sender_city,
-                                    $return_request->package->sender_region,
-                                    $return_request->package->sender_country,
-                                ]);
-                                $fullSenderAddress = implode(' ، ', $senderAddressParts);
-                            @endphp
-                            <div class="info-value">{{ $fullSenderAddress }}</div>
+                            <div class="card location-card h-100">
+                                <div class="card-header bg-info text-white py-2">
+                                    <i class="mdi mdi-account-outline me-2"></i>
+                                    {{ __('package.sender_info') }}
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="info-label">{{ __('general.full_name') }}</div>
+                                            <div class="info-value">{{ $return_request->package->sender_full_name }}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-label">{{ __('general.phone') }}</div>
+                                            <div class="info-value">+{{ $return_request->package->sender_phone }}</div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="info-label">{{ __('general.address') }}</div>
+                                            @php
+                                                $senderAddressParts = array_filter([
+                                                    $return_request->package->sender_district,
+                                                    $return_request->package->sender_city,
+                                                    $return_request->package->sender_region,
+                                                    $return_request->package->sender_country,
+                                                    $return_request->package->sender_postal_code,
+                                                ]);
+                                                $fullSenderAddress = implode(' ، ', $senderAddressParts);
+                                            @endphp
+                                            <div class="info-value">{{ $fullSenderAddress }}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-label">{{ __('general.city') }}</div>
+                                            <div class="info-value">{{ $return_request->package->sender_city }}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-label">{{ __('general.region') }}</div>
+                                            <div class="info-value">{{ $return_request->package->sender_region }}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-label">{{ __('general.latitude') }}</div>
+                                            <div class="info-value coordinates">{{ $return_request->package->sender_latitude }}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-label">{{ __('general.longitude') }}</div>
+                                            <div class="info-value coordinates">{{ $return_request->package->sender_longitude }}</div>
+                                        </div>
+                                        <div class="col-12 mt-3">
+                                            <div class="info-label">{{ __('package.sender_location_map') }}</div>
+                                            <div id="sender-map-{{ $return_request->package->id }}" class="map-container"
+                                                 data-lat="{{ $return_request->package->sender_latitude }}"
+                                                 data-lng="{{ $return_request->package->sender_longitude }}">
+                                                <div class="map-placeholder">
+                                                    <i class="mdi mdi-map-marker-outline me-2"></i>
+                                                    {{ __('package.loading_map') }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Receiver Info -->
+                        <!-- Receiver Information with Map -->
                         <div class="col-md-6 mb-4">
-                            <h6 class="section-title">
-                                <i class="mdi mdi-account-check-outline me-2"></i>
-                                {{ __('package.receiver_info') }}
-                            </h6>
-                            <div class="info-label">{{ __('general.full_name') }}</div>
-                            <div class="info-value">{{ $return_request->package->receiver_full_name }}</div>
-
-                            <div class="info-label">{{ __('general.phone') }}</div>
-                            <div class="info-value">+{{ $return_request->package->receiver_phone }}</div>
-
-                            <div class="info-label">{{ __('general.address') }}</div>
-                            @php
-                                $receiverAddressParts = array_filter([
-                                    $return_request->package->receiver_district,
-                                    $return_request->package->receiver_city,
-                                    $return_request->package->receiver_region,
-                                    $return_request->package->receiver_country,
-                                ]);
-                                $fullReceiverAddress = implode(' ، ', $receiverAddressParts);
-                            @endphp
-                            <div class="info-value">{{ $fullReceiverAddress }}</div>
+                            <div class="card location-card h-100">
+                                <div class="card-header bg-success text-white py-2">
+                                    <i class="mdi mdi-account-check-outline me-2"></i>
+                                    {{ __('package.receiver_info') }}
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="info-label">{{ __('general.full_name') }}</div>
+                                            <div class="info-value">{{ $return_request->package->receiver_full_name }}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-label">{{ __('general.phone') }}</div>
+                                            <div class="info-value">+{{ $return_request->package->receiver_phone }}</div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="info-label">{{ __('general.address') }}</div>
+                                            @php
+                                                $receiverAddressParts = array_filter([
+                                                    $return_request->package->receiver_district,
+                                                    $return_request->package->receiver_city,
+                                                    $return_request->package->receiver_region,
+                                                    $return_request->package->receiver_country,
+                                                    $return_request->package->receiver_postal_code,
+                                                ]);
+                                                $fullReceiverAddress = implode(' ، ', $receiverAddressParts);
+                                            @endphp
+                                            <div class="info-value">{{ $fullReceiverAddress }}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-label">{{ __('general.city') }}</div>
+                                            <div class="info-value">{{ $return_request->package->receiver_city }}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-label">{{ __('general.region') }}</div>
+                                            <div class="info-value">{{ $return_request->package->receiver_region }}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-label">{{ __('general.latitude') }}</div>
+                                            <div class="info-value coordinates">{{ $return_request->package->receiver_latitude }}</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="info-label">{{ __('general.longitude') }}</div>
+                                            <div class="info-value coordinates">{{ $return_request->package->receiver_longitude }}</div>
+                                        </div>
+                                        <div class="col-12 mt-3">
+                                            <div class="info-label">{{ __('package.receiver_location_map') }}</div>
+                                            <div id="receiver-map-{{ $return_request->package->id }}" class="map-container"
+                                                 data-lat="{{ $return_request->package->receiver_latitude }}"
+                                                 data-lng="{{ $return_request->package->receiver_longitude }}">
+                                                <div class="map-placeholder">
+                                                    <i class="mdi mdi-map-marker-outline me-2"></i>
+                                                    {{ __('package.loading_map') }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Package Specifications -->
-                    <h6 class="section-title mt-4">
-                        <i class="mdi mdi-information-outline me-2"></i>
-                        {{ __('package.package_specifications') }}
-                    </h6>
-                    <div class="row">
-                        <div class="col-md-3 mb-2">
-                            <div class="info-label">{{ __('package.package_type') }}</div>
-                            <div class="info-value">{{ __('package.type_' . $return_request->package->package_type) }}</div>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <div class="info-label">{{ __('package.package_size') }}</div>
-                            <div class="info-value">{{ __('package.size_' . $return_request->package->package_size) }}</div>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <div class="info-label">{{ __('package.weight') }}</div>
-                            <div class="info-value">{{ $return_request->package->weight }} {{ __('package.kgm') }}</div>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <div class="info-label">{{ __('package.dimensionss') }}</div>
-                            <div class="info-value">
-                                {{ $return_request->package->dimensions['length'] ?? 0 }}x
-                                {{ $return_request->package->dimensions['width'] ?? 0 }}x
-                                {{ $return_request->package->dimensions['height'] ?? 0 }}
-                                {{ __('package.cm') }}
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-secondary text-white py-2">
+                                    <i class="mdi mdi-information-outline me-2"></i>
+                                    {{ __('package.package_specifications') }}
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="info-label">{{ __('package.package_type') }}</div>
+                                            <div class="info-value">{{ __('package.type_' . $return_request->package->package_type) }}</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="info-label">{{ __('package.package_size') }}</div>
+                                            <div class="info-value">{{ __('package.size_' . $return_request->package->package_size) }}</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="info-label">{{ __('package.weight') }}</div>
+                                            <div class="info-value">{{ $return_request->package->weight }} {{ __('package.kgm') }}</div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="info-label">{{ __('package.dimensionss') }}</div>
+                                            <div class="info-value">
+                                                {{ $return_request->package->dimensions['length'] ?? 0 }}x
+                                                {{ $return_request->package->dimensions['width'] ?? 0 }}x
+                                                {{ $return_request->package->dimensions['height'] ?? 0 }}
+                                                {{ __('package.cm') }}
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mt-3">
+                                            <div class="info-label">{{ __('package.package_content') }}</div>
+                                            <div class="info-value">{{ $return_request->package->package_content ?? '-' }}</div>
+                                        </div>
+                                        <div class="col-12 mt-3">
+                                            <div class="info-label">{{ __('package.package_note') }}</div>
+                                            <div class="info-value">{{ $return_request->package->package_note ?? '-' }}</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -415,6 +514,75 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+    // دالة لتهيئة الخرائط
+    function initMaps() {
+        // البحث عن جميع عناصر الخرائط
+        const mapContainers = document.querySelectorAll('.map-container');
+
+        mapContainers.forEach(container => {
+            const lat = parseFloat(container.getAttribute('data-lat'));
+            const lng = parseFloat(container.getAttribute('data-lng'));
+            const mapId = container.id;
+
+            // تأكد من أن الخريطة لم يتم تهيئتها من قبل
+            if (container.hasAttribute('data-initialized')) {
+                return;
+            }
+
+            // تأكد من وجود إحداثيات صحيحة
+            if (!isNaN(lat) && !isNaN(lng)) {
+                // إزالة العنصر النائب
+                container.innerHTML = '';
+
+                // إنشاء الخريطة
+                const map = L.map(mapId).setView([lat, lng], 13);
+
+                // إضافة طبقة الخريطة
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                // إضافة علامة الموقع
+                const marker = L.marker([lat, lng]).addTo(map);
+
+                // تحديد نوع الخريطة بناءً على الـ ID
+                if (mapId.includes('sender-map')) {
+                    marker.bindPopup('{{ __("package.sender_location") }}').openPopup();
+                } else if (mapId.includes('receiver-map')) {
+                    marker.bindPopup('{{ __("package.receiver_location") }}').openPopup();
+                }
+
+                // وضع علامة أن الخريطة تم تهيئتها
+                container.setAttribute('data-initialized', 'true');
+            } else {
+                // إذا لم تكن هناك إحداثيات صحيحة
+                container.innerHTML = `
+                    <div class="map-placeholder">
+                        <i class="mdi mdi-exclamation-thick me-2"></i>
+                        {{ __("package.no_location_data") }}
+                    </div>
+                `;
+                container.setAttribute('data-initialized', 'true');
+            }
+        });
+    }
+
+    // تهيئة الخرائط عند التحميل
+    setTimeout(initMaps, 500);
+
+    // إعادة تهيئة الخرائط عند تغيير حجم النافذة
+    window.addEventListener('resize', function() {
+        // إعادة رسم الخرائط الموجودة
+        document.querySelectorAll('.map-container[data-initialized="true"]').forEach(container => {
+            const map = L.map(container.id);
+            if (map) {
+                setTimeout(() => {
+                    map.invalidateSize();
+                }, 100);
+            }
+        });
+    });
+
     // Status change effect
     const statusSelect = document.getElementById('status');
     if (statusSelect) {
