@@ -160,5 +160,47 @@ class ReturnRequest extends Model
     }
 
 
+    public function availableStatuses()
+    {
+        $currentStatus = $this->status ?? 'requested'; // افتراضياً requested
+        switch ($currentStatus) {
+            case self::STATUS_REQUESTED:
+                return [self::STATUS_ASSIGNED_TO_DRIVER, self::STATUS_CANCELLED];
+
+            case self::STATUS_ASSIGNED_TO_DRIVER:
+                return [self::STATUS_PICKED_UP, self::STATUS_CANCELLED];
+
+            case self::STATUS_PICKED_UP:
+                return [self::STATUS_IN_TRANSIT, self::STATUS_CANCELLED];
+
+            case self::STATUS_IN_TRANSIT:
+                return [self::STATUS_RECEIVED, self::STATUS_PARTIALLY_RECEIVED, self::STATUS_REJECTED];
+
+            default:
+                return []; // الحالات النهائية ما تتغير
+        }
+    }
+
+    public function availableStatusesForDriver()
+    {
+        if (!auth()->user()->hasRole('driver')) {
+            return $this->availableStatuses();
+        }
+
+        switch ($this->status) {
+            case self::STATUS_ASSIGNED_TO_DRIVER:
+                return [self::STATUS_PICKED_UP, self::STATUS_CANCELLED];
+
+            case self::STATUS_PICKED_UP:
+                return [self::STATUS_IN_TRANSIT];
+
+            case self::STATUS_IN_TRANSIT:
+                return [self::STATUS_RECEIVED, self::STATUS_PARTIALLY_RECEIVED];
+
+            default:
+                return [];
+        }
+    }
+
 
 }
