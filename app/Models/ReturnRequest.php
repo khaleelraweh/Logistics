@@ -159,4 +159,20 @@ class ReturnRequest extends Model
 
         return $available;
     }
+
+    // في موديل ReturnRequest
+   // في موديل ReturnRequest
+    public function availableStatusesForCurrentUser(): array
+    {
+        $role = $this->currentUserRole();
+        if (!$role) return [];
+
+        // الحالات المسموح بها حسب الدور الحالي
+        $available = self::$allowedTransitions[$this->status][$role] ?? [];
+
+        // استبعاد الحالة الحالية
+        return array_filter($available, fn($status) => $status !== $this->status);
+    }
+
+
 }

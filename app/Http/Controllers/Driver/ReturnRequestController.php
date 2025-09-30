@@ -118,7 +118,10 @@ class ReturnRequestController extends Controller
 
             $return_request = ReturnRequest::findOrFail($return_request);
 
-            $return_request->update($request->reason);
+            $return_request->update([
+                'reason' => $request->reason,
+            ]);
+
             $return_request->updateStatus($request->reason);
 
             return redirect()->route('driver.return_requests.index')->with([
