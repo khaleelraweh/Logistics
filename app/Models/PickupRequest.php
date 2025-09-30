@@ -102,4 +102,29 @@ class PickupRequest extends Model
 
         return $this->save();
     }
+
+    public function availableStatuses()
+    {
+        $currentStatus = $this->status ?? 'pending'; // افتراضياً pending
+
+        switch ($currentStatus) {
+            case 'pending': return ['accepted','cancelled'];
+            case 'accepted': return ['completed','cancelled'];
+
+            default: return [];
+        }
+    }
+
+    public function availableStatusesForDriver()
+    {
+        if (auth()->user()->hasRole('driver')) {
+            switch ($this->status) {
+                case 'pending': return ['accepted','cancelled'];
+                case 'accepted': return ['completed','cancelled'];
+                default: return [];
+            }
+        }
+
+        return $this->availableStatuses(); // باقي المستخدمين
+    }
 }

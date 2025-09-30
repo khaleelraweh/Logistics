@@ -228,8 +228,14 @@
                                 <strong>{{ __('pickup_request.update_status') }}</strong>
                             </label>
                             <div class="col-sm-10">
+
                                 <select name="status" class="form-control @error('status') is-invalid @enderror" id="status1" required>
-                                    <option value="pending" {{ old('status', $pickupRequest->status) == 'pending' ? 'selected' : '' }}>
+                                    @foreach($pickupRequest->availableStatusesForDriver() as $status)
+                                        <option value="{{ $status }}" {{ old('status', $pickupRequest->status) == $status ? 'selected' : '' }}>
+                                            {{ __('pickup_request.status_' . $status) }}
+                                        </option>
+                                    @endforeach
+                                    {{-- <option value="pending" {{ old('status', $pickupRequest->status) == 'pending' ? 'selected' : '' }}>
                                         {{ __('pickup_request.status_pending') }}
                                     </option>
                                     <option value="accepted" {{ old('status', $pickupRequest->status) == 'accepted' ? 'selected' : '' }}>
@@ -240,7 +246,7 @@
                                     </option>
                                     <option value="cancelled" {{ old('status', $pickupRequest->status) == 'cancelled' ? 'selected' : '' }}>
                                         {{ __('pickup_request.status_cancelled') }}
-                                    </option>
+                                    </option> --}}
                                 </select>
                                 @error('status')
                                     <div class="invalid-feedback">{{ $message }}</div>

@@ -12,6 +12,7 @@ return [
     'scheduled_at'                => 'Scheduled At',
     'status_pending'              => 'Pending',
     'status_accepted'             => 'Accepted',
+    'status_cancelled'             => 'Cancelled',
     'status_completed'            => 'Completed',
     'save_pickup_request'         => 'Save Pickup Request',
     'update_pickup_request'       => 'Update Pickup Request',

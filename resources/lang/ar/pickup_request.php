@@ -12,6 +12,7 @@ return [
     'scheduled_at'                => 'الوقت المجدول',
     'status_pending'              => 'قيد الانتظار',
     'status_accepted'             => 'مقبول',
+    'status_cancelled'             => 'ملغي',
     'status_completed'            => 'مكتمل',
     'save_pickup_request'         => 'حفظ طلب الاستلام',
     'update_pickup_request'       => 'تحديث طلب الاستلام',
