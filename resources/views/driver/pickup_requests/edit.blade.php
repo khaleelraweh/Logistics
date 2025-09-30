@@ -36,8 +36,8 @@
                     <input type="hidden" name="city" value="{{ $pickupRequest->city }}">
                     <input type="hidden" name="district" value="{{ $pickupRequest->district }}">
                     <input type="hidden" name="postal_code" value="{{ $pickupRequest->postal_code }}">
-                    <input type="hidden" name="latitude" value="{{ $pickupRequest->latitude }}">
-                    <input type="hidden" name="longitude" value="{{ $pickupRequest->longitude }}">
+                    <input type="hidden" name="latitude" value="{{ $pickupRequest->latitude ?? '' }}">
+                    <input type="hidden" name="longitude" value="{{ $pickupRequest->longitude ?? '' }}">
                     <input type="hidden" name="scheduled_at" value="{{ $pickupRequest->scheduled_at }}">
                     <input type="hidden" name="note" value="{{ $pickupRequest->note }}">
 
@@ -111,30 +111,40 @@
                         @endif
 
                         <!-- Geographical Location -->
-                        @if($pickupRequest->latitude && $pickupRequest->longitude)
                         <div class="row mb-3">
                             <label class="col-md-2 col-form-label">{{ __('general.geographical_location') }}</label>
                             <div class="col-md-10">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-control bg-light mb-2">
-                                            <strong>{{ __('general.latitude') }}:</strong> {{ $pickupRequest->latitude }}
+                                            <strong>{{ __('general.latitude') }}:</strong>
+                                            {{ $pickupRequest->latitude ?? __('general.not_available') }}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-control bg-light mb-2">
-                                            <strong>{{ __('general.longitude') }}:</strong> {{ $pickupRequest->longitude }}
+                                            <strong>{{ __('general.longitude') }}:</strong>
+                                            {{ $pickupRequest->longitude ?? __('general.not_available') }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+
+                                <!-- الخريطة -->
+                                <div class="row mt-3">
                                     <div class="col-md-12">
-                                        <div id="map" style="width: 100%; height: 300px;"></div>
+                                        <div id="map-container">
+                                            <div id="map" style="width: 100%; height: 400px; border-radius: 8px;"></div>
+                                            @if(!$pickupRequest->latitude || !$pickupRequest->longitude)
+                                                <div class="alert alert-warning mt-2 text-center">
+                                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                                    {{ __('general.location_not_available') }}
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @endif
                     </div>
 
                     <!-- Schedule Section -->
@@ -152,7 +162,7 @@
                             <div class="col-sm-10">
                                 <div class="form-control bg-light">
                                     @if($pickupRequest->scheduled_at)
-                                        {{ \Carbon\Carbon::parse($pickupRequest->scheduled_at)->format('Y-m-d') }}
+                                        {{ \Carbon\Carbon::parse($pickupRequest->scheduled_at)->format('Y-m-d H:i') }}
                                     @else
                                         {{ __('general.not_scheduled') }}
                                     @endif
@@ -195,26 +205,25 @@
                             </div>
                         </div>
 
-                        <!-- Status Update (هذا الحقل فقط يمكن التعديل عليه) -->
+                        <!-- Status Update -->
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="status1">
                                 <strong>{{ __('pickup_request.update_status') }}</strong>
                             </label>
                             <div class="col-sm-10">
-
                                 <select name="status" class="form-control @error('status') is-invalid @enderror" id="status1" required>
                                     @foreach($pickupRequest->availableStatusesForDriver() as $status)
                                         <option value="{{ $status }}" {{ old('status', $pickupRequest->status) == $status ? 'selected' : '' }}>
                                             {{ __('pickup_request.status_' . $status) }}
                                         </option>
                                     @endforeach
-
                                 </select>
                                 @error('status')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                                 <small class="text-muted mt-2 d-block">
                                     <i class="bi bi-info-circle me-1"></i>
+                                    {{ __('pickup_request.status_change_note') }}
                                 </small>
                             </div>
                         </div>
@@ -242,35 +251,59 @@
 @endsection
 
 @section('script')
-@if($pickupRequest->latitude && $pickupRequest->longitude)
-    <!-- Leaflet CSS & JS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // إحداثيات الموقع من قاعدة البيانات
-            var initialLat = parseFloat({{ $pickupRequest->latitude }});
-            var initialLng = parseFloat({{ $pickupRequest->longitude }});
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // الحصول على القيم من قاعدة البيانات
+    var initialLat = {{ $pickupRequest->latitude ?: 'null' }};
+    var initialLng = {{ $pickupRequest->longitude ?: 'null' }};
 
-            // إنشاء الخريطة
-            var map = L.map('map').setView([initialLat, initialLng], 15);
+    // إذا كانت الإحداثيات موجودة، نعرض الخريطة
+    if (initialLat && initialLng) {
+        // إنشاء الخريطة
+        var map = L.map('map').setView([initialLat, initialLng], 15);
 
-            // إضافة طبقة OpenStreetMap
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; OpenStreetMap contributors'
-            }).addTo(map);
+        // إضافة طبقة OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
 
-            // إضافة Marker ثابت (غير قابل للسحب)
-            var marker = L.marker([initialLat, initialLng]).addTo(map);
+        // إضافة Marker
+        var marker = L.marker([initialLat, initialLng]).addTo(map);
 
-            // إضافة Popup للمarker
-            marker.bindPopup(`
-                <strong>{{ __('pickup_request.pickup_location') }}</strong><br>
-                {{ $pickupRequest->merchant->name ?? __('general.unknown_merchant') }}<br>
-                {{ $pickupRequest->district ? $pickupRequest->district . ', ' : '' }}{{ $pickupRequest->city }}
-            `).openPopup();
-        });
-    </script>
-@endif
+        // إضافة Popup للمarker
+        marker.bindPopup(`
+            <strong>{{ __('pickup_request.pickup_location') }}</strong><br>
+            {{ $pickupRequest->merchant->name ?? __('general.unknown_merchant') }}<br>
+            {{ $pickupRequest->district ? $pickupRequest->district . ', ' : '' }}{{ $pickupRequest->city }}<br>
+            <small>Lat: ${initialLat}, Lng: ${initialLng}</small>
+        `).openPopup();
+
+        // إضافة دائرة لتحديد الموقع بدقة
+        var circle = L.circle([initialLat, initialLng], {
+            color: 'blue',
+            fillColor: '#0d6efd',
+            fillOpacity: 0.1,
+            radius: 50
+        }).addTo(map);
+
+    } else {
+        // إذا لم تكن الإحداثيات موجودة، نعرض خريطة افتراضية (الرياض)
+        var map = L.map('map').setView([24.7136, 46.6753], 10);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // إضافة رسالة أن الموقع غير متوفر
+        L.popup()
+            .setLatLng([24.7136, 46.6753])
+            .setContent('{{ __('general.location_not_available') }}')
+            .openOn(map);
+    }
+});
+</script>
 @endsection

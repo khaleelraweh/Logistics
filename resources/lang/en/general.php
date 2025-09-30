@@ -249,6 +249,9 @@ return [
     'note'              =>  'Note',
     'notes'              =>  'Notes',
     'current_status'   =>  'Current Status',
+    'not_available' => 'Not Available',
+    'location_not_available' => 'Location Not Available',
+
 
 
 ];

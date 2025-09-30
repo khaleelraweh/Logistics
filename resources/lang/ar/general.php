@@ -248,6 +248,9 @@ return [
     'note'                    => 'ملاحظة',
     'notes'                 =>  'ملاحظات',
     'current_status'       =>  'الحالة الحالية',
+    'not_available' => 'غير متوفر',
+    'location_not_available' => 'الموقع الجغرافي غير متوفر',
+
 
 ];
 
