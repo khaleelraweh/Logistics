@@ -28,7 +28,19 @@ return new class extends Migration {
             $table->text('reason')->nullable();
 
             // الحالة
-            $table->enum('status', ['requested', 'in_transit', 'received', 'rejected' , 'partially_received' , 'status_cancelled'])->default('requested');
+            // $table->enum('status', ['requested', 'in_transit', 'received', 'rejected' , 'partially_received' , 'status_cancelled'])->default('requested');
+
+            $table->enum('status', [
+                'requested',            // التاجر طلب الاسترجاع
+                'assigned_to_driver',   // تم تعيين السائق
+                'picked_up',            // السائق استلم الطرد من العميل
+                'in_transit',           // الطرد في الطريق إلى المستودع
+                'received',             // المستودع استلم الطرد
+                'partially_received',   // تم استلام جزء فقط
+                'rejected',             // تم رفض الإرجاع
+                'cancelled'             // الطلب ملغي
+            ])->default('requested');
+
 
             // وقت طلب الإرجاع والاستلام
             $table->dateTime('requested_at')->nullable();
