@@ -101,70 +101,89 @@ class PickupRequestController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    // public function update(Request $request, $id)
+    // {
+    //     if (!auth()->user()->ability('driver', 'update_pickup_requests')) {
+    //         return redirect('driver/index');
+    //     }
+
+
+    //     $pickupRequest = PickupRequest::findOrFail($id);
+
+    //     $request->validate([
+    //         'merchant_id' => 'required|exists:merchants,id',
+
+    //         'country' => 'nullable|string|max:255',
+    //         'region' => 'nullable|string|max:255',
+    //         'city' => 'nullable|string|max:255',
+    //         'district' => 'nullable|string|max:255',
+    //         'postal_code' => 'nullable|string|max:255',
+    //         'latitude' => 'nullable|string|max:255',
+    //         'longitude' => 'nullable|string|max:255',
+
+    //         'scheduled_at' => 'nullable|date',
+    //         'status' => 'required|in:pending,accepted,completed',
+    //         'note' => 'nullable|string|max:255',
+    //         'driver_id' => 'nullable|exists:drivers,id',
+    //     ]);
+
+
+
+
+    //         $input['merchant_id'] =  $request->merchant_id ;
+    //         $input['driver_id'] =    $request->driver_id ;
+
+    //         $input['country']        =   $request->country ;
+    //         $input['region']         =   $request->region ;
+    //         $input['city']           =   $request->city ;
+    //         $input['district']       =   $request->district ;
+    //         $input['postal_code']    =   $request->postal_code ;
+    //         $input['latitude']       =   $request->latitude ;
+    //         $input['longitude']      =   $request->longitude ;
+
+    //         $input['scheduled_at'] =     $request->scheduled_at ;
+    //         $input['status'] =   $request->status ;
+    //         $input['note'] =     $request->note ;
+
+    //         // 2. إذا الحالة أصبحت accepted لأول مرة، نملأ accepted_at
+    //         if ($input['status'] === 'accepted' && !$pickupRequest->accepted_at) {
+    //             $input['accepted_at'] = now();
+    //         }
+    //         // 3. إذا الحالة أصبحت completed لأول مرة، نملأ completed_at
+    //         if ($input['status'] === 'completed' && !$pickupRequest->completed_at) {
+    //             $input['completed_at'] = now();
+    //         }
+
+    //         $pickupRequest->update($input);
+
+
+
+
+
+    //     return redirect()->route('driver.pickup_requests.index')->with([
+    //         'message' => __('messages.pickup_request_updated'),
+    //         'alert-type' => 'success'
+    //     ]);
+    // }
+
     public function update(Request $request, $id)
     {
         if (!auth()->user()->ability('driver', 'update_pickup_requests')) {
             return redirect('driver/index');
         }
 
-
         $pickupRequest = PickupRequest::findOrFail($id);
 
-        $request->validate([
-            'merchant_id' => 'required|exists:merchants,id',
-
-            'country' => 'nullable|string|max:255',
-            'region' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:255',
-            'district' => 'nullable|string|max:255',
-            'postal_code' => 'nullable|string|max:255',
-            'latitude' => 'nullable|string|max:255',
-            'longitude' => 'nullable|string|max:255',
-
-            'scheduled_at' => 'nullable|date',
-            'status' => 'required|in:pending,accepted,completed',
-            'note' => 'nullable|string|max:255',
-            'driver_id' => 'nullable|exists:drivers,id',
-        ]);
-
-
-
-
-            $input['merchant_id'] =  $request->merchant_id ;
-            $input['driver_id'] =    $request->driver_id ;
-
-            $input['country']        =   $request->country ;
-            $input['region']         =   $request->region ;
-            $input['city']           =   $request->city ;
-            $input['district']       =   $request->district ;
-            $input['postal_code']    =   $request->postal_code ;
-            $input['latitude']       =   $request->latitude ;
-            $input['longitude']      =   $request->longitude ;
-
-            $input['scheduled_at'] =     $request->scheduled_at ;
-            $input['status'] =   $request->status ;
-            $input['note'] =     $request->note ;
-
-            // 2. إذا الحالة أصبحت accepted لأول مرة، نملأ accepted_at
-            if ($input['status'] === 'accepted' && !$pickupRequest->accepted_at) {
-                $input['accepted_at'] = now();
-            }
-            // 3. إذا الحالة أصبحت completed لأول مرة، نملأ completed_at
-            if ($input['status'] === 'completed' && !$pickupRequest->completed_at) {
-                $input['completed_at'] = now();
-            }
-
-            $pickupRequest->update($input);
-
-
-
-
+        $validated = $request->validate(['status'       => 'required|in:pending,accepted,completed',]);
+        // تحديث الحالة باستخدام دالة الموديل
+        $pickupRequest->updateStatus($validated['status']);
 
         return redirect()->route('driver.pickup_requests.index')->with([
-            'message' => __('messages.pickup_request_updated'),
-            'alert-type' => 'success'
+            'message'    => __('messages.pickup_request_updated'),
+            'alert-type' => 'success',
         ]);
     }
+
 
 
 
