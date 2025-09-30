@@ -253,6 +253,15 @@ return [
     'location_not_available' => 'Location Not Available',
 
 
+    'location_details' => 'Location Details',
+    'location_on_map' => 'Location on Map',
+    'additional_info' => 'Additional Information',
+    'back_to_list' => 'Back to List',
+    'quick_tips' => 'Quick Tips',
+
+    'no_address_provided' => 'No address provided',
+
+
 
 ];
 

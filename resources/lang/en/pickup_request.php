@@ -53,4 +53,15 @@ return [
     'pickup_location'                 =>  'Pickup Location',
     'merchant_location_available'   =>  'Merchant Location Available',
     'view_pickup_request'       =>  'View Pickup Request',
+
+    'request_details' => 'Request Details',
+    'change_status' => 'Change Status',
+    'select_status' => 'Select Status',
+    'confirm_update' => 'Confirm Update',
+    'important_note' => 'Important Note',
+    'status_change_instruction' => 'You can only change the pickup request status. Please make sure to update the status accurately.',
+    'tip_accept' => 'Accept the request when you are on your way to the pickup location',
+    'tip_complete' => 'Complete the request after successfully receiving the packages',
+    'tip_cancel' => 'Cancel the request only in emergency situations',
+
 ];

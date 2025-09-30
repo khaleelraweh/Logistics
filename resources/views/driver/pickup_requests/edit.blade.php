@@ -4,17 +4,24 @@
 <!-- Page Header -->
 <div class="row">
     <div class="col-12">
-        <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0 font-size-18">{{ __('pickup_request.view_pickup_request') }}</h4>
-
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">
+                <i class="bi bi-truck me-2 text-primary"></i>
+                {{ __('pickup_request.view_pickup_request') }}
+            </h4>
             <div class="page-title-right">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('driver.index') }}">{{ __('general.main') }}</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('driver.pickup_requests.index') }}">{{ __('pickup_request.manage_pickup_requests') }}</a></li>
-                        <li class="breadcrumb-item active">{{ __('pickup_request.view_pickup_request') }}</li>
-                    </ol>
-                </nav>
+                <div class="d-flex align-items-center">
+                    <span class="badge bg-{{ $pickupRequest->status_color }} fs-6 me-3">
+                        {{ __('pickup_request.status_' . $pickupRequest->status) }}
+                    </span>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('driver.index') }}" class="text-muted">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('driver.pickup_requests.index') }}" class="text-muted">{{ __('pickup_request.pickup_requests') }}</a></li>
+                            <li class="breadcrumb-item active text-primary">#{{ $pickupRequest->id }}</li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
@@ -23,8 +30,22 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
+            <div class="card-header bg-light">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-clipboard-data me-2"></i>
+                        {{ __('pickup_request.request_details') }}
+                    </h5>
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-light text-dark border me-2">
+                            <i class="bi bi-calendar me-1"></i>
+                            {{ $pickupRequest->created_at->format('Y-m-d') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
             <div class="card-body">
-                <form action="{{ route('driver.pickup_requests.update', $pickupRequest->id) }}" method="POST">
+                <form action="{{ route('driver.pickup_requests.update', $pickupRequest->id) }}" method="POST" id="statusForm">
                     @csrf
                     @method('PUT')
 
@@ -41,207 +62,240 @@
                     <input type="hidden" name="scheduled_at" value="{{ $pickupRequest->scheduled_at }}">
                     <input type="hidden" name="note" value="{{ $pickupRequest->note }}">
 
-                    <!-- Pickup Request Information Section -->
-                    <div class="mb-5">
-                        <div class="d-flex align-items-center mb-4">
-                            <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
-                                <i class="bi bi-info-circle text-primary"></i>
-                            </div>
-                            <h5 class="mb-0">{{ __('pickup_request.pickup_request_info') }}</h5>
-                        </div>
-
-                        <!-- Merchant Information -->
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">{{ __('merchant.name') }}</label>
-                            <div class="col-sm-10">
-                                <div class="form-control bg-light">
-                                    <strong>{{ $pickupRequest->merchant->name ?? __('general.not_found') }}</strong>
-                                    @if($pickupRequest->merchant)
-                                        <br>
-                                        <small class="text-muted">{{ $pickupRequest->merchant->email }}</small>
-                                    @endif
+                    <div class="row">
+                        <!-- العمود الأيسر: معلومات الطلب -->
+                        <div class="col-lg-8">
+                            <!-- معلومات التاجر -->
+                            <div class="card mb-4 border">
+                                <div class="card-header bg-transparent border-bottom">
+                                    <h6 class="mb-0">
+                                        <i class="bi bi-building me-2 text-primary"></i>
+                                        {{ __('merchant.merchant_info') }}
+                                    </h6>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Created At -->
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">{{ __('general.created_at') }}</label>
-                            <div class="col-sm-10">
-                                <div class="form-control bg-light">
-                                    {{ $pickupRequest->created_at->format('Y-m-d H:i') }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Address Section -->
-                    <div class="mb-5">
-                        <div class="d-flex align-items-center mb-4">
-                            <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
-                                <i class="bi bi-geo-alt text-primary"></i>
-                            </div>
-                            <h5 class="mb-0">{{ __('general.address_details') }}</h5>
-                        </div>
-
-                        <!-- Address Details -->
-                        <div class="row mb-3">
-                            <label class="col-md-2 col-form-label">{{ __('general.address') }}</label>
-                            <div class="col-md-10">
-                                <div class="form-control bg-light">
-                                    @if($pickupRequest->country || $pickupRequest->region || $pickupRequest->city || $pickupRequest->district)
-                                        {{ implode(', ', array_filter([$pickupRequest->district, $pickupRequest->city, $pickupRequest->region, $pickupRequest->country])) }}
-                                    @else
-                                        {{ __('general.no_address_provided') }}
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Postal Code -->
-                        @if($pickupRequest->postal_code)
-                        <div class="row mb-3">
-                            <label class="col-md-2 col-form-label">{{ __('general.postal_code') }}</label>
-                            <div class="col-md-10">
-                                <div class="form-control bg-light">
-                                    {{ $pickupRequest->postal_code }}
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-
-                        <!-- Geographical Location -->
-                        <div class="row mb-3">
-                            <label class="col-md-2 col-form-label">{{ __('general.geographical_location') }}</label>
-                            <div class="col-md-10">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-control bg-light mb-2">
-                                            <strong>{{ __('general.latitude') }}:</strong>
-                                            {{ $pickupRequest->latitude ?? __('general.not_available') }}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-control bg-light mb-2">
-                                            <strong>{{ __('general.longitude') }}:</strong>
-                                            {{ $pickupRequest->longitude ?? __('general.not_available') }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- الخريطة -->
-                                <div class="row mt-3">
-                                    <div class="col-md-12">
-                                        <div id="map-container">
-                                            <div id="map" style="width: 100%; height: 400px; border-radius: 8px;"></div>
-                                            @if(!$pickupRequest->latitude || !$pickupRequest->longitude)
-                                                <div class="alert alert-warning mt-2 text-center">
-                                                    <i class="bi bi-exclamation-triangle me-2"></i>
-                                                    {{ __('general.location_not_available') }}
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="form-label text-muted small mb-1">{{ __('merchant.name') }}</label>
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                                    <i class="bi bi-person-circle text-primary"></i>
                                                 </div>
-                                            @endif
+                                                <div>
+                                                    <h6 class="mb-0">{{ $pickupRequest->merchant->name ?? __('general.not_found') }}</h6>
+                                                    @if($pickupRequest->merchant)
+                                                        <small class="text-muted">{{ $pickupRequest->merchant->email }}</small>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="form-label text-muted small mb-1">{{ __('general.created_at') }}</label>
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-success bg-opacity-10 p-2 rounded me-3">
+                                                    <i class="bi bi-clock text-success"></i>
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-0">{{ $pickupRequest->created_at->format('Y-m-d') }}</h6>
+                                                    <small class="text-muted">{{ $pickupRequest->created_at->format('H:i') }}</small>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- Schedule Section -->
-                    <div class="mb-5">
-                        <div class="d-flex align-items-center mb-4">
-                            <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
-                                <i class="bi bi-calendar-event text-primary"></i>
+                            <!-- الموقع والخرائط -->
+                            <div class="card mb-4 border">
+                                <div class="card-header bg-transparent border-bottom">
+                                    <h6 class="mb-0">
+                                        <i class="bi bi-geo-alt me-2 text-danger"></i>
+                                        {{ __('general.location_details') }}
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <!-- العنوان -->
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <label class="form-label text-muted small mb-2">{{ __('general.address') }}</label>
+                                            <div class="d-flex align-items-start">
+                                                <div class="bg-info bg-opacity-10 p-2 rounded me-3 mt-1">
+                                                    <i class="bi bi-geo text-info"></i>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <p class="mb-1 fs-6">
+                                                        @if($pickupRequest->country || $pickupRequest->region || $pickupRequest->city || $pickupRequest->district)
+                                                            {{ implode(' • ', array_filter([$pickupRequest->district, $pickupRequest->city, $pickupRequest->region, $pickupRequest->country])) }}
+                                                        @else
+                                                            <span class="text-muted">{{ __('general.no_address_provided') }}</span>
+                                                        @endif
+                                                    </p>
+                                                    @if($pickupRequest->postal_code)
+                                                        <small class="text-muted">
+                                                            <i class="bi bi-postcard me-1"></i>
+                                                            {{ __('general.postal_code') }}: {{ $pickupRequest->postal_code }}
+                                                        </small>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- الخريطة -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label class="form-label text-muted small mb-2">{{ __('general.location_on_map') }}</label>
+                                            <div id="map-container" class="border rounded">
+                                                <div id="map" style="width: 100%; height: 300px; border-radius: 6px;"></div>
+                                                @if(!$pickupRequest->latitude || !$pickupRequest->longitude)
+                                                    <div class="alert alert-warning m-3 text-center">
+                                                        <i class="bi bi-exclamation-triangle me-2"></i>
+                                                        {{ __('general.location_not_available') }}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <h5 class="mb-0">{{ __('general.schedule_event') }}</h5>
-                        </div>
 
-                        <!-- Scheduled Date -->
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">{{ __('pickup_request.scheduled_at') }}</label>
-                            <div class="col-sm-10">
-                                <div class="form-control bg-light">
-                                    @if($pickupRequest->scheduled_at)
-                                        {{ \Carbon\Carbon::parse($pickupRequest->scheduled_at)->format('Y-m-d H:i') }}
-                                    @else
-                                        {{ __('general.not_scheduled') }}
-                                    @endif
+                            <!-- المعلومات الإضافية -->
+                            <div class="card border">
+                                <div class="card-header bg-transparent border-bottom">
+                                    <h6 class="mb-0">
+                                        <i class="bi bi-info-circle me-2 text-info"></i>
+                                        {{ __('general.additional_info') }}
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        @if($pickupRequest->scheduled_at)
+                                        <div class="col-sm-6 mb-3">
+                                            <label class="form-label text-muted small mb-1">{{ __('pickup_request.scheduled_at') }}</label>
+                                            <div class="d-flex align-items-center">
+                                                <div class="bg-warning bg-opacity-10 p-2 rounded me-3">
+                                                    <i class="bi bi-calendar-check text-warning"></i>
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-0">{{ \Carbon\Carbon::parse($pickupRequest->scheduled_at)->format('Y-m-d') }}</h6>
+                                                    <small class="text-muted">{{ \Carbon\Carbon::parse($pickupRequest->scheduled_at)->format('H:i') }}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
+
+                                        @if($pickupRequest->note)
+                                        <div class="col-12">
+                                            <label class="form-label text-muted small mb-1">{{ __('delivery.note') }}</label>
+                                            <div class="border rounded p-3 bg-light">
+                                                <i class="bi bi-chat-left-text me-2 text-muted"></i>
+                                                {{ $pickupRequest->note }}
+                                            </div>
+                                        </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Note -->
-                        @if($pickupRequest->note)
-                        <div class="row mb-4">
-                            <label class="col-sm-2 col-form-label">{{ __('delivery.note') }}</label>
-                            <div class="col-sm-10">
-                                <div class="form-control bg-light" style="min-height: 80px;">
-                                    {{ $pickupRequest->note }}
+                        <!-- العمود الأيمن: تحديث الحالة -->
+                        <div class="col-lg-4">
+                            <div class="card border-primary">
+                                <div class="card-header bg-primary text-white">
+                                    <h6 class="mb-0">
+                                        <i class="bi bi-arrow-repeat me-2"></i>
+                                        {{ __('pickup_request.update_status') }}
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <!-- الحالة الحالية -->
+                                    <div class="mb-4 text-center">
+                                        <label class="form-label text-muted small mb-2">{{ __('general.current_status') }}</label>
+                                        <div class="status-badge-lg bg-{{ $pickupRequest->status_color }} text-white py-2 rounded">
+                                            <i class="bi bi-{{ $pickupRequest->status_icon }} me-2"></i>
+                                            {{ __('pickup_request.status_' . $pickupRequest->status) }}
+                                        </div>
+                                    </div>
+
+                                    <!-- تحديث الحالة -->
+                                    <div class="mb-4">
+                                        <label for="status1" class="form-label text-dark fw-semibold">
+                                            <i class="bi bi-pencil-square me-1"></i>
+                                            {{ __('pickup_request.change_status') }}
+                                        </label>
+                                        <select name="status" class="form-select form-select-lg @error('status') is-invalid @enderror" id="status1" required>
+                                            <option value="">{{ __('pickup_request.select_status') }}</option>
+                                            @foreach($pickupRequest->availableStatusesForDriver() as $status)
+                                                <option value="{{ $status }}" {{ old('status', $pickupRequest->status) == $status ? 'selected' : '' }}>
+                                                    {{ __('pickup_request.status_' . $status) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('status')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <!-- معلومات التوجيه -->
+                                    <div class="alert alert-info border-0">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <i class="bi bi-info-circle-fill text-info"></i>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <small class="d-block fw-semibold">{{ __('pickup_request.important_note') }}</small>
+                                                <small class="text-muted">{{ __('pickup_request.status_change_instruction') }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- أزرار التنفيذ -->
+                                    <div class="d-grid gap-2">
+                                        @ability('driver', 'update_pickup_requests')
+                                            <button type="submit" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center py-2">
+                                                <i class="bi bi-check2-circle me-2 fs-5"></i>
+                                                {{ __('pickup_request.confirm_update') }}
+                                            </button>
+                                        @endability
+
+                                        <a href="{{ route('driver.pickup_requests.index') }}" class="btn btn-outline-secondary d-flex align-items-center justify-content-center py-2">
+                                            <i class="bi bi-arrow-left me-2"></i>
+                                            {{ __('general.back_to_list') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- معلومات سريعة -->
+                            <div class="card border-0 bg-light mt-3">
+                                <div class="card-body">
+                                    <h6 class="card-title text-dark mb-3">
+                                        <i class="bi bi-lightbulb me-2 text-warning"></i>
+                                        {{ __('general.quick_tips') }}
+                                    </h6>
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="mb-2">
+                                            <small class="text-muted">
+                                                <i class="bi bi-check-circle me-2 text-success"></i>
+                                                {{ __('pickup_request.tip_accept') }}
+                                            </small>
+                                        </li>
+                                        <li class="mb-2">
+                                            <small class="text-muted">
+                                                <i class="bi bi-check2-square me-2 text-primary"></i>
+                                                {{ __('pickup_request.tip_complete') }}
+                                            </small>
+                                        </li>
+                                        <li>
+                                            <small class="text-muted">
+                                                <i class="bi bi-exclamation-triangle me-2 text-warning"></i>
+                                                {{ __('pickup_request.tip_cancel') }}
+                                            </small>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                        @endif
-
-                        <!-- Current Status -->
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">{{ __('general.current_status') }}</label>
-                            <div class="col-sm-10">
-                                <div class="form-control bg-light">
-                                    @switch($pickupRequest->status)
-                                        @case('pending')
-                                            <span class="badge bg-warning">{{ __('pickup_request.status_pending') }}</span>
-                                            @break
-                                        @case('accepted')
-                                            <span class="badge bg-info">{{ __('pickup_request.status_accepted') }}</span>
-                                            @break
-                                        @case('completed')
-                                            <span class="badge bg-success">{{ __('pickup_request.status_completed') }}</span>
-                                            @break
-                                        @case('cancelled')
-                                            <span class="badge bg-danger">{{ __('pickup_request.status_cancelled') }}</span>
-                                            @break
-                                    @endswitch
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Status Update -->
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="status1">
-                                <strong>{{ __('pickup_request.update_status') }}</strong>
-                            </label>
-                            <div class="col-sm-10">
-                                <select name="status" class="form-control @error('status') is-invalid @enderror" id="status1" required>
-                                    @foreach($pickupRequest->availableStatusesForDriver() as $status)
-                                        <option value="{{ $status }}" {{ old('status', $pickupRequest->status) == $status ? 'selected' : '' }}>
-                                            {{ __('pickup_request.status_' . $status) }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('status')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                <small class="text-muted mt-2 d-block">
-                                    <i class="bi bi-info-circle me-1"></i>
-                                    {{ __('pickup_request.status_change_note') }}
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="text-end pt-3">
-                        @ability('driver', 'update_pickup_requests')
-                            <button type="submit" class="btn btn-primary px-4 d-inline-flex align-items-center">
-                                <i class="bi bi-check-circle me-2"></i>
-                                {{ __('pickup_request.update_status') }}
-                            </button>
-                        @endability
-
-                        <a href="{{ route('driver.pickup_requests.index') }}" class="btn btn-outline-secondary ms-2">
-                            <i class="ri-arrow-go-back-line me-1"></i>
-                            {{ __('general.cancel') }}
-                        </a>
                     </div>
                 </form>
             </div>
@@ -252,8 +306,26 @@
 
 @section('script')
 <!-- Leaflet CSS & JS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<style>
+.status-badge-lg {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.card {
+    box-shadow: 0 0.15rem 1rem rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+.bg-pending { background-color: #ffc107 !important; }
+.bg-accepted { background-color: #0dcaf0 !important; }
+.bg-completed { background-color: #198754 !important; }
+.bg-cancelled { background-color: #dc3545 !important; }
+</style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -264,34 +336,44 @@ document.addEventListener('DOMContentLoaded', function () {
     // إذا كانت الإحداثيات موجودة، نعرض الخريطة
     if (initialLat && initialLng) {
         // إنشاء الخريطة
-        var map = L.map('map').setView([initialLat, initialLng], 15);
+        var map = L.map('map').setView([initialLat, initialLng], 16);
 
         // إضافة طبقة OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // إضافة Marker
-        var marker = L.marker([initialLat, initialLng]).addTo(map);
+        // إنشاء أيقونة مخصصة
+        var pickupIcon = L.divIcon({
+            html: '<i class="bi bi-geo-alt-fill text-danger fs-4"></i>',
+            iconSize: [30, 30],
+            className: 'pickup-marker'
+        });
+
+        // إضافة Marker مخصص
+        var marker = L.marker([initialLat, initialLng], { icon: pickupIcon }).addTo(map);
 
         // إضافة Popup للمarker
         marker.bindPopup(`
-            <strong>{{ __('pickup_request.pickup_location') }}</strong><br>
-            {{ $pickupRequest->merchant->name ?? __('general.unknown_merchant') }}<br>
-            {{ $pickupRequest->district ? $pickupRequest->district . ', ' : '' }}{{ $pickupRequest->city }}<br>
-            <small>Lat: ${initialLat}, Lng: ${initialLng}</small>
+            <div class="text-center">
+                <h6 class="mb-2 text-danger">
+                    <i class="bi bi-geo-alt-fill me-1"></i>
+                    {{ __('pickup_request.pickup_location') }}
+                </h6>
+                <p class="mb-1 small"><strong>{{ $pickupRequest->merchant->name ?? __('general.unknown_merchant') }}</strong></p>
+                <p class="mb-1 small text-muted">
+                    {{ $pickupRequest->district ? $pickupRequest->district . ', ' : '' }}{{ $pickupRequest->city }}
+                </p>
+                <hr class="my-2">
+                <p class="mb-0 small">
+                    <i class="bi bi-geo me-1"></i>
+                    ${initialLat.toFixed(6)}, ${initialLng.toFixed(6)}
+                </p>
+            </div>
         `).openPopup();
 
-        // إضافة دائرة لتحديد الموقع بدقة
-        var circle = L.circle([initialLat, initialLng], {
-            color: 'blue',
-            fillColor: '#0d6efd',
-            fillOpacity: 0.1,
-            radius: 50
-        }).addTo(map);
-
     } else {
-        // إذا لم تكن الإحداثيات موجودة، نعرض خريطة افتراضية (الرياض)
+        // إذا لم تكن الإحداثيات موجودة، نعرض خريطة افتراضية
         var map = L.map('map').setView([24.7136, 46.6753], 10);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -299,10 +381,22 @@ document.addEventListener('DOMContentLoaded', function () {
         }).addTo(map);
 
         // إضافة رسالة أن الموقع غير متوفر
-        L.popup()
-            .setLatLng([24.7136, 46.6753])
-            .setContent('{{ __('general.location_not_available') }}')
-            .openOn(map);
+        L.marker([24.7136, 46.6753]).addTo(map)
+            .bindPopup('{{ __('general.location_not_available') }}')
+            .openPopup();
+    }
+
+    // إضافة تأثير عند تغيير الحالة
+    const statusSelect = document.getElementById('status');
+    if (statusSelect) {
+        statusSelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            if (selectedOption.value) {
+                this.classList.add('border', 'border-2', 'border-primary');
+            } else {
+                this.classList.remove('border', 'border-2', 'border-primary');
+            }
+        });
     }
 });
 </script>

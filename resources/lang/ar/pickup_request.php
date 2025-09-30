@@ -53,4 +53,17 @@ return [
     'pickup_location'                 =>  'موقع الاستلام',
     'merchant_location_available'   =>  'موقع التاجر متاح',
     'view_pickup_request'   =>  'عرض طلب الاستلام',
+
+
+    'request_details' => 'تفاصيل الطلب',
+    'change_status' => 'تغيير الحالة',
+    'select_status' => 'اختر الحالة',
+    'confirm_update' => 'تأكيد التحديث',
+    'important_note' => 'ملاحظة هامة',
+    'status_change_instruction' => 'يمكنك تغيير حالة طلب الاستلام فقط. تأكد من تحديث الحالة بدقة.',
+    'tip_accept' => 'اقبل الطلب عندما تكون في طريقك لموقع الاستلام',
+    'tip_complete' => 'أكمل الطلب بعد استلام الطرود بنجاح',
+    'tip_cancel' => 'ألغِ الطلب فقط في حالات الضرورة القصوى',
+
+
 ];

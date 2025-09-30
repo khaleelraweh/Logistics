@@ -252,6 +252,16 @@ return [
     'location_not_available' => 'الموقع الجغرافي غير متوفر',
 
 
+    'location_details' => 'تفاصيل الموقع',
+    'location_on_map' => 'الموقع على الخريطة',
+    'additional_info' => 'معلومات إضافية',
+    'back_to_list' => 'العودة للقائمة',
+    'quick_tips' => 'نصائح سريعة',
+
+
+    'no_address_provided' => 'لم يتم توفير عنوان',
+
+
 ];
 
 
