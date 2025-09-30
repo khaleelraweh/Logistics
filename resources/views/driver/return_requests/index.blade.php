@@ -109,7 +109,7 @@
                                                 {{ $fullReceiverInfo }}
                                             </div>
                                         ">
-                                        <a href="{{ route('driver.packages.show', $return_request->package_id) }}">
+                                        <a href="#">
                                             {{ $return_request->package->tracking_number ?? '-' }}
                                             <br>
                                             <small>{{ $return_request->package->receiver_first_name ?? '' }} {{ $return_request->package->receiver_last_name ?? '' }}</small>
@@ -118,7 +118,7 @@
 
                                     <td>
                                         @if ($return_request->driver)
-                                            <a href="{{ route('driver.drivers.show',$return_request->driver->id) }}">
+                                            <a href="#">
                                                 {{ $return_request->driver->driver_full_name ?? '-' }}
                                                 <br>
                                                 <small>{{ $return_request->driver->phone ?? '-' }}</small>
