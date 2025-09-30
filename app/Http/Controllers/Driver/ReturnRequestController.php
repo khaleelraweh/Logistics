@@ -20,7 +20,7 @@ class ReturnRequestController extends Controller
     public function index()
     {
         // صلاحية الوصول
-        if (!auth()->user()->ability('driver', 'manage_return_requests, show_return_requests')) {
+        if (!auth()->user()->ability('driver', 'driver_manage_return_requests, driver_show_return_requests')) {
             return redirect('driver/index');
         }
 
@@ -60,7 +60,7 @@ class ReturnRequestController extends Controller
      */
     public function create()
     {
-         if (!auth()->user()->ability('driver', 'create_return_requests')) {
+         if (!auth()->user()->ability('driver', 'driver_create_return_requests')) {
             return redirect('driver/index');
         }
 
@@ -79,7 +79,7 @@ class ReturnRequestController extends Controller
      */
     public function store(ReturnRequestRequest $request)
     {
-        if (!auth()->user()->ability('driver', 'create_return_requests')) {
+        if (!auth()->user()->ability('driver', 'driver_create_return_requests')) {
             return redirect('driver/index');
         }
 
@@ -127,7 +127,7 @@ class ReturnRequestController extends Controller
      */
     public function show($id)
     {
-        if (!auth()->user()->ability('driver', 'show_return_requests')) {
+        if (!auth()->user()->ability('driver', 'driver_show_return_requests')) {
             return redirect('driver/index');
         }
 
@@ -145,7 +145,7 @@ class ReturnRequestController extends Controller
      */
     public function edit($return_request)
     {
-        if (!auth()->user()->ability('driver', 'update_return_requests')) {
+        if (!auth()->user()->ability('driver', 'driver_update_return_requests')) {
             return redirect('driver/index');
         }
 
@@ -174,7 +174,7 @@ class ReturnRequestController extends Controller
     public function update(ReturnRequestRequest $request,  $return_request)
     {
         // التحقق من الصلاحيات
-        if (!auth()->user()->ability('driver', 'update_deliveries')) {
+        if (!auth()->user()->ability('driver', 'driver_update_deliveries')) {
             return redirect('driver/index');
         }
 
@@ -223,7 +223,7 @@ class ReturnRequestController extends Controller
     public function destroy($return_request)
     {
         // التحقق من الصلاحيات
-        if (!auth()->user()->ability('driver', 'delete_return_requests')) {
+        if (!auth()->user()->ability('driver', 'driver_delete_return_requests')) {
             return redirect('driver/index');
         }
 
