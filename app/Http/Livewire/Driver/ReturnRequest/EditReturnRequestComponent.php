@@ -26,22 +26,10 @@ class EditReturnRequestComponent extends Component
     public $drivers = [];
 
     public $packageProducts = [];    // المنتجات الأصلية للطرد
-    public $returnQuantities = [];   // الكميات المرتجعة (معبأة من return_items)
+    public $returnQuantities = [];   // الكميات المرتجعة
 
     // لتخزين الحالة السابقة قبل التحديث
     public $previousStatus;
-
-    // ترتيب الحالات المنطقي
-    protected $statuses = [
-        'requested',
-        'assigned_to_driver',
-        'picked_up',
-        'cancelled',
-        'in_transit',
-        'rejected',
-        'received',
-        'partially_received',
-    ];
 
     public function mount($id)
     {
@@ -61,10 +49,8 @@ class EditReturnRequestComponent extends Component
         $this->status = $returnRequest->status;
         $this->reason = $returnRequest->reason;
 
-        // تخزين الحالة السابقة
         $this->previousStatus = $returnRequest->status;
 
-        // تحميل منتجات الطرد
         $package = Package::with('packageProducts')->find($this->package_id);
         $this->packageProducts = $package ? $package->packageProducts->toArray() : [];
 
@@ -72,57 +58,36 @@ class EditReturnRequestComponent extends Component
         foreach ($this->packageProducts as $product) {
             $item = $returnRequest->returnItems
                 ->where('type', $product['type'])
-                ->where('type', 'stock')
-                ->where('stock_item_id', $product['stock_item_id'])
+                ->when($product['type'] === 'stock', fn($q) => $q->where('stock_item_id', $product['stock_item_id']))
+                ->when($product['type'] === 'custom', fn($q) => $q->where('custom_name', $product['custom_name']))
                 ->first();
-
-            if (!$item && $product['type'] === 'custom') {
-                $item = $returnRequest->returnItems
-                    ->where('type', 'custom')
-                    ->where('custom_name', $product['custom_name'])
-                    ->first();
-            }
 
             $this->returnQuantities[$product['id']] = $item ? $item->quantity : 0;
         }
     }
 
-
-    // في مكون EditReturnRequestComponent
     public function updatedPackageId($value)
     {
         $package = Package::with('packageProducts')->find($value);
 
         if ($package) {
             $this->packageProducts = $package->packageProducts->toArray();
-
-            // جلب الطلب المرتجع الحالي
             $returnRequest = ReturnRequest::with('returnItems')->find($this->returnRequestId);
 
             foreach ($this->packageProducts as $product) {
-                $item = null;
-
-                if ($product['type'] === 'stock') {
-                    $item = $returnRequest->returnItems
-                        ->where('type', 'stock')
-                        ->where('stock_item_id', $product['stock_item_id'])
-                        ->first();
-                } elseif ($product['type'] === 'custom') {
-                    $item = $returnRequest->returnItems
-                        ->where('type', 'custom')
-                        ->where('custom_name', $product['custom_name'])
-                        ->first();
-                }
+                $item = $returnRequest->returnItems
+                    ->where('type', $product['type'])
+                    ->when($product['type'] === 'stock', fn($q) => $q->where('stock_item_id', $product['stock_item_id']))
+                    ->when($product['type'] === 'custom', fn($q) => $q->where('custom_name', $product['custom_name']))
+                    ->first();
 
                 $this->returnQuantities[$product['id']] = $item ? $item->quantity : 0;
             }
-
         } else {
             $this->packageProducts = [];
             $this->returnQuantities = [];
         }
 
-        // إعادة تحميل الخرائط بعد تحديث البيانات
         $this->dispatchBrowserEvent('refreshMaps');
     }
 
@@ -135,7 +100,7 @@ class EditReturnRequestComponent extends Component
             'target_address' => 'nullable|string',
             'requested_at' => 'required|date',
             'received_at' => 'nullable|date|after_or_equal:requested_at',
-            'status' => 'required|in:requested,assigned_to_driver,picked_up,in_transit,received,rejected,partially_received,cancelled',
+            'status' => 'required|in:' . implode(',', ReturnRequest::getStatuses()),
             'reason' => 'nullable|string',
         ]);
 
@@ -152,133 +117,58 @@ class EditReturnRequestComponent extends Component
             'reason' => $this->reason,
         ]);
 
-        // حذف العناصر القديمة وإعادة إنشاءها
         $returnRequest->returnItems()->delete();
 
         foreach ($this->returnQuantities as $productId => $qty) {
-            if ($qty > 0) {
-                $product = PackageProduct::with('stockItem')->find($productId);
-                if ($product) {
-                    ReturnItem::create([
-                        'return_request_id' => $returnRequest->id,
-                        'type' => $product->type,
-                        'stock_item_id' => $product->type == 'stock' ? $product->stock_item_id : null,
-                        'custom_name' => $product->type == 'custom'
-                            ? $product->custom_name
-                            : optional($product->stockItem)->name,
-                        'shelf_id' => null,
-                        'quantity' => $qty,
-                    ]);
+            if ($qty <= 0) continue;
 
-                    // تحديث المخزون بناءً على تغير الحالة
-                    if ($product->type == 'stock') {
-                        $stockItem = $product->stockItem;
+            $product = PackageProduct::with('stockItem')->find($productId);
+            if (!$product) continue;
 
-                        if ($stockItem) {
-                            $oldStatus = $this->previousStatus;
-                            $newStatus = $this->status;
+            ReturnItem::create([
+                'return_request_id' => $returnRequest->id,
+                'type' => $product->type,
+                'stock_item_id' => $product->type === 'stock' ? $product->stock_item_id : null,
+                'custom_name' => $product->type === 'custom' ? $product->custom_name : optional($product->stockItem)->name,
+                'shelf_id' => null,
+                'quantity' => $qty,
+            ]);
 
-                            // زيادة المخزون إذا تغيرنا من حالة غير مستلمة إلى مستلمة أو جزئيا مستلمة
-                            if (!in_array($oldStatus, ['received', 'partially_received']) && in_array($newStatus, ['received', 'partially_received'])) {
-                                $stockItem->increment('quantity', $qty);
-                            }
+            if ($product->type === 'stock') {
+                $stockItem = $product->stockItem;
+                if ($stockItem) {
+                    $oldStatus = $this->previousStatus;
+                    $newStatus = $this->status;
 
-                            // تقليل المخزون إذا تغيرنا من حالة مستلمة إلى حالة غير مستلمة
-                            if (in_array($oldStatus, ['received', 'partially_received']) && !in_array($newStatus, ['received', 'partially_received'])) {
-                                $stockItem->decrement('quantity', $qty);
-                            }
-                        }
+                    if (!in_array($oldStatus, ['received', 'partially_received']) && in_array($newStatus, ['received', 'partially_received'])) {
+                        $stockItem->increment('quantity', $qty);
+                    }
+
+                    if (in_array($oldStatus, ['received', 'partially_received']) && !in_array($newStatus, ['received', 'partially_received'])) {
+                        $stockItem->decrement('quantity', $qty);
                     }
                 }
             }
         }
 
-        // تحديث الحالة السابقة للحالة الجديدة للاستخدام لاحقًا
         $this->previousStatus = $this->status;
 
         session()->flash('success', __('return_request.updated_successfully'));
         return redirect()->route('driver.return_requests.index');
     }
 
-    protected $allowedTransitions = [
-        'requested' => [
-            'admin' => ['assigned_to_driver', 'cancelled'],
-            'merchant' => ['cancelled'],
-            'driver' => [],
-        ],
-        'assigned_to_driver' => [
-            'admin' => ['picked_up', 'cancelled'],
-            'merchant' => [],
-            'driver' => ['picked_up', 'cancelled'],
-        ],
-        'picked_up' => [
-            'admin' => ['in_transit', 'cancelled'],
-            'merchant' => [],
-            'driver' => ['in_transit', 'cancelled'],
-        ],
-        'in_transit' => [
-            'admin' => ['received', 'rejected', 'partially_received'],
-            'merchant' => [],
-            'driver' => ['received', 'partially_received'],
-        ],
-        'received' => [
-            'admin' => [],
-            'merchant' => [],
-            'driver' => [],
-        ],
-        'partially_received' => [
-            'admin' => [],
-            'merchant' => [],
-            'driver' => [],
-        ],
-        'rejected' => [
-            'admin' => [],
-            'merchant' => [],
-            'driver' => [],
-        ],
-        'cancelled' => [
-            'admin' => [],
-            'merchant' => [],
-            'driver' => [],
-        ],
-    ];
-
-    protected function currentUserRole()
-    {
-        $user = auth()->user();
-        if (!$user) return null;
-
-        // الحصول على أول دور مرتبط بالمستخدم
-        $role = $user->roles()->first();
-        return $role ? $role->name : null;
-    }
-
-
     public function getAvailableStatusesProperty()
     {
-        if (!$this->status) {
-            // إذا لم يتم اختيار أي حالة، عرض جميع الحالات المسموح بها حسب الدور
-            $role = $this->currentUserRole();
-            return array_filter(array_map(function($transitions) use ($role) {
-                return $transitions[$role] ?? [];
-            }, $this->allowedTransitions));
-        }
+        $returnRequest = ReturnRequest::find($this->returnRequestId);
+        if (!$returnRequest) return [];
 
-        $role = $this->currentUserRole();
-
-
-        return $this->allowedTransitions[$this->status][$role] ?? [];
+        return $returnRequest->availableStatusesByRole();
     }
-
-
-
-
 
     public function render()
     {
         return view('livewire.driver.return-request.edit-return-request-component', [
             'availableStatuses' => $this->availableStatuses,
-
         ]);
     }
 }

@@ -288,7 +288,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required-field">{{ __('return_request.status') }}</label>
                                 <div class="col-sm-10">
-                                    <select wire:model="status" class="form-select">
+                                    <select wire:model.defer="status" class="form-select">
                                         <option value="requested">{{ __('return_request.status_requested') }}</option>
                                         <option value="assigned_to_driver">{{ __('return_request.status_assigned_to_driver') }}</option>
                                         <option value="picked_up">{{ __('return_request.status_picked_up') }}</option>
