@@ -21,6 +21,9 @@ return [
     'reason_help_text' => 'قدم سببًا لتغيير الحالة، إذا كان ذلك مناسبًا.',
     'quick_actions' => 'إجراءات سريعة',
     'reason_placeholder' => 'أدخل سبب الإرجاع (إن وجد)',
+    'package_details' => 'تفاصيل الطرد',
+    'customer_info' => 'معلومات العميل',
+    'total_requests' => 'إجمالي طلبات المرتجع',
 
     // أسماء الأعمدة
     'id'                      => 'المعرف',

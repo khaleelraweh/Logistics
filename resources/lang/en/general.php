@@ -267,6 +267,8 @@ return [
     'view_details' => 'View Details',
     'view_route' => 'View Route',
     'contact_customer' => 'Contact Customer',
+    'show_details' => 'Show Details',
+    'edit_status' => 'Edit Status',
 
 
 

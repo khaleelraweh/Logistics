@@ -267,6 +267,8 @@ return [
     'view_details' => 'عرض التفاصيل',
     'view_route' => 'عرض المسار',
     'contact_customer' => 'الاتصال بالعميل',
+    'show_details' => 'إظهار التفاصيل',
+    'edit_status' => 'تعديل الحالة',
 
 
 ];

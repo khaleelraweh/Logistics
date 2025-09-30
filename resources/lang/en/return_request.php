@@ -21,6 +21,9 @@ return [
     'reason_help_text' => 'Provide a reason for the status change, if applicable.',
     'quick_actions' => 'Quick Actions',
     'reason_placeholder' => 'Enter the reason for return (if any)',
+    'package_details' => 'Package Details',
+    'customer_info' => 'Customer Information',
+    'total_requests' => 'Total Return Requests',
 
     // Column names
     'id'                      => 'ID',
