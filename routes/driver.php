@@ -4,6 +4,7 @@ use App\Http\Controllers\Driver\DriverDashboardController;
 use App\Http\Controllers\Driver\DeliveryController as DriverDeliveryController;
 use App\Http\Controllers\Driver\PickupRequestController;
 use App\Http\Controllers\Driver\ProfileController;
+use App\Http\Controllers\Driver\ReturnRequestController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'driver', 'as' => 'driver.', 'middleware' => ['roles', 'role:driver']], function () {
@@ -31,4 +32,5 @@ Route::group(['prefix' => 'driver', 'as' => 'driver.', 'middleware' => ['roles',
     //Resources
     Route::resource('deliveries', DriverDeliveryController::class);
     Route::resource('pickup_requests', PickupRequestController::class);
+    Route::resource('return_requests', ReturnRequestController::class);
 });
