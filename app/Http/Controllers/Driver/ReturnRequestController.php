@@ -171,65 +171,36 @@ class ReturnRequestController extends Controller
      * @param  \App\Models\ReturnRequest  $returnRequest
      * @return \Illuminate\Http\Response
      */
-    // public function update(ReturnRequestRequest $request,  $return_request)
-    // {
-    //     // التحقق من الصلاحيات
-    //     if (!auth()->user()->ability('driver', 'driver_update_deliveries')) {
-    //         return redirect('driver/index');
-    //     }
-
-    //     try {
-
-    //         $return_request = ReturnRequest::where('id' , $return_request)->first();
-
-    //         // تجهيز البيانات
-    //         $input['package_id']    = $request->package_id;
-    //         $input['driver_id']     = $request->driver_id;
-
-    //         $input['return_type']           = $request->return_type;
-    //         $input['target_address']        = $request->target_address;
-    //         $input['requested_at']          = $request->requested_at;
-    //         $input['status']                = $request->status;
-    //         $input['received_at']           = $request->received_at;
-    //         $input['reason']                = $request->reason;
-
-    //         $input['updated_by']    = auth()->user()->name;
-
-    //         // تحديث السجل
-    //         $return_request->update($input);
-
-    //         return redirect()->route('driver.return_requests.index')->with([
-    //             'message'    => __('messages.return_request_updated'),
-    //             'alert-type' => 'success',
-    //         ]);
-
-    //     } catch (\Exception $e) {
-    //         // يمكنك تسجيل الخطأ هنا لو أحببت: \Log::error($e->getMessage());
-
-    //         return redirect()->route('driver.return_requests.index')->with([
-    //             'message'    => __('messages.something_went_wrong'),
-    //             'alert-type' => 'danger',
-    //         ]);
-    //     }
-    // }
-
-    public function update(Request $request, $id)
+    public function update(ReturnRequestRequest $request,  $return_request)
     {
+        // التحقق من الصلاحيات
         if (!auth()->user()->ability('driver', 'driver_update_deliveries')) {
             return redirect('driver/index');
         }
 
-        $return_request = ReturnRequest::findOrFail($id);
+        try {
 
-        $validated = $request->validate(['status'       => 'required|in:pending,accepted,completed', 'reason' => 'nullable|string']);
-        // تحديث الحالة باستخدام دالة الموديل
-        $return_request->updateStatus($validated['status' ], $validated['reason'] ?? null);
+            $return_request = ReturnRequest::findOrFail($return_request);
 
-        return redirect()->route('driver.return_requests.index')->with([
-            'message'    => __('messages.pickup_request_updated'),
-            'alert-type' => 'success',
-        ]);
+            $return_request->update($request->reason);
+            $return_request->updateStatus($request->reason);
+
+            return redirect()->route('driver.return_requests.index')->with([
+                'message'    => __('messages.return_request_updated'),
+                'alert-type' => 'success',
+            ]);
+
+        } catch (\Exception $e) {
+            // يمكنك تسجيل الخطأ هنا لو أحببت: \Log::error($e->getMessage());
+
+            return redirect()->route('driver.return_requests.index')->with([
+                'message'    => __('messages.something_went_wrong'),
+                'alert-type' => 'danger',
+            ]);
+        }
     }
+
+
 
     /**
      * Remove the specified resource from storage.

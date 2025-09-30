@@ -131,6 +131,8 @@ class ReturnRequest extends Model
             $this->received_at = now();
         }
 
+        $this->updated_by = auth()->user()->full_name ?? 'system';
+
         return $this->save();
     }
 

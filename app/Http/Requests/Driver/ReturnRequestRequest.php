@@ -26,10 +26,7 @@ class ReturnRequestRequest extends FormRequest
         switch ($this->method()) {
             case 'POST': {
                 return [
-                    'package_id'     => 'required|exists:packages,id',
-                    'driver_id'      => 'required|exists:drivers,id',
-                    'return_type'    => 'nullable|string|in:to_warehouse,to_merchant,to_both',
-                    'target_address'    => 'nullable|string|max:255',
+
                     'requested_at'      => 'nullable|date',
                     'status'            => 'nullable|string|in:requested,assigned_to_driver,picked_up,in_transit,received,rejected',
                     'received_at'       => 'nullable|date',
@@ -43,10 +40,7 @@ class ReturnRequestRequest extends FormRequest
             case 'PUT':
             case 'PATCH': {
                 return [
-                    'package_id'     => 'required|exists:packages,id',
-                    'driver_id'      => 'required|exists:drivers,id',
-                    'return_type'    => 'nullable|string|in:to_warehouse,to_merchant,to_both',
-                    'target_address'    => 'nullable|string|max:255',
+
                     'requested_at'      => 'nullable|date',
                     'status'            => 'nullable|string|in:requested,assigned_to_driver,picked_up,in_transit,received,rejected',
                     'received_at'       => 'nullable|date',
