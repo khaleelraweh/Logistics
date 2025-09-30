@@ -17,63 +17,44 @@ class ReturnRequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     if (!auth()->user()->ability('admin', 'manage_return_requests , show_return_requests')) {
-    //         return redirect('admin/index');
-    //     }
 
-    //     $return_requests = ReturnRequest::query()
-    //         ->when(\request()->keyword != null, function ($query) {
-    //             $query->search(\request()->keyword);
-    //         })
-    //         ->when(\request()->status != null, function ($query) {
-    //             $query->where('status', \request()->status);
-    //         })
-    //         ->orderByRaw(request()->sort_by == 'published_on'
-    //             ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-    //             : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
-    //         ->paginate(\request()->limit_by ?? 100);
-
-    //     return view('admin.return_requests.index', compact('return_requests'));
-    // }
 
 
     public function index()
-{
-    // صلاحية الوصول
-    if (!auth()->user()->ability('admin', 'manage_return_requests, show_return_requests')) {
-        return redirect('admin/index');
+    {
+        // صلاحية الوصول
+        if (!auth()->user()->ability('admin', 'manage_return_requests, show_return_requests')) {
+            return redirect('admin/index');
+        }
+
+        $drivers = Driver::all();
+        $packages = Package::with('merchant')->get();
+
+        // استعلام Return Requests
+        $return_requests = ReturnRequest::with([
+                'package.merchant', // بيانات الطرد والتاجر
+                'driver'            // بيانات السائق
+            ])
+            // البحث بالكلمة المفتاحية
+            ->when(request()->keyword, function ($query) {
+                $query->search(request()->keyword);
+            })
+            // الفلترة حسب الحالة
+            ->when(request()->status, function ($query) {
+                $query->where('status', request()->status);
+            })
+            // ترتيب ديناميكي
+            ->orderByRaw(
+                request()->sort_by == 'published_on'
+                    ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
+                    : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
+            )
+            // تحديد عدد النتائج لكل صفحة
+            ->paginate(request()->limit_by ?? 100)
+            ->withQueryString(); // للحفاظ على الـ filters في روابط الصفحات
+
+        return view('admin.return_requests.index', compact('return_requests', 'drivers' , 'packages'));
     }
-
-    $drivers = Driver::all();
-    $packages = Package::with('merchant')->get();
-
-    // استعلام Return Requests
-    $return_requests = ReturnRequest::with([
-            'package.merchant', // بيانات الطرد والتاجر
-            'driver'            // بيانات السائق
-        ])
-        // البحث بالكلمة المفتاحية
-        ->when(request()->keyword, function ($query) {
-            $query->search(request()->keyword);
-        })
-        // الفلترة حسب الحالة
-        ->when(request()->status, function ($query) {
-            $query->where('status', request()->status);
-        })
-        // ترتيب ديناميكي
-        ->orderByRaw(
-            request()->sort_by == 'published_on'
-                ? 'published_on IS NULL, published_on ' . (request()->order_by ?? 'desc')
-                : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc')
-        )
-        // تحديد عدد النتائج لكل صفحة
-        ->paginate(request()->limit_by ?? 100)
-        ->withQueryString(); // للحفاظ على الـ filters في روابط الصفحات
-
-    return view('admin.return_requests.index', compact('return_requests', 'drivers' , 'packages'));
-}
 
     /**
      * Show the form for creating a new resource.
@@ -241,35 +222,6 @@ class ReturnRequestController extends Controller
      * @param  \App\Models\ReturnRequest  $returnRequest
      * @return \Illuminate\Http\Response
      */
-
-
-    // public function destroy($return_request)
-    // {
-    //     // التحقق من الصلاحيات
-    //     if (!auth()->user()->ability('admin', 'delete_return_requests')) {
-    //         return redirect('admin/index');
-    //     }
-
-    //     $return_request = ReturnRequest::where('id' , $return_request)->first();
-
-    //     try {
-    //         $return_request->delete();
-
-    //         return redirect()->route('admin.return_requests.index')->with([
-    //             'message'    => __('messages.return_request_deleted'),
-    //             'alert-type' => 'success',
-    //         ]);
-
-    //     } catch (\Exception $e) {
-    //         // يمكن تسجيل الخطأ لو حبيت: \Log::error($e->getMessage());
-
-    //         return redirect()->route('admin.return_requests.index')->with([
-    //             'message'    => __('messages.something_went_wrong'),
-    //             'alert-type' => 'danger',
-    //         ]);
-    //     }
-    // }
-
 
     public function destroy($return_request)
     {
