@@ -24,6 +24,9 @@ return [
     'package_details' => 'تفاصيل الطرد',
     'customer_info' => 'معلومات العميل',
     'total_requests' => 'إجمالي طلبات المرتجع',
+    'pending'       =>  'قيد الانتظار',
+    'in_progress'   =>  'قيد التنفيذ',
+    'completed'     =>  'مكتمل',
 
     // أسماء الأعمدة
     'id'                      => 'المعرف',

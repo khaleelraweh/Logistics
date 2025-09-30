@@ -24,6 +24,9 @@ return [
     'package_details' => 'Package Details',
     'customer_info' => 'Customer Information',
     'total_requests' => 'Total Return Requests',
+    'pending'       =>  'Pending',
+    'in_progress'   =>  'In Progress',
+    'completed'     =>  'Completed',
 
     // Column names
     'id'                      => 'ID',
