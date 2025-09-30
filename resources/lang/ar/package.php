@@ -311,5 +311,8 @@ return [
     'loading_map'   =>  'تحميل الخريطة',
 
     'no_location_data' => 'لا تتوفر بيانات الموقع.',
+    'specifications' => 'المواصفات',
+    'estimated_value' => 'القيمة المقدرة',
+    'insurance_required' => 'التأمين مطلوب',
 
 ];

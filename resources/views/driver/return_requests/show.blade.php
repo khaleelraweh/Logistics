@@ -6,40 +6,51 @@
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""/>
 
+<!-- مكتبة Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
     body {
         background-color: #f8f9fa;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     .card {
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        margin-bottom: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        margin-bottom: 25px;
         border: none;
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        transform: translateY(-2px);
     }
     .card-header {
-        background-color: #4a6fdc;
+        background: linear-gradient(135deg, #4a6fdc 0%, #3a5fc8 100%);
         color: white;
-        border-radius: 10px 10px 0 0 !important;
-        padding: 15px 20px;
+        border-radius: 15px 15px 0 0 !important;
+        padding: 20px 25px;
         font-weight: 600;
+        border: none;
     }
     .info-label {
         font-weight: 600;
         color: #555;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
         font-size: 0.9rem;
     }
     .info-value {
         color: #333;
-        margin-bottom: 15px;
-        font-size: 0.95rem;
+        margin-bottom: 20px;
+        font-size: 1rem;
+        font-weight: 500;
     }
     .map-container {
-        height: 250px;
-        border-radius: 8px;
+        height: 280px;
+        border-radius: 12px;
         overflow: hidden;
         position: relative;
+        border: 2px solid #e9ecef;
     }
     .map-placeholder {
         display: flex;
@@ -47,99 +58,146 @@
         justify-content: center;
         height: 100%;
         color: #6c757d;
-        background-color: #f8f9fa;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        font-size: 0.9rem;
     }
-    /* تأكد من أن الخريطة تأخذ الحجم الكامل */
     .map-container .leaflet-container {
         height: 100%;
         width: 100%;
     }
     .section-title {
-        border-bottom: 2px solid #4a6fdc;
-        padding-bottom: 10px;
-        margin: 25px 0 15px;
+        border-bottom: 3px solid #4a6fdc;
+        padding-bottom: 12px;
+        margin: 30px 0 20px;
         color: #4a6fdc;
+        font-size: 1.2rem;
+        font-weight: 700;
     }
     .coordinates {
-        font-family: monospace;
-        background-color: #f8f9fa;
-        padding: 5px;
-        border-radius: 4px;
-        font-size: 0.85rem;
-    }
-    .package-details {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        padding: 20px;
-        margin-top: 20px;
-    }
-    .product-table {
-        font-size: 0.9rem;
-    }
-    .product-table th {
-        background-color: #f1f4f9;
-    }
-</style>
-
-<style>
-    /* تحسينات للتصميم الجديد */
-    .section-title {
-        border-bottom: 2px solid #4a6fdc;
-        padding-bottom: 8px;
-        margin: 20px 0 15px;
-        color: #4a6fdc;
-        font-size: 1.1rem;
-    }
-
-    .card-header.bg-light {
+        font-family: 'Courier New', monospace;
         background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    }
-
-    .table th {
-        font-weight: 600;
-        font-size: 0.9rem;
-        background: linear-gradient(135deg, #f1f4f9 0%, #e3e8f0 100%);
-    }
-
-    .badge.rounded-pill {
-        padding: 0.5em 0.8em;
-        font-weight: 500;
-    }
-
-    .info-label {
-        font-weight: 600;
-        color: #495057;
-        display: inline-block;
-        min-width: 80px;
-    }
-
-    .info-value {
-        color: #212529;
-        font-weight: 400;
-    }
-
-    /* تحسينات للجدول */
-    .table-hover tbody tr:hover {
-        background-color: rgba(74, 111, 220, 0.05);
-        transform: translateY(-1px);
-        transition: all 0.2s ease;
-    }
-
-    .table td, .table th {
-        vertical-align: middle;
-        padding: 0.75rem;
-    }
-
-    /* تحسينات للخرائط في التصميم الجديد */
-    .map-container {
-        border: 1px solid #dee2e6;
+        padding: 8px 12px;
         border-radius: 8px;
+        font-size: 0.85rem;
+        border: 1px solid #dee2e6;
+    }
+    .status-timeline {
+        position: relative;
+        padding-left: 30px;
+    }
+    .status-timeline::before {
+        content: '';
+        position: absolute;
+        left: 15px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(to bottom, #4a6fdc, #6c757d);
+    }
+    .timeline-item {
+        position: relative;
+        margin-bottom: 25px;
+    }
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -23px;
+        top: 5px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #4a6fdc;
+        border: 3px solid white;
+        box-shadow: 0 0 0 2px #4a6fdc;
+    }
+    .timeline-item.active::before {
+        background: #28a745;
+        box-shadow: 0 0 0 2px #28a745;
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+    }
+    .stat-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 12px;
+        padding: 25px;
+        text-align: center;
         transition: all 0.3s ease;
     }
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .stat-card .number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    .stat-card .label {
+        font-size: 1rem;
+        opacity: 0.9;
+    }
+    .quick-action-btn {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border: 2px solid transparent;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        transition: all 0.3s ease;
+        color: #495057;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 15px;
+    }
+    .quick-action-btn:hover {
+        background: linear-gradient(135deg, #4a6fdc 0%, #3a5fc8 100%);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(74, 111, 220, 0.3);
+        text-decoration: none;
+    }
+    .product-image {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 2px solid #e9ecef;
+    }
+    .badge-status {
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+    .progress-container {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px 0;
+    }
+    .progress-bar-custom {
+        height: 8px;
+        border-radius: 10px;
+        background: linear-gradient(90deg, #28a745, #4a6fdc);
+        transition: width 1s ease-in-out;
+    }
 
-    .map-container:hover {
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        transform: translateY(-2px);
+    .nav-link {
+        color: #495057;
+        font-weight: 600;
+        padding: 10px 15px;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .nav-link:hover, .nav-link:focus {
+        background-color: #e9ecef;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
     }
 </style>
 @endsection
@@ -149,20 +207,40 @@
     <!-- Header Section -->
     <div class="row mb-4">
         <div class="col-12">
-            <div class="page-title-box d-flex align-items-center justify-content-between bg-white p-3 rounded-3 shadow-sm">
+            <div class="page-title-box d-flex align-items-center justify-content-between bg-white p-4 rounded-3 shadow-sm">
                 <div class="d-flex align-items-center">
-                    <i class="mdi mdi-file-document-outline fs-2 text-primary me-3"></i>
-                    <h4 class="mb-0 fw-bold">{{ __('return_request.view_return_request') }}</h4>
+                    <div class="avatar-lg bg-primary rounded-circle d-flex align-items-center justify-content-center me-3">
+                        <i class="mdi mdi-truck-return fs-2 text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-1 fw-bold">{{ __('return_request.view_return_request') }}</h4>
+                        <p class="text-muted mb-0">
+                            <i class="mdi mdi-clock-outline me-1"></i>
+                            {{ __('return_request.created_at') }}: {{ $return_request->created_at->format('d M Y, H:i') }}
+                        </p>
+                    </div>
                 </div>
-                <div class="d-flex">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('driver.index') }}">{{ __('general.main') }}</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('driver.return_requests.index') }}">{{ __('return_request.manage_return_requests') }}</a></li>
-                        <li class="breadcrumb-item active">{{ __('return_request.view_return_request') }}</li>
-                    </ol>
-                    <a href="{{ route('driver.return_requests.edit', $return_request->id) }}" class="btn btn-primary me-2">
-                        <i class="mdi mdi-pencil-outline me-1"></i> {{ __('return_request.edit') }}
-                    </a>
+                <div class="d-flex align-items-center gap-2">
+                    <div class="btn-group">
+                        <a href="{{ route('driver.return_requests.edit', $return_request->id) }}" class="btn btn-primary">
+                            <i class="mdi mdi-pencil-outline me-1"></i> {{ __('return_request.edit') }}
+                        </a>
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+                            <i class="mdi mdi-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#">
+                                <i class="mdi mdi-printer-outline me-2"></i> {{ __('general.print') }}
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="mdi mdi-download-outline me-2"></i> {{ __('general.export') }}
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-warning" href="#">
+                                <i class="mdi mdi-alert-outline me-2"></i> {{ __('general.report_issue') }}
+                            </a>
+                        </div>
+                    </div>
                     <a href="{{ route('driver.return_requests.index') }}" class="btn btn-outline-secondary">
                         <i class="mdi mdi-arrow-left me-1"></i> {{ __('return_request.back') }}
                     </a>
@@ -171,277 +249,252 @@
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="row">
-        <!-- Return Request Info -->
-        <div class="col-lg-6">
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-primary text-white py-3">
-                    <h5 class="mb-0 fw-semibold">
-                        <i class="mdi mdi-information-outline me-2"></i>
-                        {{ __('return_request.return_request_info') }}
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-borderless mb-0">
-                            <tbody>
-                                <tr>
-                                    <td class="w-40 fw-bold text-muted">{{ __('return_request.id') }}</td>
-                                    <td class="fw-semibold">#{{ $return_request->id }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-muted">{{ __('return_request.package') }}</td>
-                                    <td>
-                                        @if($return_request->package)
-                                            <span class="badge bg-light text-dark">{{ $return_request->package->tracking_number }}</span>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-muted">{{ __('return_request.driver') }}</td>
-                                    <td>
-                                        @if($return_request->driver)
-                                            <span class="d-flex align-items-center">
-                                                <i class="mdi mdi-account-tie-outline me-2"></i>
-                                                {{ $return_request->driver->driver_full_name }}
-                                            </span>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-muted">{{ __('return_request.return_type') }}</td>
-                                    <td>
-                                        <span class="badge bg-info bg-opacity-10 text-info">
-                                            {{ __('return_request.type_' . ($return_request->return_type ?? '')) ?? '-' }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-muted">{{ __('return_request.target_address') }}</td>
-                                    <td>{{ $return_request->target_address ?? '-' }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-muted">{{ __('return_request.status') }}</td>
-                                    <td>{!! $return_request->statusLabel() !!}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card">
+                <div class="number">{{ $return_request->returnItems->count() }}</div>
+                <div class="label">{{ __('return_request.total_items') }}</div>
+                <i class="mdi mdi-package-variant-closed fs-1 opacity-50 mt-2"></i>
             </div>
         </div>
-
-        <!-- Additional Info -->
-        <div class="col-lg-6">
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-primary text-white py-3">
-                    <h5 class="mb-0 fw-semibold">
-                        <i class="mdi mdi-clock-outline me-2"></i>
-                        {{ __('return_request.additional_info') }}
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-borderless mb-0">
-                            <tbody>
-                                <tr>
-                                    <td class="w-40 fw-bold text-muted">{{ __('return_request.requested_at') }}</td>
-                                    <td>
-                                        @if($return_request->requested_at)
-                                            <span class="d-flex align-items-center">
-                                                <i class="mdi mdi-calendar-clock-outline me-2"></i>
-                                                {{ $return_request->requested_at->format('Y-m-d H:i') }}
-                                            </span>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-muted">{{ __('return_request.received_at') }}</td>
-                                    <td>
-                                        @if($return_request->received_at)
-                                            <span class="d-flex align-items-center">
-                                                <i class="mdi mdi-calendar-check-outline me-2"></i>
-                                                {{ $return_request->received_at->format('Y-m-d H:i') }}
-                                            </span>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-muted">{{ __('return_request.created_at') }}</td>
-                                    <td>
-                                        <span class="d-flex align-items-center">
-                                            <i class="mdi mdi-calendar-plus-outline me-2"></i>
-                                            {{ $return_request->created_at->format('Y-m-d H:i') }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-muted">{{ __('return_request.updated_at') }}</td>
-                                    <td>
-                                        <span class="d-flex align-items-center">
-                                            <i class="mdi mdi-calendar-edit-outline me-2"></i>
-                                            {{ $return_request->updated_at->format('Y-m-d H:i') }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-muted">{{ __('return_request.reason') }}</td>
-                                    <td>{{ $return_request->reason ?? '-' }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-muted">{{ __('return_request.note') }}</td>
-                                    <td>{{ $return_request->note ?? '-' }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                <div class="number">{{ $return_request->returnItems->where('type', 'stock')->count() }}</div>
+                <div class="label">{{ __('return_request.stock_items') }}</div>
+                <i class="mdi mdi-warehouse fs-1 opacity-50 mt-2"></i>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card" style="background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);">
+                <div class="number">{{ $return_request->returnItems->where('type', 'custom')->count() }}</div>
+                <div class="label">{{ __('return_request.custom_items') }}</div>
+                <i class="mdi mdi-package-variant fs-1 opacity-50 mt-2"></i>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="stat-card" style="background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);">
+                <div class="number">{{ $return_request->returnItems->sum('quantity') }}</div>
+                <div class="label">{{ __('return_request.total_quantity') }}</div>
+                <i class="mdi mdi-counter fs-1 opacity-50 mt-2"></i>
             </div>
         </div>
     </div>
 
-    <!-- Package Details Section -->
-    @if($return_request->package)
     <div class="row">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-primary text-white py-3">
+        <!-- Left Sidebar - Quick Actions & Status -->
+        <div class="col-lg-4">
+            <!-- Status Timeline -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0 fw-semibold">
+                        <i class="mdi mdi-timeline-outline me-2"></i>
+                        {{ __('return_request.status_timeline') }}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="status-timeline">
+                        @php
+                            $statuses = [
+                                'requested' => ['icon' => 'clock-outline', 'color' => 'success'],
+                                'assigned_to_driver' => ['icon' => 'account-tie', 'color' => 'info'],
+                                'picked_up' => ['icon' => 'package-variant', 'color' => 'warning'],
+                                'in_transit' => ['icon' => 'truck-delivery', 'color' => 'warning'],
+                                'received' => ['icon' => 'check-circle', 'color' => 'primary'],
+                                'partially_received' => ['icon' => 'alert-circle', 'color' => 'info'],
+                                'rejected' => ['icon' => 'close-circle', 'color' => 'danger'],
+                                'cancelled' => ['icon' => 'cancel', 'color' => 'danger'],
+                            ];
+                            $currentStatus = $return_request->status;
+                        @endphp
+
+                        @foreach($statuses as $status => $info)
+                            <div class="timeline-item {{ $status == $currentStatus ? 'active' : '' }}">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="mb-1 fw-semibold">{{ __('return_request.status_' . $status) }}</h6>
+                                        @if($status == 'requested' && $return_request->requested_at)
+                                            <small class="text-muted">{{ $return_request->requested_at->format('d M Y, H:i') }}</small>
+                                        @elseif($status == 'received' && $return_request->received_at)
+                                            <small class="text-muted">{{ $return_request->received_at->format('d M Y, H:i') }}</small>
+                                        @endif
+                                    </div>
+                                    <i class="mdi mdi-{{ $info['icon'] }} text-{{ $info['color'] }} fs-5"></i>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0 fw-semibold">
+                        <i class="mdi mdi-lightning-bolt-outline me-2"></i>
+                        {{ __('general.quick_actions') }}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <a href="tel:{{ $return_request->package->receiver_phone ?? '#' }}" class="quick-action-btn">
+                        <i class="mdi mdi-phone-outline me-2 fs-4"></i>
+                        <div>{{ __('general.contact_customer') }}</div>
+                        <small class="opacity-75">{{ $return_request->package->receiver_phone ?? '-' }}</small>
+                    </a>
+
+                    <a href="#" class="quick-action-btn" onclick="showRoute()">
+                        <i class="mdi mdi-map-marker-path me-2 fs-4"></i>
+                        <div>{{ __('general.view_route') }}</div>
+                        <small class="opacity-75">{{ __('general.optimized_path') }}</small>
+                    </a>
+
+                    <a href="#" class="quick-action-btn" onclick="shareLocation()">
+                        <i class="mdi mdi-share-variant me-2 fs-4"></i>
+                        <div>{{ __('general.share_location') }}</div>
+                        <small class="opacity-75">{{ __('general.with_customer') }}</small>
+                    </a>
+
+                    <a href="{{ route('driver.return_requests.edit', $return_request->id) }}" class="quick-action-btn">
+                        <i class="mdi mdi-update me-2 fs-4"></i>
+                        <div>{{ __('general.update_status') }}</div>
+                        <small class="opacity-75">{{ __('general.change_progress') }}</small>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Progress Chart -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0 fw-semibold">
+                        <i class="mdi mdi-chart-bar me-2"></i>
+                        {{ __('return_request.progress_overview') }}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="progressChart" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <!-- Return Request Summary -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0 fw-semibold">
+                                <i class="mdi mdi-information-outline me-2"></i>
+                                {{ __('return_request.return_request_summary') }}
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label">{{ __('return_request.id') }}</span>
+                                            <span class="info-value fw-bold text-primary">#{{ $return_request->id }}</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">{{ __('return_request.package') }}</span>
+                                            <span class="info-value">
+                                                @if($return_request->package)
+                                                    <span class="badge bg-light text-dark fs-6">{{ $return_request->package->tracking_number }}</span>
+                                                @else
+                                                    -
+                                                @endif
+                                            </span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">{{ __('return_request.driver') }}</span>
+                                            <span class="info-value">
+                                                @if($return_request->driver)
+                                                    <i class="mdi mdi-account-tie-outline me-2"></i>
+                                                    {{ $return_request->driver->driver_full_name }}
+                                                @else
+                                                    -
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label">{{ __('return_request.return_type') }}</span>
+                                            <span class="info-value">
+                                                <span class="badge bg-info badge-status">
+                                                    {{ __('return_request.type_' . ($return_request->return_type ?? 'unknown')) }}
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">{{ __('return_request.status') }}</span>
+                                            <span class="info-value">{!! $return_request->statusLabel() !!}</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">{{ __('return_request.target_address') }}</span>
+                                            <span class="info-value">{{ $return_request->target_address ?? '-' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if($return_request->reason)
+                            <div class="alert alert-info mt-3">
+                                <i class="mdi mdi-information-outline me-2"></i>
+                                <strong>{{ __('return_request.reason') }}:</strong> {{ $return_request->reason }}
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package Information with Maps -->
+            @if($return_request->package)
+            <div class="card mb-4">
+                <div class="card-header">
                     <h5 class="mb-0 fw-semibold">
                         <i class="mdi mdi-package-variant me-2"></i>
                         {{ __('package.package_details') }} - {{ $return_request->package->tracking_number }}
                     </h5>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <!-- Sender Information -->
-                        <div class="col-md-6 mb-4">
-                            <div class="card sender-info">
+                    <!-- Maps Section -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card h-100">
                                 <div class="card-header bg-info text-white py-2">
                                     <i class="mdi mdi-account-outline me-2"></i>
-                                    {{ __('package.sender_info') }}
+                                    {{ __('package.sender_location') }}
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="info-label">{{ __('general.full_name') }}</div>
-                                            <div class="info-value">{{ $return_request->package->sender_full_name }}</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="info-label">{{ __('general.phone') }}</div>
-                                            <div class="info-value">+{{ $return_request->package->sender_phone }}</div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="info-label">{{ __('general.address') }}</div>
-                                            @php
-                                                $senderAddressParts = array_filter([
-                                                    $return_request->package->sender_district,
-                                                    $return_request->package->sender_city,
-                                                    $return_request->package->sender_region,
-                                                    $return_request->package->sender_country,
-                                                    $return_request->package->sender_postal_code,
-                                                ]);
-                                                $fullSenderAddress = implode(' ، ', $senderAddressParts);
-                                            @endphp
-                                            <div class="info-value">{{ $fullSenderAddress }}</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="info-label">{{ __('general.city') }}</div>
-                                            <div class="info-value">{{ $return_request->package->sender_city }}</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="info-label">{{ __('general.region') }}</div>
-                                            <div class="info-value">{{ $return_request->package->sender_region }}</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="info-label">{{ __('general.latitude') }}</div>
-                                            <div class="info-value coordinates">{{ $return_request->package->sender_latitude }}</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="info-label">{{ __('general.longitude') }}</div>
-                                            <div class="info-value coordinates">{{ $return_request->package->sender_longitude }}</div>
-                                        </div>
-                                        <div class="col-12 mt-3">
-                                            <div class="info-label">{{ __('package.sender_location_map') }}</div>
-                                            <div id="sender-map-{{ $return_request->package->id }}" class="map-container"
-                                                 data-lat="{{ $return_request->package->sender_latitude }}"
-                                                 data-lng="{{ $return_request->package->sender_longitude }}">
-                                                <div class="map-placeholder">
-                                                    <i class="mdi mdi-map-marker-outline me-2"></i>
-                                                    {{ __('package.loading_map') }}
-                                                </div>
-                                            </div>
+                                    <div id="sender-map-{{ $return_request->package->id }}" class="map-container"
+                                         data-lat="{{ $return_request->package->sender_latitude }}"
+                                         data-lng="{{ $return_request->package->sender_longitude }}">
+                                        <div class="map-placeholder">
+                                            <i class="mdi mdi-map-marker-outline me-2"></i>
+                                            {{ __('package.loading_map') }}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Receiver Information -->
-                        <div class="col-md-6 mb-4">
-                            <div class="card receiver-info">
+                        <div class="col-md-6">
+                            <div class="card h-100">
                                 <div class="card-header bg-success text-white py-2">
                                     <i class="mdi mdi-account-check-outline me-2"></i>
-                                    {{ __('package.receiver_info') }}
+                                    {{ __('package.receiver_location') }}
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="info-label">{{ __('general.full_name') }}</div>
-                                            <div class="info-value">{{ $return_request->package->receiver_full_name }}</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="info-label">{{ __('general.phone') }}</div>
-                                            <div class="info-value">+{{ $return_request->package->receiver_phone }}</div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="info-label">{{ __('general.address') }}</div>
-                                            @php
-                                                $receiverAddressParts = array_filter([
-                                                    $return_request->package->receiver_district,
-                                                    $return_request->package->receiver_city,
-                                                    $return_request->package->receiver_region,
-                                                    $return_request->package->receiver_country,
-                                                    $return_request->package->receiver_postal_code,
-                                                ]);
-                                                $fullReceiverAddress = implode(' ، ', $receiverAddressParts);
-                                            @endphp
-                                            <div class="info-value">{{ $fullReceiverAddress }}</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="info-label">{{ __('general.city') }}</div>
-                                            <div class="info-value">{{ $return_request->package->receiver_city }}</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="info-label">{{ __('general.region') }}</div>
-                                            <div class="info-value">{{ $return_request->package->receiver_region }}</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="info-label">{{ __('general.latitude') }}</div>
-                                            <div class="info-value coordinates">{{ $return_request->package->receiver_latitude }}</div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="info-label">{{ __('general.longitude') }}</div>
-                                            <div class="info-value coordinates">{{ $return_request->package->receiver_longitude }}</div>
-                                        </div>
-                                        <div class="col-12 mt-3">
-                                            <div class="info-label">{{ __('package.receiver_location_map') }}</div>
-                                            <div id="receiver-map-{{ $return_request->package->id }}" class="map-container"
-                                                 data-lat="{{ $return_request->package->receiver_latitude }}"
-                                                 data-lng="{{ $return_request->package->receiver_longitude }}">
-                                                <div class="map-placeholder">
-                                                    <i class="mdi mdi-map-marker-outline me-2"></i>
-                                                    {{ __('package.loading_map') }}
-                                                </div>
-                                            </div>
+                                    <div id="receiver-map-{{ $return_request->package->id }}" class="map-container"
+                                         data-lat="{{ $return_request->package->receiver_latitude }}"
+                                         data-lng="{{ $return_request->package->receiver_longitude }}">
+                                        <div class="map-placeholder">
+                                            <i class="mdi mdi-map-marker-outline me-2"></i>
+                                            {{ __('package.loading_map') }}
                                         </div>
                                     </div>
                                 </div>
@@ -449,293 +502,142 @@
                         </div>
                     </div>
 
-                    <!-- Package Specifications -->
-                    <div class="row mt-4">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header bg-secondary text-white py-2">
-                                    <i class="mdi mdi-information-outline me-2"></i>
-                                    {{ __('package.package_specifications') }}
+                    <!-- Package Details in Tabs -->
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="packageTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="sender-tab" data-bs-toggle="tab" data-bs-target="#sender" type="button">
+                                        <i class="mdi mdi-account-outline me-2"></i> {{ __('package.sender_info') }}
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="receiver-tab" data-bs-toggle="tab" data-bs-target="#receiver" type="button">
+                                        <i class="mdi mdi-account-check-outline me-2"></i> {{ __('package.receiver_info') }}
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link " id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button">
+                                        <i class="mdi mdi-information-outline me-2"></i> {{ __('package.specifications') }}
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content" id="packageTabsContent">
+                                <!-- Sender Tab -->
+                                <div class="tab-pane fade show active" id="sender" role="tabpanel">
+                                    @include('driver.return_requests.partials.sender-info', ['package' => $return_request->package])
                                 </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="info-label">{{ __('package.package_type') }}</div>
-                                            <div class="info-value">{{ __('package.type_' . $return_request->package->package_type) }}</div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="info-label">{{ __('package.package_size') }}</div>
-                                            <div class="info-value">{{ __('package.size_' . $return_request->package->package_size) }}</div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="info-label">{{ __('package.weight') }}</div>
-                                            <div class="info-value">{{ $return_request->package->weight }} {{ __('package.kgm') }}</div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="info-label">{{ __('package.dimensionss') }}</div>
-                                            <div class="info-value">
-                                                {{ $return_request->package->dimensions['length'] ?? 0 }}x
-                                                {{ $return_request->package->dimensions['width'] ?? 0 }}x
-                                                {{ $return_request->package->dimensions['height'] ?? 0 }}
-                                                {{ __('package.cm') }}
-                                            </div>
-                                        </div>
-                                        <div class="col-12 mt-3">
-                                            <div class="info-label">{{ __('package.package_content') }}</div>
-                                            <div class="info-value">{{ $return_request->package->package_content ?? '-' }}</div>
-                                        </div>
-                                        <div class="col-12 mt-3">
-                                            <div class="info-label">{{ __('package.package_note') }}</div>
-                                            <div class="info-value">{{ $return_request->package->package_note ?? '-' }}</div>
-                                        </div>
-                                    </div>
+
+                                <!-- Receiver Tab -->
+                                <div class="tab-pane fade" id="receiver" role="tabpanel">
+                                    @include('driver.return_requests.partials.receiver-info', ['package' => $return_request->package])
+                                </div>
+
+                                <!-- Specifications Tab -->
+                                <div class="tab-pane fade" id="specs" role="tabpanel">
+                                    @include('driver.return_requests.partials.package-specs', ['package' => $return_request->package])
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
+
+            <!-- Return Items Section -->
+            @if($return_request->returnItems && $return_request->returnItems->count())
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0 fw-semibold">
+                        <i class="mdi mdi-package-variant-closed me-2"></i>
+                        {{ __('return_request.return_items') }} ({{ $return_request->returnItems->count() }})
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th width="50">#</th>
+                                    <th width="80">{{ __('product.image') }}</th>
+                                    <th>{{ __('product.product_name') }}</th>
+                                    <th width="100">{{ __('product.type') }}</th>
+                                    <th width="100">{{ __('product.quantity') }}</th>
+                                    <th width="150">{{ __('warehouse.warehouse') }}</th>
+                                    <th width="120">{{ __('general.status') }}</th>
+                                    <th width="100">{{ __('general.actions') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($return_request->returnItems as $index => $item)
+                                <tr>
+                                    <td class="fw-semibold">{{ $index + 1 }}</td>
+                                    <td>
+                                        @if($item->type == 'stock' && $item->stockItem && $item->stockItem->product && $item->stockItem->product->image)
+                                            <img src="{{ asset('storage/' . $item->stockItem->product->image) }}"
+                                                 alt="{{ $item->custom_name ?? $item->stockItem->product->name }}"
+                                                 class="product-image">
+                                        @else
+                                            <div class="product-image bg-light d-flex align-items-center justify-content-center">
+                                                <i class="mdi mdi-package-variant text-muted"></i>
+                                            </div>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <strong class="d-block">{{ $item->custom_name ?? ($item->stockItem->product->name ?? 'N/A') }}</strong>
+                                        @if($item->note)
+                                            <small class="text-muted">{{ Str::limit($item->note, 50) }}</small>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-{{ $item->type == 'stock' ? 'success' : 'info' }} badge-status">
+                                            {{ __('product.' . $item->type) }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-primary rounded-pill fs-6">
+                                            {{ $item->quantity }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @if($item->type == 'stock' && $item->stockItem && $item->stockItem->rentalShelf && $item->stockItem->rentalShelf->shelf && $item->stockItem->rentalShelf->shelf->warehouse)
+                                            <div class="d-flex align-items-center">
+                                                <i class="mdi mdi-warehouse me-2 text-warning"></i>
+                                                <div>
+                                                    <div class="fw-semibold">{{ $item->stockItem->rentalShelf->shelf->warehouse->name }}</div>
+                                                    <small class="text-muted">{{ $item->stockItem->rentalShelf->shelf->name }}</small>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <span class="badge bg-light text-dark">
+                                                {{ __('general.not_applicable') }}
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td>{!! $return_request->statusLabel() !!}</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <button class="btn btn-outline-primary" data-bs-toggle="tooltip" title="{{ __('general.view_details') }}">
+                                                <i class="mdi mdi-eye"></i>
+                                            </button>
+                                            <button class="btn btn-outline-info" data-bs-toggle="tooltip" title="{{ __('general.scan_qr') }}">
+                                                <i class="mdi mdi-qrcode-scan"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
-    @endif
-
-    <!-- Warehouse Information Section -->
-    @php
-        // جمع جميع مستودعات المنتجات المرتجعة من النوع stock
-        $warehouses = [];
-
-        if ($return_request->package) {
-            foreach ($return_request->package->packageProducts as $packageProduct) {
-                if ($packageProduct->type == 'stock' &&
-                    $packageProduct->stockItem &&
-                    $packageProduct->stockItem->rentalShelf &&
-                    $packageProduct->stockItem->rentalShelf->shelf &&
-                    $packageProduct->stockItem->rentalShelf->shelf->warehouse) {
-
-                    $warehouse = $packageProduct->stockItem->rentalShelf->shelf->warehouse;
-                    $warehouses[$warehouse->id] = $warehouse;
-                }
-            }
-        }
-    @endphp
-
-    @if(count($warehouses) > 0)
-        <div class="row mt-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header bg-warning text-white py-2">
-                        <i class="mdi mdi-warehouse me-2"></i>
-                        {{ __('warehouse.warehouse_information') }}
-                    </div>
-                    <div class="card-body">
-                        <!-- عمودين جنباً إلى جنب -->
-                        <div class="row">
-                            <!-- العمود الأول: معلومات المستودعات -->
-                            <div class="col-lg-6 mb-4">
-                                <h6 class="section-title mb-3">
-                                    <i class="mdi mdi-information-outline me-2"></i>
-                                    {{ __('warehouse.warehouse_details') }}
-                                </h6>
-
-                                @foreach($warehouses as $warehouse)
-                                <div class="card mb-3">
-                                    <div class="card-header bg-light py-2">
-                                        <i class="mdi mdi-warehouse me-2 text-warning"></i>
-                                        <strong>{{ $warehouse->name }}</strong>
-                                        <small class="text-muted">({{ $warehouse->code }})</small>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-12 mb-2">
-                                                <span class="info-label">{{ __('general.address') }}:</span>
-                                                <span class="info-value">{{ $warehouse->address }}</span>
-                                            </div>
-                                            <div class="col-6 mb-2">
-                                                <span class="info-label">{{ __('general.city') }}:</span>
-                                                <span class="info-value">{{ $warehouse->city }}</span>
-                                            </div>
-                                            <div class="col-6 mb-2">
-                                                <span class="info-label">{{ __('general.region') }}:</span>
-                                                <span class="info-value">{{ $warehouse->region }}</span>
-                                            </div>
-                                            <div class="col-6 mb-2">
-                                                <span class="info-label">{{ __('general.country') }}:</span>
-                                                <span class="info-value">{{ $warehouse->country }}</span>
-                                            </div>
-                                            <div class="col-6 mb-2">
-                                                <span class="info-label">{{ __('general.postal_code') }}:</span>
-                                                <span class="info-value">{{ $warehouse->postal_code }}</span>
-                                            </div>
-                                            <div class="col-12 mt-3">
-                                                <div class="info-label mb-2">{{ __('warehouse.warehouse_location_map') }}</div>
-                                                <div id="warehouse-map-{{ $warehouse->id }}" class="map-container"
-                                                    data-lat="{{ $warehouse->latitude }}"
-                                                    data-lng="{{ $warehouse->longitude }}">
-                                                    <div class="map-placeholder">
-                                                        <i class="mdi mdi-map-marker-outline me-2"></i>
-                                                        {{ __('package.loading_map') }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-
-                            <!-- العمود الثاني: المنتجات المرتجعة -->
-                            <div class="col-lg-6">
-                                <h6 class="section-title mb-3">
-                                    <i class="mdi mdi-package-variant-closed me-2"></i>
-                                    {{ __('warehouse.products_to_return') }}
-                                </h6>
-
-                                <div class="card">
-                                    <div class="card-body p-0">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered mb-0">
-                                                <thead class="table-light">
-                                                    <tr>
-                                                        <th>{{ __('warehouse.warehouse') }}</th>
-                                                        <th>{{ __('product.product_name') }}</th>
-                                                        <th>{{ __('product.quantity') }}</th>
-                                                        <th>{{ __('product.shelf') }}</th>
-                                                        <th>{{ __('product.notes') }}</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($return_request->returnItems as $item)
-                                                        @if($item->type == 'stock' &&
-                                                            $item->stockItem &&
-                                                            $item->stockItem->rentalShelf &&
-                                                            $item->stockItem->rentalShelf->shelf &&
-                                                            $item->stockItem->rentalShelf->shelf->warehouse)
-                                                        <tr>
-                                                            <td>
-                                                                <strong class="d-block">{{ $item->stockItem->rentalShelf->shelf->warehouse->name }}</strong>
-                                                                <small class="text-muted">{{ $item->stockItem->rentalShelf->shelf->warehouse->code }}</small>
-                                                            </td>
-                                                            <td>
-                                                                <strong>{{ $item->stockItem->product->name ?? $item->custom_name }}</strong>
-                                                            </td>
-                                                            <td>
-                                                                <span class="badge bg-primary rounded-pill">
-                                                                    {{ $item->quantity }}
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                @if($item->stockItem->rentalShelf->shelf)
-                                                                    <span class="badge bg-secondary">
-                                                                        {{ $item->stockItem->rentalShelf->shelf->name }}
-                                                                        ({{ $item->stockItem->rentalShelf->shelf->code }})
-                                                                    </span>
-                                                                @else
-                                                                    <span class="badge bg-light text-dark">
-                                                                        {{ __('general.not_specified') }}
-                                                                    </span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <small>{{ $item->note ?? '-' }}</small>
-                                                            </td>
-                                                        </tr>
-                                                        @endif
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @else
-        <div class="alert alert-info mt-4">
-            <i class="mdi mdi-information-outline me-2"></i>
-            {{ __('warehouse.no_warehouse_data') }}
-        </div>
-    @endif
-
-    <!-- Return Items Section -->
-    @if($return_request->returnItems && $return_request->returnItems->count())
-        <div class="row mt-4">
-            <div class="col-12">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-primary text-white py-3">
-                        <h5 class="mb-0 fw-semibold">
-                            <i class="mdi mdi-package-variant-closed me-2"></i>
-                            {{ __('return_request.all_return_items') }}
-                        </h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th class="ps-4">#</th>
-                                        <th>{{ __('product.product_type') }}</th>
-                                        <th>{{ __('product.product_name') }}</th>
-                                        <th>{{ __('product.quantity') }}</th>
-                                        <th>{{ __('warehouse.warehouse') }}</th>
-                                        <th>{{ __('general.status') }}</th>
-                                        <th class="pe-4">{{ __('general.notes') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($return_request->returnItems as $index => $item)
-                                    <tr>
-                                        <td class="ps-4 fw-semibold">{{ $index + 1 }}</td>
-                                        <td>
-                                            <span class="badge bg-{{ $item->type == 'stock' ? 'success' : 'info' }}">
-                                                {{ __('product.' . $item->type) }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <strong>{{ $item->custom_name ?? ($item->stockItem->product->name ?? 'N/A') }}</strong>
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-primary rounded-pill">
-                                                {{ $item->quantity }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            @if($item->type == 'stock' &&
-                                                $item->stockItem &&
-                                                $item->stockItem->rentalShelf &&
-                                                $item->stockItem->rentalShelf->shelf &&
-                                                $item->stockItem->rentalShelf->shelf->warehouse)
-                                                <span class="d-block">
-                                                    <i class="mdi mdi-warehouse me-1 text-warning"></i>
-                                                    {{ $item->stockItem->rentalShelf->shelf->warehouse->name }}
-                                                </span>
-                                                <small class="text-muted">{{ $item->stockItem->rentalShelf->shelf->warehouse->code }}</small>
-                                            @else
-                                                <span class="badge bg-light text-dark">
-                                                    {{ __('general.not_applicable') }}
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <span class="badge bg-success">
-                                                {!! $return_request->statusLabel() !!}
-                                            </span>
-                                        </td>
-                                        <td class="pe-4">
-                                            <small>{{ $item->note ?? '-' }}</small>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
 </div>
 @endsection
 
@@ -747,9 +649,8 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // دالة لتهيئة الخرائط
+    // Initialize maps
     function initMaps() {
-        // البحث عن جميع عناصر الخرائط
         const mapContainers = document.querySelectorAll('.map-container');
 
         mapContainers.forEach(container => {
@@ -757,38 +658,26 @@ document.addEventListener('DOMContentLoaded', function () {
             const lng = parseFloat(container.getAttribute('data-lng'));
             const mapId = container.id;
 
-            // تأكد من أن الخريطة لم يتم تهيئتها من قبل
-            if (container.hasAttribute('data-initialized')) {
-                return;
-            }
+            if (container.hasAttribute('data-initialized')) return;
 
-            // تأكد من وجود إحداثيات صحيحة
             if (!isNaN(lat) && !isNaN(lng)) {
-                // إزالة العنصر النائب
                 container.innerHTML = '';
-
-                // إنشاء الخريطة
                 const map = L.map(mapId).setView([lat, lng], 13);
 
-                // إضافة طبقة الخريطة
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    attribution: '&copy; OpenStreetMap contributors'
                 }).addTo(map);
 
-                // إضافة علامة الموقع
                 const marker = L.marker([lat, lng]).addTo(map);
 
-                // تحديد نوع الخريطة بناءً على الـ ID
                 if (mapId.includes('sender-map')) {
                     marker.bindPopup('{{ __("package.sender_location") }}').openPopup();
                 } else if (mapId.includes('receiver-map')) {
                     marker.bindPopup('{{ __("package.receiver_location") }}').openPopup();
                 }
 
-                // وضع علامة أن الخريطة تم تهيئتها
                 container.setAttribute('data-initialized', 'true');
             } else {
-                // إذا لم تكن هناك إحداثيات صحيحة
                 container.innerHTML = `
                     <div class="map-placeholder">
                         <i class="mdi mdi-exclamation-thick me-2"></i>
@@ -800,18 +689,81 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // تهيئة الخرائط عند التحميل
-    setTimeout(initMaps, 500);
+    // Initialize progress chart
+    function initProgressChart() {
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        const progressChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    '{{ __("return_request.completed") }}',
+                    '{{ __("return_request.in_progress") }}',
+                    '{{ __("return_request.pending") }}'
+                ],
+                datasets: [{
+                    data: [60, 25, 15],
+                    backgroundColor: [
+                        '#28a745',
+                        '#ffc107',
+                        '#6c757d'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true
+                        }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    }
 
-    // إعادة تهيئة الخرائط عند تغيير حجم النافذة
+    // Initialize tooltips
+    function initTooltips() {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    }
+
+    // Quick action functions
+    function showRoute() {
+        alert('{{ __("general.route_feature_coming_soon") }}');
+    }
+
+    function shareLocation() {
+        if (navigator.share) {
+            navigator.share({
+                title: '{{ __("return_request.return_location") }}',
+                text: '{{ __("return_request.share_location_message") }}',
+                url: window.location.href
+            });
+        } else {
+            alert('{{ __("general.share_not_supported") }}');
+        }
+    }
+
+    // Initialize everything
+    setTimeout(initMaps, 500);
+    initProgressChart();
+    initTooltips();
+
+    // Handle window resize
     window.addEventListener('resize', function() {
-        // إعادة رسم الخرائط الموجودة
         document.querySelectorAll('.map-container[data-initialized="true"]').forEach(container => {
             const map = L.map(container.id);
             if (map) {
-                setTimeout(() => {
-                    map.invalidateSize();
-                }, 100);
+                setTimeout(() => map.invalidateSize(), 100);
             }
         });
     });

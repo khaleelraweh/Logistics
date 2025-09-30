@@ -309,6 +309,9 @@ return [
     'package_items'     =>  'Package Items',
     'loading_map'       =>  'Loading Map',
     'no_location_data'   =>  'No location data available.',
+    'specifications'   =>  'Specifications',
+    'estimated_value'   =>  'Estimated Value',
+    'insurance_required'   =>  'Insurance Required',
 
 
 ];
