@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Merchant\Package;
+namespace App\Http\Livewire\Driver\Package;
 
 use Livewire\Component;
 
@@ -34,6 +34,6 @@ class CreateSelectMerchantComponent extends Component
 
     public function render()
     {
-        return view('livewire.merchant.package.create-select-merchant-component');
+        return view('livewire.driver.package.create-select-merchant-component');
     }
 }

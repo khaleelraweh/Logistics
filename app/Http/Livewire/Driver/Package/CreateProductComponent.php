@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Merchant\Package;
+namespace App\Http\Livewire\Driver\Package;
 
 use App\Models\StockItem;
 use Livewire\Component;
@@ -145,6 +145,6 @@ class CreateProductComponent extends Component
 
     public function render()
     {
-        return view('livewire.merchant.package.create-product-component');
+        return view('livewire.driver.package.create-product-component');
     }
 }

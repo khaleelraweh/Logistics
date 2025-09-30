@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Merchant\Package;
+namespace App\Http\Livewire\Driver\Package;
 
 use Livewire\Component;
 use App\Models\Package;
@@ -43,7 +43,7 @@ class UpdatePackageCollectionComponent extends Component
 
     public function render()
     {
-        return view('livewire.merchant.package.update-package-collection-component');
+        return view('livewire.driver.package.update-package-collection-component');
     }
 
     // ⚡ مجموع التكاليف

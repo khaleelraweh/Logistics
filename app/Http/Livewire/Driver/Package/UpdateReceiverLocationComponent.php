@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Merchant\Package;
+namespace App\Http\Livewire\Driver\Package;
 
 use Livewire\Component;
 use App\Models\Merchant;
@@ -95,6 +95,6 @@ class UpdateReceiverLocationComponent extends Component
 
     public function render()
     {
-        return view('livewire.merchant.package.update-receiver-location-component');
+        return view('livewire.driver.package.update-receiver-location-component');
     }
 }

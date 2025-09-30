@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Merchant\ReturnRequest;
+namespace App\Http\Livewire\Driver\ReturnRequest;
 
 use App\Models\Driver;
 use App\Models\Package;
@@ -108,11 +108,11 @@ class CreateReturnRequestComponent extends Component
 
         session()->flash('success', __('return_request.created_successfully'));
 
-        return redirect()->route('merchant.return_requests.index');
+        return redirect()->route('driver.return_requests.index');
     }
 
     public function render()
     {
-        return view('livewire.merchant.return-request.create-return-request-component');
+        return view('livewire.driver.return-request.create-return-request-component');
     }
 }

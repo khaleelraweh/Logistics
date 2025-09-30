@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Merchant\Package;
+namespace App\Http\Livewire\Driver\Package;
 
 use App\Models\Package;
 use App\Models\PackageProduct;
@@ -129,6 +129,6 @@ class UpdateProductComponent extends Component
 
     public function render()
     {
-        return view('livewire.merchant.package.update-product-component');
+        return view('livewire.driver.package.update-product-component');
     }
 }

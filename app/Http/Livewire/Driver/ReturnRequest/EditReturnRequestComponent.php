@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Merchant\ReturnRequest;
+namespace App\Http\Livewire\Driver\ReturnRequest;
 
 use App\Models\Driver;
 use App\Models\Package;
@@ -195,7 +195,7 @@ class EditReturnRequestComponent extends Component
         $this->previousStatus = $this->status;
 
         session()->flash('success', __('return_request.updated_successfully'));
-        return redirect()->route('merchant.return_requests.index');
+        return redirect()->route('driver.return_requests.index');
     }
 
     // خاصية حسابية تعرض الحالات المتاحة بناءً على الحالة الحالية
@@ -217,7 +217,7 @@ class EditReturnRequestComponent extends Component
 
     public function render()
     {
-        return view('livewire.merchant.return-request.edit-return-request-component', [
+        return view('livewire.driver.return-request.edit-return-request-component', [
             'availableStatuses' => $this->availableStatuses,
         ]);
     }

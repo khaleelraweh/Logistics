@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Merchant\Package;
+namespace App\Http\Livewire\Driver\Package;
 
 use App\Models\Merchant;
 use Livewire\Component;
@@ -62,6 +62,6 @@ class UpdateSelectMerchantComponent extends Component
 
     public function render()
     {
-        return view('livewire.merchant.package.update-select-merchant-component');
+        return view('livewire.driver.package.update-select-merchant-component');
     }
 }
