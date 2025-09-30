@@ -2,30 +2,24 @@
 
 @section('content')
 <!-- Page Header -->
-<div class="row">
-    <div class="col-12">
-        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0 font-size-18">
-                <i class="bi bi-truck me-2 text-primary"></i>
-                {{ __('pickup_request.view_pickup_request') }}
-            </h4>
-            <div class="page-title-right">
-                <div class="d-flex align-items-center">
-                    <span class="badge bg-{{ $pickupRequest->status_color }} fs-6 me-3">
-                        {{ __('pickup_request.status_' . $pickupRequest->status) }}
-                    </span>
+  <!-- Page Header -->
+    <div class="row ">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('pickup_request.edit_pickup_request') }}</h4>
+
+                <div class="page-title-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="{{ route('driver.index') }}" class="text-muted">{{ __('general.main') }}</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('driver.pickup_requests.index') }}" class="text-muted">{{ __('pickup_request.pickup_requests') }}</a></li>
-                            <li class="breadcrumb-item active text-primary">#{{ $pickupRequest->id }}</li>
+                            <li class="breadcrumb-item"><a href="{{ route('driver.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('driver.pickup_requests.index') }}">{{ __('pickup_request.manage_pickup_requests') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('pickup_request.edit_pickup_request') }}</li>
                         </ol>
                     </nav>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 <div class="row">
     <div class="col-12">
