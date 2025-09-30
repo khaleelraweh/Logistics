@@ -247,6 +247,7 @@ return [
     'capacity'              =>  'السعة',
     'note'                    => 'ملاحظة',
     'notes'                 =>  'ملاحظات',
+    'current_status'       =>  'الحالة الحالية',
 
 ];
 

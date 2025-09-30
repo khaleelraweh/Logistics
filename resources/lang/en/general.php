@@ -248,6 +248,7 @@ return [
     'capacity'          =>  'Capacity',
     'note'              =>  'Note',
     'notes'              =>  'Notes',
+    'current_status'   =>  'Current Status',
 
 
 ];
