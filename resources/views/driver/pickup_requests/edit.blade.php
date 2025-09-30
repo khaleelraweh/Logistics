@@ -215,7 +215,6 @@
                                 @enderror
                                 <small class="text-muted mt-2 d-block">
                                     <i class="bi bi-info-circle me-1"></i>
-                                    {{ __('pickup_request.status_change_note') }}
                                 </small>
                             </div>
                         </div>

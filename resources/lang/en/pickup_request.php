@@ -35,6 +35,7 @@ return [
     'no_driver_assigned'          => 'No driver assigned',
     'current_status'            => 'Current Status',
     'update_status'            => 'Update Status',
+    'status_change_note'       => 'Status change note (optional)',
 
     // للعمليات أو الأزرار:
     'back'                        => 'Back',

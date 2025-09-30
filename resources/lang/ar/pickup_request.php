@@ -35,6 +35,7 @@ return [
     'no_driver_assigned'          => 'لم يتم تعيين سائق',
     'current_status'            => 'الحالة الحالية',
     'update_status'            => 'تحديث الحالة',
+    'status_change_note'       => 'ملاحظة تغيير الحالة (اختياري)',
 
     // للعمليات أو الأزرار:
     'back'                        => 'عودة',
