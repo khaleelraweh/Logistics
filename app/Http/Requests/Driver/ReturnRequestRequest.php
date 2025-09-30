@@ -31,7 +31,7 @@ class ReturnRequestRequest extends FormRequest
                     'return_type'    => 'nullable|string|in:to_warehouse,to_merchant,to_both',
                     'target_address'    => 'nullable|string|max:255',
                     'requested_at'      => 'nullable|date',
-                    'status'            => 'nullable|string|in:requested,in_transit,received,rejected',
+                    'status'            => 'nullable|string|in:requested,assigned_to_driver,picked_up,in_transit,received,rejected',
                     'received_at'       => 'nullable|date',
                     'reason'            => 'nullable|string|max:255',
 
@@ -48,7 +48,7 @@ class ReturnRequestRequest extends FormRequest
                     'return_type'    => 'nullable|string|in:to_warehouse,to_merchant,to_both',
                     'target_address'    => 'nullable|string|max:255',
                     'requested_at'      => 'nullable|date',
-                    'status'            => 'nullable|string|in:requested,in_transit,received,rejected',
+                    'status'            => 'nullable|string|in:requested,assigned_to_driver,picked_up,in_transit,received,rejected',
                     'received_at'       => 'nullable|date',
                     'reason'            => 'nullable|string|max:255',
 
