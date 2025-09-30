@@ -200,21 +200,43 @@ class EditReturnRequestComponent extends Component
         return redirect()->route('driver.return_requests.index');
     }
 
+    protected $allowedTransitions = [
+        'requested' => ['assigned_to_driver', 'cancelled'],
+        'assigned_to_driver' => ['picked_up', 'cancelled'],
+        'picked_up' => ['in_transit', 'cancelled'],
+        'in_transit' => ['received', 'rejected', 'partially_received'],
+        'received' => [],
+        'partially_received' => [],
+        'rejected' => [],
+        'cancelled' => [],
+    ];
+
+
     // خاصية حسابية تعرض الحالات المتاحة بناءً على الحالة الحالية
+    // public function getAvailableStatusesProperty()
+    // {
+    //     if (!$this->status) {
+    //         return $this->statuses;
+    //     }
+
+    //     $currentIndex = array_search($this->status, $this->statuses);
+
+    //     if ($currentIndex === false) {
+    //         return $this->statuses;
+    //     }
+
+    //     // إرجاع الحالات من الحالة الحالية فصاعدًا
+    //     return array_slice($this->statuses, $currentIndex);
+    // }
+
     public function getAvailableStatusesProperty()
     {
         if (!$this->status) {
-            return $this->statuses;
+            // إذا لم يتم اختيار أي حالة، عرض جميع الحالات المسموح بها كبداية
+            return array_keys($this->allowedTransitions);
         }
 
-        $currentIndex = array_search($this->status, $this->statuses);
-
-        if ($currentIndex === false) {
-            return $this->statuses;
-        }
-
-        // إرجاع الحالات من الحالة الحالية فصاعدًا
-        return array_slice($this->statuses, $currentIndex);
+        return $this->allowedTransitions[$this->status] ?? [];
     }
 
 

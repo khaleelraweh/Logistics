@@ -292,9 +292,7 @@
                                         <option value="">{{ __('pickup_request.select_status') }}</option>
 
                                         @foreach($availableStatuses as $s)
-                                            <option value="{{ $s }}" {{ $status === $s ? 'selected' : '' }}>
-                                                {{ __('return_request.status_' . $s) }}
-                                            </option>
+                                            <option value="{{ $s }}">{{ __('return_request.status_' . $s) }}</option>
                                         @endforeach
 
 
@@ -317,13 +315,13 @@
 
                             <!-- Submit Button -->
                             <div class="text-end pt-3">
-                                @ability('admin', 'update_return_requests')
+                                {{-- @ability('admin', 'update_return_requests') --}}
                                     <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
                                         <i class="ri-save-3-line me-2"></i>
                                         <i class="bi bi-save me-2"></i>
-                                        {{ __('return_request.update_return_request') }}
+                                        {{ __('return_request.driver_update_return_request') }}
                                     </button>
-                                @endability
+                                {{-- @endability --}}
 
                                 <a href="{{ route('admin.return_requests.index') }}" class="btn btn-outline-danger ms-2">
                                     <i class="ri-arrow-go-back-line me-1"></i>
