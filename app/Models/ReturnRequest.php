@@ -122,4 +122,43 @@ class ReturnRequest extends Model
     const STATUS_REJECTED = 'rejected';
     const STATUS_CANCELLED = 'cancelled';
 
+    public static function getStatuses(): array
+    {
+        return [
+            self::STATUS_REQUESTED,
+            self::STATUS_ASSIGNED_TO_DRIVER,
+            self::STATUS_PICKED_UP,
+            self::STATUS_IN_TRANSIT,
+            self::STATUS_RECEIVED,
+            self::STATUS_PARTIALLY_RECEIVED,
+            self::STATUS_REJECTED,
+            self::STATUS_CANCELLED,
+        ];
+    }
+
+    public function updateStatus(string $status): bool
+    {
+        if (!in_array($status, self::getStatuses())) {
+            return false; // الحالة غير مسموحة
+        }
+
+        $this->status = $status;
+
+        if ($status === self::STATUS_REQUESTED) {
+            $this->requested_at = now();
+        }
+
+        if ($status === self::STATUS_RECEIVED) {
+            $this->received_at = now();
+        }
+
+        if ($status === self::STATUS_PARTIALLY_RECEIVED) {
+            $this->received_at = now();
+        }
+
+        return $this->save();
+    }
+
+
+
 }
