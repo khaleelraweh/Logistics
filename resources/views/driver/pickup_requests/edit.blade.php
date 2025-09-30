@@ -224,11 +224,11 @@
 
                         <!-- Status Update (هذا الحقل فقط يمكن التعديل عليه) -->
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="status">
+                            <label class="col-sm-2 col-form-label" for="status1">
                                 <strong>{{ __('pickup_request.update_status') }}</strong>
                             </label>
                             <div class="col-sm-10">
-                                <select name="status" class="form-control @error('status') is-invalid @enderror" id="status" required>
+                                <select name="status" class="form-control @error('status') is-invalid @enderror" id="status1" required>
                                     <option value="pending" {{ old('status', $pickupRequest->status) == 'pending' ? 'selected' : '' }}>
                                         {{ __('pickup_request.status_pending') }}
                                     </option>
