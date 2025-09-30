@@ -64,33 +64,6 @@
                             </div>
                         </div>
 
-                        <!-- Driver Information -->
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">{{ __('pickup_request.assigned_driver') }}</label>
-                            <div class="col-sm-10">
-                                <div class="form-control bg-light">
-                                    <strong>{{ $pickupRequest->driver->driver_full_name ?? __('driver.no_name') }}</strong>
-                                    @if($pickupRequest->driver)
-                                        <br>
-                                        <small class="text-muted">
-                                            {{ $pickupRequest->driver->phone ?? __('driver.no_phone') }} -
-                                            {{ $pickupRequest->driver->vehicle_type ? __('driver.vehicle_type_' . $pickupRequest->driver->vehicle_type) : __('driver.no_vehicle_type') }}
-                                        </small>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Request Number -->
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">{{ __('pickup_request.request_number') }}</label>
-                            <div class="col-sm-10">
-                                <div class="form-control bg-light">
-                                    <strong>#{{ $pickupRequest->id }}</strong>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Created At -->
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">{{ __('general.created_at') }}</label>
@@ -235,18 +208,7 @@
                                             {{ __('pickup_request.status_' . $status) }}
                                         </option>
                                     @endforeach
-                                    {{-- <option value="pending" {{ old('status', $pickupRequest->status) == 'pending' ? 'selected' : '' }}>
-                                        {{ __('pickup_request.status_pending') }}
-                                    </option>
-                                    <option value="accepted" {{ old('status', $pickupRequest->status) == 'accepted' ? 'selected' : '' }}>
-                                        {{ __('pickup_request.status_accepted') }}
-                                    </option>
-                                    <option value="completed" {{ old('status', $pickupRequest->status) == 'completed' ? 'selected' : '' }}>
-                                        {{ __('pickup_request.status_completed') }}
-                                    </option>
-                                    <option value="cancelled" {{ old('status', $pickupRequest->status) == 'cancelled' ? 'selected' : '' }}>
-                                        {{ __('pickup_request.status_cancelled') }}
-                                    </option> --}}
+
                                 </select>
                                 @error('status')
                                     <div class="invalid-feedback">{{ $message }}</div>
