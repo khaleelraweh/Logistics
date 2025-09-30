@@ -162,7 +162,11 @@ class EditReturnRequestComponent extends Component
         $returnRequest = ReturnRequest::find($this->returnRequestId);
         if (!$returnRequest) return [];
 
-        return $returnRequest->availableStatusesByRole();
+            $available = $returnRequest->availableStatusesByRole();
+
+        // return $returnRequest->availableStatusesByRole();
+            return array_filter($available, fn($status) => $status !== $returnRequest->status);
+
     }
 
     public function render()
