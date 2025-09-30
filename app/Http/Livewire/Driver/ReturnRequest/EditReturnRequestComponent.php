@@ -201,43 +201,75 @@ class EditReturnRequestComponent extends Component
     }
 
     protected $allowedTransitions = [
-        'requested' => ['assigned_to_driver', 'cancelled'],
-        'assigned_to_driver' => ['picked_up', 'cancelled'],
-        'picked_up' => ['in_transit', 'cancelled'],
-        'in_transit' => ['received', 'rejected', 'partially_received'],
-        'received' => [],
-        'partially_received' => [],
-        'rejected' => [],
-        'cancelled' => [],
+        'requested' => [
+            'admin' => ['assigned_to_driver', 'cancelled'],
+            'merchant' => ['cancelled'],
+            'driver' => [],
+        ],
+        'assigned_to_driver' => [
+            'admin' => ['picked_up', 'cancelled'],
+            'merchant' => [],
+            'driver' => ['picked_up', 'cancelled'],
+        ],
+        'picked_up' => [
+            'admin' => ['in_transit', 'cancelled'],
+            'merchant' => [],
+            'driver' => ['in_transit', 'cancelled'],
+        ],
+        'in_transit' => [
+            'admin' => ['received', 'rejected', 'partially_received'],
+            'merchant' => [],
+            'driver' => ['received', 'partially_received'],
+        ],
+        'received' => [
+            'admin' => [],
+            'merchant' => [],
+            'driver' => [],
+        ],
+        'partially_received' => [
+            'admin' => [],
+            'merchant' => [],
+            'driver' => [],
+        ],
+        'rejected' => [
+            'admin' => [],
+            'merchant' => [],
+            'driver' => [],
+        ],
+        'cancelled' => [
+            'admin' => [],
+            'merchant' => [],
+            'driver' => [],
+        ],
     ];
 
+    protected function currentUserRole()
+    {
+        $user = auth()->user();
+        if (!$user) return null;
 
-    // خاصية حسابية تعرض الحالات المتاحة بناءً على الحالة الحالية
-    // public function getAvailableStatusesProperty()
-    // {
-    //     if (!$this->status) {
-    //         return $this->statuses;
-    //     }
+        // الحصول على أول دور مرتبط بالمستخدم
+        $role = $user->roles()->first();
+        return $role ? $role->name : null;
+    }
 
-    //     $currentIndex = array_search($this->status, $this->statuses);
-
-    //     if ($currentIndex === false) {
-    //         return $this->statuses;
-    //     }
-
-    //     // إرجاع الحالات من الحالة الحالية فصاعدًا
-    //     return array_slice($this->statuses, $currentIndex);
-    // }
 
     public function getAvailableStatusesProperty()
     {
         if (!$this->status) {
-            // إذا لم يتم اختيار أي حالة، عرض جميع الحالات المسموح بها كبداية
-            return array_keys($this->allowedTransitions);
+            // إذا لم يتم اختيار أي حالة، عرض جميع الحالات المسموح بها حسب الدور
+            $role = $this->currentUserRole();
+            return array_filter(array_map(function($transitions) use ($role) {
+                return $transitions[$role] ?? [];
+            }, $this->allowedTransitions));
         }
 
-        return $this->allowedTransitions[$this->status] ?? [];
+        $role = $this->currentUserRole();
+
+
+        return $this->allowedTransitions[$this->status][$role] ?? [];
     }
+
 
 
 

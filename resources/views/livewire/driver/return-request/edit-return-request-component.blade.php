@@ -288,16 +288,14 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required-field">{{ __('return_request.status') }}</label>
                                 <div class="col-sm-10">
-                                    <select wire:model="status" class="form-select">
+
+                                    <select wire:model.defer="status" class="form-select">
                                         <option value="">{{ __('pickup_request.select_status') }}</option>
-
-                                        @foreach($availableStatuses as $s)
-                                            <option value="{{ $s }}">{{ __('return_request.status_' . $s) }}</option>
+                                        @foreach($availableStatuses as $statusOption)
+                                            <option value="{{ $statusOption }}">{{ __('return_request.status_' . $statusOption) }}</option>
                                         @endforeach
-
-
-
                                     </select>
+
                                     @error('status') <span class="text-danger">{{ $message }}</span> @enderror
 
                                 </div>
