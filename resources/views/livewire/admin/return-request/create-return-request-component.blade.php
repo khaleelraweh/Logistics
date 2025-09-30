@@ -289,8 +289,8 @@
                                 <div class="col-sm-10">
                                     <select wire:model="status" class="form-select">
                                          <option value="requested">{{ __('return_request.status_requested') }}</option>
-                                         <option value="requested">{{ __('return_request.status_assigned_to_driver') }}</option>
-                                         <option value="requested">{{ __('return_request.status_picked_up') }}</option>
+                                         <option value="assigned_to_driver">{{ __('return_request.status_assigned_to_driver') }}</option>
+                                         <option value="picked_up">{{ __('return_request.status_picked_up') }}</option>
                                         <option value="cancelled">{{ __('return_request.status_cancelled') }}</option>
                                         <option value="in_transit">{{ __('return_request.status_in_transit') }}</option>
                                         <option value="rejected">{{ __('return_request.status_rejected') }}</option>
