@@ -84,49 +84,126 @@ class PickupRequest extends Model
         return $this->belongsTo(Package::class);
     }
 
-     public function updateStatus(string $status): bool
-    {
-        if (!in_array($status, self::getStatuses())) {
-            return false; // الحالة غير مسموحة
-        }
+    //  public function updateStatus(string $status): bool
+    // {
+    //     if (!in_array($status, self::getStatuses())) {
+    //         return false; // الحالة غير مسموحة
+    //     }
 
-        $this->status = $status;
+    //     $this->status = $status;
 
-        if ($status === self::STATUS_ACCEPTED) {
-            $this->accepted_at = now();
-        }
+    //     if ($status === self::STATUS_ACCEPTED) {
+    //         $this->accepted_at = now();
+    //     }
 
-        if ($status === self::STATUS_COMPLETED) {
-            $this->completed_at = now();
-        }
+    //     if ($status === self::STATUS_COMPLETED) {
+    //         $this->completed_at = now();
+    //     }
 
-        return $this->save();
+    //     return $this->save();
+    // }
+
+    // في App\Models\PickupRequest
+// في App\Models\PickupRequest
+public function updateStatus(string $status, $driverId = null): bool
+{
+    if (!in_array($status, self::getStatuses())) {
+        return false; // الحالة غير مسموحة
     }
 
-    public function availableStatuses()
-    {
-        $currentStatus = $this->status ?? 'pending'; // افتراضياً pending
-
-        switch ($currentStatus) {
-            case 'pending': return ['accepted','cancelled'];
-            case 'accepted': return ['completed','cancelled'];
-
-            default: return [];
-        }
+    // التحقق من انتقال الحالة المسموح
+    if (!in_array($status, $this->availableStatuses())) {
+        return false;
     }
 
-    public function availableStatusesForDriver()
-    {
-        if (auth()->user()->hasRole('driver')) {
-            switch ($this->status) {
-                case 'pending': return ['accepted','cancelled'];
-                case 'accepted': return ['completed','cancelled'];
-                default: return [];
+    $oldStatus = $this->status;
+    $this->status = $status;
+
+    // تحديث التواريخ بناءً على الحالة
+    if ($status === self::STATUS_ACCEPTED && $oldStatus !== self::STATUS_ACCEPTED) {
+        $this->accepted_at = now();
+
+        // تعيين driver_id فقط إذا تم تمريره وكان موجوداً في جدول drivers
+        if ($driverId) {
+            // التحقق من وجود السائق في قاعدة البيانات
+            $driverExists = \App\Models\Driver::where('id', $driverId)->exists();
+            if ($driverExists) {
+                $this->driver_id = $driverId;
+            } else {
+                \Log::warning("Driver ID {$driverId} not found in drivers table");
+                // يمكنك اختيار إما ترك driver_id فارغاً أو إرجاع خطأ
+                // هنا سنتركه فارغاً لتجنب الخطأ
             }
         }
-
-        return $this->availableStatuses(); // باقي المستخدمين
     }
+
+    if ($status === self::STATUS_COMPLETED && $oldStatus !== self::STATUS_COMPLETED) {
+        $this->completed_at = now();
+    }
+
+    if ($status === self::STATUS_CANCELLED) {
+        $this->cancelled_at = now();
+    }
+
+    try {
+        return $this->save();
+    } catch (\Exception $e) {
+        \Log::error('Error saving pickup request: ' . $e->getMessage());
+        return false;
+    }
+}
+
+// دالة محسنة للحالات المتاحة
+public function availableStatuses()
+{
+    $currentStatus = $this->status ?? 'pending';
+
+    $transitions = [
+        'pending' => ['accepted', 'cancelled'],
+        'accepted' => ['completed', 'cancelled'],
+        'completed' => [],
+        'cancelled' => [],
+    ];
+
+    return $transitions[$currentStatus] ?? [];
+}
+
+// دالة خاصة بالسائق
+public function availableStatusesForDriver()
+{
+    if (auth()->check() && auth()->user()->hasRole('driver')) {
+        return $this->availableStatuses();
+    }
+
+    return [];
+}
+
+
+
+    // public function availableStatuses()
+    // {
+    //     $currentStatus = $this->status ?? 'pending'; // افتراضياً pending
+
+    //     switch ($currentStatus) {
+    //         case 'pending': return ['accepted','cancelled'];
+    //         case 'accepted': return ['completed','cancelled'];
+
+    //         default: return [];
+    //     }
+    // }
+
+    // public function availableStatusesForDriver()
+    // {
+    //     if (auth()->user()->hasRole('driver')) {
+    //         switch ($this->status) {
+    //             case 'pending': return ['accepted','cancelled'];
+    //             case 'accepted': return ['completed','cancelled'];
+    //             default: return [];
+    //         }
+    //     }
+
+    //     return $this->availableStatuses(); // باقي المستخدمين
+    // }
 
     // في model PickupRequest
     public function hasValidCoordinates()

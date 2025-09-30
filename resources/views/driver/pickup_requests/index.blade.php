@@ -338,42 +338,55 @@
                                                     </a>
 
                                                     @if($request->availableStatusesForDriver())
-                                                    <button type="button"
-                                                            class="btn btn-sm btn-outline-warning dropdown-toggle dropdown-toggle-split"
-                                                            data-bs-toggle="dropdown"
-                                                            data-bs-toggle="tooltip"
-                                                            title="{{ __('general.update_status') }}">
-                                                        <i class="mdi mdi-update"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        @foreach($request->availableStatusesForDriver() as $status)
-                                                        <li>
-                                                            {{-- <form action="{{ route('driver.pickup_requests.update_status', $request->id) }}" --}}
-                                                            <form action="#"
-                                                                  method="POST" class="d-inline">
-                                                                @csrf
-                                                                @method('PATCH')
-                                                                <input type="hidden" name="status" value="{{ $status }}">
-                                                                <button type="submit" class="dropdown-item">
-                                                                    <i class="mdi mdi-{{ $statusIcons[$status] }} me-2 text-{{ $statusColors[$status] }}"></i>
-                                                                    {{ __('pickup_request.mark_as') }} {{ __('pickup_request.status_' . $status) }}
-                                                                </button>
-                                                            </form>
-                                                        </li>
-                                                        @endforeach
-                                                    </ul>
+                                                        <button type="button"
+                                                                class="btn btn-sm btn-outline-warning dropdown-toggle dropdown-toggle-split"
+                                                                data-bs-toggle="dropdown"
+                                                                data-bs-toggle="tooltip"
+                                                                title="{{ __('general.update_status') }}">
+                                                            <i class="mdi mdi-update"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropdown-menu-end">
+                                                            @foreach($request->availableStatusesForDriver() as $status)
+                                                            <li>
+                                                                <form action="{{ route('driver.pickup_requests.update_status', $request->id) }}"
+                                                                    method="POST" class="d-inline status-update-form">
+                                                                    @csrf
+                                                                    @method('PATCH')
+                                                                    <input type="hidden" name="status" value="{{ $status }}">
+                                                                    <button type="submit" class="dropdown-item status-update-btn"
+                                                                            data-status="{{ $status }}"
+                                                                            data-request-id="{{ $request->id }}">
+                                                                        <i class="mdi mdi-{{ $statusIcons[$status] }} me-2 text-{{ $statusColors[$status] }}"></i>
+                                                                        {{ __('pickup_request.mark_as') }} {{ __('pickup_request.status_' . $status) }}
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
                                                     @endif
                                                 </div>
 
-                                                @if($request->hasValidCoordinates())
-                                                <a href="#"
-                                                   class="btn btn-sm btn-outline-success mt-1"
-                                                   onclick="showRouteToPickup({{ $request->latitude }}, {{ $request->longitude }}, '{{ $request->merchant->name }}')"
-                                                   data-bs-toggle="tooltip"
-                                                   title="{{ __('general.view_route') }}">
-                                                    <i class="mdi mdi-map-marker-path"></i>
-                                                </a>
-                                                @endif
+                                                <div class="btn-group">
+                                                    @if($request->hasValidCoordinates())
+                                                        <a href="#"
+                                                        class="btn btn-sm btn-outline-success mt-1"
+                                                        onclick="showRouteToPickup({{ $request->latitude }}, {{ $request->longitude }}, '{{ $request->merchant->name }}')"
+                                                        data-bs-toggle="tooltip"
+                                                        title="{{ __('general.view_route') }}">
+                                                            <i class="mdi mdi-map-marker-path"></i>
+                                                        </a>
+                                                    @endif
+
+                                                    @ability('driver', 'update_pickup_requests')
+
+                                                     <a href="{{ route('driver.pickup_requests.edit', $request->id) }}"
+                                                                class="btn btn-sm btn-outline-warning dropdown-toggle dropdown-toggle-split mt-1"
+                                                                data-bs-toggle="tooltip"
+                                                                title="{{ __('general.update_status') }}">
+                                                            <i class="mdi mdi-square-edit-outline"></i>
+                                                    </a>
+                                                    @endability
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -497,5 +510,38 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(initMiniMaps, 1000);
     initTooltips();
 });
+</script>
+
+<script>
+    // في قسم script
+document.addEventListener('DOMContentLoaded', function () {
+    // إضافة تأكيد عند تغيير الحالة
+    document.querySelectorAll('.status-update-btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const status = this.getAttribute('data-status');
+            const requestId = this.getAttribute('data-request-id');
+            const statusText = this.textContent.trim();
+
+            if (!confirm(`هل أنت متأكد من تغيير حالة الطلب #${requestId} إلى "${statusText}"؟`)) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+    });
+
+    // معالجة النماذج بشكل غير متزامن (اختياري)
+    document.querySelectorAll('.status-update-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            // يمكنك إضافة AJAX هنا إذا أردت
+            this.querySelector('button').disabled = true;
+            this.querySelector('button').innerHTML =
+                '<i class="mdi mdi-loading mdi-spin me-2"></i> جاري التحديث...';
+        });
+    });
+});
+</script>
+
+<script>
+
 </script>
 @endsection
