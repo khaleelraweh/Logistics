@@ -32,17 +32,6 @@
                         </select>
                     </div>
 
-                    <!-- Driver -->
-                    <div class="col-md-3">
-                        <select name="driver_id" class="form-select select2">
-                            <option value="">{{ __('filter.all_drivers') }}</option>
-                            @foreach($drivers as $driver)
-                                <option value="{{ $driver->id }}" {{ request('driver_id') == $driver->id ? 'selected' : '' }}>
-                                    {{ $driver->driver_full_name ?? ($driver->first_name['en'] ?? '') . ' ' . ($driver->last_name['en'] ?? '') }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
 
                     <!-- Merchant -->
                     <div class="col-md-3">
