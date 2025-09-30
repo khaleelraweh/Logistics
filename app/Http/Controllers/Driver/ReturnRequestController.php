@@ -24,14 +24,15 @@ class ReturnRequestController extends Controller
             return redirect('driver/index');
         }
 
-        $drivers = Driver::all();
         $packages = Package::with('merchant')->get();
 
+        $driver = auth()->user()->driver; // بيانات السائق
         // استعلام Return Requests
         $return_requests = ReturnRequest::with([
                 'package.merchant', // بيانات الطرد والتاجر
                 'driver'            // بيانات السائق
             ])
+            ->where('driver_id', $driver->id) // عرض طلبات الإرجاع الخاصة بالسائق الحالي فقط
             // البحث بالكلمة المفتاحية
             ->when(request()->keyword, function ($query) {
                 $query->search(request()->keyword);
@@ -50,7 +51,7 @@ class ReturnRequestController extends Controller
             ->paginate(request()->limit_by ?? 100)
             ->withQueryString(); // للحفاظ على الـ filters في روابط الصفحات
 
-        return view('driver.return_requests.index', compact('return_requests', 'drivers' , 'packages'));
+        return view('driver.return_requests.index', compact('return_requests' , 'packages'));
     }
 
 
