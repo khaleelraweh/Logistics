@@ -126,29 +126,27 @@
                                         @endif
 
                                     </td>
+
+                                    @php
+                                        $statusColors = [
+                                            'requested' => 'success',
+                                            'assigned_to_driver' => 'info',
+                                            'picked_up' => 'warning',
+                                            'in_transit' => 'warning',
+                                            'received' => 'primary',
+                                            'partially_received' => 'info',
+                                            'rejected' => 'danger',
+                                            'cancelled' => 'danger',
+                                        ];
+
+                                        $status = $return_request->status;
+                                        $color = $statusColors[$status] ?? 'secondary';
+                                    @endphp
+
                                     <td>
-                                        @switch($return_request->status)
-                                            @case('requested')
-                                                <span class="badge bg-success">{{ __('return_request.status_requested') }}</span>
-                                                @break
-                                            @case('cancelled')
-                                                <span class="badge bg-danger">{{ __('return_request.status_cancelled') }}</span>
-                                                @break
-                                            @case('in_transit')
-                                                <span class="badge bg-warning">{{ __('return_request.status_in_transit') }}</span>
-                                                @break
-                                            @case('rejected')
-                                                <span class="badge bg-danger">{{ __('return_request.status_rejected') }}</span>
-                                                @break
-                                            @case('received')
-                                                <span class="badge bg-primary">{{ __('return_request.status_received') }}</span>
-                                                @break
-                                            @case('partially_received')
-                                                <span class="badge bg-info">{{ __('return_request.status_partially_received') }}</span>
-                                                @break
-                                            @default
-                                                <span class="badge bg-secondary">{{ __('return_request.status_unknown') }}</span>
-                                        @endswitch
+                                        <span class="badge bg-{{ $color }}">
+                                            {{ $return_request->statusLabel() }}
+                                        </span>
                                     </td>
 
                                     <td>{{ $return_request->requested_at ? $return_request->requested_at->diffForHumans() : '-' }}</td>
