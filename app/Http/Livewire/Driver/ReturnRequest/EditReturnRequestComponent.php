@@ -133,7 +133,7 @@ class EditReturnRequestComponent extends Component
             'target_address' => 'nullable|string',
             'requested_at' => 'required|date',
             'received_at' => 'nullable|date|after_or_equal:requested_at',
-            'status' => 'required|in:requested,in_transit,received,rejected,partially_received,cancelled',
+            'status' => 'required|in:requested,assigned_to_driver,picked_up,in_transit,received,rejected,partially_received,cancelled',
             'reason' => 'nullable|string',
         ]);
 
