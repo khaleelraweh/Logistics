@@ -47,7 +47,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>{{ __('return_request.package') }}</th>
-                                <th>{{ __('return_request.driver') }}</th>
                                 <th>{{ __('return_request.status') }}</th>
                                 <th>{{ __('return_request.requested_at') }}</th>
                                 <th>{{ __('return_request.received_at') }}</th>
@@ -112,16 +111,7 @@
                                         </a>
                                     </td>
 
-                                    <td>
-                                        @if ($return_request->driver)
-                                            <a href="#">
-                                                {{ $return_request->driver->driver_full_name ?? '-' }}
-                                                <br>
-                                                <small>{{ $return_request->driver->phone ?? '-' }}</small>
-                                            </a>
-                                        @endif
 
-                                    </td>
 
                                     @php
                                         $statusColors = [
@@ -198,7 +188,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="text-center">{{ __('panel.no_found_item') }}</td>
+                                    <td colspan="7" class="text-center">{{ __('panel.no_found_item') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>
