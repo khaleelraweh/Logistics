@@ -44,7 +44,7 @@ return new class extends Migration
             $table->dateTime('completed_at')->nullable();
 
             // حالة الطلب: pending, accepted, completed
-            $table->enum('status', ['pending', 'accepted', 'completed'])->default('pending');
+            $table->enum('status', ['pending', 'accepted', 'completed' , 'canceled'])->default('pending');
 
             // لجعل الحالة مرئية للنظام أو إخفاؤها (في حالة الحذف اللين مثلاً)
             $table->boolean('status_visible')->default(true);
