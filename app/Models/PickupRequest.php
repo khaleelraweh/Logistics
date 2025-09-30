@@ -127,4 +127,23 @@ class PickupRequest extends Model
 
         return $this->availableStatuses(); // باقي المستخدمين
     }
+
+    // في model PickupRequest
+    public function hasValidCoordinates()
+    {
+        return !empty($this->latitude) && !empty($this->longitude) &&
+            is_numeric($this->latitude) && is_numeric($this->longitude);
+    }
+
+    public function getCoordinatesAttribute()
+    {
+        if ($this->hasValidCoordinates()) {
+            return [
+                'latitude' => (float) $this->latitude,
+                'longitude' => (float) $this->longitude
+            ];
+        }
+
+        return null;
+    }
 }
