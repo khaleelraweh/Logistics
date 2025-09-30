@@ -33,6 +33,8 @@ return [
     'driver_info'                 => 'معلومات السائق',
     'no_merchant'                 => 'لم يتم تعيين تاجر',
     'no_driver_assigned'          => 'لم يتم تعيين سائق',
+    'current_status'            => 'الحالة الحالية',
+    'update_status'            => 'تحديث الحالة',
 
     // للعمليات أو الأزرار:
     'back'                        => 'عودة',

@@ -33,6 +33,8 @@ return [
     'driver_info'                 => 'Driver Information',
     'no_merchant'                 => 'No merchant assigned',
     'no_driver_assigned'          => 'No driver assigned',
+    'current_status'            => 'Current Status',
+    'update_status'            => 'Update Status',
 
     // للعمليات أو الأزرار:
     'back'                        => 'Back',
