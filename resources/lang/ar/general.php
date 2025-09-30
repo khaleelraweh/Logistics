@@ -279,6 +279,20 @@ return [
     'report_issue' => 'الإبلاغ عن مشكلة',
 
 
+    // pickup request specific
+    'quick_actions' => 'إجراءات سريعة',
+    'filter_by_status' => 'التصفية حسب الحالة',
+    'requests' => 'طلبات',
+    'merchant' => 'التاجر',
+    'today' => 'اليوم',
+    'tomorrow' => 'غداً',
+    'update_status' => 'تحديث الحالة',
+    'view_route' => 'عرض المسار',
+    'reset_filters' => 'إعادة تعيين الفلاتر',
+    'location_access_required' => 'يجب السماح بالوصول إلى الموقع لعرض الطلبات القريبة',
+    'location_not_supported' => 'المتصفح لا يدعم تحديد الموقع',
+
+
 ];
 
 

@@ -64,4 +64,20 @@ return [
     'tip_complete' => 'Complete the request after successfully receiving the packages',
     'tip_cancel' => 'Cancel the request only in emergency situations',
 
+    //index blade
+    'total_requests' => 'Total Requests',
+    'pending_requests' => 'Pending Requests',
+    'accepted_requests' => 'Accepted Requests',
+    'completed_requests' => 'Completed Requests',
+    'view_pending' => 'View Pending',
+    'view_accepted' => 'View Accepted',
+    'today_requests' => "Today's Requests",
+    'nearest_requests' => 'Nearest Requests',
+    'by_distance' => 'By Distance',
+    'scheduled_today' => 'Scheduled Today',
+    'mark_as' => 'Mark as',
+    'no_requests_found' => 'No Pickup Requests Found',
+    'no_requests_description' => 'No pickup requests were found matching your search criteria.',
+    'pickup_location' => 'Pickup Location',
+
 ];

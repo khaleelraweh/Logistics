@@ -65,5 +65,21 @@ return [
     'tip_complete' => 'أكمل الطلب بعد استلام الطرود بنجاح',
     'tip_cancel' => 'ألغِ الطلب فقط في حالات الضرورة القصوى',
 
+    // index blade
+    'total_requests' => 'إجمالي الطلبات',
+    'pending_requests' => 'طلبات قيد الانتظار',
+    'accepted_requests' => 'طلبات مقبولة',
+    'completed_requests' => 'طلبات مكتملة',
+    'view_pending' => 'عرض المعلقة',
+    'view_accepted' => 'عرض المقبولة',
+    'today_requests' => 'طلبات اليوم',
+    'nearest_requests' => 'أقرب الطلبات',
+    'by_distance' => 'حسب المسافة',
+    'scheduled_today' => 'المجدولة اليوم',
+    'mark_as' => 'تحديد كـ',
+    'no_requests_found' => 'لا توجد طلبات استلام',
+    'no_requests_description' => 'لم يتم العثور على أي طلبات استلام تطابق معايير البحث الخاصة بك.',
+    'pickup_location' => 'موقع الاستلام',
+
 
 ];

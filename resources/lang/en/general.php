@@ -278,6 +278,19 @@ return [
     'print' => 'Print',
     'report_issue' => 'Report Issue',
 
+    //pickup request specific
+    'quick_actions' => 'Quick Actions',
+    'filter_by_status' => 'Filter by Status',
+    'requests' => 'Requests',
+    'merchant' => 'Merchant',
+    'today' => 'Today',
+    'tomorrow' => 'Tomorrow',
+    'update_status' => 'Update Status',
+    'view_route' => 'View Route',
+    'reset_filters' => 'Reset Filters',
+    'location_access_required' => 'Location access is required to show nearest requests',
+    'location_not_supported' => 'Browser does not support location detection',
+
 
 
 
