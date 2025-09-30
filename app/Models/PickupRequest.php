@@ -12,6 +12,21 @@ class PickupRequest extends Model
 
     protected $guarded = [];
 
+    const STATUS_PENDING   = 'pending';
+    const STATUS_ACCEPTED  = 'accepted';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_CANCELLED = 'cancelled';
+
+    public static function getStatuses()
+    {
+        return [
+            self::STATUS_PENDING,
+            self::STATUS_ACCEPTED,
+            self::STATUS_COMPLETED,
+            self::STATUS_CANCELLED,
+        ];
+    }
+
 
       protected $searchable = [
         'columns' => [
@@ -67,5 +82,24 @@ class PickupRequest extends Model
     public function package()
     {
         return $this->belongsTo(Package::class);
+    }
+
+     public function updateStatus(string $status): bool
+    {
+        if (!in_array($status, self::getStatuses())) {
+            return false; // الحالة غير مسموحة
+        }
+
+        $this->status = $status;
+
+        if ($status === self::STATUS_ACCEPTED) {
+            $this->accepted_at = now();
+        }
+
+        if ($status === self::STATUS_COMPLETED) {
+            $this->completed_at = now();
+        }
+
+        return $this->save();
     }
 }
