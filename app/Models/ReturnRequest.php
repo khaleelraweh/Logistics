@@ -113,4 +113,13 @@ class ReturnRequest extends Model
         };
     }
 
+    const STATUS_REQUESTED   = 'requested';
+    const STATUS_ASSIGNED_TO_DRIVER  = 'assigned_to_driver';
+    const STATUS_PICKED_UP = 'picked_up';
+    const STATUS_IN_TRANSIT = 'in_transit';
+    const STATUS_RECEIVED = 'received';
+    const STATUS_PARTIALLY_RECEIVED = 'partially_received';
+    const STATUS_REJECTED = 'rejected';
+    const STATUS_CANCELLED = 'cancelled';
+
 }
