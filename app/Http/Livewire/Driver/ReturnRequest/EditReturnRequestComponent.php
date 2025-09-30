@@ -34,6 +34,8 @@ class EditReturnRequestComponent extends Component
     // ترتيب الحالات المنطقي
     protected $statuses = [
         'requested',
+        'assigned_to_driver',
+        'picked_up',
         'cancelled',
         'in_transit',
         'rejected',
