@@ -35,11 +35,7 @@
                             </p>
                         </div>
 
-                        <div class="button-items">
-                            <a class="btn btn-primary waves-effect waves-light" href="{{ route('driver.return_requests.create') }}">
-                                {{ __('return_request.add_new_return_request') }} <i class="dripicons-return align-middle ms-2"></i>
-                            </a>
-                        </div>
+
                     </div>
 
                     <!-- Filters Section -->
