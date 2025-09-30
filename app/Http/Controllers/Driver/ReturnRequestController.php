@@ -138,59 +138,5 @@ class ReturnRequestController extends Controller
 
 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ReturnRequest  $returnRequest
-     * @return \Illuminate\Http\Response
-     */
-
-    public function destroy($return_request)
-    {
-        // التحقق من الصلاحيات
-        if (!auth()->user()->ability('driver', 'driver_delete_return_requests')) {
-            return redirect('driver/index');
-        }
-
-        $returnRequest = ReturnRequest::with('returnItems')->where('id', $return_request)->first();
-
-        if (!$returnRequest) {
-            return redirect()->route('driver.return_requests.index')->with([
-                'message'    => __('messages.return_request_not_found'),
-                'alert-type' => 'warning',
-            ]);
-        }
-
-        try {
-            // إذا كانت الحالة تستدعي تعديل المخزون
-            if (in_array($returnRequest->status, ['received', 'partially_received'])) {
-                foreach ($returnRequest->returnItems as $item) {
-                    if ($item->type == 'stock' && $item->stock_item_id) {
-                        $stockItem = \App\Models\StockItem::find($item->stock_item_id);
-                        if ($stockItem) {
-                            $stockItem->decrement('quantity', $item->quantity);
-                        }
-                    }
-                }
-            }
-
-            // حذف الطلب
-            $returnRequest->delete();
-
-            return redirect()->route('driver.return_requests.index')->with([
-                'message'    => __('messages.return_request_deleted'),
-                'alert-type' => 'success',
-            ]);
-
-        } catch (\Exception $e) {
-            // يمكن تسجيل الخطأ
-
-            return redirect()->route('driver.return_requests.index')->with([
-                'message'    => __('messages.something_went_wrong'),
-                'alert-type' => 'danger',
-            ]);
-        }
-    }
-
 }
 
