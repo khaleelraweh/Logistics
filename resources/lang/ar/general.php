@@ -261,6 +261,13 @@ return [
 
     'no_address_provided' => 'لم يتم توفير عنوان',
 
+    // return request specific
+    'characters'        => 'الأحرف',
+    'quick_actions' => 'إجراءات سريعة',
+    'view_details' => 'عرض التفاصيل',
+    'view_route' => 'عرض المسار',
+    'contact_customer' => 'الاتصال بالعميل',
+
 
 ];
 

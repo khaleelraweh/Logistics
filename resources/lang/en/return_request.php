@@ -12,6 +12,15 @@ return [
     'return_request_info'           => 'Return Request Information',
     'view_return_request'           => 'View Return Request Details',
     'additional_info'                => 'Additional Information',
+    'edit_return_request_description' => 'Here you can edit the return request details.',
+    'update_status_reason'      => 'Update Status and Reason',
+    'return_request_summary' => 'Return Request Summary',
+    'current_status' => 'Current Status',
+    'status_help_text' => 'Select the new status for this return request. Only valid status transitions are allowed.',
+    'timeline' => 'Timeline',
+    'reason_help_text' => 'Provide a reason for the status change, if applicable.',
+    'quick_actions' => 'Quick Actions',
+    'reason_placeholder' => 'Enter the reason for return (if any)',
 
     // Column names
     'id'                      => 'ID',

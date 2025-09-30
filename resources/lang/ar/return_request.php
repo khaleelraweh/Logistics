@@ -12,6 +12,15 @@ return [
     'return_request_info'           => 'معلومات المرتجعات',
     'view_return_request'           => 'عرض تفاصيل المرتجع',
     'additional_info'                => 'معلومات إضافية',
+    'edit_return_request_description' => 'يمكنك هنا تعديل تفاصيل طلب الإرجاع.',
+    'update_status_reason'      => 'تحديث الحالة والسبب',
+    'return_request_summary' => 'ملخص طلب الإرجاع',
+    'current_status' => 'الحالة الحالية',
+    'status_help_text' => 'اختر الحالة الجديدة لطلب الإرجاع هذا. يُسمح فقط بانتقالات الحالة الصالحة.',
+    'timeline' => 'الجدول الزمني',
+    'reason_help_text' => 'قدم سببًا لتغيير الحالة، إذا كان ذلك مناسبًا.',
+    'quick_actions' => 'إجراءات سريعة',
+    'reason_placeholder' => 'أدخل سبب الإرجاع (إن وجد)',
 
     // أسماء الأعمدة
     'id'                      => 'المعرف',

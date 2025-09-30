@@ -261,6 +261,14 @@ return [
 
     'no_address_provided' => 'No address provided',
 
+    // return request specific
+    'characters'        => 'characters',
+    'quick_actions' => 'Quick Actions',
+    'view_details' => 'View Details',
+    'view_route' => 'View Route',
+    'contact_customer' => 'Contact Customer',
+
+
 
 
 ];
