@@ -274,6 +274,9 @@ return [
     'with_customer' => 'مع العميل',
     'update_status' => 'تحديث الحالة',
     'change_progress' => 'تقدم التغيير',
+    'export' => 'تصدير',
+    'print' => 'طباعة',
+    'report_issue' => 'الإبلاغ عن مشكلة',
 
 
 ];

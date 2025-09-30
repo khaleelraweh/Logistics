@@ -274,6 +274,9 @@ return [
     'with_customer' => 'With Customer',
     'update_status' => 'Update Status',
     'change_progress' => 'Change Progress',
+    'export' => 'Export',
+    'print' => 'Print',
+    'report_issue' => 'Report Issue',
 
 
 
