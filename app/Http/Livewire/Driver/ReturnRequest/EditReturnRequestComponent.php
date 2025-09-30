@@ -140,10 +140,12 @@ class EditReturnRequestComponent extends Component
                     $oldStatus = $this->previousStatus;
                     $newStatus = $this->status;
 
+                    // زيادة المخزون إذا تغيرنا من حالة غير مستلمة إلى مستلمة أو جزئيا مستلمة
                     if (!in_array($oldStatus, ['received', 'partially_received']) && in_array($newStatus, ['received', 'partially_received'])) {
                         $stockItem->increment('quantity', $qty);
                     }
 
+                    // تقليل المخزون إذا تغيرنا من حالة مستلمة إلى حالة غير مستلمة
                     if (in_array($oldStatus, ['received', 'partially_received']) && !in_array($newStatus, ['received', 'partially_received'])) {
                         $stockItem->decrement('quantity', $qty);
                     }
