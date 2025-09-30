@@ -215,10 +215,14 @@ class EditReturnRequestComponent extends Component
         return array_slice($this->statuses, $currentIndex);
     }
 
+
+
+
     public function render()
     {
         return view('livewire.driver.return-request.edit-return-request-component', [
             'availableStatuses' => $this->availableStatuses,
+
         ]);
     }
 }

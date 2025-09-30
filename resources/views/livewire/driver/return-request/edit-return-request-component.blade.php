@@ -289,14 +289,16 @@
                                 <label class="col-sm-2 col-form-label required-field">{{ __('return_request.status') }}</label>
                                 <div class="col-sm-10">
                                     <select wire:model="status" class="form-select">
-                                         <option value="requested">{{ __('return_request.status_requested') }}</option>
-                                         <option value="requested">{{ __('return_request.status_assigned_to_driver') }}</option>
-                                         <option value="requested">{{ __('return_request.status_picked_up') }}</option>
-                                        <option value="cancelled">{{ __('return_request.status_cancelled') }}</option>
-                                        <option value="in_transit">{{ __('return_request.status_in_transit') }}</option>
-                                        <option value="rejected">{{ __('return_request.status_rejected') }}</option>
-                                        <option value="received">{{ __('return_request.status_received') }}</option>
-                                        <option value="partially_received">{{ __('return_request.status_partially_received') }}</option>
+                                        <option value="">{{ __('pickup_request.select_status') }}</option>
+
+                                        @foreach($availableStatuses as $s)
+                                            <option value="{{ $s }}" {{ $status === $s ? 'selected' : '' }}>
+                                                {{ __('return_request.status_' . $s) }}
+                                            </option>
+                                        @endforeach
+
+
+
                                     </select>
                                     @error('status') <span class="text-danger">{{ $message }}</span> @enderror
 
