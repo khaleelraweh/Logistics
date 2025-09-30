@@ -310,4 +310,6 @@ return [
     'package_items' => 'عناصر الطرد',
     'loading_map'   =>  'تحميل الخريطة',
 
+    'no_location_data' => 'لا تتوفر بيانات الموقع.',
+
 ];

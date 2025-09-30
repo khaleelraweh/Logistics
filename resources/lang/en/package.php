@@ -308,6 +308,7 @@ return [
     'receiver_location_map' => 'Receiver Location Map',
     'package_items'     =>  'Package Items',
     'loading_map'       =>  'Loading Map',
+    'no_location_data'   =>  'No location data available.',
 
 
 ];
