@@ -231,7 +231,7 @@
 
                         <a href="{{ route('driver.pickup_requests.index') }}" class="btn btn-outline-secondary ms-2">
                             <i class="ri-arrow-go-back-line me-1"></i>
-                            {{ __('panel.back') }}
+                            {{ __('general.cancel') }}
                         </a>
                     </div>
                 </form>
