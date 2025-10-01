@@ -482,98 +482,98 @@
         crossorigin=""></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    // Initialize mini maps
-    function initMiniMaps() {
-        const mapContainers = document.querySelectorAll('.map-mini');
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize mini maps
+        function initMiniMaps() {
+            const mapContainers = document.querySelectorAll('.map-mini');
 
-        mapContainers.forEach(container => {
-            const lat = parseFloat(container.getAttribute('data-lat'));
-            const lng = parseFloat(container.getAttribute('data-lng'));
-            const mapId = container.id;
+            mapContainers.forEach(container => {
+                const lat = parseFloat(container.getAttribute('data-lat'));
+                const lng = parseFloat(container.getAttribute('data-lng'));
+                const mapId = container.id;
 
-            if (!isNaN(lat) && !isNaN(lng)) {
-                const map = L.map(mapId).setView([lat, lng], 15);
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    const map = L.map(mapId).setView([lat, lng], 15);
 
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(map);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors'
+                    }).addTo(map);
 
-                L.marker([lat, lng]).addTo(map)
-                    .bindPopup('{{ __("pickup_request.pickup_location") }}');
-            }
-        });
-    }
+                    L.marker([lat, lng]).addTo(map)
+                        .bindPopup('{{ __("pickup_request.pickup_location") }}');
+                }
+            });
+        }
 
-    // Show route to pickup location
-    window.showRouteToPickup = function(lat, lng, merchantName) {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                const userLat = position.coords.latitude;
-                const userLng = position.coords.longitude;
+        // Show route to pickup location
+        window.showRouteToPickup = function(lat, lng, merchantName) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const userLat = position.coords.latitude;
+                    const userLng = position.coords.longitude;
 
-                const googleMapsUrl = `https://www.google.com/maps/dir/${userLat},${userLng}/${lat},${lng}/`;
-                window.open(googleMapsUrl, '_blank');
-            }, function(error) {
-                // If location access denied, open direct location
+                    const googleMapsUrl = `https://www.google.com/maps/dir/${userLat},${userLng}/${lat},${lng}/`;
+                    window.open(googleMapsUrl, '_blank');
+                }, function(error) {
+                    // If location access denied, open direct location
+                    const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+                    window.open(googleMapsUrl, '_blank');
+                });
+            } else {
                 const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
                 window.open(googleMapsUrl, '_blank');
-            });
-        } else {
-            const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
-            window.open(googleMapsUrl, '_blank');
-        }
-    }
-
-    // Show nearest requests
-    window.showNearestRequests = function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                // Redirect to nearest requests page or filter
-                window.location.href = '{{ route("driver.pickup_requests.index") }}?sort=distance&lat=' +
-                                      position.coords.latitude + '&lng=' + position.coords.longitude;
-            }, function(error) {
-                alert('{{ __("general.location_access_required") }}');
-            });
-        } else {
-            alert('{{ __("general.location_not_supported") }}');
-        }
-    }
-
-    // Initialize tooltips
-    function initTooltips() {
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
-    }
-
-    // Initialize everything
-    setTimeout(initMiniMaps, 1000);
-    initTooltips();
-
-    // إضافة تأكيد عند تغيير الحالة
-    document.querySelectorAll('.status-update-btn').forEach(button => {
-        button.addEventListener('click', function(e) {
-            const status = this.getAttribute('data-status');
-            const requestId = this.getAttribute('data-request-id');
-            const statusText = this.textContent.trim();
-
-            if (!confirm(`هل أنت متأكد من تغيير حالة الطلب #${requestId} إلى "${statusText}"؟`)) {
-                e.preventDefault();
-                e.stopPropagation();
             }
-        });
-    });
+        }
 
-    // معالجة النماذج بشكل غير متزامن
-    document.querySelectorAll('.status-update-form').forEach(form => {
-        form.addEventListener('submit', function(e) {
-            this.querySelector('button').disabled = true;
-            this.querySelector('button').innerHTML =
-                '<i class="mdi mdi-loading mdi-spin me-2"></i> جاري التحديث...';
+        // Show nearest requests
+        window.showNearestRequests = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // Redirect to nearest requests page or filter
+                    window.location.href = '{{ route("driver.pickup_requests.index") }}?sort=distance&lat=' +
+                                        position.coords.latitude + '&lng=' + position.coords.longitude;
+                }, function(error) {
+                    alert('{{ __("general.location_access_required") }}');
+                });
+            } else {
+                alert('{{ __("general.location_not_supported") }}');
+            }
+        }
+
+        // Initialize tooltips
+        function initTooltips() {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        }
+
+        // Initialize everything
+        setTimeout(initMiniMaps, 1000);
+        initTooltips();
+
+        // إضافة تأكيد عند تغيير الحالة
+        document.querySelectorAll('.status-update-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const status = this.getAttribute('data-status');
+                const requestId = this.getAttribute('data-request-id');
+                const statusText = this.textContent.trim();
+
+                if (!confirm(`هل أنت متأكد من تغيير حالة الطلب #${requestId} إلى "${statusText}"؟`)) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+        });
+
+        // معالجة النماذج بشكل غير متزامن
+        document.querySelectorAll('.status-update-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                this.querySelector('button').disabled = true;
+                this.querySelector('button').innerHTML =
+                    '<i class="mdi mdi-loading mdi-spin me-2"></i> جاري التحديث...';
+            });
         });
     });
-});
 </script>
 @endsection
