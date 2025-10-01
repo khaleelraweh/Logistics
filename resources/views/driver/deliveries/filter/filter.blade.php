@@ -20,29 +20,8 @@
                     </select>
                 </div>
 
-                <!-- Driver -->
-
-
-                <div class="col-md-1 mb-2 d-md-block" style="display:flex !important;justify-content: center;align-items: center;">
-                    {{ __('general.from') }}
-                </div>
-
-                <!-- Delivered From -->
-                <div class="col-md-2">
-                    <input type="date" name="delivered_from" value="{{ request('delivered_from') }}" class="form-control" placeholder="{{ __('filter.delivered_from') }}">
-                </div>
-
-                <div class="col-md-1 mb-2 d-md-block" style="display:flex !important;justify-content: center;align-items: center;">
-                    {{ __('general.to') }}
-                </div>
-
-                <!-- Delivered To -->
-                <div class="col-md-2">
-                    <input type="date" name="delivered_to" value="{{ request('delivered_to') }}" class="form-control" placeholder="{{ __('filter.delivered_to') }}">
-                </div>
-
                 <!-- Sort By -->
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <select name="sort_by" class="form-select select2">
                         <option value="">{{ __('filter.sort_by') }}</option>
                         <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>{{ __('filter.id') }}</option>
@@ -53,8 +32,26 @@
                     </select>
                 </div>
 
+                <div class="col-md-1 mb-2 d-md-block" style="display:flex !important;justify-content: center;align-items: center;">
+                    {{ __('general.from') }}
+                </div>
+
+                <!-- Delivered From -->
+                <div class="col-md-3">
+                    <input type="date" name="delivered_from" value="{{ request('delivered_from') }}" class="form-control" placeholder="{{ __('filter.delivered_from') }}">
+                </div>
+
+                <div class="col-md-1 mb-2 d-md-block" style="display:flex !important;justify-content: center;align-items: center;">
+                    {{ __('general.to') }}
+                </div>
+
+                <!-- Delivered To -->
+                <div class="col-md-3">
+                    <input type="date" name="delivered_to" value="{{ request('delivered_to') }}" class="form-control" placeholder="{{ __('filter.delivered_to') }}">
+                </div>
+
                 <!-- Order By -->
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <select name="order_by" class="form-select select2">
                         <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>{{ __('filter.asc') }}</option>
                         <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}>{{ __('filter.desc') }}</option>
@@ -62,7 +59,7 @@
                 </div>
 
                 <!-- Limit By -->
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <select name="limit_by" class="form-select select2">
                         <option value="10" {{ request('limit_by') == '10' ? 'selected' : '' }}>10</option>
                         <option value="20" {{ request('limit_by') == '20' ? 'selected' : '' }}>20</option>
