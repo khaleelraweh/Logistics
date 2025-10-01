@@ -180,7 +180,7 @@
                             </div>
 
 
-                            <div class="row mb-3">
+                            {{-- <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="status">{{ __('general.status') }}</label>
                                 <div class="col-sm-10">
                                     <select name="status" class="form-control">
@@ -192,7 +192,21 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+                            </div> --}}
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">{{ __('general.status') }}</label>
+                                <div class="col-sm-10">
+                                    <!-- الحقل مخفي ويُرسل مع الفورم -->
+                                    <input type="hidden" name="status" value="pending">
+
+                                    <!-- عرض النص للمشاهد -->
+                                    <span class="form-control-plaintext">
+                                        {{ __('pickup_request.status_pending') }}
+                                    </span>
+                                </div>
                             </div>
+
                           </div>
 
 
