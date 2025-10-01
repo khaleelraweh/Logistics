@@ -232,4 +232,28 @@ $(document).ready(function(){
         });
     });
 
+    //  updateImportantLinkMenuStatus Status
+    $(document).on("click",".updateImportantLinkMenuStatus",function(){
+        var status = $(this).children("i").attr("status");
+        var important_link_menu_id = $(this).attr("important_link_menu_id");
+
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'post',
+            url:'/frontend_dashboard/important_link_menus/update-important-link-menu-status',
+            data:{status:status,important_link_menu_id:important_link_menu_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#important-link-menu-"+important_link_menu_id).html("<i class='fas fa-toggle-off fa-lg text-warning' aria-hidden='true' status='Inactive' style='font-size:1.6em' />");
+                }else if (resp['status'] ==1 ){
+                    $("#important-link-menu-"+important_link_menu_id).html("<i class='fas fa-toggle-on fa-lg text-success' aria-hidden='true' status='Active' style='font-size:1.6em' />");
+                }
+            },error:function(){
+                alert("Error");
+            }
+        });
+    });
+
 });

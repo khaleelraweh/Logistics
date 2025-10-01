@@ -42,10 +42,25 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
         $deleteMainMenus  =  Permission::create(['name' => 'frontend_dashboard_delete_main_menus', 'display_name'  => ['ar'     => 'حذف عنصر قائمة رئيسية', 'en'  =>  'Delete Main Menu Item'], 'route' => 'main_menus', 'module' => 'main_menus', 'as' => 'main_menus.destroy', 'icon' => null, 'parent' => $manageMainMenus->id, 'parent_original' => $manageMainMenus->id, 'parent_show' => $manageMainMenus->id, 'sidebar_link' => '0', 'appear' => '0']);
 
 
+        //importantlink menu
+        $manageImportantLinkMenus = Permission::create(['name' => 'frontend_dashboard_manage_important_link_menus', 'display_name' => ['ar'    =>  'إدارة قائمة روابط مهمة', 'en'   =>  'Important Link Menu'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.index', 'icon' => 'fas fa-bars', 'parent' => $manageMainMenus->id, 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '105',]);
+        $manageImportantLinkMenus->parent_show = $manageImportantLinkMenus->id;
+        $manageImportantLinkMenus->save();
+        $showImportantLinkMenus    =  Permission::create(['name' => 'frontend_dashboard_show_important_link_menus',  'display_name' => ['ar'  =>  'إدارة قائمة روابط مهمة',   'en'    =>  'Important Link Menu'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.index', 'icon' => 'fas fa-bars', 'parent' => $manageImportantLinkMenus->id, 'parent_original' => $manageImportantLinkMenus->id, 'parent_show' => $manageImportantLinkMenus->id, 'sidebar_link' => '1', 'appear' => '1']);
+        $createImportantLinkMenus  =  Permission::create(['name' => 'frontend_dashboard_create_important_link_menus', 'display_name'  => ['ar'  =>  'إضافة عنصر قائمة روابط مهمة ',   'en'    =>  'Add Important Link Menu Item'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.create', 'icon' => null, 'parent' => $manageImportantLinkMenus->id, 'parent_original' => $manageImportantLinkMenus->id, 'parent_show' => $manageImportantLinkMenus->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $displayImportantLinkMenus =  Permission::create(['name' => 'frontend_dashboard_display_important_link_menus', 'display_name'  => ['ar'  =>  'عرض عنصر قائمة روابط مهمة ',   'en'    =>  'Display Important Link Menu Item'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.show', 'icon' => null, 'parent' => $manageImportantLinkMenus->id, 'parent_original' => $manageImportantLinkMenus->id, 'parent_show' => $manageImportantLinkMenus->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $updateImportantLinkMenus  =  Permission::create(['name' => 'frontend_dashboard_update_important_link_menus', 'display_name'  => ['ar'  =>  'تعديل عنصر قائمة روابط مهمة ',   'en'    =>  'Edit Important Link Menu Item'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.edit', 'icon' => null, 'parent' => $manageImportantLinkMenus->id, 'parent_original' => $manageImportantLinkMenus->id, 'parent_show' => $manageImportantLinkMenus->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $deleteImportantLinkMenus  =  Permission::create(['name' => 'frontend_dashboard_delete_important_link_menus', 'display_name'  => ['ar'  =>  'حذف عنصر قائمة روابط مهمة ',   'en'    =>  'Delete Important Link Menu Item'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.destroy', 'icon' => null, 'parent' => $manageImportantLinkMenus->id, 'parent_original' => $manageImportantLinkMenus->id, 'parent_show' => $manageImportantLinkMenus->id, 'sidebar_link' => '0', 'appear' => '0']);
+
+
         // 3- attatch role to permssions
         $permissions = [
             // Dashboard
             $manageMain,
+            // Main Menus
+            $manageMainMenus,$showMainMenus,$createMainMenus,$displayMainMenus,$updateMainMenus,$deleteMainMenus,
+            // Important Link Menus
+            $manageImportantLinkMenus,$showImportantLinkMenus,$createImportantLinkMenus,$displayImportantLinkMenus,$updateImportantLinkMenus,$deleteImportantLinkMenus
 
         ];
 

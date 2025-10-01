@@ -47,8 +47,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call(FrontendDashboardManagerSeeder::class);
 
-        //Frontend Dashboard related seeders
+        //======== Frontend Dashboard related seeders ==========
         $this->call(MainMenuSeeder::class);
+        $this->call(ImportantLinkMenuSeeder::class);
 
     }
 }

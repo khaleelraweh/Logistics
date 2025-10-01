@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FrontendDashboard\FrontendDashboardController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\FrontendDashboard\ImportantLinkMenuController;
 use App\Http\Controllers\FrontendDashboard\MainMenuController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,10 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', '
     Route::patch('/profile', [ProfileController::class, 'update_profile'])->name('profile.update');
 
     //Resources
+
     Route::post('main_menus/update-main-menu-status', [MainMenuController::class, 'updateMainMenuStatus'])->name('main_menus.update_main_menu_status');
     Route::resource('main_menus', MainMenuController::class);
+
+    Route::post('important_link_menus/update-important-link-menu-status', [ImportantLinkMenuController::class, 'updateImportantLinkMenuStatus'])->name('important_link_menus.update_important_link_menu_status');
+    Route::resource('important_link_menus', ImportantLinkMenuController::class);
 });
