@@ -118,7 +118,8 @@
 
                                     <td>
                                         @if ($return_request->driver)
-                                            <a href="{{ route('merchant.drivers.show',$return_request->driver->id) }}">
+                                            {{-- <a href="{{ route('merchant.drivers.show',$return_request->driver->id) }}"> --}}
+                                            <a href="#">
                                                 {{ $return_request->driver->driver_full_name ?? '-' }}
                                                 <br>
                                                 <small>{{ $return_request->driver->phone ?? '-' }}</small>
