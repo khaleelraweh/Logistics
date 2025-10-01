@@ -76,5 +76,15 @@
 <!-- Custom General Styles -->
 <link href="{{ asset('admin/assets/css/custom-general-style.css') }}" rel="stylesheet" />
 
+
+@if ($isRtl)
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="{{ asset('admin/assets/libs/flatpickr/flatpickr-rtl.min.css') }}">
+@else
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="{{ asset('admin/assets/libs/flatpickr/flatpickr.min.css') }}">
+@endif
+
+
 @livewireStyles
 @yield('style')
