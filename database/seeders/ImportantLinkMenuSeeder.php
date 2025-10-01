@@ -9,17 +9,49 @@ use Illuminate\Database\Seeder;
 
 class ImportantLinkMenuSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $faker = Factory::create();
-        Menu::create(['title'  => ['ar' => 'وزارة التعليم العالي والبحث العلمي', 'en' => 'Ministry of Higher Education and Scientific Research'], 'icon'   => 'fa fa-home', 'created_by' => 'admin', 'status' => true, 'section'    =>  7, 'published_on' => $faker->dateTime(), 'parent_id' => null]);
-        Menu::create(['title'  => ['ar' => 'مجلس الاعتماد الأكاديمي وضمان الجودة', 'en' => 'Council for Academic Accreditation and Quality Assurance'], 'icon'   => 'fa fa-home', 'created_by' => 'admin', 'status' => true, 'section'    =>  7, 'published_on' => $faker->dateTime(), 'parent_id' => null]);
-        Menu::create(['title'  => ['ar' => 'مركز تقنية المعلومات في التعليم العالي', 'en' => 'Center for Information Technology in Higher Education'], 'icon'   => 'fa fa-home', 'created_by' => 'admin', 'status' => true, 'section'    =>  7, 'published_on' => $faker->dateTime(), 'parent_id' => null]);
-        Menu::create(['title'  => ['ar' => 'مدونة الجامعة', 'en' => 'University Blog'], 'icon'   => 'fa fa-home', 'created_by' => 'admin', 'status' => true, 'section'    =>  5, 'published_on' => $faker->dateTime(), 'parent_id' => null]);
+
+        $links = [
+            [
+                'title' => ['ar' => 'تتبع الشحنة', 'en' => 'Track Shipment'],
+                'link'  => ['ar' => 'tracking', 'en' => 'tracking'],
+                'icon'  => 'fa fa-map-marker-alt',
+            ],
+            [
+                'title' => ['ar' => 'حساب تكلفة الشحن', 'en' => 'Shipping Rates'],
+                'link'  => ['ar' => 'rates', 'en' => 'rates'],
+                'icon'  => 'fa fa-calculator',
+            ],
+            [
+                'title' => ['ar' => 'مراكز التخزين', 'en' => 'Warehouses'],
+                'link'  => ['ar' => 'warehouses', 'en' => 'warehouses'],
+                'icon'  => 'fa fa-warehouse',
+            ],
+            [
+                'title' => ['ar' => 'بوابة التاجر', 'en' => 'Merchant Portal'],
+                'link'  => ['ar' => 'merchant/portal', 'en' => 'merchant/portal'],
+                'icon'  => 'fa fa-store',
+            ],
+            [
+                'title' => ['ar' => 'اتصل بنا', 'en' => 'Contact Us'],
+                'link'  => ['ar' => 'contact', 'en' => 'contact'],
+                'icon'  => 'fa fa-envelope',
+            ],
+        ];
+
+        foreach ($links as $item) {
+            Menu::create([
+                'title'        => $item['title'],
+                'icon'         => $item['icon'],
+                'link'         => $item['link'],
+                'created_by'   => 'admin',
+                'status'       => true,
+                'section'      => 7,
+                'published_on' => $faker->dateTimeBetween('-6 months', 'now'),
+                'parent_id'    => null,
+            ]);
+        }
     }
 }
