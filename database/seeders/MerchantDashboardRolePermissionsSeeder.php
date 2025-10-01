@@ -58,6 +58,17 @@ class MerchantDashboardRolePermissionsSeeder extends Seeder
         $deletePickupRequests  =  Permission::create(['name' => 'merchant_delete_pickup_requests', 'display_name'  =>   ['ar'   =>  'حذف عملية طلب استلام',   'en'          =>  'Delete Pickup Request'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.destroy', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
 
 
+          //ReturnRequests // return_requests
+        $manageReturnRequests = Permission::create(['name' => 'merchant_manage_return_requests', 'display_name' => ['ar'  =>  'إدارة طلبات المرتجعات',  'en'    =>  'Manage Return Requests'], 'route' => 'return_requests', 'module' => 'return_requests', 'as' => 'return_requests.index', 'icon' => 'dripicons-return', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '55',]);
+        $manageReturnRequests->parent_show = $manageReturnRequests->id;
+        $manageReturnRequests->save();
+        $showReturnRequests    =  Permission::create(['name' => 'merchant_show_return_requests',  'display_name' =>   ['ar'   =>  'طلبات المرتجعات',   'en'        =>  'Return Requests'], 'route' => 'return_requests', 'module' => 'return_requests', 'as' => 'return_requests.index', 'icon' => 'dripicons-return', 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $createReturnRequests  =  Permission::create(['name' => 'merchant_create_return_requests', 'display_name'  =>   ['ar'   =>  'إضافة عملية طلب ارجاع',   'en'       =>  'Add New Return Request'], 'route' => 'return_requests', 'module' => 'return_requests', 'as' => 'return_requests.create', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $displayReturnRequests =  Permission::create(['name' => 'merchant_display_return_requests', 'display_name'  =>   ['ar'   =>  'استعراض عملية طلب ارجاع',   'en'      =>  'Display Return Request'], 'route' => 'return_requests', 'module' => 'return_requests', 'as' => 'return_requests.show', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $updateReturnRequests  =  Permission::create(['name' => 'merchant_update_return_requests', 'display_name'  =>   ['ar'   =>  'تعديل عملية طلب ارجاع',   'en'        =>  'Update Return Request'], 'route' => 'return_requests', 'module' => 'return_requests', 'as' => 'return_requests.edit', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $deleteReturnRequests  =  Permission::create(['name' => 'merchant_delete_return_requests', 'display_name'  =>   ['ar'   =>  'حذف عملية طلب ارجاع',   'en'          =>  'Delete Return Request'], 'route' => 'return_requests', 'module' => 'return_requests', 'as' => 'return_requests.destroy', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+
+
         // 3- Add Merchant Permission to the Role
         $permissions = [
             // Dashboard
@@ -66,6 +77,10 @@ class MerchantDashboardRolePermissionsSeeder extends Seeder
             $managePackages,$showPackages,$createPackages,$displayPackages,$updatePackages,$deletePackages,
             // Products
             $manageProducts,$showProducts,$createProducts,$editProducts,$deleteProducts,
+            //pickupRequests
+            $managePickupRequests,$showPickupRequests,$createPickupRequests,$displayPickupRequests,$updatePickupRequests,$deletePickupRequests,
+            //returnRequests
+            $manageReturnRequests,$showReturnRequests,$createReturnRequests,$displayReturnRequests,$updateReturnRequests,$deleteReturnRequests,
         ];
 
         foreach ($permissions as $permission) {
