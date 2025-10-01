@@ -310,6 +310,7 @@ return [
     'phone' => 'هاتف',
     'not_available' => 'غير متوفر',
     'map_legend' => 'مفاتيح الخريطة',
+    'deliveries' => 'التوصيلات',
 
 
 
