@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Merchant\ReturnRequest;
 
-use App\Models\Driver;
 use App\Models\Package;
 use App\Models\ReturnRequest;
 use App\Models\ReturnItem;
@@ -12,7 +11,6 @@ use Livewire\Component;
 class CreateReturnRequestComponent extends Component
 {
     public $package_id;
-    public $driver_id;
     public $return_type = 'to_warehouse';
     public $target_address;
     public $requested_at;
@@ -21,7 +19,6 @@ class CreateReturnRequestComponent extends Component
     public $reason;
 
     public $packages = [];
-    public $drivers = [];
 
     public $packageProducts = [];      // منتجات الطرد
     public $returnQuantities = [];     // كميات المرتجع لكل منتج
@@ -29,7 +26,6 @@ class CreateReturnRequestComponent extends Component
     public function mount()
     {
         $this->packages = Package::whereDoesntHave('returnRequest')->get();
-        $this->drivers = Driver::all();
         $this->requested_at = now()->format('Y-m-d');
         $this->received_at = now()->format('Y-m-d');
     }
@@ -54,7 +50,6 @@ class CreateReturnRequestComponent extends Component
     {
         $this->validate([
             'package_id' => 'required|exists:packages,id',
-            // 'driver_id' => 'required|exists:drivers,id',
             'return_type' => 'required|in:to_warehouse,to_merchant,to_both',
             'target_address' => 'nullable|string',
             'requested_at' => 'required|date',
@@ -66,7 +61,6 @@ class CreateReturnRequestComponent extends Component
         // إنشاء طلب المرتجع
         $returnRequest = ReturnRequest::create([
             'package_id' => $this->package_id,
-            // 'driver_id' => $this->driver_id,
             'return_type' => $this->return_type,
             'target_address' => $this->target_address,
             'requested_at' => $this->requested_at,
