@@ -10,6 +10,9 @@ return [
     'actions' => 'Actions',
     'confirm_delete' => 'Are you sure to delete this supervisor?',
     'no_supervisors' => 'No Supervisors found',
+    'add_supervisor' => 'Add Supervisor',
+    'edit_supervisor' => 'Edit Supervisor',
+    'manage_supervisors' => 'Manage Supervisors',
 
     //create and edit
     'create_supervisor' => 'Create Supervisor',

@@ -10,6 +10,9 @@ return [
     'actions' => 'إجراءات',
     'confirm_delete' => 'هل أنت متأكد من حذف هذا المشرف؟',
     'no_supervisors' => 'لا يوجد مشرفين',
+    'add_supervisor' => 'إضافة مشرف',
+    'edit_supervisor' => 'تعديل مشرف',
+    'manage_supervisors' => 'إدارة المشرفين',
 
     //create and edit
     'create_supervisor' => 'إضافة مشرف',

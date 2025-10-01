@@ -7,6 +7,25 @@
 
 @section('content')
 
+ <!-- Page Header -->
+    <div class="row ">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('supervisor.add_supervisor') }}</h4>
+
+                <div class="page-title-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.supervisors.index') }}">{{ __('supervisor.manage_supervisors') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('supervisor.add_supervisor') }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <div class="card shadow mb-4">
 
     {{-- menu part --}}
