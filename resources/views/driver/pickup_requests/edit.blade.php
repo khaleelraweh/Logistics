@@ -40,6 +40,7 @@
                             <i class="bi bi-calendar me-1"></i>
                             {{ $pickupRequest->created_at->format('Y-m-d') }}
                         </span>
+
                         <span class="badge bg-{{ $pickupRequest->status_color }} text-white">
                             <i class="bi bi-{{ $pickupRequest->status_icon }} me-1"></i>
                             {{ __('pickup_request.status_' . $pickupRequest->status) }}
