@@ -229,7 +229,7 @@
                             @endif
 
 
-                            <!-- Driver Selection -->
+                            <!-- Delivery Selection -->
                             <h5 class="section-title">{{ __('return_request.delivery_information') }}</h5>
                             <!-- Return Type -->
                             <div class="row mb-3">
