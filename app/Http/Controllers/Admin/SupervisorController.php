@@ -13,6 +13,9 @@ use App\Models\User;
 use App\Models\UserPermissions;
 use Illuminate\Http\Request;
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+
 
 class SupervisorController extends Controller
 {
@@ -66,12 +69,12 @@ class SupervisorController extends Controller
 
 
         if ($image = $request->file('user_image')) {
-            $file_name = Str::slug($request->username).".".$image->getClientOriginalExtension();
-            $path = public_path('assets/users/' . $file_name );
-            Image::make($image->getRealPath())->resize(300,null,function($constraint){
-                $constraint->aspectRatio();
-            })->save($path,100);
+            $manager = new ImageManager(new Driver());
 
+            $file_name = Str::slug($request->username).".".$image->getClientOriginalExtension();
+
+            $img = $manager->read($request->file('user_image'));
+            $img->toJpeg(100)->save(public_path('assets/users/' . $file_name));
             $input['user_image'] = $file_name;
         }
 
