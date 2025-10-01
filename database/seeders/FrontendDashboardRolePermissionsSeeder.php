@@ -43,7 +43,7 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
 
 
         //importantlink menu
-        $manageImportantLinkMenus = Permission::create(['name' => 'frontend_dashboard_manage_important_link_menus', 'display_name' => ['ar'    =>  'إدارة قائمة روابط مهمة', 'en'   =>  'Important Link Menu'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.index', 'icon' => 'fas fa-bars', 'parent' => $manageMainMenus->id, 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '105',]);
+        $manageImportantLinkMenus = Permission::create(['name' => 'frontend_dashboard_manage_important_link_menus', 'display_name' => ['ar'    =>  'إدارة قائمة روابط مهمة', 'en'   =>  'Important Link Menu'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.index', 'icon' => 'fas fa-bars', 'parent' => $manageMainMenus->id, 'parent_original' => $manageMainMenus->id, 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '105',]);
         $manageImportantLinkMenus->parent_show = $manageImportantLinkMenus->id;
         $manageImportantLinkMenus->save();
         $showImportantLinkMenus    =  Permission::create(['name' => 'frontend_dashboard_show_important_link_menus',  'display_name' => ['ar'  =>  'إدارة قائمة روابط مهمة',   'en'    =>  'Important Link Menu'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.index', 'icon' => 'fas fa-bars', 'parent' => $manageImportantLinkMenus->id, 'parent_original' => $manageImportantLinkMenus->id, 'parent_show' => $manageImportantLinkMenus->id, 'sidebar_link' => '1', 'appear' => '1']);
