@@ -200,7 +200,7 @@
         <div class="d-none d-lg-inline-block ms-1">
             <a class="btn header-item noti-icon waves-effect d-flex align-items-center" href="{{ route('admin.supervisors.index') }}">
                 <i class="ri-team-line"></i>
-                <span class="d-none d-xl-inline">{{ __('navbar.supervisors') }}</span>
+                <span class="d-none d-xl-inline">{{ __('supervisor.supervisors') }}</span>
             </a>
         </div>
 
