@@ -707,9 +707,326 @@
     </div>
 
     <!-- Main Content -->
-    <div class="col-lg-9">
-        <!-- باقي المحتوى الرئيسي بدون تغيير -->
-        <!-- ... نفس المحتوى السابق ... -->
+   <div class="col-lg-9">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-head d-flex justify-content-between align-items-center mb-4">
+                    <div class="head">
+                        <h4 class="card-title mb-1">
+                            <i class="mdi mdi-truck-delivery me-2 text-primary"></i>
+                            {{ __('delivery.manage_deliveries') }}
+                        </h4>
+                        <p class="card-title-desc text-muted mb-0">
+                            {{ __('delivery.delivery_description') }}
+
+                            @if(request()->hasAny(['keyword', 'status', 'package_id', 'date_from', 'date_to']))
+                            <span class="badge bg-info ms-2">
+                                <i class="mdi mdi-filter me-1"></i>
+                                {{ __('general.filter_applied') }} ({{ $deliveries->total() }})
+                            </span>
+                            @endif
+                        </p>
+                    </div>
+
+                    <div class="button-items">
+                        <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#filtersSection">
+                            <i class="mdi mdi-filter-outline me-1"></i>
+                            {{ __('general.filters') }}
+                            @if(request()->hasAny(['keyword', 'status', 'package_id', 'date_from', 'date_to']))
+                            <span class="badge bg-white text-primary ms-1">{{ $deliveries->total() }}</span>
+                            @endif
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filters Section -->
+                <div class="collapse mb-4" id="filtersSection">
+                    @include('driver.deliveries.filter.filter')
+                </div>
+
+                <div class="table-responsive">
+                    <table id="datatable" class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th width="60">#</th>
+                                <th width="80">{{ __('delivery.package') }}</th>
+                                <th>{{ __('delivery.recipient') }}</th>
+                                <th>{{ __('delivery.address') }}</th>
+                                <th width="100">{{ __('delivery.cod_amount') }}</th>
+                                <th width="120">{{ __('delivery.status') }}</th>
+                                <th width="120">{{ __('delivery.assigned_at') }}</th>
+                                <th width="100">{{ __('general.actions') }}</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @forelse ($deliveries as $delivery)
+                                <tr>
+                                    <td class="fw-bold text-primary">#{{ $delivery->id }}</td>
+
+                                    <!-- Package Information -->
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="package-avatar me-3">
+                                                <i class="mdi mdi-package-variant"></i>
+                                            </div>
+                                            <div>
+                                                <strong class="d-block">{{ $delivery->package->tracking_number ?? '-' }}</strong>
+                                                <small class="text-muted">
+                                                    {{ Str::limit($delivery->package->package_content ?? '', 20) }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <!-- Recipient Information -->
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="recipient-avatar me-3">
+                                                {{ substr($delivery->package->receiver_first_name ?? 'R', 0, 1) }}
+                                            </div>
+                                            <div>
+                                                <strong class="d-block">
+                                                    {{ $delivery->package->receiver_first_name ?? '' }} {{ $delivery->package->receiver_last_name ?? '' }}
+                                                </strong>
+                                                <small class="text-muted">
+                                                    <i class="mdi mdi-phone me-1"></i>
+                                                    {{ $delivery->package->receiver_phone ?? '-' }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <!-- Address Information -->
+                                    <td>
+                                        <div class="location-info">
+                                            @php
+                                                $addressParts = array_filter([
+                                                    $delivery->package->receiver_city,
+                                                    $delivery->package->receiver_district,
+                                                    $delivery->package->receiver_region,
+                                                ]);
+                                                $fullAddress = $delivery->package ?
+                                                    implode(' - ', array_filter([
+                                                        $delivery->package->receiver_country,
+                                                        $delivery->package->receiver_region,
+                                                        $delivery->package->receiver_city,
+                                                        $delivery->package->receiver_district,
+                                                        $delivery->package->receiver_postal_code,
+                                                    ])) : '-';
+                                            @endphp
+
+                                            <strong class="d-block">
+                                                <i class="mdi mdi-map-marker-outline me-1 text-danger"></i>
+                                                {{ implode(' - ', array_slice($addressParts, 0, 2)) ?: '-' }}
+                                            </strong>
+                                            <small class="text-muted">
+                                                {{ Str::limit($fullAddress, 40) }}
+                                            </small>
+
+                                            @if($delivery->package && $delivery->package->receiver_latitude && $delivery->package->receiver_longitude)
+                                            <div class="map-mini"
+                                                 id="mini-map-{{ $delivery->id }}"
+                                                 data-lat="{{ $delivery->package->receiver_latitude }}"
+                                                 data-lng="{{ $delivery->package->receiver_longitude }}">
+                                            </div>
+                                            @endif
+                                        </div>
+                                    </td>
+
+                                    <!-- COD Amount -->
+                                    <td>
+                                        @if($delivery->package && $delivery->package->cod_amount > 0)
+                                            <span class="cod-badge">
+                                                <i class="mdi mdi-cash me-1"></i>
+                                                {{ number_format($delivery->package->cod_amount, 2) }}
+                                            </span>
+                                        @else
+                                            <span class="text-muted">-</span>
+                                        @endif
+                                    </td>
+
+                                    <!-- Status Information -->
+                                    <td>
+                                        <div class="status-info">
+                                            @php
+                                                $statusClasses = [
+                                                    'pending' => 'badge-pending',
+                                                    'assigned_to_driver' => 'badge-assigned_to_driver',
+                                                    'driver_picked_up' => 'badge-driver_picked_up',
+                                                    'in_transit' => 'badge-in_transit',
+                                                    'arrived_at_hub' => 'badge-arrived_at_hub',
+                                                    'out_for_delivery' => 'badge-out_for_delivery',
+                                                    'delivered' => 'badge-delivered',
+                                                    'delivery_failed' => 'badge-delivery_failed',
+                                                    'returned' => 'badge-returned',
+                                                    'cancelled' => 'badge-cancelled',
+                                                    'in_warehouse' => 'badge-in_warehouse'
+                                                ];
+
+                                                $statusIcons = [
+                                                    'pending' => 'clock-outline',
+                                                    'assigned_to_driver' => 'truck-check',
+                                                    'driver_picked_up' => 'package-variant',
+                                                    'in_transit' => 'truck-delivery',
+                                                    'arrived_at_hub' => 'warehouse',
+                                                    'out_for_delivery' => 'walk',
+                                                    'delivered' => 'check-circle',
+                                                    'delivery_failed' => 'alert-circle',
+                                                    'returned' => 'package-up',
+                                                    'cancelled' => 'cancel',
+                                                    'in_warehouse' => 'archive'
+                                                ];
+                                            @endphp
+
+                                            <span class="status-badge {{ $statusClasses[$delivery->status] }} d-flex align-items-center">
+                                                <i class="mdi mdi-{{ $statusIcons[$delivery->status] }} me-1"></i>
+                                                {{ __('delivery.status_' . $delivery->status) }}
+                                            </span>
+
+                                            @if($delivery->status == 'delivered' && $delivery->delivered_at)
+                                            <small class="text-muted d-block mt-1">
+                                                {{ $delivery->delivered_at->diffForHumans() }}
+                                            </small>
+                                            @elseif($delivery->status == 'assigned_to_driver' && $delivery->assigned_at)
+                                            <small class="text-muted d-block mt-1">
+                                                {{ $delivery->assigned_at->diffForHumans() }}
+                                            </small>
+                                            @endif
+                                        </div>
+                                    </td>
+
+                                    <!-- Assigned At -->
+                                    <td>
+                                        <div class="schedule-info text-center">
+                                            @if($delivery->assigned_at)
+                                            <strong class="d-block text-primary">
+                                                {{ $delivery->assigned_at->format('d M') }}
+                                            </strong>
+                                            <small class="text-muted">
+                                                {{ $delivery->assigned_at->format('H:i') }}
+                                            </small>
+                                            <div class="mt-1">
+                                                @if($delivery->assigned_at->isToday())
+                                                <span class="badge bg-success badge-sm">{{ __('general.today') }}</span>
+                                                @elseif($delivery->assigned_at->isTomorrow())
+                                                <span class="badge bg-info badge-sm">{{ __('general.tomorrow') }}</span>
+                                                @endif
+                                            </div>
+                                            @else
+                                            <span class="text-muted">-</span>
+                                            @endif
+                                        </div>
+                                    </td>
+
+                                    <!-- Actions -->
+                                    <td>
+                                        <div class="action-dropdown">
+                                            <div class="btn-group">
+                                                <a href="{{ route('driver.deliveries.show', $delivery->id) }}"
+                                                   class="btn btn-sm btn-outline-primary"
+                                                   data-bs-toggle="tooltip"
+                                                   title="{{ __('general.view_details') }}">
+                                                    <i class="mdi mdi-eye"></i>
+                                                </a>
+
+                                                @if(count($delivery->availableStatusesForDriver()) > 0)
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-outline-warning dropdown-toggle dropdown-toggle-split"
+                                                            data-bs-toggle="dropdown"
+                                                            aria-expanded="false"
+                                                            title="{{ __('general.update_status') }}">
+                                                        <i class="mdi mdi-update"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        @foreach($delivery->availableStatusesForDriver() as $status)
+                                                        <li>
+                                                            <form action="{{ route('driver.deliveries.update_status', $delivery->id) }}"
+                                                                method="POST" class="d-inline status-update-form">
+                                                                @csrf
+                                                                @method('PATCH')
+                                                                <input type="hidden" name="status" value="{{ $status }}">
+                                                                <button type="submit" class="dropdown-item status-update-btn"
+                                                                        data-status="{{ $status }}"
+                                                                        data-delivery-id="{{ $delivery->id }}">
+                                                                    <i class="mdi mdi-{{ $statusIcons[$status] }} me-2"></i>
+                                                                    {{ __('delivery.mark_as') }} {{ __('delivery.status_' . $status) }}
+                                                                </button>
+                                                            </form>
+                                                        </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </div>
+
+                                            <div class="btn-group mt-1">
+                                                @if($delivery->package && $delivery->package->receiver_latitude && $delivery->package->receiver_longitude)
+                                                    <a href="#"
+                                                    class="btn btn-sm btn-outline-success"
+                                                    onclick="showRouteToDelivery({{ $delivery->package->receiver_latitude }}, {{ $delivery->package->receiver_longitude }}, '{{ $delivery->package->receiver_first_name }}')"
+                                                    data-bs-toggle="tooltip"
+                                                    title="{{ __('general.view_route') }}">
+                                                        <i class="mdi mdi-map-marker-path"></i>
+                                                    </a>
+                                                @endif
+
+                                                @ability('driver', 'update_deliveries')
+                                                 <a href="{{ route('driver.deliveries.edit', $delivery->id) }}"
+                                                            class="btn btn-sm btn-outline-warning"
+                                                            data-bs-toggle="tooltip"
+                                                            title="{{ __('general.edit') }}">
+                                                        <i class="mdi mdi-square-edit-outline"></i>
+                                                </a>
+                                                @endability
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center py-4">
+                                        <div class="empty-state">
+                                            <i class="mdi mdi-truck-remove-outline fs-1 text-muted"></i>
+                                            <h5 class="mt-3">{{ __('delivery.no_deliveries_found') }}</h5>
+                                            <p class="text-muted">{{ __('delivery.no_deliveries_description') }}</p>
+                                            <a href="{{ route('driver.deliveries.index') }}" class="btn btn-primary">
+                                                <i class="mdi mdi-refresh me-2"></i>
+                                                {{ __('general.reset_filters') }}
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                @if($deliveries->hasPages())
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="text-muted">
+                                {{ __('general.showing') }} {{ $deliveries->firstItem() }} - {{ $deliveries->lastItem() }}
+                                {{ __('general.of') }} {{ $deliveries->total() }}
+                                {{ __('general.records') }}
+
+                                @if(request()->hasAny(['keyword', 'status', 'package_id', 'date_from', 'date_to']))
+                                <span class="badge bg-info ms-2">
+                                    <i class="mdi mdi-filter me-1"></i>
+                                    {{ __('general.filtered') }}
+                                </span>
+                                @endif
+                            </div>
+                            <div>
+                                {{ $deliveries->links() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+            </div>
+        </div>
     </div>
 </div>
 
