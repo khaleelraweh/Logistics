@@ -218,7 +218,7 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type:'post',
-            url:'/admin/main_menus/update-main-menu-status',
+            url:'/frontend_dashboard/main_menus/update-main-menu-status',
             data:{status:status,main_menu_id:main_menu_id},
             success:function(resp){
                 if(resp['status']==0){
