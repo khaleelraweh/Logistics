@@ -311,6 +311,7 @@ return [
     'not_available' => 'غير متوفر',
     'map_legend' => 'مفاتيح الخريطة',
     'deliveries' => 'التوصيلات',
+    'all_statuses' => 'جميع الحالات',
 
 
 

@@ -149,4 +149,41 @@
     'by_distance' => 'حسب المسافة',
 
 
+    // نصوص الإحصائيات المحسنة
+    'total_deliveries' => 'إجمالي التسليمات',
+    'pending' => 'معلقة',
+    'assigned' => 'مسندة',
+    'in_progress' => 'قيد التنفيذ',
+    'delivered' => 'تم التسليم',
+    'today_deliveries' => 'تسليمات اليوم',
+
+    // الإجراءات السريعة
+    'view_pending' => 'عرض المعلقة',
+    'view_assigned' => 'عرض المسندة',
+    'active_deliveries' => 'التسليمات النشطة',
+    'nearest_deliveries' => 'أقرب التسليمات',
+    'awaiting_assignment' => 'بانتظار التعيين',
+    'ready_for_pickup' => 'جاهزة للاستلام',
+    'in_progress' => 'قيد التنفيذ',
+    'scheduled_today' => 'مجدولة اليوم',
+    'by_distance' => 'حسب المسافة',
+
+    // فلترة الحالات
+    'all_statuses' => 'جميع الحالات',
+
+    // حالات التسليم
+    'status_pending' => 'معلقة',
+    'status_assigned_to_driver' => 'مسندة للسائق',
+    'status_driver_picked_up' => 'تم الاستلام',
+    'status_in_transit' => 'قيد النقل',
+    'status_arrived_at_hub' => 'وصلت للمركز',
+    'status_out_for_delivery' => 'خارج للتسليم',
+    'status_delivered' => 'تم التسليم',
+    'status_delivery_failed' => 'فشل التسليم',
+    'status_returned' => 'مرتجعة',
+    'status_cancelled' => 'ملغاة',
+    'status_in_warehouse' => 'في المستودع',
+
+
+
     ];

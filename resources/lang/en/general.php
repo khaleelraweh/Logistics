@@ -310,6 +310,7 @@ return [
     'not_available' => 'Not Available',
     'map_legend' => 'Map Legend',
     'deliveries' => 'Deliveries',
+    'all_statuses' => 'All Statuses',
 
 
 

@@ -25,9 +25,10 @@
         --stat-total: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         --stat-pending: linear-gradient(135deg, #6c757d 0%, #495057 100%);
         --stat-assigned: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
-        --stat-in_transit: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        --stat-active: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
         --stat-delivered: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
         --stat-failed: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        --stat-today: linear-gradient(135deg, #fd7e14 0%, #e3640c 100%);
     }
 
     .stat-card {
@@ -55,9 +56,10 @@
     .stat-card.total { background: var(--stat-total); }
     .stat-card.pending { background: var(--stat-pending); }
     .stat-card.assigned { background: var(--stat-assigned); }
-    .stat-card.in_transit { background: var(--stat-in_transit); }
+    .stat-card.active { background: var(--stat-active); }
     .stat-card.delivered { background: var(--stat-delivered); }
     .stat-card.failed { background: var(--stat-failed); }
+    .stat-card.today { background: var(--stat-today); }
 
     .stat-card:hover {
         transform: translateY(-5px);
@@ -82,13 +84,13 @@
         background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         border: 2px solid transparent;
         border-radius: 10px;
-        padding: 12px;
+        padding: 15px;
         text-align: center;
         transition: all 0.3s ease;
         color: #495057;
         text-decoration: none;
         display: block;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         cursor: pointer;
         position: relative;
         overflow: hidden;
@@ -107,37 +109,56 @@
 
     .quick-action-btn.pending::before { background: var(--status-pending); }
     .quick-action-btn.assigned::before { background: var(--status-assigned_to_driver); }
+    .quick-action-btn.active::before { background: var(--status-in_transit); }
     .quick-action-btn.today::before { background: var(--status-out_for_delivery); }
     .quick-action-btn.nearest::before { background: #6f42c1; }
 
     .quick-action-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         text-decoration: none;
+        color: white;
     }
 
     .quick-action-btn.pending:hover {
         background: linear-gradient(135deg, var(--status-pending) 0%, #495057 100%);
-        color: white;
         border-color: var(--status-pending);
     }
 
     .quick-action-btn.assigned:hover {
         background: linear-gradient(135deg, var(--status-assigned_to_driver) 0%, #138496 100%);
-        color: white;
         border-color: var(--status-assigned_to_driver);
+    }
+
+    .quick-action-btn.active:hover {
+        background: linear-gradient(135deg, var(--status-in_transit) 0%, #0056b3 100%);
+        border-color: var(--status-in_transit);
     }
 
     .quick-action-btn.today:hover {
         background: linear-gradient(135deg, var(--status-out_for_delivery) 0%, #e0a800 100%);
-        color: white;
         border-color: var(--status-out_for_delivery);
     }
 
     .quick-action-btn.nearest:hover {
         background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
-        color: white;
         border-color: #6f42c1;
+    }
+
+    .quick-action-btn .count {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .quick-action-btn .text {
+        font-size: 0.85rem;
+        margin-bottom: 3px;
+    }
+
+    .quick-action-btn .subtext {
+        font-size: 0.75rem;
+        opacity: 0.8;
     }
 
     /* حالة موحدة لل badges */
@@ -224,69 +245,27 @@
         font-weight: 600;
         font-size: 0.75rem;
     }
+
+    .status-filter-item {
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
+
+    .status-filter-item:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+        border-left-color: #007bff;
+    }
+
+    .status-filter-item.active {
+        background-color: #007bff;
+        color: white;
+        border-left-color: #0056b3;
+    }
 </style>
 @endsection
 
 @section('content')
 
-@php
-    // إحصائيات التسليمات
-    $totalDeliveries = $deliveries->total();
-    $pendingDeliveries = $deliveries->where('status', 'pending')->count();
-    $assignedDeliveries = $deliveries->where('status', 'assigned_to_driver')->count();
-    $inTransitDeliveries = $deliveries->where('status', 'in_transit')->count();
-    $deliveredDeliveries = $deliveries->where('status', 'delivered')->count();
-    $failedDeliveries = $deliveries->whereIn('status', ['delivery_failed', 'returned'])->count();
-
-    // تسليمات اليوم
-    $todayDeliveries = $deliveries->where('assigned_at', '>=', now()->startOfDay())->count();
-@endphp
-
-<!-- Statistics Cards -->
-{{-- <div class="row mb-4">
-    <div class="col-xl-2 col-md-4 col-sm-6">
-        <div class="stat-card total">
-            <div class="number">{{ $totalDeliveries }}</div>
-            <div class="label">{{ __('delivery.total_deliveries') }}</div>
-            <i class="mdi mdi-package-variant fs-2 opacity-50 mt-2"></i>
-        </div>
-    </div>
-    <div class="col-xl-2 col-md-4 col-sm-6">
-        <div class="stat-card pending">
-            <div class="number">{{ $pendingDeliveries }}</div>
-            <div class="label">{{ __('delivery.pending_deliveries') }}</div>
-            <i class="mdi mdi-clock-outline fs-2 opacity-50 mt-2"></i>
-        </div>
-    </div>
-    <div class="col-xl-2 col-md-4 col-sm-6">
-        <div class="stat-card assigned">
-            <div class="number">{{ $assignedDeliveries }}</div>
-            <div class="label">{{ __('delivery.assigned_deliveries') }}</div>
-            <i class="mdi mdi-truck-check fs-2 opacity-50 mt-2"></i>
-        </div>
-    </div>
-    <div class="col-xl-2 col-md-4 col-sm-6">
-        <div class="stat-card in_transit">
-            <div class="number">{{ $inTransitDeliveries }}</div>
-            <div class="label">{{ __('delivery.in_transit_deliveries') }}</div>
-            <i class="mdi mdi-truck-delivery fs-2 opacity-50 mt-2"></i>
-        </div>
-    </div>
-    <div class="col-xl-2 col-md-4 col-sm-6">
-        <div class="stat-card delivered">
-            <div class="number">{{ $deliveredDeliveries }}</div>
-            <div class="label">{{ __('delivery.delivered_deliveries') }}</div>
-            <i class="mdi mdi-check-circle fs-2 opacity-50 mt-2"></i>
-        </div>
-    </div>
-    <div class="col-xl-2 col-md-4 col-sm-6">
-        <div class="stat-card failed">
-            <div class="number">{{ $failedDeliveries }}</div>
-            <div class="label">{{ __('delivery.failed_deliveries') }}</div>
-            <i class="mdi mdi-alert-circle fs-2 opacity-50 mt-2"></i>
-        </div>
-    </div>
-</div> --}}
 <!-- Statistics Cards -->
 <div class="row mb-4">
     <div class="col-xl-2 col-md-4 col-sm-6">
@@ -311,9 +290,9 @@
         </div>
     </div>
     <div class="col-xl-2 col-md-4 col-sm-6">
-        <div class="stat-card in_transit">
-            <div class="number">{{ $inTransitDeliveries + $pickedUpDeliveries }}</div>
-            <div class="label">{{ __('delivery.in_transit') }}</div>
+        <div class="stat-card active">
+            <div class="number">{{ $activeDeliveries }}</div>
+            <div class="label">{{ __('delivery.in_progress') }}</div>
             <i class="mdi mdi-truck-delivery fs-2 opacity-50 mt-2"></i>
         </div>
     </div>
@@ -325,62 +304,10 @@
         </div>
     </div>
     <div class="col-xl-2 col-md-4 col-sm-6">
-        <div class="stat-card failed">
-            <div class="number">{{ $failedDeliveries + $returnedDeliveries + $cancelledDeliveries }}</div>
-            <div class="label">{{ __('delivery.failed_cancelled') }}</div>
-            <i class="mdi mdi-alert-circle fs-2 opacity-50 mt-2"></i>
-        </div>
-    </div>
-</div>
-
-<!-- Detailed Statistics Row -->
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h6 class="card-title mb-3">
-                    <i class="mdi mdi-chart-bar me-2"></i>
-                    {{ __('delivery.detailed_statistics') }}
-                </h6>
-                <div class="row text-center">
-                    <div class="col-md-2 col-4 mb-3">
-                        <div class="text-primary">
-                            <div class="fw-bold fs-4">{{ $pickedUpDeliveries }}</div>
-                            <small class="text-muted">{{ __('delivery.picked_up') }}</small>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-4 mb-3">
-                        <div class="text-info">
-                            <div class="fw-bold fs-4">{{ $arrivedAtHubDeliveries }}</div>
-                            <small class="text-muted">{{ __('delivery.at_hub') }}</small>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-4 mb-3">
-                        <div class="text-warning">
-                            <div class="fw-bold fs-4">{{ $outForDeliveryDeliveries }}</div>
-                            <small class="text-muted">{{ __('delivery.out_for_delivery') }}</small>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-4 mb-3">
-                        <div class="text-success">
-                            <div class="fw-bold fs-4">{{ $deliveredDeliveries }}</div>
-                            <small class="text-muted">{{ __('delivery.successful') }}</small>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-4 mb-3">
-                        <div class="text-danger">
-                            <div class="fw-bold fs-4">{{ $failedDeliveries }}</div>
-                            <small class="text-muted">{{ __('delivery.failed') }}</small>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-4 mb-3">
-                        <div class="text-secondary">
-                            <div class="fw-bold fs-4">{{ $returnedDeliveries }}</div>
-                            <small class="text-muted">{{ __('delivery.returned') }}</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="stat-card today">
+            <div class="number">{{ $todayDeliveries }}</div>
+            <div class="label">{{ __('delivery.today_deliveries') }}</div>
+            <i class="mdi mdi-calendar-today fs-2 opacity-50 mt-2"></i>
         </div>
     </div>
 </div>
@@ -398,29 +325,38 @@
             <div class="card-body">
                 <a href="{{ route('driver.deliveries.index', ['status' => 'pending']) }}"
                    class="quick-action-btn pending">
-                    <i class="mdi mdi-clock-outline me-2"></i>
-                    <div>{{ __('delivery.view_pending') }}</div>
-                    <small class="opacity-75">{{ $pendingDeliveries }} {{ __('general.deliveries') }}</small>
+                    <div class="count">{{ $pendingDeliveries }}</div>
+                    <div class="text">{{ __('delivery.view_pending') }}</div>
+                    <div class="subtext">{{ __('delivery.awaiting_assignment') }}</div>
                 </a>
 
                 <a href="{{ route('driver.deliveries.index', ['status' => 'assigned_to_driver']) }}"
                    class="quick-action-btn assigned">
-                    <i class="mdi mdi-truck-check me-2"></i>
-                    <div>{{ __('delivery.view_assigned') }}</div>
-                    <small class="opacity-75">{{ $assignedDeliveries }} {{ __('general.deliveries') }}</small>
+                    <div class="count">{{ $assignedDeliveries }}</div>
+                    <div class="text">{{ __('delivery.view_assigned') }}</div>
+                    <div class="subtext">{{ __('delivery.ready_for_pickup') }}</div>
                 </a>
 
-                <a href="{{ route('driver.deliveries.index', ['assigned_at' => today()->format('Y-m-d')]) }}"
+                <a href="{{ route('driver.deliveries.index') }}?status[]=driver_picked_up&status[]=in_transit&status[]=out_for_delivery"
+                   class="quick-action-btn active">
+                    <div class="count">{{ $activeDeliveries }}</div>
+                    <div class="text">{{ __('delivery.active_deliveries') }}</div>
+                    <div class="subtext">{{ __('delivery.in_progress') }}</div>
+                </a>
+
+                <a href="{{ route('driver.deliveries.index', ['date_from' => today()->format('Y-m-d')]) }}"
                    class="quick-action-btn today">
-                    <i class="mdi mdi-calendar-today me-2"></i>
-                    <div>{{ __('delivery.today_deliveries') }}</div>
-                    <small class="opacity-75">{{ $todayDeliveries }} {{ __('delivery.scheduled_today') }}</small>
+                    <div class="count">{{ $todayDeliveries }}</div>
+                    <div class="text">{{ __('delivery.today_deliveries') }}</div>
+                    <div class="subtext">{{ __('delivery.scheduled_today') }}</div>
                 </a>
 
                 <a href="#" class="quick-action-btn nearest" onclick="showNearestDeliveries()">
-                    <i class="mdi mdi-map-marker-distance me-2"></i>
-                    <div>{{ __('delivery.nearest_deliveries') }}</div>
-                    <small class="opacity-75">{{ __('delivery.by_distance') }}</small>
+                    <div class="count">
+                        <i class="mdi mdi-near-me"></i>
+                    </div>
+                    <div class="text">{{ __('delivery.nearest_deliveries') }}</div>
+                    <div class="subtext">{{ __('delivery.by_distance') }}</div>
                 </a>
             </div>
         </div>
@@ -433,42 +369,72 @@
                     {{ __('general.filter_by_status') }}
                 </h5>
             </div>
-            <div class="card-body">
-                @php
-                    $statusCounts = [
-                        'pending' => $pendingDeliveries,
-                        'assigned_to_driver' => $assignedDeliveries,
-                        'in_transit' => $inTransitDeliveries,
-                        'delivered' => $deliveredDeliveries,
-                        'delivery_failed' => $failedDeliveries
-                    ];
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    @php
+                        $statusCounts = [
+                            'pending' => $pendingDeliveries,
+                            'assigned_to_driver' => $assignedDeliveries,
+                            'driver_picked_up' => $pickedUpDeliveries,
+                            'in_transit' => $inTransitDeliveries,
+                            'arrived_at_hub' => $arrivedAtHubDeliveries,
+                            'out_for_delivery' => $outForDeliveryDeliveries,
+                            'delivered' => $deliveredDeliveries,
+                            'delivery_failed' => $failedDeliveries,
+                            'returned' => $returnedDeliveries,
+                            'cancelled' => $cancelledDeliveries,
+                            'in_warehouse' => $inWarehouseDeliveries
+                        ];
 
-                    $statusIcons = [
-                        'pending' => 'clock-outline',
-                        'assigned_to_driver' => 'truck-check',
-                        'in_transit' => 'truck-delivery',
-                        'delivered' => 'check-circle',
-                        'delivery_failed' => 'alert-circle'
-                    ];
-                @endphp
+                        $statusIcons = [
+                            'pending' => 'clock-outline',
+                            'assigned_to_driver' => 'truck-check',
+                            'driver_picked_up' => 'package-variant',
+                            'in_transit' => 'truck-delivery',
+                            'arrived_at_hub' => 'warehouse',
+                            'out_for_delivery' => 'walk',
+                            'delivered' => 'check-circle',
+                            'delivery_failed' => 'alert-circle',
+                            'returned' => 'package-up',
+                            'cancelled' => 'cancel',
+                            'in_warehouse' => 'archive'
+                        ];
 
-                @foreach(['pending', 'assigned_to_driver', 'in_transit', 'delivered', 'delivery_failed'] as $status)
-                <a href="{{ route('driver.deliveries.index', ['status' => $status]) }}"
-                   class="d-flex justify-content-between align-items-center p-2 rounded mb-2
-                          {{ request('status') == $status ? 'bg-primary text-white' : 'bg-light' }}">
-                    <span>
-                        <i class="mdi mdi-{{ $statusIcons[$status] }} status-icon"></i>
-                        {{ __('delivery.status_' . $status) }}
-                    </span>
-                    <span class="badge bg-secondary rounded-pill">{{ $statusCounts[$status] }}</span>
-                </a>
-                @endforeach
+                        $currentStatus = request('status');
+                    @endphp
 
-                @if(request()->hasAny(['keyword', 'status', 'package_id', 'delivered_from', 'delivered_to']))
-                <div class="mt-3 pt-3 border-top">
+                    <a href="{{ route('driver.deliveries.index') }}"
+                       class="list-group-item list-group-item-action status-filter-item d-flex justify-content-between align-items-center {{ !$currentStatus ? 'active' : '' }}">
+                        <span>
+                            <i class="mdi mdi-view-grid-outline me-2"></i>
+                            {{ __('general.all_statuses') }}
+                        </span>
+                        <span class="badge bg-secondary rounded-pill">{{ $totalDeliveries }}</span>
+                    </a>
+
+                    @foreach($statusCounts as $status => $count)
+                    <a href="{{ route('driver.deliveries.index', ['status' => $status]) }}"
+                       class="list-group-item list-group-item-action status-filter-item d-flex justify-content-between align-items-center {{ $currentStatus == $status ? 'active' : '' }}">
+                        <span>
+                            <i class="mdi mdi-{{ $statusIcons[$status] }} me-2"></i>
+                            {{ __('delivery.status_' . $status) }}
+                        </span>
+                        <span class="badge bg-secondary rounded-pill">{{ $count }}</span>
+                    </a>
+                    @endforeach
+                </div>
+
+                @if(request()->hasAny(['keyword', 'status', 'package_id', 'date_from', 'date_to']))
+                <div class="p-3 border-top">
                     <div class="d-flex justify-content-between align-items-center">
                         <small class="text-muted">{{ __('general.filtered_results') }}:</small>
                         <span class="badge bg-primary">{{ $deliveries->total() }}</span>
+                    </div>
+                    <div class="mt-2">
+                        <a href="{{ route('driver.deliveries.index') }}" class="btn btn-sm btn-outline-primary w-100">
+                            <i class="mdi mdi-refresh me-1"></i>
+                            {{ __('general.reset_filters') }}
+                        </a>
                     </div>
                 </div>
                 @endif
@@ -489,7 +455,7 @@
                         <p class="card-title-desc text-muted mb-0">
                             {{ __('delivery.delivery_description') }}
 
-                            @if(request()->hasAny(['keyword', 'status', 'package_id', 'delivered_from', 'delivered_to']))
+                            @if(request()->hasAny(['keyword', 'status', 'package_id', 'date_from', 'date_to']))
                             <span class="badge bg-info ms-2">
                                 <i class="mdi mdi-filter me-1"></i>
                                 {{ __('general.filter_applied') }} ({{ $deliveries->total() }})
@@ -502,7 +468,7 @@
                         <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#filtersSection">
                             <i class="mdi mdi-filter-outline me-1"></i>
                             {{ __('general.filters') }}
-                            @if(request()->hasAny(['keyword', 'status', 'package_id', 'delivered_from', 'delivered_to']))
+                            @if(request()->hasAny(['keyword', 'status', 'package_id', 'date_from', 'date_to']))
                             <span class="badge bg-white text-primary ms-1">{{ $deliveries->total() }}</span>
                             @endif
                         </button>
@@ -704,7 +670,7 @@
                                                     <button type="button"
                                                             class="btn btn-sm btn-outline-warning dropdown-toggle dropdown-toggle-split"
                                                             data-bs-toggle="dropdown"
-                                                            data-bs-toggle="tooltip"
+                                                            aria-expanded="false"
                                                             title="{{ __('general.update_status') }}">
                                                         <i class="mdi mdi-update"></i>
                                                     </button>
@@ -781,7 +747,7 @@
                                 {{ __('general.of') }} {{ $deliveries->total() }}
                                 {{ __('general.records') }}
 
-                                @if(request()->hasAny(['keyword', 'status', 'package_id', 'delivered_from', 'delivered_to']))
+                                @if(request()->hasAny(['keyword', 'status', 'package_id', 'date_from', 'date_to']))
                                 <span class="badge bg-info ms-2">
                                     <i class="mdi mdi-filter me-1"></i>
                                     {{ __('general.filtered') }}
@@ -857,7 +823,7 @@
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     // Redirect to nearest deliveries page or filter
-                    window.location.href = '{{ route("driver.deliveries.index") }}?sort=distance&lat=' +
+                    window.location.href = '{{ route("driver.deliveries.index") }}?sort=nearest&lat=' +
                                         position.coords.latitude + '&lng=' + position.coords.longitude;
                 }, function(error) {
                     alert('{{ __("general.location_access_required") }}');
@@ -896,9 +862,18 @@
         // معالجة النماذج بشكل غير متزامن
         document.querySelectorAll('.status-update-form').forEach(form => {
             form.addEventListener('submit', function(e) {
-                this.querySelector('button').disabled = true;
-                this.querySelector('button').innerHTML =
-                    '<i class="mdi mdi-loading mdi-spin me-2"></i> جاري التحديث...';
+                const button = this.querySelector('button');
+                button.disabled = true;
+                button.innerHTML = '<i class="mdi mdi-loading mdi-spin me-2"></i> جاري التحديث...';
+            });
+        });
+
+        // تحسين تجربة المستخدم للفلترة
+        const statusFilterItems = document.querySelectorAll('.status-filter-item');
+        statusFilterItems.forEach(item => {
+            item.addEventListener('click', function() {
+                statusFilterItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
             });
         });
     });

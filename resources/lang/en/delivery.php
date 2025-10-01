@@ -149,6 +149,41 @@ return [
     'scheduled_today' => 'Scheduled for Today',
     'by_distance' => 'By Distance',
 
+    // Enhanced statistics
+    'total_deliveries' => 'Total Deliveries',
+    'pending' => 'Pending',
+    'assigned' => 'Assigned',
+    'in_progress' => 'In Progress',
+    'delivered' => 'Delivered',
+    'today_deliveries' => 'Today Deliveries',
+
+    // Quick Actions
+    'view_pending' => 'View Pending',
+    'view_assigned' => 'View Assigned',
+    'active_deliveries' => 'Active Deliveries',
+    'nearest_deliveries' => 'Nearest Deliveries',
+    'awaiting_assignment' => 'Awaiting Assignment',
+    'ready_for_pickup' => 'Ready for Pickup',
+    'in_progress' => 'In Progress',
+    'scheduled_today' => 'Scheduled Today',
+    'by_distance' => 'By Distance',
+
+    // Status Filtering
+    'all_statuses' => 'All Statuses',
+
+    // Delivery Statuses
+    'status_pending' => 'Pending',
+    'status_assigned_to_driver' => 'Assigned to Driver',
+    'status_driver_picked_up' => 'Picked Up',
+    'status_in_transit' => 'In Transit',
+    'status_arrived_at_hub' => 'Arrived at Hub',
+    'status_out_for_delivery' => 'Out for Delivery',
+    'status_delivered' => 'Delivered',
+    'status_delivery_failed' => 'Delivery Failed',
+    'status_returned' => 'Returned',
+    'status_cancelled' => 'Cancelled',
+    'status_in_warehouse' => 'In Warehouse',
+
 
 
 
