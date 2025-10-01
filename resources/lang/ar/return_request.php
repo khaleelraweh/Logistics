@@ -112,5 +112,7 @@ return [
     'total_quantity'  => 'إجمالي الكمية',
     'status_timeline' => 'الجدول الزمني للحالة',
     'progress_overview' => 'نظرة عامة على التقدم',
+    'no_requests_found' => 'لا توجد طلبات مرتجع.',
+    'no_requests_description' => 'يتم عرض طلبات الإرجاع التي تم إنشاؤها بواسطة العملاء هنا.',
 
 ];

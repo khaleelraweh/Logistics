@@ -111,6 +111,8 @@ return [
     'total_quantity'  => 'Total Quantity',
     'status_timeline' => 'Status Timeline',
     'progress_overview' => 'Progress Overview',
+    'no_requests_found' => 'No return requests found.',
+    'no_requests_description' => 'You have not created any return requests yet. Click the button below to create your first return request.',
 
 
 ];
