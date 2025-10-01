@@ -8,6 +8,7 @@ use App\Http\Requests\Driver\DeliveryRequest;
 use App\Models\Delivery;
 use App\Models\Driver;
 use App\Models\Package;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class DeliveryController extends Controller
