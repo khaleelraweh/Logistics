@@ -32,55 +32,6 @@
                         @csrf
                         @method('PUT')
 
-                        <!-- Address Section -->
-                        <div class="mb-5">
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
-                                    <i class="bi bi-geo-alt text-primary"></i>
-                                </div>
-                                <h5 class="mb-0">{{ __('pickup_request.pickup_request_info') }}</h5>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="merchant_id">{{ __('merchant.name') }}</label>
-                                <div class="col-sm-10">
-                                    <select name="merchant_id" class="form-control select2" id="merchant_id">
-                                        <option value="">{{ __('pickup_request.select_merchant') }}</option>
-                                        @foreach ($merchants as $merchant)
-                                            <option value="{{ $merchant->id }}"
-                                                {{ old('merchant_id', $pickupRequest->merchant_id) == $merchant->id ? 'selected' : '' }}>
-                                                {{ $merchant->name }} - {{ $merchant->email }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-
-                                    @error('merchant_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="driver_id">{{ __('pickup_request.assign_driver') }}</label>
-                                <div class="col-sm-10">
-
-                                    <select name="driver_id" id="driver_id" class="form-control select2" required>
-                                        <option value="" disabled>{{ __('pickup_request.assign_driver') }}</option>
-                                        @foreach($drivers as $driver)
-                                            <option value="{{ $driver->id }}"
-                                                {{ old('driver_id', $pickupRequest->driver_id) == $driver->id ? 'selected' : '' }}>
-                                                {{ $driver->driver_full_name ?? __('driver.no_name') }}
-                                                - {{ $driver->phone ?? __('driver.no_phone') }}
-                                                - {{ $driver->vehicle_type ? __('driver.vehicle_type_' . $driver->vehicle_type) : __('driver.no_vehicle_type') }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-
-                                    @error('driver_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- Address Section -->
                         <div class="mb-5">
