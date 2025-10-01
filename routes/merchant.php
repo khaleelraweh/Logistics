@@ -5,6 +5,7 @@ use App\Http\Controllers\Merchant\MerchantDashboardController;
 use App\Http\Controllers\Merchant\PackageController as MerchantPackageController;
 use App\Http\Controllers\Merchant\PickupRequestController;
 use App\Http\Controllers\Merchant\ProductController as MerchantProductController;
+use App\Http\Controllers\Merchant\ReturnRequestController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'merchant', 'as' => 'merchant.', 'middleware' => ['roles', 'role:merchant']], function () {
@@ -42,4 +43,7 @@ Route::group(['prefix' => 'merchant', 'as' => 'merchant.', 'middleware' => ['rol
 
     //pickupRequests / pickupRequests
     Route::resource('pickup_requests', PickupRequestController::class);
+
+    //returnRequests / return_requests
+    Route::resource('return_requests', ReturnRequestController::class);
 });
