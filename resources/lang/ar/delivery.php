@@ -83,4 +83,27 @@
         'assign' => 'إسناد',
         'view_delivery' => 'عرض التوصيل',
 
+        // index blade
+        'status_updated_successfully' => 'تم تحديث حالة التسليم بنجاح',
+        'unauthorized_status_update' => 'غير مصرح لك بتحديث حالة هذا التسليم',
+
+        // نصوص السجلات
+        'log_driver_picked_up' => 'قام السائق :driver باستلام الطرد في الساعة :time',
+        'log_in_transit' => 'الطرد قيد النقل مع السائق :driver',
+        'log_arrived_at_hub' => 'الطرد وصل إلى المركز',
+        'log_out_for_delivery' => 'الطرد خرج للتوصيل',
+        'log_delivered' => 'تم تسليم الطرد في :time بواسطة السائق :driver',
+        'log_delivery_failed' => 'فشل محاولة التوصيل (المحاولة :attempt)',
+        'log_returned' => 'تم إرجاع الطرد',
+        'log_cancelled' => 'تم إلغاء التسليم',
+        'log_status_changed' => 'تم تغيير الحالة من :from إلى :to',
+
+        // نصوص الحالات
+        'mark_as' => 'تحديد كـ',
+
+        // نصوص الإشعارات
+        'notification_delivered' => 'تم تسليم طردك بنجاح',
+        'notification_failed' => 'فشل توصيل طردك',
+
+
     ];

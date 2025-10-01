@@ -83,4 +83,27 @@ return [
     'assign'                   => 'Assign',
     'view_delivery'            => 'View Delivery',
 
+    // index blade
+        'status_updated_successfully' => 'Delivery status updated successfully',
+        'unauthorized_status_update' => 'You are not authorized to update this delivery status',
+
+        // Log texts
+        'log_driver_picked_up' => 'Driver :driver picked up the package at :time',
+        'log_in_transit' => 'Package in transit with driver :driver',
+        'log_arrived_at_hub' => 'Package arrived at hub',
+        'log_out_for_delivery' => 'Package out for delivery',
+        'log_delivered' => 'Package delivered at :time by driver :driver',
+        'log_delivery_failed' => 'Delivery attempt failed (Attempt :attempt)',
+        'log_returned' => 'Package returned',
+        'log_cancelled' => 'Delivery cancelled',
+        'log_status_changed' => 'Status changed from :from to :to',
+
+        // Status texts
+        'mark_as' => 'Mark as',
+
+        // Notification texts
+        'notification_delivered' => 'Your package has been delivered successfully',
+        'notification_failed' => 'Your package delivery failed',
+
+
 ];

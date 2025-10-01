@@ -294,6 +294,309 @@ class DeliveryController extends Controller
     }
 
 
+      // ... الدوال الأخرى الموجودة ...
+
+    /**
+     * Update delivery status with comprehensive validation and logging
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Delivery  $delivery
+     * @return \Illuminate\Http\Response
+     */
+    public function update_status(Request $request, Delivery $delivery)
+    {
+        if (!auth()->user()->ability('driver', 'driver_update_deliveries')) {
+            return redirect('driver/index');
+        }
+
+        // التحقق من أن السائق الحالي هو صاحب التسليم
+        $driver = auth()->user()->driver;
+        if (!$driver || $delivery->driver_id != $driver->id) {
+            return response()->json([
+                'success' => false,
+                'message' => __('delivery.unauthorized_status_update')
+            ], 403);
+        }
+
+        $request->validate([
+            'status' => 'required|in:' . implode(',', $delivery->availableStatusesForDriver())
+        ]);
+
+        $newStatus = $request->status;
+        $oldStatus = $delivery->status;
+
+        try {
+            DB::beginTransaction();
+
+            // تحديث حالة التسليم
+            $updateData = [
+                'status' => $newStatus,
+                'updated_by' => auth()->user()->full_name,
+            ];
+
+            // إضافة التواريخ التلقائية بناءً على الحالة
+            switch ($newStatus) {
+                case 'driver_picked_up':
+                    $updateData['picked_up_at'] = now();
+                    break;
+
+                case 'in_transit':
+                    $updateData['in_transit_at'] = now();
+                    break;
+
+                case 'arrived_at_hub':
+                    $updateData['arrived_at_hub_at'] = now();
+                    break;
+
+                case 'out_for_delivery':
+                    $updateData['out_for_delivery_at'] = now();
+                    break;
+
+                case 'delivered':
+                    $updateData['delivered_at'] = now();
+                    $updateData['delivery_attempts'] = ($delivery->delivery_attempts ?? 0) + 1;
+                    break;
+
+                case 'delivery_failed':
+                    $updateData['delivery_failed_at'] = now();
+                    $updateData['delivery_attempts'] = ($delivery->delivery_attempts ?? 0) + 1;
+                    break;
+
+                case 'returned':
+                    $updateData['returned_at'] = now();
+                    break;
+
+                case 'cancelled':
+                    $updateData['cancelled_at'] = now();
+                    break;
+            }
+
+            $delivery->update($updateData);
+
+            // تحديث حالة الطرد المرتبط
+            if ($delivery->package) {
+                $delivery->package->update(['status' => $newStatus]);
+
+                // إضافة سجل في السجل الزمني للطرد
+                $this->addPackageLog($delivery, $oldStatus, $newStatus);
+            }
+
+            // إضافة إشعار إذا لزم الأمر
+            $this->sendStatusUpdateNotification($delivery, $oldStatus, $newStatus);
+
+            DB::commit();
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => __('delivery.status_updated_successfully'),
+                    'data' => [
+                        'id' => $delivery->id,
+                        'status' => $newStatus,
+                        'status_text' => __('delivery.status_' . $newStatus),
+                        'status_badge' => $this->getStatusBadgeHtml($newStatus),
+                        'updated_at' => $delivery->updated_at->diffForHumans(),
+                        'timestamps' => [
+                            'delivered_at' => $delivery->delivered_at?->format('Y-m-d H:i:s'),
+                            'picked_up_at' => $delivery->picked_up_at?->format('Y-m-d H:i:s'),
+                        ]
+                    ]
+                ]);
+            }
+
+            return redirect()->back()->with([
+                'message' => __('delivery.status_updated_successfully'),
+                'alert-type' => 'success'
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Delivery status update failed: ' . $e->getMessage(), [
+                'delivery_id' => $delivery->id,
+                'new_status' => $newStatus,
+                'user_id' => auth()->id()
+            ]);
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => __('messages.something_went_wrong')
+                ], 500);
+            }
+
+            return redirect()->back()->with([
+                'message' => __('messages.something_went_wrong'),
+                'alert-type' => 'danger'
+            ]);
+        }
+    }
+
+    /**
+     * Add detailed log entry for package status change
+     */
+    private function addPackageLog(Delivery $delivery, $oldStatus, $newStatus)
+    {
+        $logMessages = [
+            'driver_picked_up' => __('delivery.log_driver_picked_up', [
+                'driver' => $delivery->driver->driver_full_name ?? '-',
+                'time' => now()->format('H:i')
+            ]),
+            'in_transit' => __('delivery.log_in_transit', [
+                'driver' => $delivery->driver->driver_full_name ?? '-'
+            ]),
+            'arrived_at_hub' => __('delivery.log_arrived_at_hub'),
+            'out_for_delivery' => __('delivery.log_out_for_delivery'),
+            'delivered' => __('delivery.log_delivered', [
+                'time' => now()->format('Y-m-d H:i'),
+                'driver' => $delivery->driver->driver_full_name ?? '-'
+            ]),
+            'delivery_failed' => __('delivery.log_delivery_failed', [
+                'attempt' => $delivery->delivery_attempts ?? 1
+            ]),
+            'returned' => __('delivery.log_returned'),
+            'cancelled' => __('delivery.log_cancelled')
+        ];
+
+        $logMessage = $logMessages[$newStatus] ?? __('delivery.log_status_changed', [
+            'from' => __('delivery.status_' . $oldStatus),
+            'to' => __('delivery.status_' . $newStatus)
+        ]);
+
+        if ($delivery->package && method_exists($delivery->package, 'addLog')) {
+            $delivery->package->addLog($logMessage, $delivery->driver_id);
+        }
+    }
+
+
+
+    /**
+     * Send notifications for important status changes
+     */
+    private function sendStatusUpdateNotification(Delivery $delivery, $oldStatus, $newStatus)
+    {
+        $importantStatuses = ['delivered', 'delivery_failed', 'cancelled'];
+
+        if (in_array($newStatus, $importantStatuses)) {
+            // يمكنك إضافة نظام الإشعارات هنا
+            // Example: Notification::send($users, new DeliveryStatusUpdated($delivery));
+
+            Log::info('Delivery status changed to important status', [
+                'delivery_id' => $delivery->id,
+                'new_status' => $newStatus,
+                'package_id' => $delivery->package_id
+            ]);
+        }
+    }
+
+
+
+
+    /**
+     * Generate HTML for status badge (for AJAX responses)
+     */
+    private function getStatusBadgeHtml($status)
+    {
+        $statusClasses = [
+            'pending' => 'badge-pending',
+            'assigned_to_driver' => 'badge-assigned_to_driver',
+            'driver_picked_up' => 'badge-driver_picked_up',
+            'in_transit' => 'badge-in_transit',
+            'arrived_at_hub' => 'badge-arrived_at_hub',
+            'out_for_delivery' => 'badge-out_for_delivery',
+            'delivered' => 'badge-delivered',
+            'delivery_failed' => 'badge-delivery_failed',
+            'returned' => 'badge-returned',
+            'cancelled' => 'badge-cancelled',
+            'in_warehouse' => 'badge-in_warehouse'
+        ];
+
+        $statusIcons = [
+            'pending' => 'clock-outline',
+            'assigned_to_driver' => 'truck-check',
+            'driver_picked_up' => 'package-variant',
+            'in_transit' => 'truck-delivery',
+            'arrived_at_hub' => 'warehouse',
+            'out_for_delivery' => 'walk',
+            'delivered' => 'check-circle',
+            'delivery_failed' => 'alert-circle',
+            'returned' => 'package-up',
+            'cancelled' => 'cancel',
+            'in_warehouse' => 'archive'
+        ];
+
+        $badgeClass = $statusClasses[$status] ?? 'badge-secondary';
+        $icon = $statusIcons[$status] ?? 'help-circle';
+
+        return '<span class="status-badge ' . $badgeClass . ' d-flex align-items-center">
+                <i class="mdi mdi-' . $icon . ' me-1"></i>
+                ' . __('delivery.status_' . $status) . '
+            </span>';
+    }
+
+
+        /**
+     * Get available statuses for a specific delivery (for AJAX)
+     */
+    public function get_available_statuses(Delivery $delivery)
+    {
+        if (!auth()->user()->ability('driver', 'driver_update_deliveries')) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        $availableStatuses = $delivery->availableStatusesForDriver();
+        $statusOptions = [];
+
+        foreach ($availableStatuses as $status) {
+            $statusOptions[] = [
+                'value' => $status,
+                'text' => __('delivery.status_' . $status),
+                'icon' => 'mdi-' . $this->getStatusIcon($status),
+                'color' => $this->getStatusColor($status)
+            ];
+        }
+
+        return response()->json([
+            'available_statuses' => $statusOptions,
+            'current_status' => $delivery->status
+        ]);
+    }
+
+        private function getStatusIcon($status)
+    {
+        $icons = [
+            'pending' => 'clock-outline',
+            'assigned_to_driver' => 'truck-check',
+            'driver_picked_up' => 'package-variant',
+            'in_transit' => 'truck-delivery',
+            'arrived_at_hub' => 'warehouse',
+            'out_for_delivery' => 'walk',
+            'delivered' => 'check-circle',
+            'delivery_failed' => 'alert-circle',
+            'returned' => 'package-up',
+            'cancelled' => 'cancel'
+        ];
+
+        return $icons[$status] ?? 'help-circle';
+    }
+
+        private function getStatusColor($status)
+    {
+        $colors = [
+            'pending' => '#6c757d',
+            'assigned_to_driver' => '#17a2b8',
+            'driver_picked_up' => '#fd7e14',
+            'in_transit' => '#007bff',
+            'arrived_at_hub' => '#6610f2',
+            'out_for_delivery' => '#ffc107',
+            'delivered' => '#28a745',
+            'delivery_failed' => '#dc3545',
+            'returned' => '#e83e8c',
+            'cancelled' => '#343a40'
+        ];
+
+        return $colors[$status] ?? '#6c757d';
+    }
+
 
 
 

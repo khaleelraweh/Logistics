@@ -186,52 +186,52 @@ class PickupRequestController extends Controller
         ]);
     }
 
-public function update_status(Request $request, $id)
-{
-    if (!auth()->user()->ability('driver', 'update_pickup_requests')) {
-        return redirect('driver/index');
-    }
+    public function update_status(Request $request, $id)
+    {
+        if (!auth()->user()->ability('driver', 'update_pickup_requests')) {
+            return redirect('driver/index');
+        }
 
-    $pickupRequest = PickupRequest::findOrFail($id);
+        $pickupRequest = PickupRequest::findOrFail($id);
 
-    $availableStatuses = $pickupRequest->availableStatusesForDriver();
+        $availableStatuses = $pickupRequest->availableStatusesForDriver();
 
-    $validated = $request->validate([
-        'status' => 'required|in:' . implode(',', $availableStatuses)
-    ]);
-
-    if (!in_array($validated['status'], $availableStatuses)) {
-        return redirect()->back()->with([
-            'message' => __('messages.status_transition_not_allowed'),
-            'alert-type' => 'error',
+        $validated = $request->validate([
+            'status' => 'required|in:' . implode(',', $availableStatuses)
         ]);
-    }
 
-    try {
-        // تحديث الحالة بدون تسجيل النشاط
-        $success = $pickupRequest->updateStatus($validated['status'], auth()->id());
-
-        if ($success) {
-            // ✅ إزالة جزء activity() نهائياً
-            return redirect()->route('driver.pickup_requests.index')->with([
-                'message' => __('messages.pickup_request_updated'),
-                'alert-type' => 'success',
-            ]);
-        } else {
+        if (!in_array($validated['status'], $availableStatuses)) {
             return redirect()->back()->with([
-                'message' => __('messages.pickup_request_update_failed'),
+                'message' => __('messages.status_transition_not_allowed'),
                 'alert-type' => 'error',
             ]);
         }
-    } catch (\Exception $e) {
-        \Log::error('Error updating pickup request status: ' . $e->getMessage());
 
-        return redirect()->back()->with([
-            'message' => __('messages.update_error') . ': ' . $e->getMessage(),
-            'alert-type' => 'error',
-        ]);
+        try {
+            // تحديث الحالة بدون تسجيل النشاط
+            $success = $pickupRequest->updateStatus($validated['status'], auth()->id());
+
+            if ($success) {
+                // ✅ إزالة جزء activity() نهائياً
+                return redirect()->route('driver.pickup_requests.index')->with([
+                    'message' => __('messages.pickup_request_updated'),
+                    'alert-type' => 'success',
+                ]);
+            } else {
+                return redirect()->back()->with([
+                    'message' => __('messages.pickup_request_update_failed'),
+                    'alert-type' => 'error',
+                ]);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error updating pickup request status: ' . $e->getMessage());
+
+            return redirect()->back()->with([
+                'message' => __('messages.update_error') . ': ' . $e->getMessage(),
+                'alert-type' => 'error',
+            ]);
+        }
     }
-}
 
 
 
