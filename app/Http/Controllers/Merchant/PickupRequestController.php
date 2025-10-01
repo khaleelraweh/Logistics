@@ -18,8 +18,8 @@ class PickupRequestController extends Controller
 
     public function index()
     {
-        if (!auth()->user()->ability('admin', 'manage_pickup_requests, show_pickup_requests')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'manage_pickup_requests, show_pickup_requests')) {
+            return redirect('merchant/index');
         }
 
         // جلب السائقين والتجار للفلتر
@@ -66,7 +66,7 @@ class PickupRequestController extends Controller
             )
             ->paginate(request()->limit_by ?? 20);
 
-        return view('admin.pickup_requests.index', compact('pickupRequests', 'drivers', 'merchants'));
+        return view('merchant.pickup_requests.index', compact('pickupRequests', 'drivers', 'merchants'));
     }
 
 
@@ -76,14 +76,14 @@ class PickupRequestController extends Controller
      */
     public function create()
     {
-        if (!auth()->user()->ability('admin', 'create_pickup_requests')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'create_pickup_requests')) {
+            return redirect('merchant/index');
         }
 
         $merchants = Merchant::whereStatus(1)->get(['id', 'name','contact_person','email','phone']);
         $drivers = Driver::whereStatus(1)->get(); // جلب السائقين النشطين فقط
 
-        return view('admin.pickup_requests.create', compact('merchants','drivers'));
+        return view('merchant.pickup_requests.create', compact('merchants','drivers'));
     }
 
     /**
@@ -91,8 +91,8 @@ class PickupRequestController extends Controller
      */
     public function store(Request $request)
     {
-        if (!auth()->user()->ability('admin', 'create_pickup_requests')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'create_pickup_requests')) {
+            return redirect('merchant/index');
         }
 
         $request->validate([
@@ -130,13 +130,13 @@ class PickupRequestController extends Controller
         ]);
 
         if ($pickupRequest) {
-            return redirect()->route('admin.pickup_requests.index')->with([
+            return redirect()->route('merchant.pickup_requests.index')->with([
                 'message' => __('messages.pickup_request_created'),
                 'alert-type' => 'success'
             ]);
         }
 
-        return redirect()->route('admin.pickup_requests.index')->with([
+        return redirect()->route('merchant.pickup_requests.index')->with([
             'message' => __('messages.something_went_wrong'),
             'alert-type' => 'danger'
         ]);
@@ -145,13 +145,13 @@ class PickupRequestController extends Controller
 
     public function show($id)
     {
-        if (!auth()->user()->ability('admin', 'show_pickup_requests')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'show_pickup_requests')) {
+            return redirect('merchant/index');
         }
 
         $pickupRequest = PickupRequest::with(['merchant', 'driver'])->findOrFail($id);
 
-        return view('admin.pickup_requests.show', compact('pickupRequest'));
+        return view('merchant.pickup_requests.show', compact('pickupRequest'));
     }
 
     /**
@@ -159,15 +159,15 @@ class PickupRequestController extends Controller
      */
     public function edit($id)
     {
-        if (!auth()->user()->ability('admin', 'update_pickup_requests')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'update_pickup_requests')) {
+            return redirect('merchant/index');
         }
 
         $pickupRequest = PickupRequest::findOrFail($id);
         $merchants = Merchant::whereStatus(1)->get(['id', 'name','email' , 'contact_person' , 'phone']);
         $drivers = Driver::whereStatus(1)->get();
 
-        return view('admin.pickup_requests.edit', compact('pickupRequest', 'merchants', 'drivers'));
+        return view('merchant.pickup_requests.edit', compact('pickupRequest', 'merchants', 'drivers'));
     }
 
     /**
@@ -175,8 +175,8 @@ class PickupRequestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (!auth()->user()->ability('admin', 'update_pickup_requests')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'update_pickup_requests')) {
+            return redirect('merchant/index');
         }
 
 
@@ -232,7 +232,7 @@ class PickupRequestController extends Controller
 
 
 
-        return redirect()->route('admin.pickup_requests.index')->with([
+        return redirect()->route('merchant.pickup_requests.index')->with([
             'message' => __('messages.pickup_request_updated'),
             'alert-type' => 'success'
         ]);
@@ -243,14 +243,14 @@ class PickupRequestController extends Controller
      */
     public function destroy($id)
     {
-        if (!auth()->user()->ability('admin', 'delete_pickup_requests')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'delete_pickup_requests')) {
+            return redirect('merchant/index');
         }
 
         $pickupRequest = PickupRequest::findOrFail($id);
         $pickupRequest->delete();
 
-        return redirect()->route('admin.pickup_requests.index')->with([
+        return redirect()->route('merchant.pickup_requests.index')->with([
             'message' => __('messages.pickup_request_deleted'),
             'alert-type' => 'success'
         ]);
