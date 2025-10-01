@@ -230,9 +230,9 @@
                             @endif
 
 
-                            <!-- Driver Selection -->
+                            <!-- Delivery Selection -->
                             <h5 class="section-title">{{ __('return_request.delivery_information') }}</h5>
-                            <div class="row mb-3">
+                            {{-- <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required-field">{{ __('driver.driver') }}</label>
                                 <div class="col-sm-10">
                                     <select wire:model="driver_id" class="form-select">
@@ -244,7 +244,7 @@
                                     @error('driver_id') <span class="text-danger">{{ $message }}</span> @enderror
 
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <!-- Return Type -->
                             <div class="row mb-3">
