@@ -232,19 +232,6 @@
 
                             <!-- Delivery Selection -->
                             <h5 class="section-title">{{ __('return_request.delivery_information') }}</h5>
-                            {{-- <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label required-field">{{ __('driver.driver') }}</label>
-                                <div class="col-sm-10">
-                                    <select wire:model="driver_id" class="form-select">
-                                        <option value=""> {{ __('driver.select_driver') }} </option>
-                                        @foreach($drivers as $driver)
-                                            <option value="{{ $driver->id }}">{{ $driver->driver_full_name }}  -  {{ __('driver.vehicle_type_'. $driver->vehicle_type) }} - {{ $driver->phone }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('driver_id') <span class="text-danger">{{ $message }}</span> @enderror
-
-                                </div>
-                            </div> --}}
 
                             <!-- Return Type -->
                             <div class="row mb-3">
@@ -313,7 +300,7 @@
 
                             <!-- Submit Button -->
                             <div class="text-end pt-3">
-                                @ability('admin', 'update_return_requests')
+                                @ability('merchant', 'merchant_update_return_requests')
                                     <button type="submit" class="btn btn-primary px-3 d-inline-flex align-items-center">
                                         <i class="ri-save-3-line me-2"></i>
                                         <i class="bi bi-save me-2"></i>
@@ -321,7 +308,7 @@
                                     </button>
                                 @endability
 
-                                <a href="{{ route('admin.return_requests.index') }}" class="btn btn-outline-danger ms-2">
+                                <a href="{{ route('merchants.return_requests.index') }}" class="btn btn-outline-danger ms-2">
                                     <i class="ri-arrow-go-back-line me-1"></i>
                                     {{ __('panel.cancel') }}
                                 </a>
