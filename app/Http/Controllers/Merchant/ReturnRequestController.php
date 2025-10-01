@@ -20,8 +20,8 @@ class ReturnRequestController extends Controller
     public function index()
     {
         // صلاحية الوصول
-        if (!auth()->user()->ability('admin', 'manage_return_requests, show_return_requests')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'manage_return_requests, show_return_requests')) {
+            return redirect('merchant/index');
         }
 
         $drivers = Driver::all();
@@ -50,7 +50,7 @@ class ReturnRequestController extends Controller
             ->paginate(request()->limit_by ?? 100)
             ->withQueryString(); // للحفاظ على الـ filters في روابط الصفحات
 
-        return view('admin.return_requests.index', compact('return_requests', 'drivers' , 'packages'));
+        return view('merchant.return_requests.index', compact('return_requests', 'drivers' , 'packages'));
     }
 
     /**
@@ -60,15 +60,15 @@ class ReturnRequestController extends Controller
      */
     public function create()
     {
-         if (!auth()->user()->ability('admin', 'create_return_requests')) {
-            return redirect('admin/index');
+         if (!auth()->user()->ability('merchant', 'create_return_requests')) {
+            return redirect('merchant/index');
         }
 
         $drivers = Driver::all();
         // $packages = Package::whereDoesntHave('returnRequest')->get();
 
 
-        return view('admin.return_requests.create',compact('drivers'));
+        return view('merchant.return_requests.create',compact('drivers'));
     }
 
     /**
@@ -79,8 +79,8 @@ class ReturnRequestController extends Controller
      */
     public function store(ReturnRequestRequest $request)
     {
-        if (!auth()->user()->ability('admin', 'create_return_requests')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'create_return_requests')) {
+            return redirect('merchant/index');
         }
 
         try {
@@ -101,18 +101,18 @@ class ReturnRequestController extends Controller
             $return_request = ReturnRequest::create($input);
 
             if ($return_request) {
-                return redirect()->route('admin.return_requests.index')->with([
+                return redirect()->route('merchant.return_requests.index')->with([
                     'message'     => __('messages.return_request_created'),
                     'alert-type'  => 'success',
                 ]);
             }
 
-            return redirect()->route('admin.return_requests.index')->with([
+            return redirect()->route('merchant.return_requests.index')->with([
                 'message'     => __('messages.something_went_wrong'),
                 'alert-type'  => 'danger',
             ]);
         } catch (\Exception $e) {
-            return redirect()->route('admin.return_requests.index')->with([
+            return redirect()->route('merchant.return_requests.index')->with([
                 'message'     => __('messages.something_went_wrong'),
                 'alert-type'  => 'danger',
             ]);
@@ -127,13 +127,13 @@ class ReturnRequestController extends Controller
      */
     public function show($id)
     {
-        if (!auth()->user()->ability('admin', 'show_return_requests')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'show_return_requests')) {
+            return redirect('merchant/index');
         }
 
         $return_request = ReturnRequest::with(['package', 'merchant', 'driver', 'returnItems'])->findOrFail($id);
 
-        return view('admin.return_requests.show', compact('return_request'));
+        return view('merchant.return_requests.show', compact('return_request'));
     }
 
 
@@ -145,8 +145,8 @@ class ReturnRequestController extends Controller
      */
     public function edit($return_request)
     {
-        if (!auth()->user()->ability('admin', 'update_return_requests')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'update_return_requests')) {
+            return redirect('merchant/index');
         }
 
         // جلب بيانات عملية التوصيل الحالية
@@ -161,7 +161,7 @@ class ReturnRequestController extends Controller
                     ->orWhere('id', $return_request->package_id)
                     ->get();
 
-        return view('admin.return_requests.edit', compact('return_request', 'drivers', 'packages'));
+        return view('merchant.return_requests.edit', compact('return_request', 'drivers', 'packages'));
     }
 
     /**
@@ -174,8 +174,8 @@ class ReturnRequestController extends Controller
     public function update(ReturnRequestRequest $request,  $return_request)
     {
         // التحقق من الصلاحيات
-        if (!auth()->user()->ability('admin', 'update_deliveries')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'update_deliveries')) {
+            return redirect('merchant/index');
         }
 
         try {
@@ -198,7 +198,7 @@ class ReturnRequestController extends Controller
             // تحديث السجل
             $return_request->update($input);
 
-            return redirect()->route('admin.return_requests.index')->with([
+            return redirect()->route('merchant.return_requests.index')->with([
                 'message'    => __('messages.return_request_updated'),
                 'alert-type' => 'success',
             ]);
@@ -206,7 +206,7 @@ class ReturnRequestController extends Controller
         } catch (\Exception $e) {
             // يمكنك تسجيل الخطأ هنا لو أحببت: \Log::error($e->getMessage());
 
-            return redirect()->route('admin.return_requests.index')->with([
+            return redirect()->route('merchant.return_requests.index')->with([
                 'message'    => __('messages.something_went_wrong'),
                 'alert-type' => 'danger',
             ]);
@@ -223,14 +223,14 @@ class ReturnRequestController extends Controller
     public function destroy($return_request)
     {
         // التحقق من الصلاحيات
-        if (!auth()->user()->ability('admin', 'delete_return_requests')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('merchant', 'delete_return_requests')) {
+            return redirect('merchant/index');
         }
 
         $returnRequest = ReturnRequest::with('returnItems')->where('id', $return_request)->first();
 
         if (!$returnRequest) {
-            return redirect()->route('admin.return_requests.index')->with([
+            return redirect()->route('merchant.return_requests.index')->with([
                 'message'    => __('messages.return_request_not_found'),
                 'alert-type' => 'warning',
             ]);
@@ -252,7 +252,7 @@ class ReturnRequestController extends Controller
             // حذف الطلب
             $returnRequest->delete();
 
-            return redirect()->route('admin.return_requests.index')->with([
+            return redirect()->route('merchant.return_requests.index')->with([
                 'message'    => __('messages.return_request_deleted'),
                 'alert-type' => 'success',
             ]);
@@ -260,7 +260,7 @@ class ReturnRequestController extends Controller
         } catch (\Exception $e) {
             // يمكن تسجيل الخطأ
 
-            return redirect()->route('admin.return_requests.index')->with([
+            return redirect()->route('merchant.return_requests.index')->with([
                 'message'    => __('messages.something_went_wrong'),
                 'alert-type' => 'danger',
             ]);
