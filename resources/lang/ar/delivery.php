@@ -135,5 +135,18 @@
     'status_cancelled' => 'ملغاة',
     'status_in_warehouse' => 'في المستودع',
 
+     'view_pending' => 'عرض المعلقة',
+    'view_assigned' => 'عرض المسندة',
+    'view_in_transit' => 'عرض قيد النقل',
+    'view_delivered' => 'عرض التي تم تسليمها',
+    'view_failed_cancelled' => 'عرض الفاشلة/الملغاة',
+    'view_returned' => 'عرض المرتجعة',
+    'view_in_warehouse' => 'عرض في المستودع',
+    'today_deliveries' => 'توصيلات اليوم',
+    'nearest_deliveries' => 'أقرب التوصيلات',
+
+    'scheduled_today' => 'المجدولة لليوم',
+    'by_distance' => 'حسب المسافة',
+
 
     ];
