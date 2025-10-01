@@ -3,6 +3,7 @@
 use App\Http\Controllers\Merchant\ProfileController;
 use App\Http\Controllers\Merchant\MerchantDashboardController;
 use App\Http\Controllers\Merchant\PackageController as MerchantPackageController;
+use App\Http\Controllers\Merchant\PickupRequestController;
 use App\Http\Controllers\Merchant\ProductController as MerchantProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +39,7 @@ Route::group(['prefix' => 'merchant', 'as' => 'merchant.', 'middleware' => ['rol
     Route::post('products/update-products-status', [MerchantProductController::class, 'updateProductstatus'])->name('products.update_merchants_status');
     Route::post('product/remove-image', [MerchantProductController::class, 'remove_image'])->name('products.remove_image');
     Route::resource('products', MerchantProductController::class);
+
+    //pickupRequests / pickupRequests
+    Route::resource('pickup_requests', PickupRequestController::class);
 });

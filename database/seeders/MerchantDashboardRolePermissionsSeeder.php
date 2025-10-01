@@ -46,6 +46,18 @@ class MerchantDashboardRolePermissionsSeeder extends Seeder
         $editProducts = Permission::create(['name' => 'merchant_edit_products' , 'display_name' => ['ar' => 'تعديل منتج', 'en' => 'Edit Product'] , 'route' => 'products' , 'module' => 'products' , 'as' => 'products.edit' , 'icon' => 'fas fa-edit' , 'parent' => '0' , 'parent_original' => '0' , 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0',]);
         $deleteProducts = Permission::create(['name' => 'merchant_delete_products' , 'display_name' => ['ar' => 'حذف منتج', 'en' => 'Delete Product'] , 'route' => 'products' , 'module' => 'products' , 'as' => 'products.destroy' , 'icon' => null , 'parent' => '0' , 'parent_original' => '0','parent_show' => '0' , 'sidebar_link' => '0' , 'appear' => '0',]);
 
+
+        //PickupRequests / pickupRequests
+        $managePickupRequests = Permission::create(['name' => 'merchant_manage_pickup_requests', 'display_name' => ['ar'  =>  'إدارة طلبات الاستلام',  'en'    =>  'Manage Pickup Requests'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.index', 'icon' => 'fas fa-truck-loading', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '50',]);
+        $managePickupRequests->parent_show = $managePickupRequests->id;
+        $managePickupRequests->save();
+        $showPickupRequests    =  Permission::create(['name' => 'merchant_show_pickup_requests',  'display_name' =>   ['ar'   =>  'طلبات الاستلام',   'en'        =>  'Pickup Requests'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.index', 'icon' => 'fas fa-truck-loading', 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $createPickupRequests  =  Permission::create(['name' => 'merchant_create_pickup_requests', 'display_name'  =>   ['ar'   =>  'إضافة عملية طلب استلام',   'en'       =>  'Add New Pickup Request'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.create', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $displayPickupRequests =  Permission::create(['name' => 'merchant_display_pickup_requests', 'display_name'  =>   ['ar'   =>  'استعراض عملية طلب استلام',   'en'      =>  'Display Pickup Request'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.show', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $updatePickupRequests  =  Permission::create(['name' => 'merchant_update_pickup_requests', 'display_name'  =>   ['ar'   =>  'تعديل عملية طلب استلام',   'en'        =>  'Update Pickup Request'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.edit', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+        $deletePickupRequests  =  Permission::create(['name' => 'merchant_delete_pickup_requests', 'display_name'  =>   ['ar'   =>  'حذف عملية طلب استلام',   'en'          =>  'Delete Pickup Request'], 'route' => 'pickup_requests', 'module' => 'pickup_requests', 'as' => 'pickup_requests.destroy', 'icon' => null, 'parent' => '0', 'parent_original' => '0', 'parent_show' => '0', 'sidebar_link' => '0', 'appear' => '0']);
+
+
         // 3- Add Merchant Permission to the Role
         $permissions = [
             // Dashboard
