@@ -7,20 +7,29 @@
 
 @section('content')
 
+ <!-- Page Header -->
+    <div class="row ">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">{{ __('supervisor.edit_supervisor') }}</h4>
+
+                <div class="page-title-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">{{ __('general.main') }}</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.supervisors.index') }}">{{ __('supervisor.supervisors') }}</a></li>
+                            <li class="breadcrumb-item active">{{ __('supervisor.edit_supervisor') }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <div class="card shadow mb-4">
 
     {{-- menu part --}}
-    <div class="card-header py-3 d-flex">
-        <h6 class="m-0 font-weight-bold text-primary">{{ __('supervisor.edit_supervisor') }} {{$supervisor->full_name}}</h6>
-        <div class="ml-auto">
-            <a href="{{route('admin.supervisors.index')}}" class="btn btn-primary">
-                <span class="icon text-white-50">
-                    <i class="fa fa-home"></i>
-                </span>
-                <span class="text">{{ __('supervisor.supervisors') }}</span>
-            </a>
-        </div>
-    </div>
+
 
     {{-- body part --}}
     <div class="card-body">
