@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Driver;
 
+use App\Helper\DeliveryHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Driver\DeliveryRequest;
@@ -370,10 +371,11 @@ class DeliveryController extends Controller
             return redirect('driver/index');
         }
 
+        $deliveryHelper = new DeliveryHelper();
         // نحمل العلاقات المهمة مثل السائق والطرد
         $delivery->load(['driver', 'package']);
 
-        return view('driver.deliveries.show', compact('delivery'));
+        return view('driver.deliveries.show', compact('delivery' , 'deliveryHelper'));
     }
 
     /**
