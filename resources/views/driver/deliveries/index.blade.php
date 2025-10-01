@@ -314,7 +314,7 @@
 
 <div class="row">
     <!-- Quick Actions Sidebar -->
-    <div class="col-lg-3">
+    {{-- <div class="col-lg-3">
         <div class="card">
             <div class="card-header bg-primary text-white">
                 <h5 class="mb-0">
@@ -440,7 +440,163 @@
                 @endif
             </div>
         </div>
+    </div> --}}
+
+    <div class="row">
+    <!-- Quick Actions & Filters Sidebar -->
+    <div class="col-lg-3">
+        <!-- Quick Actions Accordion -->
+        <div class="accordion accordion-flush" id="quickActionsAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="quickActionsHeading">
+                    <button class="accordion-button bg-primary text-white py-3" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#quickActionsCollapse"
+                            aria-expanded="true" aria-controls="quickActionsCollapse">
+                        <i class="mdi mdi-lightning-bolt-outline me-2 fs-5"></i>
+                        <span class="fw-semibold">{{ __('general.quick_actions') }}</span>
+                        <span class="badge bg-white text-primary ms-2">{{ $activeDeliveries + $pendingDeliveries }}</span>
+                    </button>
+                </h2>
+                <div id="quickActionsCollapse" class="accordion-collapse collapse show"
+                     aria-labelledby="quickActionsHeading" data-bs-parent="#quickActionsAccordion">
+                    <div class="accordion-body p-2">
+                        <a href="{{ route('driver.deliveries.index', ['status' => 'pending']) }}"
+                           class="quick-action-btn pending">
+                            <div class="count">{{ $pendingDeliveries }}</div>
+                            <div class="text">{{ __('delivery.view_pending') }}</div>
+                            <div class="subtext">{{ __('delivery.awaiting_assignment') }}</div>
+                        </a>
+
+                        <a href="{{ route('driver.deliveries.index', ['status' => 'assigned_to_driver']) }}"
+                           class="quick-action-btn assigned">
+                            <div class="count">{{ $assignedDeliveries }}</div>
+                            <div class="text">{{ __('delivery.view_assigned') }}</div>
+                            <div class="subtext">{{ __('delivery.ready_for_pickup') }}</div>
+                        </a>
+
+                        <a href="{{ route('driver.deliveries.index') }}?status[]=driver_picked_up&status[]=in_transit&status[]=out_for_delivery"
+                           class="quick-action-btn active">
+                            <div class="count">{{ $activeDeliveries }}</div>
+                            <div class="text">{{ __('delivery.active_deliveries') }}</div>
+                            <div class="subtext">{{ __('delivery.in_progress') }}</div>
+                        </a>
+
+                        <a href="{{ route('driver.deliveries.index', ['date_from' => today()->format('Y-m-d')]) }}"
+                           class="quick-action-btn today">
+                            <div class="count">{{ $todayDeliveries }}</div>
+                            <div class="text">{{ __('delivery.today_deliveries') }}</div>
+                            <div class="subtext">{{ __('delivery.scheduled_today') }}</div>
+                        </a>
+
+                        <a href="#" class="quick-action-btn nearest" onclick="showNearestDeliveries()">
+                            <div class="count">
+                                <i class="mdi mdi-near-me"></i>
+                            </div>
+                            <div class="text">{{ __('delivery.nearest_deliveries') }}</div>
+                            <div class="subtext">{{ __('delivery.by_distance') }}</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Filter Accordion -->
+        <div class="accordion accordion-flush mt-3" id="statusFilterAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="statusFilterHeading">
+                    <button class="accordion-button bg-info text-white py-3 collapsed" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#statusFilterCollapse"
+                            aria-expanded="false" aria-controls="statusFilterCollapse">
+                        <i class="mdi mdi-filter-outline me-2 fs-5"></i>
+                        <span class="fw-semibold">{{ __('general.filter_by_status') }}</span>
+                        <span class="badge bg-white text-info ms-2">{{ $totalDeliveries }}</span>
+                    </button>
+                </h2>
+                <div id="statusFilterCollapse" class="accordion-collapse collapse"
+                     aria-labelledby="statusFilterHeading" data-bs-parent="#statusFilterAccordion">
+                    <div class="accordion-body p-0">
+                        <div class="list-group list-group-flush">
+                            @php
+                                $statusCounts = [
+                                    'pending' => $pendingDeliveries,
+                                    'assigned_to_driver' => $assignedDeliveries,
+                                    'driver_picked_up' => $pickedUpDeliveries,
+                                    'in_transit' => $inTransitDeliveries,
+                                    'arrived_at_hub' => $arrivedAtHubDeliveries,
+                                    'out_for_delivery' => $outForDeliveryDeliveries,
+                                    'delivered' => $deliveredDeliveries,
+                                    'delivery_failed' => $failedDeliveries,
+                                    'returned' => $returnedDeliveries,
+                                    'cancelled' => $cancelledDeliveries,
+                                    'in_warehouse' => $inWarehouseDeliveries
+                                ];
+
+                                $statusIcons = [
+                                    'pending' => 'clock-outline',
+                                    'assigned_to_driver' => 'truck-check',
+                                    'driver_picked_up' => 'package-variant',
+                                    'in_transit' => 'truck-delivery',
+                                    'arrived_at_hub' => 'warehouse',
+                                    'out_for_delivery' => 'walk',
+                                    'delivered' => 'check-circle',
+                                    'delivery_failed' => 'alert-circle',
+                                    'returned' => 'package-up',
+                                    'cancelled' => 'cancel',
+                                    'in_warehouse' => 'archive'
+                                ];
+
+                                $currentStatus = request('status');
+                            @endphp
+
+                            <a href="{{ route('driver.deliveries.index') }}"
+                               class="list-group-item list-group-item-action status-filter-item d-flex justify-content-between align-items-center {{ !$currentStatus ? 'active' : '' }}">
+                                <span>
+                                    <i class="mdi mdi-view-grid-outline me-2"></i>
+                                    {{ __('general.all_statuses') }}
+                                </span>
+                                <span class="badge bg-secondary rounded-pill">{{ $totalDeliveries }}</span>
+                            </a>
+
+                            @foreach($statusCounts as $status => $count)
+                            <a href="{{ route('driver.deliveries.index', ['status' => $status]) }}"
+                               class="list-group-item list-group-item-action status-filter-item d-flex justify-content-between align-items-center {{ $currentStatus == $status ? 'active' : '' }}">
+                                <span>
+                                    <i class="mdi mdi-{{ $statusIcons[$status] }} me-2"></i>
+                                    {{ __('delivery.status_' . $status) }}
+                                </span>
+                                <span class="badge bg-secondary rounded-pill">{{ $count }}</span>
+                            </a>
+                            @endforeach
+                        </div>
+
+                        @if(request()->hasAny(['keyword', 'status', 'package_id', 'date_from', 'date_to']))
+                        <div class="p-3 border-top">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">{{ __('general.filtered_results') }}:</small>
+                                <span class="badge bg-primary">{{ $deliveries->total() }}</span>
+                            </div>
+                            <div class="mt-2">
+                                <a href="{{ route('driver.deliveries.index') }}" class="btn btn-sm btn-outline-primary w-100">
+                                    <i class="mdi mdi-refresh me-1"></i>
+                                    {{ __('general.reset_filters') }}
+                                </a>
+                            </div>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Toggle Buttons -->
+        <div class="d-grid gap-2 mt-3 d-lg-none">
+            <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target=".accordion-collapse">
+                <i class="mdi mdi-arrow-expand-all me-1"></i>
+                {{ __('general.toggle_all_sections') }}
+            </button>
+        </div>
     </div>
+
 
     <!-- Main Content -->
     <div class="col-lg-9">
