@@ -1,4 +1,19 @@
 
+@php
+    $defaults = [
+        'rtl' => false,
+        'mode' => 'light',
+    ];
+
+    $userPrefs = is_array(auth()->user()->layout_preferences)
+        ? auth()->user()->layout_preferences
+        : json_decode(auth()->user()->layout_preferences, true) ?? [];
+
+    $prefs = array_merge($defaults, $userPrefs);
+
+    $isRtl = $prefs['rtl'];
+    $isDark = $prefs['mode'] === 'dark';
+@endphp
 
 <!-- JAVASCRIPT -->
 <script src="{{ asset('admin/assets/libs/jquery/jquery.min.js')}}"></script>
@@ -105,6 +120,24 @@
 
 <!-- Custom general script -->
 <script src="{{ asset('admin/assets/js/custom-general-script.js')}}"></script>
+
+<script>
+    var tinymceLanguage = '{{ app()->getLocale() }}'; // Get the current locale from Laravel config
+    var flatPickrLanguage = '{{ app()->getLocale() }}';
+</script>
+
+ <!-- Plugin js for this page -->
+ @if ($isRtl)
+    <!-- Plugin css for this page -->
+    <script src="{{ asset('admin/assets/libs/flatpickr/flatpickr-rtl.min.js') }}"></script>
+@else
+    <!-- Plugin css for this page -->
+    <script src="{{ asset('admin/assets/libs/flatpickr/flatpickr.min.js') }}"></script>
+@endif
+
+<script src="{{ asset('admin/assets/js/flatpickr.js') }}"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/ar.js"></script>
+<script src="{{ asset('admin/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
 
 
