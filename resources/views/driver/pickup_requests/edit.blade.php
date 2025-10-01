@@ -620,10 +620,10 @@ function openNavigation(lat, lng) {
         text: '{{ __("general.choose_navigation_app") }}',
         icon: 'question',
         showCancelButton: true,
-        confirmButtonText: isIOS ? 'Apple Maps' : (isAndroid ? 'Google Maps' : 'Open Maps'),
+        confirmButtonText: isIOS ? 'Apple Maps' : (isAndroid ? 'Google Maps' :  '{{ __("general.open_in_maps") }}'),
         cancelButtonText: '{{ __("general.cancel") }}',
         showDenyButton: true,
-        denyButtonText: isIOS ? 'Google Maps' : (isAndroid ? 'Other Apps' : 'Copy Coordinates')
+        denyButtonText: isIOS ? 'Google Maps' : (isAndroid ? 'Other Apps' :  '{{ __("general.copy_coordinates") }}')
     }).then((result) => {
         if (result.isConfirmed) {
             window.open(isIOS ? appleMapsUrl : googleMapsUrl, '_blank');
