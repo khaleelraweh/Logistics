@@ -4,7 +4,7 @@
                 <div class="row g-2">
 
                     <!-- Keyword -->
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <input type="text" name="keyword" value="{{ request('keyword') }}" class="form-control" placeholder="{{ __('filter.search_here') }}">
                     </div>
 
@@ -20,7 +20,6 @@
                         </select>
                     </div>
 
-
                     <!-- Merchant -->
                     <div class="col-md-3">
                         <select name="merchant_id" class="form-select select2">
@@ -34,7 +33,7 @@
                     </div>
 
                     <!-- Scheduled From -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <input type="date" name="scheduled_from" value="{{ request('scheduled_from') }}" class="form-control" placeholder="{{ __('filter.scheduled_from') }}">
                     </div>
 
@@ -43,7 +42,7 @@
                     </div>
 
                     <!-- Scheduled To -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <input type="date" name="scheduled_to" value="{{ request('scheduled_to') }}" class="form-control" placeholder="{{ __('filter.scheduled_to') }}">
                     </div>
 
@@ -67,7 +66,7 @@
                     </div>
 
                     <!-- Limit By -->
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <select name="limit_by" class="form-select select2">
                             <option value="10" {{ request('limit_by') == '10' ? 'selected' : '' }}>10</option>
                             <option value="20" {{ request('limit_by') == '20' ? 'selected' : '' }}>20</option>
