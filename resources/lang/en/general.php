@@ -290,6 +290,8 @@ return [
     'reset_filters' => 'Reset Filters',
     'location_access_required' => 'Location access is required to show nearest requests',
     'location_not_supported' => 'Browser does not support location detection',
+    'filter_applied' => 'Filter Applied',
+    'filtered_results' => 'Filtered Results',
 
 
 

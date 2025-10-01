@@ -291,6 +291,8 @@ return [
     'reset_filters' => 'إعادة تعيين الفلاتر',
     'location_access_required' => 'يجب السماح بالوصول إلى الموقع لعرض الطلبات القريبة',
     'location_not_supported' => 'المتصفح لا يدعم تحديد الموقع',
+    'filter_applied' => 'تم تطبيق الفلتر',
+    'filtered_results' => 'عرض النتائج المفلترة',
 
 
 ];
