@@ -29,7 +29,7 @@
                         <!-- عندما لا يكون ابناء في عنصر القائمة -->
                         @if (count($menu->appearedChildren) == 0)
                             <li>
-                                <a href="{{ route('driver.'.$menu->as) }}" class="waves-effect">
+                                <a href="{{ route('frontend_dashboard.'.$menu->as) }}" class="waves-effect">
                                     <i class="{{ $menu->icon }}"></i>
                                     {{-- <span class="badge rounded-pill bg-success float-end">3</span> --}}
                                     <span>
@@ -49,7 +49,7 @@
                                     <ul class="sub-menu" aria-expanded="false">
                                         @foreach ($menu->appearedChildren as $sub_menu)
                                             <li>
-                                                <a href="{{ route('driver.' . $sub_menu->as) }}">
+                                                <a href="{{ route('frontend_dashboard.' . $sub_menu->as) }}">
                                                     {{ \Illuminate\Support\Str::limit($sub_menu->display_name, 25) }}
                                                 </a>
                                             </li>

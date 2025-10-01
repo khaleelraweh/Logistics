@@ -47,5 +47,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(FrontendDashboardManagerSeeder::class);
 
+        //Frontend Dashboard related seeders
+        $this->call(MainMenuSeeder::class);
+
     }
 }

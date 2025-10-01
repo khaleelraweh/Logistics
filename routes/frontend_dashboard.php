@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FrontendDashboard\FrontendDashboardController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\FrontendDashboard\MainMenuController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', 'middleware' => ['roles', 'role:frontend_dashboard']], function () {
@@ -23,4 +24,8 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', '
     Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::post('frontend/profile/remove-image', [ProfileController::class, 'remove_image'])->name('profile.remove_image');
     Route::patch('/profile', [ProfileController::class, 'update_profile'])->name('profile.update');
+
+    //Resources
+    Route::post('main_menus/update-main-menu-status', [MainMenuController::class, 'updateMainMenuStatus'])->name('main_menus.update_main_menu_status');
+    Route::resource('main_menus', MainMenuController::class);
 });

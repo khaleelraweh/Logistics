@@ -8,7 +8,7 @@
                         @if (count($menu->appearedChildren) == 0)
                             <!-- عنصر بدون أبناء -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('merchant.'.$menu->as) }}">
+                                <a class="nav-link" href="{{ route('frontend_dashboard.'.$menu->as) }}">
                                     <i class="{{ $menu->icon }} me-2"></i>
                                     {{ \Illuminate\Support\Str::limit($menu->display_name, 25) }}
                                 </a>
@@ -24,7 +24,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-{{ $menu->id }}">
                                     @foreach ($menu->appearedChildren as $sub_menu)
-                                        <a href="{{ route('merchant.' . $sub_menu->as) }}" class="dropdown-item">
+                                        <a href="{{ route('frontend_dashboard.' . $sub_menu->as) }}" class="dropdown-item">
                                             {{ \Illuminate\Support\Str::limit($sub_menu->display_name, 25) }}
                                         </a>
                                     @endforeach
