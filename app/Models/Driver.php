@@ -114,4 +114,10 @@ class Driver extends Model
     // }
 
 
+    public function returnRequests()
+    {
+        return $this->hasMany(ReturnRequest::class);
+    }
+
+
 }
