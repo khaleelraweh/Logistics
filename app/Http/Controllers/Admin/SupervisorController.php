@@ -135,11 +135,10 @@ class SupervisorController extends Controller
                 unlink('assets/supervisors/' . $supervisor->user_image);
             }
 
+            $manager = new ImageManager(new Driver());
             $file_name = Str::slug($request->name).".".$image->getClientOriginalExtension();
-            $path = public_path('assets/users/'.$file_name);
-            Image::make($image->getRealPath())->resize(500,null,function($constraint){
-                $constraint->aspectRatio();
-            })->save($path);
+            $img = $manager->read($image);
+            $img->toJpeg(80)->save(public_path('assets/users/' . $file_name));
 
             $input['user_image'] = $file_name;
         }
