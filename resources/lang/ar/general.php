@@ -309,6 +309,7 @@ return [
     'duration' => 'المدة',
     'phone' => 'هاتف',
     'not_available' => 'غير متوفر',
+    'map_legend' => 'مفاتيح الخريطة',
 
 
 

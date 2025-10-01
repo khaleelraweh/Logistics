@@ -308,6 +308,7 @@ return [
     'duration' => 'Duration',
     'phone' => 'Phone',
     'not_available' => 'Not Available',
+    'map_legend' => 'Map Legend',
 
 
 
