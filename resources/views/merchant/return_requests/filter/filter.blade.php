@@ -16,12 +16,12 @@
                 <div class="row g-2">
 
                     <!-- Keyword -->
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <input type="text" name="keyword" value="{{ request()->keyword }}" class="form-control" placeholder="{{ __('filter.search_here') }}">
                     </div>
 
                     <!-- Status -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select name="status" class="form-select select2">
                             <option value="">{{ __('filter.all_statuses') }}</option>
                             @foreach(['requested','in_transit','received','rejected','partially_received','status_cancelled'] as $status)
@@ -38,7 +38,7 @@
                             <option value="">{{ __('filter.all_packages') }}</option>
                             @foreach($packages as $package)
                                 <option value="{{ $package->id }}" {{ request('package_id') == $package->id ? 'selected' : '' }}>
-                                    #{{ $package->id }} - {{ optional($package->merchant)->name ?? '---' }}
+                                    #{{ $package->id }} - {{ optional($package->merchant)->name ?? '---' }} - {{ optional($package)->tracking_number ?? '---' }}
                                 </option>
                             @endforeach
                         </select>
