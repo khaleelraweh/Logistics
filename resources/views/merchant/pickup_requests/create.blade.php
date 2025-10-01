@@ -77,7 +77,7 @@
 
 
 
-                            <div class="row">
+                            {{-- <div class="row">
                                 <label class="col-md-2 col-form-label">{{ __('general.geographical_location') }}</label>
                                 <div class="col-md-10">
                                     <div class="row">
@@ -98,6 +98,34 @@
                                     </div>
                                 </div>
 
+                            </div> --}}
+
+                            <div class="row mb-3">
+                                <label class="col-md-2 col-form-label">{{ __('general.geographical_location') }}</label>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" id="latitude" name="latitude" class="form-control mb-2"
+                                                placeholder="{{ __('general.latitude') }}"
+                                                value="{{ old('latitude', auth()->user()->merchant->latitude ?? '') }}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" id="longitude" name="longitude" class="form-control mb-2"
+                                                placeholder="{{ __('general.longitude') }}"
+                                                value="{{ old('longitude', auth()->user()->merchant->longitude ?? '') }}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input name="postal_code" class="form-control" id="postal_code" type="text"
+                                                value="{{ old('postal_code', auth()->user()->merchant->postal_code ?? '') }}"
+                                                placeholder="{{ __('general.postal_code') }}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="map" style="width: 100%; height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
 
@@ -201,42 +229,82 @@
                 });
         }
 
-        // إحداثيات البداية: إذا موجودة من الـ old أو من التاجر، وإلا وسط الرياض
-        var initialLat = parseFloat(document.getElementById('latitude').value) || 24.7136;
-        var initialLng = parseFloat(document.getElementById('longitude').value) || 46.6753;
+        // دالة لتحويل العنوان لإحداثيات
+        function getLatLngFromAddress(address, callback) {
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        callback(parseFloat(data[0].lat), parseFloat(data[0].lon));
+                    } else {
+                        callback(null, null);
+                    }
+                });
+        }
 
-        // إنشاء الخريطة
-        var map = L.map('map').setView([initialLat, initialLng], 13);
+        // بيانات التاجر من auth()->user()->merchant
+        var merchantCountry  = "{{ auth()->user()->merchant->country ?? '' }}";
+        var merchantRegion   = "{{ auth()->user()->merchant->region ?? '' }}";
+        var merchantCity     = "{{ auth()->user()->merchant->city ?? '' }}";
+        var merchantDistrict = "{{ auth()->user()->merchant->district ?? '' }}";
 
-        // إضافة طبقة OpenStreetMap
+        // قيم الإحداثيات (من old أو من التاجر)
+        var initialLat = parseFloat(document.getElementById('latitude').value) || null;
+        var initialLng = parseFloat(document.getElementById('longitude').value) || null;
+
+        // إنشاء الخريطة (افتراضي وسط الرياض)
+        var map = L.map('map').setView([24.7136, 46.6753], 13);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // إنشاء العلامة القابلة للسحب
-        var marker = L.marker([initialLat, initialLng], {draggable:true}).addTo(map);
+        var marker = null;
 
-        // تحديث الحقول عند تحريك العلامة
-        marker.on('dragend', function(e) {
-            var latlng = marker.getLatLng();
-            document.getElementById('latitude').value = latlng.lat.toFixed(7);
-            document.getElementById('longitude').value = latlng.lng.toFixed(7);
-            updateFieldsFromLatLng(latlng.lat, latlng.lng);
-        });
+        function setMarker(lat, lng) {
+            if (marker) {
+                marker.setLatLng([lat, lng]);
+            } else {
+                marker = L.marker([lat, lng], {draggable:true}).addTo(map);
+                marker.on('dragend', function(e) {
+                    var latlng = marker.getLatLng();
+                    document.getElementById('latitude').value = latlng.lat.toFixed(7);
+                    document.getElementById('longitude').value = latlng.lng.toFixed(7);
+                    updateFieldsFromLatLng(latlng.lat, latlng.lng);
+                });
+            }
+            map.setView([lat, lng], 13);
+            document.getElementById('latitude').value = lat.toFixed(7);
+            document.getElementById('longitude').value = lng.toFixed(7);
+            updateFieldsFromLatLng(lat, lng);
+        }
+
+        // أولوية تحديد موقع البداية
+        if (merchantCountry || merchantCity || merchantRegion || merchantDistrict) {
+            let fullAddress = [merchantDistrict, merchantCity, merchantRegion, merchantCountry].filter(Boolean).join(", ");
+            getLatLngFromAddress(fullAddress, function(lat, lng) {
+                if (lat && lng) {
+                    setMarker(lat, lng);
+                } else if (initialLat && initialLng) {
+                    setMarker(initialLat, initialLng);
+                } else {
+                    setMarker(24.7136, 46.6753); // الرياض
+                }
+            });
+        } else if (initialLat && initialLng) {
+            setMarker(initialLat, initialLng);
+        } else {
+            setMarker(24.7136, 46.6753); // الرياض
+        }
 
         // تحديث العلامة عند النقر على الخريطة
         map.on('click', function(e) {
-            marker.setLatLng(e.latlng);
-            document.getElementById('latitude').value = e.latlng.lat.toFixed(7);
-            document.getElementById('longitude').value = e.latlng.lng.toFixed(7);
-            updateFieldsFromLatLng(e.latlng.lat, e.latlng.lng);
+            setMarker(e.latlng.lat, e.latlng.lng);
         });
-
-        // تعبئة الحقول لأول مرة عند التحميل إذا كانت الإحداثيات موجودة
-        if(initialLat && initialLng){
-            updateFieldsFromLatLng(initialLat, initialLng);
-        }
 
     });
 </script>
 @endsection
+
+
+
+
