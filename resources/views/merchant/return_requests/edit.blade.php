@@ -2,7 +2,7 @@
 
 @section('style')
 
-<style>
+    <style>
         body {
             background-color: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -74,7 +74,7 @@
         }
     </style>
 
-     <!-- مكتبة Leaflet CSS -->
+    <!-- مكتبة Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
