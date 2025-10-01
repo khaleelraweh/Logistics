@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ExternalShipmentController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\PricingRuleController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\SupervisorController;
 use App\Http\Controllers\Admin\TagController;
 use Illuminate\Support\Facades\Route;
 
@@ -106,5 +107,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['roles', '
 
     Route::post('tags/update-tag-status', [TagController::class, 'updateTagStatus'])->name('tags.update_tag_status');
     Route::resource('tags', TagController::class);
+
+    Route::post('supervisors/remove-image', [SupervisorController::class, 'remove_image'])->name('supervisors.remove_image');
+    Route::resource('supervisors',SupervisorController::class);
 
 });

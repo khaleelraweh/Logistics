@@ -194,6 +194,15 @@
 
         @livewire('admin.profile.language-switcher-component')
 
+            {{-- <a class="nav-link" href="{{route('admin.supervisors.index')}}">{{ __('navbar.supervisors') }}</a> --}}
+
+        {{-- رابط المشرفين بجوار القائمة --}}
+        <div class="d-none d-lg-inline-block ms-1">
+            <a class="btn header-item noti-icon waves-effect d-flex align-items-center" href="{{ route('admin.supervisors.index') }}">
+                <i class="ri-team-line"></i>
+                <span class="d-none d-xl-inline">{{ __('navbar.supervisors') }}</span>
+            </a>
+        </div>
 
         <div class="dropdown d-none d-lg-inline-block ms-1">
             <button type="button" class="btn header-item noti-icon waves-effect"
