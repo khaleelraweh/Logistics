@@ -106,12 +106,7 @@
 @endsection
 
 
-
-
 @section('content')
-
-
-
 
 <!-- return_request Form -->
 <div class="row">
