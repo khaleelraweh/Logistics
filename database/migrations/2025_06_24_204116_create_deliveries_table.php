@@ -35,6 +35,15 @@ return new class extends Migration
             ])->default('pending');
             $table->string('note')->nullable(); // show notes
 
+             $table->dateTime('picked_up_at')->nullable();
+            $table->dateTime('in_transit_at')->nullable();
+            $table->dateTime('arrived_at_hub_at')->nullable();
+            $table->dateTime('out_for_delivery_at')->nullable();
+            $table->dateTime('delivery_failed_at')->nullable();
+            $table->dateTime('returned_at')->nullable();
+            $table->dateTime('cancelled_at')->nullable();
+            $table->integer('delivery_attempts')->default(0);
+
             $table->boolean('status_visible')->default(true);
             $table->dateTime('published_on')->nullable();
             $table->string('created_by')->nullable();
