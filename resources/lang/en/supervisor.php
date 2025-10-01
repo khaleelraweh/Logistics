@@ -1,4 +1,44 @@
 <?php
 return [
-    'supervisors'            => 'المشرفين',
+    'supervisors' => 'Supervisors',
+    'add_new' => 'Add new supervisor',
+    'image' => 'Image',
+    'name' => 'Name',
+    'email_mobile' => 'Email & Mobile',
+    'status' => 'Status',
+    'created_at' => 'Created at',
+    'actions' => 'Actions',
+    'confirm_delete' => 'Are you sure to delete this supervisor?',
+    'no_supervisors' => 'No Supervisors found',
+
+    //create and edit
+    'create_supervisor' => 'Create Supervisor',
+    'first_name' => 'First Name',
+    'last_name' => 'Last Name',
+    'username' => 'Username',
+    'email' => 'Email',
+    'mobile' => 'Mobile',
+    'password' => 'Password',
+    'active' => 'Active',
+    'inactive' => 'Inactive',
+    'permissions' => 'Permissions',
+    'user_image' => 'User Image',
+    'image_hint' => 'Image width should be 500px x 500px',
+    'add' => 'Add Supervisor',
+
+    'edit_supervisor' => 'Edit Supervisor',
+    'password_hint' => 'Leave this field empty if you do not want to change the password',
+    'update' => 'Update Supervisor',
+
+    // filter
+    'search_here' => 'Search here',
+    'active' => 'Active',
+    'inactive' => 'Inactive',
+    'id' => 'ID',
+    'first_name' => 'First Name',
+    'last_name' => 'Last Name',
+    'created_at' => 'Created at',
+    'ascending' => 'Ascending',
+    'descending' => 'Descending',
+    'search' => 'Search',
 ];

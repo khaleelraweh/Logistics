@@ -1,6 +1,44 @@
 <?php
 return [
-    'supervisors'            => 'المشرفين',
+    'supervisors' => 'المشرفين',
+    'add_new' => 'إضافة مشرف جديد',
+    'image' => 'الصورة',
+    'name' => 'الاسم',
+    'email_mobile' => 'البريد الإلكتروني والهاتف',
+    'status' => 'الحالة',
+    'created_at' => 'تاريخ الإنشاء',
+    'actions' => 'إجراءات',
+    'confirm_delete' => 'هل أنت متأكد من حذف هذا المشرف؟',
+    'no_supervisors' => 'لا يوجد مشرفين',
 
+    //create and edit
+    'create_supervisor' => 'إضافة مشرف',
+    'first_name' => 'الاسم الأول',
+    'last_name' => 'الاسم الأخير',
+    'username' => 'اسم المستخدم',
+    'email' => 'البريد الإلكتروني',
+    'mobile' => 'الجوال',
+    'password' => 'كلمة المرور',
+    'active' => 'نشط',
+    'inactive' => 'غير نشط',
+    'permissions' => 'الصلاحيات',
+    'user_image' => 'صورة المستخدم',
+    'image_hint' => 'يجب أن تكون أبعاد الصورة 500px × 500px',
+    'add' => 'إضافة',
 
+    'edit_supervisor' => 'تعديل مشرف',
+    'password_hint' => 'اترك هذا الحقل فارغًا إذا لم ترغب بتغيير كلمة المرور',
+    'update' => 'تحديث المشرف',
+
+    // filter
+    'search_here' => 'ابحث هنا',
+    'active' => 'نشط',
+    'inactive' => 'غير نشط',
+    'id' => 'المعرف',
+    'first_name' => 'الاسم الأول',
+    'last_name' => 'اسم العائلة',
+    'created_at' => 'تاريخ الإنشاء',
+    'ascending' => 'تصاعدي',
+    'descending' => 'تنازلي',
+    'search' => 'بحث',
 ];
