@@ -84,6 +84,12 @@
         padding: 20px;
         margin-bottom: 20px;
     }
+
+    /* إضافة جديدة للإحصائيات */
+    .stat-badge {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
 </style>
 @endsection
 
@@ -93,28 +99,28 @@
     <div class="row mb-4">
         <div class="col-xl-3 col-md-6">
             <div class="stat-card">
-                <div class="number">{{ $pickupRequests->count() }}</div>
+                <div class="number">{{ $totalRequests }}</div>
                 <div class="label">{{ __('pickup_request.total_requests') }}</div>
                 <i class="mdi mdi-package-variant fs-2 opacity-50 mt-2"></i>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="stat-card" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
-                <div class="number">{{ $pickupRequests->where('status', 'pending')->count() }}</div>
+                <div class="number">{{ $pendingRequests }}</div>
                 <div class="label">{{ __('pickup_request.pending_requests') }}</div>
                 <i class="mdi mdi-clock-outline fs-2 opacity-50 mt-2"></i>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="stat-card" style="background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);">
-                <div class="number">{{ $pickupRequests->where('status', 'accepted')->count() }}</div>
+                <div class="number">{{ $acceptedRequests }}</div>
                 <div class="label">{{ __('pickup_request.accepted_requests') }}</div>
                 <i class="mdi mdi-truck-check fs-2 opacity-50 mt-2"></i>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="stat-card" style="background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);">
-                <div class="number">{{ $pickupRequests->where('status', 'completed')->count() }}</div>
+                <div class="number">{{ $completedRequests }}</div>
                 <div class="label">{{ __('pickup_request.completed_requests') }}</div>
                 <i class="mdi mdi-check-circle fs-2 opacity-50 mt-2"></i>
             </div>
@@ -135,19 +141,19 @@
                     <a href="{{ route('driver.pickup_requests.index', ['status' => 'pending']) }}" class="quick-action-btn">
                         <i class="mdi mdi-clock-outline me-2"></i>
                         <div>{{ __('pickup_request.view_pending') }}</div>
-                        <small class="opacity-75">{{ $pickupRequests->where('status', 'pending')->count() }} {{ __('general.requests') }}</small>
+                        <small class="opacity-75">{{ $pendingRequests }} {{ __('general.requests') }}</small>
                     </a>
 
                     <a href="{{ route('driver.pickup_requests.index', ['status' => 'accepted']) }}" class="quick-action-btn">
                         <i class="mdi mdi-truck-check me-2"></i>
                         <div>{{ __('pickup_request.view_accepted') }}</div>
-                        <small class="opacity-75">{{ $pickupRequests->where('status', 'accepted')->count() }} {{ __('general.requests') }}</small>
+                        <small class="opacity-75">{{ $acceptedRequests }} {{ __('general.requests') }}</small>
                     </a>
 
                     <a href="{{ route('driver.pickup_requests.index', ['status' => 'today']) }}" class="quick-action-btn">
                         <i class="mdi mdi-calendar-today me-2"></i>
                         <div>{{ __('pickup_request.today_requests') }}</div>
-                        <small class="opacity-75">{{ __('pickup_request.scheduled_today') }}</small>
+                        <small class="opacity-75">{{ $todayRequests }} {{ __('pickup_request.scheduled_today') }}</small>
                     </a>
 
                     <a href="#" class="quick-action-btn" onclick="showNearestRequests()">
@@ -167,6 +173,15 @@
                     </h5>
                 </div>
                 <div class="card-body">
+                    @php
+                        $statusCounts = [
+                            'pending' => $pendingRequests,
+                            'accepted' => $acceptedRequests,
+                            'completed' => $completedRequests,
+                            'cancelled' => $cancelledRequests
+                        ];
+                    @endphp
+
                     @foreach(['pending', 'accepted', 'completed', 'cancelled'] as $status)
                     <a href="{{ route('driver.pickup_requests.index', ['status' => $status]) }}"
                        class="d-flex justify-content-between align-items-center p-2 rounded mb-2
@@ -175,9 +190,19 @@
                             <i class="mdi mdi-circle-small me-2 text-{{ $status == 'pending' ? 'warning' : ($status == 'accepted' ? 'info' : ($status == 'completed' ? 'success' : 'danger')) }}"></i>
                             {{ __('pickup_request.status_' . $status) }}
                         </span>
-                        <span class="badge bg-secondary rounded-pill">{{ $pickupRequests->where('status', $status)->count() }}</span>
+                        <span class="badge bg-secondary rounded-pill stat-badge">{{ $statusCounts[$status] }}</span>
                     </a>
                     @endforeach
+
+                    <!-- إضافة إجمالي المصفى -->
+                    @if(request()->hasAny(['keyword', 'status', 'driver_id', 'merchant_id', 'date_type']))
+                    <div class="mt-3 pt-3 border-top">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">{{ __('general.filtered_results') }}:</small>
+                            <span class="badge bg-primary stat-badge">{{ $pickupRequests->total() }}</span>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -194,6 +219,14 @@
                             </h4>
                             <p class="card-title-desc text-muted mb-0">
                                 {{ __('pickup_request.pickup_requests_description') }}
+
+                                <!-- إضافة مؤشر البحث -->
+                                @if(request()->hasAny(['keyword', 'status', 'driver_id', 'merchant_id', 'date_type']))
+                                <span class="badge bg-info ms-2">
+                                    <i class="mdi mdi-filter me-1"></i>
+                                    {{ __('general.filter_applied') }} ({{ $pickupRequests->total() }})
+                                </span>
+                                @endif
                             </p>
                         </div>
 
@@ -201,6 +234,9 @@
                             <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#filtersSection">
                                 <i class="mdi mdi-filter-outline me-1"></i>
                                 {{ __('general.filters') }}
+                                @if(request()->hasAny(['keyword', 'status', 'driver_id', 'merchant_id', 'date_type']))
+                                <span class="badge bg-white text-primary ms-1">{{ $pickupRequests->total() }}</span>
+                                @endif
                             </button>
                         </div>
                     </div>
@@ -378,7 +414,6 @@
                                                     @endif
 
                                                     @ability('driver', 'update_pickup_requests')
-
                                                      <a href="{{ route('driver.pickup_requests.edit', $request->id) }}"
                                                                 class="btn btn-sm btn-outline-warning dropdown-toggle dropdown-toggle-split mt-1"
                                                                 data-bs-toggle="tooltip"
@@ -418,6 +453,13 @@
                                     {{ __('general.showing') }} {{ $pickupRequests->firstItem() }} - {{ $pickupRequests->lastItem() }}
                                     {{ __('general.of') }} {{ $pickupRequests->total() }}
                                     {{ __('general.records') }}
+
+                                    @if(request()->hasAny(['keyword', 'status', 'driver_id', 'merchant_id', 'date_type']))
+                                    <span class="badge bg-info ms-2">
+                                        <i class="mdi mdi-filter me-1"></i>
+                                        {{ __('general.filtered') }}
+                                    </span>
+                                    @endif
                                 </div>
                                 <div>
                                     {{ $pickupRequests->links() }}
@@ -509,12 +551,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize everything
     setTimeout(initMiniMaps, 1000);
     initTooltips();
-});
-</script>
 
-<script>
-    // في قسم script
-document.addEventListener('DOMContentLoaded', function () {
     // إضافة تأكيد عند تغيير الحالة
     document.querySelectorAll('.status-update-btn').forEach(button => {
         button.addEventListener('click', function(e) {
@@ -529,19 +566,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // معالجة النماذج بشكل غير متزامن (اختياري)
+    // معالجة النماذج بشكل غير متزامن
     document.querySelectorAll('.status-update-form').forEach(form => {
         form.addEventListener('submit', function(e) {
-            // يمكنك إضافة AJAX هنا إذا أردت
             this.querySelector('button').disabled = true;
             this.querySelector('button').innerHTML =
                 '<i class="mdi mdi-loading mdi-spin me-2"></i> جاري التحديث...';
         });
     });
 });
-</script>
-
-<script>
-
 </script>
 @endsection
