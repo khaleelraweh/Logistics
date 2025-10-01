@@ -1,7 +1,6 @@
 @extends('layouts.merchant')
 
 @section('style')
-
     <style>
         body {
             background-color: #f8f9fa;
@@ -73,12 +72,10 @@
             font-size: 0.85rem;
         }
     </style>
-
     <!-- مكتبة Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
-
     <style>
         .map-container {
             height: 250px;
@@ -102,30 +99,27 @@
             width: 100%;
         }
     </style>
-
 @endsection
-
 
 @section('content')
 
-<!-- return_request Form -->
-<div class="row">
-    <div class="col-12">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h4 class="card-title mb-4">
-                    <i class="mdi mdi-truck-return_request-outline me-1"></i> {{ __('return_request.return_request_info') }}
-                </h4>
+    <!-- return_request Form -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title mb-4">
+                        <i class="mdi mdi-truck-return_request-outline me-1"></i> {{ __('return_request.return_request_info') }}
+                    </h4>
 
-                @livewire('merchant.return-request.edit-return-request-component', ['id' => $return_request->id])
+                    @livewire('merchant.return-request.edit-return-request-component', ['id' => $return_request->id])
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 @endsection
-
 
 @section('script')
     <!-- مكتبة Leaflet JS -->
