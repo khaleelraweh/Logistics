@@ -24,7 +24,7 @@
                     <div class="col-md-3">
                         <select name="status" class="form-select select2">
                             <option value="">{{ __('filter.all_statuses') }}</option>
-                            @foreach(['pending','accepted','completed'] as $status)
+                            @foreach(['pending','accepted','completed' , 'canceled'] as $status)
                                 <option value="{{ $status }}" {{ request('status') == $status ? 'selected' : '' }}>
                                     {{ __('pickup_request.status_' . $status) }}
                                 </option>
