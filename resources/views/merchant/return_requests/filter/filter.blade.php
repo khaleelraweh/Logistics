@@ -24,7 +24,7 @@
                     <div class="col-md-3">
                         <select name="status" class="form-select select2">
                             <option value="">{{ __('filter.all_statuses') }}</option>
-                            @foreach(['requested','in_transit','received','rejected','partially_received','status_cancelled'] as $status)
+                            @foreach(['requested','assigned_to_driver','picked_up','in_transit','received','rejected','partially_received','cancelled'] as $status)
                                 <option value="{{ $status }}" {{ request('status') == $status ? 'selected' : '' }}>
                                     {{ __('return_request.status_' . $status) }}
                                 </option>
