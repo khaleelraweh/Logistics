@@ -308,7 +308,7 @@
                                     </button>
                                 @endability
 
-                                <a href="{{ route('merchants.return_requests.index') }}" class="btn btn-outline-danger ms-2">
+                                <a href="{{ route('merchant.return_requests.index') }}" class="btn btn-outline-danger ms-2">
                                     <i class="ri-arrow-go-back-line me-1"></i>
                                     {{ __('panel.cancel') }}
                                 </a>

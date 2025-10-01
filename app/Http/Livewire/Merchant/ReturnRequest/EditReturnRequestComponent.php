@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Merchant\ReturnRequest;
 
-use App\Models\Driver;
 use App\Models\Package;
 use App\Models\ReturnRequest;
 use App\Models\ReturnItem;
@@ -14,7 +13,6 @@ class EditReturnRequestComponent extends Component
     public $returnRequestId;
 
     public $package_id;
-    public $driver_id;
     public $return_type;
     public $target_address;
     public $requested_at;
@@ -23,7 +21,6 @@ class EditReturnRequestComponent extends Component
     public $reason;
 
     public $packages = [];
-    public $drivers = [];
 
     public $packageProducts = [];    // المنتجات الأصلية للطرد
     public $returnQuantities = [];   // الكميات المرتجعة (معبأة من return_items)
@@ -46,12 +43,10 @@ class EditReturnRequestComponent extends Component
         $this->returnRequestId = $id;
 
         $this->packages = Package::all();
-        $this->drivers = Driver::all();
 
         $returnRequest = ReturnRequest::with('returnItems')->findOrFail($id);
 
         $this->package_id = $returnRequest->package_id;
-        $this->driver_id = $returnRequest->driver_id;
         $this->return_type = $returnRequest->return_type;
         $this->target_address = $returnRequest->target_address;
         $this->requested_at = optional($returnRequest->requested_at)->format('Y-m-d');
@@ -128,7 +123,6 @@ class EditReturnRequestComponent extends Component
     {
         $this->validate([
             'package_id' => 'required|exists:packages,id',
-            // 'driver_id' => 'required|exists:drivers,id',
             'return_type' => 'required|in:to_warehouse,to_merchant,to_both',
             'target_address' => 'nullable|string',
             'requested_at' => 'required|date',
@@ -141,7 +135,6 @@ class EditReturnRequestComponent extends Component
 
         $returnRequest->update([
             'package_id' => $this->package_id,
-            // 'driver_id' => $this->driver_id,
             'return_type' => $this->return_type,
             'target_address' => $this->target_address,
             'requested_at' => $this->requested_at,
