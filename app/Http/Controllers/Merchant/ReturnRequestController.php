@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Merchant;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ReturnRequestRequest;
+use App\Http\Requests\Merchant\ReturnRequestRequest;
 use App\Models\Driver;
 use App\Models\Package;
 use App\Models\ReturnRequest;
