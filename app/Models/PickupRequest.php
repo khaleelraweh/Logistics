@@ -223,4 +223,30 @@ public function availableStatusesForDriver()
 
         return null;
     }
+
+
+    // لون الحالة
+    public function getStatusColorAttribute(): string
+    {
+        return match ($this->status) {
+            self::STATUS_PENDING   => 'warning',   // أصفر
+            self::STATUS_ACCEPTED  => 'info',      // أزرق فاتح
+            self::STATUS_COMPLETED => 'success',   // أخضر
+            self::STATUS_CANCELLED => 'danger',    // أحمر
+            default                => 'secondary', // رمادي افتراضي
+        };
+    }
+
+    // أيقونة الحالة
+    public function getStatusIconAttribute(): string
+    {
+        return match ($this->status) {
+            self::STATUS_PENDING   => 'hourglass-split', // أيقونة انتظار
+            self::STATUS_ACCEPTED  => 'truck',           // أيقونة شحن/سائق
+            self::STATUS_COMPLETED => 'check-circle',    // أيقونة نجاح
+            self::STATUS_CANCELLED => 'x-circle',        // أيقونة إلغاء
+            default                => 'question-circle', // أيقونة افتراضية
+        };
+    }
+
 }
