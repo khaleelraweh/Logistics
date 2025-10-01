@@ -6,12 +6,12 @@
                 <div class="row g-2">
 
                     <!-- Keyword -->
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <input type="text" name="keyword" value="{{ request()->keyword }}" class="form-control" placeholder="{{ __('filter.search_here') }}">
                     </div>
 
                     <!-- Status -->
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <select name="status" class="form-select select2">
                             <option value="">{{ __('filter.all_statuses') }}</option>
                             @foreach(['requested','in_transit','received','rejected','partially_received','status_cancelled'] as $status)
@@ -21,8 +21,6 @@
                             @endforeach
                         </select>
                     </div>
-
-
 
                     <!-- Package -->
                     <div class="col-md-3">
@@ -37,7 +35,7 @@
                     </div>
 
                     <!-- Sort By -->
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <select name="sort_by" class="form-select select2">
                             <option value="">{{ __('filter.sort_by') }}</option>
                             <option value="id" {{ request('sort_by') == 'id' ? 'selected' : '' }}>{{ __('filter.id') }}</option>
@@ -49,7 +47,7 @@
                     </div>
 
                     <!-- Order By -->
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <select name="order_by" class="form-select select2">
                             <option value="asc" {{ request('order_by') == 'asc' ? 'selected' : '' }}>{{ __('filter.asc') }}</option>
                             <option value="desc" {{ request('order_by') == 'desc' ? 'selected' : '' }}>{{ __('filter.desc') }}</option>
@@ -57,7 +55,7 @@
                     </div>
 
                     <!-- Limit By -->
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <select name="limit_by" class="form-select select2">
                             <option value="10" {{ request('limit_by') == '10' ? 'selected' : '' }}>10</option>
                             <option value="20" {{ request('limit_by') == '20' ? 'selected' : '' }}>20</option>
