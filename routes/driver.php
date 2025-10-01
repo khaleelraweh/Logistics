@@ -30,10 +30,14 @@ Route::group(['prefix' => 'driver', 'as' => 'driver.', 'middleware' => ['roles',
 
 
     //Resources
-    Route::patch('driver/deliveries/{id}/update-status', [DriverDeliveryController::class, 'update_status'])->name('deliveries.update_status');
+
+     Route::patch('/deliveries/{delivery}/update-status', [DriverDeliveryController::class, 'update_status'])->name('deliveries.update_status');
+    Route::get('/deliveries/{delivery}/available-statuses', [DriverDeliveryController::class, 'get_available_statuses'])->name('deliveries.available_statuses');    Route::resource('deliveries', DriverDeliveryController::class);
     Route::resource('deliveries', DriverDeliveryController::class);
+
     Route::patch('driver/pickup-requests/{id}/update-status', [PickupRequestController::class, 'update_status'])->name('pickup_requests.update_status');
     Route::resource('pickup_requests', PickupRequestController::class);
+
     Route::resource('return_requests', ReturnRequestController::class);
 
 });
