@@ -72,7 +72,8 @@
                                     @endphp
 
                                     <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $fullMerchant }}">
-                                        <a href="{{ route('merchant.merchants.show', $request->merchant->id) }}">
+                                        {{-- <a href="{{ route('merchant.merchants.show', $request->merchant->id) }}"> --}}
+                                        <a href="#">
                                             {{ Str::words($request->merchant->name, 2, '') }}
                                             <br>
                                             <small class="text-muted">{{ $request->merchant->email ?? '' }}</small>
