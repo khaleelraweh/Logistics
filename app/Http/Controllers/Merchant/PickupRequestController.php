@@ -96,7 +96,7 @@ class PickupRequestController extends Controller
         }
 
         $request->validate([
-            'merchant_id' => 'required|exists:merchants,id',
+            // 'merchant_id' => 'required|exists:merchants,id',
 
             'country' => 'nullable|string|max:255',
             'region' => 'nullable|string|max:255',
@@ -113,8 +113,9 @@ class PickupRequestController extends Controller
         ]);
 
         $pickupRequest = PickupRequest::create([
-            'merchant_id' => $request->merchant_id,
-            'driver_id' => $request->driver_id,  // تعيين السائق هنا إذا موجود
+            // 'merchant_id' => $request->merchant_id,
+            'merchant_id' => auth()->user()->merchant->id,
+            // 'driver_id' => $request->driver_id,  // تعيين السائق هنا إذا موجود
 
             'country'        => $request->country,
             'region'         => $request->region,
@@ -175,7 +176,7 @@ class PickupRequestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (!auth()->user()->ability('merchant', 'update_pickup_requests')) {
+        if (!auth()->user()->ability('merchant', 'merchant_update_pickup_requests')) {
             return redirect('merchant/index');
         }
 
@@ -183,7 +184,7 @@ class PickupRequestController extends Controller
         $pickupRequest = PickupRequest::findOrFail($id);
 
         $request->validate([
-            'merchant_id' => 'required|exists:merchants,id',
+            // 'merchant_id' => 'required|exists:merchants,id',
 
             'country' => 'nullable|string|max:255',
             'region' => 'nullable|string|max:255',
@@ -202,8 +203,9 @@ class PickupRequestController extends Controller
 
 
 
-            $input['merchant_id'] =  $request->merchant_id ;
-            $input['driver_id'] =    $request->driver_id ;
+            // $input['merchant_id'] =  $request->merchant_id ;
+            $input['merchant_id'] =  auth()->user()->merchant->id;
+            // $input['driver_id'] =    $request->driver_id ;
 
             $input['country']        =   $request->country ;
             $input['region']         =   $request->region ;

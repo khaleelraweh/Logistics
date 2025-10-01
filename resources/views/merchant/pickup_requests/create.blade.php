@@ -32,54 +32,6 @@
                     <form action="{{ route('merchant.pickup_requests.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                        {{-- <div class="mb-5">
-                            <div class="d-flex align-items-center mb-4">
-                                <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
-                                    <i class="bi bi-geo-alt text-primary"></i>
-                                </div>
-                                <h5 class="mb-0">{{ __('pickup_request.pickup_request_info') }}</h5>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="merchant_id">{{ __('merchant.name') }}</label>
-                                <div class="col-sm-10">
-                                    <select name="merchant_id" class="form-control select2">
-                                        <option value="">{{ __('pickup_request.select_merchant') }}</option>
-                                        @foreach ($merchants as $merchant)
-                                            <option value="{{ $merchant->id }}" {{ old('merchant_id') == $merchant->id ? 'selected' : '' }}>
-                                                {{ $merchant->name }} - {{ $merchant->email }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-
-                                    @error('merchant_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="driver_id">{{ __('pickup_request.assign_driver') }}</label>
-                                <div class="col-sm-10">
-                                    <select name="driver_id" id="driver_id" class="form-control select2" required>
-                                        <option value="" disabled selected>{{ __('delivery.select_driver') }}</option>
-                                        @foreach($drivers as $driver)
-                                            <option value="{{ $driver->id }}" @selected(old('driver_id') == $driver->id)>
-                                                {{ $driver->driver_full_name ?? __('driver.no_name') }}
-                                                - {{ $driver->phone ?? __('driver.no_phone') }}
-                                                - {{ $driver->vehicle_type ? __('driver.vehicle_type_' . $driver->vehicle_type) : __('driver.no_vehicle_type') }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-
-                                    @error('driver_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                        </div> --}}
-
                         <!-- Address Section -->
                         <div class="mb-5">
                             <div class="d-flex align-items-center mb-4">
@@ -178,21 +130,6 @@
                                     @enderror
                                 </div>
                             </div>
-
-
-                            {{-- <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="status">{{ __('general.status') }}</label>
-                                <div class="col-sm-10">
-                                    <select name="status" class="form-control">
-                                        <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>{{ __('pickup_request.status_pending') }}</option>
-                                        <option value="accepted" {{ old('status') == 'accepted' ? 'selected' : '' }}>{{ __('pickup_request.status_accepted') }}</option>
-                                        <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>{{ __('pickup_request.status_completed') }}</option>
-                                    </select>
-                                    @error('status')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div> --}}
 
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">{{ __('general.status') }}</label>
