@@ -19,9 +19,9 @@
 <title>{{ __('panel.dashboard') }} | {{ config('app.name', 'Laravel') }}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+<meta content="OraxSoft Logestics" name="description" />
 <meta name="robots" content="all,follow">
-<meta content="Themesdesign" name="author" />
+<meta content="OraxSoft Logestics" name="author" />
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <!-- Fonts -->

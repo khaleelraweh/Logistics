@@ -1,6 +1,6 @@
 <nav class="sidebar">
     <div class="sidebar-header">
-        <a href="{{ route('admin.index') }}" class="sidebar-brand">
+        <a href="{{ route('merchant.index') }}" class="sidebar-brand">
             {{ __('panel.univercity') }} <span> {{ __('panel.ibb') }}</span>
         </a>
         <div class="sidebar-toggler not-active">
@@ -13,10 +13,10 @@
         <ul class="nav">
             <li class="nav-item nav-category">{{ __('panel.menu') }}</li>
 
-            @foreach ($admin_side_menu as $menu)
+            @foreach ($merchant_side_menu as $menu)
                 @if (count($menu->appearedChildren) == 0)
                     <li class="nav-item">
-                        <a href="{{ route('admin.' . $menu->as) }}" class="nav-link">
+                        <a href="{{ route('merchant.' . $menu->as) }}" class="nav-link">
                             <i class="{{ $menu->icon != null ? $menu->icon : 'fas fa-home' }}"></i>
                             {{-- <span class="link-title">{{ $menu->display_name }}</span> --}}
 
@@ -41,7 +41,7 @@
                                 <ul class="nav sub-menu">
                                     @foreach ($menu->appearedChildren as $sub_menu)
                                         <li class="nav-item">
-                                            <a href="{{ route('admin.' . $sub_menu->as) }}" class="nav-link">
+                                            <a href="{{ route('merchant.' . $sub_menu->as) }}" class="nav-link">
                                                 {{-- {{ $sub_menu->display_name }} --}}
                                                 {{ \Illuminate\Support\Str::limit($sub_menu->display_name, 25) }}
                                             </a>
@@ -89,7 +89,7 @@
 
 
             <div class="form-check form-switch " style="display: none !important;">
-                <form action="{{ route('admin.create_update_theme') }}" method="post">
+                <form action="{{ route('merchant.create_update_theme') }}" method="post">
                     @csrf
                     <input class="form-check-input theme-choice" name="theme_choice" value="light" type="checkbox"
                         id="light-mode-switch" onchange="this.form.submit();"
@@ -106,7 +106,7 @@
             </label>
 
             <div class="form-check form-switch " style="display: none !important;">
-                <form action="{{ route('admin.create_update_theme') }}" method="post">
+                <form action="{{ route('merchant.create_update_theme') }}" method="post">
                     @csrf
                     <input class="form-check-input theme-choice" name="theme_choice" value="dark" type="checkbox"
                         id="dark-mode-switch" onchange="this.form.submit();"
