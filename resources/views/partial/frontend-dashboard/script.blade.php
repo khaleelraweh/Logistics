@@ -139,6 +139,19 @@
 <script src="https://npmcdn.com/flatpickr/dist/l10n/ar.js"></script>
 <script src="{{ asset('admin/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
+<!-- fontawesome icon picker   -->
+<script src="{{ asset('admin/assets/libs/fontawesomepicker/js/fontawesome-iconpicker.js') }}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+
+    $(function() {
+        $('.icon-picker').iconpicker();
+    });
+</script>
+
 
 @livewireScripts
 @yield('script')

@@ -85,7 +85,8 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/libs/flatpickr/flatpickr.min.css') }}">
 @endif
 
-
+<!-- fontawesome icon  picker  -->
+<link href="{{ asset('admin/assets/libs/fontawesomepicker/css/fontawesome-iconpicker.css') }}" rel="stylesheet">
 
 @livewireStyles
 @yield('style')
