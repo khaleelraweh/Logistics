@@ -222,9 +222,6 @@ class PickupRequestController extends Controller
         $pickupRequest->update($input);
 
 
-
-
-
         return redirect()->route('merchant.pickup_requests.index')->with([
             'message' => __('messages.pickup_request_updated'),
             'alert-type' => 'success'
