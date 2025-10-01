@@ -295,7 +295,6 @@ class DeliveryController extends Controller
     }
 
 
-      // ... الدوال الأخرى الموجودة ...
 
     /**
      * Update delivery status with comprehensive validation and logging
