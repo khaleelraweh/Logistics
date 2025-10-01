@@ -231,20 +231,6 @@
 
                             <!-- Driver Selection -->
                             <h5 class="section-title">{{ __('return_request.delivery_information') }}</h5>
-                            {{-- <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label required-field">{{ __('driver.driver') }}</label>
-                                <div class="col-sm-10">
-                                    <select wire:model="driver_id" class="form-select">
-                                        <option value=""> {{ __('driver.select_driver') }} </option>
-                                        @foreach($drivers as $driver)
-                                            <option value="{{ $driver->id }}">{{ $driver->driver_full_name }}  -  {{ __('driver.vehicle_type_'. $driver->vehicle_type) }} - {{ $driver->phone }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('driver_id') <span class="text-danger">{{ $message }}</span> @enderror
-
-                                </div>
-                            </div> --}}
-
                             <!-- Return Type -->
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required-field"> {{ __('return_request.return_type') }}</label>
@@ -287,7 +273,7 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label required-field">{{ __('return_request.status') }}</label>
                                 <div class="col-sm-10">
-                                    <select wire:model="status" class="form-select">
+                                    {{-- <select wire:model="status" class="form-select">
                                          <option value="requested">{{ __('return_request.status_requested') }}</option>
                                         <option value="cancelled">{{ __('return_request.status_cancelled') }}</option>
                                         <option value="in_transit">{{ __('return_request.status_in_transit') }}</option>
@@ -295,8 +281,12 @@
                                         <option value="received">{{ __('return_request.status_received') }}</option>
                                         <option value="partially_received">{{ __('return_request.status_partially_received') }}</option>
                                     </select>
-                                    @error('status') <span class="text-danger">{{ $message }}</span> @enderror
+                                    @error('status') <span class="text-danger">{{ $message }}</span> @enderror --}}
 
+                                    <input type="hidden" wire:model="status" value="requested">
+                                    <span class="form-control-plaintext">
+                                        {{ __('return_request.status_requested') }}
+                                    </span>
                                 </div>
                             </div>
 
