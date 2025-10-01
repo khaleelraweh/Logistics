@@ -136,5 +136,20 @@ return [
     'status_in_warehouse' => 'In Warehouse',
 
 
+    'view_pending' => 'View Pending',
+    'view_assigned' => 'View Assigned',
+    'view_in_transit' => 'View In Transit',
+    'view_delivered' => 'View Delivered',
+    'view_failed_cancelled' => 'View Failed/Cancelled',
+    'view_returned' => 'View Returned',
+    'view_in_warehouse' => 'View In Warehouse',
+    'today_deliveries' => 'Today\'s Deliveries',
+    'nearest_deliveries' => 'Nearest Deliveries',
+
+    'scheduled_today' => 'Scheduled for Today',
+    'by_distance' => 'By Distance',
+
+
+
 
 ];
