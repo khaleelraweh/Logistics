@@ -135,24 +135,16 @@
                                 </div>
                             </div>
 
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="status1">{{ __('general.status') }}</label>
+                           <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">{{ __('general.status') }}</label>
                                 <div class="col-sm-10">
-                                    <select name="status" class="form-control" id="status1">
-                                        <option value="pending" {{ old('status', $pickupRequest->status) == 'pending' ? 'selected' : '' }}>
-                                            {{ __('pickup_request.status_pending') }}
-                                        </option>
-                                        <option value="accepted" {{ old('status', $pickupRequest->status) == 'accepted' ? 'selected' : '' }}>
-                                            {{ __('pickup_request.status_accepted') }}
-                                        </option>
-                                        <option value="completed" {{ old('status', $pickupRequest->status) == 'completed' ? 'selected' : '' }}>
-                                            {{ __('pickup_request.status_completed') }}
-                                        </option>
-                                    </select>
-                                    @error('status')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    <!-- الحقل مخفي ويُرسل مع الفورم -->
+                                    <input type="hidden" name="status" value="pending">
+
+                                    <!-- عرض النص للمشاهد -->
+                                    <span class="form-control-plaintext">
+                                        {{ __('pickup_request.status_pending') }}
+                                    </span>
                                 </div>
                             </div>
                         </div>
