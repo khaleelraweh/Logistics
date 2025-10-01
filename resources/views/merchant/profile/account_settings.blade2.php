@@ -1,9 +1,9 @@
-@extends('layouts.admin')
+@extends('layouts.merchant')
 
 @section('content')
 <div class="card">
     <div class="card-body">
-        <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('merchant.profile.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <h4>Basic Info</h4>
