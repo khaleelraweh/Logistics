@@ -452,49 +452,63 @@
 
 <style>
     .legend {
-    padding: 0.6rem;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.15);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 0.75rem;
-    max-width: 180px;
-}
+        padding: 0.5rem;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 0.5rem;
+        box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,0.15);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 0.75rem;
+        max-width: 160px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
 
-.legend h6 {
-    font-size: 0.8rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: #5a5c69;
-}
+    .legend h6 {
+        font-size: 0.8rem;
+        margin-bottom: 0.4rem;
+        font-weight: 600;
+        color: #5a5c69;
+        text-align: center;
+    }
 
-.legend-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.3rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    padding: 0.3rem 0.5rem;
-    border-radius: 0.3rem;
-    gap: 0.5rem;
-    font-size: 0.75rem;
-}
+    .legend-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.25rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        padding: 0.25rem 0.4rem;
+        border-radius: 0.25rem;
+        gap: 0.4rem;
+        font-size: 0.7rem;
+    }
 
-.legend-item:hover {
-    background: rgba(78, 115, 223, 0.1);
-    transform: translateX(3px);
-}
+    .legend-item:hover {
+        background: rgba(78, 115, 223, 0.1);
+        transform: translateX(2px);
+    }
 
-.legend-color {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.15);
-    border: 2px solid white;
-    flex-shrink: 0;
-}
+    .legend-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
+        border: 2px solid white;
+        flex-shrink: 0;
+    }
+
+    /* تأكد من أن الليجند يظهر فوق عناصر الخريطة الأخرى */
+    .leaflet-bottom.leaflet-right {
+        z-index: 1000;
+    }
+
+    .leaflet-control {
+        z-index: 1001;
+    }
 </style>
+
+
 @endsection
 
 @section('content')
@@ -931,23 +945,23 @@
             // إضافة مقياس الخريطة
             L.control.scale({metric: true, imperial: false}).addTo(map);
 
-            // إضافة دليل الخريطة في الأسفل بحجم أصغر
-            var legend = L.control({position: 'bottomleft'});
+            // إضافة دليل الخريطة في أقصى اليمين من الأسفل
+            var legend = L.control({position: 'bottomright'});
             legend.onAdd = function (map) {
                 var div = L.DomUtil.create('div', 'legend');
 
-                var html = '<h6 class="mb-2" style="font-size: 0.8rem; font-weight: 600;"><i class="fas fa-key me-1"></i>{{ __("general.map_legend") }}</h6>' +
-                    '<div class="legend-item" onclick="focusOnMarker(\'pickup\')" style="font-size: 0.75rem; padding: 0.3rem 0.5rem; margin-bottom: 0.3rem;">' +
-                    '<div class="legend-color" style="width: 15px; height: 15px; background: linear-gradient(135deg, #4e73df, #6f42c1); margin-left: 0.5rem;"></div> <span>{{ __("pickup_request.pickup_location") }}</span></div>';
+                var html = '<h6 class="mb-2" style="font-size: 0.8rem; font-weight: 600; color: #5a5c69;"><i class="fas fa-key me-1"></i>{{ __("general.map_legend") }}</h6>' +
+                    '<div class="legend-item" onclick="focusOnMarker(\'pickup\')" style="font-size: 0.75rem; padding: 0.3rem 0.5rem; margin-bottom: 0.3rem; border-radius: 0.3rem;">' +
+                    '<div class="legend-color" style="width: 12px; height: 12px; background: linear-gradient(135deg, #4e73df, #6f42c1); margin-left: 0.5rem; border: 2px solid white;"></div> <span style="color: #5a5c69;">{{ __("pickup_request.pickup_location") }}</span></div>';
 
                 @if($pickupRequest->merchant && $pickupRequest->merchant->latitude && $pickupRequest->merchant->longitude)
-                    html += '<div class="legend-item" onclick="focusOnMarker(\'merchant\')" style="font-size: 0.75rem; padding: 0.3rem 0.5rem; margin-bottom: 0.3rem;">' +
-                    '<div class="legend-color" style="width: 15px; height: 15px; background: linear-gradient(135deg, #1cc88a, #17a673); margin-left: 0.5rem;"></div> <span>{{ __("merchant.merchant") }}</span></div>';
+                    html += '<div class="legend-item" onclick="focusOnMarker(\'merchant\')" style="font-size: 0.75rem; padding: 0.3rem 0.5rem; margin-bottom: 0.3rem; border-radius: 0.3rem;">' +
+                    '<div class="legend-color" style="width: 12px; height: 12px; background: linear-gradient(135deg, #1cc88a, #17a673); margin-left: 0.5rem; border: 2px solid white;"></div> <span style="color: #5a5c69;">{{ __("merchant.merchant") }}</span></div>';
                 @endif
 
                 @if($pickupRequest->driver && $pickupRequest->driver->latitude && $pickupRequest->driver->longitude)
-                    html += '<div class="legend-item" onclick="focusOnMarker(\'driver\')" style="font-size: 0.75rem; padding: 0.3rem 0.5rem; margin-bottom: 0.3rem;">' +
-                    '<div class="legend-color" style="width: 15px; height: 15px; background: linear-gradient(135deg, #36b9cc, #2a96a5); margin-left: 0.5rem;"></div> <span>{{ __("driver.driver") }}</span></div>';
+                    html += '<div class="legend-item" onclick="focusOnMarker(\'driver\')" style="font-size: 0.75rem; padding: 0.3rem 0.5rem; margin-bottom: 0.3rem; border-radius: 0.3rem;">' +
+                    '<div class="legend-color" style="width: 12px; height: 12px; background: linear-gradient(135deg, #36b9cc, #2a96a5); margin-left: 0.5rem; border: 2px solid white;"></div> <span style="color: #5a5c69;">{{ __("driver.driver") }}</span></div>';
                 @endif
 
                 div.innerHTML = html;
