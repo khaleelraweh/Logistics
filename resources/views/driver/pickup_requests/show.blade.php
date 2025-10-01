@@ -245,16 +245,10 @@
                         <div class="detail-row d-flex justify-content-between">
                             <span class="detail-label">{{ __('pickup_request.status') }}</span>
                             <span class="detail-value">
-                                @php $status = $pickupRequest->status; @endphp
-                                @if($status == 'pending')
-                                    <span class="status-badge bg-warning text-dark">{{ __('pickup_request.status_pending') }}</span>
-                                @elseif($status == 'accepted')
-                                    <span class="status-badge bg-info">{{ __('pickup_request.status_accepted') }}</span>
-                                @elseif($status == 'completed')
-                                    <span class="status-badge bg-success">{{ __('pickup_request.status_completed') }}</span>
-                                @else
-                                    <span class="status-badge bg-secondary">{{ $status }}</span>
-                                @endif
+                                <span class="status-badge bg-{{ $pickupRequest->status_color }} text-white">
+                                    <i class="bi bi-{{ $pickupRequest->status_icon }} me-1"></i>
+                                    {{ __('pickup_request.status_' . $pickupRequest->status) }}
+                                </span>
                             </span>
                         </div>
                         <div class="detail-row d-flex justify-content-between">
