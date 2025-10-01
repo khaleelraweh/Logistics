@@ -105,5 +105,35 @@
         'notification_delivered' => 'تم تسليم طردك بنجاح',
         'notification_failed' => 'فشل توصيل طردك',
 
+            // نصوص الإحصائيات
+    'total_deliveries' => 'إجمالي التسليمات',
+    'pending' => 'معلقة',
+    'assigned' => 'مسندة',
+    'in_transit' => 'قيد النقل',
+    'delivered' => 'تم التسليم',
+    'failed_cancelled' => 'فاشلة/ملغاة',
+
+    // الإحصائيات التفصيلية
+    'detailed_statistics' => 'الإحصائيات التفصيلية',
+    'picked_up' => 'تم الاستلام',
+    'at_hub' => 'في المركز',
+    'out_for_delivery' => 'خارج للتسليم',
+    'successful' => 'ناجحة',
+    'failed' => 'فاشلة',
+    'returned' => 'مرتجعة',
+
+    // حالات التسليم
+    'status_pending' => 'معلقة',
+    'status_assigned_to_driver' => 'مسندة للسائق',
+    'status_driver_picked_up' => 'تم الاستلام',
+    'status_in_transit' => 'قيد النقل',
+    'status_arrived_at_hub' => 'وصلت للمركز',
+    'status_out_for_delivery' => 'خارج للتسليم',
+    'status_delivered' => 'تم التسليم',
+    'status_delivery_failed' => 'فشل التسليم',
+    'status_returned' => 'مرتجعة',
+    'status_cancelled' => 'ملغاة',
+    'status_in_warehouse' => 'في المستودع',
+
 
     ];

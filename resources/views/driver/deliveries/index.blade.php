@@ -243,7 +243,7 @@
 @endphp
 
 <!-- Statistics Cards -->
-<div class="row mb-4">
+{{-- <div class="row mb-4">
     <div class="col-xl-2 col-md-4 col-sm-6">
         <div class="stat-card total">
             <div class="number">{{ $totalDeliveries }}</div>
@@ -284,6 +284,103 @@
             <div class="number">{{ $failedDeliveries }}</div>
             <div class="label">{{ __('delivery.failed_deliveries') }}</div>
             <i class="mdi mdi-alert-circle fs-2 opacity-50 mt-2"></i>
+        </div>
+    </div>
+</div> --}}
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card total">
+            <div class="number">{{ $totalDeliveries }}</div>
+            <div class="label">{{ __('delivery.total_deliveries') }}</div>
+            <i class="mdi mdi-package-variant fs-2 opacity-50 mt-2"></i>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card pending">
+            <div class="number">{{ $pendingDeliveries }}</div>
+            <div class="label">{{ __('delivery.pending') }}</div>
+            <i class="mdi mdi-clock-outline fs-2 opacity-50 mt-2"></i>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card assigned">
+            <div class="number">{{ $assignedDeliveries }}</div>
+            <div class="label">{{ __('delivery.assigned') }}</div>
+            <i class="mdi mdi-truck-check fs-2 opacity-50 mt-2"></i>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card in_transit">
+            <div class="number">{{ $inTransitDeliveries + $pickedUpDeliveries }}</div>
+            <div class="label">{{ __('delivery.in_transit') }}</div>
+            <i class="mdi mdi-truck-delivery fs-2 opacity-50 mt-2"></i>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card delivered">
+            <div class="number">{{ $deliveredDeliveries }}</div>
+            <div class="label">{{ __('delivery.delivered') }}</div>
+            <i class="mdi mdi-check-circle fs-2 opacity-50 mt-2"></i>
+        </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+        <div class="stat-card failed">
+            <div class="number">{{ $failedDeliveries + $returnedDeliveries + $cancelledDeliveries }}</div>
+            <div class="label">{{ __('delivery.failed_cancelled') }}</div>
+            <i class="mdi mdi-alert-circle fs-2 opacity-50 mt-2"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Detailed Statistics Row -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-title mb-3">
+                    <i class="mdi mdi-chart-bar me-2"></i>
+                    {{ __('delivery.detailed_statistics') }}
+                </h6>
+                <div class="row text-center">
+                    <div class="col-md-2 col-4 mb-3">
+                        <div class="text-primary">
+                            <div class="fw-bold fs-4">{{ $pickedUpDeliveries }}</div>
+                            <small class="text-muted">{{ __('delivery.picked_up') }}</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-4 mb-3">
+                        <div class="text-info">
+                            <div class="fw-bold fs-4">{{ $arrivedAtHubDeliveries }}</div>
+                            <small class="text-muted">{{ __('delivery.at_hub') }}</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-4 mb-3">
+                        <div class="text-warning">
+                            <div class="fw-bold fs-4">{{ $outForDeliveryDeliveries }}</div>
+                            <small class="text-muted">{{ __('delivery.out_for_delivery') }}</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-4 mb-3">
+                        <div class="text-success">
+                            <div class="fw-bold fs-4">{{ $deliveredDeliveries }}</div>
+                            <small class="text-muted">{{ __('delivery.successful') }}</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-4 mb-3">
+                        <div class="text-danger">
+                            <div class="fw-bold fs-4">{{ $failedDeliveries }}</div>
+                            <small class="text-muted">{{ __('delivery.failed') }}</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-4 mb-3">
+                        <div class="text-secondary">
+                            <div class="fw-bold fs-4">{{ $returnedDeliveries }}</div>
+                            <small class="text-muted">{{ __('delivery.returned') }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

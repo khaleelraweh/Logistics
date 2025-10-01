@@ -105,5 +105,36 @@ return [
         'notification_delivered' => 'Your package has been delivered successfully',
         'notification_failed' => 'Your package delivery failed',
 
+            // Statistics texts
+    'total_deliveries' => 'Total Deliveries',
+    'pending' => 'Pending',
+    'assigned' => 'Assigned',
+    'in_transit' => 'In Transit',
+    'delivered' => 'Delivered',
+    'failed_cancelled' => 'Failed/Cancelled',
+
+    // Detailed statistics
+    'detailed_statistics' => 'Detailed Statistics',
+    'picked_up' => 'Picked Up',
+    'at_hub' => 'At Hub',
+    'out_for_delivery' => 'Out for Delivery',
+    'successful' => 'Successful',
+    'failed' => 'Failed',
+    'returned' => 'Returned',
+
+    // Delivery statuses
+    'status_pending' => 'Pending',
+    'status_assigned_to_driver' => 'Assigned to Driver',
+    'status_driver_picked_up' => 'Picked Up',
+    'status_in_transit' => 'In Transit',
+    'status_arrived_at_hub' => 'Arrived at Hub',
+    'status_out_for_delivery' => 'Out for Delivery',
+    'status_delivered' => 'Delivered',
+    'status_delivery_failed' => 'Delivery Failed',
+    'status_returned' => 'Returned',
+    'status_cancelled' => 'Cancelled',
+    'status_in_warehouse' => 'In Warehouse',
+
+
 
 ];
