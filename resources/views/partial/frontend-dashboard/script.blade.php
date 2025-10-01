@@ -140,6 +140,5 @@
 <script src="{{ asset('admin/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
 
-
 @livewireScripts
 @yield('script')

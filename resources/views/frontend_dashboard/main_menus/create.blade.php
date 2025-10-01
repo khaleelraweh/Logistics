@@ -227,7 +227,7 @@
                                         <input type="text" name="published_on" value="{{ old('published_on') }}"
                                             class="form-control" placeholder="Select date" data-input>
                                         <span class="input-group-text input-group-addon" data-toggle>
-                                            <i data-feather="calendar"></i>
+                                            <i class=" fas fa-calendar-alt "></i>
                                         </span>
                                     </div>
                                     @error('published_on')
