@@ -18,24 +18,137 @@ class MainMenuSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        $main = Menu::create(['title'  => ['ar' => 'الرئيسية', 'en' => 'Main'], 'icon'   => 'fa fa-home', 'link'  =>  'index', 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => null]);
+        // الرئيسية
+        $main = Menu::create([
+            'title'  => ['ar' => 'الرئيسية', 'en' => 'Home'],
+            'icon'   => 'fa fa-home',
+            'link'   => 'index',
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => null
+        ]);
 
-        $about_instatute  = Menu::create(['title'  => ['ar' => 'عن الجامعة', 'en' => 'About University'], 'icon'   => 'fa fa-home', 'link' =>  ['ar' =>    'courses-list/تصميم', 'en'  =>    'courses-list/design'], 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => null]);
-        Menu::create(['title'  => ['ar' => 'التعريف بالجامعة', 'en' => 'Introduction to the University'], 'icon'   => 'fa fa-home', 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => $about_instatute->id]);
-        Menu::create(['title'  => ['ar' => 'الرؤية والاهداف', 'en' => 'Vision and goals'], 'icon'   => 'fa fa-home', 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => $about_instatute->id]);
+        // عن الشركة
+        $about = Menu::create([
+            'title'  => ['ar' => 'عن الشركة', 'en' => 'About Us'],
+            'icon'   => 'fa fa-info-circle',
+            'link'   => ['ar' => 'about', 'en' => 'about'],
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => null
+        ]);
+        Menu::create([
+            'title'  => ['ar' => 'رؤيتنا', 'en' => 'Our Vision'],
+            'icon'   => 'fa fa-eye',
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => $about->id
+        ]);
+        Menu::create([
+            'title'  => ['ar' => 'مهمتنا', 'en' => 'Our Mission'],
+            'icon'   => 'fa fa-bullseye',
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => $about->id
+        ]);
 
-        $addmission_registeration  = Menu::create(['title'  => ['ar' => 'القبول والتسجيل', 'en' => 'Admission'], 'icon'   => 'fa fa-home', 'link' =>  ['ar' =>    'courses-list/تصميم', 'en'  =>    'courses-list/design'], 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => null]);
-        Menu::create(['title'  => ['ar' => 'دليل التسجيل', 'en' => 'Registration guide'], 'icon'   => 'fa fa-home', 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => $addmission_registeration->id]);
-        Menu::create(['title'  => ['ar' => 'متطلبات التسجيل', 'en' => 'Registration requirements'], 'icon'   => 'fa fa-home', 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => $addmission_registeration->id]);
+        // خدماتنا
+        $services = Menu::create([
+            'title'  => ['ar' => 'خدماتنا', 'en' => 'Services'],
+            'icon'   => 'fa fa-truck',
+            'link'   => ['ar' => 'services', 'en' => 'services'],
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => null
+        ]);
+        Menu::create([
+            'title'  => ['ar' => 'الشحن السريع', 'en' => 'Express Delivery'],
+            'icon'   => 'fa fa-bolt',
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => $services->id
+        ]);
+        Menu::create([
+            'title'  => ['ar' => 'التخزين', 'en' => 'Storage'],
+            'icon'   => 'fa fa-warehouse',
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => $services->id
+        ]);
+        Menu::create([
+            'title'  => ['ar' => 'التتبع المباشر', 'en' => 'Live Tracking'],
+            'icon'   => 'fa fa-map-marker-alt',
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => $services->id
+        ]);
 
-        $Scientific_specializations  = Menu::create(['title'  => ['ar' => 'التخصصات العملية', 'en' => 'specializations'], 'icon'   => 'fa fa-home', 'link' =>  ['ar' =>    'courses-list/تصميم', 'en'  =>    'courses-list/design'], 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => null]);
-        Menu::create(['title'  => ['ar' => 'فني صيدلة', 'en' => 'Pharmacy technician'], 'icon'   => 'fa fa-home', 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => $Scientific_specializations->id]);
-        Menu::create(['title'  => ['ar' => 'فني مختبرات طبية', 'en' => 'Medical laboratory technician'], 'icon'   => 'fa fa-home', 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => $Scientific_specializations->id]);
-        Menu::create(['title'  => ['ar' => 'مساعد طبي', 'en' => 'Medical assistant'], 'icon'   => 'fa fa-home', 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => $Scientific_specializations->id]);
-        Menu::create(['title'  => ['ar' => 'توليد وقبالة', 'en' => 'Generate and off'], 'icon'   => 'fa fa-home', 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => $Scientific_specializations->id]);
+        // مميزاتنا
+        $features = Menu::create([
+            'title'  => ['ar' => 'مميزاتنا', 'en' => 'Features'],
+            'icon'   => 'fa fa-star',
+            'link'   => ['ar' => 'features', 'en' => 'features'],
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => null
+        ]);
+        Menu::create([
+            'title'  => ['ar' => 'توصيل سريع', 'en' => 'Fast Delivery'],
+            'icon'   => 'fa fa-shipping-fast',
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => $features->id
+        ]);
+        Menu::create([
+            'title'  => ['ar' => 'دعم 24/7', 'en' => '24/7 Support'],
+            'icon'   => 'fa fa-headset',
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => $features->id
+        ]);
 
-        $Media_images  = Menu::create(['title'  => ['ar' => 'الوسائط والصور', 'en' => 'Media'], 'icon'   => 'fa fa-home', 'link' =>  ['ar' =>    'courses-list/تصميم', 'en'  =>    'courses-list/design'], 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => null]);
+        // تواصل معنا
+        $contact = Menu::create([
+            'title'  => ['ar' => 'تواصل معنا', 'en' => 'Contact Us'],
+            'icon'   => 'fa fa-envelope',
+            'link'   => ['ar' => 'contact', 'en' => 'contact'],
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => null
+        ]);
 
-        $contact_us  = Menu::create(['title'  => ['ar' => 'تواصل معنا', 'en' => 'Contact Us'], 'icon'   => 'fa fa-home', 'link' =>  ['ar' =>    'courses-list/تصميم', 'en'  =>    'courses-list/design'], 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime(), 'parent_id' => null]);
+        // الأسئلة الشائعة
+        $faq = Menu::create([
+            'title'  => ['ar' => 'الأسئلة الشائعة', 'en' => 'FAQ'],
+            'icon'   => 'fa fa-question-circle',
+            'link'   => ['ar' => 'faq', 'en' => 'faq'],
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => null
+        ]);
+
+        // سياسة الخصوصية
+        $privacy = Menu::create([
+            'title'  => ['ar' => 'سياسة الخصوصية', 'en' => 'Privacy Policy'],
+            'icon'   => 'fa fa-user-secret',
+            'link'   => ['ar' => 'privacy', 'en' => 'privacy'],
+            'created_by' => 'admin',
+            'status' => true,
+            'published_on' => $faker->dateTime(),
+            'parent_id' => null
+        ]);
     }
 }
