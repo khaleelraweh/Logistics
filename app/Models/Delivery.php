@@ -86,6 +86,7 @@ class Delivery extends Model
                 case 'assigned_to_driver': return ['driver_picked_up','cancelled'];
                 case 'driver_picked_up': return ['in_transit','delivery_failed'];
                 case 'in_transit': return ['arrived_at_hub','delivery_failed'];
+                case 'arrived_at_hub': return ['out_for_delivery','returned'];
                 case 'out_for_delivery': return ['delivered','delivery_failed'];
                 default: return [];
             }
