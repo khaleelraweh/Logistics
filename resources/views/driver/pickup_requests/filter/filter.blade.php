@@ -1,17 +1,5 @@
 <div class="card mb-4">
-    <!-- Header -->
-    <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
-        <h6 class="mb-0">
-            <i class="fas fa-filter me-2 text-primary"></i>{{ __('general.filters') }}
-        </h6>
-        <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#pickupRequestsFiltersCollapse" aria-expanded="false" aria-controls="pickupRequestsFiltersCollapse">
-            <i class="fas fa-sliders-h me-1"></i>{{ __('general.show_filters') }}
-        </button>
-    </div>
-
-    <!-- Filter Body -->
-    <div id="pickupRequestsFiltersCollapse" class="collapse">
-        <div class="card-body">
+   <div class="card-body">
             <form action="{{ route('driver.pickup_requests.index') }}" method="get">
                 <div class="row g-2">
 
@@ -101,5 +89,4 @@
                 </div>
             </form>
         </div>
-    </div>
 </div>
