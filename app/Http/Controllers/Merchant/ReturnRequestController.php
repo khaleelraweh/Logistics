@@ -17,8 +17,6 @@ class ReturnRequestController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
-
     public function index()
     {
         // صلاحية الوصول
