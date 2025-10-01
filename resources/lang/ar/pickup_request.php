@@ -81,5 +81,16 @@ return [
     'no_requests_description' => 'لم يتم العثور على أي طلبات استلام تطابق معايير البحث الخاصة بك.',
     'pickup_location' => 'موقع الاستلام',
 
+    //edit blade
+    'status_description_pending' => 'قبول طلب الاستلام والبدء في العملية',
+    'status_description_accepted' => 'تأكيد وصولك إلى موقع التاجر',
+    'status_description_completed' => 'تأكيد استلام الطرد بنجاح',
+    'status_description_cancelled' => 'إلغاء طلب الاستلام (يتطلب سبباً)',
+
+    'same_status_message' => 'لم تقم بتغيير حالة الطلب',
+    'confirm_cancellation' => 'تأكيد الإلغاء',
+    'cancellation_warning' => 'هل أنت متأكد من إلغاء طلب الاستلام؟ هذا الإجراء لا يمكن التراجع عنه.',
+
+
 
 ];

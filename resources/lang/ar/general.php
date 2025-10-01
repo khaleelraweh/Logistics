@@ -294,6 +294,23 @@ return [
     'filter_applied' => 'تم تطبيق الفلتر',
     'filtered_results' => 'عرض النتائج المفلترة',
 
+    //edit pickup request
+    'call' => 'اتصال',
+    'email' => 'بريد إلكتروني',
+    'open_in_maps' => 'فتح في الخرائط',
+    'navigate' => 'التوجيه',
+    'choose_navigation_app' => 'اختر تطبيق الملاحة',
+    'coordinates_copied' => 'تم نسخ الإحداثيات',
+    'paste_in_maps_app' => 'الصق الإحداثيات في تطبيق الخرائط',
+    'no_changes' => 'لا يوجد تغييرات',
+    'yes_confirm' => 'نعم، تأكيد',
+    'quick_stats' => 'إحصائيات سريعة',
+    'request_id' => 'رقم الطلب',
+    'duration' => 'المدة',
+    'phone' => 'هاتف',
+    'not_available' => 'غير متوفر',
+
+
 
 ];
 

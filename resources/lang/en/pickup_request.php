@@ -80,4 +80,14 @@ return [
     'no_requests_description' => 'No pickup requests were found matching your search criteria.',
     'pickup_location' => 'Pickup Location',
 
+    // edit blade
+    'status_description_pending' => 'Accept the pickup request and start the process',
+    'status_description_accepted' => 'Confirm your arrival at the merchant location',
+    'status_description_completed' => 'Confirm successful package receipt',
+    'status_description_cancelled' => 'Cancel the pickup request (requires reason)',
+
+    'same_status_message' => 'You did not change the request status',
+    'confirm_cancellation' => 'Confirm Cancellation',
+    'cancellation_warning' => 'Are you sure you want to cancel this pickup request? This action cannot be undone.',
+
 ];

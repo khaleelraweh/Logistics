@@ -293,6 +293,22 @@ return [
     'filter_applied' => 'Filter Applied',
     'filtered_results' => 'Filtered Results',
 
+    //edit pickup request specific
+    'call' => 'Call',
+    'email' => 'Email',
+    'open_in_maps' => 'Open in Maps',
+    'navigate' => 'Navigate',
+    'choose_navigation_app' => 'Choose navigation app',
+    'coordinates_copied' => 'Coordinates copied',
+    'paste_in_maps_app' => 'Paste coordinates in maps app',
+    'no_changes' => 'No changes',
+    'yes_confirm' => 'Yes, Confirm',
+    'quick_stats' => 'Quick Stats',
+    'request_id' => 'Request ID',
+    'duration' => 'Duration',
+    'phone' => 'Phone',
+    'not_available' => 'Not Available',
+
 
 
 
