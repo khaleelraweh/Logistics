@@ -206,6 +206,30 @@ $(document).ready(function(){
     });
 
 
+    // ================================ related to  fronend dashbloard change status =============================
 
+    //  updateMainMenuStatus Status
+    $(document).on("click",".updateMainMenuStatus",function(){
+        var status = $(this).children("i").attr("status");
+        var main_menu_id = $(this).attr("main_menu_id");
+
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'post',
+            url:'/admin/main_menus/update-main-menu-status',
+            data:{status:status,main_menu_id:main_menu_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#main-menu-"+main_menu_id).html("<i class='fas fa-toggle-off fa-lg text-warning' aria-hidden='true' status='Inactive' style='font-size:1.6em' />");
+                }else if (resp['status'] ==1 ){
+                    $("#main-menu-"+main_menu_id).html("<i class='fas fa-toggle-on fa-lg text-success' aria-hidden='true' status='Active' style='font-size:1.6em' />");
+                }
+            },error:function(){
+                alert("Error");
+            }
+        });
+    });
 
 });
