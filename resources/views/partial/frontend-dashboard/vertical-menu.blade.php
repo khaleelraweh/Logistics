@@ -20,50 +20,47 @@
         <!--- Sidemenu -->
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
-            <ul class="metismenu list-unstyled" id="side-menu">
-                <li class="menu-title">Menu</li>
+           <ul class="metismenu list-unstyled" id="side-menu">
+    <li class="menu-title">Menu</li>
 
-                @if(isset($frontend_dashboard_side_menu))
-                    @foreach ($frontend_dashboard_side_menu as $menu)
+    @if(isset($frontend_dashboard_side_menu))
+        @foreach ($frontend_dashboard_side_menu as $menu)
 
-                        <!-- عندما لا يكون ابناء في عنصر القائمة -->
-                        @if (count($menu->appearedChildren) == 0)
+            @php
+                $hasChildren = $menu->appearedChildren !== null && count($menu->appearedChildren) > 0;
+            @endphp
+
+            @if ($hasChildren)
+                <!-- عنصر له أبناء -->
+                <li>
+                    <a href="javascript:void(0);" class="has-arrow waves-effect">
+                        <i class="{{ $menu->icon }}"></i>
+                        <span>{{ \Illuminate\Support\Str::limit($menu->display_name, 25) }}</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        @foreach ($menu->appearedChildren as $sub_menu)
                             <li>
-                                <a href="{{ route('frontend_dashboard.'.$menu->as) }}" class="waves-effect">
-                                    <i class="{{ $menu->icon }}"></i>
-                                    {{-- <span class="badge rounded-pill bg-success float-end">3</span> --}}
-                                    <span>
-                                        {{ \Illuminate\Support\Str::limit($menu->display_name, 25) }}
-                                    </span>
+                                <a href="{{ route('frontend_dashboard.' . $sub_menu->as) }}">
+                                    {{ \Illuminate\Support\Str::limit($sub_menu->display_name, 25) }}
                                 </a>
                             </li>
-                        @else
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="{{ $menu->icon }}"></i>
-                                    <span>
-                                        {{ \Illuminate\Support\Str::limit($menu->display_name, 25) }}
-                                    </span>
-                                </a>
-                                @if ($menu->appearedChildren !== null && count($menu->appearedChildren) > 0)
-                                    <ul class="sub-menu" aria-expanded="false">
-                                        @foreach ($menu->appearedChildren as $sub_menu)
-                                            <li>
-                                                <a href="{{ route('frontend_dashboard.' . $sub_menu->as) }}">
-                                                    {{ \Illuminate\Support\Str::limit($sub_menu->display_name, 25) }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </li>
-                        @endif
+                        @endforeach
+                    </ul>
+                </li>
+            @else
+                <!-- عنصر بدون أبناء (رابط مباشر) -->
+                <li>
+                    <a href="{{ route('frontend_dashboard.' . $menu->as) }}" class="waves-effect">
+                        <i class="{{ $menu->icon }}"></i>
+                        <span>{{ \Illuminate\Support\Str::limit($menu->display_name, 25) }}</span>
+                    </a>
+                </li>
+            @endif
 
-                    @endforeach
-                @endif
+        @endforeach
+    @endif
+</ul>
 
-
-            </ul>
         </div>
         <!-- Sidebar -->
     </div>

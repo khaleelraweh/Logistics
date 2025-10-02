@@ -78,4 +78,55 @@ class Permission extends EntrustPermission
             ->orderBy('ordering', 'asc')
             ->get();
     }
+
+
+    /// =========================== tree by prefix ===========================
+
+
+
+    /**
+     * شجرة صلاحيات مفلترة حسب بادئة الاسم (prefix) عبر جميع المستويات.
+     * مثال الاستخدام: Permission::treeByPrefix('frontend_dashboard_', 4)
+     */
+    public static function treeByPrefix(string $prefix, int $level = 3)
+    {
+        // نبني مصفوفة with مع قيود (closures) لكل مستوى
+        $with = [];
+        for ($i = 1; $i <= $level; $i++) {
+            $relation = implode('.', array_fill(0, $i, 'children'));
+            $with[$relation] = function ($q) use ($prefix) {
+                $q->where('appear', 1)
+                  ->where('sidebar_link', 1)
+                  ->where('name', 'like', $prefix.'%')
+                  ->orderBy('ordering', 'asc');
+            };
+        }
+
+        return static::query()
+            ->where('parent', 0)
+            ->where('appear', 1)
+            ->where('sidebar_link', 1)
+            ->where('name', 'like', $prefix.'%')
+            ->orderBy('ordering', 'asc')
+            ->with($with)
+            ->get();
+    }
+
+    /**
+     * مساعد لاستخدامه في الـ Blade لتصفية الأبناء المحمّلين مسبقًا حسب البادئة.
+     * يتجنب N+1 إذا حمّلناهم بـ with().
+     */
+    public function childrenForPrefix(string $prefix)
+    {
+        return $this->children
+            ->filter(fn ($c) => ($c->appear ?? 0) == 1
+                             && ($c->sidebar_link ?? 0) == 1
+                             && \Illuminate\Support\Str::startsWith($c->name, $prefix))
+            ->sortBy('ordering')
+            ->values();
+    }
+
+
+
+
 }
