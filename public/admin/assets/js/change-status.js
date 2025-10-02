@@ -378,3 +378,27 @@ $(document).ready(function(){
             }
         });
     });
+
+    //  updateTestimonialStatus Status
+    $(document).on("click",".updateTestimonialStatus",function(){
+        var status = $(this).children("i").attr("status");
+        var testimonial_id = $(this).attr("testimonial_id");
+
+        $.ajax({
+            headers:{
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'post',
+            url:'/frontend_dashboard/testimonials/update-testimonial-status',
+            data:{status:status,testimonial_id:testimonial_id},
+            success:function(resp){
+                if(resp['status']==0){
+                    $("#testimonial-"+testimonial_id).html("<i class='fas fa-toggle-off fa-lg text-warning' aria-hidden='true' status='Inactive' style='font-size:1.6em' />");
+                }else if (resp['status'] ==1 ){
+                    $("#testimonial-"+testimonial_id).html("<i class='fas fa-toggle-on fa-lg text-success' aria-hidden='true' status='Active' style='font-size:1.6em' />");
+                }
+            },error:function(){
+                alert("Error");
+            }
+        });
+    });

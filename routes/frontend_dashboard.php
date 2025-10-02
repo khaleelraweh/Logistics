@@ -9,6 +9,7 @@ use App\Http\Controllers\FrontendDashboard\MainSliderController;
 use App\Http\Controllers\FrontendDashboard\PageCategoriesController;
 use App\Http\Controllers\FrontendDashboard\PagesController;
 use App\Http\Controllers\FrontendDashboard\PartnerController;
+use App\Http\Controllers\FrontendDashboard\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', 'middleware' => ['roles', 'role:frontend_dashboard']], function () {
@@ -64,6 +65,13 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', '
     Route::post('pages/remove-image', [PagesController::class, 'remove_image'])->name('pages.remove_image');
     Route::post('pages/update-page-status', [PagesController::class, 'updatePageStatus'])->name('pages.update_page_status');
     Route::resource('pages', PagesController::class);
+
+
+    // ================== testimonials ================//
+    Route::post('testimonials/remove-image', [TestimonialController::class, 'remove_image'])->name('testimonials.remove_image');
+    Route::post('testimonials/update-testimonial-status', [TestimonialController::class, 'updateTestimonialStatus'])->name('testimonials.update_testimonial_status');
+    Route::resource('testimonials', TestimonialController::class);
+
 
 
 
