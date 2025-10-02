@@ -32,7 +32,7 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
         $manageMain->save();
 
         // Main Menus
-        $manageMainMenus = Permission::create(['name' => 'frontend_dashboard_manage_main_menus', 'display_name' => ['ar' => 'إدارة القوائم', 'en' => 'Manage Menus'], 'route' => 'main_menus', 'module' => 'main_menus', 'as' => 'main_menus.index', 'icon' => 'fa fa-list-ul', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '85',]);
+        $manageMainMenus = Permission::create(['name' => 'frontend_dashboard_manage_main_menus', 'display_name' => ['ar' => 'إدارة القوائم', 'en' => 'Manage Menus'], 'route' => 'main_menus', 'module' => 'main_menus', 'as' => 'main_menus.index', 'icon' => 'fa fa-list-ul', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '5',]);
         $manageMainMenus->parent_show = $manageMainMenus->id;
         $manageMainMenus->save();
         $showMainMenus    =  Permission::create(['name' => 'frontend_dashboard_show_main_menus',  'display_name' => ['ar'     => 'إدارة القائمة الرئيسية', 'en'  =>   'Main Menu'], 'route' => 'main_menus', 'module' => 'main_menus', 'as' => 'main_menus.index', 'icon' => 'fas fa-bars', 'parent' => $manageMainMenus->id, 'parent_original' => $manageMainMenus->id, 'parent_show' => $manageMainMenus->id, 'sidebar_link' => '1', 'appear' => '1']);
@@ -43,7 +43,7 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
 
 
         //importantlink menu
-        $manageImportantLinkMenus = Permission::create(['name' => 'frontend_dashboard_manage_important_link_menus', 'display_name' => ['ar'    =>  'إدارة قائمة روابط مهمة', 'en'   =>  'Important Link Menu'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.index', 'icon' => 'fas fa-bars', 'parent' => $manageMainMenus->id, 'parent_original' => $manageMainMenus->id, 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '105',]);
+        $manageImportantLinkMenus = Permission::create(['name' => 'frontend_dashboard_manage_important_link_menus', 'display_name' => ['ar'    =>  'إدارة قائمة روابط مهمة', 'en'   =>  'Important Link Menu'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.index', 'icon' => 'fas fa-bars', 'parent' => $manageMainMenus->id, 'parent_original' => $manageMainMenus->id, 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '10',]);
         $manageImportantLinkMenus->parent_show = $manageImportantLinkMenus->id;
         $manageImportantLinkMenus->save();
         $showImportantLinkMenus    =  Permission::create(['name' => 'frontend_dashboard_show_important_link_menus',  'display_name' => ['ar'  =>  'إدارة قائمة روابط مهمة',   'en'    =>  'Important Link Menu'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.index', 'icon' => 'fas fa-bars', 'parent' => $manageImportantLinkMenus->id, 'parent_original' => $manageImportantLinkMenus->id, 'parent_show' => $manageImportantLinkMenus->id, 'sidebar_link' => '1', 'appear' => '1']);
@@ -53,6 +53,28 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
         $deleteImportantLinkMenus  =  Permission::create(['name' => 'frontend_dashboard_delete_important_link_menus', 'display_name'  => ['ar'  =>  'حذف عنصر قائمة روابط مهمة ',   'en'    =>  'Delete Important Link Menu Item'], 'route' => 'important_link_menus', 'module' => 'important_link_menus', 'as' => 'important_link_menus.destroy', 'icon' => null, 'parent' => $manageImportantLinkMenus->id, 'parent_original' => $manageImportantLinkMenus->id, 'parent_show' => $manageImportantLinkMenus->id, 'sidebar_link' => '0', 'appear' => '0']);
 
 
+
+            //main sliders
+        $manageMainSliders = Permission::create(['name' => 'frontend_dashboard_manage_main_sliders', 'display_name' => ['ar'    =>  'إدارة عارض الشرائح', 'en' =>  'Manage Slide Viewer'], 'route' => 'main_sliders', 'module' => 'main_sliders', 'as' => 'main_sliders.index', 'icon' => 'fas fa-sliders-h', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '15',]);
+        $manageMainSliders->parent_show = $manageMainSliders->id;
+        $manageMainSliders->save();
+        $showMainSliders    =  Permission::create(['name' => 'frontend_dashboard_show_main_sliders', 'display_name'    =>  ['ar'    =>  ' عارض الشرائح الرئيسي',   'en'    =>  'Main Slide Viewer'], 'route' => 'main_sliders', 'module' => 'main_sliders', 'as' => 'main_sliders.index', 'icon' => 'fas  fa-sliders-h', 'parent' => $manageMainSliders->id, 'parent_original' => $manageMainSliders->id, 'parent_show' => $manageMainSliders->id, 'sidebar_link' => '1', 'appear' => '1']);
+        $createMainSliders  =  Permission::create(['name' => 'frontend_dashboard_create_main_sliders', 'display_name'    =>  ['ar'    =>  'إضافة شريحة جديد',   'en'    =>  'Add Slide'], 'route' => 'main_sliders', 'module' => 'main_sliders', 'as' => 'main_sliders.create', 'icon' => null, 'parent' => $manageMainSliders->id, 'parent_original' => $manageMainSliders->id, 'parent_show' => $manageMainSliders->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $displayMainSliders =  Permission::create(['name' => 'frontend_dashboard_display_main_sliders', 'display_name'    =>  ['ar'    =>  'عرض الشريحة',   'en'    =>  'Display Main Slide'],  'route' => 'main_sliders', 'module' => 'main_sliders', 'as' => 'main_sliders.show', 'icon' => null, 'parent' => $manageMainSliders->id, 'parent_original' => $manageMainSliders->id, 'parent_show' => $manageMainSliders->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $updateMainSliders  =  Permission::create(['name' => 'frontend_dashboard_update_main_sliders', 'display_name'    =>  ['ar'    =>  'تعديل الشريحة',   'en'    =>  'Edit Main Slide'],  'route' => 'main_sliders', 'module' => 'main_sliders', 'as' => 'main_sliders.edit', 'icon' => null, 'parent' => $manageMainSliders->id, 'parent_original' => $manageMainSliders->id, 'parent_show' => $manageMainSliders->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $deleteMainSliders  =  Permission::create(['name' => 'frontend_dashboard_delete_main_sliders', 'display_name'    =>  ['ar'    =>  'حذف الشريحة',   'en'    =>  'Delete Main Slide'],  'route' => 'main_sliders', 'module' => 'main_sliders', 'as' => 'main_sliders.destroy', 'icon' => null, 'parent' => $manageMainSliders->id, 'parent_original' => $manageMainSliders->id, 'parent_show' => $manageMainSliders->id, 'sidebar_link' => '0', 'appear' => '0']);
+
+        //Advertisor sliders
+        $manageAdvertisorSliders = Permission::create(['name' => 'frontend_dashboard_manage_advertisor_sliders', 'display_name' => ['ar'    =>  'عارض شرائح الإعلانات', 'en'   =>  'Adv Slide Viewer'], 'route' => 'advertisor_sliders', 'module' => 'advertisor_sliders', 'as' => 'advertisor_sliders.index', 'icon' => 'fas fa-bullhorn', 'parent' => $manageMainSliders->id, 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '20',]);
+        $manageAdvertisorSliders->parent_show = $manageAdvertisorSliders->id;
+        $manageAdvertisorSliders->save();
+        $showAdvertisorSliders    =  Permission::create(['name' => 'frontend_dashboard_show_advertisor_sliders', 'display_name'    =>  ['ar'   =>  'عارض شرائح الإعلانات',   'en'    =>  'Adv Slide Viewer'], 'route' => 'advertisor_sliders', 'module' => 'advertisor_sliders', 'as' => 'advertisor_sliders.index', 'icon' => 'fas fa-bullhorn', 'parent' => $manageAdvertisorSliders->id, 'parent_original' => $manageAdvertisorSliders->id, 'parent_show' => $manageAdvertisorSliders->id, 'sidebar_link' => '1', 'appear' => '1']);
+        $createAdvertisorSliders  =  Permission::create(['name' => 'frontend_dashboard_create_advertisor_sliders', 'display_name'    =>  ['ar'   =>  'إضافة شريحة جديد',   'en'    =>  'Add Adv Slide'], 'route' => 'advertisor_sliders', 'module' => 'advertisor_sliders', 'as' => 'advertisor_sliders.create', 'icon' => null, 'parent' => $manageAdvertisorSliders->id, 'parent_original' => $manageAdvertisorSliders->id, 'parent_show' => $manageAdvertisorSliders->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $displayAdvertisorSliders =  Permission::create(['name' => 'frontend_dashboard_display_advertisor_sliders', 'display_name'    =>  ['ar'   =>  'عرض الشريحة',   'en'    =>  'Display Adv Slide'],  'route' => 'advertisor_sliders', 'module' => 'advertisor_sliders', 'as' => 'advertisor_sliders.show', 'icon' => null, 'parent' => $manageAdvertisorSliders->id, 'parent_original' => $manageAdvertisorSliders->id, 'parent_show' => $manageAdvertisorSliders->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $updateAdvertisorSliders  =  Permission::create(['name' => 'frontend_dashboard_update_advertisor_sliders', 'display_name'    =>  ['ar'   =>  'تعديل الشريحة',   'en'    =>  'Edit Adv Slide'],  'route' => 'advertisor_sliders', 'module' => 'advertisor_sliders', 'as' => 'advertisor_sliders.edit', 'icon' => null, 'parent' => $manageAdvertisorSliders->id, 'parent_original' => $manageAdvertisorSliders->id, 'parent_show' => $manageAdvertisorSliders->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $deleteAdvertisorSliders  =  Permission::create(['name' => 'frontend_dashboard_delete_advertisor_sliders', 'display_name'    =>  ['ar'   =>  'حذف الشريحة',   'en'    =>  'Delete Adv Slide'],  'route' => 'advertisor_sliders', 'module' => 'advertisor_sliders', 'as' => 'advertisor_sliders.destroy', 'icon' => null, 'parent' => $manageAdvertisorSliders->id, 'parent_original' => $manageAdvertisorSliders->id, 'parent_show' => $manageAdvertisorSliders->id, 'sidebar_link' => '0', 'appear' => '0']);
+
+
         // 3- attatch role to permssions
         $permissions = [
             // Dashboard
@@ -60,7 +82,11 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
             // Main Menus
             $manageMainMenus,$showMainMenus,$createMainMenus,$displayMainMenus,$updateMainMenus,$deleteMainMenus,
             // Important Link Menus
-            $manageImportantLinkMenus,$showImportantLinkMenus,$createImportantLinkMenus,$displayImportantLinkMenus,$updateImportantLinkMenus,$deleteImportantLinkMenus
+            $manageImportantLinkMenus,$showImportantLinkMenus,$createImportantLinkMenus,$displayImportantLinkMenus,$updateImportantLinkMenus,$deleteImportantLinkMenus,
+            // Main Sliders
+            $manageMainSliders,$showMainSliders,$createMainSliders,$displayMainSliders,$updateMainSliders,$deleteMainSliders,
+            // Advertisor Sliders
+            $manageAdvertisorSliders,$showAdvertisorSliders,$createAdvertisorSliders,$displayAdvertisorSliders,$updateAdvertisorSliders,$deleteAdvertisorSliders,
 
         ];
 
