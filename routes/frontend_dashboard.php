@@ -6,6 +6,8 @@ use App\Http\Controllers\FrontendDashboard\AdvertisorSliderController;
 use App\Http\Controllers\FrontendDashboard\ImportantLinkMenuController;
 use App\Http\Controllers\FrontendDashboard\MainMenuController;
 use App\Http\Controllers\FrontendDashboard\MainSliderController;
+use App\Http\Controllers\FrontendDashboard\PageCategoriesController;
+use App\Http\Controllers\FrontendDashboard\PagesController;
 use App\Http\Controllers\FrontendDashboard\PartnerController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,5 +52,19 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', '
     Route::post('partners/remove-image', [PartnerController::class, 'remove_image'])->name('partners.remove_image');
     Route::post('partners/update-partner-status', [PartnerController::class, 'updatePartnerStatus'])->name('partners.update_partner_status');
     Route::resource('partners', PartnerController::class);
+
+    // ==============   Page Categories Tab   ==============  //
+    Route::post('page-categories/remove-image', [PageCategoriesController::class, 'remove_image'])->name('page_categories.remove_image');
+    Route::post('page-categories/update-page-category-status', [PageCategoriesController::class, 'updatePageCategoryStatus'])->name('page_categories.update_page_category_status');
+    Route::resource('page_categories', PageCategoriesController::class);
+
+
+
+    // ==============   Pages Tab   ==============  //
+    Route::post('pages/remove-image', [PagesController::class, 'remove_image'])->name('pages.remove_image');
+    Route::post('pages/update-page-status', [PagesController::class, 'updatePageStatus'])->name('pages.update_page_status');
+    Route::resource('pages', PagesController::class);
+
+
 
 });
