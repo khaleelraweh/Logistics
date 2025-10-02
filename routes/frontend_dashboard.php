@@ -72,6 +72,10 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', '
     Route::post('testimonials/update-testimonial-status', [TestimonialController::class, 'updateTestimonialStatus'])->name('testimonials.update_testimonial_status');
     Route::resource('testimonials', TestimonialController::class);
 
+    //=============== common question =========================//
+    Route::post('common_questions/update-common-question-status', [CommonQuestionController::class, 'updateCommonQuestionStatus'])->name('common_questions.update_common_question_status');
+    Route::resource('common_questions', CommonQuestionController::class);
+
 
 
 

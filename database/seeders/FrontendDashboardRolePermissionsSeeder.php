@@ -117,6 +117,17 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
         $deleteTestimonials =  Permission::create(['name'  => 'frontend_dashboard_delete_testimonials', 'display_name'      =>  ['ar'   =>  'حذف ماذا يقولوا عنا',   'en'    =>  'Delete Testimonial'], 'route' => 'testimonials/{testimonials}', 'module' => 'testimonials', 'as' => 'testimonials.destroy', 'icon' => null, 'parent' => $manageTestimonials->id, 'parent_original' => $manageTestimonials->id, 'parent_show' => $manageTestimonials->id, 'sidebar_link' => '0', 'appear' => '0']);
 
 
+         //Common Questions
+        $manageCommonQuestions = Permission::create(['name' => 'frontend_dashboard_manage_common_questions', 'display_name' => ['ar'   =>  'إدارة الاسئلة الشائعة',   'en'    =>  'Asked Questions'], 'route' => 'common_questions', 'module' => 'common_questions', 'as' => 'common_questions.index', 'icon' => 'fas fa-question', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '45',]);
+        $manageCommonQuestions->parent_show = $manageCommonQuestions->id;
+        $manageCommonQuestions->save();
+        $showCommonQuestions   =  Permission::create(['name'  => 'frontend_dashboard_show_common_questions', 'display_name'        =>  ['ar'   =>  'الاسئلة الشائعة',   'en'    =>  'Questions'], 'route' => 'common_questions', 'module' => 'common_questions', 'as' => 'common_questions.index', 'icon' => 'fas fa-question', 'parent' => $manageCommonQuestions->id, 'parent_original' => $manageCommonQuestions->id, 'parent_show' => $manageCommonQuestions->id, 'sidebar_link' => '1', 'appear' => '1']);
+        $createCommonQuestions =  Permission::create(['name'  => 'frontend_dashboard_create_common_questions', 'display_name'      =>  ['ar'   =>  'إنشاء سؤال',   'en'    =>  'Create Question'], 'route' => 'common_questions/create', 'module' => 'common_questions', 'as' => 'common_questions.create', 'icon' => null, 'parent' => $manageCommonQuestions->id, 'parent_original' => $manageCommonQuestions->id, 'parent_show' => $manageCommonQuestions->id, 'sidebar_link' => '1', 'appear' => '0']);
+        $displayCommonQuestions =  Permission::create(['name' => 'frontend_dashboard_display_common_questions', 'display_name'     =>  ['ar'   =>  'عرض سؤال',   'en'    =>  'Dispay Question'], 'route' => 'common_questions/{common_questions}', 'module' => 'common_questions', 'as' => 'common_questions.show', 'icon' => null, 'parent' => $manageCommonQuestions->id, 'parent_original' => $manageCommonQuestions->id, 'parent_show' => $manageCommonQuestions->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $updateCommonQuestions  =  Permission::create(['name' => 'frontend_dashboard_update_common_questions', 'display_name'      =>  ['ar'   =>  'تعديل سؤال',   'en'    =>  'Edit Question'], 'route' => 'common_questions/{common_questions}/edit', 'module' => 'common_questions', 'as' => 'common_questions.edit', 'icon' => null, 'parent' => $manageCommonQuestions->id, 'parent_original' => $manageCommonQuestions->id, 'parent_show' => $manageCommonQuestions->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $deleteCommonQuestions =  Permission::create(['name'  => 'frontend_dashboard_delete_common_questions', 'display_name'      =>  ['ar'   =>  'حذف سؤال',   'en'    =>  'Delete Question'], 'route' => 'common_questions/{common_questions}', 'module' => 'common_questions', 'as' => 'common_questions.destroy', 'icon' => null, 'parent' => $manageCommonQuestions->id, 'parent_original' => $manageCommonQuestions->id, 'parent_show' => $manageCommonQuestions->id, 'sidebar_link' => '0', 'appear' => '0']);
+
+
         // 3- attatch role to permssions
         $permissions = [
             // Dashboard
@@ -131,6 +142,7 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
             $manageAdvertisorSliders,$showAdvertisorSliders,$createAdvertisorSliders,$displayAdvertisorSliders,$updateAdvertisorSliders,$deleteAdvertisorSliders,
             // Partners
             $managePartners,$showPartners,$createPartners,$displayPartners,$updatePartners,$deletePartners,
+            //
 
         ];
 
