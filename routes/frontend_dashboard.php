@@ -6,6 +6,7 @@ use App\Http\Controllers\FrontendDashboard\AdvertisorSliderController;
 use App\Http\Controllers\FrontendDashboard\ImportantLinkMenuController;
 use App\Http\Controllers\FrontendDashboard\MainMenuController;
 use App\Http\Controllers\FrontendDashboard\MainSliderController;
+use App\Http\Controllers\FrontendDashboard\PartnerController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', 'middleware' => ['roles', 'role:frontend_dashboard']], function () {

@@ -19,8 +19,8 @@ class PartnerController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()->ability('admin', 'manage_partners , show_partners')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'manage_partners , show_partners')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $partners = Partner::query()
@@ -36,23 +36,23 @@ class PartnerController extends Controller
                 : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
             ->paginate(\request()->limit_by ?? 100);
 
-        return view('backend.partners.index', compact('partners'));
+        return view('frontend_dashboard.partners.index', compact('partners'));
     }
 
     public function create()
     {
-        if (!auth()->user()->ability('admin', 'create_partners')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'create_partners')) {
+            return redirect('frontend_dashboard/index');
         }
-        return view('backend.partners.create');
+        return view('frontend_dashboard.partners.create');
     }
 
 
     public function store(PartnerRequest $request)
     {
 
-        if (!auth()->user()->ability('admin', 'create_partners')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'create_partners')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $input['name']                         =   $request->name;
@@ -96,13 +96,13 @@ class PartnerController extends Controller
         $partner                                 =  Partner::create($input);
 
         if ($partner) {
-            return redirect()->route('admin.partners.index')->with([
+            return redirect()->route('frontend_dashboard.partners.index')->with([
                 'message' => __('panel.created_successfully'),
                 'alert-type' => 'success'
             ]);
         }
 
-        return redirect()->route('admin.partners.index')->with([
+        return redirect()->route('frontend_dashboard.partners.index')->with([
             'message' => __('panel.something_was_wrong'),
             'alert-type' => 'danger'
         ]);
@@ -111,21 +111,21 @@ class PartnerController extends Controller
     public function edit($partner)
     {
 
-        if (!auth()->user()->ability('admin', 'update_partners')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'update_partners')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $partner = Partner::where('id', $partner)->first();
 
 
-        return view('backend.partners.edit', compact('partner'));
+        return view('frontend_dashboard.partners.edit', compact('partner'));
     }
 
 
     public function update(PartnerRequest $request, $partner)
     {
-        if (!auth()->user()->ability('admin', 'update_partners')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'update_partners')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $partner = Partner::where('id', $partner)->first();
@@ -174,7 +174,7 @@ class PartnerController extends Controller
 
         $partner->update($input);
 
-        return redirect()->route('admin.partners.index')->with([
+        return redirect()->route('frontend_dashboard.partners.index')->with([
             'message' => 'Updated successfully',
             'alert-type' => 'success'
         ]);
@@ -183,8 +183,8 @@ class PartnerController extends Controller
 
     public function destroy($partner)
     {
-        if (!auth()->user()->ability('admin', 'delete_partners')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'delete_partners')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $partner = Partner::where('id', $partner)->first();
@@ -201,7 +201,7 @@ class PartnerController extends Controller
         //second : delete partner from users table
         $partner->delete();
 
-        return redirect()->route('admin.partners.index')->with([
+        return redirect()->route('frontend_dashboard.partners.index')->with([
             'message' => 'Deleted successfully',
             'alert-type' => 'success'
         ]);
@@ -211,8 +211,8 @@ class PartnerController extends Controller
     public function remove_image(Request $request)
     {
 
-        if (!auth()->user()->ability('admin', 'delete_partners')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'delete_partners')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $partner = Partner::findOrFail($request->partner_id);
