@@ -13,8 +13,8 @@ class CommonQuestionController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()->ability('admin', 'manage_common_questions , show_common_questions')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'manage_common_questions , show_common_questions')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $common_questions = CommonQuestion::query()
@@ -29,22 +29,22 @@ class CommonQuestionController extends Controller
                 : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
             ->paginate(\request()->limit_by ?? 100);
 
-        return view('backend.common_questions.index', compact('common_questions'));
+        return view('frontend_dashboard.common_questions.index', compact('common_questions'));
     }
 
     public function create()
     {
-        if (!auth()->user()->ability('admin', 'create_common_questions')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'create_common_questions')) {
+            return redirect('frontend_dashboard/index');
         }
-        return view('backend.common_questions.create');
+        return view('frontend_dashboard.common_questions.create');
     }
 
 
     public function store(CommonQuestionRequest $request)
     {
-        if (!auth()->user()->ability('admin', 'create_common_questions')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'create_common_questions')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $input['title']              =   $request->title;
@@ -83,13 +83,13 @@ class CommonQuestionController extends Controller
         $common_question = CommonQuestion::create($input);
 
         if ($common_question) {
-            return redirect()->route('admin.common_questions.index')->with([
+            return redirect()->route('frontend_dashboard.common_questions.index')->with([
                 'message' => __('panel.created_successfully'),
                 'alert-type' => 'success'
             ]);
         }
 
-        return redirect()->route('admin.common_questions.index')->with([
+        return redirect()->route('frontend_dashboard.common_questions.index')->with([
             'message' => __('panel.something_was_wrong'),
             'alert-type' => 'danger'
         ]);
@@ -97,28 +97,28 @@ class CommonQuestionController extends Controller
 
     public function show($id)
     {
-        if (!auth()->user()->ability('admin', 'display_common_questions')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'display_common_questions')) {
+            return redirect('frontend_dashboard/index');
         }
-        return view('backend.common_questions.show');
+        return view('frontend_dashboard.common_questions.show');
     }
 
     public function edit($commonQuestion)
     {
-        if (!auth()->user()->ability('admin', 'update_common_questions')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'update_common_questions')) {
+            return redirect('frontend_dashboard/index');
         }
         // $time = \Carbon\Carbon::parse('')->isoFormat('h:mm a');
 
         $commonQuestion = CommonQuestion::where('id', $commonQuestion)->first();
 
-        return view('backend.common_questions.edit', compact('commonQuestion'));
+        return view('frontend_dashboard.common_questions.edit', compact('commonQuestion'));
     }
 
     public function update(CommonQuestionRequest $request,  $commonQuestion)
     {
-        if (!auth()->user()->ability('admin', 'update_common_questions')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'update_common_questions')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $commonQuestion = CommonQuestion::where('id', $commonQuestion)->first();
@@ -160,12 +160,12 @@ class CommonQuestionController extends Controller
 
 
         if ($commonQuestion) {
-            return redirect()->route('admin.common_questions.index')->with([
+            return redirect()->route('frontend_dashboard.common_questions.index')->with([
                 'message' => __('panel.updated_successfully'),
                 'alert-type' => 'success'
             ]);
         }
-        return redirect()->route('admin.common_questions.index')->with([
+        return redirect()->route('frontend_dashboard.common_questions.index')->with([
             'message' => __('panel.something_was_wrong'),
             'alert-type' => 'danger'
         ]);
@@ -173,8 +173,8 @@ class CommonQuestionController extends Controller
 
     public function destroy($commonQuestion)
     {
-        if (!auth()->user()->ability('admin', 'delete_common_questions')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'delete_common_questions')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $commonQuestion = CommonQuestion::where('id', $commonQuestion)->first();
@@ -183,13 +183,13 @@ class CommonQuestionController extends Controller
 
 
         if ($commonQuestion) {
-            return redirect()->route('admin.common_questions.index')->with([
+            return redirect()->route('frontend_dashboard.common_questions.index')->with([
                 'message' => __('panel.deleted_successfully'),
                 'alert-type' => 'success'
             ]);
         }
 
-        return redirect()->route('admin.common_questions.index')->with([
+        return redirect()->route('frontend_dashboard.common_questions.index')->with([
             'message' => __('panel.something_was_wrong'),
             'alert-type' => 'danger'
         ]);

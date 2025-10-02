@@ -3,6 +3,7 @@
 use App\Http\Controllers\FrontendDashboard\FrontendDashboardController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\FrontendDashboard\AdvertisorSliderController;
+use App\Http\Controllers\FrontendDashboard\CommonQuestionController;
 use App\Http\Controllers\FrontendDashboard\ImportantLinkMenuController;
 use App\Http\Controllers\FrontendDashboard\MainMenuController;
 use App\Http\Controllers\FrontendDashboard\MainSliderController;
