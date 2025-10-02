@@ -45,4 +45,9 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', '
     Route::post('advertisor_sliders/update-advertisor-slider-status', [AdvertisorSliderController::class, 'updateAdvertisorSliderStatus'])->name('advertisor_sliders.update_advertisor_slider_status');
     Route::resource('advertisor_sliders', AdvertisorSliderController::class);
 
+    // ================== Partners ================//
+    Route::post('partners/remove-image', [PartnerController::class, 'remove_image'])->name('partners.remove_image');
+    Route::post('partners/update-partner-status', [PartnerController::class, 'updatePartnerStatus'])->name('partners.update_partner_status');
+    Route::resource('partners', PartnerController::class);
+
 });

@@ -75,6 +75,17 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
         $deleteAdvertisorSliders  =  Permission::create(['name' => 'frontend_dashboard_delete_advertisor_sliders', 'display_name'    =>  ['ar'   =>  'حذف الشريحة',   'en'    =>  'Delete Adv Slide'],  'route' => 'advertisor_sliders', 'module' => 'advertisor_sliders', 'as' => 'advertisor_sliders.destroy', 'icon' => null, 'parent' => $manageAdvertisorSliders->id, 'parent_original' => $manageAdvertisorSliders->id, 'parent_show' => $manageAdvertisorSliders->id, 'sidebar_link' => '0', 'appear' => '0']);
 
 
+        // Partners
+        $managePartners = Permission::create(['name' => 'manage_partners', 'display_name' => ['ar'  =>  'شركاؤنا',    'en'    =>  'Our Partners'], 'route' => 'partners', 'module' => 'partners', 'as' => 'partners.index', 'icon' => 'far fa-handshake', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '25',]);
+        $managePartners->parent_show = $managePartners->id;
+        $managePartners->save();
+        $showPartners   =  Permission::create(['name'  => 'show_partners', 'display_name'       =>  ['ar'   =>  'شركاؤنا',   'en'    =>  'Our Partners'], 'route' => 'partners', 'module' => 'partners', 'as' => 'partners.index', 'icon' => 'far fa-handshake', 'parent' => $managePartners->id, 'parent_original' => $managePartners->id, 'parent_show' => $managePartners->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $createPartners =  Permission::create(['name'  => 'create_partners', 'display_name'     =>  ['ar'   =>  'إنشاء شريك',   'en'    =>  'Create Our Partner'], 'route' => 'partners', 'module' => 'partners', 'as' => 'partners.create', 'icon' => null, 'parent' => $managePartners->id, 'parent_original' => $managePartners->id, 'parent_show' => $managePartners->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $displayPartners =  Permission::create(['name' => 'display_partners', 'display_name'    =>  ['ar'   =>  'عرض شريك',   'en'    =>  'Display Our Partner'], 'route' => 'partners', 'module' => 'partners', 'as' => 'partners.show', 'icon' => null, 'parent' => $managePartners->id, 'parent_original' => $managePartners->id, 'parent_show' => $managePartners->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $updatePartners  =  Permission::create(['name' => 'update_partners', 'display_name'     =>  ['ar'   =>  'تعديل شريك',   'en'    =>  'Edit Our Partner'], 'route' => 'partners', 'module' => 'partners', 'as' => 'partners.edit', 'icon' => null, 'parent' => $managePartners->id, 'parent_original' => $managePartners->id, 'parent_show' => $managePartners->id, 'sidebar_link' => '0', 'appear' => '0']);
+        $deletePartners =  Permission::create(['name'  => 'delete_partners', 'display_name'     =>  ['ar'   =>  'حذف شريك',   'en'    =>  'Delete Our Partner'], 'route' => 'partners', 'module' => 'partners', 'as' => 'partners.destroy', 'icon' => null, 'parent' => $managePartners->id, 'parent_original' => $managePartners->id, 'parent_show' => $managePartners->id, 'sidebar_link' => '0', 'appear' => '0']);
+
+
         // 3- attatch role to permssions
         $permissions = [
             // Dashboard
@@ -87,6 +98,8 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
             $manageMainSliders,$showMainSliders,$createMainSliders,$displayMainSliders,$updateMainSliders,$deleteMainSliders,
             // Advertisor Sliders
             $manageAdvertisorSliders,$showAdvertisorSliders,$createAdvertisorSliders,$displayAdvertisorSliders,$updateAdvertisorSliders,$deleteAdvertisorSliders,
+            // Partners
+            $managePartners,$showPartners,$createPartners,$displayPartners,$updatePartners,$deletePartners,
 
         ];
 
