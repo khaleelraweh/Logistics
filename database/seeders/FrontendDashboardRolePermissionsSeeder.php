@@ -54,7 +54,7 @@ class FrontendDashboardRolePermissionsSeeder extends Seeder
 
 
 
-            //main sliders
+        //main sliders
         $manageMainSliders = Permission::create(['name' => 'frontend_dashboard_manage_main_sliders', 'display_name' => ['ar'    =>  'إدارة عارض الشرائح', 'en' =>  'Manage Slide Viewer'], 'route' => 'main_sliders', 'module' => 'main_sliders', 'as' => 'main_sliders.index', 'icon' => 'fas fa-sliders-h', 'parent' => '0', 'parent_original' => '0', 'sidebar_link' => '1', 'appear' => '1', 'ordering' => '15',]);
         $manageMainSliders->parent_show = $manageMainSliders->id;
         $manageMainSliders->save();
