@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
 
-            $table->json('name'); // اسم الذي يقول عنا 
-            $table->json('title'); // صفتة الاستاذ الدكتور 
+            $table->json('name'); // اسم الذي يقول عنا
+            $table->json('title'); // العنوان
             $table->json('slug');
-            $table->json('content'); // ماذا يقول 
+            $table->json('content'); // ماذا يقول
             $table->string('image')->nullable();
 
             // SEO
