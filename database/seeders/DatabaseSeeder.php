@@ -53,6 +53,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SystemModulesMenuSeeder::class);
         $this->call(ImportantLinkMenuSeeder::class);
 
+        $this->call(MenuPropertySeeder::class);
+
         $this->call(MainSliderSeeder::class);
         $this->call(AdvertisorSliderSeeder::class);
 
