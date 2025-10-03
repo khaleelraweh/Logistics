@@ -53,6 +53,18 @@ return [
     'add_new_company_link'              => 'إضافة قائمة مؤسسة جديدة',
     'edit_existing_company_menu_link'        => 'تعديل قائمة مؤسسة موجودة',
 
+    // --------------- قائمة مميزات النظام --------------//
+    'manage_system_features_menus'   =>  'إدارة قائمة مميزات النظام',
+    'show_system_features_menus'        => 'قائمة مميزات النظام',
+    'add_new_system_features_menu_item'              => 'إضافة عنصر قائمة مميزات النظام',
+    'edit_existing_system_features_menu_item'        => 'تعديل عنصر قائمة مميزات النظام',
+
+    // --------------- قائمة وحدات النظام --------------//
+    'manage_system_modules_menus'   =>  'إدارة قائمة وحدات النظام',
+    'show_system_modules_menus'        => 'قائمة وحدات النظام',
+    'add_new_system_modules_menu_item'              => 'إضافة عنصر قائمة وحدات النظام',
+    'edit_existing_system_modules_menu_item'        => 'تعديل عنصر قائمة وحدات النظام',
+
     // --------------- important link Menu --------------//
     'manage_important_link_menus'   =>  'إدارة قائمة روابط مهمة',
     'show_important_link_menus'        => 'قائمة روابط مهمة',
