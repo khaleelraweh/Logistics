@@ -1557,11 +1557,11 @@ return [
 
 
 
-    // new work in in university
+    // new work in in
     'news_update'                                       =>  'News Update',
-    'university_news'                                   =>  'University News',
+    'news'                                   =>  'News',
     'activities_update'                                 =>  'Activities Update',
-    'university_activities'                             =>  'University Activities',
+    'activities'                             =>  'Activities',
     'calendar_gregorian'                                =>  'AD',
     'calendar_hijri'                                    =>  'AH',
     'read_more'                                         =>  'Read More',

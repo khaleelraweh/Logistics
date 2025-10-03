@@ -448,8 +448,8 @@ return [
     'document_format_message'                               =>  'يجب أن تكون الوثيقة بالتنسيقات التالية ( PDF - Docx ) ',
 
     // --------------- Document Statistics  --------------//
-    'manage_statistics'                                     =>  'إدارة إحصائيات الجامعة',
-    'show_statistics'                                       => 'إحصائيات الجامعة',
+    'manage_statistics'                                     =>  'إدارة الإحصائيات',
+    'show_statistics'                                       => 'الإحصائيات',
     'add_new_statistic'                                     => 'إضافة إحصاء جديد',
     'edit_existing_statistic'                               => 'تعديل إحصاء موجود',
 
@@ -1524,9 +1524,9 @@ return [
 
     // new work in in university
     'news_update'                                       =>  'تحديث الأخبار',
-    'university_news'                                   =>  'أخبار الجامعة',
+    'news'                                   =>  'الأخبار',
     'activities_update'                                 =>  'تحديث الفعاليات',
-    'university_activities'                             =>  'فعاليات الجامعة',
+    'activities'                             =>  'الفعاليات',
 
     'calendar_gregorian'                                =>  'م',
     'calendar_hijri'                                    =>  'هـ',
