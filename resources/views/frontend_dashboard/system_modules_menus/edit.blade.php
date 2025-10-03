@@ -125,6 +125,8 @@
                                     $propertyIndex = 0;
                                 @endphp
 
+
+
                                 @foreach($systemModulesMenu->properties as $property)
                                     <div class="property-row mb-3">
                                         <div class="row">
@@ -132,7 +134,7 @@
                                                 <div class="col-sm-12 col-md-5 pt-2">
                                                     <input type="text" name="properties[{{ $propertyIndex }}][{{ $key }}]"
                                                         class="form-control"
-                                                        value="{{ old('properties.'.$propertyIndex.'.'.$key, $property->property_value[$key] ?? '') }}"
+                                                        value="{{ old('properties.'.$propertyIndex.'.'.$key, $property->getTranslation('property_value', $key)) }}"
                                                         placeholder="{{ __('panel.property_value') }} {{ $key }}">
                                                 </div>
                                             @endforeach
@@ -143,6 +145,7 @@
                                     </div>
                                     @php $propertyIndex++; @endphp
                                 @endforeach
+
 
                             </div>
 
