@@ -126,7 +126,7 @@
                     @foreach($recentSliders as $slider)
                     <div class="mb-3 p-3 border rounded">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="font-weight-bold">{{ $slider->title[app()->getLocale()] ?? 'بدون عنوان' }}</h6>
+                            <h6 class="font-weight-bold">{{ $slider->title ?? 'بدون عنوان' }}</h6>
                             <span class="badge badge-{{ $slider->status ? 'success' : 'warning' }}">
                                 {{ $slider->status ? 'نشط' : 'غير نشط' }}
                             </span>
@@ -154,7 +154,7 @@
                         <div class="d-flex align-items-center mb-2">
                             @if($testimonial->image)
                             <img src="{{ asset('assets/testimonials/' . $testimonial->image) }}"
-                                 class="rounded-circle me-3" width="40" height="40" alt="{{ $testimonial->name[app()->getLocale()] ?? '' }}">
+                                 class="rounded-circle me-3" width="40" height="40" alt="{{ $testimonial->name ?? '' }}">
                             @else
                             <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center me-3"
                                  style="width: 40px; height: 40px;">
@@ -162,12 +162,12 @@
                             </div>
                             @endif
                             <div>
-                                <h6 class="mb-0">{{ $testimonial->name[app()->getLocale()] ?? 'بدون اسم' }}</h6>
-                                <small class="text-muted">{{ $testimonial->title[app()->getLocale()] ?? '' }}</small>
+                                <h6 class="mb-0">{{ $testimonial->name ?? 'بدون اسم' }}</h6>
+                                <small class="text-muted">{{ $testimonial->title ?? '' }}</small>
                             </div>
                         </div>
                         <p class="mb-0 text-muted small">
-                            {{ Str::limit($testimonial->content[app()->getLocale()] ?? '', 100) }}
+                            {{ Str::limit($testimonial->content ?? '', 100) }}
                         </p>
                     </div>
                     @endforeach
