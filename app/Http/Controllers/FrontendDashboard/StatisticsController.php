@@ -15,8 +15,8 @@ class StatisticsController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()->ability('admin', 'manage_statistics , show_statistics')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'manage_statistics , show_statistics')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $statistics = Statistic::query()
@@ -32,22 +32,22 @@ class StatisticsController extends Controller
             ->paginate(\request()->limit_by ?? 100);
 
 
-        return view('backend.statistics.index', compact('statistics'));
+        return view('frontend_dashboard.statistics.index', compact('statistics'));
     }
 
     public function create()
     {
-        if (!auth()->user()->ability('admin', 'create_statistics')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'create_statistics')) {
+            return redirect('frontend_dashboard/index');
         }
 
-        return view('backend.statistics.create');
+        return view('frontend_dashboard.statistics.create');
     }
 
     public function store(StatisticRequest $request)
     {
-        if (!auth()->user()->ability('admin', 'create_statistics')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'create_statistics')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $input['icon']                      =   $request->icon;
@@ -82,13 +82,13 @@ class StatisticsController extends Controller
         $statistic = Statistic::create($input);
 
         if ($statistic) {
-            return redirect()->route('admin.statistics.index')->with([
+            return redirect()->route('frontend_dashboard.statistics.index')->with([
                 'message' => __('panel.created_successfully'),
                 'alert-type' => 'success'
             ]);
         }
 
-        return redirect()->route('admin.statistics.index')->with([
+        return redirect()->route('frontend_dashboard.statistics.index')->with([
             'message' => __('panel.something_was_wrong'),
             'alert-type' => 'danger'
         ]);
@@ -96,27 +96,27 @@ class StatisticsController extends Controller
 
     public function show($id)
     {
-        if (!auth()->user()->ability('admin', 'display_statistics')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'display_statistics')) {
+            return redirect('frontend_dashboard/index');
         }
 
-        return view('backend.statistics.show');
+        return view('frontend_dashboard.statistics.show');
     }
 
     public function edit($statistic)
     {
-        if (!auth()->user()->ability('admin', 'update_statistics')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'update_statistics')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $statistic =  Statistic::where('id', $statistic)->first();
-        return view('backend.statistics.edit', compact('statistic'));
+        return view('frontend_dashboard.statistics.edit', compact('statistic'));
     }
 
     public function update(StatisticRequest $request,  $statistic)
     {
-        if (!auth()->user()->ability('admin', 'update_statistics')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'update_statistics')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $statistic = Statistic::where('id', $statistic)->first();
@@ -161,12 +161,12 @@ class StatisticsController extends Controller
 
 
         if ($statistic) {
-            return redirect()->route('admin.statistics.index')->with([
+            return redirect()->route('frontend_dashboard.statistics.index')->with([
                 'message' => __('panel.updated_successfully'),
                 'alert-type' => 'success'
             ]);
         }
-        return redirect()->route('admin.statistics.index')->with([
+        return redirect()->route('frontend_dashboard.statistics.index')->with([
             'message' => __('panel.something_was_wrong'),
             'alert-type' => 'danger'
         ]);
@@ -174,8 +174,8 @@ class StatisticsController extends Controller
 
     public function destroy($statistic)
     {
-        if (!auth()->user()->ability('admin', 'delete_statistics')) {
-            return redirect('admin/index');
+        if (!auth()->user()->ability('frontend_dashboard', 'delete_statistics')) {
+            return redirect('frontend_dashboard/index');
         }
 
         $statistic = Statistic::where('id', $statistic)->first();
@@ -183,13 +183,13 @@ class StatisticsController extends Controller
         $statistic->delete();
 
         if ($statistic) {
-            return redirect()->route('admin.statistics.index')->with([
+            return redirect()->route('frontend_dashboard.statistics.index')->with([
                 'message' => __('panel.deleted_successfully'),
                 'alert-type' => 'success'
             ]);
         }
 
-        return redirect()->route('admin.statistics.index')->with([
+        return redirect()->route('frontend_dashboard.statistics.index')->with([
             'message' => __('panel.something_was_wrong'),
             'alert-type' => 'danger'
         ]);
