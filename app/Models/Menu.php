@@ -117,7 +117,7 @@ class Menu extends Model
             ->get();
     }
 
-    // for calling help menu in the footer 
+    // for calling help menu in the footer
     public static function helpTree($level = 1)
     {
         return static::with(implode('.', array_fill(0, $level, 'children')))
@@ -139,5 +139,10 @@ class Menu extends Model
     public function lastMedia(): MorphOne
     {
         return $this->MorphOne(Photo::class, 'imageable')->orderBy('file_sort', 'desc');
+    }
+
+    public function properties()
+    {
+        return $this->hasMany(MenuProperty::class, 'menu_id');
     }
 }
