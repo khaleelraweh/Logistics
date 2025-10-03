@@ -4,86 +4,65 @@ namespace Database\Seeders;
 
 use App\Models\Statistic;
 use Faker\Factory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 
 class StatisticSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $faker = Factory::create();
+        $statuses = [true, false];
 
-        $Statistic1 = Statistic::create([
-            'title'             => ['ar' => 'الكليات والمعاهد', 'en' => 'Colleges and institutes'],
-            'slug'              => ['ar' => $faker->unique()->slug(3), 'en' => $faker->unique()->slug(3)],
-            'statistic_number'  => rand(50, 200),
-            'icon'              => 'fas fa-code',
+        $statistics = [
+            [
+                'title' => ['ar' => 'الطرود المسلَّمة', 'en' => 'Parcels Delivered'],
+                'icon' => 'fas fa-box',
+                'statistic_number' => rand(1000, 5000),
+            ],
+            [
+                'title' => ['ar' => 'الشحنات قيد النقل', 'en' => 'Shipments In Transit'],
+                'icon' => 'fas fa-truck',
+                'statistic_number' => rand(200, 1000),
+            ],
+            [
+                'title' => ['ar' => 'الشركاء اللوجستيون', 'en' => 'Logistic Partners'],
+                'icon' => 'fas fa-handshake',
+                'statistic_number' => rand(5, 20),
+            ],
+            [
+                'title' => ['ar' => 'مراكز التخزين', 'en' => 'Warehouses'],
+                'icon' => 'fas fa-warehouse',
+                'statistic_number' => rand(10, 50),
+            ],
+        ];
 
-            'metadata_title'        => ['ar' => $faker->realText(50), 'en' => $faker->realText(50)],
-            'metadata_description'  => ['ar' => $faker->realText(50), 'en' => $faker->realText(50)],
-            'metadata_keywords'     => ['ar' => $faker->realText(50), 'en' => $faker->realText(50)],
-
-            'created_by'    =>  $faker->realTextBetween(10, 12),
-            'updated_by'    =>  $faker->realTextBetween(10, 12),
-            'deleted_at'    =>  null,
-            'created_at'    =>  now(),
-            'updated_at'    =>  now(),
-        ]);
-
-        $Statistic2 = Statistic::create([
-            'title'             => ['ar' => 'البرامج الأكاديمية', 'en' => 'Academic programs'],
-            'slug'              => ['ar' => $faker->unique()->slug(3), 'en' => $faker->unique()->slug(3)],
-            'statistic_number'  => rand(50, 200),
-            'icon'              => 'fas fa-code',
-
-            'metadata_title'        => ['ar' => $faker->realText(50), 'en' => $faker->realText(50)],
-            'metadata_description'  => ['ar' => $faker->realText(50), 'en' => $faker->realText(50)],
-            'metadata_keywords'     => ['ar' => $faker->realText(50), 'en' => $faker->realText(50)],
-
-            'created_by'    =>  $faker->realTextBetween(10, 12),
-            'updated_by'    =>  $faker->realTextBetween(10, 12),
-            'deleted_at'    =>  null,
-            'created_at'    =>  now(),
-            'updated_at'    =>  now(),
-        ]);
-
-        $Statistic3 = Statistic::create([
-            'title'             => ['ar' => 'طالب', 'en' => 'Students'],
-            'slug'              => ['ar' => $faker->unique()->slug(3), 'en' => $faker->unique()->slug(3)],
-            'statistic_number'  => rand(50, 200),
-            'icon'              => 'fas fa-code',
-
-            'metadata_title'        => ['ar' => $faker->realText(50), 'en' => $faker->realText(50)],
-            'metadata_description'  => ['ar' => $faker->realText(50), 'en' => $faker->realText(50)],
-            'metadata_keywords'     => ['ar' => $faker->realText(50), 'en' => $faker->realText(50)],
-
-            'created_by'    =>  $faker->realTextBetween(10, 12),
-            'updated_by'    =>  $faker->realTextBetween(10, 12),
-            'deleted_at'    =>  null,
-            'created_at'    =>  now(),
-            'updated_at'    =>  now(),
-        ]);
-
-        $Statistic4 = Statistic::create([
-            'title'             => ['ar' => 'أعضاء هيئة التدريس', 'en' => 'Faculty members'],
-            'slug'              => ['ar' => $faker->unique()->slug(3), 'en' => $faker->unique()->slug(3)],
-            'statistic_number'  => rand(50, 200),
-            'icon'              => 'fas fa-code',
-
-            'metadata_title'        => ['ar' => $faker->realText(50), 'en' => $faker->realText(50)],
-            'metadata_description'  => ['ar' => $faker->realText(50), 'en' => $faker->realText(50)],
-            'metadata_keywords'     => ['ar' => $faker->realText(50), 'en' => $faker->realText(50)],
-
-            'created_by'    =>  $faker->realTextBetween(10, 12),
-            'updated_by'    =>  $faker->realTextBetween(10, 12),
-            'deleted_at'    =>  null,
-            'created_at'    =>  now(),
-            'updated_at'    =>  now(),
-        ]);
+        foreach ($statistics as $stat) {
+            Statistic::create([
+                'title' => $stat['title'],
+                'slug' => [
+                    'ar' => $faker->unique()->slug(3),
+                    'en' => $faker->unique()->slug(3),
+                ],
+                'statistic_number' => $stat['statistic_number'],
+                'icon' => $stat['icon'],
+                'metadata_title' => $stat['title'],
+                'metadata_description' => [
+                    'ar' => "إحصائية حول {$stat['title']['ar']}",
+                    'en' => "Statistics about {$stat['title']['en']}",
+                ],
+                'metadata_keywords' => [
+                    'ar' => 'إحصائيات, لوجستيات, توصيل, تخزين',
+                    'en' => 'statistics, logistics, delivery, storage',
+                ],
+                'status' => Arr::random($statuses),
+                'created_by' => 'admin',
+                'updated_by' => 'admin',
+                'published_on' => $faker->dateTime(),
+            ]);
+        }
     }
 }
