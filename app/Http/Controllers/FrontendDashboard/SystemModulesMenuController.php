@@ -112,9 +112,9 @@ class SystemModulesMenuController extends Controller
             return redirect('frontend_dashboard/index');
         }
 
-        $SystemModulesMenu = Menu::where('id', $SystemModulesMenu)->first();
+        $systemModulesMenu = Menu::where('id', $SystemModulesMenu)->first();
 
-        return view('frontend_dashboard.system_modules_menus.edit', compact('SystemModulesMenu'));
+        return view('frontend_dashboard.system_modules_menus.edit', compact('systemModulesMenu'));
     }
 
     public function update(SystemModulesMenuRequest $request,  $SystemModulesMenu)
