@@ -72,14 +72,14 @@
                                         <td class="d-none d-sm-table-cell">{{ $system_modules_menu->created_by }}</td>
                                         <td>
                                             @if ($system_modules_menu->status == 1)
-                                                <a href="javascript:void(0);" class="updateSystemFeaturesMenuStatus"
+                                                <a href="javascript:void(0);" class="updateSystemModulesMenuStatus"
                                                     id="important-link-menu-{{ $system_modules_menu->id }}"
                                                     system_modules_menu_id="{{ $system_modules_menu->id }}">
                                                     <i class="fas fa-toggle-on fa-lg text-success" aria-hidden="true"
                                                         status="Active" style="font-size: 1.6em"></i>
                                                 </a>
                                             @else
-                                                <a href="javascript:void(0);" class="updateSystemFeaturesMenuStatus"
+                                                <a href="javascript:void(0);" class="updateSystemModulesMenuStatus"
                                                     id="important-link-menu-{{ $system_modules_menu->id }}"
                                                     system_modules_menu_id="{{ $system_modules_menu->id }}">
                                                     <i class="fas fa-toggle-off fa-lg text-warning" aria-hidden="true"
