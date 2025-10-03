@@ -17,7 +17,7 @@ class SystemModulesMenuController extends Controller
             return redirect('frontend_dashboard/index');
         }
 
-        $system_modules_menus = Menu::query()->where('section', 7)
+        $system_modules_menus = Menu::query()->where('section', 3)
             ->when(\request()->keyword != null, function ($query) {
                 $query->search(\request()->keyword);
             })
@@ -52,7 +52,7 @@ class SystemModulesMenuController extends Controller
         $input['link'] = $request->link;
         $input['icon'] = $request->icon;
 
-        $input['section']    = 7;
+        $input['section']    = 3;
 
         $input['metadata_title'] = [];
         foreach (config('locales.languages') as $localeKey => $localeValue) {
@@ -128,7 +128,7 @@ class SystemModulesMenuController extends Controller
         $input['title']     = $request->title;
         $input['link']      = $request->link;
         $input['icon']      = $request->icon;
-        $input['section']    = 7;
+        $input['section']    = 3;
 
         $input['metadata_title'] = [];
         foreach (config('locales.languages') as $localeKey => $localeValue) {
