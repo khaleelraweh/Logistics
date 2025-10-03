@@ -45,6 +45,18 @@ return [
     'edit_existing_company_menu_link'        => 'Edit Existing Company Menu',
 
 
+    // --------------- System Features Menu --------------//
+    'manage_system_features_menus'   =>  'Manage System Features Menus',
+    'show_system_features_menus'        => 'System Features Menus',
+    'add_new_system_features_menu_item'              => 'Add New System Features Menu Item',
+    'edit_existing_system_features_menu_item'        => 'Edit Existing System Features Menu Item',
+
+    // --------------- System Modules Menu --------------//
+    'manage_system_modules_menus'   =>  'Manage System Modules Menus',
+    'show_system_modules_menus'        => 'System Modules Menus',
+    'add_new_system_modules_menu_item'              => 'Add New System Modules Menu Item',
+    'edit_existing_system_modules_menu_item'        => 'Edit Existing System Modules Menu Item',
+
     // --------------- important link Menu --------------//
     'manage_important_link_menus'   =>  'Manage Important Link Menus',
     'show_important_link_menus'        => 'Important Link Menus',
