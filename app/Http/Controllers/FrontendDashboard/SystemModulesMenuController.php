@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontendDashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FrontendDashboard\SystemModulesMenuRequest;
 use App\Models\Menu;
+use App\Models\MenuProperty;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -81,6 +82,22 @@ class SystemModulesMenuController extends Controller
 
 
         $system_modules_menu = Menu::create($input);
+
+        if ($system_modules_menu) {
+            // إضافة الخصائص
+            if ($request->has('properties')) {
+                foreach ($request->properties as $prop) {
+                    MenuProperty::create([
+                        'menu_id' => $system_modules_menu->id,
+                        'property_value' => $prop,
+                        'created_by' => auth()->user()->full_name,
+                        'status' => true,
+                        'published_on' => now(),
+                    ]);
+                }
+            }
+        }
+
 
 
         if ($system_modules_menu) {

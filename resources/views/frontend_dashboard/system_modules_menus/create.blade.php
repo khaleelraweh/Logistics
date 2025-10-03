@@ -113,6 +113,33 @@
                                 </div>
                             @endforeach
 
+                            {{-- قسم خصائص الوحدة --}}
+                            <hr>
+                            <h5 class="mt-4">{{ __('panel.module_properties') }}</h5>
+                            <div id="properties-container">
+
+                                {{-- بداية صف الخصائص الأول --}}
+                                <div class="property-row mb-3">
+                                    <div class="row">
+                                        @foreach (config('locales.languages') as $key => $val)
+                                            <div class="col-sm-12 col-md-5 pt-2">
+                                                <label>{{ __('panel.property_value') }} ({{ $key }})</label>
+                                                <input type="text" name="properties[0][{{ $key }}]" class="form-control" placeholder="{{ __('panel.property_value') }} {{ $key }}">
+                                            </div>
+                                        @endforeach
+                                        <div class="col-sm-12 col-md-2 pt-4">
+                                            <button type="button" class="btn btn-danger remove-property"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <button type="button" class="btn btn-primary mt-2" id="add-property">
+                                <i class="fa fa-plus"></i> {{ __('panel.add_property') }}
+                            </button>
+
+
                             @foreach (config('locales.languages') as $key => $val)
                                 <div class="row ">
                                     <div class="col-sm-12 col-md-3 pt-3">
@@ -339,4 +366,34 @@
                 }
             });
         </script>
+
+        {{-- اضافة الخصائص  --}}
+        <script>
+            $(document).ready(function() {
+                let propertyIndex = 1;
+
+                $('#add-property').click(function() {
+                    let propertyRow = `
+                    <div class="property-row mb-3">
+                        <div class="row">
+                            @foreach (config('locales.languages') as $key => $val)
+                                <div class="col-sm-12 col-md-5 pt-2">
+                                    <input type="text" name="properties[${propertyIndex}][{{ $key }}]" class="form-control" placeholder="{{ __('panel.property_value') }} {{ $key }}">
+                                </div>
+                            @endforeach
+                            <div class="col-sm-12 col-md-2 pt-4">
+                                <button type="button" class="btn btn-danger remove-property"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>`;
+                    $('#properties-container').append(propertyRow);
+                    propertyIndex++;
+                });
+
+                $(document).on('click', '.remove-property', function() {
+                    $(this).closest('.property-row').remove();
+                });
+            });
+        </script>
+
     @endsection
