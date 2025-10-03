@@ -7,7 +7,7 @@ use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ImportantLinkMenuSeeder extends Seeder
+class SystemFeaturesMenuSeeder extends Seeder
 {
     public function run()
     {
@@ -48,7 +48,7 @@ class ImportantLinkMenuSeeder extends Seeder
                 'link'         => $item['link'],
                 'created_by'   => 'admin',
                 'status'       => true,
-                'section'      => 4,
+                'section'      => 2,
                 'published_on' => $faker->dateTimeBetween('-6 months', 'now'),
                 'parent_id'    => null,
             ]);
