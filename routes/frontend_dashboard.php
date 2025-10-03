@@ -12,6 +12,7 @@ use App\Http\Controllers\FrontendDashboard\PagesController;
 use App\Http\Controllers\FrontendDashboard\PartnerController;
 use App\Http\Controllers\FrontendDashboard\SiteSettingsController;
 use App\Http\Controllers\FrontendDashboard\StatisticsController;
+use App\Http\Controllers\FrontendDashboard\SystemFeaturesMenuControlle;
 use App\Http\Controllers\FrontendDashboard\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,9 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', '
 
     Route::post('important_link_menus/update-important-link-menu-status', [ImportantLinkMenuController::class, 'updateImportantLinkMenuStatus'])->name('important_link_menus.update_important_link_menu_status');
     Route::resource('important_link_menus', ImportantLinkMenuController::class);
+
+    Route::post('system_features_menus/update-system-features-menu-status', [SystemFeaturesMenuControlle::class, 'updateSystemFeaturesMenuStatus'])->name('system_features_menus.update_system_features_menu_status');
+    Route::resource('system_features_menus', SystemFeaturesMenuControlle::class);
 
     // ==============   Sliders Tab   ==============  //
     Route::post('main_sliders/remove-image', [MainSliderController::class, 'remove_image'])->name('main_sliders.remove_image');
