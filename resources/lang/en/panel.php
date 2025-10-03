@@ -63,6 +63,11 @@ return [
     'add_new_important_link_menu_item'              => 'Add New Important Link Menu Item',
     'edit_existing_important_link_menu_item'        => 'Edit Existing Important Link Menu Item',
 
+    // --------------- Module  Properties menu --------------//
+    'module_properties'     =>  'Module Properties',
+    'property_value'       => 'Property Value',
+    'add_property'       => 'Add Property',
+
     // --------------- contact us Menu --------------//
     'manage_contact_us_menus'   =>  'Manage Contact Us Menus',
     'show_contact_us_menus'        => 'Contact Us Menus',

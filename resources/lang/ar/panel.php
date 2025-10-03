@@ -65,11 +65,15 @@ return [
     'add_new_system_modules_menu_item'              => 'إضافة عنصر قائمة وحدات النظام',
     'edit_existing_system_modules_menu_item'        => 'تعديل عنصر قائمة وحدات النظام',
 
-    // --------------- important link Menu --------------//
+    // --------------- قائمة الروابط المهمة --------------//
     'manage_important_link_menus'   =>  'إدارة قائمة روابط مهمة',
     'show_important_link_menus'        => 'قائمة روابط مهمة',
     'add_new_important_link_menu_item'              => 'إضافة عنصر قائمة روابط مهمة',
     'edit_existing_important_link_menu_item'        => 'تعديل عنصر قائمة روابط مهمة',
+    // --------------- خصائص وحدات النظام   --------------//
+    'module_properties'     =>  'خصائص وحدة النظام',
+    'property_value'       => 'قيمة الخاصية',
+    'add_property'       => 'إضافة خاصية',
 
     // --------------- contact us Menu --------------//
     'manage_contact_us_menus'   =>  'إدارة قائمة تواصل معنا',
