@@ -75,8 +75,8 @@
                                     <label for="name[{{ $key }}]">
                                         {{ __('panel.name') }}
                                         <span class="language-type">
-                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'ye' : 'us' }} mt-1 "
-                                                name="{{ app()->getLocale() == 'ar' ? 'ye' : 'us' }}"></i>
+                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
+                                                name="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
                                             {{ __('panel.' . $key) }}
                                         </span>
                                     </label>
@@ -101,8 +101,8 @@
                                     <label for="title[{{ $key }}]">
                                         {{ __('panel.title') }}
                                         <span class="language-type">
-                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'ye' : 'us' }} mt-1 "
-                                                title="{{ app()->getLocale() == 'ar' ? 'ye' : 'us' }}"></i>
+                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
+                                                title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
                                             {{ __('panel.' . $key) }}
                                         </span>
                                     </label>
@@ -129,8 +129,8 @@
                                     <label for="content[{{ $key }}]">
                                         {{ __('panel.f_content') }}
                                         <span class="language-type">
-                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'ye' : 'us' }} mt-1 "
-                                                title="{{ app()->getLocale() == 'ar' ? 'ye' : 'us' }}"></i>
+                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
+                                                title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
                                             {{ __('panel.' . $key) }}
                                         </span>
                                     </label>
@@ -228,8 +228,8 @@
                                     <label for="metadata_title[{{ $key }}]">
                                         {{ __('panel.metadata_title') }}
                                         <span class="language-type">
-                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'ye' : 'us' }} mt-1 "
-                                                title="{{ app()->getLocale() == 'ar' ? 'ye' : 'us' }}"></i>
+                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
+                                                title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
                                             {{ __('panel.' . $key) }}
                                         </span>
                                     </label>
@@ -254,8 +254,8 @@
                                     <label for="metadata_description[{{ $key }}]">
                                         {{ __('panel.metadata_description') }}
                                         <span class="language-type">
-                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'ye' : 'us' }} mt-1 "
-                                                title="{{ app()->getLocale() == 'ar' ? 'ye' : 'us' }}"></i>
+                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
+                                                title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
                                             {{ __('panel.' . $key) }}
                                         </span>
                                     </label>
@@ -280,8 +280,8 @@
                                     <label for="metadata_keywords[{{ $key }}]">
                                         {{ __('panel.metadata_keywords') }}
                                         <span class="language-type">
-                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'ye' : 'us' }} mt-1 "
-                                                title="{{ app()->getLocale() == 'ar' ? 'ye' : 'us' }}"></i>
+                                            <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} mt-1 "
+                                                title="{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
                                             {{ __('panel.' . $key) }}
                                         </span>
                                     </label>
