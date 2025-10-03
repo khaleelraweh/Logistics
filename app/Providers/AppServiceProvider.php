@@ -44,5 +44,16 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale($locale);
         // End check locale language
 
+         // Check if the 'site_settings' table exists
+        if (Schema::hasTable('site_settings')) {
+            // Site setting calling to cache in 5 hours refresh
+            $siteSettings = Cache()->remember(
+                'siteSettings',
+                3600,
+                fn() => SiteSetting::all()->keyBy('key')
+            );
+            View::share('siteSettings', $siteSettings);
+        }
+
     }
 }
