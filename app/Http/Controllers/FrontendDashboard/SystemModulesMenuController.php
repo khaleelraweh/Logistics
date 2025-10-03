@@ -176,6 +176,22 @@ class SystemModulesMenuController extends Controller
 
         $SystemModulesMenu->update($input);
 
+        // حذف الخصائص القديمة قبل الحفظ أو تحديثها حسب رغبتك
+        $SystemModulesMenu->properties()->delete(); // خيار بسيط للحذف وإعادة الإدراج
+
+        if ($request->has('properties')) {
+            foreach ($request->properties as $prop) {
+                \App\Models\MenuProperty::create([
+                    'menu_id' => $SystemModulesMenu->id,
+                    'property_value' => $prop,
+                    'created_by' => auth()->user()->full_name,
+                    'status' => true,
+                    'published_on' => now(),
+                ]);
+            }
+        }
+
+
         if ($SystemModulesMenu) {
             return redirect()->route('frontend_dashboard.system_modules_menus.index')->with([
                 'message' => __('panel.updated_successfully'),

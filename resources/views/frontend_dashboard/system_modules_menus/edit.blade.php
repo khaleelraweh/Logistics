@@ -116,6 +116,41 @@
                                 </div>
                             @endforeach
 
+                            <!-- قسم خصائص الوحدة -->
+                            <hr>
+                            <h5 class="mt-4">{{ __('panel.module_properties') }}</h5>
+                            <div id="properties-container">
+
+                                @php
+                                    $propertyIndex = 0;
+                                @endphp
+
+                                @foreach($systemModulesMenu->properties as $property)
+                                    <div class="property-row mb-3">
+                                        <div class="row">
+                                            @foreach(config('locales.languages') as $key => $val)
+                                                <div class="col-sm-12 col-md-5 pt-2">
+                                                    <input type="text" name="properties[{{ $propertyIndex }}][{{ $key }}]"
+                                                        class="form-control"
+                                                        value="{{ old('properties.'.$propertyIndex.'.'.$key, $property->property_value[$key] ?? '') }}"
+                                                        placeholder="{{ __('panel.property_value') }} {{ $key }}">
+                                                </div>
+                                            @endforeach
+                                            <div class="col-sm-12 col-md-2 pt-4">
+                                                <button type="button" class="btn btn-danger remove-property"><i class="fa fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @php $propertyIndex++; @endphp
+                                @endforeach
+
+                            </div>
+
+                            <button type="button" class="btn btn-primary mt-2" id="add-property">
+                                <i class="fa fa-plus"></i> {{ __('panel.add_property') }}
+                            </button>
+
+
                             @foreach (config('locales.languages') as $key => $val)
                                 <div class="row ">
                                     <div class="col-sm-12 col-md-3 pt-3">
@@ -356,4 +391,36 @@
 
             });
         </script>
+
+        <!-- تعديل الخصائص  -->
+        <script>
+            $(document).ready(function() {
+                let propertyIndex = {{ $propertyIndex }}; // يبدأ من آخر Index موجود
+
+                $('#add-property').click(function() {
+                    let propertyRow = `
+                    <div class="property-row mb-3">
+                        <div class="row">
+                            @foreach(config('locales.languages') as $key => $val)
+                                <div class="col-sm-12 col-md-5 pt-2">
+                                    <input type="text" name="properties[${propertyIndex}][{{ $key }}]"
+                                        class="form-control"
+                                        placeholder="{{ __('panel.property_value') }} {{ $key }}">
+                                </div>
+                            @endforeach
+                            <div class="col-sm-12 col-md-2 pt-4">
+                                <button type="button" class="btn btn-danger remove-property"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>`;
+                    $('#properties-container').append(propertyRow);
+                    propertyIndex++;
+                });
+
+                $(document).on('click', '.remove-property', function() {
+                    $(this).closest('.property-row').remove();
+                });
+            });
+        </script>
+
     @endsection
