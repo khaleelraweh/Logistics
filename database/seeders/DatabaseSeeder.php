@@ -50,6 +50,7 @@ class DatabaseSeeder extends Seeder
         //======== Frontend Dashboard related seeders ==========
         $this->call(MainMenuSeeder::class);
         $this->call(SystemFeaturesMenuSeeder::class);
+        $this->call(SystemModulesMenuSeeder::class);
         $this->call(ImportantLinkMenuSeeder::class);
 
         $this->call(MainSliderSeeder::class);
