@@ -139,6 +139,8 @@
                                 <i class="fa fa-plus"></i> {{ __('panel.add_property') }}
                             </button>
 
+                            <hr>
+
 
                             @foreach (config('locales.languages') as $key => $val)
                                 <div class="row ">
