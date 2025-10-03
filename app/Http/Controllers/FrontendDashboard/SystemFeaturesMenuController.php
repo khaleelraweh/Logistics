@@ -8,7 +8,7 @@ use App\Models\Menu;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class SystemFeaturesMenuControlle extends Controller
+class SystemFeaturesMenuController extends Controller
 {
 
     public function index()

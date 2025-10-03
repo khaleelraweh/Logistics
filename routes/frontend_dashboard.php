@@ -12,7 +12,8 @@ use App\Http\Controllers\FrontendDashboard\PagesController;
 use App\Http\Controllers\FrontendDashboard\PartnerController;
 use App\Http\Controllers\FrontendDashboard\SiteSettingsController;
 use App\Http\Controllers\FrontendDashboard\StatisticsController;
-use App\Http\Controllers\FrontendDashboard\SystemFeaturesMenuControlle;
+use App\Http\Controllers\FrontendDashboard\SystemFeaturesMenuController;
+use App\Http\Controllers\FrontendDashboard\SystemModulesMenuController;
 use App\Http\Controllers\FrontendDashboard\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,12 +46,12 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', '
     Route::resource('important_link_menus', ImportantLinkMenuController::class);
 
     // خصائص النظام
-    Route::post('system_features_menus/update-system-features-menu-status', [SystemFeaturesMenuControlle::class, 'updateSystemFeaturesMenuStatus'])->name('system_features_menus.update_system_features_menu_status');
-    Route::resource('system_features_menus', SystemFeaturesMenuControlle::class);
+    Route::post('system_features_menus/update-system-features-menu-status', [SystemFeaturesMenuController::class, 'updateSystemFeaturesMenuStatus'])->name('system_features_menus.update_system_features_menu_status');
+    Route::resource('system_features_menus', SystemFeaturesMenuController::class);
 
     // وحدات النظام
-    Route::post('system_modules_menus/update-system-modules-menu-status', [SystemModulesMenuControlle::class, 'updateSystemModulesMenuStatus'])->name('system_modules_menus.update_system_modules_menu_status');
-    Route::resource('system_modules_menus', SystemModulesMenuControlle::class);
+    Route::post('system_modules_menus/update-system-modules-menu-status', [SystemModulesMenuController::class, 'updateSystemModulesMenuStatus'])->name('system_modules_menus.update_system_modules_menu_status');
+    Route::resource('system_modules_menus', SystemModulesMenuController::class);
 
     // ==============   Sliders Tab   ==============  //
     Route::post('main_sliders/remove-image', [MainSliderController::class, 'remove_image'])->name('main_sliders.remove_image');
