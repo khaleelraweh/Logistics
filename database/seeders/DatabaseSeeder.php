@@ -63,6 +63,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CommonQuestionSeeder::class);
 
+        $this->call(StatisticSeeder::class);
+
 
     }
 }

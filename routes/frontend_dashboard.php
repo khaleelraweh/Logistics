@@ -10,6 +10,7 @@ use App\Http\Controllers\FrontendDashboard\MainSliderController;
 use App\Http\Controllers\FrontendDashboard\PageCategoriesController;
 use App\Http\Controllers\FrontendDashboard\PagesController;
 use App\Http\Controllers\FrontendDashboard\PartnerController;
+use App\Http\Controllers\FrontendDashboard\StatisticsController;
 use App\Http\Controllers\FrontendDashboard\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +77,12 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', '
     //=============== common question =========================//
     Route::post('common_questions/update-common-question-status', [CommonQuestionController::class, 'updateCommonQuestionStatus'])->name('common_questions.update_common_question_status');
     Route::resource('common_questions', CommonQuestionController::class);
+
+    // ==============   Statistics Tab   ==============  //
+    Route::post('statistics/remove-statistic-image', [StatisticsController::class, 'remove_statistic_image'])->name('statistics.remove_statistic_image');
+    Route::post('statistics/update-statistic-status', [StatisticsController::class, 'updateStatisticStatus'])->name('statistics.update_statistic_status');
+    Route::resource('statistics', StatisticsController::class);
+
 
 
 
