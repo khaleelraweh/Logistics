@@ -48,7 +48,7 @@ class SystemModulesMenuSeeder extends Seeder
                 'link'         => $item['link'],
                 'created_by'   => 'admin',
                 'status'       => true,
-                'section'      => 2,
+                'section'      => 3,
                 'published_on' => $faker->dateTimeBetween('-6 months', 'now'),
                 'parent_id'    => null,
             ]);
