@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\FrontendDashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FrontendDashboard\ImportantLinkMenuRequest;
+use App\Http\Requests\FrontendDashboard\SystemFeaturesMenuRequest;
 use App\Models\Menu;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -41,7 +41,7 @@ class SystemFeaturesMenuControlle extends Controller
         return view('frontend_dashboard.system_features_menus.create');
     }
 
-    public function store(ImportantLinkMenuRequest $request)
+    public function store(SystemFeaturesMenuRequest $request)
     {
         if (!auth()->user()->ability('frontend_dashboard', 'create_system_features_menus')) {
             return redirect('frontend_dashboard/index');
@@ -106,24 +106,24 @@ class SystemFeaturesMenuControlle extends Controller
     }
 
 
-    public function edit($importantLinkMenu)
+    public function edit($SystemFeaturesMenu)
     {
         if (!auth()->user()->ability('frontend_dashboard', 'update_system_features_menus')) {
             return redirect('frontend_dashboard/index');
         }
 
-        $importantLinkMenu = Menu::where('id', $importantLinkMenu)->first();
+        $SystemFeaturesMenu = Menu::where('id', $SystemFeaturesMenu)->first();
 
-        return view('frontend_dashboard.system_features_menus.edit', compact('importantLinkMenu'));
+        return view('frontend_dashboard.system_features_menus.edit', compact('SystemFeaturesMenu'));
     }
 
-    public function update(ImportantLinkMenuRequest $request,  $importantLinkMenu)
+    public function update(SystemFeaturesMenuRequest $request,  $SystemFeaturesMenu)
     {
         if (!auth()->user()->ability('frontend_dashboard', 'update_system_features_menus')) {
             return redirect('frontend_dashboard/index');
         }
 
-        $importantLinkMenu = Menu::where('id', $importantLinkMenu)->first();
+        $SystemFeaturesMenu = Menu::where('id', $SystemFeaturesMenu)->first();
 
         $input['title']     = $request->title;
         $input['link']      = $request->link;
@@ -157,9 +157,9 @@ class SystemFeaturesMenuControlle extends Controller
         $input['published_on']            = $publishedOn;
 
 
-        $importantLinkMenu->update($input);
+        $SystemFeaturesMenu->update($input);
 
-        if ($importantLinkMenu) {
+        if ($SystemFeaturesMenu) {
             return redirect()->route('frontend_dashboard.system_features_menus.index')->with([
                 'message' => __('panel.updated_successfully'),
                 'alert-type' => 'success'
@@ -172,18 +172,18 @@ class SystemFeaturesMenuControlle extends Controller
         ]);
     }
 
-    public function destroy($importantLinkMenu)
+    public function destroy($SystemFeaturesMenu)
     {
 
         if (!auth()->user()->ability('frontend_dashboard', 'delete_system_features_menus')) {
             return redirect('frontend_dashboard/index');
         }
 
-        $importantLinkMenu = Menu::where('id', $importantLinkMenu)->first();
+        $SystemFeaturesMenu = Menu::where('id', $SystemFeaturesMenu)->first();
 
-        $importantLinkMenu->delete();
+        $SystemFeaturesMenu->delete();
 
-        if ($importantLinkMenu) {
+        if ($SystemFeaturesMenu) {
             return redirect()->route('frontend_dashboard.system_features_menus.index')->with([
                 'message' => __('panel.deleted_successfully'),
                 'alert-type' => 'success'
@@ -196,7 +196,7 @@ class SystemFeaturesMenuControlle extends Controller
         ]);
     }
 
-    public function updateImportantLinkMenuStatus(Request $request)
+    public function updateSystemFeaturesMenuStatus(Request $request)
     {
         if ($request->ajax()) {
             $data = $request->all();
