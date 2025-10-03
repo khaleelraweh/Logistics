@@ -11,7 +11,7 @@ class MenuProperty extends Model
     use HasFactory, HasTranslations;
     protected $guarded = [];
 
-    public $translatable = ['name', 'slug' , 'contact_person' ];
+    public $translatable = ['property_value' ];
 
 
      // ربط الخصائص بالوحدة
