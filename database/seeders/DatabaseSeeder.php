@@ -65,6 +65,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(StatisticSeeder::class);
 
+        $this->call(SiteSettingSeeder::class);
+
 
     }
 }

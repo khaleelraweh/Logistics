@@ -10,6 +10,7 @@ use App\Http\Controllers\FrontendDashboard\MainSliderController;
 use App\Http\Controllers\FrontendDashboard\PageCategoriesController;
 use App\Http\Controllers\FrontendDashboard\PagesController;
 use App\Http\Controllers\FrontendDashboard\PartnerController;
+use App\Http\Controllers\FrontendDashboard\SiteSettingsController;
 use App\Http\Controllers\FrontendDashboard\StatisticsController;
 use App\Http\Controllers\FrontendDashboard\TestimonialController;
 use Illuminate\Support\Facades\Route;
@@ -84,6 +85,27 @@ Route::group(['prefix' => 'frontend_dashboard', 'as' => 'frontend_dashboard.', '
     Route::resource('statistics', StatisticsController::class);
 
 
+    // ==============   Site Setting  Tab   ==============  //
+        Route::get('site_setting/site_infos', [SiteSettingsController::class, 'show_main_informations'])->name('settings.site_main_infos.show');
+        Route::post('site_setting/update_site_info/{id?}', [SiteSettingsController::class, 'update_main_informations'])->name('settings.site_main_infos.update');
+        Route::post('site_setting/site_infos/remove-image', [SiteSettingsController::class, 'remove_image'])->name('site_infos.remove_image');
+        //to remove album
+        Route::post('site_setting/site_infos/remove-site_settings_albums', [SiteSettingsController::class, 'remove_site_settings_albums'])->name('site_infos.remove_site_settings_albums');
+        //for logos
+        Route::post('site_setting/site_infos/remove-site-logo-large-light', [SiteSettingsController::class, 'remove_site_logo_large_light'])->name('site_infos.remove_site_logo_large_light');
+        Route::post('site_setting/site_infos/remove_site_logo_small_light', [SiteSettingsController::class, 'remove_site_logo_small_light'])->name('site_infos.remove_site_logo_small_light');
+        //---------------
+        Route::post('site_setting/site_infos/remove_site_logo_large_dark', [SiteSettingsController::class, 'remove_site_logo_large_dark'])->name('site_infos.remove_site_logo_large_dark');
+        Route::post('site_setting/site_infos/remove_site_logo_small_dark', [SiteSettingsController::class, 'remove_site_logo_small_dark'])->name('site_infos.remove_site_logo_small_dark');
+
+        Route::get('site_setting/site_contacts', [SiteSettingsController::class, 'show_contact_informations'])->name('settings.site_contacts.show');
+        Route::post('site_setting/update_site_contact/{id?}', [SiteSettingsController::class, 'update_contact_informations'])->name('settings.site_contacts.update');
+
+        Route::get('site_setting/site_socials', [SiteSettingsController::class, 'show_socail_informations'])->name('settings.site_socials.show');
+        Route::post('site_setting/update_site_social/{id?}', [SiteSettingsController::class, 'update_social_informations'])->name('settings.site_socials.update');
+
+        Route::get('site_setting/site_metas', [SiteSettingsController::class, 'show_meta_informations'])->name('settings.site_meta.show');
+        Route::post('site_setting/update_site_meta/{id?}', [SiteSettingsController::class, 'update_meta_informations'])->name('settings.site_meta.update');
 
 
 
