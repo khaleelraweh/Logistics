@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\FrontendDashboard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FrontendDashboard\SystemFeaturesMenuRequest;
+use App\Http\Requests\FrontendDashboard\SystemModulesMenuRequest;
 use App\Models\Menu;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,11 +13,11 @@ class SystemModulesMenuController extends Controller
 
     public function index()
     {
-        if (!auth()->user()->ability('frontend_dashboard', 'manage_system_features_menus , show_system_features_menus')) {
+        if (!auth()->user()->ability('frontend_dashboard', 'manage_system_modules_menus , show_system_modules_menus')) {
             return redirect('frontend_dashboard/index');
         }
 
-        $system_features_menus = Menu::query()->where('section', 7)
+        $system_modules_menus = Menu::query()->where('section', 7)
             ->when(\request()->keyword != null, function ($query) {
                 $query->search(\request()->keyword);
             })
@@ -29,21 +29,21 @@ class SystemModulesMenuController extends Controller
                 : (request()->sort_by ?? 'created_at') . ' ' . (request()->order_by ?? 'desc'))
             ->paginate(\request()->limit_by ?? 100);
 
-        return view('frontend_dashboard.system_features_menus.index', compact('system_features_menus'));
+        return view('frontend_dashboard.system_modules_menus.index', compact('system_modules_menus'));
     }
 
     public function create()
     {
-        if (!auth()->user()->ability('frontend_dashboard', 'create_system_features_menus')) {
+        if (!auth()->user()->ability('frontend_dashboard', 'create_system_modules_menus')) {
             return redirect('frontend_dashboard/index');
         }
 
-        return view('frontend_dashboard.system_features_menus.create');
+        return view('frontend_dashboard.system_modules_menus.create');
     }
 
-    public function store(SystemFeaturesMenuRequest $request)
+    public function store(SystemModulesMenuRequest $request)
     {
-        if (!auth()->user()->ability('frontend_dashboard', 'create_system_features_menus')) {
+        if (!auth()->user()->ability('frontend_dashboard', 'create_system_modules_menus')) {
             return redirect('frontend_dashboard/index');
         }
 
@@ -80,17 +80,17 @@ class SystemModulesMenuController extends Controller
         $input['published_on']            = $publishedOn;
 
 
-        $system_features_menu = Menu::create($input);
+        $system_modules_menu = Menu::create($input);
 
 
-        if ($system_features_menu) {
-            return redirect()->route('frontend_dashboard.system_features_menus.index')->with([
+        if ($system_modules_menu) {
+            return redirect()->route('frontend_dashboard.system_modules_menus.index')->with([
                 'message' => __('panel.created_successfully'),
                 'alert-type' => 'success'
             ]);
         }
 
-        return redirect()->route('frontend_dashboard.system_features_menus.index')->with([
+        return redirect()->route('frontend_dashboard.system_modules_menus.index')->with([
             'message' => __('panel.something_was_wrong'),
             'alert-type' => 'danger'
         ]);
@@ -99,31 +99,31 @@ class SystemModulesMenuController extends Controller
 
     public function show($id)
     {
-        if (!auth()->user()->ability('frontend_dashboard', 'display_system_features_menus')) {
+        if (!auth()->user()->ability('frontend_dashboard', 'display_system_modules_menus')) {
             return redirect('frontend_dashboard/index');
         }
-        return view('frontend_dashboard.system_features_menus.show');
+        return view('frontend_dashboard.system_modules_menus.show');
     }
 
 
-    public function edit($SystemFeaturesMenu)
+    public function edit($SystemModulesMenu)
     {
-        if (!auth()->user()->ability('frontend_dashboard', 'update_system_features_menus')) {
+        if (!auth()->user()->ability('frontend_dashboard', 'update_system_modules_menus')) {
             return redirect('frontend_dashboard/index');
         }
 
-        $systemFeaturesMenu = Menu::where('id', $SystemFeaturesMenu)->first();
+        $SystemModulesMenu = Menu::where('id', $SystemModulesMenu)->first();
 
-        return view('frontend_dashboard.system_features_menus.edit', compact('systemFeaturesMenu'));
+        return view('frontend_dashboard.system_modules_menus.edit', compact('SystemModulesMenu'));
     }
 
-    public function update(SystemFeaturesMenuRequest $request,  $SystemFeaturesMenu)
+    public function update(SystemModulesMenuRequest $request,  $SystemModulesMenu)
     {
-        if (!auth()->user()->ability('frontend_dashboard', 'update_system_features_menus')) {
+        if (!auth()->user()->ability('frontend_dashboard', 'update_system_modules_menus')) {
             return redirect('frontend_dashboard/index');
         }
 
-        $SystemFeaturesMenu = Menu::where('id', $SystemFeaturesMenu)->first();
+        $SystemModulesMenu = Menu::where('id', $SystemModulesMenu)->first();
 
         $input['title']     = $request->title;
         $input['link']      = $request->link;
@@ -157,46 +157,46 @@ class SystemModulesMenuController extends Controller
         $input['published_on']            = $publishedOn;
 
 
-        $SystemFeaturesMenu->update($input);
+        $SystemModulesMenu->update($input);
 
-        if ($SystemFeaturesMenu) {
-            return redirect()->route('frontend_dashboard.system_features_menus.index')->with([
+        if ($SystemModulesMenu) {
+            return redirect()->route('frontend_dashboard.system_modules_menus.index')->with([
                 'message' => __('panel.updated_successfully'),
                 'alert-type' => 'success'
             ]);
         }
 
-        return redirect()->route('frontend_dashboard.system_features_menus.index')->with([
+        return redirect()->route('frontend_dashboard.system_modules_menus.index')->with([
             'message' => __('panel.something_was_wrong'),
             'alert-type' => 'danger'
         ]);
     }
 
-    public function destroy($SystemFeaturesMenu)
+    public function destroy($SystemModulesMenu)
     {
 
-        if (!auth()->user()->ability('frontend_dashboard', 'delete_system_features_menus')) {
+        if (!auth()->user()->ability('frontend_dashboard', 'delete_system_modules_menus')) {
             return redirect('frontend_dashboard/index');
         }
 
-        $SystemFeaturesMenu = Menu::where('id', $SystemFeaturesMenu)->first();
+        $SystemModulesMenu = Menu::where('id', $SystemModulesMenu)->first();
 
-        $SystemFeaturesMenu->delete();
+        $SystemModulesMenu->delete();
 
-        if ($SystemFeaturesMenu) {
-            return redirect()->route('frontend_dashboard.system_features_menus.index')->with([
+        if ($SystemModulesMenu) {
+            return redirect()->route('frontend_dashboard.system_modules_menus.index')->with([
                 'message' => __('panel.deleted_successfully'),
                 'alert-type' => 'success'
             ]);
         }
 
-        return redirect()->route('frontend_dashboard.system_features_menus.index')->with([
+        return redirect()->route('frontend_dashboard.system_modules_menus.index')->with([
             'message' => __('panel.something_was_wrong'),
             'alert-type' => 'danger'
         ]);
     }
 
-    public function updateSystemFeaturesMenuStatus(Request $request)
+    public function updateSystemModulesMenuStatus(Request $request)
     {
         if ($request->ajax()) {
             $data = $request->all();
@@ -205,8 +205,8 @@ class SystemModulesMenuController extends Controller
             } else {
                 $status = 1;
             }
-            Menu::where('id', $data['system_features_menu_id'])->update(['status' => $status]);
-            return response()->json(['status' => $status, 'system_features_menu_id' => $data['system_features_menu_id']]);
+            Menu::where('id', $data['system_modules_menu_id'])->update(['status' => $status]);
+            return response()->json(['status' => $status, 'system_modules_menu_id' => $data['system_modules_menu_id']]);
         }
     }
 }
