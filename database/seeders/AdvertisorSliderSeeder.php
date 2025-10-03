@@ -3,27 +3,60 @@
 namespace Database\Seeders;
 
 use App\Models\Slider;
-use Faker\Factory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
+use Faker\Factory as Faker;
 
 class AdvertisorSliderSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $faker = Factory::create();
-
+        $faker  = Faker::create();
         $target = ['_self', '_blank'];
 
+        $slides = [
+            [
+                'title'       => ['ar' => 'خدمة التوصيل السريع', 'en' => 'Express Delivery Service'],
+                'subtitle'    => ['ar' => 'شحن آمن إلى جميع المدن', 'en' => 'Safe shipping to all cities'],
+                'description' => ['ar' => 'توصيل سريع وآمن للطرود مع إمكانية التتبع المباشر.', 'en' => 'Fast and secure parcel delivery with real-time tracking.'],
+                'btn_title'   => ['ar' => 'ابدأ الآن', 'en' => 'Get Started'],
+                'icon'        => 'fas fa-shipping-fast',
+            ],
+            [
+                'title'       => ['ar' => 'حلول التخزين المرن', 'en' => 'Flexible Storage Solutions'],
+                'subtitle'    => ['ar' => 'مستودعات مؤمنة بالكامل', 'en' => 'Fully secured warehouses'],
+                'description' => ['ar' => 'وفر مساحة لتخزين منتجاتك مع مراقبة دقيقة للمخزون.', 'en' => 'Store your products with precise inventory monitoring.'],
+                'btn_title'   => ['ar' => 'احجز مستودعك', 'en' => 'Book Storage'],
+                'icon'        => 'fas fa-warehouse',
+            ],
+            [
+                'title'       => ['ar' => 'تتبع الطرود بسهولة', 'en' => 'Easy Parcel Tracking'],
+                'subtitle'    => ['ar' => 'اعرف مكان طردك في أي وقت', 'en' => 'Know where your parcel is anytime'],
+                'description' => ['ar' => 'نظام تتبع لحظي مع إشعارات فورية لكل عملية تسليم.', 'en' => 'Real-time tracking system with instant delivery updates.'],
+                'btn_title'   => ['ar' => 'تتبع الآن', 'en' => 'Track Now'],
+                'icon'        => 'fas fa-map-marked-alt',
+            ],
+        ];
 
-        Slider::create(['title'  => ['ar' => 'الدورات عبر الإنترنت 100,000', 'en' => 'online courses 100,000 '], 'subtitle'  => ['ar' => 'الدورات عبر الإنترنت 100,000', 'en' => 'online courses 100,000 '], 'description' => ['ar' => 'استكشاف مجموعة متنوعة من المواضيع الجديدة', 'en' => 'Explore a variety of fresh topics'],  'btn_title'     => ['ar' => 'العثور على الدورات', 'en' => 'Find Courses'], 'url'  =>  'https://' . $faker->slug(2) . '.com', 'target' =>  Arr::random($target),   'icon'   => 'fas fa-code', 'section' => 2, 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime()]);
-        Slider::create(['title'  => ['ar' => 'تعليمات الخبراء', 'en' => 'Expert instruction '], 'subtitle'  => ['ar' => 'الدورات عبر الإنترنت 100,000', 'en' => 'online courses 100,000 '], 'description' => ['ar' => 'ابحث عن المدرب المناسب لك', 'en' => 'Find the right instructor for you'], 'btn_title'     => ['ar' => 'العثور على الدورات', 'en' => 'Find Courses'], 'url'  =>  'https://' . $faker->slug(2) . '.com', 'target' =>  Arr::random($target),   'icon'   => 'fas fa-laptop-code', 'section' => 2, 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime()]);
-        Slider::create(['title'  => ['ar' => 'الوصول مدى الحياة', 'en' => 'Lifetime access'], 'subtitle'  => ['ar' => 'الدورات عبر الإنترنت 100,000', 'en' => 'online courses 100,000 '], 'description' => ['ar' => 'تعلم في الجدول الزمني الخاص بك', 'en' => 'Learn on your schedule '], 'btn_title'     => ['ar' => 'العثور على الدورات', 'en' => 'Find Courses'], 'url'  =>  'https://' . $faker->slug(2) . '.com', 'target' =>  Arr::random($target),   'icon'   => 'fas fa-chalkboard-teacher', 'section' => 2, 'created_by' => 'admin', 'status' => true, 'published_on' => $faker->dateTime()]);
+        foreach ($slides as $slide) {
+            Slider::create([
+                'title'        => $slide['title'],
+                'subtitle'     => $slide['subtitle'],
+                'description'  => $slide['description'],
+                'btn_title'    => $slide['btn_title'],
+                'url'          => 'https://' . $faker->domainName,
+                'target'       => Arr::random($target),
+                'icon'         => $slide['icon'],
+                'section'      => 2, // مخصص لقسم الإعلانات
+                'created_by'   => 'admin',
+                'status'       => true,
+                'published_on' => $faker->dateTimeBetween('-6 months', 'now'),
+                'created_at'   => now(),
+                'updated_at'   => now(),
+            ]);
+        }
     }
 }
