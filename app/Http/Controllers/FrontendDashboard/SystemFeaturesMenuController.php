@@ -112,9 +112,9 @@ class SystemFeaturesMenuControlle extends Controller
             return redirect('frontend_dashboard/index');
         }
 
-        $SystemFeaturesMenu = Menu::where('id', $SystemFeaturesMenu)->first();
+        $systemFeaturesMenu = Menu::where('id', $SystemFeaturesMenu)->first();
 
-        return view('frontend_dashboard.system_features_menus.edit', compact('SystemFeaturesMenu'));
+        return view('frontend_dashboard.system_features_menus.edit', compact('systemFeaturesMenu'));
     }
 
     public function update(SystemFeaturesMenuRequest $request,  $SystemFeaturesMenu)
