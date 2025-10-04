@@ -1,15 +1,33 @@
 <style>
+    /* الشعار */
     .partner-item img.partner-logo {
-    max-height: 80px;
-    width: auto;
-    margin: 0 auto;
-    transition: transform 0.3s ease;
-}
+        max-height: 80px;
+        width: auto;
+        margin: 0 auto;
+        transition: transform 0.3s ease;
+    }
 
-.partner-item img.partner-logo:hover {
-    transform: scale(1.1);
-}
+    .partner-item img.partner-logo:hover {
+        transform: scale(1.1);
+    }
 
+    /* 🔹 لون خلفية مميز لقسم الشركاء */
+    .rs-partner {
+        background-color: #f7f9fc; /* لون خلفية فاتح ومختلف عن الأقسام الأخرى */
+        border-top: 1px solid #e5e9f0;
+        border-bottom: 1px solid #e5e9f0;
+    }
+
+    /* تحسين النصوص */
+    .rs-partner .sec-title3 .title {
+        color: #0a0a0a;
+        font-weight: 700;
+    }
+
+    .rs-partner .sub-title {
+        color: #19c8fa; /* لون رئيسي */
+        font-weight: 500;
+    }
 </style>
 
 <!-- Start Partners Section -->
@@ -34,7 +52,7 @@
              data-ipad-device="3"
              data-mobile-device="2">
 
-            @foreach($partners as $partner)
+            @forelse($partners as $partner)
                 <div class="partner-item text-center">
                     @php
                         $imagePath = $partner->partner_image && file_exists(public_path('assets/partners/' . $partner->partner_image))
@@ -50,11 +68,9 @@
                         <img src="{{ $imagePath }}" alt="{{ $partner->getTranslation('name', app()->getLocale()) }}" class="partner-logo img-fluid">
                     @endif
                 </div>
-            @endforeach
-
-            @if($partners->isEmpty())
+            @empty
                 <p class="text-center text-muted">{{ __('panel.no_partners_found') ?? 'No partners available yet.' }}</p>
-            @endif
+            @endforelse
         </div>
     </div>
 </div>
