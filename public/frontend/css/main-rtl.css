@@ -173,7 +173,7 @@ ul {
   .header nav ul {
     display: none;
   }
-  .header nav .toogle-menu + ul.subMenu {
+  /* .header nav .toogle-menu + ul.subMenu {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -182,7 +182,7 @@ ul {
     right: 0;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-  }
+  } */
   .header nav ul.subMenu li {
     width: 100%;
     text-align: center;
