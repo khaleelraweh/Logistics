@@ -1600,6 +1600,11 @@ return [
     'testimonial_title'                     =>  'إشادات نعتز بها',
     'no_testimonials_found'                 =>  'لم يتم تعيين اشادات حاليا',
 
+    //partners
+    'partners_subtitle'                     =>  'الشركاء',
+    'partners_title'                        =>  'شركاء نعتز بهم',
+    'no_partners_found'                     =>  'لا يوجد شركاء',
+
 
 
 

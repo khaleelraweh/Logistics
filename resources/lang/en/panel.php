@@ -1632,6 +1632,11 @@ return [
     'testimonial_title'                     =>  'Praises we are proud of',
     'no_testimonials_found'                 =>  'No Testimonial Found',
 
+    //partners
+    'partners_subtitle'                     =>  'Partners',
+    'partners_title'                        =>  'Partners we value',
+    'no_partners_found'                     =>  'No partners Found',
+
 
 
 ];

@@ -3,7 +3,11 @@
 @section('content')
     @include('frontend.home.main-slider')
 
+    @include('frontend.home.partners')
+
     @include('frontend.home.quick_access')
+
+
 
 
 
