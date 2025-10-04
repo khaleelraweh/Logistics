@@ -66,8 +66,10 @@ class FrontendController extends Controller
             $common_questions = CommonQuestion::active()->orderBy('created_at', 'desc')->take(6)->get();
             $testimonials = Testimonial::active()->orderBy('published_on', 'desc')->take(10)->get();
 
+            $system_features = Menu::where('section', 2)->where('status', true)->orderBy('id')->get();
+
 
             // $statistics = Statistic::Active()->orderBy('created_at', 'ASC')->get();
-            return view('frontend.index', compact('main_sliders', 'statistics' , 'common_questions' , 'testimonials', 'partners'));
+            return view('frontend.index', compact('main_sliders', 'statistics' , 'common_questions' , 'testimonials', 'partners' ,'system_features'));
         }
 }

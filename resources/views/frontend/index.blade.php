@@ -7,6 +7,8 @@
 
     @include('frontend.home.quick_access')
 
+    @include('frontend.home.features-section')
+
 
 
 
