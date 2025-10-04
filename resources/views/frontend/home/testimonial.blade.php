@@ -1,8 +1,8 @@
 <div class="rs-testimonial main-home pt-100 pb-100 md-pt-70 md-pb-70">
     <div class="container">
         <div class="sec-title3 mb-50 md-mb-30 text-center">
-            <div class="sub-title primary">{{ __('frontend.testimonial_subtitle') ?? 'Testimonial' }}</div>
-            <h2 class="title white-color">{{ __('frontend.testimonial_title') ?? 'What Our Students Say' }}</h2>
+            <div class="sub-title primary">{{ __('panel.testimonial_subtitle') ?? 'Testimonial' }}</div>
+            <h2 class="title white-color">{{ __('panel.testimonial_title') ?? 'What Our Students Say' }}</h2>
         </div>
 
         <div class="rs-carousel owl-carousel"
@@ -50,7 +50,7 @@
             @endforeach
 
             @if($testimonials->isEmpty())
-                <p class="text-center text-muted">{{ __('frontend.no_testimonials_found') ?? 'No testimonials available yet.' }}</p>
+                <p class="text-center text-muted">{{ __('panel.no_testimonials_found') ?? 'No testimonials available yet.' }}</p>
             @endif
 
         </div>

@@ -1630,6 +1630,7 @@ return [
     //testimonial
     'testimonial_subtitle'                  =>  'Testimonial',
     'testimonial_title'                     =>  'Praises we are proud of',
+    'no_testimonials_found'                 =>  'No Testimonial Found',
 
 
 

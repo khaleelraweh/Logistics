@@ -1598,6 +1598,7 @@ return [
     //testimonial
     'testimonial_subtitle'                  =>  'اشادات',
     'testimonial_title'                     =>  'إشادات نعتز بها',
+    'no_testimonials_found'                 =>  'لم يتم تعيين اشادات حاليا',
 
 
 
