@@ -1259,3 +1259,243 @@ footer .container .copyleft span {
 /* End footer  */
 
 /* Test slider  */
+
+/* تحسينات شريط التنقل */
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.9);
+    transition: all 0.3s ease;
+}
+
+.header.scrolled {
+    background: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    min-height: 80px;
+}
+
+.header .Logo img {
+    height: 3.5em;
+    transition: all 0.3s ease;
+}
+
+/* تحسينات القائمة الرئيسية */
+.header nav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navigation-container {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation-container > li {
+    position: relative;
+}
+
+.nav-link, .sub-nav-link, .sub-sub-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 25px 15px !important;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    position: relative;
+    white-space: nowrap;
+}
+
+.nav-link:hover, .sub-nav-link:hover, .sub-sub-nav-link:hover {
+    color: var(--main-color);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+/* القوائم المنسدلة */
+.sub-menu, .sub-sub-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    min-width: 250px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.sub-sub-menu {
+    top: 0;
+    right: 100%;
+}
+
+.has-children:hover > .sub-menu,
+.has-children:hover > .sub-sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.has-children:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.sub-menu li, .sub-sub-menu li {
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sub-menu li:last-child, .sub-sub-menu li:last-child {
+    border-bottom: none;
+}
+
+/* زر القائمة في الجوال */
+.toggle-menu {
+    display: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+/* تحسينات للأجهزة المحمولة */
+@media (max-width: 991px) {
+    .header .container {
+        min-height: 70px;
+    }
+
+    .header .Logo img {
+        height: 3em;
+    }
+
+    .toggle-menu {
+        display: block;
+    }
+
+    .navigation-container {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+    }
+
+    .navigation-container.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .navigation-container > li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link {
+        padding: 15px 20px !important;
+        justify-content: space-between;
+    }
+
+    .sub-menu, .sub-sub-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: none;
+        display: none;
+    }
+
+    .sub-menu.active, .sub-sub-menu.active {
+        display: block;
+    }
+
+    .nav-actions {
+        gap: 10px;
+    }
+
+    .login-register {
+        margin: 0 10px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .nav-actions {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .header .Logo img {
+        height: 2.5em;
+    }
+}
+
+/* تحسينات العناصر الأخرى */
+.header nav .form,
+.header nav #dark_theme_icon,
+.header nav #light_theme_icon,
+.header nav .language-switcher {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.header nav .form:hover,
+.header nav #dark_theme_icon:hover,
+.header nav #light_theme_icon:hover,
+.header nav .language-switcher:hover {
+    color: var(--main-color);
+}
+
+.login-register {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 15px;
+}
+
+.auth-link {
+    color: #fff !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease;
+}
+
+.auth-link:hover {
+    color: var(--main-color) !important;
+}
