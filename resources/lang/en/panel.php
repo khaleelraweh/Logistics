@@ -1638,5 +1638,10 @@ return [
     'no_partners_found'                     =>  'No partners Found',
 
 
+    //featured section
+    'system_features_title'             =>  'Reasons why Orax Logistics is the right system for you',
+    'system_features_subtitle'          =>  'System Features',
+    'no_features_found'                 =>  'No Features Found',
+
 
 ];

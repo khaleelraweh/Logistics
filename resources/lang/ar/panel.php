@@ -1605,6 +1605,10 @@ return [
     'partners_title'                        =>  'شركاء نعتز بهم',
     'no_partners_found'                     =>  'لا يوجد شركاء',
 
+    //featured section
+    'system_features_title'             =>  'اسباب تجعل نظام اوراكس لوجستك النظام الانسب لك',
+    'system_features_subtitle'          =>  'مميزات النظام',
+    'no_features_found'                 =>  'لا يوجد مميزات الى الان',
 
 
 
