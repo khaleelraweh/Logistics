@@ -18,7 +18,7 @@ class SiteSettingSeeder extends Seeder
         // site infos
         SiteSetting::create(['key' => 'site_name', 'value' => ['ar' => 'أوراكس لوجستيك', 'en' => 'Orax Logistics'], 'status' => true, 'section' => 1, 'published_on' => $faker->dateTime()]);
         SiteSetting::create(['key' => 'site_short_name', 'value' => ['ar' => 'أوراكس', 'en' => 'Orax'], 'status' => true, 'section' => 1, 'published_on' => $faker->dateTime()]);
-        SiteSetting::create(['key' => 'site_address', 'value' => ['ar' => 'اليمن', 'en' => 'Yemen'], 'status' => true, 'section' => 1, 'published_on' => $faker->dateTime()]);
+        SiteSetting::create(['key' => 'site_address', 'value' => ['ar' => 'المملكة العربية السعودية', 'en' => 'Kingdom of Saudi Arabia'], 'status' => true, 'section' => 1, 'published_on' => $faker->dateTime()]);
         SiteSetting::create(['key' => 'site_description', 'value' => ['ar' => 'خدمات الشحن والتخزين والتوصيل الموثوقة', 'en' => 'Reliable shipping, storage, and delivery services'], 'status' => true, 'section' => 1, 'published_on' => $faker->dateTime()]);
         SiteSetting::create(['key' => 'site_link', 'value' => 'https://www.oraxlogistics.com', 'status' => true, 'section' => 1, 'published_on' => $faker->dateTime()]);
         SiteSetting::create(['key' => 'site_workTime', 'value' => ['ar' => 'طوال أيام الأسبوع', 'en' => 'Every day of the week'], 'status' => true, 'section' => 1, 'published_on' => $faker->dateTime()]);
