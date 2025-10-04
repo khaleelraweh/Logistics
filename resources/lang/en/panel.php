@@ -1627,6 +1627,10 @@ return [
     'faq_title'                             =>  'Faq Title',
     'no_questions_found'                    =>  'No Questions Found',
 
+    //testimonial
+    'testimonial_subtitle'                  =>  'Testimonial',
+    'testimonial_title'                     =>  'Praises we are proud of',
+
 
 
 ];

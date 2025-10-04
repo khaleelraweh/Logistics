@@ -1595,6 +1595,9 @@ return [
     'faq_title'                             =>  'الاسئلة الشائعة',
     'no_questions_found'                    =>  'لا يوجد اسئلة حاليا',
 
+    //testimonial
+    'testimonial_subtitle'                  =>  'اشادات',
+    'testimonial_title'                     =>  'إشادات نعتز بها',
 
 
 
