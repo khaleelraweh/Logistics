@@ -5,17 +5,17 @@
 
     @include('frontend.home.quick_access')
 
-    {{-- @include('frontend.home.president_speech')
 
-    @include('frontend.home.news-events')
 
-    @include('frontend.home.academic-programs')
+    {{-- @include('frontend.home.news-events') --}}
+
+    {{-- @include('frontend.home.academic-programs') --}}
 
     @include('frontend.home.statistics')
 
-    @include('frontend.home.playlists')
+    {{-- @include('frontend.home.playlists') --}}
 
-    @include('frontend.home.albums') --}}
+    {{-- @include('frontend.home.albums') --}}
 
 
 
