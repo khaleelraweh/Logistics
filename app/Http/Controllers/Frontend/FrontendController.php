@@ -59,13 +59,16 @@ class FrontendController extends Controller
     // }
 
         public function index()
-    {
-        $main_sliders = Slider::with('firstMedia')->latest()->orderBy('published_on', 'desc')->Active()->take(8)->get();
+        {
+            $main_sliders = Slider::with('firstMedia')->latest()->orderBy('published_on', 'desc')->Active()->take(8)->get();
 
 
-        $statistics = Statistic::Active()->orderBy('created_at', 'ASC')->take(10)->get();
+            $statistics = Statistic::Active()->orderBy('created_at', 'ASC')->take(10)->get();
 
-        // $statistics = Statistic::Active()->orderBy('created_at', 'ASC')->get();
-        return view('frontend.index', compact('main_sliders', 'statistics'));
-    }
+            $common_questions = CommonQuestion::active()->orderBy('created_at', 'desc')->take(6)->get();
+
+
+            // $statistics = Statistic::Active()->orderBy('created_at', 'ASC')->get();
+            return view('frontend.index', compact('main_sliders', 'statistics' , 'common_questions'));
+        }
 }

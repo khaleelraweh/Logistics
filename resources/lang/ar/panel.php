@@ -1591,6 +1591,9 @@ return [
     'Layout_Mode'                               =>  'ضبط اللي اوت',
 
 
+     //common question
+    'faq_title'                             =>  'الاسئلة الشائعة',
+    'no_questions_found'                    =>  'لا يوجد اسئلة حاليا',
 
 
 

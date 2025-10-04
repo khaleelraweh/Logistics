@@ -1623,6 +1623,10 @@ return [
     'Layout_Mode'                               =>  'Layout Mode',
 
 
+    //common question
+    'faq_title'                             =>  'Faq Title',
+    'no_questions_found'                    =>  'No Questions Found',
+
 
 
 ];
