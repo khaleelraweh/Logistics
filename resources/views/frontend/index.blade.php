@@ -3,71 +3,9 @@
 @section('content')
 
     <!-- Start Landing Section -->
-    <div class="landing" id="home">
-        <div class="overlay"></div>
-        <div class="wrapper">
-            <div class="bxslider">
-            <!-- text three -->
-            <div class="text wow fadeIn" data-wow-duration="1s">
-                <div class="content wow fadeInDown loop" data-wow-duration="1s">
-                <h2>
-                    First One ! <br />
-                    we are kasper we make arts
-                </h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Excepturi accusantium nobis possimus quod tenetur nisi ipsum,
-                    modi, commodi doloribus velit odio quia quae rem beatae, eaque
-                    voluptatibus pariatur incidunt doloremque!
-                </p>
-                </div>
-            </div>
-            <!-- text two -->
-            <div class="text wow fadeIn" data-wow-duration="1s">
-                <div class="content wow fadeInDown" data-wow-duration="1s">
-                <h2>
-                    Second One! <br />
-                    we are kasper we make arts
-                </h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Excepturi accusantium nobis possimus quod tenetur nisi ipsum,
-                    modi, commodi doloribus velit odio quia quae rem beatae, eaque
-                    voluptatibus pariatur incidunt doloremque!
-                </p>
-                </div>
-            </div>
-            <!-- text three -->
-            <div class="text wow fadeIn" data-wow-duration="1s">
-                <div class="content wow fadeInDown" data-wow-duration="1s">
-                <h2>
-                    Third One! <br />
-                    we are kasper we make arts
-                </h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Excepturi accusantium nobis possimus quod tenetur nisi ipsum,
-                    modi, commodi doloribus velit odio quia quae rem beatae, eaque
-                    voluptatibus pariatur incidunt doloremque!
-                </p>
-                </div>
-            </div>
-            </div>
-        </div>
-
-        <i class="fa-solid fa-angles-up" id="up"></i>
-    </div>
+    @include('frontend.home.landing')
     <!-- End Landing Section -->
 
-
-  {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
-    <button class="btn btn-outline-secondary ms-auto" id="dark_theme_icon" onclick="toggleTheme()">
-        <i class="fa fa-moon"></i>
-    </button>
-    <button class="btn btn-outline-secondary ms-auto hide_item" id="light_theme_icon" onclick="toggleTheme()">
-        <i class="fa fa-sun"></i>
-    </button>
-  </nav> --}}
 
     <!-- start Services section  -->
     <div class="services" id="services">
