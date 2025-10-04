@@ -117,7 +117,7 @@
                      <h3 class="widget-title">{{ __('panel.links_that_interest_you') }}</h3>
                      <ul class="site-map">
 
-                         @foreach ($frontend_menus->where('section', 7) as $important_link_menu)
+                         @foreach ($frontend_menus->where('section', 4) as $important_link_menu)
                              <li><a href="{{ $important_link_menu->link }}">{{ $important_link_menu->title }}</a></li>
                          @endforeach
 
