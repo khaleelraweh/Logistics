@@ -74,10 +74,10 @@
                              <div class="desc">
                                  <?php
                                  $parsedUrl = parse_url($siteSettings['site_email1']->value, PHP_URL_HOST);
-                                 
+
                                  // Remove 'www.' if it exists
                                  $domain = preg_replace('/^www\./', '', $parsedUrl);
-                                 
+
                                  ?>
                                  <a
                                      href="mailto:{{ $siteSettings['site_email1']->value ?? '' }}">contact&#64;{{ $domain ?? '' }}</a>
@@ -102,10 +102,10 @@
                              <div class="desc desc-title">
                                  <?php
                                  $parsedUrl = parse_url($siteSettings['site_email1']->value, PHP_URL_HOST);
-                                 
+
                                  // Remove 'www.' if it exists
                                  $domain = preg_replace('/^www\./', '', $parsedUrl);
-                                 
+
                                  ?>
                                  <a
                                      href="mailto:{{ $siteSettings['site_email1']->value ?? '' }}">contact&#64;{{ $domain ?? '' }}</a>
@@ -117,7 +117,7 @@
                      <h3 class="widget-title">{{ __('panel.links_that_interest_you') }}</h3>
                      <ul class="site-map">
 
-                         @foreach ($web_menus->where('section', 7) as $important_link_menu)
+                         @foreach ($frontend_menus->where('section', 7) as $important_link_menu)
                              <li><a href="{{ $important_link_menu->link }}">{{ $important_link_menu->title }}</a></li>
                          @endforeach
 
@@ -191,7 +191,7 @@
                  </div>
                  <div class="col-lg-6 text-right md-text-left">
                      <ul class="copy-right-menu">
-                         @foreach ($web_menus->where('section', 9) as $PoliciesPrivacy)
+                         @foreach ($frontend_menus->where('section', 9) as $PoliciesPrivacy)
                              <li><a href="{{ $PoliciesPrivacy->link }}">{{ $PoliciesPrivacy->title }}</a></li>
                          @endforeach
 

@@ -189,7 +189,7 @@ $domain = preg_replace('/^www\./', '', $parsedUrl);
                                 </div>
                                 <nav class="rs-menu">
                                     <ul class="nav-menu">
-                                        @foreach ($web_menus->where('section', 1) as $menu)
+                                        @foreach ($frontend_menus->where('section', 1) as $menu)
                                             <li
                                                 class=" {{ count($menu->appearedChildren) > 0 ? 'menu-item-has-children has-children' : '' }}">
                                                 <a
