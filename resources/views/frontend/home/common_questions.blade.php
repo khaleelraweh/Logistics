@@ -1,4 +1,4 @@
-<div class="rs-faq-part style1 orange-color pt-100 pb-100 md-pt-70 md-pb-70 d-none">
+<div class="rs-faq-part style1 orange-color pt-100 pb-100 md-pt-70 md-pb-70 ">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 padding-0">

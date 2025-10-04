@@ -1,4 +1,4 @@
-<div class="rs-testimonial main-home pt-100 pb-100 md-pt-70 md-pb-70 d-none">
+<div class="rs-testimonial main-home pt-100 pb-100 md-pt-70 md-pb-70">
     <div class="container">
         <div class="sec-title3 mb-50 md-mb-30 text-center">
             <div class="sub-title primary">Testimonial</div>
