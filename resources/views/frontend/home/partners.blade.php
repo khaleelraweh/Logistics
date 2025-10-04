@@ -1,3 +1,17 @@
+<style>
+    .partner-item img.partner-logo {
+    max-height: 80px;
+    width: auto;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.partner-item img.partner-logo:hover {
+    transform: scale(1.1);
+}
+
+</style>
+
 <!-- Start Partners Section -->
 <div class="rs-partner pt-80 pb-80 md-pt-50 md-pb-50">
     <div class="container">
