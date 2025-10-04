@@ -1,4 +1,13 @@
 
+:root {
+    --primary-red: #E03032;
+    --primary-red-rgb: 224, 48, 50;
+    --dark-blue: #0078BF;
+    --medium-blue: #00A0E3;
+    --light-gray: #F5F5F5;
+    --dark-text: #1A1A1A;
+}
+
 /*Start Global */
 body {
     font-family: 'cairo-regular', sans-serif;
