@@ -67,7 +67,7 @@
 
         <div class="row g-4">
             @forelse($system_features as $feature)
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 mb-2">
                     <div class="feature-item h-100">
                         <i class="{{ $feature->icon }}"></i>
                         <h4>{{ $feature->getTranslation('title', app()->getLocale()) }}</h4>
