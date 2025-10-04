@@ -85,9 +85,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">حالة المحتوى</h6>
                 </div>
                 <div class="card-body">
-                    <div class="chart-bar">
-                        <canvas id="contentStatusChart"></canvas>
-                    </div>
+                    <div id="contentStatusChart" style="height: 400px;"></div>
                 </div>
             </div>
         </div>
@@ -241,52 +239,70 @@
 </div>
 @endsection
 
-@push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@section('script')
 <script>
-    // Content Status Chart
     document.addEventListener('DOMContentLoaded', function() {
-        const ctx = document.getElementById('contentStatusChart').getContext('2d');
-        const contentStatusChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['السلايدرات', 'الصفحات', 'آراء العملاء', 'الشركاء', 'القوائم', 'الأسئلة'],
-                datasets: [{
-                    label: 'المحتوى النشط',
-                    data: [
-                        {{ $activeMainSliders }},
-                        {{ $activePages }},
-                        {{ $activeTestimonials }},
-                        {{ $activePartners }},
-                        {{ $activeMainMenus }},
-                        {{ $activeCommonQuestions }}
-                    ],
-                    backgroundColor: 'rgba(78, 115, 223, 0.8)',
-                    borderColor: 'rgba(78, 115, 223, 1)',
-                    borderWidth: 1
-                }]
+        // استخدام ApexCharts بدلاً من Chart.js
+        var options = {
+            series: [{
+                name: 'المحتوى النشط',
+                data: [
+                    {{ $activeMainSliders }},
+                    {{ $activePages }},
+                    {{ $activeTestimonials }},
+                    {{ $activePartners }},
+                    {{ $activeMainMenus }},
+                    {{ $activeCommonQuestions }}
+                ]
+            }],
+            chart: {
+                type: 'bar',
+                height: 400,
+                toolbar: {
+                    show: false
+                }
             },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1
-                        }
-                    }
+            plotOptions: {
+                bar: {
+                    borderRadius: 4,
+                    horizontal: false,
+                    columnWidth: '70%',
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            xaxis: {
+                categories: ['السلايدرات', 'الصفحات', 'آراء العملاء', 'الشركاء', 'القوائم', 'الأسئلة'],
+            },
+            yaxis: {
+                title: {
+                    text: 'العدد'
                 },
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    title: {
-                        display: true,
-                        text: 'المحتوى النشط حسب النوع'
+                tickAmount: 5
+            },
+            fill: {
+                opacity: 1
+            },
+            colors: ['#4e73df'],
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val + " عنصر"
                     }
                 }
             }
-        });
+        };
+
+        var chart = new ApexCharts(document.querySelector("#contentStatusChart"), options);
+        chart.render();
     });
 </script>
-@endpush
+@endsection
+
