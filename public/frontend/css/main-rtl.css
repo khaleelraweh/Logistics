@@ -61,6 +61,13 @@ ul {
     width: 90%;
   }
 }
+
+.hide_item{
+    display: none;
+}
+.show_item{
+    display: block;
+}
 /* End Global Roules */
 /* Start components  */
 .main-heading {

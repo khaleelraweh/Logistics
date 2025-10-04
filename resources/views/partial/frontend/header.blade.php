@@ -42,14 +42,14 @@
                 <i class="fas fa-search"></i>
             </div>
 
-            <div class="theme-switcher">
+            {{-- <div class="theme-switcher">
                 <div id="dark_theme_icon" onclick="toggleTheme()">
                     <i class="fa fa-moon"></i>
                 </div>
                 <div class="hide_item" id="light_theme_icon" onclick="toggleTheme()">
                     <i class="fa fa-sun"></i>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="language-switcher">
                 @foreach (config('locales.languages') as $key => $val)
