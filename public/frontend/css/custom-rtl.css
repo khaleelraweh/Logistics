@@ -156,7 +156,9 @@ h4{
 .qa-content{
     border-radius: 10px;
     transition: all 0.3s;
-    background-color: #00856a;
+    /* background-color: #00856a; */
+    /* background-color: #19c8fa; */
+    background-color: #00A0E3;
 }
 /* Quick access end */
 
