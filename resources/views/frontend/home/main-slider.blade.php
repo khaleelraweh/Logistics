@@ -12,12 +12,10 @@
                     $main_slider_img = asset('assets/main_sliders/' . $main_slider->firstMedia->file_name);
 
                     if (!file_exists(public_path('assets/main_sliders/' . $main_slider->firstMedia->file_name))) {
-                        $main_slider_img = asset('image/not_found/placeholder.jpg');
-                        // $main_slider_img = asset('frontend/images/slider/main-home/1.jpg');
+                        $main_slider_img = asset('images/oraxsoft_slider.jpg');
                     }
                 } else {
-                    $main_slider_img = asset('image/not_found/placeholder.jpg');
-                    // $main_slider_img = asset('frontend/images/slider/main-home/1.jpg');
+                    $main_slider_img = asset('images/oraxsoft_slider.jpg');
                 }
             @endphp
             <div class="slider-content slide1" style="background-image: url({{ $main_slider_img }})">
