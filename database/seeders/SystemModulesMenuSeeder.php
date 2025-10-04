@@ -52,7 +52,7 @@ class SystemModulesMenuSeeder extends Seeder
             [
                 'title'       => ['ar' => 'نظام إدارة المرتجعات', 'en' => 'Returns Management'],
                 'link'        => ['ar' => 'returns-management', 'en' => 'returns-management'],
-                'icon'        => 'fa fa-undo-alt',
+                'icon'        => 'fa fa-undo',
                 'description' => [
                     'ar' => 'إدارة جميع طلبات المرتجعات بشكل منظم وسريع لضمان رضا العملاء.',
                     'en' => 'Manage all return requests in an organized and fast manner to ensure customer satisfaction.'
