@@ -55,5 +55,10 @@ class AppServiceProvider extends ServiceProvider
             View::share('siteSettings', $siteSettings);
         }
 
+        if (Schema::hasTable('menus')) {
+            $frontend_menus = Menu::tree();
+            View::share('frontend_menus', $frontend_menus);
+        }
+
     }
 }
