@@ -23,5 +23,5 @@
     @include('frontend.home.common_questions')
 
     {{-- d-none --}}
-    {{-- @include('frontend.home.testimonial') --}}
+    @include('frontend.home.testimonial')
 @endsection
