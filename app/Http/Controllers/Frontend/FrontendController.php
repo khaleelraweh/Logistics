@@ -14,13 +14,38 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        // جلب البيانات من قاعدة البيانات
-        $mainSliders = Slider::where('section', 1)->where('status', 1)->get();
-        $partners = Partner::where('status', 1)->get();
-        $systemFeatures = Menu::where('section', 2)->where('status', 1)->get();
-        $systemModules = Menu::where('section', 3)->where('status', 1)->get();
-        $testimonials = Testimonial::where('status', 1)->get();
-        $commonQuestions = CommonQuestion::where('status', 1)->get();
+        // جلب السلايدرات الرئيسية النشطة
+        $mainSliders = Slider::where('section', 1)
+            ->where('status', 1)
+            ->orderBy('published_on', 'desc')
+            ->get();
+
+        // جلب الشركاء النشطين
+        $partners = Partner::where('status', 1)
+            ->orderBy('published_on', 'desc')
+            ->get();
+
+        // جلب مميزات النظام النشطة
+        $systemFeatures = Menu::where('section', 2)
+            ->where('status', 1)
+            ->orderBy('published_on', 'desc')
+            ->get();
+
+        // جلب وحدات النظام النشطة
+        $systemModules = Menu::where('section', 3)
+            ->where('status', 1)
+            ->orderBy('published_on', 'desc')
+            ->get();
+
+        // جلب آراء العملاء النشطة
+        $testimonials = Testimonial::where('status', 1)
+            ->orderBy('published_on', 'desc')
+            ->get();
+
+        // جلب الأسئلة الشائعة النشطة
+        $commonQuestions = CommonQuestion::where('status', 1)
+            ->orderBy('published_on', 'desc')
+            ->get();
 
         return view('frontend.index', compact(
             'mainSliders',

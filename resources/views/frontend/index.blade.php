@@ -6,578 +6,274 @@
     <div class="landing" id="home">
         <div class="overlay"></div>
         <div class="wrapper">
+            @if($mainSliders->count() > 0)
             <div class="bxslider">
-            <!-- text three -->
-            <div class="text wow fadeIn" data-wow-duration="1s">
-                <div class="content wow fadeInDown loop" data-wow-duration="1s">
-                <h2>
-                    First One ! <br />
-                    we are kasper we make arts
-                </h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Excepturi accusantium nobis possimus quod tenetur nisi ipsum,
-                    modi, commodi doloribus velit odio quia quae rem beatae, eaque
-                    voluptatibus pariatur incidunt doloremque!
-                </p>
+                @foreach($mainSliders as $slider)
+                <div class="text wow fadeIn" data-wow-duration="1s">
+                    <div class="content wow fadeInDown" data-wow-duration="1s">
+                        <h2>{{ $slider->title ?? 'نظام لوجستي متكامل' }}</h2>
+                        <p>{{ $slider->description ?? 'نقدم حلول لوجستية متكاملة' }}</p>
+                        @if($slider->show_btn_title && $slider->btn_title)
+                        <a href="{{ $slider->url ?? '#services' }}" class="btn btn-primary mt-3" target="{{ $slider->target ?? '_self' }}">
+                            {{ $slider->btn_title ?? 'اعرف المزيد' }}
+                        </a>
+                        @endif
+                    </div>
                 </div>
+                @endforeach
             </div>
-            <!-- text two -->
-            <div class="text wow fadeIn" data-wow-duration="1s">
-                <div class="content wow fadeInDown" data-wow-duration="1s">
-                <h2>
-                    Second One! <br />
-                    we are kasper we make arts
-                </h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Excepturi accusantium nobis possimus quod tenetur nisi ipsum,
-                    modi, commodi doloribus velit odio quia quae rem beatae, eaque
-                    voluptatibus pariatur incidunt doloremque!
-                </p>
-                </div>
-            </div>
-            <!-- text three -->
+            @else
             <div class="text wow fadeIn" data-wow-duration="1s">
                 <div class="content wow fadeInDown" data-wow-duration="1s">
-                <h2>
-                    Third One! <br />
-                    we are kasper we make arts
-                </h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Excepturi accusantium nobis possimus quod tenetur nisi ipsum,
-                    modi, commodi doloribus velit odio quia quae rem beatae, eaque
-                    voluptatibus pariatur incidunt doloremque!
-                </p>
+                    <h2>نظام لوجستي متكامل <br />لإدارة سلاسل التوريد</h2>
+                    <p>نقدم حلول لوجستية متكاملة تشمل إدارة المستودعات، التخزين، النقل، والتوصيل</p>
+                    <a href="#services" class="btn btn-primary mt-3">اكتشف خدماتنا</a>
                 </div>
             </div>
-            </div>
+            @endif
         </div>
-
         <i class="fa-solid fa-angles-up" id="up"></i>
     </div>
     <!-- End Landing Section -->
 
-
-  {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
-    <button class="btn btn-outline-secondary ms-auto" id="dark_theme_icon" onclick="toggleTheme()">
-        <i class="fa fa-moon"></i>
-    </button>
-    <button class="btn btn-outline-secondary ms-auto hide_item" id="light_theme_icon" onclick="toggleTheme()">
-        <i class="fa fa-sun"></i>
-    </button>
-  </nav> --}}
-
-    <!-- start Services section  -->
-    <div class="services" id="services">
-      <div class="container">
-        <div class="main-heading wow fadeIn" data-wow-duration="2s">
-          <h2>Services</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-            numquam doloremque error! In amet optio eum fugiat iusto
-
-          </p>
-        </div>
-        <div class="services-container">
-          <div
-            class="srv-box wow bounceInLeft"
-            data-wow-duration="1s"
-            data-wow-delay="0.5s"
-          >
-            <i class="fas fa-desktop fa-3x"></i>
-            <div class="text">
-              <h3>Vorem Amet intutive</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                error, maxime consectetur nostrum rem beatae quisquam mollitia
-              </p>
+    <!-- Start Partners Section -->
+    @if($partners->count() > 0)
+    <div class="services" id="partners">
+        <div class="container">
+            <div class="main-heading wow fadeIn" data-wow-duration="2s">
+                <h2>شركاؤنا</h2>
+                <p>نعمل مع أفضل الشركاء لتقديم حلول لوجستية متكاملة</p>
             </div>
-          </div>
-          <div
-            class="srv-box wow bounceInRight"
-            data-wow-duration="1s"
-            data-wow-delay="0.5s"
-          >
-            <i class="fas fa-pencil-ruler fa-3x"></i>
-            <div class="text">
-              <h3>Vorem Amet intutive</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                error, maxime consectetur nostrum rem beatae quisquam mollitia
-              </p>
-            </div>
-          </div>
-          <div
-            class="srv-box wow bounceInLeft"
-            data-wow-duration="1s"
-            data-wow-delay="0.5s"
-          >
-            <i class="fas fa-camera fa-3x"></i>
-            <div class="text">
-              <h3>Vorem Amet intutive</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                error, maxime consectetur nostrum rem beatae quisquam mollitia
-              </p>
-            </div>
-          </div>
-          <div
-            class="srv-box wow bounceInRight"
-            data-wow-duration="1s"
-            data-wow-delay="0.5s"
-          >
-            <i class="fas fa-cog fa-3x"></i>
-            <div class="text">
-              <h3>Vorem Amet intutive</h3>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                error, maxime consectetur nostrum rem beatae quisquam mollitia
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End Services section  -->
-    <!-- Start Design section  -->
-    <div class="design" id="project">
-      <div class="image wow fadeInUp">
-        <img src="{{asset('frontend/images/mobile.png')}}" alt="phone image" />
-      </div>
-      <div class="text wow fadeInRight">
-        <h2>our design comes with</h2>
-        <ul>
-          <li>responsive design</li>
-          <li>modern and clean design</li>
-          <li>clean code</li>
-          <li>brwoser friendly</li>
-        </ul>
-      </div>
-    </div>
-    <!-- End Design section  -->
-    <!-- start portfolio section  -->
-    <div class="portfolio" id="portfolio">
-      <div class="container">
-        <div class="main-heading">
-          <h2>Portfolio</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-            numquam doloremque error! In amet optio eum fugiat iusto
-          </p>
-        </div>
-        <ul class="shuffle Portfolio-filter wow bounceIn">
-          <li class="active" data-filter="all">All</li>
-          <li data-filter="app">App</li>
-          <li data-filter="photo">Photo</li>
-          <li data-filter="web">Web</li>
-          <li data-filter="print">Print</li>
-        </ul>
-      </div>
-
-      <div class="imgs-container wow bounceIn">
-        <div class="box Portfolio-item" data-category="app">
-          <img src="{{asset('frontend/images/shuffle-01.jpg')}}" alt="" />
-          <div class="caption">
-            <h3>Awesome Image</h3>
-            <p>Photography</p>
-          </div>
-        </div>
-        <div class="box Portfolio-item" data-category="app">
-          <img src="{{asset('frontend/images/shuffle-02.jpg')}}" alt="" />
-          <div class="caption">
-            <h3>Awesome Image</h3>
-            <p>Photography</p>
-          </div>
-        </div>
-        <div class="box Portfolio-item" data-category="photo">
-          <img src="{{asset('frontend/images/shuffle-03.jpg')}}" alt="" />
-          <div class="caption">
-            <h3>Awesome Image</h3>
-            <p>Photography</p>
-          </div>
-        </div>
-        <div class="box Portfolio-item" data-category="web">
-          <img src="{{asset('frontend/images/shuffle-04.jpg')}}" alt="" />
-          <div class="caption">
-            <h3>Awesome Image</h3>
-            <p>Photography</p>
-          </div>
-        </div>
-        <div class="box Portfolio-item" data-category="web">
-          <img src="{{asset('frontend/images/shuffle-05.jpg')}}" alt="" />
-          <div class="caption">
-            <h3>Awesome Image</h3>
-            <p>Photography</p>
-          </div>
-        </div>
-        <div class="box Portfolio-item" data-category="print">
-          <img src="{{asset('frontend/images/shuffle-06.jpg')}}" alt="" />
-          <div class="caption">
-            <h3>Awesome Image</h3>
-            <p>Photography</p>
-          </div>
-        </div>
-        <div class="box Portfolio-item" data-category="print">
-          <img src="{{asset('frontend/images/shuffle-07.jpg')}}" alt="" />
-          <div class="caption">
-            <h3>Awesome Image</h3>
-            <p>Photography</p>
-          </div>
-        </div>
-        <div class="box Portfolio-item" data-category="print">
-          <img src="{{asset('frontend/images/shuffle-08.jpg')}}" alt="" />
-          <div class="caption">
-            <h3>Awesome Image</h3>
-            <p>Photography</p>
-          </div>
-        </div>
-      </div>
-      <a
-        href="#"
-        class="more wow fadeInUp"
-        data-wow-duration="1s"
-        data-wow-delay="1s"
-        >More</a
-      >
-    </div>
-    <!-- End portfolio section  -->
-    <!-- start video section  -->
-    <div class="video">
-      <video
-        autoplay
-        muted
-        loop
-        src="{{asset('frontend/images/awesome-video.mp4')}}"
-        type="video/mp4"
-      ></video>
-      <div
-        class="text wow backInLeft"
-        data-wow-duration="1s"
-        data-wow-delay="0.5"
-      >
-        <h2>super awesome video here</h2>
-        <p>it's all you need</p>
-        <div class="video-more-info">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae aperiam
-          adipisci aut magnam, suscipit sint rem dignissimos veritatis, facilis
-          recusandae amet, aspernatur quod expedita ipsam fuga consequatur modi.
-          Sit, provident.
-        </div>
-        <button id="video_more">see more</button>
-      </div>
-    </div>
-    <!-- End video section  -->
-    <!-- start about section  -->
-    <div class="about" id="about">
-      <div class="container">
-        <div class="main-heading">
-          <h2>About Us</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-            numquam doloremque error! In amet optio eum fugiat iusto
-          </p>
-        </div>
-        <img
-          class="wow fadeInUp"
-          data-wow-duration="1s"
-          src="{{asset('frontend/images/about.png')}}"
-          alt=""
-        />
-      </div>
-    </div>
-    <!-- End about section  -->
-    <!-- Start statistics section  -->
-    <div class="stats">
-      <div class="container wow bounceInLeft" data-wow-duration="1s">
-        <div class="box">
-          <i class="fas fa-mug-hot"></i>
-          <div class="number">1,263</div>
-          <p>coffie drinks</p>
-        </div>
-        <div class="box">
-          <i class="fas fa-folder"></i>
-          <div class="number">256</div>
-          <p>complete project</p>
-        </div>
-        <div class="box">
-          <i class="fas fa-envelope"></i>
-          <div class="number">1,743</div>
-          <p>mail sent</p>
-        </div>
-        <div class="box">
-          <i class="fas fa-trophy"></i>
-          <div class="number">17</div>
-          <p>aware received</p>
-        </div>
-      </div>
-    </div>
-    <!-- End statistics section  -->
-
-    <!-- Start out skills section  -->
-    <div class="our-skill">
-      <div class="main-heading wow fadeIn" data-wow-duration="1s">
-        <h2>Our Skills</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-          numquam doloremque error! In amet optio eum fugiat iusto
-        </p>
-      </div>
-      <div class="container">
-        <div class="testimonials wow fadeInLeft" data-wow-duration="1s">
-          <h2>Testimonials</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-            minus alias
-          </p>
-          <div class="main-content">
-            <div class="popular">
-              <div class="bx-content">
-                <!-- Testimonial Content 1 -->
-                <!-- wow bounceInLeft  data-wow-duration="1s" data-wow-delay="0.5s" -->
-                <div class="content wow fadeInUp" data-wow-delay="0.5s">
-                  <img src="{{asset('frontend/images/skills-01.jpg')}}" alt="imoge one" />
-                  <div class="text">
-                    Lorem ipsum dolor, ipsum dolor sit amet consectetur
-                    adipisicing elit.
-                    <p>Jone Done , CEO</p>
-                  </div>
+            <div class="services-container">
+                @foreach($partners as $partner)
+                <div class="srv-box wow bounceInLeft" data-wow-duration="1s" data-wow-delay="{{ $loop->index * 0.1 }}s">
+                    @if($partner->partner_image)
+                    <img src="{{ asset('assets/partners/' . $partner->partner_image) }}"
+                         alt="{{ $partner->name }}"
+                         style="width: 80px; height: 80px; object-fit: contain; margin-left: 30px;">
+                    @else
+                    <i class="fas fa-handshake fa-3x"></i>
+                    @endif
+                    <div class="text">
+                        <h3>{{ $partner->name }}</h3>
+                        <p>{{ $partner->description }}</p>
+                        @if($partner->partner_link)
+                        <a href="{{ $partner->partner_link }}" target="_blank" class="btn btn-outline-primary btn-sm mt-2">
+                            زيارة الموقع
+                        </a>
+                        @endif
+                    </div>
                 </div>
-                <!-- Testimonial Content 2 -->
-                <div class="content wow fadeInUp" data-wow-delay="1s">
-                  <img src="{{asset('frontend/images/skills-02.jpg')}}" alt="imoge one" />
-                  <div class="text">
-                    Lorem ipsum dolor, ipsum dolor sit amet consectetur
-                    adipisicing elit.
-                    <p>Jone Done , CEO</p>
-                  </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
+    <!-- End Partners Section -->
+
+    <!-- Start System Features Section -->
+    @if($systemFeatures->count() > 0)
+    <div class="design" id="features">
+        <div class="image wow fadeInUp">
+            <img src="{{ asset('frontend/images/system-features.png') }}" alt="مميزات النظام" />
+        </div>
+        <div class="text wow fadeInRight">
+            <h2>مميزات نظامنا</h2>
+            <ul>
+                @foreach($systemFeatures as $feature)
+                <li>
+                    @if($feature->icon)
+                    <i class="{{ $feature->icon }} me-2"></i>
+                    @endif
+                    {{ $feature->title }}
+                </li>
+                @endforeach
+            </ul>
+            <a href="#contact" class="btn btn-light mt-3">اطلب الخدمة</a>
+        </div>
+    </div>
+    @endif
+    <!-- End System Features Section -->
+
+    <!-- Start System Modules Section -->
+    @if($systemModules->count() > 0)
+    <div class="services" id="modules" style="background-color: #f8f9fa;">
+        <div class="container">
+            <div class="main-heading wow fadeIn" data-wow-duration="2s">
+                <h2>وحدات النظام</h2>
+                <p>نظام متكامل يشمل جميع الوحدات اللازمة لإدارة عملياتك اللوجستية</p>
+            </div>
+            <div class="services-container">
+                @foreach($systemModules as $module)
+                <div class="srv-box wow bounceInRight" data-wow-duration="1s" data-wow-delay="{{ $loop->index * 0.1 }}s">
+                    @if($module->icon)
+                    <i class="{{ $module->icon }} fa-3x"></i>
+                    @else
+                    <i class="fas fa-cube fa-3x"></i>
+                    @endif
+                    <div class="text">
+                        <h3>{{ $module->title }}</h3>
+                        <p>{{ $module->description }}</p>
+                        @if($module->link)
+                        <a href="{{ $module->link }}" class="btn btn-outline-primary btn-sm mt-2">استكشاف</a>
+                        @endif
+                    </div>
                 </div>
-              </div>
-              <div class="bx-content">
-                <!-- Testimonial Content 3 -->
-                <!-- wow bounceInLeft  data-wow-duration="1s" data-wow-delay="0.5s" -->
-                <div class="content" data-wow-delay="0.5s">
-                  <img src="{{asset('frontend/images/skills-01.jpg')}}" alt="imoge one" />
-                  <div class="text">
-                    Lorem ipsum dolor, ipsum dolor sit amet consectetur
-                    adipisicing elit.
-                    <p>Jone Done , CEO</p>
-                  </div>
-                </div>
-                <!-- Testimonial Content 4 -->
-                <div class="content" data-wow-delay="1s">
-                  <img src="{{asset('frontend/images/skills-02.jpg')}}" alt="imoge one" />
-                  <div class="text">
-                    Lorem ipsum dolor, ipsum dolor sit amet consectetur
-                    adipisicing elit.
-                    <p>Jone Done , CEO</p>
-                  </div>
-                </div>
-              </div>
+                @endforeach
             </div>
-          </div>
         </div>
-        <div class="skills wow fadeInRight" data-wow-duration="1s">
-          <h2>Skills</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque
-            minus alias
-          </p>
-          <div
-            class="prog-holder wow bounceInUp"
-            data-wow-duration="1s"
-            data-wow-delay="0.5s"
-          >
-            <h4>Adobe</h4>
-            <div class="prog">
-              <span style="width: 90%" data-progress="90%"></span>
-            </div>
-          </div>
-          <div
-            class="prog-holder wow bounceInUp"
-            data-wow-duration="1.1s"
-            data-wow-delay="0.5s"
-          >
-            <h4>HTML &amp; CSS</h4>
-            <div class="prog">
-              <span style="width: 85%" data-progress="85%"></span>
-            </div>
-          </div>
-          <div
-            class="prog-holder wow bounceInUp"
-            data-wow-duration="1.2s"
-            data-wow-delay="0.5s"
-          >
-            <h4>Javascript</h4>
-            <div class="prog">
-              <span style="width: 80%" data-progress="80%"></span>
-            </div>
-          </div>
-          <div
-            class="prog-holder wow bounceInUp"
-            data-wow-duration="1.3s"
-            data-wow-delay="0.5s"
-          >
-            <h4>php</h4>
-            <div class="prog">
-              <span style="width: 90%" data-progress="90%"></span>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-    <!-- End out skills section  -->
-    <!-- Start qoute section  -->
-    <div class="qoute">
-      <div class="container wow bounceInDown">
-        <q
-          >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio,
-          perspiciatis atque?
-        </q>
-        <span>Jone Done</span>
-      </div>
-    </div>
-    <!-- End qoute section  -->
-    <!-- Start Pricing -->
-    <div class="pricing" id="project">
-      <div class="container">
-        <div class="main-heading">
-          <h2>Pricing</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-            numquam doloremque error! In amet optio eum fugiat iusto
-          </p>
-        </div>
-        <div class="plans">
-          <div class="plan wow fadeInLeft">
-            <div class="head">
-              <h3>basic</h3>
-              <span>19</span>
-            </div>
-            <ul>
-              <li>Feature No 1</li>
-              <li>Extra feature</li>
-              <li>Feature No 2</li>
-              <li>Feature</li>
-            </ul>
-            <div class="foot">
-              <a href="#">Buy Now</a>
-            </div>
-          </div>
-          <div class="plan wow fadeInLeft">
-            <div class="head">
-              <h3>premium</h3>
-              <span>29</span>
-            </div>
-            <ul>
-              <li>Feature No 1</li>
-              <li>Extra feature</li>
-              <li>Feature No 2</li>
-              <li>Feature</li>
-            </ul>
-            <div class="foot">
-              <a href="#">Buy Now</a>
-            </div>
-          </div>
-          <div class="plan wow fadeInLeft">
-            <div class="head">
-              <h3>pro</h3>
-              <span>39</span>
-            </div>
-            <ul>
-              <li>Feature No 1</li>
-              <li>Extra feature</li>
-              <li>Feature No 2</li>
-              <li>Feature</li>
-            </ul>
-            <div class="foot">
-              <a href="#">Buy Now</a>
-            </div>
-          </div>
-          <div class="plan wow fadeInLeft">
-            <div class="head">
-              <h3>plitinum</h3>
-              <span>49</span>
-            </div>
-            <ul>
-              <li>Feature No 1</li>
-              <li>Extra feature</li>
-              <li>Feature No 2</li>
-              <li>Feature</li>
-            </ul>
-            <div class="foot">
-              <a href="#">Buy Now</a>
-            </div>
-          </div>
-        </div>
-        <div class="price-contact wow fadeInUp">
-          <p>contact us if you have special request</p>
-          <a href="#contact">contact us</a>
-        </div>
-      </div>
-    </div>
-    <!-- End Pricing -->
-    <!-- start subscribe section  -->
-    <div class="subscribe">
-      <div class="container">
-        <form action="#" class="wow fadeInLeft">
-          <i class="fas fa-envelope"></i>
-          <input type="email" placeholder="You Email" name="email" />
-          <input type="submit" value="submit" />
-        </form>
-        <p class="wow fadeInRight">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate ea
-          deserunt error sed
-        </p>
-      </div>
-    </div>
-    <!-- End subscribe section  -->
-    <!-- Start contact section  -->
-    <div class="contact" id="contact">
-      <div class="container">
+    @endif
+    <!-- End System Modules Section -->
+
+    <!-- Start Testimonials Section -->
+    @if($testimonials->count() > 0)
+    <div class="our-skill" id="testimonials">
         <div class="main-heading wow fadeIn" data-wow-duration="1s">
-          <h2>Contact Us</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-            numquam doloremque error! In amet optio eum fugiat iusto
-          </p>
+            <h2>شهادات نعتز بها</h2>
+            <p>آراء عملائنا الكرام الذين وثقوا في خدماتنا اللوجستية</p>
         </div>
-        <div class="content wow bounceIn" data-wow-duration="1s">
-          <form action="">
-            <input
-              class="main-input"
-              placeholder="Your Name"
-              type="text"
-              name="name"
-            />
-            <input
-              class="main-input"
-              placeholder="Your Email"
-              type="email"
-              name="email"
-            />
-            <textarea
-              class="main-input"
-              placeholder="Your Message"
-              name="message"
-            ></textarea>
-            <input type="submit" value="Send Message" />
-          </form>
-          <div class="info">
-            <h4>Get in touch</h4>
-            <span>+00 123.456.789</span>
-            <span>+00 123.456.789</span>
-            <h4>where we are</h4>
-            <address>
-              awesome address 17<br />
-              new yourk ,NYC <br />
-              123.456.789<br />
-              UST
-            </address>
-          </div>
+        <div class="container">
+            <div class="testimonials wow fadeInLeft" data-wow-duration="1s">
+                <h2>آراء العملاء</h2>
+                <p>نفتخر بثقة عملائنا ونعمل باستمرار لتطوير خدماتنا</p>
+                <div class="main-content">
+                    <div class="popular">
+                        <div class="bx-content">
+                            @foreach($testimonials as $index => $testimonial)
+                            @if($index % 2 == 0)
+                            <div class="content wow fadeInUp" data-wow-delay="{{ ($index/2 + 0.5) }}s">
+                                @if($testimonial->image)
+                                <img src="{{ asset('assets/testimonials/' . $testimonial->image) }}"
+                                     alt="{{ $testimonial->name }}" />
+                                @else
+                                <img src="{{ asset('frontend/images/skills-01.jpg') }}" alt="عميل" />
+                                @endif
+                                <div class="text">
+                                    {{ $testimonial->content }}
+                                    <p>{{ $testimonial->name }} - {{ $testimonial->title }}</p>
+                                </div>
+                            </div>
+                            @endif
+                            @endforeach
+                        </div>
+                        <div class="bx-content">
+                            @foreach($testimonials as $index => $testimonial)
+                            @if($index % 2 == 1)
+                            <div class="content wow fadeInUp" data-wow-delay="{{ (($index-1)/2 + 1) }}s">
+                                @if($testimonial->image)
+                                <img src="{{ asset('assets/testimonials/' . $testimonial->image) }}"
+                                     alt="{{ $testimonial->name }}" />
+                                @else
+                                <img src="{{ asset('frontend/images/skills-02.jpg') }}" alt="عميل" />
+                                @endif
+                                <div class="text">
+                                    {{ $testimonial->content }}
+                                    <p>{{ $testimonial->name }} - {{ $testimonial->title }}</p>
+                                </div>
+                            </div>
+                            @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="skills wow fadeInRight" data-wow-duration="1s">
+                <h2>إحصائياتنا</h2>
+                <p>أرقام تدل على ثقة عملائنا في خدماتنا</p>
+                <div class="prog-holder wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                    <h4>رضا العملاء</h4>
+                    <div class="prog">
+                        <span style="width: 95%" data-progress="95%"></span>
+                    </div>
+                </div>
+                <div class="prog-holder wow bounceInUp" data-wow-duration="1.1s" data-wow-delay="0.5s">
+                    <h4>سرعة التوصيل</h4>
+                    <div class="prog">
+                        <span style="width: 90%" data-progress="90%"></span>
+                    </div>
+                </div>
+                <div class="prog-holder wow bounceInUp" data-wow-duration="1.2s" data-wow-delay="0.5s">
+                    <h4>دقة التتبع</h4>
+                    <div class="prog">
+                        <span style="width: 98%" data-progress="98%"></span>
+                    </div>
+                </div>
+                <div class="prog-holder wow bounceInUp" data-wow-duration="1.3s" data-wow-delay="0.5s">
+                    <h4>الأمان والموثوقية</h4>
+                    <div class="prog">
+                        <span style="width: 99%" data-progress="99%"></span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    <!-- End contact section  -->
-    @endsection
+    @endif
+    <!-- End Testimonials Section -->
+
+    <!-- Start Common Questions Section -->
+    @if($commonQuestions->count() > 0)
+    <div class="pricing" id="faq">
+        <div class="container">
+            <div class="main-heading">
+                <h2>الأسئلة الشائعة</h2>
+                <p>أجوبة على أكثر الأسئلة شيوعاً حول خدماتنا اللوجستية</p>
+            </div>
+            <div class="plans">
+                @foreach($commonQuestions as $question)
+                <div class="plan wow fadeInLeft" data-wow-delay="{{ $loop->index * 0.1 }}s">
+                    <div class="head">
+                        <h3>سؤال</h3>
+                        <span>?</span>
+                    </div>
+                    <ul>
+                        <li><strong>{{ $question->title }}</strong></li>
+                        <li>{{ Str::limit($question->description, 150) }}</li>
+                    </ul>
+                    <div class="foot">
+                        <a href="#contact">استفسر أكثر</a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
+    <!-- End Common Questions Section -->
+
+    <!-- Start Contact Section -->
+    <div class="contact" id="contact">
+        <div class="container">
+            <div class="main-heading wow fadeIn" data-wow-duration="1s">
+                <h2>تواصل معنا</h2>
+                <p>نحن هنا لمساعدتك في جميع استفساراتك اللوجستية</p>
+            </div>
+            <div class="content wow bounceIn" data-wow-duration="1s">
+                <form action="#" method="POST">
+                    @csrf
+                    <input class="main-input" placeholder="اسمك الكريم" type="text" name="name" required />
+                    <input class="main-input" placeholder="بريدك الإلكتروني" type="email" name="email" required />
+                    <input class="main-input" placeholder="الموضوع" type="text" name="subject" required />
+                    <textarea class="main-input" placeholder="رسالتك" name="message" required></textarea>
+                    <input type="submit" value="إرسال الرسالة" />
+                </form>
+                <div class="info">
+                    <h4>معلومات التواصل</h4>
+                    <span>+966 123 456 789</span>
+                    <span>info@logistics.com</span>
+                    <h4>عنواننا</h4>
+                    <address>
+                        المملكة العربية السعودية<br />
+                        الرياض، حي العليا<br />
+                        شارع الملك فهد<br />
+                    </address>
+                    <h4>ساعات العمل</h4>
+                    <span>الأحد - الخميس: 8 ص - 5 م</span>
+                    <span>الجمعة - السبت: مغلق</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Contact Section -->
+
+@endsection
