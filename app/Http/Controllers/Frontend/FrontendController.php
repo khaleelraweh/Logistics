@@ -67,7 +67,7 @@ class FrontendController extends Controller
             $testimonials = Testimonial::active()->orderBy('published_on', 'desc')->take(10)->get();
 
             $system_features = Menu::where('section', 2)->where('status', true)->orderBy('id')->get();
-            $system_modules = Menu::with('menuProperties')->where('section', 3)->where('status', true)->orderBy('id')->get();
+            $system_modules = Menu::with('properties')->where('section', 3)->where('status', true)->orderBy('id')->get();
 
 
             // $statistics = Statistic::Active()->orderBy('created_at', 'ASC')->get();

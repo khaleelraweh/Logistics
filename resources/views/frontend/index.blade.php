@@ -7,7 +7,9 @@
 
     @include('frontend.home.quick_access')
 
-    @include('frontend.home.features-section')
+    @include('frontend.home.system-features-section')
+
+    @include('frontend.home.system-modules-section')
 
 
 
