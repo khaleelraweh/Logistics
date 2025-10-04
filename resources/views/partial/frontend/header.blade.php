@@ -54,49 +54,48 @@
 
         </nav> --}}
 
-      <div class="rs-menu-area">
-                            <div class="main-menu ">
-                                <div class="mobile-menu">
-                                    <a class="rs-menu-toggle">
-                                        <i class="fa fa-bars"></i>
-                                    </a>
-                                </div>
-                                <nav class="rs-menu">
-                                    <ul class="nav-menu">
-                                        @foreach ($frontend_menus->where('section', 1) as $menu)
+        <div class="rs-menu-area">
+            <div class="main-menu ">
+                <div class="mobile-menu">
+                    <a class="rs-menu-toggle">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </div>
+                <nav class="rs-menu">
+                    <ul class="nav-menu">
+                        @foreach ($frontend_menus->where('section', 1) as $menu)
+                            <li
+                                class=" {{ count($menu->appearedChildren) > 0 ? 'menu-item-has-children has-children' : '' }}">
+                                <a
+                                    href="{{ count($menu->appearedChildren) > 0 ? 'javascript:void(0)' : $menu->link }}">{{ $menu->title }}</a>
+                                @if (count($menu->appearedChildren) > 0)
+                                    <ul class="sub-menu">
+                                        @foreach ($menu->appearedChildren as $sub_menu)
                                             <li
-                                                class=" {{ count($menu->appearedChildren) > 0 ? 'menu-item-has-children has-children' : '' }}">
+                                                class=" {{ count($sub_menu->appearedChildren) > 0 ? 'menu-item-has-children has-children' : '' }}">
                                                 <a
-                                                    href="{{ count($menu->appearedChildren) > 0 ? 'javascript:void(0)' : $menu->link }}">{{ $menu->title }}</a>
-                                                @if (count($menu->appearedChildren) > 0)
+                                                    href="{{ $sub_menu->link }}">{{ $sub_menu->title }}</a>
+                                                @if (count($sub_menu->appearedChildren) > 0)
                                                     <ul class="sub-menu">
-                                                        @foreach ($menu->appearedChildren as $sub_menu)
-                                                            <li
-                                                                class=" {{ count($sub_menu->appearedChildren) > 0 ? 'menu-item-has-children has-children' : '' }}">
+                                                        @foreach ($sub_menu->appearedChildren as $sub_sub_menu)
+                                                            <li>
                                                                 <a
-                                                                    href="{{ $sub_menu->link }}">{{ $sub_menu->title }}</a>
-                                                                @if (count($sub_menu->appearedChildren) > 0)
-                                                                    <ul class="sub-menu">
-                                                                        @foreach ($sub_menu->appearedChildren as $sub_sub_menu)
-                                                                            <li>
-                                                                                <a
-                                                                                    href="{{ $sub_sub_menu->link }}">{{ $sub_sub_menu->title }}</a>
-                                                                            </li>
-                                                                        @endforeach
-                                                                    </ul>
-                                                                @endif
+                                                                    href="{{ $sub_sub_menu->link }}">{{ $sub_sub_menu->title }}</a>
                                                             </li>
                                                         @endforeach
                                                     </ul>
                                                 @endif
                                             </li>
                                         @endforeach
-                                    </ul> <!-- //.nav-menu -->
-                                </nav>
-                            </div> <!-- //.main-menu -->
+                                    </ul>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul> <!-- //.nav-menu -->
+                </nav>
+            </div> <!-- //.main-menu -->
 
-
-                        </div>
+        </div>
 
       </div>
 </div>
