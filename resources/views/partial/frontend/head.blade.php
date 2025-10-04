@@ -42,6 +42,9 @@
 <!-- Flag icon  css  -->
 <link rel="stylesheet" href="{{ asset('frontend/libs/flag-icon-css/css/flag-icon.min.css')}}" />
 
+<!-- Main Menu css -->
+{{-- <link rel="stylesheet" href="{{ asset('frontend/css/rsmenu-main.css') }}"> --}}
+<link rel="stylesheet" href="{{ asset('frontend/css/rsmenu-main-rtl.css') }}">
 
 <!-- my style css -->
 <link rel="stylesheet" href="{{ asset($isRtl ? 'frontend/css/main-rtl.css' : 'frontend/css/main.css')}}" />

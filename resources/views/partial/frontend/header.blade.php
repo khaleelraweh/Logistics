@@ -3,7 +3,7 @@
         <a href="{{ route('frontend.index') }}" class="Logo">
           <img src="{{ asset('frontend/images/logo.png') }}" class="animate-bounce" alt="OraxSoft" />
         </a>
-        <nav>
+        {{-- <nav>
             <i class="fas fa-bars toogle-menu"></i>
             <ul class="navgition-container">
                 <li><a href="{{ route('frontend.index') }}">{{ __('menus.home') }}</a></li>
@@ -34,7 +34,7 @@
                                         title="{{ $key == 'ar' ? 'sa' : 'us' }}"
                                         id="{{ $key == 'ar' ? 'sa' : 'us' }}"></i>
                                 </span>
-                                {{-- {{ __('transf.lang_' . $val['lang']) }} --}}
+                                <!-- {{ __('transf.lang_' . $val['lang']) }} -->
                             </a>
 
                     @endif
@@ -52,7 +52,53 @@
 
             </div>
 
-        </nav>
+        </nav> --}}
+
+      <div class="rs-menu-area">
+                            <div class="main-menu ">
+                                <div class="mobile-menu">
+                                    <a class="rs-menu-toggle">
+                                        <i class="fa fa-bars"></i>
+                                    </a>
+                                </div>
+                                <nav class="rs-menu">
+                                    <ul class="nav-menu">
+                                        @foreach ($frontend_menus->where('section', 1) as $menu)
+                                            <li
+                                                class=" {{ count($menu->appearedChildren) > 0 ? 'menu-item-has-children has-children' : '' }}">
+                                                <a
+                                                    href="{{ count($menu->appearedChildren) > 0 ? 'javascript:void(0)' : $menu->link }}">{{ $menu->title }}</a>
+                                                @if (count($menu->appearedChildren) > 0)
+                                                    <ul class="sub-menu">
+                                                        @foreach ($menu->appearedChildren as $sub_menu)
+                                                            <li
+                                                                class=" {{ count($sub_menu->appearedChildren) > 0 ? 'menu-item-has-children has-children' : '' }}">
+                                                                <a
+                                                                    href="{{ $sub_menu->link }}">{{ $sub_menu->title }}</a>
+                                                                @if (count($sub_menu->appearedChildren) > 0)
+                                                                    <ul class="sub-menu">
+                                                                        @foreach ($sub_menu->appearedChildren as $sub_sub_menu)
+                                                                            <li>
+                                                                                <a
+                                                                                    href="{{ $sub_sub_menu->link }}">{{ $sub_sub_menu->title }}</a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                @endif
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul> <!-- //.nav-menu -->
+                                </nav>
+                            </div> <!-- //.main-menu -->
+
+
+                        </div>
+
       </div>
 </div>
+
 

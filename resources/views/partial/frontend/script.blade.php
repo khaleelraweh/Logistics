@@ -13,6 +13,9 @@
     <!-- bx slider js  -->
     <script src="{{ asset('frontend/js/jquery.bxslider.min.js')}}"></script>
 
+    <!-- Menu js -->
+    <script src="{{ asset('frontend/js/rsmenu-main.js') }}"></script>
+
     <!-- Add Custom javaScript -->
     <script src="{{ asset('frontend/js/custom.js')}}"></script>
 
