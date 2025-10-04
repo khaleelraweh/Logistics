@@ -1611,6 +1611,10 @@ return [
     'no_features_found'                 =>  'لا يوجد مميزات الى الان',
 
 
+    // System features section
+    'system_modules_title'              =>  'ابرز مكونات النظام',
+    'system_modules_subtitle'           =>  'محتويات النظام',
+    'no_modules_found'                  =>  'لا يوجد ',
 
 
 
