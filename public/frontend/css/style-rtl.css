@@ -1819,7 +1819,7 @@ ul.listing-style.modify li:before {
   z-index: 9;
 }
 .full-width-header .rs-header .logo-part img {
-  max-height: 40px;
+  max-height: 7em;
 }
 .full-width-header .rs-header .menu-area {
   transition: all 0.3s ease;
@@ -1833,7 +1833,7 @@ ul.listing-style.modify li:before {
 .full-width-header .rs-header .menu-area .logo-area img {
   transition: 0.4s;
   -webkit-transition: 0.4s;
-  max-height: 48px;
+  max-height: 7em;
 }
 .full-width-header .rs-header .menu-area .logo-area .dark {
   display: none;
@@ -1848,7 +1848,7 @@ ul.listing-style.modify li:before {
   display: none;
 }
 .full-width-header .rs-header .menu-area .responsive-logo img {
-  max-height: 30px;
+  max-height: 7em;
 }
 .full-width-header .rs-header .menu-area .logo-cat-wrap {
   display: flex;
@@ -2203,7 +2203,7 @@ ul.listing-style.modify li:before {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
 }
 .full-width-header .rs-header .menu-area.sticky .logo-area img {
-  max-height: 35px;
+  max-height: 7em;
 }
 .full-width-header .rs-header .menu-area.sticky .logo-area .dark {
   display: inherit;
@@ -2320,7 +2320,7 @@ ul.listing-style.modify li:before {
   margin-top: 50px;
 }
 .full-width-header .rs-header .right_menu_togle .canvas-logo img {
-  max-height: 35px;
+  max-height: 7em;
 }
 .full-width-header .rs-header .right_menu_togle .offcanvas-gallery {
   display: inline-block;
@@ -2930,7 +2930,7 @@ ul.listing-style.modify li:before {
   margin-top: 50px;
 }
 .full-width-header.header-style3 .rs-header .right_menu_togle .canvas-logo img {
-  max-height: 35px;
+  max-height: 7em;
 }
 .full-width-header.header-style3 .rs-header .right_menu_togle .canvas-contact {
   padding: 50px 0 0;
@@ -3237,7 +3237,7 @@ ul.listing-style.modify li:before {
   right: 0;
 }
 .full-width-header.header-style3.home-style15 .rs-header .menu-area .custom-table .header-logo .custom-logo-area a img {
-  max-height: 93px;
+  max-height: 7em;
 }
 .full-width-header.header-style3.home-style15 .rs-header .menu-area .custom-table .header-logo .custom-logo-area:before {
   content: "";
@@ -3420,7 +3420,7 @@ ul.listing-style.modify li:before {
   padding: 51px 51px 26px 42px;
 }
 .full-width-header.header-style3.home-style15 .rs-header .menu-area.sticky .custom-table .header-logo .custom-logo-area a img {
-  max-height: 50px;
+  max-height: 7em;
 }
 .full-width-header.header-style3.home-style15 .rs-header .menu-area.sticky .custom-table .categore-menu {
   padding-left: 0;
@@ -17324,7 +17324,7 @@ ul.listing-style.modify li:before {
 }
 
 .full-width-header .rs-header .logo-part img {
-  max-height: 40px;
+  max-height: 7em;
 }
 
 .full-width-header .rs-header .menu-area {
@@ -17359,7 +17359,7 @@ ul.listing-style.modify li:before {
 }
 
 .full-width-header .rs-header .menu-area .responsive-logo img {
-  max-height: 30px;
+  max-height: 7em;
 }
 
 .full-width-header .rs-header .menu-area .logo-cat-wrap {
@@ -17794,7 +17794,7 @@ ul.listing-style.modify li:before {
 }
 
 .full-width-header .rs-header .menu-area.sticky .logo-area img {
-  max-height: 35px;
+  max-height: 7em;
 }
 
 .full-width-header .rs-header .menu-area.sticky .logo-area .dark {
@@ -17939,7 +17939,7 @@ ul.listing-style.modify li:before {
 }
 
 .full-width-header .rs-header .right_menu_togle .canvas-logo img {
-  max-height: 35px;
+  max-height: 7em;
 }
 
 .full-width-header .rs-header .right_menu_togle .offcanvas-gallery {
@@ -18728,7 +18728,7 @@ ul.listing-style.modify li:before {
 }
 
 .full-width-header.header-style3 .rs-header .right_menu_togle .canvas-logo img {
-  max-height: 35px;
+  max-height: 7em;
 }
 
 .full-width-header.header-style3 .rs-header .right_menu_togle .canvas-contact {
@@ -19114,7 +19114,7 @@ ul.listing-style.modify li:before {
 }
 
 .full-width-header.header-style3.home-style15 .rs-header .menu-area .custom-table .header-logo .custom-logo-area a img {
-  max-height: 93px;
+  max-height: 7em;
 }
 
 .full-width-header.header-style3.home-style15 .rs-header .menu-area .custom-table .header-logo .custom-logo-area:before {
@@ -19337,7 +19337,7 @@ ul.listing-style.modify li:before {
 }
 
 .full-width-header.header-style3.home-style15 .rs-header .menu-area.sticky .custom-table .header-logo .custom-logo-area a img {
-  max-height: 50px;
+  max-height: 7em;
 }
 
 .full-width-header.header-style3.home-style15 .rs-header .menu-area.sticky .custom-table .categore-menu {

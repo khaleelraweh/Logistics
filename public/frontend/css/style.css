@@ -15187,3 +15187,9 @@ body .modal-backdrop {
     transform: scale(1.2);
   }
 }
+
+
+
+.full-width-header.header-style2 .rs-header .menu-area .logo-cat-wrap .logo-part img{
+    max-height: auto !important;
+}
