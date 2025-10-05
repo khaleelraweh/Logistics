@@ -6,7 +6,7 @@
             <p class="desc mb-0">{{ __('panel.system_modules_description') ?? 'Explore our comprehensive logistics management systems designed to streamline your operations' }}</p>
         </div>
 
-        <div class="row g-30 justify-content-center">
+        <div class="row justify-content-center">
             @forelse($system_modules as $module)
                 <div class="col-xl-3 col-lg-4 col-md-6 mb-30">
                     <div class="module-item h-100">
@@ -87,7 +87,6 @@
 .mb-20 { margin-bottom: 20px !important; }
 .mb-15 { margin-bottom: 15px !important; }
 .py-60 { padding-top: 60px !important; padding-bottom: 60px !important; }
-.g-30 { gap: 30px !important; }
 
 .module-item {
     background: #ffffff;
@@ -410,7 +409,6 @@
     .mb-60 { margin-bottom: 40px !important; }
     .mb-30 { margin-bottom: 20px !important; }
     .py-60 { padding-top: 50px !important; padding-bottom: 50px !important; }
-    .g-30 { gap: 20px !important; }
 }
 
 @media (max-width: 575px) {
@@ -422,15 +420,6 @@
         font-size: 28px;
     }
 
-    .row.g-30 {
-        margin-right: -10px;
-        margin-left: -10px;
-    }
-
-    .row.g-30 > [class*="col-"] {
-        padding-right: 10px;
-        padding-left: 10px;
-    }
 }
 
 /* تحسينات الوصول */
