@@ -27,7 +27,7 @@
                                         @foreach($module->properties as $property)
                                             <li class="property-item">
                                                 <div class="property-content">
-                                                    <i class="fas fa-check-circle property-icon"></i>
+                                                    <i class="fa fa-check-circle property-icon"></i>
                                                     <span class="property-text">{{ $property->getTranslation('property_value', app()->getLocale()) }}</span>
                                                 </div>
                                             </li>
@@ -40,7 +40,7 @@
                         <div class="module-footer">
                             <button class="module-btn">
                                 <span>{{ __('panel.learn_more') ?? 'Learn More' }}</span>
-                                <i class="fas fa-arrow-left"></i>
+                                <i class="fa fa-arrow-left"></i>
                             </button>
                         </div>
                     </div>
