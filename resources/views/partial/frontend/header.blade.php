@@ -5,6 +5,38 @@ $parsedUrl = parse_url($siteSettings['site_email1']->value, PHP_URL_HOST);
 $domain = preg_replace('/^www\./', '', $parsedUrl);
 
 ?>
+
+<style>
+    .animate-bounce{
+        animation:bounce 1s infinite;
+    }
+
+    .animate-bounce:hover {
+        -webkit-animation: rotate-diagonal-1 0.4s linear both;
+        animation: rotate-diagonal-1 0.4s linear both;
+    }
+
+    .hover\:animate-bounce {
+        &:hover {
+            @media (hover: hover) {
+            animation: bounce 1s infinite;
+            }
+        }
+    }
+
+
+
+    body.transition {
+            transition: background-color 0.3s ease, color 0.3s ease, all 0.3s ease;
+    }
+
+    body.transition * {
+        transition: background-color 0.3s ease, color 0.3s ease, all 0.3s ease;
+    }
+
+
+</style>
+
 <!--Full width header Start-->
 <div class="full-width-header header-style2">
     <!--Header Start-->
@@ -144,7 +176,8 @@ $domain = preg_replace('/^www\./', '', $parsedUrl);
                                     @endphp
 
                                     <img src="{{ $site_logo_large_dark }}"
-                                        alt="{{ $siteSettings['site_name']->value }}">
+                                        alt="{{ $siteSettings['site_name']->value }}"
+                                        class="animate-bounce">
 
                                 </a>
 

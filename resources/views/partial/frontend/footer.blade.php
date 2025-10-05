@@ -23,6 +23,38 @@
          display: none !important;
      }
  </style>
+
+ <style>
+    .animate-bounce{
+        animation:bounce 1s infinite;
+    }
+
+    .animate-bounce:hover {
+        -webkit-animation: rotate-diagonal-1 0.4s linear both;
+        animation: rotate-diagonal-1 0.4s linear both;
+    }
+
+    .hover\:animate-bounce {
+        &:hover {
+            @media (hover: hover) {
+            animation: bounce 1s infinite;
+            }
+        }
+    }
+
+
+
+    body.transition {
+            transition: background-color 0.3s ease, color 0.3s ease, all 0.3s ease;
+    }
+
+    body.transition * {
+        transition: background-color 0.3s ease, color 0.3s ease, all 0.3s ease;
+    }
+
+
+</style>
+
  <footer id="rs-footer" class="rs-footer home9-style main-home">
      <div class="footer-top">
          <div class="container">
@@ -53,7 +85,7 @@
                                  }
                              @endphp
 
-                             <img src="{{ $site_logo_large_light }}" alt="{{ $siteSettings['site_name']->value }}">
+                             <img src="{{ $site_logo_large_light }}" alt="{{ $siteSettings['site_name']->value }}" class="animate-bounce">
                          </a>
                      </div>
 
