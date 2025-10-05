@@ -1609,6 +1609,8 @@ return [
     'system_features_title'             =>  'اسباب تجعل نظام اوراكس لوجستك النظام الانسب لك',
     'system_features_subtitle'          =>  'مميزات النظام',
     'no_features_found'                 =>  'لا يوجد مميزات الى الان',
+    'module_features'                   =>  'خصائص النظام',
+    'learn_more'                        =>  'اقراء اكثر',
 
 
     // System features section

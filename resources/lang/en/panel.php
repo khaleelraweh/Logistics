@@ -1642,11 +1642,14 @@ return [
     'system_features_title'             =>  'Reasons why Orax Logistics is the right system for you',
     'system_features_subtitle'          =>  'System Features',
     'no_features_found'                 =>  'No Features Found',
+    'module_features'                   =>  'Module Features',
+    'learn_more'                        =>  'Learn More',
 
     // System features section
     'system_modules_title'              =>  'Main System Components',
     'system_modules_subtitle'           =>  'System Modules',
     'no_modules_found'                  =>  'No Modules Found',
+
 
 
 ];
