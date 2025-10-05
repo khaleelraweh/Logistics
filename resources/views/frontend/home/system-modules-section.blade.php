@@ -8,7 +8,7 @@
 
         <div class="row justify-content-center">
             @forelse($system_modules as $module)
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-30">
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
                     <div class="module-item h-100">
                         <div class="module-header">
                             <div class="module-icon">
