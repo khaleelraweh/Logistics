@@ -8,7 +8,7 @@
 
         <div class="row g-4 justify-content-center">
             @forelse($system_features as $feature)
-                <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
                     <div class="feature-item services-item text-center h-100">
                         <div class="services-image">
                             <div class="services-icons">
