@@ -3,7 +3,7 @@
         <div class="section-title text-center mb-5">
             <span class="sub-title primary-color">{{ __('panel.system_features_subtitle') ?? 'Why Choose Us' }}</span>
             <h2 class="title mb-3">{{ __('panel.system_features_title') ?? 'Our System Features' }}</h2>
-            <p class="desc mb-0">{{ __('panel.system_features_description') ?? 'Explore what makes our platform powerful and easy to use.' }}</p>
+            {{-- <p class="desc mb-0">{{ __('panel.system_features_description') ?? 'Explore what makes our platform powerful and easy to use.' }}</p> --}}
         </div>
 
         <div class="row g-4 justify-content-center">

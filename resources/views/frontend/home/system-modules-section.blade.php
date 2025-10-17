@@ -3,7 +3,7 @@
         <div class="section-title text-center mb-60">
             <span class="sub-title primary-color">{{ __('panel.system_modules_subtitle') ?? 'Integrated Solutions' }}</span>
             <h2 class="title mb-20">{{ __('panel.system_modules_title') ?? 'System Modules' }}</h2>
-            <p class="desc mb-0">{{ __('panel.system_modules_description') ?? 'Explore our comprehensive logistics management systems designed to streamline your operations' }}</p>
+            {{-- <p class="desc mb-0">{{ __('panel.system_modules_description') ?? 'Explore our comprehensive logistics management systems designed to streamline your operations' }}</p> --}}
         </div>
 
         <div class="row justify-content-center">
