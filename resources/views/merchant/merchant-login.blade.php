@@ -1,5 +1,5 @@
 
-@extends('layouts.admin-auth')
+@extends('layouts.merchant-auth')
 @section('content')
 
             {{-- <div class="text-center mt-4">
