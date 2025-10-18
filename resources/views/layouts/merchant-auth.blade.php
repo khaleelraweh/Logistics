@@ -17,7 +17,7 @@
 
     <title> Login | {{ config('app.name', 'Laravel') }} - Merchant & Dashboard  </title>
 
-    @include('partial.admin-auth.head')
+    @include('partial.merchant-auth.head')
 
 </head>
 
@@ -28,7 +28,7 @@
         <div class="container-fluid p-0">
             <div class="card">
                 <div class="card-body">
-                    @include('partial.admin-auth.switcher')
+                    @include('partial.merchant-auth.switcher')
                      @yield('content')
                 </div>
             </div>
@@ -36,7 +36,7 @@
 
     </div>
 
-    @include('partial.admin-auth.script')
+    @include('partial.merchant-auth.script')
 
 
 
