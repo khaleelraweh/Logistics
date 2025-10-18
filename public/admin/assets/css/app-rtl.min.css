@@ -3937,6 +3937,14 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
   background-size: cover;
   background-position: center;
 }
+
+.merchant-auth-body-bg {
+  background-image: url(../images/merchant-banner-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .auth-body-bg .bg-overlay {
   background: rgba(51, 51, 51, 0.97);
   width: 100%;
