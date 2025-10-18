@@ -28,7 +28,7 @@
         <div class="container-fluid p-0">
             <div class="card">
                 <div class="card-body">
-                    @include('partial.merchant-auth.switcher')
+                    {{-- @include('partial.merchant-auth.switcher') --}}
                      @yield('content')
                 </div>
             </div>
