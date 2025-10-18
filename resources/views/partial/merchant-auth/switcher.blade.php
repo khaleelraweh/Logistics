@@ -77,41 +77,56 @@
         border-color: rgba(255, 255, 255, 0.2);
     }
 </style>
-<nav class="navbar navbar-light bg-transparent px-4 py-3">
-    <div class="d-flex justify-content-between align-items-center w-100">
-        <!-- Logo -->
-        <a href="{{ route('frontend.index') }}" class="navbar-brand m-0">
-            <img src="{{ asset('admin/assets/images/logo-dark.png')}}"
-                 style="height: 2em"
-                 class="logo-dark animate-bounce"
-                 alt="Logo">
-            <img src="{{ asset('admin/assets/images/logo-light.png')}}"
-                 style="height: 2em"
-                 class="logo-light animate-bounce"
-                 alt="Logo">
-        </a>
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent px-4 py-3">
+    <div class="container-fluid">
+        <!-- Logo Section -->
+        <div class="navbar-brand">
+            <a href="{{ route('frontend.index') }}" class="d-flex align-items-center text-decoration-none">
+                <img src="{{ asset('admin/assets/images/logo-dark.png')}}"
+                     style="height: 2em"
+                     class="logo-dark me-2"
+                     alt="{{ config('app.name') }}">
+                <img src="{{ asset('admin/assets/images/logo-light.png')}}"
+                     style="height: 2em"
+                     class="logo-light me-2"
+                     alt="{{ config('app.name') }}">
+                <span class="fw-bold text-dark fs-5">{{ config('app.name') }}</span>
+            </a>
+        </div>
 
-        <!-- Controls -->
-        <div class="d-flex align-items-center gap-2">
+        <!-- Controls Section -->
+        <div class="navbar-controls d-flex align-items-center">
             <!-- Theme Toggle -->
-            <button class="btn btn-sm btn-light rounded-circle p-2" onclick="toggleTheme()">
-                <i class="fas fa-moon" id="dark_theme_icon"></i>
-                <i class="fas fa-sun d-none" id="light_theme_icon"></i>
-            </button>
+            <div class="theme-toggle-container me-3">
+                <button class="btn btn-sm btn-outline-secondary border-0 theme-toggle"
+                        onclick="toggleTheme()"
+                        title="تبديل السمة">
+                    <i class="fas fa-moon" id="dark_theme_icon"></i>
+                    <i class="fas fa-sun d-none" id="light_theme_icon"></i>
+                </button>
+            </div>
 
             <!-- Language Switcher -->
-            <div class="dropdown">
-                <button class="btn btn-sm btn-light rounded-pill dropdown-toggle d-flex align-items-center"
-                        data-bs-toggle="dropdown">
+            <div class="language-switcher dropdown">
+                <button class="btn btn-sm btn-outline-primary border-0 dropdown-toggle"
+                        type="button"
+                        id="languageDropdown"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        title="تغيير اللغة">
                     <i class="fas fa-globe me-1"></i>
-                    {{ strtoupper(app()->getLocale()) }}
+                    <span class="text-uppercase">{{ app()->getLocale() }}</span>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
                     @foreach (config('locales.languages') as $key => $val)
                         <li>
-                            <a class="dropdown-item {{ $key == app()->getLocale() ? 'active' : '' }}"
+                            <a class="dropdown-item d-flex align-items-center {{ $key == app()->getLocale() ? 'active' : '' }}"
                                href="{{ route('change.language', $key) }}">
-                                {{ $val['name'] }}
+                                <i class="flag-icon flag-icon-{{ $key == 'ar' ? 'sa' : 'us' }} me-2"></i>
+                                <span>{{ $val['name'] }}</span>
+                                @if($key == app()->getLocale())
+                                    <i class="fas fa-check ms-auto text-success"></i>
+                                @endif
                             </a>
                         </li>
                     @endforeach
