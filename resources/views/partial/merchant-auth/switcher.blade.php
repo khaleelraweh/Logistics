@@ -72,7 +72,7 @@
     }
 
     [data-theme="dark"] .navbar-controls .btn {
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.1) !important;
         color: white;
         border-color: rgba(255, 255, 255, 0.2);
     }
