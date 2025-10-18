@@ -2,14 +2,14 @@
 @extends('layouts.merchant-auth')
 @section('content')
 
-            {{-- <div class="text-center mt-4">
+            <div class="text-center mt-4">
                 <div class="mb-3">
                     <a href="index.html" class="auth-logo">
                         <img src="{{ asset('admin/assets/images/logo-dark.png')}}" style="height: 3em" class="logo-dark mx-auto animate-bounce" alt="">
                         <img src="{{ asset('admin/assets/images/logo-light.png')}}" style="height: 3em" class="logo-light mx-auto animate-bounce" alt="">
                     </a>
                 </div>
-            </div> --}}
+            </div>
 
             <h4 class="text-muted text-center font-size-18"><b>{{ __('auth.login') }}</b></h4>
 
