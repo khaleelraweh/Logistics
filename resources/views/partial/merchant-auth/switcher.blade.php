@@ -4,11 +4,11 @@
         <a href="{{ route('frontend.index') }}" class="navbar-brand m-0">
             <img src="{{ asset('admin/assets/images/logo-dark.png')}}"
                  style="height: 2em"
-                 class="logo-dark"
+                 class="logo-dark animate-bounce"
                  alt="Logo">
             <img src="{{ asset('admin/assets/images/logo-light.png')}}"
                  style="height: 2em"
-                 class="logo-light"
+                 class="logo-light animate-bounce"
                  alt="Logo">
         </a>
 
