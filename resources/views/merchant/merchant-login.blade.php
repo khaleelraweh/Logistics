@@ -1,8 +1,8 @@
 @extends('layouts.merchant-auth')
 @section('content')
 
-    <div class="text-center mb-4">
-        <div class="mb-4">
+    <div class="text-center ">
+        <div class="mb-0">
             <a href="{{ route('merchant.index') }}" class="auth-logo">
                 <img src="{{ asset('admin/assets/images/logo-dark.png')}}" style="height: 4em" class="logo-dark mx-auto" alt="Logo">
                 <img src="{{ asset('admin/assets/images/logo-light.png')}}" style="height: 4em" class="logo-light mx-auto" alt="Logo">
