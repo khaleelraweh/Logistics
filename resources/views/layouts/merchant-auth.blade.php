@@ -15,7 +15,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title> Login | {{ config('app.name', 'Laravel') }} - Admin & Dashboard  </title>
+    <title> Login | {{ config('app.name', 'Laravel') }} - Merchant & Dashboard  </title>
 
     @include('partial.admin-auth.head')
 
