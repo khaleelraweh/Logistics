@@ -1112,10 +1112,10 @@ body[data-layout=horizontal][data-layout-size=boxed] .container-fluid, body[data
 
 /*!
  * Waves v0.7.6
- * http://fian.my.id/Waves 
- * 
- * Copyright 2014-2018 Alfiana E. Sibuea and other contributors 
- * Released under the MIT license 
+ * http://fian.my.id/Waves
+ *
+ * Copyright 2014-2018 Alfiana E. Sibuea and other contributors
+ * Released under the MIT license
  * https://github.com/fians/Waves/blob/master/LICENSE */
 .waves-effect {
   position: relative;
@@ -3909,7 +3909,26 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
   background-size: cover;
   background-position: center;
 }
+
 .auth-body-bg .bg-overlay {
+  background: rgba(51, 51, 51, 0.97);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0px;
+  top: 0px;
+}
+
+.merchant-auth-body-bg {
+  background-image: url(../images/merchant-banner-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.merchant-auth-body-bg .bg-overlay {
   background: rgba(51, 51, 51, 0.97);
   width: 100%;
   height: 100%;

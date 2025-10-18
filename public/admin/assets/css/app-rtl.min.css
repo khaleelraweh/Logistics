@@ -3938,6 +3938,19 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
   background-position: center;
 }
 
+
+
+.auth-body-bg .bg-overlay {
+  background: rgba(51, 51, 51, 0.97);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0px;
+  top: 0px;
+}
+
 .merchant-auth-body-bg {
   background-image: url(../images/merchant-banner-bg.jpg);
   background-repeat: no-repeat;
@@ -3945,7 +3958,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before {
   background-position: center;
 }
 
-.auth-body-bg .bg-overlay {
+.merchant-auth-body-bg .bg-overlay {
   background: rgba(51, 51, 51, 0.97);
   width: 100%;
   height: 100%;
