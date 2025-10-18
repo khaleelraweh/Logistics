@@ -1,5 +1,40 @@
 
 @extends('layouts.admin-auth')
+@section('style')
+    <style>
+
+.navbar{
+    padding-top: 1.5em;
+    padding-block: 1.5em;
+}
+
+#dark_theme_icon ,
+#light_theme_icon {
+    border: none;
+    width: 40px;
+    height: 30px;
+}
+#dark_theme_icon i ,
+#light_theme_icon i{
+    font-size: 20px;
+    cursor: pointer;
+}
+#dark_theme_icon i{
+    color: var(--dark-theme_icon_color);
+}
+#light_theme_icon i{
+    color: var(--light-theme_icon_color);
+}
+.show_item{
+    display: block;
+}
+.hide_item{
+    display: none;
+}
+
+
+    </style>
+@endsection
 @section('content')
 
             {{-- <div class="text-center mt-4">
