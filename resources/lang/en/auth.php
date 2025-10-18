@@ -72,6 +72,9 @@ return [
 
     'welcome_back'  =>  '👋 Welcome Back!',
     'Log_in_to_manage_your_store_and_track_your_sales' =>  'Log in to manage your store and track your sales.',
+    'or'    => 'or',
+    'Dont_have_an_account'  => 'Don\'t have an account?',
+    'Register_now'  =>  'Register now',
 
 
 

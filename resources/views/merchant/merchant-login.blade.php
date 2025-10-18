@@ -80,15 +80,15 @@
             <div class="position-relative my-4">
                 <div class="border-bottom"></div>
                 <div class="position-absolute top-50 start-50 translate-middle bg-white px-2">
-                    <small class="text-muted">أو</small>
+                    <small class="text-muted">{{ __('auth.or') }}</small>
                 </div>
             </div>
 
             <!-- Additional Options -->
             <div class="text-center">
-                <p class="text-muted mb-0">ليس لديك حساب؟
+                <p class="text-muted mb-0"> {{ __('auth.Dont_have_an_account') }}
                     <a href="{{ route('register') }}" class="text-primary text-decoration-none fw-semibold">
-                        سجل الآن
+                        {{ __('auth.Register_now') }}
                     </a>
                 </p>
             </div>
