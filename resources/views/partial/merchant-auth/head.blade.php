@@ -12,7 +12,7 @@
 <link href="{{ asset('admin/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
 <!-- App Css-->
 {{-- <link href="{{ asset('admin/assets/css/app.min.css')}}" id="app-style-auth" rel="stylesheet" type="text/css" /> --}}
-<link href="{{ asset('admin/assets/css/app.min.css')}}"  rel="stylesheet" type="text/css" />
+<link href="{{ asset('admin/assets/css/app.css')}}"  rel="stylesheet" type="text/css" />
 
 <!-- Animate css -->
 <link rel="stylesheet" href="{{ asset('admin/assets/css/animate.css')}}" />
