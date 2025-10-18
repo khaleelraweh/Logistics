@@ -10,8 +10,8 @@
         </div>
 
         <div class="welcome-section">
-            <h3 class="text-dark mb-2">مرحباً بعودتك! 👋</h3>
-            <p class="text-muted">سجل الدخول لإدارة متجرك ومتابعة مبيعاتك</p>
+            <h3 class="text-dark mb-2">{{ __('auth.welcome_back') }}</h3>
+            <p class="text-muted">{{ __('auth.Log_in_to_manage_your_store_and_track_your_sales') }}</p>
         </div>
     </div>
 

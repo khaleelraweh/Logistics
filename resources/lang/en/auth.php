@@ -70,6 +70,9 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
+    'welcome_back'  =>  '👋 Welcome Back!',
+    'Log_in_to_manage_your_store_and_track_your_sales' =>  'Log in to manage your store and track your sales.',
+
 
 
 ];
