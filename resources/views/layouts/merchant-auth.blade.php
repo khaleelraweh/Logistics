@@ -21,7 +21,7 @@
 
 </head>
 
-<body class="auth-body-bg">
+<body class="merchant-auth-body-bg">
 
     <div class="bg-overlay"></div>
     <div id="app" class="wrapper-page">
